@@ -78,6 +78,8 @@ public class Battle {
     {
         //if battleReport is null return;
 
+        //if is playing return;
+
         //if final report play to end;
         Judgement();
     }

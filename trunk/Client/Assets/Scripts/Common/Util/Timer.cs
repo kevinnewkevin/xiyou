@@ -5,16 +5,13 @@ public class Timer {
 
     public delegate void TimerCallBack();
 
-    List<float> _Time = new List<float>();
-
-    List<TimerCallBack> _Callback = new List<TimerCallBack>();
+    List<TimerParam> _TimerParams = new List<TimerParam>();
 
     public bool _IsDead;
 
 	public void Start(float time, TimerCallBack callback)
     {
-        _Time.Add(time);
-        _Callback.Add(callback);
+        _TimerParams.Add(new TimerParam(time, callback));
         TimerManager.Add(this);
     }
 
@@ -22,59 +19,47 @@ public class Timer {
     /// Time param, Handler Param, loop.
     /// </summary>
     /// <param name="callbackParam"></param>
-    public void Start(params object[] callbackParam)
+    public void Start(params TimerParam[] callbackParam)
     {
         if(callbackParam == null)
             return;
-
-        if (callbackParam.Length % 2 == 1)
-            return;
-
-        for (int i = 0; i < callbackParam.Length; i+=2)
-        {
-            if (callbackParam[i] is float == false)
-                return;
-
-            _Time.Add((float)callbackParam[i]);
-
-            if (callbackParam[i + 1] is TimerCallBack == false)
-                return;
-            
-            _Callback.Add((TimerCallBack)callbackParam[i+1]);
-        }
-
+        _TimerParams.AddRange(callbackParam);
         TimerManager.Add(this);
     }
 
     public void Update()
     {
-        if (_Callback.Count != _Time.Count)
+        if (_TimerParams.Count == 0)
         {
             _IsDead = true;
             return;
         }
 
-        for (int i = 0; i < _Callback.Count; )
+        for (int i = 0; i < _TimerParams.Count; )
         {
-            _Time[i] -= Time.deltaTime;
-            if (_Time[i] <= 0)
+            _TimerParams[i]._Timer -= Time.deltaTime;
+            if (_TimerParams[i]._Timer <= 0)
             {
-                if (_Callback[i] != null)
-                    _Callback[i]();
+                if (_TimerParams[i]._Delegate != null)
+                    _TimerParams[i]._Delegate();
 
-                _Callback.RemoveAt(i);
-                _Time.RemoveAt(i);
+                _TimerParams.RemoveAt(i);
             }
             else
             {
                 ++i;
             }
         }
-
-        if (_Callback.Count == 0 || _Time.Count == 0)
-        {
-            _IsDead = true;
-            return;
-        }
     }
+}
+
+public class TimerParam
+{
+    public TimerParam(float timer, Timer.TimerCallBack delegat)
+    {
+        _Timer = timer;
+        _Delegate = delegat;
+    }
+    public float _Timer;
+    public Timer.TimerCallBack _Delegate;
 }
