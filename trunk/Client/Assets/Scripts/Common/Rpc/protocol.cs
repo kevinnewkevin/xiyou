@@ -618,12 +618,132 @@ public class COM_PlayerInstance{
     return check;
   }
 } //end class COM_PlayerInstance
+public class COM_BattleUnit{
+  public long InstanceId = 0;
+  public int DisplayId = 0;
+  public string Name = "";
+  public int HP = 0;
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    {
+      check = writer.Write(InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(DisplayId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(Name);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(HP);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    {
+      check = reader.Read(out InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out DisplayId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out Name);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out HP);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+} //end class COM_BattleUnit
+public class COM_BattlePosition{
+  public long InstanceId = 0;
+  public sbyte PosotionId = 0;
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    {
+      check = writer.Write(InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(PosotionId);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    {
+      check = reader.Read(out InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out PosotionId);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+} //end class COM_BattlePosition
+public class COM_BattleAttacker{
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    return check;
+  }
+} //end class COM_BattleAttacker
+public class COM_BattleReport{
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    return check;
+  }
+} //end class COM_BattleReport
 namespace COM_ClientToServer{
   class PID{
     public const ushort kMin = 0;
     public const ushort kLogin = 1;
     public const ushort kCreatePlayer = 2;
-    public const ushort kMax = 3;
+    public const ushort kBattleJoin = 3;
+    public const ushort kBattleSetup = 4;
+    public const ushort kMax = 5;
   } // end class PID
   namespace Package{
     public class Login{
@@ -685,6 +805,55 @@ namespace COM_ClientToServer{
         return check;
       }
     } //end class CreatePlayer
+    public class BattleJoin{
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        return check;
+      }
+    } //end class BattleJoin
+    public class BattleSetup{
+      public System.Collections.Generic.List<COM_BattlePosition> positions = new System.Collections.Generic.List<COM_BattlePosition>();
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        {
+          check = writer.Write(positions.Count);
+          if(!check){
+            return check;
+          }
+          for(int i=0; i<positions.Count; ++i){
+            check = positions[i].Package(writer);
+            if(!check){
+              return check;
+            }
+          }
+        }
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        {
+          int size = 0;
+          check = reader.Read(out size);
+          if(!check){
+            return check;
+          }
+          positions.Clear();
+          for(int i=0; i<size; ++i){
+            COM_BattlePosition __positions = new COM_BattlePosition();
+            check = __positions.Unpackage(reader);
+            if(!check){
+              return check;
+            }
+            positions.Add(__positions);
+          }
+        }
+        return check;
+      }
+    } //end class BattleSetup
   } // end namespace Package
   public abstract class Stub{
     protected abstract io.IWriter PackageBegin();
@@ -718,10 +887,39 @@ namespace COM_ClientToServer{
       }
       return PackageEnd();
     }
+    public bool BattleJoin(){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleJoin);
+      if(!check){
+        return check;
+      }
+      Package.BattleJoin battlejoin = new Package.BattleJoin();
+      check = battlejoin.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
+    public bool BattleSetup(COM_BattlePosition positions){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleSetup);
+      if(!check){
+        return check;
+      }
+      Package.BattleSetup battlesetup = new Package.BattleSetup();
+      battlesetup.positions = positions;
+      check = battlesetup.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
   } // end abstract class Stub
   public interface Proxy{
     bool Login(COM_LoginInfo info);
     bool CreatePlayer(int template_id,string player_name);
+    bool BattleJoin();
+    bool BattleSetup(COM_BattlePosition positions);
   } //end interface Proxy
   public class Dispatch{
     public static bool Execute(io.IReader reader, Proxy proxy){
@@ -747,6 +945,22 @@ namespace COM_ClientToServer{
           }
           return proxy.CreatePlayer(createplayer.template_id,createplayer.player_name);
         }
+        case PID.kBattleJoin:{
+          Package.BattleJoin battlejoin = new Package.BattleJoin();
+          check = battlejoin.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleJoin();
+        }
+        case PID.kBattleSetup:{
+          Package.BattleSetup battlesetup = new Package.BattleSetup();
+          check = battlesetup.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleSetup(battlesetup.positions);
+        }
         default:{
           return false;
         }
@@ -760,7 +974,9 @@ namespace COM_ServerToClient{
     public const ushort kErrorMessage = 1;
     public const ushort kLoginSuccess = 2;
     public const ushort kCreatePlayerSuccess = 3;
-    public const ushort kMax = 4;
+    public const ushort kBattleEnter = 4;
+    public const ushort kBattleReport = 5;
+    public const ushort kMax = 6;
   } // end class PID
   namespace Package{
     public class ErrorMessage{
@@ -845,6 +1061,26 @@ namespace COM_ServerToClient{
         return check;
       }
     } //end class CreatePlayerSuccess
+    public class BattleEnter{
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        return check;
+      }
+    } //end class BattleEnter
+    public class BattleReport{
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        return check;
+      }
+    } //end class BattleReport
   } // end namespace Package
   public abstract class Stub{
     protected abstract io.IWriter PackageBegin();
@@ -892,11 +1128,39 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
+    public bool BattleEnter(){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleEnter);
+      if(!check){
+        return check;
+      }
+      Package.BattleEnter battleenter = new Package.BattleEnter();
+      check = battleenter.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
+    public bool BattleReport(){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleReport);
+      if(!check){
+        return check;
+      }
+      Package.BattleReport battlereport = new Package.BattleReport();
+      check = battlereport.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
   } // end abstract class Stub
   public interface Proxy{
     bool ErrorMessage(int err,string msg);
     bool LoginSuccess(COM_AccountInfo info);
     bool CreatePlayerSuccess(COM_PlayerInstance player);
+    bool BattleEnter();
+    bool BattleReport();
   } //end interface Proxy
   public class Dispatch{
     public static bool Execute(io.IReader reader, Proxy proxy){
@@ -929,6 +1193,22 @@ namespace COM_ServerToClient{
             return check;
           }
           return proxy.CreatePlayerSuccess(createplayersuccess.player);
+        }
+        case PID.kBattleEnter:{
+          Package.BattleEnter battleenter = new Package.BattleEnter();
+          check = battleenter.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleEnter();
+        }
+        case PID.kBattleReport:{
+          Package.BattleReport battlereport = new Package.BattleReport();
+          check = battlereport.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleReport();
         }
         default:{
           return false;
