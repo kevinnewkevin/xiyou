@@ -17,7 +17,12 @@ class Proxy : protocol.COM_ServerToClient.Proxy
          return true;
     }
 
-    public bool EnterBattle()
+    public bool BattleEnter()
+    {
+        return true;
+    }
+
+    public bool BattleReport(protocol.COM_BattleReport report)
     {
         return true;
     }
