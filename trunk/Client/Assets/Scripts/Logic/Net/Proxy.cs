@@ -26,5 +26,11 @@ class Proxy : protocol.COM_ServerToClient.Proxy
     {
         return true;
     }
+
+
+    public bool BattleExit(protocol.COM_BattleResult result)
+    {
+        return true;
+    }
     
 }
