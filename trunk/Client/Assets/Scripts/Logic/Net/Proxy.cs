@@ -16,5 +16,10 @@ class Proxy : protocol.COM_ServerToClient.Proxy
     {
          return true;
     }
+
+    public bool EnterBattle()
+    {
+        return true;
+    }
     
 }
