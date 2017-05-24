@@ -960,6 +960,16 @@ public class COM_BattleReport{
     return check;
   }
 } //end class COM_BattleReport
+public class COM_BattleResult{
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    return check;
+  }
+} //end class COM_BattleResult
 namespace COM_ClientToServer{
   class PID{
     public const ushort kMin = 0;
@@ -1200,7 +1210,8 @@ namespace COM_ServerToClient{
     public const ushort kCreatePlayerSuccess = 3;
     public const ushort kBattleEnter = 4;
     public const ushort kBattleReport = 5;
-    public const ushort kMax = 6;
+    public const ushort kBattleExit = 6;
+    public const ushort kMax = 7;
   } // end class PID
   namespace Package{
     public class ErrorMessage{
@@ -1318,6 +1329,29 @@ namespace COM_ServerToClient{
         return check;
       }
     } //end class BattleReport
+    public class BattleExit{
+      public COM_BattleResult result = new COM_BattleResult();
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        {
+          check = result.Package(writer);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        {
+          check = result.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+    } //end class BattleExit
   } // end namespace Package
   public abstract class Stub{
     protected abstract io.IWriter PackageBegin();
@@ -1392,6 +1426,20 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
+    public bool BattleExit(COM_BattleResult result){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleExit);
+      if(!check){
+        return check;
+      }
+      Package.BattleExit battleexit = new Package.BattleExit();
+      battleexit.result = result;
+      check = battleexit.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
   } // end abstract class Stub
   public interface Proxy{
     bool ErrorMessage(int err,string msg);
@@ -1399,6 +1447,7 @@ namespace COM_ServerToClient{
     bool CreatePlayerSuccess(COM_PlayerInstance player);
     bool BattleEnter();
     bool BattleReport(COM_BattleReport report);
+    bool BattleExit(COM_BattleResult result);
   } //end interface Proxy
   public class Dispatch{
     public static bool Execute(io.IReader reader, Proxy proxy){
@@ -1447,6 +1496,14 @@ namespace COM_ServerToClient{
             return check;
           }
           return proxy.BattleReport(battlereport.report);
+        }
+        case PID.kBattleExit:{
+          Package.BattleExit battleexit = new Package.BattleExit();
+          check = battleexit.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleExit(battleexit.result);
         }
         default:{
           return false;
