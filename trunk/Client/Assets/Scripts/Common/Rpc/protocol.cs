@@ -335,6 +335,68 @@ public static int ToEnumer(string str_enumer){
   { return 0;}
 }
 } //end class EquipmentSlot
+public class BattleActionType{
+  private static readonly string[] Strings = {"BAT_MIN","BAT_CRIT","BAT_SUCK","BAT_RECOVERY","BAT_ADD_STATE","BAT_DEL_STATE","BAT_MAX"};
+  public const int BAT_MIN = 0;
+  public const int BAT_CRIT = 1;
+  public const int BAT_SUCK = 2;
+  public const int BAT_RECOVERY = 3;
+  public const int BAT_ADD_STATE = 4;
+  public const int BAT_DEL_STATE = 5;
+  public const int BAT_MAX = 6;
+  public static string ToString(int enumer){
+    switch(enumer){
+      case BAT_MIN:{
+        return Strings[BAT_MIN];
+      }
+      case BAT_CRIT:{
+        return Strings[BAT_CRIT];
+      }
+      case BAT_SUCK:{
+        return Strings[BAT_SUCK];
+      }
+      case BAT_RECOVERY:{
+        return Strings[BAT_RECOVERY];
+      }
+      case BAT_ADD_STATE:{
+        return Strings[BAT_ADD_STATE];
+      }
+      case BAT_DEL_STATE:{
+        return Strings[BAT_DEL_STATE];
+      }
+      case BAT_MAX:{
+        return Strings[BAT_MAX];
+      }
+    default:{
+      return "";
+    }
+  }
+}
+public static int ToEnumer(string str_enumer){
+  if(str_enumer == Strings[BAT_MIN]){
+    return BAT_MIN;
+  } else 
+  if(str_enumer == Strings[BAT_CRIT]){
+    return BAT_CRIT;
+  } else 
+  if(str_enumer == Strings[BAT_SUCK]){
+    return BAT_SUCK;
+  } else 
+  if(str_enumer == Strings[BAT_RECOVERY]){
+    return BAT_RECOVERY;
+  } else 
+  if(str_enumer == Strings[BAT_ADD_STATE]){
+    return BAT_ADD_STATE;
+  } else 
+  if(str_enumer == Strings[BAT_DEL_STATE]){
+    return BAT_DEL_STATE;
+  } else 
+  if(str_enumer == Strings[BAT_MAX]){
+    return BAT_MAX;
+  } else 
+  { return 0;}
+}
+} //end class BattleActionType
 public class COM_LoginInfo{
   public string Username = "";
   public string Password = "";
@@ -396,7 +458,7 @@ public class COM_AccountInfo{
 } //end class COM_AccountInfo
 public class COM_ItemInstance{
   public int ItemId = 0;
-  public long InstanceId = 0;
+  public double InstanceId = 0;
   public bool Package(io.IWriter writer){
     bool check = true;
     {
@@ -431,7 +493,7 @@ public class COM_ItemInstance{
   }
 } //end class COM_ItemInstance
 public class COM_EntityInstance{
-  public long InstanceId = 0;
+  public double InstanceId = 0;
   public System.Collections.Generic.List<int> IProperty = new System.Collections.Generic.List<int>();
   public System.Collections.Generic.List<float> CProperty = new System.Collections.Generic.List<float>();
   public System.Collections.Generic.List<COM_ItemInstance> Equipments = new System.Collections.Generic.List<COM_ItemInstance>();
@@ -541,7 +603,7 @@ public class COM_EntityInstance{
   }
 } //end class COM_EntityInstance
 public class COM_PlayerInstance{
-  public long InstanceId = 0;
+  public double InstanceId = 0;
   public string PlayerName = "";
   public COM_EntityInstance PlayerEntity = new COM_EntityInstance();
   public System.Collections.Generic.List<COM_EntityInstance> Employees = new System.Collections.Generic.List<COM_EntityInstance>();
@@ -618,6 +680,55 @@ public class COM_PlayerInstance{
     return check;
   }
 } //end class COM_PlayerInstance
+public class COM_BattleTarget{
+  public double InstanceId = 0;
+  public int ActionType = new int();
+  public int ActionValue = 0;
+  public bool Package(io.IWriter writer){
+    bool check = true;
+    {
+      check = writer.Write(InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(ActionType);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(ActionValue);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+  public bool Unpackage(io.IReader reader){
+    bool check = true;
+    {
+      check = reader.Read(out InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out ActionType);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out ActionValue);
+      if(!check){
+        return check;
+      }
+    }
+    return check;
+  }
+} //end class COM_BattleTarget
 public class COM_BattleUnit{
   public long InstanceId = 0;
   public int DisplayId = 0;
@@ -681,7 +792,7 @@ public class COM_BattleUnit{
   }
 } //end class COM_BattleUnit
 public class COM_BattlePosition{
-  public long InstanceId = 0;
+  public double InstanceId = 0;
   public sbyte PosotionId = 0;
   public bool Package(io.IWriter writer){
     bool check = true;
@@ -716,23 +827,136 @@ public class COM_BattlePosition{
     return check;
   }
 } //end class COM_BattlePosition
-public class COM_BattleAttacker{
+public class COM_BattleAction{
+  public double InstanceId = 0;
+  public int SkillId = 0;
+  public System.Collections.Generic.List<COM_BattleTarget> BattleTarget = new System.Collections.Generic.List<COM_BattleTarget>();
   public bool Package(io.IWriter writer){
     bool check = true;
+    {
+      check = writer.Write(InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(SkillId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(BattleTarget.Count);
+      if(!check){
+        return check;
+      }
+      for(int i=0; i<BattleTarget.Count; ++i){
+        check = BattleTarget[i].Package(writer);
+        if(!check){
+          return check;
+        }
+      }
+    }
     return check;
   }
   public bool Unpackage(io.IReader reader){
     bool check = true;
+    {
+      check = reader.Read(out InstanceId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out SkillId);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      int size = 0;
+      check = reader.Read(out size);
+      if(!check){
+        return check;
+      }
+      BattleTarget.Clear();
+      for(int i=0; i<size; ++i){
+        COM_BattleTarget __BattleTarget = new COM_BattleTarget();
+        check = __BattleTarget.Unpackage(reader);
+        if(!check){
+          return check;
+        }
+        BattleTarget.Add(__BattleTarget);
+      }
+    }
     return check;
   }
-} //end class COM_BattleAttacker
+} //end class COM_BattleAction
 public class COM_BattleReport{
+  public System.Collections.Generic.List<COM_BattleUnit> BattleUnit = new System.Collections.Generic.List<COM_BattleUnit>();
+  public System.Collections.Generic.List<COM_BattleAction> BattleAction = new System.Collections.Generic.List<COM_BattleAction>();
   public bool Package(io.IWriter writer){
     bool check = true;
+    {
+      check = writer.Write(BattleUnit.Count);
+      if(!check){
+        return check;
+      }
+      for(int i=0; i<BattleUnit.Count; ++i){
+        check = BattleUnit[i].Package(writer);
+        if(!check){
+          return check;
+        }
+      }
+    }
+    {
+      check = writer.Write(BattleAction.Count);
+      if(!check){
+        return check;
+      }
+      for(int i=0; i<BattleAction.Count; ++i){
+        check = BattleAction[i].Package(writer);
+        if(!check){
+          return check;
+        }
+      }
+    }
     return check;
   }
   public bool Unpackage(io.IReader reader){
     bool check = true;
+    {
+      int size = 0;
+      check = reader.Read(out size);
+      if(!check){
+        return check;
+      }
+      BattleUnit.Clear();
+      for(int i=0; i<size; ++i){
+        COM_BattleUnit __BattleUnit = new COM_BattleUnit();
+        check = __BattleUnit.Unpackage(reader);
+        if(!check){
+          return check;
+        }
+        BattleUnit.Add(__BattleUnit);
+      }
+    }
+    {
+      int size = 0;
+      check = reader.Read(out size);
+      if(!check){
+        return check;
+      }
+      BattleAction.Clear();
+      for(int i=0; i<size; ++i){
+        COM_BattleAction __BattleAction = new COM_BattleAction();
+        check = __BattleAction.Unpackage(reader);
+        if(!check){
+          return check;
+        }
+        BattleAction.Add(__BattleAction);
+      }
+    }
     return check;
   }
 } //end class COM_BattleReport
@@ -900,7 +1124,7 @@ namespace COM_ClientToServer{
       }
       return PackageEnd();
     }
-    public bool BattleSetup(COM_BattlePosition positions){
+    public bool BattleSetup(System.Collections.Generic.List<COM_BattlePosition> positions){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kBattleSetup);
       if(!check){
@@ -919,7 +1143,7 @@ namespace COM_ClientToServer{
     bool Login(COM_LoginInfo info);
     bool CreatePlayer(int template_id,string player_name);
     bool BattleJoin();
-    bool BattleSetup(COM_BattlePosition positions);
+    bool BattleSetup(System.Collections.Generic.List<COM_BattlePosition> positions);
   } //end interface Proxy
   public class Dispatch{
     public static bool Execute(io.IReader reader, Proxy proxy){
@@ -1072,12 +1296,25 @@ namespace COM_ServerToClient{
       }
     } //end class BattleEnter
     public class BattleReport{
+      public COM_BattleReport report = new COM_BattleReport();
       public bool Package(io.IWriter writer){
         bool check = true;
+        {
+          check = report.Package(writer);
+          if(!check){
+            return check;
+          }
+        }
         return check;
       }
       public bool Unpackage(io.IReader reader){
         bool check = true;
+        {
+          check = report.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+        }
         return check;
       }
     } //end class BattleReport
@@ -1141,13 +1378,14 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
-    public bool BattleReport(){
+    public bool BattleReport(COM_BattleReport report){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kBattleReport);
       if(!check){
         return check;
       }
       Package.BattleReport battlereport = new Package.BattleReport();
+      battlereport.report = report;
       check = battlereport.Package(writer);
       if(!check){
         return check;
@@ -1160,7 +1398,7 @@ namespace COM_ServerToClient{
     bool LoginSuccess(COM_AccountInfo info);
     bool CreatePlayerSuccess(COM_PlayerInstance player);
     bool BattleEnter();
-    bool BattleReport();
+    bool BattleReport(COM_BattleReport report);
   } //end interface Proxy
   public class Dispatch{
     public static bool Execute(io.IReader reader, Proxy proxy){
@@ -1208,7 +1446,7 @@ namespace COM_ServerToClient{
           if(!check){
             return check;
           }
-          return proxy.BattleReport();
+          return proxy.BattleReport(battlereport.report);
         }
         default:{
           return false;
