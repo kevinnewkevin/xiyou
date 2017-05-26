@@ -179,14 +179,17 @@ public class Battle {
         _ReportIsPlaying = true;
 
         //if final report play to end;
-        if(true/*battlereport == 0*/)
+        if(_BattleReport.BattleAction.Count == 0)
             Judgement();
     }
 
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, ulong instid)
     {
-        DelActor(pos, GamePlayer.IsMy(instid));
+        Actor actor = GetActor(instid);
+        if (actor != null)
+            return;
+        
         if(GamePlayer.IsMy(instid))
             _SelfActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
         else
