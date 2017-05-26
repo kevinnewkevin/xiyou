@@ -120,7 +120,7 @@ public class Actor {
 
     public Vector3 Forward
     {
-        get{ return _ActorObj.transform.forward; }
+        get{ return _ActorObj.transform.position + _ActorObj.transform.forward; }
     }
 
     //Hud操作
