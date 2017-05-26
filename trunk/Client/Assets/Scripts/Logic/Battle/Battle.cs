@@ -20,7 +20,8 @@ public class Battle {
     }
 
     static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
-    static Transform[] _PosInScene = new Transform[12/*BP_Max*/];
+    static Transform[] _SelfPosInScene = new Transform[6/*BP_Max*/];
+    static Transform[] _OppoPosInScene = new Transform[6/*BP_Max*/];
     static GameObject _SceneConfig;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
@@ -96,9 +97,18 @@ public class Battle {
                 {
                     point = _SceneConfig.transform.GetChild(i);
                     int toIdx = int.Parse(point.name) - 1;
-                    _PosInScene [toIdx] = point;
-                    _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                    _PosInScene [toIdx].gameObject.SetActive(false);
+                    if (toIdx < 6)
+                    {
+                        _SelfPosInScene [toIdx] = point;
+                        _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                        _SelfPosInScene [toIdx].gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        _OppoPosInScene [toIdx] = point;
+                        _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                        _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                    }
                 }
                 _IsStagePointInitSuc = true;
             }
@@ -170,7 +180,10 @@ public class Battle {
     static void AddActor(GameObject go, int pos, ulong instid)
     {
         DelActor(pos);
-        _ActorInScene[pos] = new Actor(go, _PosInScene[pos].position, instid);
+        if(GamePlayer.IsMy(instid))
+            _ActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
+        else
+            _ActorInScene[pos] = new Actor(go, _OppoPosInScene[pos].position, instid);
     }
 
     //场上删除一个角色
@@ -212,13 +225,20 @@ public class Battle {
 
     static public void SwitchPoint(bool on)
     {
-        for(int i=0; i < _PosInScene.Length; ++i)
+        for(int i=0; i < _SelfPosInScene.Length; ++i)
         {
-            if (_PosInScene [i] != null)
+            if (_SelfPosInScene [i] != null)
             {
-                _PosInScene [i].gameObject.SetActive(on);
+                _SelfPosInScene [i].gameObject.SetActive(on);
             }
         }
+//        for(int i=0; i < _OppoPosInScene.Length; ++i)
+//        {
+//            if (_OppoPosInScene [i] != null)
+//            {
+//                _OppoPosInScene [i].gameObject.SetActive(on);
+//            }
+//        }
     }
 
     static public void OperateSetActor(int pos)

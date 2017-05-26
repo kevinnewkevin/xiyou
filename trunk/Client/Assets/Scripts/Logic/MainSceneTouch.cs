@@ -32,13 +32,6 @@ public class MainSceneTouch : MonoBehaviour {
                     if (handler != null)
                         handler.Excute();
                 }
-
-                if (hit.transform.CompareTag("Point"))
-                {
-                    PointHandle handler = hit.transform.GetComponent<PointHandle>();
-                    if (handler != null)
-                        handler.Excute();
-                }
             }
         }
 	}

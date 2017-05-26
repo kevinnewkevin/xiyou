@@ -28,4 +28,18 @@ public class GamePlayer {
         }
         return null;
     }
+
+    static public bool IsMy(ulong instid)
+    {
+        if (_InstID == instid)
+            return true;
+        
+        for(int i=0; i < _Cards.Count; ++i)
+        {
+            if (_Cards [i].InstanceId == instid)
+                return true;
+        }
+
+        return false;
+    }
 }
