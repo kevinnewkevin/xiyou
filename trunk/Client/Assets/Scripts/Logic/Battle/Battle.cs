@@ -255,6 +255,8 @@ public class Battle {
             _CurrentState = BattleState.BS_Oper;
         else
             _CurrentState = BattleState.BS_Result;
+
+        _BattleReport = null;
     }
 
     static public void SwitchPoint(bool on)
