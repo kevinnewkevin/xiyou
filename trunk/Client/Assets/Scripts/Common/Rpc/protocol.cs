@@ -743,7 +743,7 @@ public class COM_BattleTarget{
   }
 } //end class COM_BattleTarget
 public class COM_BattleUnit{
-  public long InstanceId = 0;
+  public ulong InstanceId = 0;
   public int DisplayId = 0;
   public string Name = "";
   public int HP = 0;
@@ -1067,7 +1067,7 @@ namespace COM_ClientToServer{
       }
     } //end class CreatePlayer
     public class SetBattleEmployee{
-      public long inst_id = 0;
+      public ulong inst_id = 0;
       public bool Package(io.IWriter writer){
         bool check = true;
         {
@@ -1171,7 +1171,7 @@ namespace COM_ClientToServer{
       }
       return PackageEnd();
     }
-    public bool SetBattleEmployee(long inst_id){
+    public bool SetBattleEmployee(ulong inst_id){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kSetBattleEmployee);
       if(!check){
@@ -1216,7 +1216,7 @@ namespace COM_ClientToServer{
   public interface Proxy{
     bool Login(COM_LoginInfo info);
     bool CreatePlayer(int template_id,string player_name);
-    bool SetBattleEmployee(long inst_id);
+    bool SetBattleEmployee(ulong inst_id);
     bool BattleJoin();
     bool BattleSetup(System.Collections.Generic.List<COM_BattlePosition> positions);
   } //end interface Proxy
@@ -1372,7 +1372,7 @@ namespace COM_ServerToClient{
       }
     } //end class CreatePlayerSuccess
     public class SetBattleEmployeeSuccess{
-      public long inst_id = 0;
+      public ulong inst_id = 0;
       public bool Package(io.IWriter writer){
         bool check = true;
         {
@@ -1536,7 +1536,7 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
-    public bool SetBattleEmployeeSuccess(long inst_id){
+    public bool SetBattleEmployeeSuccess(ulong inst_id){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kSetBattleEmployeeSuccess);
       if(!check){
@@ -1610,7 +1610,7 @@ namespace COM_ServerToClient{
     bool ErrorMessage(int err,string msg);
     bool LoginSuccess(COM_AccountInfo info);
     bool CreatePlayerSuccess(COM_PlayerInstance player);
-    bool SetBattleEmployeeSuccess(long inst_id);
+    bool SetBattleEmployeeSuccess(ulong inst_id);
     bool BattleEnter();
     bool BattleSetupSuccess(System.Collections.Generic.List<COM_BattleUnit> units);
     bool BattleReport(COM_BattleReport report);
