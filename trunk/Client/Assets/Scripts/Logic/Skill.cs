@@ -34,7 +34,7 @@ public class Skill {
             _Caster.MoveTo(_Targets[0]._ActorObj.transform.position, delegate
             {
                 //clip name in skilldata
-                _Caster.Play("");
+                _Caster.Play("t_attack");
 
                 //1.目标播受击动作的时间
                 //2.目标播受击特效的时间
@@ -58,6 +58,7 @@ public class Skill {
                 {
                     _Caster.MoveTo(_OriginPos, delegate {
                         Battle._ReportIsPlaying = false;
+                        _Caster.Play("t_idle");
                     });
                 }));
             });

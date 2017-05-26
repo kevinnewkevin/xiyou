@@ -11,5 +11,5 @@
     public const string ANIMATION_PLAYER_ACTION_RUN = "t_move";
     public const string ANIMATION_PLAYER_ACTION_IDLE = "t_idle";
     public const string ANIMATION_PLAYER_ACTION_SHOW = "";
-    public const string ANIMATION_PLAYER_ACTION_BEATTACK = "";
+    public const string ANIMATION_PLAYER_ACTION_BEATTACK = "t_takeDmg";
 }
