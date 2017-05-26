@@ -1257,9 +1257,10 @@ namespace COM_ServerToClient{
     public const ushort kCreatePlayerSuccess = 3;
     public const ushort kSetBattleEmployeeSuccess = 4;
     public const ushort kBattleEnter = 5;
-    public const ushort kBattleReport = 6;
-    public const ushort kBattleExit = 7;
-    public const ushort kMax = 8;
+    public const ushort kBattleAddUnit = 6;
+    public const ushort kBattleReport = 7;
+    public const ushort kBattleExit = 8;
+    public const ushort kMax = 9;
   } // end class PID
   namespace Package{
     public class ErrorMessage{
@@ -1377,6 +1378,45 @@ namespace COM_ServerToClient{
         return check;
       }
     } //end class BattleEnter
+    public class BattleAddUnit{
+      public System.Collections.Generic.List<COM_BattleUnit> units = new System.Collections.Generic.List<COM_BattleUnit>();
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        {
+          check = writer.Write(units.Count);
+          if(!check){
+            return check;
+          }
+          for(int i=0; i<units.Count; ++i){
+            check = units[i].Package(writer);
+            if(!check){
+              return check;
+            }
+          }
+        }
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        {
+          int size = 0;
+          check = reader.Read(out size);
+          if(!check){
+            return check;
+          }
+          units.Clear();
+          for(int i=0; i<size; ++i){
+            COM_BattleUnit __units = new COM_BattleUnit();
+            check = __units.Unpackage(reader);
+            if(!check){
+              return check;
+            }
+            units.Add(__units);
+          }
+        }
+        return check;
+      }
+    } //end class BattleAddUnit
     public class BattleReport{
       public COM_BattleReport report = new COM_BattleReport();
       public bool Package(io.IWriter writer){
@@ -1497,6 +1537,20 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
+    public bool BattleAddUnit(System.Collections.Generic.List<COM_BattleUnit> units){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kBattleAddUnit);
+      if(!check){
+        return check;
+      }
+      Package.BattleAddUnit battleaddunit = new Package.BattleAddUnit();
+      battleaddunit.units = units;
+      check = battleaddunit.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
     public bool BattleReport(COM_BattleReport report){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kBattleReport);
@@ -1532,6 +1586,7 @@ namespace COM_ServerToClient{
     bool CreatePlayerSuccess(COM_PlayerInstance player);
     bool SetBattleEmployeeSuccess(long inst_id);
     bool BattleEnter();
+    bool BattleAddUnit(System.Collections.Generic.List<COM_BattleUnit> units);
     bool BattleReport(COM_BattleReport report);
     bool BattleExit(COM_BattleResult result);
   } //end interface Proxy
@@ -1582,6 +1637,14 @@ namespace COM_ServerToClient{
             return check;
           }
           return proxy.BattleEnter();
+        }
+        case PID.kBattleAddUnit:{
+          Package.BattleAddUnit battleaddunit = new Package.BattleAddUnit();
+          check = battleaddunit.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.BattleAddUnit(battleaddunit.units);
         }
         case PID.kBattleReport:{
           Package.BattleReport battlereport = new Package.BattleReport();
