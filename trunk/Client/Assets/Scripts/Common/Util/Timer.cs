@@ -15,6 +15,12 @@ public class Timer {
         TimerManager.Add(this);
     }
 
+    public void NextFrame(TimerCallBack callback)
+    {
+        _TimerParams.Add(new TimerParam(2, callback));
+        TimerManager.Add(this);
+    }
+
     /// <summary>
     /// Time param, Handler Param, loop.
     /// </summary>
@@ -37,8 +43,9 @@ public class Timer {
 
         for (int i = 0; i < _TimerParams.Count; )
         {
+            _TimerParams[i]._Frame -= 1;
             _TimerParams[i]._Timer -= Time.deltaTime;
-            if (_TimerParams[i]._Timer <= 0)
+            if (_TimerParams[i]._Timer <= 0 && _TimerParams[i]._Frame <= 0)
             {
                 if (_TimerParams[i]._Delegate != null)
                     _TimerParams[i]._Delegate();
@@ -60,6 +67,12 @@ public class TimerParam
         _Timer = timer;
         _Delegate = delegat;
     }
+    public TimerParam(int frame, Timer.TimerCallBack delegat)
+    {
+        _Frame = frame;
+        _Delegate = delegat;
+    }
     public float _Timer;
+    public int _Frame;
     public Timer.TimerCallBack _Delegate;
 }
