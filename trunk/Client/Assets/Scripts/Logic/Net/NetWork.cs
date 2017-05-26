@@ -80,7 +80,7 @@ public class NetWoking
 
     public static void DoDispatch()
     {
-        if (incoming_buffer_.Length > 2)
+        if (incoming_buffer_.Length >= 2)
         {
             protocol.COM_ServerToClient.Dispatch.Execute(incoming_buffer_, proxy_);
             incoming_buffer_.Crunch();

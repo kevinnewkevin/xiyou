@@ -34,5 +34,6 @@ public class AppEntry : MonoBehaviour {
         TimerManager.Update();
         DataLoader.Update();
         UIManager.Update();
+        Battle.Update();
 	}
 }
