@@ -145,7 +145,7 @@ public class Battle {
             DisplayData display;
             for(int i=0; i < _BattleReport.BattleUnit.Count; ++i)
             {
-                display = DisplayData.GetData(_BattleReport.BattleUnit[i].DisplayId);
+                display = DisplayData.GetData(_BattleReport.BattleUnit[i].EntityId);
                 AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.BattleUnit[i].PositionType, _BattleReport.BattleUnit[i].InstanceId);
             }
             _BattleReport.BattleUnit.Clear();
@@ -197,13 +197,16 @@ public class Battle {
     //场上找到一个角色
     static public Actor GetActor(ulong instid)
     {
-        for(int i=0; i < _ActorInScene.Length; ++i)
+        int plusIdx = 0;
+        if (GamePlayer.IsMy(instid))
+            plusIdx += 6;
+        for( ; plusIdx < _ActorInScene.Length; ++plusIdx)
         {
-            if (_ActorInScene [i] == null)
+            if (_ActorInScene [plusIdx] == null)
                 continue;
 
-            if (_ActorInScene [i].InstID == instid)
-                return _ActorInScene [i];
+            if (_ActorInScene [plusIdx].InstID == instid)
+                return _ActorInScene [plusIdx];
         }
         return null;
     }
