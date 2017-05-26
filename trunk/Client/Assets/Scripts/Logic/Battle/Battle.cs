@@ -156,12 +156,12 @@ public class Battle {
             return;
 
         // cast skill
-        Actor actor = GetActor((long)_BattleReport.BattleAction[0].InstanceId);
+        Actor actor = GetActor(_BattleReport.BattleAction[0].InstanceId);
         List<Actor> targets = new List<Actor>();
         Actor target;
         for(int i=0; i < _BattleReport.BattleAction[0].BattleTarget.Count; ++i)
         {
-            target = GetActor((long)_BattleReport.BattleAction[0].BattleTarget[i].InstanceId);
+            target = GetActor(_BattleReport.BattleAction[0].BattleTarget[i].InstanceId);
             targets.Add(target);
         }
         Skill skill = new Skill(_BattleReport.BattleAction[0].SkillId, actor, targets.ToArray());
@@ -195,7 +195,7 @@ public class Battle {
     }
 
     //场上找到一个角色
-    static public Actor GetActor(long instid)
+    static public Actor GetActor(ulong instid)
     {
         for(int i=0; i < _ActorInScene.Length; ++i)
         {

@@ -25,7 +25,7 @@ public class Actor {
         }
         _ActorObj = go;
         _InstID = instid;
-        //_ActorObj.transform.position = pos;
+        _ActorObj.transform.position = pos;
         Init();
     }
 

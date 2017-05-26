@@ -12,7 +12,7 @@ public class World {
     {
         // load player Asset for gameobject
         GameObject go = AssetLoader.LoadAsset(PathDefine.PLAYER_ASSET_PATH + "longtaizi");
-        _PlayerActor = new Actor(go, Vector3.zero, GamePlayer._InstID);
+        _PlayerActor = new Actor(go, new Vector3(20f, -14.3f, 4f), GamePlayer._InstID);
         Camera.main.GetComponent<CameraTracker>()._FollowTarget = go;
     }
 

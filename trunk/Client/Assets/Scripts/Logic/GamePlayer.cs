@@ -21,6 +21,9 @@ public class GamePlayer {
 
     static public COM_EntityInstance GetCardByInstID(ulong instid)
     {
+        if (_InstID == instid)
+            return _Data;
+        
         for(int i=0; i < _Cards.Count; ++i)
         {
             if (_Cards [i].InstanceId == instid)
