@@ -105,9 +105,9 @@ public class Battle {
                     }
                     else
                     {
-                        _OppoPosInScene [toIdx] = point;
-                        _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                        _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                        _OppoPosInScene [toIdx - 6] = point;
+                        _OppoPosInScene [toIdx - 6].GetComponent<PointHandle>().Init(toIdx - 6);
+                        _OppoPosInScene [toIdx - 6].gameObject.SetActive(false);
                     }
                 }
                 _IsStagePointInitSuc = true;
