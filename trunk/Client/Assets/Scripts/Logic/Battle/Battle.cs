@@ -179,7 +179,7 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, ulong instid)
     {
-        DelActor(pos);
+        DelActor(pos, GamePlayer.IsMy(instid));
         if(GamePlayer.IsMy(instid))
             _ActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
         else
@@ -187,8 +187,10 @@ public class Battle {
     }
 
     //场上删除一个角色
-    static void DelActor(int pos)
+    static void DelActor(int pos, bool self)
     {
+        if(self)
+            pos += 6;
         if (_ActorInScene[pos] != null)
             _ActorInScene[pos].Fini();
         _ActorInScene[pos] = null;
