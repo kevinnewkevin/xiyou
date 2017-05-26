@@ -99,15 +99,15 @@ public class Battle {
                     int toIdx = int.Parse(point.name) - 1;
                     if (toIdx < 6)
                     {
-                        _SelfPosInScene [toIdx] = point;
-                        _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                        _SelfPosInScene [toIdx].gameObject.SetActive(false);
+                        _OppoPosInScene [toIdx] = point;
+                        _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                        _OppoPosInScene [toIdx].gameObject.SetActive(false);
                     }
                     else
                     {
-                        _OppoPosInScene [toIdx - 6] = point;
-                        _OppoPosInScene [toIdx - 6].GetComponent<PointHandle>().Init(toIdx - 6);
-                        _OppoPosInScene [toIdx - 6].gameObject.SetActive(false);
+                        _SelfPosInScene [toIdx - 6] = point;
+                        _SelfPosInScene [toIdx - 6].GetComponent<PointHandle>().Init(toIdx - 6);
+                        _SelfPosInScene [toIdx - 6].gameObject.SetActive(false);
                     }
                 }
                 _IsStagePointInitSuc = true;
