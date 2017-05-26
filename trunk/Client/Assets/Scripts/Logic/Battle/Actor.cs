@@ -124,9 +124,9 @@ public class Actor {
 
     }
 
-    public long InstID
+    public ulong InstID
     {
-        get{ return InstID; }
+        get{ return _InstID; }
     }
 
     public void Fini()
