@@ -146,7 +146,7 @@ public class Battle {
             for(int i=0; i < _BattleReport.BattleUnit.Count; ++i)
             {
                 display = DisplayData.GetData(_BattleReport.BattleUnit[i].DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), 0, _BattleReport.BattleUnit[i].InstanceId);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.BattleUnit[i].PositionType, _BattleReport.BattleUnit[i].InstanceId);
             }
             _BattleReport.BattleUnit.Clear();
             return;
