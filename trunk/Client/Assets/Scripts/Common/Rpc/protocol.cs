@@ -494,7 +494,7 @@ public class COM_ItemInstance{
 } //end class COM_ItemInstance
 public class COM_EntityInstance{
   public ulong InstanceId = 0;
-  public int DisplayId = 0;
+  public int EntityId = 0;
   public System.Collections.Generic.List<int> IProperty = new System.Collections.Generic.List<int>();
   public System.Collections.Generic.List<float> CProperty = new System.Collections.Generic.List<float>();
   public System.Collections.Generic.List<COM_ItemInstance> Equipments = new System.Collections.Generic.List<COM_ItemInstance>();
@@ -507,7 +507,7 @@ public class COM_EntityInstance{
       }
     }
     {
-      check = writer.Write(DisplayId);
+      check = writer.Write(EntityId);
       if(!check){
         return check;
       }
@@ -559,7 +559,7 @@ public class COM_EntityInstance{
       }
     }
     {
-      check = reader.Read(out DisplayId);
+      check = reader.Read(out EntityId);
       if(!check){
         return check;
       }
