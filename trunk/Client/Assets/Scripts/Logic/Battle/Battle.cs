@@ -19,7 +19,8 @@ public class Battle {
         BR_None
     }
 
-    static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
+    static Actor[] _SelfActorInScene = new Actor[6/*BP_Max*/];
+    static Actor[] _OppoActorInScene = new Actor[6/*BP_Max*/];
     static Transform[] _SelfPosInScene = new Transform[6/*BP_Max*/];
     static Transform[] _OppoPosInScene = new Transform[6/*BP_Max*/];
     static GameObject _SceneConfig;
@@ -127,10 +128,16 @@ public class Battle {
 
     static void UnLoadAssets()
     {
-        for (int i = 0; i < _ActorInScene.Length; ++i)
+        for (int i = 0; i < _SelfActorInScene.Length; ++i)
         {
-            if (_ActorInScene[i] != null)
-                _ActorInScene[i].Fini();
+            if (_SelfActorInScene[i] != null)
+                _SelfActorInScene[i].Fini();
+        }
+
+        for (int i = 0; i < _OppoActorInScene.Length; ++i)
+        {
+            if (_OppoActorInScene[i] != null)
+                _OppoActorInScene[i].Fini();
         }
     }
 
@@ -181,35 +188,54 @@ public class Battle {
     {
         DelActor(pos, GamePlayer.IsMy(instid));
         if(GamePlayer.IsMy(instid))
-            _ActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
+            _SelfActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
         else
-            _ActorInScene[pos] = new Actor(go, _OppoPosInScene[pos].position, instid);
+            _OppoActorInScene[pos] = new Actor(go, _OppoPosInScene[pos].position, instid);
     }
 
     //场上删除一个角色
     static void DelActor(int pos, bool self)
     {
-        if(self)
-            pos += 6;
-        if (_ActorInScene[pos] != null)
-            _ActorInScene[pos].Fini();
-        _ActorInScene[pos] = null;
+        if (self)
+        {
+            if (_SelfActorInScene [pos] != null)
+                _SelfActorInScene [pos].Fini();
+            _SelfActorInScene [pos] = null;
+        }
+        else
+        {
+            if (_OppoActorInScene [pos] != null)
+                _OppoActorInScene [pos].Fini();
+            _OppoActorInScene [pos] = null;
+        }
     }
 
     //场上找到一个角色
     static public Actor GetActor(ulong instid)
     {
-        int plusIdx = 0;
         if (GamePlayer.IsMy(instid))
-            plusIdx += 6;
-        for( ; plusIdx < _ActorInScene.Length; ++plusIdx)
         {
-            if (_ActorInScene [plusIdx] == null)
-                continue;
+            for (int i = 0; i < _SelfActorInScene.Length; ++i)
+            {
+                if (_SelfActorInScene [i] == null)
+                    continue;
 
-            if (_ActorInScene [plusIdx].InstID == instid)
-                return _ActorInScene [plusIdx];
+                if (_SelfActorInScene [i].InstID == instid)
+                    return _SelfActorInScene [i];
+            }
         }
+        else
+        {
+            for (int i = 0; i < _OppoActorInScene.Length; ++i)
+            {
+                if (_OppoActorInScene [i] == null)
+                    continue;
+
+                if (_OppoActorInScene [i].InstID == instid)
+                    return _OppoActorInScene [i];
+            }
+        }
+
         return null;
     }
 
