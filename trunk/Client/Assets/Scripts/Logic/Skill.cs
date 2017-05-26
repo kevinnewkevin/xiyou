@@ -31,7 +31,7 @@ public class Skill {
         // judge whether is melee skill
         if (true/*is melee skill*/)
         {
-            _Caster.MoveTo(_Targets[0]._ActorObj.transform.position, delegate
+            _Caster.MoveTo(_Targets[0].Forward, delegate
             {
                 //clip name in skilldata
                 _Caster.Play("t_attack");
@@ -39,7 +39,7 @@ public class Skill {
                 //1.目标播受击动作的时间
                 //2.目标播受击特效的时间
                 //3.目标弹伤害数字的时间
-                new Timer().Start(new TimerParam(1f, delegate
+                new Timer().Start(new TimerParam(0.3f, delegate
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
@@ -54,11 +54,11 @@ public class Skill {
                     {
                         _Targets[i].PopContent();
                     }
-                }), new TimerParam(2f, delegate
+                }), new TimerParam(1f, delegate
                 {
                     _Caster.MoveTo(_OriginPos, delegate {
                         Battle._ReportIsPlaying = false;
-                        _Caster.Play("t_idle");
+                        _Caster.Stop();
                     });
                 }));
             });

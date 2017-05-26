@@ -118,6 +118,11 @@ public class Actor {
         }
     }
 
+    public Vector3 Forward
+    {
+        get{ return _ActorObj.transform.forward; }
+    }
+
     //Hud操作
     public void PopContent()
     {
