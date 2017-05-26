@@ -458,7 +458,7 @@ public class COM_AccountInfo{
 } //end class COM_AccountInfo
 public class COM_ItemInstance{
   public int ItemId = 0;
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public bool Package(io.IWriter writer){
     bool check = true;
     {
@@ -493,7 +493,7 @@ public class COM_ItemInstance{
   }
 } //end class COM_ItemInstance
 public class COM_EntityInstance{
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public System.Collections.Generic.List<int> IProperty = new System.Collections.Generic.List<int>();
   public System.Collections.Generic.List<float> CProperty = new System.Collections.Generic.List<float>();
   public System.Collections.Generic.List<COM_ItemInstance> Equipments = new System.Collections.Generic.List<COM_ItemInstance>();
@@ -603,7 +603,7 @@ public class COM_EntityInstance{
   }
 } //end class COM_EntityInstance
 public class COM_PlayerInstance{
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public string PlayerName = "";
   public COM_EntityInstance PlayerEntity = new COM_EntityInstance();
   public System.Collections.Generic.List<COM_EntityInstance> Employees = new System.Collections.Generic.List<COM_EntityInstance>();
@@ -681,7 +681,7 @@ public class COM_PlayerInstance{
   }
 } //end class COM_PlayerInstance
 public class COM_BattleTarget{
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public int ActionType = new int();
   public int ActionValue = 0;
   public bool Package(io.IWriter writer){
@@ -792,7 +792,7 @@ public class COM_BattleUnit{
   }
 } //end class COM_BattleUnit
 public class COM_BattlePosition{
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public sbyte PosotionId = 0;
   public bool Package(io.IWriter writer){
     bool check = true;
@@ -828,7 +828,7 @@ public class COM_BattlePosition{
   }
 } //end class COM_BattlePosition
 public class COM_BattleAction{
-  public double InstanceId = 0;
+  public ulong InstanceId = 0;
   public int SkillId = 0;
   public System.Collections.Generic.List<COM_BattleTarget> BattleTarget = new System.Collections.Generic.List<COM_BattleTarget>();
   public bool Package(io.IWriter writer){
@@ -975,9 +975,10 @@ namespace COM_ClientToServer{
     public const ushort kMin = 0;
     public const ushort kLogin = 1;
     public const ushort kCreatePlayer = 2;
-    public const ushort kBattleJoin = 3;
-    public const ushort kBattleSetup = 4;
-    public const ushort kMax = 5;
+    public const ushort kSetBattleEmployee = 3;
+    public const ushort kBattleJoin = 4;
+    public const ushort kBattleSetup = 5;
+    public const ushort kMax = 6;
   } // end class PID
   namespace Package{
     public class Login{
@@ -1039,6 +1040,29 @@ namespace COM_ClientToServer{
         return check;
       }
     } //end class CreatePlayer
+    public class SetBattleEmployee{
+      public long inst_id = 0;
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        {
+          check = writer.Write(inst_id);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        {
+          check = reader.Read(out inst_id);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+    } //end class SetBattleEmployee
     public class BattleJoin{
       public bool Package(io.IWriter writer){
         bool check = true;
@@ -1121,6 +1145,20 @@ namespace COM_ClientToServer{
       }
       return PackageEnd();
     }
+    public bool SetBattleEmployee(long inst_id){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kSetBattleEmployee);
+      if(!check){
+        return check;
+      }
+      Package.SetBattleEmployee setbattleemployee = new Package.SetBattleEmployee();
+      setbattleemployee.inst_id = inst_id;
+      check = setbattleemployee.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
     public bool BattleJoin(){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kBattleJoin);
@@ -1152,6 +1190,7 @@ namespace COM_ClientToServer{
   public interface Proxy{
     bool Login(COM_LoginInfo info);
     bool CreatePlayer(int template_id,string player_name);
+    bool SetBattleEmployee(long inst_id);
     bool BattleJoin();
     bool BattleSetup(System.Collections.Generic.List<COM_BattlePosition> positions);
   } //end interface Proxy
@@ -1178,6 +1217,14 @@ namespace COM_ClientToServer{
             return check;
           }
           return proxy.CreatePlayer(createplayer.template_id,createplayer.player_name);
+        }
+        case PID.kSetBattleEmployee:{
+          Package.SetBattleEmployee setbattleemployee = new Package.SetBattleEmployee();
+          check = setbattleemployee.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.SetBattleEmployee(setbattleemployee.inst_id);
         }
         case PID.kBattleJoin:{
           Package.BattleJoin battlejoin = new Package.BattleJoin();
@@ -1208,10 +1255,11 @@ namespace COM_ServerToClient{
     public const ushort kErrorMessage = 1;
     public const ushort kLoginSuccess = 2;
     public const ushort kCreatePlayerSuccess = 3;
-    public const ushort kBattleEnter = 4;
-    public const ushort kBattleReport = 5;
-    public const ushort kBattleExit = 6;
-    public const ushort kMax = 7;
+    public const ushort kSetBattleEmployeeSuccess = 4;
+    public const ushort kBattleEnter = 5;
+    public const ushort kBattleReport = 6;
+    public const ushort kBattleExit = 7;
+    public const ushort kMax = 8;
   } // end class PID
   namespace Package{
     public class ErrorMessage{
@@ -1296,6 +1344,29 @@ namespace COM_ServerToClient{
         return check;
       }
     } //end class CreatePlayerSuccess
+    public class SetBattleEmployeeSuccess{
+      public long inst_id = 0;
+      public bool Package(io.IWriter writer){
+        bool check = true;
+        {
+          check = writer.Write(inst_id);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+      public bool Unpackage(io.IReader reader){
+        bool check = true;
+        {
+          check = reader.Read(out inst_id);
+          if(!check){
+            return check;
+          }
+        }
+        return check;
+      }
+    } //end class SetBattleEmployeeSuccess
     public class BattleEnter{
       public bool Package(io.IWriter writer){
         bool check = true;
@@ -1399,6 +1470,20 @@ namespace COM_ServerToClient{
       }
       return PackageEnd();
     }
+    public bool SetBattleEmployeeSuccess(long inst_id){
+      io.IWriter writer= PackageBegin();
+      bool check = writer.Write(PID.kSetBattleEmployeeSuccess);
+      if(!check){
+        return check;
+      }
+      Package.SetBattleEmployeeSuccess setbattleemployeesuccess = new Package.SetBattleEmployeeSuccess();
+      setbattleemployeesuccess.inst_id = inst_id;
+      check = setbattleemployeesuccess.Package(writer);
+      if(!check){
+        return check;
+      }
+      return PackageEnd();
+    }
     public bool BattleEnter(){
       io.IWriter writer= PackageBegin();
       bool check = writer.Write(PID.kBattleEnter);
@@ -1445,6 +1530,7 @@ namespace COM_ServerToClient{
     bool ErrorMessage(int err,string msg);
     bool LoginSuccess(COM_AccountInfo info);
     bool CreatePlayerSuccess(COM_PlayerInstance player);
+    bool SetBattleEmployeeSuccess(long inst_id);
     bool BattleEnter();
     bool BattleReport(COM_BattleReport report);
     bool BattleExit(COM_BattleResult result);
@@ -1480,6 +1566,14 @@ namespace COM_ServerToClient{
             return check;
           }
           return proxy.CreatePlayerSuccess(createplayersuccess.player);
+        }
+        case PID.kSetBattleEmployeeSuccess:{
+          Package.SetBattleEmployeeSuccess setbattleemployeesuccess = new Package.SetBattleEmployeeSuccess();
+          check = setbattleemployeesuccess.Unpackage(reader);
+          if(!check){
+            return check;
+          }
+          return proxy.SetBattleEmployeeSuccess(setbattleemployeesuccess.inst_id);
         }
         case PID.kBattleEnter:{
           Package.BattleEnter battleenter = new Package.BattleEnter();
