@@ -335,6 +335,40 @@ public static int ToEnumer(string str_enumer){
   { return 0;}
 }
 } //end class EquipmentSlot
+public class CampType{
+  private static readonly string[] Strings = {"CT_RED","CT_BLUE","CT_MAX"};
+  public const int CT_RED = 0;
+  public const int CT_BLUE = 1;
+  public const int CT_MAX = 2;
+  public static string ToString(int enumer){
+    switch(enumer){
+      case CT_RED:{
+        return Strings[CT_RED];
+      }
+      case CT_BLUE:{
+        return Strings[CT_BLUE];
+      }
+      case CT_MAX:{
+        return Strings[CT_MAX];
+      }
+    default:{
+      return "";
+    }
+  }
+}
+public static int ToEnumer(string str_enumer){
+  if(str_enumer == Strings[CT_RED]){
+    return CT_RED;
+  } else 
+  if(str_enumer == Strings[CT_BLUE]){
+    return CT_BLUE;
+  } else 
+  if(str_enumer == Strings[CT_MAX]){
+    return CT_MAX;
+  } else 
+  { return 0;}
+}
+} //end class CampType
 public class BattleActionType{
   private static readonly string[] Strings = {"BAT_MIN","BAT_CRIT","BAT_SUCK","BAT_RECOVERY","BAT_ADD_STATE","BAT_DEL_STATE","BAT_MAX"};
   public const int BAT_MIN = 0;
@@ -746,6 +780,7 @@ public class COM_BattleUnit{
   public ulong InstanceId = 0;
   public int EntityId = 0;
   public int PositionType = 0;
+  public int Camp = new int();
   public string Name = "";
   public int HP = 0;
   public bool Package(io.IWriter writer){
@@ -764,6 +799,12 @@ public class COM_BattleUnit{
     }
     {
       check = writer.Write(PositionType);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = writer.Write(Camp);
       if(!check){
         return check;
       }
@@ -798,6 +839,12 @@ public class COM_BattleUnit{
     }
     {
       check = reader.Read(out PositionType);
+      if(!check){
+        return check;
+      }
+    }
+    {
+      check = reader.Read(out Camp);
       if(!check){
         return check;
       }
