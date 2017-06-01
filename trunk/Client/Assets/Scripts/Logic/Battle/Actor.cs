@@ -8,7 +8,8 @@ public class Actor {
 
     ulong _InstID;
 
-    Animator _Animator;
+    //Animator _Animator;
+    Animation _Animation;
 
     const float MOVE_SPEED = 4f;
 
@@ -31,9 +32,10 @@ public class Actor {
 
     void Init()
     {
-        _Animator = _ActorObj.GetComponent<Animator>();
-        if (_Animator == null)
-            Debug.LogWarning("Actor " + _ActorObj.name + " has no Animator launched.");
+//        _Animator = _ActorObj.GetComponent<Animator>();
+//        if (_Animator == null)
+//            Debug.LogWarning("Actor " + _ActorObj.name + " has no Animator launched.");
+        _Animation = _ActorObj.GetComponent<Animation>();
     }
 
     //移动到场上某位置
@@ -82,40 +84,56 @@ public class Actor {
             if (_ActorObj == null)
                 return "";
 
-            if (_Animator == null)
+//            if (_Animator == null)
+//                return "";
+
+            if (_Animation == null)
                 return "";
 
-            AnimatorClipInfo[] aci = _Animator.GetCurrentAnimatorClipInfo(0);
-            if (aci.Length == 1)
-                return aci [0].clip.name;
+//            AnimatorClipInfo[] aci = _Animator.GetCurrentAnimatorClipInfo(0);
+//            if (aci.Length == 1)
+//                return aci [0].clip.name;
             return "";
         }
     }
 
     //播放某个动作
-    public void Play(string action, bool bVal = false, float fVal = 0f)
+    public void Play(string action)
     {
-        if (_Animator == null)
+//        if (_Animator == null)
+//            return;
+
+        if (_Animation == null)
             return;
 
-        string[] info = action.Split(new char[]{'_'}, System.StringSplitOptions.RemoveEmptyEntries);
-        if (info == null || info.Length < 2)
-        {
-            Debug.LogWarning("Wrong animation transition parameters " + action);
+        _Animation.CrossFade(action);
+
+//        string[] info = action.Split(new char[]{'_'}, System.StringSplitOptions.RemoveEmptyEntries);
+//        if (info == null || info.Length < 2)
+//        {
+//            Debug.LogWarning("Wrong animation transition parameters " + action);
+//            return;
+//        }
+//        switch(info[0])
+//        {
+//            case "b":
+//                _Animator.SetBool(action, bVal);
+//                break;
+//            case "f":
+//                _Animator.SetFloat(action, fVal);
+//                break;
+//            case "t":
+//                _Animator.SetTrigger(action);
+//                break;
+//        }
+    }
+
+    public void PlayQueue(string action)
+    {
+        if (_Animation == null)
             return;
-        }
-        switch(info[0])
-        {
-            case "b":
-                _Animator.SetBool(action, bVal);
-                break;
-            case "f":
-                _Animator.SetFloat(action, fVal);
-                break;
-            case "t":
-                _Animator.SetTrigger(action);
-                break;
-        }
+
+        _Animation.CrossFadeQueued(action);
     }
 
     public Vector3 Forward

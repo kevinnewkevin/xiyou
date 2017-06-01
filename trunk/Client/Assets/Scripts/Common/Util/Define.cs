@@ -8,8 +8,9 @@
     public const string SCENE_MAIN = "main";
     public const string SCENE_BATTLE = "haidizhandou";
 
-    public const string ANIMATION_PLAYER_ACTION_RUN = "t_move";
-    public const string ANIMATION_PLAYER_ACTION_IDLE = "t_idle";
-    public const string ANIMATION_PLAYER_ACTION_SHOW = "";
-    public const string ANIMATION_PLAYER_ACTION_BEATTACK = "t_takeDmg";
+    public const string ANIMATION_PLAYER_ACTION_RUN = "run";
+    public const string ANIMATION_PLAYER_ACTION_IDLE = "stand";
+    public const string ANIMATION_PLAYER_ACTION_SHOW = "ruchang";
+    public const string ANIMATION_PLAYER_ACTION_ATTACK = "attack";
+    public const string ANIMATION_PLAYER_ACTION_BEATTACK = "beattack";
 }

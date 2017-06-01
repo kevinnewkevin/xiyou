@@ -34,7 +34,8 @@ public class Skill {
             _Caster.MoveTo(_Targets[0].Forward, delegate
             {
                 //clip name in skilldata
-                _Caster.Play("t_attack");
+                _Caster.Play(Define.ANIMATION_PLAYER_ACTION_ATTACK);
+                _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
                 //1.目标播受击动作的时间
                 //2.目标播受击特效的时间
@@ -44,6 +45,7 @@ public class Skill {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
                         _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                        _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
                     }
                 }), new TimerParam(1f, delegate
                 {

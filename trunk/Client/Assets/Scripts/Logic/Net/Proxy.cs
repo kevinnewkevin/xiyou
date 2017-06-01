@@ -35,6 +35,7 @@ class Proxy : protocol.COM_ServerToClient.Proxy
 
     public bool BattleExit(protocol.COM_BattleResult result)
     {
+        Battle._Result = Battle.BattleResult.BR_Win;
         return true;
     }
 

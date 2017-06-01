@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699847865974500}
   - component: {fileID: 95390176579017458}
+  - component: {fileID: 111646839795878538}
   m_Layer: 0
   m_Name: longtaizi
   m_TagString: Untagged
@@ -1037,7 +1038,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057474082122288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 793a5e35784cf2e45b66d7082d38bf0c, type: 3}
   m_Controller: {fileID: 9100000, guid: 16557aa4abeaf2f45bce56a1b71564e1, type: 2}
   m_CullingMode: 1
@@ -1047,6 +1048,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!111 &111646839795878538
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057474082122288}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 8d3ed9454bd78a145a47b6970b2e9f30, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 8d3ed9454bd78a145a47b6970b2e9f30, type: 2}
+  - {fileID: 7400000, guid: 6454d98ab9b8d0a4ab8d4b3f02a09f70, type: 2}
+  - {fileID: 7400000, guid: 325c8e2943782b149a8b749f41009eda, type: 2}
+  - {fileID: 7400000, guid: daaaf0b00827cbf419923b6e47194ccb, type: 2}
+  - {fileID: 7400000, guid: 9a1dbd0d007121446aa9060256990554, type: 2}
+  - {fileID: 7400000, guid: 521203d46be04a848a4c42d25ad5acbf, type: 2}
+  - {fileID: 7400000, guid: 5a86457abec887c41b56f37df0e237cc, type: 2}
+  - {fileID: 7400000, guid: 1bd43d846d507a946a105a1f2b33740f, type: 2}
+  - {fileID: 7400000, guid: a096a7247a63c96438052eb0cec1b4e0, type: 2}
+  - {fileID: 7400000, guid: 8c0bfca99ac38c242b8ea56381088371, type: 2}
+  - {fileID: 7400000, guid: 4632b1c9165aaa144a18a1cd46e89c88, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!137 &137182318964053894
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
