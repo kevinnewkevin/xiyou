@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26e90636e2f98504fac2a5718df9924e
+guid: d402e232a51cc3e4e9b7e758a5d359fb
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
@@ -22,7 +22,7 @@ TextureImporter:
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 128
   textureSettings:
     filterMode: -1
@@ -51,27 +51,11 @@ TextureImporter:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 128
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: iPhone
-    maxTextureSize: 128
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 1
-  - buildTarget: Android
-    maxTextureSize: 128
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 1
   spriteSheet:
     serializedVersion: 2
     sprites: []
