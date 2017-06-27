@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: faffd799c1a6e4046973ffa3b1cf470e
-timeCreated: 1498531887
+timeCreated: 1498533755
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -30,40 +30,36 @@ ModelImporter:
     100044: Bone007
     100046: Bone008
     100048: Bone009
-    100050: Bone010
-    100052: Bone014
-    100054: Bone016
-    100056: Bone027
-    100058: Bone027(mirrored)
-    100060: Bone028
-    100062: Bone028(mirrored)
-    100064: Bone029
-    100066: Bone029(mirrored)
-    100068: Bone030
-    100070: Bone030(mirrored)
-    100072: Bone031
-    100074: Bone031(mirrored)
-    100076: Bone032
-    100078: Bone033
-    100080: Bone034
-    100082: Bone035
-    100084: Bone036
-    100086: Bone037
-    100088: Bone037(mirrored)
-    100090: Bone038
-    100092: Bone038(mirrored)
-    100094: Bone039
-    100096: Bone039(mirrored)
-    100098: Bone040
-    100100: Bone040(mirrored)
-    100102: Bone041
-    100104: Bone042
-    100106: Bone044
-    100108: fenghuolun-L 1
-    100110: fenghuolun-R 1
-    100112: qiang
-    100114: qiankunquan
-    100116: //RootNode
+    100050: Bone014
+    100052: Bone016
+    100054: Bone027
+    100056: Bone027(mirrored)
+    100058: Bone028
+    100060: Bone028(mirrored)
+    100062: Bone029
+    100064: Bone029(mirrored)
+    100066: Bone030
+    100068: Bone030(mirrored)
+    100070: Bone032
+    100072: Bone033
+    100074: Bone034
+    100076: Bone035
+    100078: Bone037
+    100080: Bone037(mirrored)
+    100082: Bone038
+    100084: Bone038(mirrored)
+    100086: Bone039
+    100088: Bone039(mirrored)
+    100090: Bone040
+    100092: Bone040(mirrored)
+    100094: Bone041
+    100096: Bone042
+    100098: Bone044
+    100100: qiang
+    100102: qiankunquan
+    100104: //RootNode
+    100106: youlun
+    100108: zuolun
     400000: Bip001
     400002: Bip001 Head
     400004: Bip001 L Calf
@@ -89,40 +85,36 @@ ModelImporter:
     400044: Bone007
     400046: Bone008
     400048: Bone009
-    400050: Bone010
-    400052: Bone014
-    400054: Bone016
-    400056: Bone027
-    400058: Bone027(mirrored)
-    400060: Bone028
-    400062: Bone028(mirrored)
-    400064: Bone029
-    400066: Bone029(mirrored)
-    400068: Bone030
-    400070: Bone030(mirrored)
-    400072: Bone031
-    400074: Bone031(mirrored)
-    400076: Bone032
-    400078: Bone033
-    400080: Bone034
-    400082: Bone035
-    400084: Bone036
-    400086: Bone037
-    400088: Bone037(mirrored)
-    400090: Bone038
-    400092: Bone038(mirrored)
-    400094: Bone039
-    400096: Bone039(mirrored)
-    400098: Bone040
-    400100: Bone040(mirrored)
-    400102: Bone041
-    400104: Bone042
-    400106: Bone044
-    400108: fenghuolun-L 1
-    400110: fenghuolun-R 1
-    400112: qiang
-    400114: qiankunquan
-    400116: //RootNode
+    400050: Bone014
+    400052: Bone016
+    400054: Bone027
+    400056: Bone027(mirrored)
+    400058: Bone028
+    400060: Bone028(mirrored)
+    400062: Bone029
+    400064: Bone029(mirrored)
+    400066: Bone030
+    400068: Bone030(mirrored)
+    400070: Bone032
+    400072: Bone033
+    400074: Bone034
+    400076: Bone035
+    400078: Bone037
+    400080: Bone037(mirrored)
+    400082: Bone038
+    400084: Bone038(mirrored)
+    400086: Bone039
+    400088: Bone039(mirrored)
+    400090: Bone040
+    400092: Bone040(mirrored)
+    400094: Bone041
+    400096: Bone042
+    400098: Bone044
+    400100: qiang
+    400102: qiankunquan
+    400104: //RootNode
+    400106: youlun
+    400108: zuolun
     7400000: run
     9500000: //RootNode
   materials:
@@ -215,8 +207,6 @@ ModelImporter:
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/Bone032/Bone033/Bone034/Bone035
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/Bone032/Bone033/Bone034/Bone035/Bone036
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
           Clavicle
         weight: 1
@@ -255,9 +245,6 @@ ModelImporter:
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
           Clavicle/Bip001 L UpperArm/Bone027(mirrored)/Bone037(mirrored)/Bone028(mirrored)/Bone040(mirrored)/Bone038(mirrored)/Bone029(mirrored)/Bone039(mirrored)/Bone030(mirrored)
-        weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
-          Clavicle/Bip001 L UpperArm/Bone027(mirrored)/Bone037(mirrored)/Bone028(mirrored)/Bone040(mirrored)/Bone038(mirrored)/Bone029(mirrored)/Bone039(mirrored)/Bone030(mirrored)/Bone031(mirrored)
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
           Clavicle/Bone044
@@ -301,9 +288,6 @@ ModelImporter:
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
           Clavicle/Bip001 R UpperArm/Bone027/Bone037/Bone028/Bone040/Bone038/Bone029/Bone039/Bone030
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
-          Clavicle/Bip001 R UpperArm/Bone027/Bone037/Bone028/Bone040/Bone038/Bone029/Bone039/Bone030/Bone031
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone008
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone008/Bone042
@@ -312,17 +296,15 @@ ModelImporter:
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone008/Bone042/Bone009/Bone041
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone008/Bone042/Bone009/Bone041/Bone010
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bone014
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bone016
         weight: 1
       - path: Bone007
         weight: 1
-      - path: fenghuolun-L 1
+      - path: youlun
         weight: 1
-      - path: fenghuolun-R 1
+      - path: zuolun
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
