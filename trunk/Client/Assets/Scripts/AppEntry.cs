@@ -21,7 +21,7 @@ public class AppEntry : MonoBehaviour {
         UIManager.Init(_UiRoot);
 
         //init network
-        if (NetWoking.Open("10.10.10.2", 9900))
+        if (NetWoking.Open("127.0.0.1", 10999))
         {
             UIManager.Show("LoginPanel");
             DataLoader.BeginLoad();

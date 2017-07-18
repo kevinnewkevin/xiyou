@@ -11,7 +11,7 @@ public class Proxy4Lua {
 
     static public void BattleJoin()
     {
-        NetWoking.S.BattleJoin();
+        NetWoking.S.JoinBattle();
     }
     #endregion
 
@@ -21,7 +21,7 @@ public class Proxy4Lua {
         if (idx >= Battle._HandCards.Count || idx < 0)
             return;
         
-        Battle._SelectedHandCardInstID = Battle._HandCards[idx].InstanceId;
+        Battle._SelectedHandCardInstID = Battle._HandCards[idx].InstId;
         Battle.SwitchPoint(true);
     }
 

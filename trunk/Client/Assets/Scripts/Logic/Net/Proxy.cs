@@ -1,18 +1,18 @@
 
-class Proxy : protocol.COM_ServerToClient.Proxy
+class Proxy : ICOM_ServerToClientProxy
 {
-    public bool ErrorMessage(int err, string msg)
+    public bool ErrorMessage(int err)
     {
         return true;
     }
 
-    public bool LoginSuccess(protocol.COM_AccountInfo info)
+    public bool LoginOK(ref COM_AccountInfo info)
     {
         return true;
     }
 
 
-    public bool CreatePlayerSuccess(protocol.COM_PlayerInstance player)
+    public bool CreatePlayerOK(ref COM_Player player)
     {
         GamePlayer.Init(player);
         World.InitPlayerActor();
@@ -27,24 +27,24 @@ class Proxy : protocol.COM_ServerToClient.Proxy
         return true;
     }
 
-    public bool BattleReport(protocol.COM_BattleReport report)
+    public bool BattleReport(ref COM_BattleReport report)
     {
         Battle._BattleReport = report;
         return true;
     }
 
-    public bool BattleExit(protocol.COM_BattleResult result)
+    public bool BattleExit(ref COM_BattleResult result)
     {
         Battle._Result = Battle.BattleResult.BR_Win;
         return true;
     }
 
-    public bool SetBattleEmployeeSuccess(ulong instid)
+    public bool SetBattleUnitOK(long instid)
     {
         return true;
     }
 
-    public bool BattleSetupSuccess(System.Collections.Generic.List<protocol.COM_BattleUnit> cards)
+    public bool BattleSetupSuccess(ref COM_BattleUnit[] cards)
     {
         return true;
     }

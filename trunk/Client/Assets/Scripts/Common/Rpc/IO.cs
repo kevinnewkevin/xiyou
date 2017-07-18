@@ -48,19 +48,19 @@ public interface IWriter
 
 public interface IReader
 {
-    bool Read(out byte value);
-    bool Read(out short value);
-    bool Read(out int value);
-    bool Read(out long value);
-    bool Read(out sbyte value);
-    bool Read(out ushort value);
-    bool Read(out uint value);
-    bool Read(out ulong value);
-    bool Read(out double value);
-    bool Read(out float value);
-    bool Read(out string value);
-    bool Read(out byte[] value);
-    bool ReadSize(out int value);
+    bool Read(ref byte value);
+    bool Read(ref short value);
+    bool Read(ref int value);
+    bool Read(ref long value);
+    bool Read(ref sbyte value);
+    bool Read(ref ushort value);
+    bool Read(ref uint value);
+    bool Read(ref ulong value);
+    bool Read(ref double value);
+    bool Read(ref float value);
+    bool Read(ref string value);
+    bool Read(ref byte[] value);
+    bool ReadSize(ref int value);
 }
 
 
@@ -163,136 +163,153 @@ public class Bufferd : IWriter, IReader
         }
     }
 
+    public void Write(byte[] bytes)
+    {
+        System.Array.Copy(bytes, 0, buffer_, write_ptr_, bytes.Length);
+        write_ptr_ += bytes.Length;
+    }
     ///
-    public bool Write(byte value)
+    public void Write(byte value)
     {
         if (Space < 1)
         {
-            return false;
+            return;
         }
         buffer_[write_ptr_++] = value;
-        return true;
+
     }
-    public bool Write(short value)
+    public void Write(short value)
     {
         if (Space < 2)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 2);
         write_ptr_ += 2;
-        return true;
     }
-    public bool Write(int value)
+    public void Write(int value)
     {
         if (Space < 4)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 4);
         write_ptr_ += 4;
-        return true;
     }
-    public bool Write(long value)
+    public void Write(long value)
     {
         if (Space < 8)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 8);
         write_ptr_ += 8;
-        return true;
     }
-    public bool Write(sbyte value)
+    public void Write(sbyte value)
     {
         if (Space < 1)
         {
-            return false;
+            return;
         }
         buffer_[write_ptr_++] = (byte)value;
-        return true;
     }
-    public bool Write(ushort value)
+    public void Write(ushort value)
     {
         if (Space < 2)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 2);
         write_ptr_ += 2;
-        return true;
     }
-    public bool Write(uint value)
+    public void Write(uint value)
     {
         if (Space < 4)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 4);
         write_ptr_ += 4;
-        return true;
     }
-    public bool Write(ulong value)
+    public void Write(ulong value)
     {
         if (Space < 8)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 8);
         write_ptr_ += 8;
-        return true;
     }
-    public bool Write(float value)
+    public void Write(float value)
     {
         if (Space < 4)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 4);
         write_ptr_ += 4;
-        return true;
     }
-    public bool Write(double value)
+    public void Write(double value)
     {
         if (Space < 8)
         {
-            return false;
+            return;
         }
         byte[] t_bytes = System.BitConverter.GetBytes(value);
         System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, 8);
         write_ptr_ += 8;
-        return true;
     }
-    public bool Write(string value)
+    public void Write(string value)
     {
         byte[] t_bytes = System.Text.Encoding.UTF8.GetBytes(value);
 
         if (Space < t_bytes.Length + 2)
         {
-            return false;
+            return;
         }
-        bool check = Write((ushort)t_bytes.Length);
-        if (!check)
-        {
-            return check;
-        }
+        WriteSize(t_bytes.Length);
         if (t_bytes.Length > 0)
         {
             System.Array.Copy(t_bytes, 0, buffer_, write_ptr_, t_bytes.Length);
             write_ptr_ += t_bytes.Length;
         }
-        return true;
+    }
+    public void WriteSize(int s)
+    {
+        byte[] b = System.BitConverter.GetBytes(s);
+        int n = 0;
+        if (s <= 0X3F)
+            n = 0;
+        else if (s <= 0X3FFF)
+            n = 1;
+        else if (s <= 0X3FFFFF)
+            n = 2;
+        else if (s <= 0X3FFFFFFF)
+            n = 3;
+        b[n] |= (byte)(n << 6);
+        for (int i = n; i >= 0; i--)
+            Write(b[i]);
     }
     ///
+    public bool Read(ref byte[] value)
+    {
+        if (Length < value.Length)
+        {
+            return false;
+        }
+        System.Array.Copy(buffer_, read_ptr_, value, 0, value.Length);
+        read_ptr_ += value.Length;
+        return true;
+    }
 
-    public bool Read(out byte value)
+    public bool Read(ref byte value)
     {
         if (Length < 1)
         {
@@ -302,7 +319,7 @@ public class Bufferd : IWriter, IReader
         value = buffer_[read_ptr_++];
         return true;
     }
-    public bool Read(out short value)
+    public bool Read(ref short value)
     {
         if (Length < 2)
         {
@@ -313,7 +330,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 2;
         return true;
     }
-    public bool Read(out int value)
+    public bool Read(ref int value)
     {
         if (Length < 4)
         {
@@ -324,7 +341,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 4;
         return true;
     }
-    public bool Read(out long value)
+    public bool Read(ref long value)
     {
         if (Length < 8)
         {
@@ -335,7 +352,8 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 8;
         return true;
     }
-    public bool Read(out sbyte value)
+
+    public bool Read(ref sbyte value)
     {
         if (Length < 1)
         {
@@ -345,7 +363,7 @@ public class Bufferd : IWriter, IReader
         value = (sbyte)buffer_[read_ptr_++];
         return true;
     }
-    public bool Read(out ushort value)
+    public bool Read(ref ushort value)
     {
         if (Length < 2)
         {
@@ -356,7 +374,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 2;
         return true;
     }
-    public bool Read(out uint value)
+    public bool Read(ref uint value)
     {
         if (Length < 4)
         {
@@ -367,7 +385,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 4;
         return true;
     }
-    public bool Read(out ulong value)
+    public bool Read(ref ulong value)
     {
         if (Length < 8)
         {
@@ -378,7 +396,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 8;
         return true;
     }
-    public bool Read(out double value)
+    public bool Read(ref double value)
     {
         if (Length < 8)
         {
@@ -389,7 +407,7 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 8;
         return true;
     }
-    public bool Read(out float value)
+    public bool Read(ref float value)
     {
         if (Length < 8)
         {
@@ -400,15 +418,15 @@ public class Bufferd : IWriter, IReader
         read_ptr_ += 4;
         return true;
     }
-    public bool Read(out string value)
+    public bool Read(ref string value)
     {
         if (Length < 2)
         {
             value = "";
             return false;
         }
-        ushort len = 0;
-        bool check = Read(out len);
+        int len = 0;
+        bool check = ReadSize(ref len);
         if (!check)
         {
             value = "";
@@ -416,6 +434,23 @@ public class Bufferd : IWriter, IReader
         }
         value = System.Text.Encoding.UTF8.GetString(buffer_, read_ptr_, (int)len);
         read_ptr_ += (int)len;
+        return true;
+    }
+
+    public bool ReadSize(ref int s)
+    {
+        s = 0;
+        byte b = 0;
+        if (!Read(ref b))
+            return false;
+        int n = (int)((b & 0XC0) >> 6);
+        s = (int)(b & 0X3F);
+        for (int i = 0; i < n; i++)
+        {
+            if (!Read(ref b))
+                return false;
+            s = (s << 8) | b;
+        }
         return true;
     }
 }

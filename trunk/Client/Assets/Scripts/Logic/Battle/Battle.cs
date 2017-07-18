@@ -27,16 +27,16 @@ public class Battle {
 
     static public BattleState _CurrentState = BattleState.BS_Max;
     static public BattleResult _Result = BattleResult.BR_None;
-    static public protocol.COM_BattleReport _BattleReport;
+    static public COM_BattleReport _BattleReport;
 
     static bool _IsStagePointInitSuc;
     static public bool _OperationFinish;
     static public bool _ReportIsPlaying;    //仅代表每一个战报单元的状态
 
-    static public ulong _SelectedHandCardInstID;
-    static public List<protocol.COM_EntityInstance> _HandCards = new List<protocol.COM_EntityInstance>();
+    static public long _SelectedHandCardInstID;
+    static public List<COM_Unit> _HandCards = new List<COM_Unit>();
 
-    static public List<protocol.COM_BattlePosition> _OperatList = new List<protocol.COM_BattlePosition>();
+    static public List<COM_BattlePosition> _OperatList = new List<COM_BattlePosition>();
 
     static public void Update()
     {
@@ -147,15 +147,15 @@ public class Battle {
         if (_BattleReport == null)
             return;
 
-        if (_BattleReport.BattleUnit.Count > 0)
+        if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
         {
             DisplayData display;
-            for(int i=0; i < _BattleReport.BattleUnit.Count; ++i)
+            for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
-                display = DisplayData.GetData(_BattleReport.BattleUnit[i].EntityId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.BattleUnit[i].PositionType, _BattleReport.BattleUnit[i].InstanceId);
+                display = DisplayData.GetData(_BattleReport.UnitList[i].UnitId);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId);
             }
-            _BattleReport.BattleUnit.Clear();
+            _BattleReport.UnitList = null;
             return;
         }
 
@@ -163,28 +163,28 @@ public class Battle {
             return;
 
         // cast skill
-        Actor actor = GetActor(_BattleReport.BattleAction[0].InstanceId);
+        Actor actor = GetActor(_BattleReport.ActionList[0].InstId);
         List<Actor> targets = new List<Actor>();
         Actor target;
-        for(int i=0; i < _BattleReport.BattleAction[0].BattleTarget.Count; ++i)
+        for (int i = 0; i < _BattleReport.ActionList[0].TargetList.Length; ++i)
         {
-            target = GetActor(_BattleReport.BattleAction[0].BattleTarget[i].InstanceId);
+            target = GetActor(_BattleReport.ActionList[0].TargetList[i].InstId);
             targets.Add(target);
         }
-        Skill skill = new Skill(_BattleReport.BattleAction[0].SkillId, actor, targets.ToArray());
+        Skill skill = new Skill(_BattleReport.ActionList[0].SkillId, actor, targets.ToArray());
         skill.Cast();
 
-        _BattleReport.BattleAction.RemoveAt(0);
+       System.Array.Copy( _BattleReport.ActionList,1, _BattleReport.ActionList, 0, _BattleReport.ActionList.Length - 1);
 
         _ReportIsPlaying = true;
 
         //if final report play to end;
-        if(_BattleReport.BattleAction.Count == 0)
+        if (_BattleReport.ActionList.Length == 0)
             Judgement();
     }
 
     //场上添加一个角色
-    static void AddActor(GameObject go, int pos, ulong instid)
+    static void AddActor(GameObject go, int pos, long instid)
     {
         Actor actor = GetActor(instid);
         if (actor != null)
@@ -214,7 +214,7 @@ public class Battle {
     }
 
     //场上找到一个角色
-    static public Actor GetActor(ulong instid)
+    static public Actor GetActor(long instid)
     {
         if (GamePlayer.IsMy(instid))
         {
@@ -244,7 +244,7 @@ public class Battle {
 
     static public void BattleSetup()
     {
-        NetWoking.S.BattleSetup(Battle._OperatList);
+        NetWoking.S.SetupBattle(Battle._OperatList.ToArray());
         Battle._OperatList.Clear();
         _CurrentState = BattleState.BS_Play;
     }
@@ -282,9 +282,9 @@ public class Battle {
         bool contains = false;
         for(int i=0; i < _OperatList.Count; ++i)
         {
-            if (_OperatList [i].InstanceId == _SelectedHandCardInstID)
+            if (_OperatList [i].InstId == _SelectedHandCardInstID)
             {
-                _OperatList [i].PosotionId = (sbyte)pos;
+                _OperatList [i].Position = pos;
                 contains = true;
                 break;
             }
@@ -292,12 +292,12 @@ public class Battle {
 
         if(!contains)
         {
-            protocol.COM_BattlePosition bp = new protocol.COM_BattlePosition();
-            bp.InstanceId = _SelectedHandCardInstID;
-            bp.PosotionId = (sbyte)pos;
+            COM_BattlePosition bp = new COM_BattlePosition();
+            bp.InstId = _SelectedHandCardInstID;
+            bp.Position = pos;
             _OperatList.Add(bp);
 
-            protocol.COM_EntityInstance entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
+            COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
             int displayId = 1;
 
             DisplayData displayData = DisplayData.GetData(displayId);

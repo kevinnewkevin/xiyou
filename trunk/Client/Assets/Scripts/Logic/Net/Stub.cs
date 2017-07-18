@@ -1,12 +1,11 @@
-public class Stub : protocol.COM_ClientToServer.Stub
+public class Stub : COM_ClientToServerStub
 {
-    protected override io.IWriter PackageBegin()
+    public override IWriter MethodBegin()
     {
         return NetWoking.OutgoingBuffer;
     }
-    protected override bool PackageEnd()
+    public override void MethodEnd()
     {
         NetWoking.DoWrite();
-        return true;
     }
 }

@@ -6,7 +6,7 @@ public class Actor {
     //场上角色的Obj
     public GameObject _ActorObj;
 
-    ulong _InstID;
+    long _InstID;
 
     //Animator _Animator;
     Animation _Animation;
@@ -17,7 +17,7 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, ulong instid)
+    public Actor(GameObject go, Vector3 pos, long instid)
     {
         if (go == null)
         {
@@ -147,7 +147,7 @@ public class Actor {
 
     }
 
-    public ulong InstID
+    public long InstID
     {
         get{ return _InstID; }
     }

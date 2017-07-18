@@ -4,8 +4,8 @@ public class NetWoking
     static Stub stub_ = new Stub();
     static Proxy proxy_ = new Proxy();
     static System.Net.Sockets.Socket socket_ = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
-    static io.Bufferd incoming_buffer_ = new io.Bufferd(65536);
-    static io.Bufferd outgoing_buffer_ = new io.Bufferd(65536);
+    static Bufferd incoming_buffer_ = new Bufferd(65536);
+    static Bufferd outgoing_buffer_ = new Bufferd(65536);
 
     public static Stub S
     {
@@ -36,7 +36,7 @@ public class NetWoking
     }
 
 
-    public static io.Bufferd OutgoingBuffer{
+    public static Bufferd OutgoingBuffer{
         get{
             return outgoing_buffer_;
         }
@@ -82,7 +82,7 @@ public class NetWoking
     {
         if (incoming_buffer_.Length >= 2)
         {
-            protocol.COM_ServerToClient.Dispatch.Execute(incoming_buffer_, proxy_);
+            COM_ServerToClientDispatcher.Execute(incoming_buffer_, proxy_);
             incoming_buffer_.Crunch();
         }
     }
