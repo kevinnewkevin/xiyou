@@ -8,6 +8,8 @@ import (
 	"fmt"
 )
 
+
+
 type App struct {
 	l net.Listener
 }
@@ -39,7 +41,7 @@ func (this *App) Run() {
 			}
 			fmt.Println("Has one connect ")
 			peer := socket.NewPeer(conn)
-			client := handle.NewClient(peer)
+			client := game.NewClient(peer)
 			//
 			go client.Update()
 

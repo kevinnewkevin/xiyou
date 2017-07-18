@@ -40,7 +40,7 @@ func(this* CSV) get(row, column int) string{
 	return this.data[row][column]
 }
 
-func (this*CSV) Length(){
+func (this*CSV) Length() int {
 	return len(this.data)
 }
 
