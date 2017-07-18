@@ -1,26 +1,27 @@
 package game
 
 import (
-	"logic/application"
 	"sync/atomic"
 	"logic/prpc"
 )
 
-var genInstId = 1
+var genInstId int64 = 1
 
 type GameUnit struct {
+	UnitId	    int32
 	InstId      int64
-	InstName	string
+	InstName 	string
 	IProperties []int32
 	CProperties []float32
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
-	t := application.GetUnitRecordById(id)
+	t := GetUnitRecordById(id)
 	if t == nil {
 		return nil
 	}
 	u := GameUnit{}
+	u.UnitId = t.Id
 	u.InstId = atomic.AddInt64(&genInstId, 1)
 	copy(u.IProperties, t.IProp)
 	copy(u.CProperties, t.CProp)
@@ -29,8 +30,9 @@ func CreateUnitFromTable(id int32) *GameUnit {
 
 func(this* GameUnit)GetUnitCOM()prpc.COM_Unit{
 	u := prpc.COM_Unit{}
+	u.UnitId = this.UnitId
 	u.InstId = this.InstId
 	copy(u.IProperties, this.IProperties)
 	copy(u.CProperties, this.CProperties)
-	return &u
+	return u
 }

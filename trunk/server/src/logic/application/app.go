@@ -4,8 +4,8 @@ import (
 	"net"
 	"suzuki/logs"
 	"logic/socket"
-	"logic/handle"
 	"fmt"
+	"logic/game"
 )
 
 
@@ -21,8 +21,13 @@ func (this *App) Run() {
 		conn       net.Conn
 		endRunning = make(chan bool, 1)
 	)
-
 	logs.Init()
+
+	err = game.LoadUnitTable("D:/work/xiyou/config/tables/entity.csv")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {
 		fmt.Println(err.Error())

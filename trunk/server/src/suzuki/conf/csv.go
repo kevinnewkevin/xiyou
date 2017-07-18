@@ -8,33 +8,33 @@ import (
 
 type CSV struct{
 	sync.RWMutex
-	names map[string]int
 	data  [][]string
+	names map[string]int
 	ErrorColum  int
 	ErrorLine 	int
 }
 
 func(this* CSV) set(row, column int, value string){
-	if len(this.data) >= row{
+	if len(this.data) <= row{
 		panic("CSV error row index overflow")
 	}
 	if this.data[row] == nil{
 		panic("CSV error row is nil")
 	}
-	if len(this.data[row]) >= column{
+	if len(this.data[row]) <= column{
 		panic("CSV error column index overflow")
 	}
 	this.data[row][column] = value
 }
 
 func(this* CSV) get(row, column int) string{
-	if len(this.data) >= row{
+	if len(this.data) <= row{
 		panic("CSV error row index overflow")
 	}
 	if this.data[row] == nil{
 		panic("CSV error row is nil")
 	}
-	if len(this.data[row]) >= column{
+	if len(this.data[row]) <= column{
 		panic("CSV error column index overflow")
 	}
 	return this.data[row][column]
@@ -68,30 +68,33 @@ func (this *CSV) SetStrings(row int, column string, values []string) {
 }
 
 func (this *CSV) GetBool(row int, column string) bool {
-	return this.TryGetBool(row, this.names[column], false)
+	return this.TryGetBool(row, column, false)
 }
 func (this *CSV) GetInt(row int, column string) int {
-	return this.TryGetInt(row, this.names[column], 0)
+	return this.TryGetInt(row, column, 0)
+}
+func (this *CSV) GetInt32(row int, column string) int32 {
+	return int32(this.TryGetInt(row, column, 0))
 }
 
 func (this *CSV) GetInt64(row int, column string) int64 {
-	return this.TryGetInt64(row, this.names[column], 0)
+	return this.TryGetInt64(row, column, 0)
 }
 func (this *CSV) GetFloat32(row int, column string) float32 {
-	return this.TryGetFloat32(row, this.names[column], 0)
+	return this.TryGetFloat32(row, column, 0)
 }
 func (this *CSV) GetFloat64(row int, column string) float64 {
-	return this.TryGetFloat64(row, this.names[column], 0)
+	return this.TryGetFloat64(row, column, 0)
 }
 func (this *CSV) GetString(row int, column string) string {
-	return this.TryGetString(row, this.names[column], "")
+	return this.TryGetString(row, column, "")
 }
 func (this *CSV) GetStrings(row int, column string) []string {
-	return this.TryGetStrings(row, this.names[column], []string{})
+	return this.TryGetStrings(row, column, []string{})
 }
 
 func (this *CSV) TryGetBool(row int, column string, defaultValue bool) bool {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
@@ -102,7 +105,7 @@ func (this *CSV) TryGetBool(row int, column string, defaultValue bool) bool {
 	return r
 }
 func (this *CSV) TryGetInt(row int, column string, defaultValue int) int {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
@@ -114,7 +117,7 @@ func (this *CSV) TryGetInt(row int, column string, defaultValue int) int {
 }
 
 func (this *CSV) TryGetInt64(row int, column string, defaultValue int64) int64 {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
@@ -125,7 +128,7 @@ func (this *CSV) TryGetInt64(row int, column string, defaultValue int64) int64 {
 	return r
 }
 func (this *CSV) TryGetFloat32(row int, column string, defaultValue float32) float32 {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
@@ -136,7 +139,7 @@ func (this *CSV) TryGetFloat32(row int, column string, defaultValue float32) flo
 	return float32(r)
 }
 func (this *CSV) TryGetFloat64(row int, column string, defaultValue float64) float64 {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
@@ -147,14 +150,14 @@ func (this *CSV) TryGetFloat64(row int, column string, defaultValue float64) flo
 	return float64(r)
 }
 func (this *CSV) TryGetString(row int, column string, defaultValue string) string {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValue
 	}
 	return s
 }
 func (this *CSV) TryGetStrings(row int, column string, defaultValues []string) []string {
-	s := this.get(row, column)
+	s := this.get(row, this.names[column])
 	if s == "" {
 		return defaultValues
 	}
@@ -176,20 +179,24 @@ func (this *CSV) LoadString(s string) error {
 }
 
 func NewCSVFile(fileName string) (*CSV, error) {
-	r := &Configer{
+	r := &CSV{
 		sync.RWMutex{},
-		[]string{},
-		make(map[string]map[string]string),
-	}
+		[][]string{},
+		map[string]int{},
+		0,
+		0,
+ 	}
 	e := r.LoadFile(fileName)
 	return r, e
 }
 
 func NewCSVString(s string) (*CSV, error) {
-	r := &Configer{
+	r := &CSV{
 		sync.RWMutex{},
-		[]string{},
-		make(map[string]map[string]string),
+		[][]string{},
+		map[string]int{},
+		0,
+		0,
 	}
 	e := r.LoadString(s)
 	return r, e

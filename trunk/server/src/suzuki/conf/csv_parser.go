@@ -38,7 +38,7 @@ func(this *CSV)parseHeader(s string) error{
 	ss := strings.Split(s,",")
 	for i, v := range ss{
 		v = strings.Trim(v,"\r\n\t\" ")
-		if ok , _ := this.names[v]; ok {
+		if _ , ok := this.names[v]; ok {
 			this.ErrorColum = strings.Index(s,v)
 			return  errors.New("CSV : same column name")
 		}
@@ -53,18 +53,19 @@ func(this* CSV)parseSource(s string)error{
 	q := 0
 	ii := 0
 	for i, v := range s {
-		if v == '\'' || v == "\""{
+		if v == '\'' || v == rune("\""[0]){
 			q++;
 		}else if v == ','{
 			if q&1 == 0{
-				r = append(r,s[ii:i-1])
-				ii = i
+				r = append(r,s[ii:i])
+				ii = i + 1
 			}
 		}
 	}
-
+	r = append(r, s[ii:])
 	if len(r)!=len(this.names){
 		return errors.New("CSV : name record length not match")
 	}
+	this.data = append(this.data,r)
 	return  nil
 }
