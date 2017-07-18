@@ -6,7 +6,7 @@ public class protocol_COM_BattlePositionWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(protocol.COM_BattlePosition), typeof(System.Object));
+		L.BeginClass(typeof(COM_BattlePosition), typeof(System.Object));
 		L.RegFunction("Package", Package);
 		L.RegFunction("Unpackage", Unpackage);
 		L.RegFunction("New", _Createprotocol_COM_BattlePosition);
@@ -25,7 +25,7 @@ public class protocol_COM_BattlePositionWrap
 
 			if (count == 0)
 			{
-				protocol.COM_BattlePosition obj = new protocol.COM_BattlePosition();
+				COM_BattlePosition obj = new COM_BattlePosition();
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -46,10 +46,10 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)ToLua.CheckObject(L, 1, typeof(protocol.COM_BattlePosition));
-			io.IWriter arg0 = (io.IWriter)ToLua.CheckObject(L, 2, typeof(io.IWriter));
-			bool o = obj.Package(arg0);
-			LuaDLL.lua_pushboolean(L, o);
+			COM_BattlePosition obj = (COM_BattlePosition)ToLua.CheckObject(L, 1, typeof(COM_BattlePosition));
+		    IWriter arg0 = (IWriter)ToLua.CheckObject(L, 2, typeof(IWriter));
+			obj.Serialize(arg0);
+			LuaDLL.lua_pushboolean(L, true);
 			return 1;
 		}
 		catch(Exception e)
@@ -64,9 +64,9 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)ToLua.CheckObject(L, 1, typeof(protocol.COM_BattlePosition));
-			io.IReader arg0 = (io.IReader)ToLua.CheckObject(L, 2, typeof(io.IReader));
-			bool o = obj.Unpackage(arg0);
+			COM_BattlePosition obj = (COM_BattlePosition)ToLua.CheckObject(L, 1, typeof(COM_BattlePosition));
+			IReader arg0 = (IReader)ToLua.CheckObject(L, 2, typeof(IReader));
+			bool o = obj.Deserialize(arg0);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
@@ -84,9 +84,9 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)o;
-			ulong ret = obj.InstanceId;
-			LuaDLL.tolua_pushuint64(L, ret);
+			COM_BattlePosition obj = (COM_BattlePosition)o;
+			long ret = obj.InstId;
+			LuaDLL.tolua_pushint64(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -103,9 +103,8 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)o;
-			sbyte ret = obj.PosotionId;
-			LuaDLL.lua_pushnumber(L, ret);
+			COM_BattlePosition obj = (COM_BattlePosition)o;
+            LuaDLL.lua_pushnumber(L, obj.Position);
 			return 1;
 		}
 		catch(Exception e)
@@ -122,9 +121,9 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)o;
-			ulong arg0 = LuaDLL.tolua_checkuint64(L, 2);
-			obj.InstanceId = arg0;
+			COM_BattlePosition obj = (COM_BattlePosition)o;
+			long arg0 = LuaDLL.tolua_checkint64(L, 2);
+			obj.InstId = arg0;
 			return 0;
 		}
 		catch(Exception e)
@@ -141,9 +140,9 @@ public class protocol_COM_BattlePositionWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			protocol.COM_BattlePosition obj = (protocol.COM_BattlePosition)o;
+			COM_BattlePosition obj = (COM_BattlePosition)o;
 			sbyte arg0 = (sbyte)LuaDLL.luaL_checknumber(L, 2);
-			obj.PosotionId = arg0;
+			obj.Position = arg0;
 			return 0;
 		}
 		catch(Exception e)
