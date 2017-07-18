@@ -1,0 +1,30 @@
+#import errorno.rpc
+#import proptype.rpc
+
+enum EquipmentSlot{
+	ES_MIN,
+	ES_HEAD,		//头部
+	ES_BODY,		//身体
+	ES_FEET,		//脚
+	ES_ORNAMENT,	//饰品
+	ES_WEAPON,		//武器
+	ES_MAX,
+};
+
+//战斗阵营
+enum CampType{
+	CT_RED,
+	CT_BLUE,
+	CT_MAX,
+};
+
+//战斗动作
+enum BattleActionType{
+	BAT_MIN,         
+	BAT_CRIT,		 //暴击
+	BAT_SUCK,        //吸血
+	BAT_RECOVERY,    //恢复
+	BAT_ADD_STATE,   //添加状态
+	BAT_DEL_STATE,   //减少状态
+	BAT_MAX,         
+};

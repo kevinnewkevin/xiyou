@@ -1,0 +1,8 @@
+
+enum ErrorNo{
+	EN_MIN,
+	EN_CREATE_PLAYER_SAME_NAME,				//创建角色名字重复
+	EN_CREATE_PLAYER_ILLEGAL_NAME,			//创建角色名字非法
+	EN_CREATE_PLAYER_SECOND_TIME,			//不能创建两个角色
+	EN_MAX,
+};

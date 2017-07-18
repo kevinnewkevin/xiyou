@@ -1,0 +1,79 @@
+
+#import enumer.rpc
+
+//登录信息
+struct COM_LoginInfo{
+	string Username;
+	string Password;
+};
+
+//账户信息	登录成功返回
+struct COM_AccountInfo{
+	string SessionCode;
+};
+
+//道具实例
+struct COM_ItemInst{
+	int32	ItemId;
+	int64	InstId;
+};
+
+//卡片实例
+struct COM_Unit{
+	int32			UnitId;
+	int64			InstId;
+	int32[] 		IProperties;
+	float[]			CProperties;
+	COM_ItemInst[]	Equipments;
+};
+
+//角色实例
+struct COM_Player{
+	int64 			InstId;
+	string			Name;
+	COM_Unit		Unit;
+	COM_Unit[]		Employees;
+};
+
+//战斗单元
+struct COM_BattleUnit{
+	int32 		UnitId;
+	int64 		InstId;
+	int32 		Position;
+	int32 		HP;
+	CampType 	Camp;
+	string 		Name;
+};
+
+//战斗位置
+struct COM_BattlePosition{
+	int64 InstId;
+	int32 Position;
+};
+
+//战斗操作对象
+struct COM_BattleActionTarget{
+	int64 				InstId;				//target
+	BattleActionType	ActionType;
+	int32				ActionParam;
+	int32				ActionParamExt;
+};
+
+//战
+struct COM_BattleAction{
+	int64 			 			InstId;
+	int32 			 			SkillId;
+	COM_BattleActionTarget[] 	TargetList;
+};
+
+//战报
+struct COM_BattleReport{
+	COM_BattleUnit[] 	UnitList;		//战斗元素列表
+	COM_BattleAction[]	ActionList;		//战斗操作列表
+};
+
+//战斗结果
+struct COM_BattleResult{
+	int32 Money;
+};
+

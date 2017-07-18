@@ -1,0 +1,33 @@
+
+enum IPropertyType{
+	IPT_MIN,
+	IPT_PHYLE, 		//种族
+	IPT_TITLE,		//称号
+	IPT_EXPERIENCE,	//经验
+	IPT_LEVEL,		//等级
+	IPT_COPPER,		//铜钱
+	IPT_SILVER,		//银两
+	IPT_GOLD,		//金币
+	IPT_MAX,
+};
+
+enum CPropertyType{
+	CPT_MIN,
+	CPT_HP,				//生命
+	CPT_ATK,			//攻击
+	CPT_DEF,			//防御
+	CPT_MAGIC_ATK,		//魔法攻击
+	CPT_MAGIC_DEF,		//魔法防御
+	CPT_AGILE,			//敏捷
+	CPT_KILL,			//必杀概率
+	CPT_CRIT,			//暴击伤害
+	CPT_COUNTER_ATTACK,	//反击概率
+	CPT_SPUTTERING,		//溅射伤害
+	CPT_DOUBLE_HIT,		//连击
+	CPT_RECOVERY,		//回复生命
+	CPT_REFLEX,			//荆棘反射
+	CPT_SUCK_BLOOD,		//吸血
+	CPT_INCANTER,		//咒术
+	CPT_RESISTANCE,		//抗性
+	CPT_MAX,
+};
