@@ -153,7 +153,7 @@ public static class CustomSettings
         _GT(typeof(UnityEngine.UI.Button.ButtonClickedEvent)),
         _GT(typeof(SceneLoader)),
         _GT(typeof(Proxy4Lua)),
-        _GT(typeof(protocol.COM_BattlePosition)),
+        _GT(typeof(COM_BattlePosition)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
