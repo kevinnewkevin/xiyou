@@ -1,6 +1,9 @@
 package game
 
-import "logic/prpc"
+import (
+	"logic/prpc"
+	"fmt"
+)
 
 type GamePlayer struct{
 	MyUnit 		*GameUnit
@@ -15,6 +18,9 @@ func CreatePlayer(tid int32, name string) *GamePlayer{
 	//来两个默认的小兵
 	p.UnitList = append(p.UnitList,CreateUnitFromTable(2))
 	p.UnitList = append(p.UnitList,CreateUnitFromTable(3))
+	fmt.Println("CreatePlayer")
+	fmt.Println("CreatePlayer", p.MyUnit)
+
 	return  &p
 }
 

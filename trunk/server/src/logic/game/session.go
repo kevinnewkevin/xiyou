@@ -14,11 +14,12 @@ type Session struct {
 }
 
 func (this *Session) Login(info prpc.COM_LoginInfo) error {
-	fmt.Println(info)
+	fmt.Println("Login", info)
 	return nil
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
+	fmt.Println("CreatePlayer11", tempId,playerName )
 	this.player = CreatePlayer(tempId,playerName)
 
 	r := this.player.GetPlayerCOM()

@@ -8,8 +8,6 @@ import (
 	"logic/game"
 )
 
-
-
 type App struct {
 	l net.Listener
 }
@@ -23,7 +21,7 @@ func (this *App) Run() {
 	)
 	logs.Init()
 
-	err = game.LoadUnitTable("D:/work/xiyou/config/tables/entity.csv")
+	err = game.LoadUnitTable("F:/xiyou/config/tables/entity.csv")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -35,10 +33,6 @@ func (this *App) Run() {
 	}
 	go func() {
 		for {
-
-
-
-
 			conn, err = this.l.Accept()
 			if err != nil {
 				fmt.Println(err.Error())
@@ -49,12 +43,12 @@ func (this *App) Run() {
 			client := game.NewClient(peer)
 			//
 			go client.Update()
-
-
 		}
 	}()
-	logs.Fini()
+
 	<-endRunning
+
+	logs.Fini()
 }
 
 func NewApp() *App {
