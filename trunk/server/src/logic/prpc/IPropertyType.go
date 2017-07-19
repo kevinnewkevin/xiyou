@@ -9,8 +9,7 @@ const(
   IPT_COPPER = 5
   IPT_SILVER = 6
   IPT_GOLD = 7
-  IPT_MAXHP = 8
-  IPT_MAX = 9
+  IPT_MAX = 8
 )
 const( 
   K_IPT_MIN = "IPT_MIN"
@@ -21,7 +20,6 @@ const(
   K_IPT_COPPER = "IPT_COPPER"
   K_IPT_SILVER = "IPT_SILVER"
   K_IPT_GOLD = "IPT_GOLD"
-  K_IPT_MAXHP = "IPT_MAXHP"
   K_IPT_MAX = "IPT_MAX"
 )
 func ToName_IPropertyType( id int )string{
@@ -42,8 +40,6 @@ func ToName_IPropertyType( id int )string{
       return "IPT_SILVER"
     case IPT_GOLD:
       return "IPT_GOLD"
-    case IPT_MAXHP:
-      return "IPT_MAXHP"
     case IPT_MAX:
       return "IPT_MAX"
     default:
@@ -68,8 +64,6 @@ func ToId_IPropertyType( name string ) int {
       return IPT_SILVER
     case "IPT_GOLD":
       return IPT_GOLD
-    case "IPT_MAXHP":
-      return IPT_MAXHP
     case "IPT_MAX":
       return IPT_MAX
     default:
