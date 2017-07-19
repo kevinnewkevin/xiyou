@@ -21,7 +21,7 @@ func (this *App) Run() {
 	)
 	logs.Init()
 
-	err = game.LoadUnitTable("F:/xiyou/config/tables/entity.csv")
+	err = game.LoadUnitTable("D:/work/xiyou/config/tables/entity.csv")
 	if err != nil {
 		fmt.Println(err.Error())
 		return

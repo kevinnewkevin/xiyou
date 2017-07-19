@@ -34,7 +34,6 @@ func(this *Peer) HandleSocket() error {
 		}
 		this.IncomingBuffer.Write(bs[:c])
 		this.TotalIncoming += c
-
 	}
 
 	{

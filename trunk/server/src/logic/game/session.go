@@ -19,8 +19,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
-	fmt.Println("CreatePlayer11", tempId,playerName )
 	this.player = CreatePlayer(tempId,playerName)
+	this.player.SetSession(this)
 
 	r := this.player.GetPlayerCOM()
 
@@ -29,6 +29,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 	return nil
 } // 1
 func (this *Session) SetBattleUnit(instId int64) error {
+	this.SetBattleUnit(instId)
 	return nil
 } // 2
 func (this *Session) JoinBattle() error {
@@ -41,18 +42,30 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
+
+
 	for {
 		err := this.peer.HandleSocket()
 		if err != nil {
 			fmt.Println(err)
+			goto endLoop
 		}
 		if this.peer.IncomingBuffer.Len() >= 2 {
 			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
 			if err != nil {
 				fmt.Println(err)
+				goto endLoop
 			}
 		}
 	}
+	endLoop:
+
+	//do clean
+	this.player.SetSession(nil)
+	this.player = nil
+	this.peer = nil
+
+	fmt.Println("Socket close ")
 }
 
 func NewClient(peer *socket.Peer) *Session {

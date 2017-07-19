@@ -5,6 +5,8 @@ const(
 	kUsed = 1 // 使用状态
 )
 
-type Battle struct{
-
+type BattleRoom struct{
+	Status 		int //战斗房间状态
+	UnitList []*GameUnit //战斗单元列表
 }
+
