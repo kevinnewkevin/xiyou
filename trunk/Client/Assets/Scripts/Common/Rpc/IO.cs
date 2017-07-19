@@ -409,7 +409,7 @@ public class Bufferd : IWriter, IReader
     }
     public bool Read(ref float value)
     {
-        if (Length < 8)
+        if (Length < 4)
         {
             value = 0.0F;
             return false;
