@@ -64,8 +64,8 @@ hbv51.xml|587|<component size="1920,1080">
   </displayList>
   <relation target="n2" sidePair="height"/>
 </component>hbv51e.xml|601|<component size="188,249" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
-  <controller name="icon" pages="0,,1," selected="1"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="icon" pages="1,,0," selected="0"/>
   <displayList>
     <image id="n1" name="n1" src="hbv5d" xy="0,0">
       <gearDisplay controller="icon" pages="0"/>
