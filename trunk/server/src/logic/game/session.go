@@ -26,23 +26,34 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r)
 
+	fmt.Println("CreatePlayer", &r)
+
 	return nil
 } // 1
 func (this *Session) SetBattleUnit(instId int64) error {
+	fmt.Println("SetBattleUnit", instId)
 	this.player.SetBattleUnit(instId)
+
+	r := this.player.GetBattleUnit(instId)
+
+	this.SetBattleUnitOK(r.InstId)
+
+	fmt.Println("SetBattleUnitOK")
+
 	return nil
 } // 2
 //dont care mutli thread
 var battlePlayerList = []*GamePlayer{}
 func (this *Session) JoinBattle() error {
-	fmt.Println("JoinBattle", battlePlayerList)
 	battlePlayerList = append(battlePlayerList, this.player)
 	if len(battlePlayerList) == 2{
 		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
 		CreateBattleRoom(battlePlayerList[0], battlePlayerList[1])
 
 		battlePlayerList = battlePlayerList[:0]
+		this.JoinBattleOk()
 	}
+	fmt.Println("JoinBattle", battlePlayerList)
 	return nil
 } // 3
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
