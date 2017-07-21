@@ -45,6 +45,7 @@ func CreateBattlePlayer(player *GamePlayer) *BattlePlayer {
 	p.CurPoint = 1
 
 	player.session.JoinBattleOk()
+	fmt.Println("JoinBattleOk")
 
 	return &p
 }
