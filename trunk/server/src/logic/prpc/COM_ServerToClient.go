@@ -29,9 +29,10 @@ type COM_ServerToClientProxy interface{
   ErrorMessage(id int ) error // 0
   LoginOK(info COM_AccountInfo ) error // 1
   CreatePlayerOK(player COM_Player ) error // 2
-  SetBattleUnitOK(instId int64 ) error // 3
-  BattleReport(report COM_BattleReport ) error // 4
-  BattleExit(result COM_BattleResult ) error // 5
+  JoinBattleOk() error // 3
+  SetBattleUnitOK(instId int64 ) error // 4
+  BattleReport(report COM_BattleReport ) error // 5
+  BattleExit(result COM_BattleResult ) error // 6
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -292,7 +293,7 @@ func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
+func(this* COM_ServerToClientStub)JoinBattleOk() error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -301,9 +302,20 @@ func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
   if err != nil{
     return err
   }
-  _3 := COM_ServerToClient_SetBattleUnitOK{}
-  _3.instId = instId;
-  err = _3.Serialize(buffer)
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(4))
+  if err != nil{
+    return err
+  }
+  _4 := COM_ServerToClient_SetBattleUnitOK{}
+  _4.instId = instId;
+  err = _4.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -314,13 +326,13 @@ func(this* COM_ServerToClientStub)BattleReport(report COM_BattleReport ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(4))
+  err := prpc.Write(buffer,uint16(5))
   if err != nil{
     return err
   }
-  _4 := COM_ServerToClient_BattleReport{}
-  _4.report = report;
-  err = _4.Serialize(buffer)
+  _5 := COM_ServerToClient_BattleReport{}
+  _5.report = report;
+  err = _5.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -331,13 +343,13 @@ func(this* COM_ServerToClientStub)BattleExit(result COM_BattleResult ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(5))
+  err := prpc.Write(buffer,uint16(6))
   if err != nil{
     return err
   }
-  _5 := COM_ServerToClient_BattleExit{}
-  _5.result = result;
-  err = _5.Serialize(buffer)
+  _6 := COM_ServerToClient_BattleExit{}
+  _6.result = result;
+  err = _6.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -385,6 +397,15 @@ func Bridging_COM_ServerToClient_CreatePlayerOK(buffer *bytes.Buffer, p COM_Serv
   }
   return p.CreatePlayerOK(_2.player)
 }
+func Bridging_COM_ServerToClient_JoinBattleOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.JoinBattleOk()
+}
 func Bridging_COM_ServerToClient_SetBattleUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -392,12 +413,12 @@ func Bridging_COM_ServerToClient_SetBattleUnitOK(buffer *bytes.Buffer, p COM_Ser
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _3 := COM_ServerToClient_SetBattleUnitOK{}
-  err := _3.Deserialize(buffer)
+  _4 := COM_ServerToClient_SetBattleUnitOK{}
+  err := _4.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.SetBattleUnitOK(_3.instId)
+  return p.SetBattleUnitOK(_4.instId)
 }
 func Bridging_COM_ServerToClient_BattleReport(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -406,12 +427,12 @@ func Bridging_COM_ServerToClient_BattleReport(buffer *bytes.Buffer, p COM_Server
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _4 := COM_ServerToClient_BattleReport{}
-  err := _4.Deserialize(buffer)
+  _5 := COM_ServerToClient_BattleReport{}
+  err := _5.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.BattleReport(_4.report)
+  return p.BattleReport(_5.report)
 }
 func Bridging_COM_ServerToClient_BattleExit(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -420,12 +441,12 @@ func Bridging_COM_ServerToClient_BattleExit(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _5 := COM_ServerToClient_BattleExit{}
-  err := _5.Deserialize(buffer)
+  _6 := COM_ServerToClient_BattleExit{}
+  err := _6.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.BattleExit(_5.result)
+  return p.BattleExit(_6.result)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -447,10 +468,12 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 2 :
       return Bridging_COM_ServerToClient_CreatePlayerOK(buffer,p);
     case 3 :
-      return Bridging_COM_ServerToClient_SetBattleUnitOK(buffer,p);
+      return Bridging_COM_ServerToClient_JoinBattleOk(buffer,p);
     case 4 :
-      return Bridging_COM_ServerToClient_BattleReport(buffer,p);
+      return Bridging_COM_ServerToClient_SetBattleUnitOK(buffer,p);
     case 5 :
+      return Bridging_COM_ServerToClient_BattleReport(buffer,p);
+    case 6 :
       return Bridging_COM_ServerToClient_BattleExit(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
