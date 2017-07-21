@@ -2,6 +2,8 @@ package game
 
 import (
 	"logic/prpc"
+	"fmt"
+	"errors"
 )
 
 type GamePlayer struct {
@@ -9,7 +11,15 @@ type GamePlayer struct {
 	MyUnit         *GameUnit   //自己的卡片
 	UnitList       []*GameUnit //拥有的卡片
 	BattleUnitList []int64     //默认出战卡片
+	BattleRoom     int64	   //所在房间编号
 }
+
+type Position struct{
+	InstId int64  //0
+	Position int32  //1
+}
+
+const kMaxSkillNum  = 2
 
 func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
@@ -56,6 +66,22 @@ func (this *GamePlayer) GetBattleUnit(instId int64) *GameUnit {
 	}
 	return nil
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//技能相關
+
+func (this *GamePlayer) StudySkill(UnitID int64, skillpos int, skillid int32) error {
+	if skillpos >= 2{
+		fmt.Println("技能位置錯誤")
+		return errors.New("技能位置錯誤")
+	}
+	unit := this.GetUnit(UnitID)
+	skill := InitSkillFromTable(skillid)
+
+	unit.Skill[skillpos] = skill
+
+	return nil
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //战斗相关
@@ -69,10 +95,40 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {
 	this.BattleUnitList = append(this.BattleUnitList, instId)
 }
 
-func (this *GamePlayer) JoinBattle() {
+
+func (this *GamePlayer) SetupBattle(pos []Position) {
 
 }
 
-func (this *GamePlayer) SetupBattle() {
+
+func (this *GamePlayer) UseSkill(attacker int64, defender int64, skillid int) {
+	attack := this.GetBattleUnit(attacker)		//攻擊卡牌
+	skill, ok := attack.Skill[skillid]
+
+	if !ok {
+		fmt.Println("這個卡牌沒有這個技能")
+	}
+
+	if !skill.Condition() {
+		fmt.Println("技能不能使用")
+	}
+
+	battleRoom, ok := BattleRoomList[this.BattleRoom]
+	if !ok {
+		fmt.Println("不在房間中")
+	}
+
+	if !battleRoom.CheckPlayerMove(this) {
+		fmt.Println("不是你行動的時候")
+	}
+
+	targetPlayer, ok := battleRoom.Target[this.MyUnit.InstId]
+	if !ok {
+		fmt.Println("目標卡牌的主人不在房間中")
+	}
+
+
+	skill.Action(attack, skill.StandbySkill(defender, targetPlayer.Player), battleRoom.Bout)
 
 }
+

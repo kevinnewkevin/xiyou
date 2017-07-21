@@ -21,9 +21,15 @@ func (this *App) Run() {
 	)
 	logs.Init()
 
-	err = game.LoadUnitTable("D:/work/xiyou/config/tables/entity.csv")
+	err = game.LoadUnitTable("F:/xiyou/config/tables/entity.csv")
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("LoadUnitTable", err.Error())
+		return
+	}
+
+	err = game.LoadSkillTable("F:/xiyou/config/tables/skill.csv")
+	if err != nil {
+		fmt.Println("LoadSkillTable", err.Error())
 		return
 	}
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
@@ -31,6 +37,7 @@ func (this *App) Run() {
 		fmt.Println(err.Error())
 		return
 	}
+
 	go func() {
 		for {
 			conn, err = this.l.Accept()

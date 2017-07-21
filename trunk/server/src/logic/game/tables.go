@@ -3,6 +3,7 @@ package game
 import (
 	"logic/prpc"
 	"suzuki/conf"
+	"strconv"
 )
 
 type (
@@ -13,10 +14,20 @@ type (
 		CProp  []float32
 		Skills []int32
 	}
+	SkillRecord struct {
+		SkillID int32
+		Crit int32
+		Damage int32
+		BuffList []int32
+		CoolDown int32
+		TargetNum int
+		TargetCamp int
+	}
 )
 
 var (
 	unitTable =  map[int32]*UnitRecord{}
+	skillTable = map[int32]*SkillRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -67,4 +78,33 @@ func LoadUnitTable(filename string) error {
 
 func GetUnitRecordById(id int32) *UnitRecord {
 	return unitTable[id]
+}
+
+
+func LoadSkillTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		s := SkillRecord{}
+		s.SkillID = int32(csv.GetInt(r, "SkilId"))
+		s.Crit = int32(csv.GetInt(r, "Crit"))
+		s.Damage = int32(csv.GetInt(r, "Damage"))
+		string1 := csv.GetStrings(r, "Bufflist")
+		for i := 0; i < len(string1); i++ {
+			buffid, _ := strconv.Atoi(string1[i])
+			s.BuffList = append(s.BuffList, int32(buffid))
+		}
+		s.CoolDown = int32(csv.GetInt(r, "CoolDown"))
+		s.TargetNum = csv.GetInt(r, "TargetNum")
+		s.TargetCamp = csv.GetInt(r, "TargetCamp")
+		skillTable[s.SkillID] = &s
+	}
+	return nil
+}
+
+func GetSkillRecordById(id int32) *SkillRecord {
+	return skillTable[id]
 }

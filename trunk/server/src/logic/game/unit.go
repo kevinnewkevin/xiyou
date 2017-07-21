@@ -3,6 +3,7 @@ package game
 import (
 	"sync/atomic"
 	"logic/prpc"
+	"fmt"
 )
 
 var genInstId int64 = 1
@@ -13,6 +14,7 @@ type GameUnit struct {
 	InstName 	string
 	IProperties []int32
 	CProperties []float32
+	Skill 		map[int]*Skill
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -25,7 +27,18 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.InstId = atomic.AddInt64(&genInstId, 1)
 	u.IProperties = append(u.IProperties, t.IProp...)
 	u.CProperties = append(u.CProperties, t.CProp...)
-	//fmt.Println("CreateUnitFromTable, I", t.IProp, "it", it1, it2)
+	u.Skill = map[int]*Skill{}
+	for i := 0; i <len(t.Skills); i++ {
+		if t.Skills[i] == 0{
+			continue
+		}
+		skill := InitSkillFromTable(t.Skills[i])
+		if skill == nil {
+			continue
+		}
+		u.Skill[i] = skill
+	}
+	fmt.Println(&u)
 	return &u
 }
 
