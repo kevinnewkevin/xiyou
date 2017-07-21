@@ -54,10 +54,10 @@ func(this* CSV)parseSource(s string)error{
 	ii := 0
 	for i, v := range s {
 		if v == '\'' || v == rune("\""[0]){
-			q++;
+			q++
 		}else if v == ','{
 			if q&1 == 0{
-				r = append(r,s[ii:i])
+				r = append(r,strings.Trim(s[ii:i],"\"\n\r\t"))
 				ii = i + 1
 			}
 		}
