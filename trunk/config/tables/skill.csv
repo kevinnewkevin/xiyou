@@ -1,3 +1,4 @@
-"SkillId","LuaSelectTarget","LuaAction"
-1,select_target,attack
-2,select_target2,attack2
+SkilId,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp
+1,10,150,"1,2,3,4",1,1,1
+2,5,300,,2,2,2
+3,6,1000,1,22,1,1
