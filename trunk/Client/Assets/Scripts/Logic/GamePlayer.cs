@@ -7,6 +7,8 @@ public class GamePlayer {
 
     static public string _Name;
 
+    static public bool _IsAuto;
+
     static public COM_Unit _Data;
 
     static public List<COM_Unit> _Cards = new List<COM_Unit>();
@@ -17,6 +19,7 @@ public class GamePlayer {
         _Name = player.Name;
         _Data = player.Unit;
         _Cards.AddRange(player.Employees);
+        UIManager.SetDirty("zhujiemian");
     }
 
     static public COM_Unit GetCardByInstID(long instid)

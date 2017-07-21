@@ -45,14 +45,14 @@ public class Battle {
             case BattleState.BS_Init:
                 if (LoadAssets() && PlaceActor())
                 {
-                    _CurrentState = BattleState.BS_Oper;
+                    CurrentState = BattleState.BS_Oper;
                 }
                 break;
             case BattleState.BS_Oper:
                 if (_OperationFinish)
                 {
                     _OperatList.Clear();
-                    _CurrentState = BattleState.BS_Play;
+                    CurrentState = BattleState.BS_Play;
                 }
                 break;
             case BattleState.BS_Play:
@@ -68,7 +68,7 @@ public class Battle {
     //初始化战斗
     static public void Init()
     {
-        _CurrentState = BattleState.BS_Init;
+        CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
         _HandCards.Clear();
 
@@ -188,7 +188,13 @@ public class Battle {
     {
         Actor actor = GetActor(instid);
         if (actor != null)
+        {
+            if(GamePlayer.IsMy(instid))
+                actor.MoveTo(_SelfPosInScene[pos].position, null);
+            else
+                actor.MoveTo(_OppoPosInScene[pos].position, null);
             return;
+        }
         
         if(GamePlayer.IsMy(instid))
             _SelfActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
@@ -246,15 +252,15 @@ public class Battle {
     {
         NetWoking.S.SetupBattle(Battle._OperatList.ToArray());
         Battle._OperatList.Clear();
-        _CurrentState = BattleState.BS_Play;
+        CurrentState = BattleState.BS_Play;
     }
 
     static public void Judgement()
     {
         if (_Result == BattleResult.BR_None)
-            _CurrentState = BattleState.BS_Oper;
+            CurrentState = BattleState.BS_Oper;
         else
-            _CurrentState = BattleState.BS_Result;
+            CurrentState = BattleState.BS_Result;
 
         _BattleReport = null;
     }
@@ -307,10 +313,21 @@ public class Battle {
         SwitchPoint(false);
     }
 
+    static public BattleState CurrentState
+    {
+        set
+        {
+            _CurrentState = value;
+            UIManager.SetDirty("BattlePanel");
+        }
+        get { return _CurrentState; }
+    }
+
+
     //销毁场景 角色 UI
     static public void Fini()
     {
-        _CurrentState = BattleState.BS_Max;
+        CurrentState = BattleState.BS_Max;
         _Result = BattleResult.BR_None;
         _ReportIsPlaying = false;
         UnLoadAssets();

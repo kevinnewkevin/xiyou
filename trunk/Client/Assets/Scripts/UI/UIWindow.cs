@@ -6,9 +6,10 @@ using LuaInterface;
 public class UIWindow {
 
     string _UiName;
-    GameObject _Ui;
     LuaState _Lua;
-    LuaFunction _Func;
+    LuaFunction _InitFunc;
+    LuaFunction _UpdateFunc;
+    LuaFunction _TickFunc;
 
     public UIWindow(string uiName)
     {
@@ -23,88 +24,53 @@ public class UIWindow {
     public void Init(string uiName)
     {
         _UiName = uiName;
-        _Ui = AssetLoader.LoadAsset(PathDefine.UI_ASSET_PATH + uiName);
-        if (_Ui == null)
-        {
-            Debug.LogWarning("No Asset has been loaded : " + _UiName);
-        }
-        else
-        {
-            _Ui.transform.SetParent(UIManager.UIRoot);
-            _Ui.transform.localPosition = Vector3.zero;
-        }
-        Debug.Log(" UI Name : " + uiName);
         _Lua = UIManager._Lua;
         _Lua.DoFile(_UiName + ".lua");
-    }
+        Debug.Log(" UI Name : " + uiName);
 
-    //初始数据赋值
-    public void Start()
-    {
-        if (_Ui == null)
-            return;
-
-        if (_Ui.activeSelf == false)
-            return;
-        
-        if (_Lua == null)
-            return;
-        
-        _Func = _Lua.GetFunction(_UiName + "_start");
-        if (_Func == null)
+        _InitFunc = _Lua.GetFunction(_UiName + ".OnEntry");
+        if (_InitFunc == null)
         {
-            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no start function.");
-            return;
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no Entry function.");
         }
-        _Func.Call();
+        _UpdateFunc = _Lua.GetFunction(_UiName + ".OnUpdate");
+        if (_UpdateFunc == null)
+        {
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no Update function.");
+        }
+        _TickFunc = _Lua.GetFunction(_UiName + ".OnTick");
+        if (_TickFunc == null)
+        {
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no Tick function.");
+        }
+        _InitFunc.Call();
         _Lua.CheckTop();
-        _Func.Dispose();
     }
 
     //每帧更新
     public void Update()
     {
-        if (_Ui == null)
-            return;
-
-        if (_Ui.activeSelf == false)
-            return;
-
         if (_Lua == null)
             return;
-        
-        _Func = _Lua.GetFunction(_UiName + "_update");
-        if (_Func == null)
-        {
-            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no update function.");
+
+        if (_UpdateFunc == null)
             return;
-        }
-        _Func.Call();
+
+        _UpdateFunc.Call();
         _Lua.CheckTop();
-        _Func.Dispose();
     }
 
     //每秒更新
     public void Tick()
     {
-        if (_Ui == null)
-            return;
-
-        if (_Ui.activeSelf == false)
-            return;
-
         if (_Lua == null)
             return;
         
-        _Func = _Lua.GetFunction(_UiName + "_tick");
-        if (_Func == null)
-        {
-            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no tick function.");
+        if (_TickFunc == null)
             return;
-        }
-        _Func.Call();
+        
+        _TickFunc.Call();
         _Lua.CheckTop();
-        _Func.Dispose();
     }
 
     #region 外部调用请使用UIManager接口
@@ -112,43 +78,40 @@ public class UIWindow {
     {
         get
         {
-            if (_Ui == null)
+            if (_Lua == null)
                 return false;
-            return _Ui.activeSelf;
+            
+            LuaFunction func = _Lua.GetFunction(_UiName + ".isShow");
+            if (func == null)
+            {
+                Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no isShow function.");
+                return false;
+            }
+            return (bool)func.Call(0)[0];
         }
-    }
-
-    public void Show()
-    {
-        if (_Ui == null)
-            return;
-
-        if (_Ui.activeSelf)
-            return;
-
-        _Ui.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        if (_Ui == null)
-            return;
-
-        if (!_Ui.activeSelf)
-            return;
-        
-        _Ui.SetActive(false);
     }
 
     public void Dispose()
     {
-        if (_Ui == null)
+        if (_Lua == null)
             return;
+        if (_InitFunc != null)
+            _InitFunc.Dispose();
+        if (_UpdateFunc != null)
+            _UpdateFunc.Dispose();
+        if (_TickFunc != null)
+            _TickFunc.Dispose();
+        LuaTable table = _Lua.GetTable(_UiName);
+        if(table != null)
+            table.Dispose();
 
-        if (!_Ui.activeSelf)
+        LuaFunction func = _Lua.GetFunction(_UiName + ".OnDispose");
+        if (func == null)
+        {
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no OnDispose function.");
             return;
-
-        GameObject.Destroy(_Ui);
+        }
+        func.Call();
     }
     #endregion
 }

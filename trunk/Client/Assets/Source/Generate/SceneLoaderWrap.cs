@@ -8,8 +8,10 @@ public class SceneLoaderWrap
 	{
 		L.BeginClass(typeof(SceneLoader), typeof(System.Object));
 		L.RegFunction("LoadScene", LoadScene);
+		L.RegFunction("Update", Update);
 		L.RegFunction("New", _CreateSceneLoader);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("Progress", get_Progress, null);
 		L.EndClass();
 	}
 
@@ -42,11 +44,39 @@ public class SceneLoaderWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 1);
 			string arg0 = ToLua.CheckString(L, 1);
-			bool arg1 = LuaDLL.luaL_checkboolean(L, 2);
-			SceneLoader.LoadScene(arg0, arg1);
+			SceneLoader.LoadScene(arg0);
 			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Update(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			SceneLoader.Update();
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Progress(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, SceneLoader.Progress);
+			return 1;
 		}
 		catch(Exception e)
 		{

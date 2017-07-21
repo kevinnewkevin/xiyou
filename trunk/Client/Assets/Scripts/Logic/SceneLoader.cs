@@ -5,16 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader
 {
-    static public void LoadScene(string sceneName, bool keepUI = false)
+    static AsyncOperation asyncOper;
+    static public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        if (!keepUI)
-        {
-            UIManager.HideAll();
-        }
-        if(sceneName.Equals(Define.SCENE_BATTLE))
+        UIManager.HideAll();
+        //UIManager.Show("LoadingPanel");
+        asyncOper = SceneManager.LoadSceneAsync(sceneName);
+        if (sceneName.Equals(Define.SCENE_BATTLE))
         {
             UIManager.Show("BattlePanel");
+        }
+        else
+        {
+            UIManager.Show("zhujiemian");
+        }
+    }
+
+    static public void Update()
+    {
+        if (asyncOper != null)
+        {
+            if (asyncOper.isDone)
+            {
+                asyncOper = null;
+            }
+        }
+    }
+
+    static public float Progress
+    {
+        get
+        {
+            if (asyncOper != null)
+            {
+                return asyncOper.progress;
+            }
+            return 0f;
         }
     }
 }

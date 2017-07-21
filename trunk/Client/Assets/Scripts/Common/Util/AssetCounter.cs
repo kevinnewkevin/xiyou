@@ -13,6 +13,23 @@ public class AssetCounter {
             _AssetCounters [name]._Refcount += 1;
     }
 
+    static public bool Excist(string name)
+    {
+        if (_AssetCounters.ContainsKey(name))
+            return _AssetCounters [name]._Refcount > 0;
+        return false;
+    }
+
+    static public AssetBundle GetBundle(string name)
+    {
+        if (_AssetCounters.ContainsKey(name))
+        {
+            _AssetCounters [name]._Refcount += 1;
+            return _AssetCounters [name]._Bundle;
+        }
+        return null;
+    }
+
     static public void DelRef(string name)
     {
         if (_AssetCounters.ContainsKey(name))

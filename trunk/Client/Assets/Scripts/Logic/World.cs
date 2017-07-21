@@ -11,7 +11,8 @@ public class World {
     static public void InitPlayerActor(/* player struct */)
     {
         // load player Asset for gameobject
-        GameObject go = AssetLoader.LoadAsset(PathDefine.PLAYER_ASSET_PATH + "longtaizi");
+        DisplayData display = DisplayData.GetData(1);
+        GameObject go = AssetLoader.LoadAsset(display._AssetPath);
         _PlayerActor = new Actor(go, new Vector3(20f, -14.3f, 4f), GamePlayer._InstID);
         Camera.main.GetComponent<CameraTracker>()._FollowTarget = go;
     }

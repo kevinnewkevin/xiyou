@@ -3,29 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using LuaInterface;
 using System;
+using FairyGUI;
 
 public class UIManager {
-
-    static Transform _UIRoot;
 
     static float _Timer;
 
     static public LuaState _Lua;
 
-    static public void Init(Transform uiroot)
+    static public void Init()
     {
-        _UIRoot = uiroot;
         _Lua = new LuaState();
         LuaBinder.Bind(_Lua);
         _Lua.Start();
-    }
-
-    static public Transform UIRoot
-    {
-        get
-        {
-            return _UIRoot;
-        }
     }
 
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();
@@ -39,9 +29,9 @@ public class UIManager {
 
         if (!_Windows.ContainsKey(uiName))
             _Windows.Add(uiName, new UIWindow(uiName));
-
-        _Windows [uiName].Show();
-        _Windows [uiName].Start();
+        
+        if (!_DirtyPool.ContainsKey(uiName))
+            _DirtyPool.Add(uiName, false);
     }
 
     static public bool IsShow(string uiName)
@@ -59,6 +49,9 @@ public class UIManager {
         _Windows [uiName].Dispose();
 
         AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+
+        if (_DirtyPool.ContainsKey(uiName))
+            _DirtyPool.Remove(uiName);
     }
 
     static public void HideAll()
@@ -67,8 +60,12 @@ public class UIManager {
         foreach(UIWindow window in _Windows.Values)
         {
             window.Dispose();
-            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+//            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+
+            if (_DirtyPool.ContainsKey(window.UIName))
+                _DirtyPool.Remove(window.UIName);
         }
+        _Windows.Clear();
     }
 
     static public void Update()

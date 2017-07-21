@@ -29,13 +29,22 @@ public class AssetLoader {
         for(int i=0; i < dep.Length; ++i)
         {
             assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-            AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+            if(!AssetCounter.Excist(assetPath))
+                AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+            else
+                AssetCounter.GetBundle(assetPath);
         }
         assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
-        AssetBundle ab = AssetBundle.LoadFromFile(assetPath);
+        AssetBundle ab = null;
+        if(!AssetCounter.Excist(assetPath))
+            ab = AssetBundle.LoadFromFile(assetPath);
+        else
+            ab = AssetCounter.GetBundle(assetPath);
         AssetCounter.AddRef(assetPath, ab);
         string assetName = path.Substring(path.LastIndexOf("/") + 1);
         Object o = ab.LoadAsset(assetName);
+        if(ab != null)
+            Debug.Log("ab != null");
         return GameObject.Instantiate(o) as GameObject;
 #endif
     }
@@ -70,7 +79,7 @@ public class AssetLoader {
 
     static public void UnloadAsset(string path)
     {
-#if !EDITOR_MODE
+#if EDITOR_MODE
         if(_Manifest == null)
             InitCommonList();
 

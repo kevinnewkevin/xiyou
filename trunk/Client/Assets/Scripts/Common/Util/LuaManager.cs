@@ -8,13 +8,12 @@ public class LuaManager {
 
     static public object[] Call(string file, string func, params object[] p)
     {
-        LuaState lua = new LuaState();
-        LuaBinder.Bind(lua);
-        lua.Start();
+        LuaState lua = UIManager._Lua;
         lua.DoFile(file);
         LuaFunction luafunc = lua.GetFunction(func);
         object[] rp = luafunc.Call(p);
         lua.CheckTop();
+        luafunc.Dispose();
         return rp;
     }
 

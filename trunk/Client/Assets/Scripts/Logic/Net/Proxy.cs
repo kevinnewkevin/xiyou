@@ -17,10 +17,10 @@ class Proxy : ICOM_ServerToClientProxy
         GamePlayer.Init(player);
         World.InitPlayerActor();
         World.InitNpcActor();
-         return true;
+        return true;
     }
 
-    public bool BattleEnter()
+    public bool JoinBattleOk()
     {
         SceneLoader.LoadScene(Define.SCENE_BATTLE);
         Battle.Init();

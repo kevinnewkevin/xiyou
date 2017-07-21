@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LuaInterface;
+using FairyGUI;
 
 public class AppEntry : MonoBehaviour {
-
-    public Transform _UiRoot;
 
     public Transform[] _GlobalObjs;
 
@@ -16,16 +15,20 @@ public class AppEntry : MonoBehaviour {
         {
             DontDestroyOnLoad(_GlobalObjs[i]);
         }
+        CopyPastePatch.Apply();
+        GRoot.inst.SetContentScaleFactor(1920, 1080);
 
         DataLoader.Init();
-        UIManager.Init(_UiRoot);
-
+        UIManager.Init();
+        DataLoader.BeginLoad();
+//
         //init network
-        if (NetWoking.Open("127.0.0.1", 10999))
+        if (NetWoking.Open("10.10.10.188", 10999))
         {
-            UIManager.Show("LoginPanel");
+            UIManager.Show("denglu");
             DataLoader.BeginLoad();
         }
+        //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}
 	
 	// Update is called once per frame
@@ -35,5 +38,6 @@ public class AppEntry : MonoBehaviour {
         DataLoader.Update();
         UIManager.Update();
         Battle.Update();
+        SceneLoader.Update();
 	}
 }
