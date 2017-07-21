@@ -35,6 +35,30 @@ struct COM_Player{
 	COM_Unit[]		Employees;
 };
 
+//战斗角色实例
+	Player *GamePlayer			//玩家信息
+	MaxPoint int				//最大能量點
+	CurPoint int				//當前能量點
+	BattlePosition []*Position 	//戰鬥位置信息
+struct COM_BattlePlayer{
+	COM_Player				Player
+	int						MaxPoint;
+	int						CurPoint;
+	COM_BattlePosition[]	BattlePosition;
+};
+
+
+//战斗房间
+struct COM_BattleRoom{
+	int64				InstId;			
+	int					Status;			
+	COM_BattlePlayer[]	PlayerList; 	
+	COM_BattlePlayer	Target; 	
+	int32				Bout;			
+	int32				TurnMove;			
+	COM_BattlePlayer	NextPlayer;
+};
+
 //战斗单元
 struct COM_BattleUnit{
 	int32 		UnitId;
