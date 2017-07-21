@@ -51,7 +51,7 @@ func (this *Session) JoinBattle() error {
 		CreateBattleRoom(battlePlayerList[0], battlePlayerList[1])
 
 		battlePlayerList = battlePlayerList[:0]
-		this.JoinBattleOk()
+		fmt.Println("BattleStart", battlePlayerList)
 	}
 	fmt.Println("JoinBattle", battlePlayerList)
 	return nil

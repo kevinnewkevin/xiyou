@@ -24,14 +24,15 @@ type BattleRoom struct{
 }
 
 type BattlePlayer struct {
-	Player *GamePlayer		//玩家信息
-	MaxPoint int			//最大能量點
-	CurPoint int			//當前能量點
+	Player *GamePlayer			//玩家信息
+	MaxPoint int				//最大能量點
+	CurPoint int				//當前能量點
+	BattlePosition []*Position 	//戰鬥位置信息
 }
 
-type BattlePosition struct {
-	Position int
-	BattleUnit GameUnit
+type Position struct{
+	InstId int64  	//0
+	Position int32  //1
 }
 
 var BattleRoomList = map[int64]*BattleRoom{}			//所有房间
@@ -42,6 +43,8 @@ func CreateBattlePlayer(player *GamePlayer) *BattlePlayer {
 	p.Player = player
 	p.MaxPoint = 1
 	p.CurPoint = 1
+
+	player.session.JoinBattleOk()
 
 	return &p
 }
@@ -77,6 +80,14 @@ func CreateBattleRoom(war1 *GamePlayer, war2 *GamePlayer) *BattleRoom {
 
 func (this *BattleRoom) BattleRoomOver() {
 	this.Status = kIdle
+}
+func (this *BattleRoom) GetPlayer(instId int64) *BattlePlayer {
+	for _, v := range this.PlayerList {
+		if v.Player.MyUnit.InstId == instId {
+			return v
+		}
+	}
+	return nil
 }
 
 func (this *BattleRoom) DestoryBattleRoom() {

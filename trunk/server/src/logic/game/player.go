@@ -14,10 +14,6 @@ type GamePlayer struct {
 	BattleRoom     int64	   //所在房间编号
 }
 
-type Position struct{
-	InstId int64  //0
-	Position int32  //1
-}
 
 const kMaxSkillNum  = 2
 
@@ -86,6 +82,10 @@ func (this *GamePlayer) StudySkill(UnitID int64, skillpos int, skillid int32) er
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //战斗相关
 func (this *GamePlayer) SetBattleUnit(instId int64) {
+	if instId == 0 {
+		return // 0是錯誤的
+	}
+
 	if this.GetUnit(instId) == nil {
 		return //没有设置你妹
 	}
@@ -95,9 +95,34 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {
 	this.BattleUnitList = append(this.BattleUnitList, instId)
 }
 
+func (this *GamePlayer) SetBattleUnitOK(instId int64) error{
+	return nil
+}
 
 func (this *GamePlayer) SetupBattle(pos []Position) {
+	poss := []*Position{}
 
+	for insid, po := range pos {
+		if this.GetBattleUnit(int64(insid)) == nil {
+			continue
+		}
+		p := Position{}
+		p.Position = po.Position
+		p.InstId = po.InstId
+		poss = append(poss, &p)
+	}
+
+	battleplayer := this.GetBattlePlayer(this.BattleRoom)
+
+	battleplayer.BattlePosition = poss
+
+}
+
+func (this *GamePlayer) GetBattlePlayer (battleroom int64) *BattlePlayer {
+	battleRoom, _ := BattleRoomList[this.BattleRoom]
+
+	battleRoom.GetPlayer(this.MyUnit.InstId)
+	return nil
 }
 
 
