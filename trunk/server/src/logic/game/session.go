@@ -26,7 +26,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r)
 
-	fmt.Println("CreatePlayer", &r)
+	fmt.Println(tempId, "CreatePlayer", &r)
 
 	return nil
 } // 1
@@ -42,6 +42,7 @@ func (this *Session) SetBattleUnit(instId int64) error {
 
 	return nil
 } // 2
+
 //dont care mutli thread
 var battlePlayerList = []*GamePlayer{}
 func (this *Session) JoinBattle() error {
@@ -51,12 +52,22 @@ func (this *Session) JoinBattle() error {
 		CreateBattleRoom(battlePlayerList[0], battlePlayerList[1])
 
 		battlePlayerList = battlePlayerList[:0]
-		fmt.Println("BattleStart", battlePlayerList)
 	}
 	fmt.Println("JoinBattle", battlePlayerList)
 	return nil
 } // 3
+
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
+	fmt.Println("SetupBattle", positionList)
+	r := this.player.SetupBattle(positionList)
+
+	if r != nil {
+		return nil
+	}
+
+	this.SetupBattleOK()
+	fmt.Println("SetupBattleOK", positionList)
+
 	return nil
 } // 4
 
@@ -82,11 +93,15 @@ func (this *Session) Update() {
 	endLoop:
 
 	//do clean
-	this.player.SetSession(nil)
-	this.player = nil
-	this.peer = nil
 
-	fmt.Println("Socket close ")
+	if this.player != nil && this != nil{
+		this.player.SetSession(nil)
+		this.player = nil
+		this.peer = nil
+
+		fmt.Println("Socket close ")
+	}
+
 }
 
 func NewClient(peer *socket.Peer) *Session {

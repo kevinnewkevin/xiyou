@@ -2,6 +2,7 @@ package game
 
 import (
 	"logic/prpc"
+	"fmt"
 )
 
 type Skill struct {
@@ -11,8 +12,8 @@ type Skill struct {
 	BuffList []int32	//buff列表
 	CoolDown int32		//冷卻時間
 	UseTime int32		//使用時間
-	TargetNum int		//目標個數
-	TargetCamp int	//目標陣營 我方 敵方
+	TargetNum int32		//目標個數
+	TargetCamp int32	//目標陣營 我方 敵方
 }
 
 const(
@@ -24,17 +25,33 @@ func(this *Skill)Condition()bool{
 	return this.checkUse()
 } //能不能使用
 
-func(this *Skill)Action(caster *GameUnit, targetList []*GameUnit, bout int32) {
-	deadlist := []int64{}
-	for i:=1; i<len(targetList); i++ {
+func(this *Skill)Action(caster *GameUnit, targetList []*GameUnit, bout int32) (prpc.COM_BattleAction, []int64) {
+	actionList := []prpc.COM_BattleActionTarget{}
+	allDeat := []int64{}
+	for i:=0; i<len(targetList); i++ {
+		fmt.Println(i, "Action", targetList[i], "		")
 		finl := int32(targetList[i].CProperties[prpc.CPT_HP]) - this.Damage
 		if finl <= 0 {
 			finl = 0
+			allDeat = append(allDeat, targetList[i].InstId)
 		}
 		targetList[i].CProperties[prpc.CPT_HP] = float32(finl)
-		deadlist = append(deadlist, targetList[i].InstId)
+		t := prpc.COM_BattleActionTarget{}
+		t.InstId = targetList[i].InstId
+		t.ActionType = 1
+		t.ActionParam = this.Damage
+		t.ActionParamExt = finl
+		actionList = append(actionList, t)
 	}
 	this.UseTime = bout
+
+	action := prpc.COM_BattleAction{}
+	action.InstId = caster.InstId
+	action.SkillId = this.SkillID
+	action.TargetList = actionList
+
+
+	return action, allDeat
 
 }//使用技能
 
@@ -42,7 +59,7 @@ func (this *Skill) StandbySkill(targetid int64, targetPlayer *GamePlayer) []*Gam
 
 	l := []*GameUnit{targetPlayer.GetBattleUnit(targetid)}
 	index := 1
-	for int(index) < this.TargetNum {
+	for int32(index) < this.TargetNum {
 		if index >= len(targetPlayer.BattleUnitList){
 			break
 		}

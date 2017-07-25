@@ -38,7 +38,7 @@ func LoadUnitTable(filename string) error {
 
 	for r := 0; r < csv.Length(); r++ {
 		u := UnitRecord{}
-		u.Id = int32(csv.GetInt(r, "EntityId"))
+		u.Id = int32(csv.GetInt(r, "UnitId"))
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
 		u.IProp = make([]int32,prpc.IPT_MAX)
 		u.CProp = make([]float32,prpc.CPT_MAX)

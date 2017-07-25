@@ -12,9 +12,10 @@ type GameUnit struct {
 	UnitId	    int32
 	InstId      int64
 	InstName 	string
+	DisPlay		int32
 	IProperties []int32
 	CProperties []float32
-	Skill 		map[int]*Skill
+	Skill 		map[int32]*Skill
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -27,7 +28,8 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.InstId = atomic.AddInt64(&genInstId, 1)
 	u.IProperties = append(u.IProperties, t.IProp...)
 	u.CProperties = append(u.CProperties, t.CProp...)
-	u.Skill = map[int]*Skill{}
+	u.DisPlay = t.DispId
+	u.Skill = map[int32]*Skill{}
 	for i := 0; i <len(t.Skills); i++ {
 		if t.Skills[i] == 0{
 			continue
@@ -36,7 +38,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 		if skill == nil {
 			continue
 		}
-		u.Skill[i] = skill
+		u.Skill[int32(i)] = skill
 	}
 	fmt.Println(&u)
 	return &u
