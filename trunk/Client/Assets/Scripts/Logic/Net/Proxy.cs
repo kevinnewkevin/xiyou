@@ -14,6 +14,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool CreatePlayerOK(ref COM_Player player)
     {
+        UnityEngine.Debug.Log("createplayerok");
         GamePlayer.Init(player);
         World.InitPlayerActor();
         World.InitNpcActor();
@@ -36,6 +37,11 @@ class Proxy : ICOM_ServerToClientProxy
     public bool BattleExit(ref COM_BattleResult result)
     {
         Battle._Result = Battle.BattleResult.BR_Win;
+        return true;
+    }
+
+    public bool SetupBattleOK()
+    {
         return true;
     }
 
