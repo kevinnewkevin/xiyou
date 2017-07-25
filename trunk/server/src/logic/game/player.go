@@ -117,7 +117,7 @@ func (this *GamePlayer) UseSkill(attacker int64, defender int64, skillid int32) 
 //战斗相关 设置卡牌
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置出战卡牌
+func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置出战卡牌  战斗开始之前
 	if instId == 0 {
 		return // 0是錯誤的
 	}
@@ -131,7 +131,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置�
 	this.BattleUnitList = append(this.BattleUnitList, instId)
 }
 
-func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵
+func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵	每次回合之前
 	poss := map[int64]*Position{}
 
 	for _, po := range pos {
@@ -151,10 +151,6 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//�
 	this.TurnOver(this.BattleRoom)
 	fmt.Println("SetupBattle end ", &battleplayer.BattlePosition )
 
-	return nil
-}
-
-func (this *GamePlayer) SetBattleUnitOK(instId int64) error{			//返回卡牌上阵
 	return nil
 }
 
