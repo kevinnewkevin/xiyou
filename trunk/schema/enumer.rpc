@@ -1,5 +1,5 @@
-#import errorno.rpc
-#import proptype.rpc
+#include errorno.rpc
+#include proptype.rpc
 
 enum EquipmentSlot{
 	ES_MIN,

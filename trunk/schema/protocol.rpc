@@ -1,5 +1,4 @@
-
-#import common.rpc
+#include common.rpc
 
 service COM_ClientToServer{
 	Login(COM_LoginInfo info);

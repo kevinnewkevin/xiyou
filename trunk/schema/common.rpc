@@ -1,5 +1,5 @@
 
-#import enumer.rpc
+#include enumer.rpc
 
 //登录信息
 struct COM_LoginInfo{
@@ -36,15 +36,11 @@ struct COM_Player{
 };
 
 //战斗角色实例
-	Player *GamePlayer			//玩家信息
-	MaxPoint int				//最大能量點
-	CurPoint int				//當前能量點
-	BattlePosition []*Position 	//戰鬥位置信息
-struct COM_BattlePlayer{
-	COM_Player				Player
-	int						MaxPoint;
-	int						CurPoint;
-	COM_BattlePosition[]	BattlePosition;
+struct COM_BattlePlayer{							
+	COM_Player				Player;					 //玩家信息
+	int						MaxPoint;                //最大能量點
+	int						CurPoint;                //當前能量點
+	COM_BattlePosition[]	BattlePosition;          //戰鬥位置信息
 };
 
 
