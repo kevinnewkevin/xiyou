@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Skill {
 
+    SkillData _SkillData;
     Actor _Caster;
     Actor[] _Targets;
     Vector3 _OriginPos;
@@ -14,6 +15,7 @@ public class Skill {
     {
         // get skilldata by id
 
+        _SkillData = SkillData.GetData(skillId);
         _OriginPos = caster._ActorObj.transform.position;
         _Caster = caster;
         _Targets = targets;
@@ -29,7 +31,7 @@ public class Skill {
             return false;
 
         // judge whether is melee skill
-        if (true/*is melee skill*/)
+        if (_SkillData._IsMelee)
         {
             _Caster.MoveTo(_Targets[0].Forward, delegate
             {

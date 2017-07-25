@@ -7,6 +7,7 @@ public class MainSceneTouch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("createplayer");
         NetWoking.S.CreatePlayer(1, "guowengui");
         Stage.inst.onTouchBegin.Add(OnTouchBegin);
 	}

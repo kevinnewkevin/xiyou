@@ -48,4 +48,9 @@ public class GamePlayer {
 
         return false;
     }
+
+    static public bool IsMe(long instid)
+    {
+        return _InstID == instid;
+    }
 }

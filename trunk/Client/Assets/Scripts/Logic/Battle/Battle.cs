@@ -36,6 +36,16 @@ public class Battle {
     static public long _SelectedHandCardInstID;
     static public List<COM_Unit> _HandCards = new List<COM_Unit>();
 
+    static public int _Turn;
+
+    static public int _LeftCardNum
+    {
+        get
+        {
+            return _HandCards.Count;
+        }
+    }
+
     static public List<COM_BattlePosition> _OperatList = new List<COM_BattlePosition>();
 
     static public void Update()
@@ -68,12 +78,17 @@ public class Battle {
     //初始化战斗
     static public void Init()
     {
+        _IsStagePointInitSuc = false;
+        _ReportIsPlaying = false;
+        _Turn = 1;
         CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
         _HandCards.Clear();
 
         _HandCards.Add(GamePlayer._Data);
         RandHandCards(2);
+
+        UIManager.SetDirty("BattlePanel");
     }
 
     static public void RandHandCards(int count)
@@ -149,10 +164,12 @@ public class Battle {
 
         if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
         {
+            EntityData entity;
             DisplayData display;
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
-                display = DisplayData.GetData(_BattleReport.UnitList[i].UnitId);
+                entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
+                display = DisplayData.GetData(entity._DisplayId);
                 AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId);
             }
             _BattleReport.UnitList = null;
@@ -311,6 +328,13 @@ public class Battle {
         }
 
         SwitchPoint(false);
+    }
+
+    static public bool IsSelfCard(int cardIdx)
+    {
+        if (cardIdx < 0 || cardIdx >= _HandCards.Count)
+            return false;
+        return GamePlayer.IsMe(_HandCards[cardIdx].InstId);
     }
 
     static public BattleState CurrentState

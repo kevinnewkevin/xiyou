@@ -15,6 +15,7 @@ public class BattleWrap
 		L.RegFunction("Judgement", Judgement);
 		L.RegFunction("SwitchPoint", SwitchPoint);
 		L.RegFunction("OperateSetActor", OperateSetActor);
+		L.RegFunction("IsSelfCard", IsSelfCard);
 		L.RegFunction("Fini", Fini);
 		L.RegFunction("New", _CreateBattle);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -25,7 +26,9 @@ public class BattleWrap
 		L.RegVar("_ReportIsPlaying", get__ReportIsPlaying, set__ReportIsPlaying);
 		L.RegVar("_SelectedHandCardInstID", get__SelectedHandCardInstID, set__SelectedHandCardInstID);
 		L.RegVar("_HandCards", get__HandCards, set__HandCards);
+		L.RegVar("_Turn", get__Turn, set__Turn);
 		L.RegVar("_OperatList", get__OperatList, set__OperatList);
+		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
 		L.EndClass();
 	}
@@ -180,6 +183,23 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsSelfCard(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			bool o = Battle.IsSelfCard(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Fini(IntPtr L)
 	{
 		try
@@ -293,11 +313,39 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__Turn(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle._Turn);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__OperatList(IntPtr L)
 	{
 		try
 		{
 			ToLua.PushObject(L, Battle._OperatList);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__LeftCardNum(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle._LeftCardNum);
 			return 1;
 		}
 		catch(Exception e)
@@ -417,6 +465,21 @@ public class BattleWrap
 		{
 			System.Collections.Generic.List<COM_Unit> arg0 = (System.Collections.Generic.List<COM_Unit>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<COM_Unit>));
 			Battle._HandCards = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__Turn(IntPtr L)
+	{
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			Battle._Turn = arg0;
 			return 0;
 		}
 		catch(Exception e)

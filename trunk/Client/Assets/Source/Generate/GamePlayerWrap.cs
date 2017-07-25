@@ -10,6 +10,7 @@ public class GamePlayerWrap
 		L.RegFunction("Init", Init);
 		L.RegFunction("GetCardByInstID", GetCardByInstID);
 		L.RegFunction("IsMy", IsMy);
+		L.RegFunction("IsMe", IsMe);
 		L.RegFunction("New", _CreateGamePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("_InstID", get__InstID, set__InstID);
@@ -85,6 +86,23 @@ public class GamePlayerWrap
 			ToLua.CheckArgsCount(L, 1);
 			long arg0 = LuaDLL.tolua_checkint64(L, 1);
 			bool o = GamePlayer.IsMy(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsMe(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			long arg0 = LuaDLL.tolua_checkint64(L, 1);
+			bool o = GamePlayer.IsMe(arg0);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}

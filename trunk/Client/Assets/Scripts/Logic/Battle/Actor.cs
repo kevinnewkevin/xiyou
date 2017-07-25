@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using FairyGUI;
 
 public class Actor {
 
     //场上角色的Obj
     public GameObject _ActorObj;
+
+    public GameObject _Headbar;
 
     long _InstID;
 
@@ -36,6 +39,15 @@ public class Actor {
 //        if (_Animator == null)
 //            Debug.LogWarning("Actor " + _ActorObj.name + " has no Animator launched.");
         _Animation = _ActorObj.GetComponent<Animation>();
+
+        UIPackage.AddPackage("UI/HeadBar");
+        _Headbar = new GameObject();
+        UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
+        headbarpanel.componentName = "HeadBar";
+        headbarpanel.packageName = "HeadBar";
+        _Headbar.transform.parent = _ActorObj.transform;
+        _Headbar.transform.localScale = Vector3.one;
+        _Headbar.transform.localPosition = Vector3.zero;
     }
 
     //移动到场上某位置

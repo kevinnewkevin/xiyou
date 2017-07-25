@@ -224,11 +224,22 @@ function FlushData()
 		stateIcon.touchable = false;
 	end
 
+	local cardNum = Battle._LeftCardNum;
 	for i=1, 5 do
-		cards[i]["card"].data = i;
-		cards[i]["card"].onClick:Add(OnCardClick);
-		cards[i]["power"].text = i;
-		cards[i]["cost"].text = i;
+		if i <= cardNum then
+			cards[i]["card"].data = i;
+			cards[i]["card"].onClick:Add(OnCardClick);
+			cards[i]["power"].text = i;
+			cards[i]["cost"].text = i;
+			cards[i]["card"].visible = true;
+			if Battle._Turn == 1 and not Battle.IsSelfCard(i-1) then
+				cards[i]["card"].enabled = false;
+			else
+				cards[i]["card"].enabled = true;
+			end
+		else
+			cards[i]["card"].visible = false;
+		end
 	end
 end
 
