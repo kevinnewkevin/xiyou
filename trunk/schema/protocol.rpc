@@ -16,7 +16,8 @@ service COM_ServerToClient{
 	CreatePlayerOK(COM_Player player);
 	
 	//战斗相关
-	JoinBattleOK();							//对应JoinBattle
+	JoinBattleOk();							//对应JoinBattle
+	SetupBattleOK();						//对应SetupBattle
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
 	BattleReport(COM_BattleReport report); 	//战报
 	BattleExit(COM_BattleResult result); 	//战斗结果
