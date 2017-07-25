@@ -20,6 +20,7 @@ func(this *Peer) MethodEnd() error {
 	if e != nil{
 		return e
 	}
+	this.OutgoingBuffer.Reset()
 	this.TotalOutgoing += c
 	return nil
 }
