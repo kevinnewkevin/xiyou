@@ -135,15 +135,15 @@ public class Battle {
                     {
                         if (toIdx < 6)
                         {
-                            _OppoPosInScene [toIdx] = point;
-                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                            _SelfPosInScene [toIdx] = point;
+                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx + 6);
+                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
                         }
                         else
                         {
-                            _SelfPosInScene [toIdx] = point;
-                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
+                            _OppoPosInScene [toIdx] = point;
+                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx - 6);
+                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
                         }
                     }
                 }
