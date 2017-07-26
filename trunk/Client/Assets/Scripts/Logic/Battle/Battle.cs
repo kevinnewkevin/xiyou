@@ -38,6 +38,8 @@ public class Battle {
 
     static public int _Turn;
 
+    static public int _Side;
+
     static public int _LeftCardNum
     {
         get
@@ -76,11 +78,12 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init()
+    static public void Init(int side)
     {
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
         _Turn = 1;
+        _Side = side;
         CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
         _HandCards.Clear();
@@ -113,17 +116,33 @@ public class Battle {
                 {
                     point = _SceneConfig.transform.GetChild(i);
                     int toIdx = int.Parse(point.name) - 1;
-                    if (toIdx < 6)
+                    if (_Side == 0)
                     {
-                        _OppoPosInScene [toIdx] = point;
-                        _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                        _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                        if (toIdx < 6)
+                        {
+                            _SelfPosInScene [toIdx] = point;
+                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
+                        } else
+                        {
+                            _OppoPosInScene [toIdx] = point;
+                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                        }
                     }
                     else
                     {
-                        _SelfPosInScene [toIdx - 6] = point;
-                        _SelfPosInScene [toIdx - 6].GetComponent<PointHandle>().Init(toIdx - 6);
-                        _SelfPosInScene [toIdx - 6].gameObject.SetActive(false);
+                        if (toIdx < 6)
+                        {
+                            _OppoPosInScene [toIdx] = point;
+                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
+                        } else
+                        {
+                            _SelfPosInScene [toIdx] = point;
+                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
+                        }
                     }
                 }
                 _IsStagePointInitSuc = true;
