@@ -122,11 +122,13 @@ func (this *BattleRoom) Update() {
 		if u == nil {
 			continue
 		}
+
+		fmt.Println("report.UnitList, append", u)
+		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
+
 		if u.IsDead() {			// 非主角死亡跳過
 			continue
 		}
-
-		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
 
 		ac, ownerdead := u.CastSkill(this)
 		report.ActionList = append(report.ActionList, ac)
@@ -135,6 +137,15 @@ func (this *BattleRoom) Update() {
 		if ownerdead {
 			this.Status = kIdle
 			WinCamp = u.Owner.BattleCamp
+			for _, a := range ac.TargetList {
+				unit := this.SelectOneUnit(a.InstId)
+				if unit == nil {
+					continue
+				}
+				fmt.Println("aaa", unit)
+				report.UnitList = append(report.UnitList, unit.GetBattleUnitCOM())
+			}
+
 			break
 		}
 	}
@@ -179,6 +190,19 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 	}
 
 	return targets
+}
+
+func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit{
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.InstId == instid {
+			return u
+		}
+	}
+
+	return nil
 }
 
 ////////////////////////////////////////////////////////////////////////

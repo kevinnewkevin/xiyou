@@ -69,7 +69,7 @@ func (this *GamePlayer) GetUnit(instId int64) *GameUnit {
 	this.Lock()
 	defer this.Unlock()
 	if this.MyUnit.InstId == instId{
-		return  this.MyUnit
+		return this.MyUnit
 	}
 
 	for _, v := range this.UnitList {
@@ -142,6 +142,13 @@ var battlePlayerList = []*GamePlayer{}
 func (this *GamePlayer) JoinBattle(){
 	this.Lock()
 	defer this.Unlock()
+
+	for _, v :=range  battlePlayerList{
+		if v ==this {
+			return
+		}
+	}
+
 	battlePlayerList = append(battlePlayerList, this)
 
 	if len(battlePlayerList) == 2{
