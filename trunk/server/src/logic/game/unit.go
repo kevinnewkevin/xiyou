@@ -3,7 +3,6 @@ package game
 import (
 	"sync/atomic"
 	"logic/prpc"
-	"fmt"
 )
 
 var genInstId int64 = 1
@@ -44,7 +43,6 @@ func CreateUnitFromTable(id int32) *GameUnit {
 		}
 		u.Skill[int32(i)] = skill
 	}
-	fmt.Println(&u)
 	return &u
 }
 
@@ -98,5 +96,5 @@ func(this* GameUnit)CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) 
 }
 
 func (this *GameUnit) IsDead() bool {
-	return this.GetCProperty(prpc.CPT_HP) > 0
+	return this.GetCProperty(prpc.CPT_HP) <= 0
 }

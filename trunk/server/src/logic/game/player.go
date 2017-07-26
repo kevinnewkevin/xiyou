@@ -32,13 +32,18 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
 	p.MyUnit = CreateUnitFromTable(tid)
 	p.MyUnit.InstName = name
+	p.MyUnit.Owner = &p
 
 	//来两个默认的小兵
 	p.UnitList = append(p.UnitList, CreateUnitFromTable(2))
 	p.UnitList = append(p.UnitList, CreateUnitFromTable(3))
 
-	return &p
+	//給默認的小兵設置主人
+	for _, unit := range p.UnitList {
+		unit.Owner = &p
+	}
 
+	return &p
 
 }
 
@@ -156,10 +161,10 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置�
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵	每次回合之前
 
 	for _, p := range pos {
-		if this.GetBattleUnit(int64(p.InstId)) == nil {
-			return nil //错误消息
-		}
-		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_MAX{
+		//if this.GetBattleUnit(int64(p.InstId)) == nil {
+		//	return nil //错误消息
+		//}
+		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_RED_1{
 			return nil //错误消息 //检测缺失 阵营与位置关系
 		}
 	}

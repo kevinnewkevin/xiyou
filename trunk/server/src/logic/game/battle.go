@@ -111,6 +111,9 @@ func (this *BattleRoom) Update() {
 
 	WinCamp := 0
 	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
 		if u.IsDead() {			// 非主角死亡跳過
 			continue
 		}
@@ -154,6 +157,9 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 	targets := []*GameUnit{}
 	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
 		if u.Owner.BattleCamp == camp {
 			continue
 		}
@@ -168,8 +174,10 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition) {
+	fmt.Println("SetupPosition.start")
 	if this.Round == 0 { //第一回合 必须设置主角卡
 		for _, pos := range posList {
+			fmt.Println("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
 			if pos.InstId == p.MyUnit.InstId {
 				goto setup_check_success
 			}
@@ -189,6 +197,9 @@ setup_check_success:
 	}
 	for _, pos := range posList {
 		for _, u := range this.Units {
+			if u == nil {
+				continue
+			}
 			if u.InstId == pos.InstId {
 				return //已经上场
 			}
@@ -201,8 +212,12 @@ setup_check_success:
 
 	//处理数据
 	for _, pos := range posList {
-		this.Units[pos.Position] = p.GetBattleUnit(pos.InstId)
+		this.Units[pos.Position] = p.GetUnit(pos.InstId)
 		this.Units[pos.Position].Position = pos.Position
 	}
 	p.IsActive = true
+
+	fmt.Println("SetupPosition", this.Units)
+
+	this.Update()
 }
