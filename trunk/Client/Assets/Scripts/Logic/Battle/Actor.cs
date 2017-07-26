@@ -42,6 +42,7 @@ public class Actor {
 
         UIPackage.AddPackage("UI/HeadBar");
         _Headbar = new GameObject();
+        _Headbar.AddComponent<Billboard>();
         UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
         headbarpanel.componentName = "HeadBar";
         headbarpanel.packageName = "HeadBar";

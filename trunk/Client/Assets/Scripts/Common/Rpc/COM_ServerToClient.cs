@@ -201,14 +201,22 @@ public abstract class COM_ServerToClientStub {
     w.Write((ushort)3);
     MethodEnd();
   }
-  public void SetBattleUnitOK(long instId ){
+  public void SetupBattleOK(){
     IWriter w = MethodBegin();
     if(w==null){
       return;
     }
     w.Write((ushort)4);
-    _4.instId = instId;
-    _4.Serialize(w);
+    MethodEnd();
+  }
+  public void SetBattleUnitOK(long instId ){
+    IWriter w = MethodBegin();
+    if(w==null){
+      return;
+    }
+    w.Write((ushort)5);
+    _5.instId = instId;
+    _5.Serialize(w);
     MethodEnd();
   }
   public void BattleReport(COM_BattleReport report ){
@@ -216,9 +224,9 @@ public abstract class COM_ServerToClientStub {
     if(w==null){
       return;
     }
-    w.Write((ushort)5);
-    _5.report = report;
-    _5.Serialize(w);
+    w.Write((ushort)6);
+    _6.report = report;
+    _6.Serialize(w);
     MethodEnd();
   }
   public void BattleExit(COM_BattleResult result ){
@@ -226,9 +234,9 @@ public abstract class COM_ServerToClientStub {
     if(w==null){
       return;
     }
-    w.Write((ushort)6);
-    _6.result = result;
-    _6.Serialize(w);
+    w.Write((ushort)7);
+    _7.result = result;
+    _7.Serialize(w);
     MethodEnd();
   }
   public abstract IWriter MethodBegin();
@@ -237,18 +245,19 @@ public abstract class COM_ServerToClientStub {
   COM_ServerToClient_ErrorMessage _0 = new COM_ServerToClient_ErrorMessage();
   COM_ServerToClient_LoginOK _1 = new COM_ServerToClient_LoginOK();
   COM_ServerToClient_CreatePlayerOK _2 = new COM_ServerToClient_CreatePlayerOK();
-  COM_ServerToClient_SetBattleUnitOK _4 = new COM_ServerToClient_SetBattleUnitOK();
-  COM_ServerToClient_BattleReport _5 = new COM_ServerToClient_BattleReport();
-  COM_ServerToClient_BattleExit _6 = new COM_ServerToClient_BattleExit();
+  COM_ServerToClient_SetBattleUnitOK _5 = new COM_ServerToClient_SetBattleUnitOK();
+  COM_ServerToClient_BattleReport _6 = new COM_ServerToClient_BattleReport();
+  COM_ServerToClient_BattleExit _7 = new COM_ServerToClient_BattleExit();
 };
 public interface ICOM_ServerToClientProxy {
   bool ErrorMessage( int id ); // 0
   bool LoginOK(ref COM_AccountInfo info ); // 1
   bool CreatePlayerOK(ref COM_Player player ); // 2
   bool JoinBattleOk(); // 3
-  bool SetBattleUnitOK( long instId ); // 4
-  bool BattleReport(ref COM_BattleReport report ); // 5
-  bool BattleExit(ref COM_BattleResult result ); // 6
+  bool SetupBattleOK(); // 4
+  bool SetBattleUnitOK( long instId ); // 5
+  bool BattleReport(ref COM_BattleReport report ); // 6
+  bool BattleExit(ref COM_BattleResult result ); // 7
 }
 public class COM_ServerToClientDispatcher {
   public static bool ErrorMessage(IReader r, ICOM_ServerToClientProxy p){ // 0
@@ -296,19 +305,16 @@ public class COM_ServerToClientDispatcher {
     }
     return p.JoinBattleOk();
   }
-  public static bool SetBattleUnitOK(IReader r, ICOM_ServerToClientProxy p){ // 4
+  public static bool SetupBattleOK(IReader r, ICOM_ServerToClientProxy p){ // 4
     if(r==null){
       return false;
     }
     if(p==null){
       return false;
     }
-    if(!_4.Deserialize(r)){
-      return false;
-    }
-    return p.SetBattleUnitOK( _4.instId);
+    return p.SetupBattleOK();
   }
-  public static bool BattleReport(IReader r, ICOM_ServerToClientProxy p){ // 5
+  public static bool SetBattleUnitOK(IReader r, ICOM_ServerToClientProxy p){ // 5
     if(r==null){
       return false;
     }
@@ -318,9 +324,9 @@ public class COM_ServerToClientDispatcher {
     if(!_5.Deserialize(r)){
       return false;
     }
-    return p.BattleReport(ref _5.report);
+    return p.SetBattleUnitOK( _5.instId);
   }
-  public static bool BattleExit(IReader r, ICOM_ServerToClientProxy p){ // 6
+  public static bool BattleReport(IReader r, ICOM_ServerToClientProxy p){ // 6
     if(r==null){
       return false;
     }
@@ -330,7 +336,19 @@ public class COM_ServerToClientDispatcher {
     if(!_6.Deserialize(r)){
       return false;
     }
-    return p.BattleExit(ref _6.result);
+    return p.BattleReport(ref _6.report);
+  }
+  public static bool BattleExit(IReader r, ICOM_ServerToClientProxy p){ // 7
+    if(r==null){
+      return false;
+    }
+    if(p==null){
+      return false;
+    }
+    if(!_7.Deserialize(r)){
+      return false;
+    }
+    return p.BattleExit(ref _7.result);
   }
   public static bool Execute(IReader r, ICOM_ServerToClientProxy p){
     if(r==null){
@@ -353,10 +371,12 @@ public class COM_ServerToClientDispatcher {
       case 3 :
         return JoinBattleOk(r,p);
       case 4 :
-        return SetBattleUnitOK(r,p);
+        return SetupBattleOK(r,p);
       case 5 :
-        return BattleReport(r,p);
+        return SetBattleUnitOK(r,p);
       case 6 :
+        return BattleReport(r,p);
+      case 7 :
         return BattleExit(r,p);
       default:
         return false;
@@ -366,7 +386,7 @@ public class COM_ServerToClientDispatcher {
   static COM_ServerToClient_ErrorMessage _0 = new COM_ServerToClient_ErrorMessage();
   static COM_ServerToClient_LoginOK _1 = new COM_ServerToClient_LoginOK();
   static COM_ServerToClient_CreatePlayerOK _2 = new COM_ServerToClient_CreatePlayerOK();
-  static COM_ServerToClient_SetBattleUnitOK _4 = new COM_ServerToClient_SetBattleUnitOK();
-  static COM_ServerToClient_BattleReport _5 = new COM_ServerToClient_BattleReport();
-  static COM_ServerToClient_BattleExit _6 = new COM_ServerToClient_BattleExit();
+  static COM_ServerToClient_SetBattleUnitOK _5 = new COM_ServerToClient_SetBattleUnitOK();
+  static COM_ServerToClient_BattleReport _6 = new COM_ServerToClient_BattleReport();
+  static COM_ServerToClient_BattleExit _7 = new COM_ServerToClient_BattleExit();
 }
