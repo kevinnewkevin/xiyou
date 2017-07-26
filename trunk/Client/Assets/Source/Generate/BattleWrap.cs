@@ -27,6 +27,7 @@ public class BattleWrap
 		L.RegVar("_SelectedHandCardInstID", get__SelectedHandCardInstID, set__SelectedHandCardInstID);
 		L.RegVar("_HandCards", get__HandCards, set__HandCards);
 		L.RegVar("_Turn", get__Turn, set__Turn);
+		L.RegVar("_Side", get__Side, set__Side);
 		L.RegVar("_OperatList", get__OperatList, set__OperatList);
 		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
@@ -77,8 +78,9 @@ public class BattleWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 0);
-			Battle.Init();
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			Battle.Init(arg0);
 			return 0;
 		}
 		catch(Exception e)
@@ -327,6 +329,20 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__Side(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle._Side);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__OperatList(IntPtr L)
 	{
 		try
@@ -480,6 +496,21 @@ public class BattleWrap
 		{
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			Battle._Turn = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__Side(IntPtr L)
+	{
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			Battle._Side = arg0;
 			return 0;
 		}
 		catch(Exception e)
