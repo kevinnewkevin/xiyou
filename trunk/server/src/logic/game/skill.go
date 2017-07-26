@@ -94,7 +94,6 @@ func InitSkillFromTable(SkillId int32) *Skill {
 	s.Crit = t.Crit
 	s.Damage = t.Damage
 	s.BuffList = t.BuffList
-	s.CoolDown = t.CoolDown
 
 	return &s
 }

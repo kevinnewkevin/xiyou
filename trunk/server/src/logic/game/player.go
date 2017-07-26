@@ -180,6 +180,8 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//Âç
 
 	this.session.SetupBattleOK()
 
+	battleRoom.Update()
+
 	return nil
 }
 

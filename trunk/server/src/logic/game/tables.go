@@ -89,7 +89,7 @@ func LoadSkillTable(filename string) error {
 
 	for r := 0; r < csv.Length(); r++ {
 		s := SkillRecord{}
-		s.SkillID = int32(csv.GetInt(r, "SkilId"))
+		s.SkillID = int32(csv.GetInt(r, "SkillId"))
 		s.Crit = int32(csv.GetInt(r, "Crit"))
 		s.Damage = int32(csv.GetInt(r, "Damage"))
 		string1 := csv.GetStrings(r, "Bufflist")
@@ -97,7 +97,6 @@ func LoadSkillTable(filename string) error {
 			buffid, _ := strconv.Atoi(string1[i])
 			s.BuffList = append(s.BuffList, int32(buffid))
 		}
-		s.CoolDown = int32(csv.GetInt(r, "CoolDown"))
 		s.TargetNum = csv.GetInt(r, "TargetNum")
 		s.TargetCamp = csv.GetInt(r, "TargetCamp")
 		skillTable[s.SkillID] = &s

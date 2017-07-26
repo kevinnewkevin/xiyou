@@ -68,7 +68,7 @@ func FindBattle(battleId int64) *BattleRoom {
 
 func (this *BattleRoom) BattleStart() {
 	for _, p := range this.PlayerList {
-		p.session.JoinBattleOk()
+		p.session.JoinBattleOk(int32(p.BattleCamp))
 	}
 }
 
@@ -218,6 +218,4 @@ setup_check_success:
 	p.IsActive = true
 
 	fmt.Println("SetupPosition", this.Units)
-
-	this.Update()
 }

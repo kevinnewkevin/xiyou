@@ -13,6 +13,9 @@ type COM_ServerToClient_LoginOK struct{
 type COM_ServerToClient_CreatePlayerOK struct{
   player COM_Player  //0
 }
+type COM_ServerToClient_JoinBattleOk struct{
+  Camp int32  //0
+}
 type COM_ServerToClient_SetBattleUnitOK struct{
   instId int64  //0
 }
@@ -29,7 +32,7 @@ type COM_ServerToClientProxy interface{
   ErrorMessage(id int ) error // 0
   LoginOK(info COM_AccountInfo ) error // 1
   CreatePlayerOK(player COM_Player ) error // 2
-  JoinBattleOk() error // 3
+  JoinBattleOk(Camp int32 ) error // 3
   SetupBattleOK() error // 4
   SetBattleUnitOK(instId int64 ) error // 5
   BattleReport(report COM_BattleReport ) error // 6
@@ -133,6 +136,42 @@ func (this *COM_ServerToClient_CreatePlayerOK)Deserialize(buffer *bytes.Buffer) 
   // deserialize player
   if mask.ReadBit() {
     err := this.player.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.Camp!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize Camp
+  {
+    if(this.Camp!=0){
+      err := prpc.Write(buffer,this.Camp)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize Camp
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.Camp)
     if err != nil{
       return err
     }
@@ -294,12 +333,18 @@ func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)JoinBattleOk() error {
+func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
   err := prpc.Write(buffer,uint16(3))
+  if err != nil{
+    return err
+  }
+  _3 := COM_ServerToClient_JoinBattleOk{}
+  _3.Camp = Camp;
+  err = _3.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -416,7 +461,12 @@ func Bridging_COM_ServerToClient_JoinBattleOk(buffer *bytes.Buffer, p COM_Server
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  return p.JoinBattleOk()
+  _3 := COM_ServerToClient_JoinBattleOk{}
+  err := _3.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.JoinBattleOk(_3.Camp)
 }
 func Bridging_COM_ServerToClient_SetupBattleOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
