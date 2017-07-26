@@ -19,10 +19,10 @@ public class Battle {
         BR_None
     }
 
-    static Actor[] _SelfActorInScene = new Actor[6/*BP_Max*/];
-    static Actor[] _OppoActorInScene = new Actor[6/*BP_Max*/];
-    static Transform[] _SelfPosInScene = new Transform[6/*BP_Max*/];
-    static Transform[] _OppoPosInScene = new Transform[6/*BP_Max*/];
+    static Actor[] _SelfActorInScene = new Actor[12/*BP_Max*/];
+    static Actor[] _OppoActorInScene = new Actor[12/*BP_Max*/];
+    static Transform[] _SelfPosInScene = new Transform[12/*BP_Max*/];
+    static Transform[] _OppoPosInScene = new Transform[12/*BP_Max*/];
     static GameObject _SceneConfig;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
@@ -123,7 +123,8 @@ public class Battle {
                             _SelfPosInScene [toIdx] = point;
                             _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
                             _SelfPosInScene [toIdx].gameObject.SetActive(false);
-                        } else
+                        }
+                        else
                         {
                             _OppoPosInScene [toIdx] = point;
                             _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
@@ -137,7 +138,8 @@ public class Battle {
                             _OppoPosInScene [toIdx] = point;
                             _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
                             _OppoPosInScene [toIdx].gameObject.SetActive(false);
-                        } else
+                        }
+                        else
                         {
                             _SelfPosInScene [toIdx] = point;
                             _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
