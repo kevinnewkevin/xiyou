@@ -67,7 +67,6 @@ struct COM_BattleUnit{
 	int64 		InstId;
 	int32 		Position;
 	int32 		HP;
-	CampType 	Camp;
 	string 		Name;
 };
 

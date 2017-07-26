@@ -43,17 +43,16 @@ func (this *Session) SetBattleUnit(instId int64) error {
 	return nil
 } // 2
 
-//dont care mutli thread
-var battlePlayerList = []*GamePlayer{}
-func (this *Session) JoinBattle() error {
-	battlePlayerList = append(battlePlayerList, this.player)
-	if len(battlePlayerList) == 2{
-		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
-		CreateBattleRoom(battlePlayerList[0], battlePlayerList[1])
 
-		battlePlayerList = battlePlayerList[:0]
+func (this *Session) JoinBattle() error {
+
+	if this.player == nil{
+		return  nil
 	}
-	fmt.Println("JoinBattle", battlePlayerList)
+
+	this.player.JoinBattle()
+
+
 	return nil
 } // 3
 

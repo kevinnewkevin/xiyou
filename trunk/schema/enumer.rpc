@@ -28,3 +28,22 @@ enum BattleActionType{
 	BAT_DEL_STATE,   //减少状态
 	BAT_MAX,         
 };
+
+//战斗位置
+enum BattlePosotion{
+	BP_RED_1,
+	BP_RED_2,
+	BP_RED_3,
+	BP_RED_4,
+	BP_RED_5,
+	BP_RED_6,
+	
+	BP_BLUE_1,
+	BP_BLUE_2,
+	BP_BLUE_3,
+	BP_BLUE_4,
+	BP_BLUE_5,
+	BP_BLUE_6,
+	
+	BP_MAX,
+};

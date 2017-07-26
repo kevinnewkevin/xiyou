@@ -14,6 +14,7 @@ type Skill struct {
 	UseTime int32		//使用時間
 	TargetNum int32		//目標個數
 	TargetCamp int32	//目標陣營 我方 敵方
+
 }
 
 const(

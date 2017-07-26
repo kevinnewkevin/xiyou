@@ -11,7 +11,12 @@ type GamePlayer struct {
 	MyUnit         *GameUnit   //自己的卡片
 	UnitList       []*GameUnit //拥有的卡片
 	BattleUnitList []int64     //默认出战卡片
-	BattleRoom     int64	   //所在房间编号
+
+
+	//战斗相关辅助信息
+	BattleId     int64	   //所在房间编号
+	BattleCamp   int	   //阵营 //prpc.CompType
+	IsActive     bool 	   //是否激活
 }
 
 
@@ -33,6 +38,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.UnitList = append(p.UnitList, CreateUnitFromTable(3))
 
 	return &p
+
+
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -69,6 +76,7 @@ func (this *GamePlayer) GetBattleUnit(instId int64) *GameUnit {
 	}
 	return nil
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //技能相关
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,36 +94,50 @@ func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) 
 	return nil
 }
 
-func (this *GamePlayer) UseSkill(attacker int64, defender int64, skillid int32) {
-	attack := this.GetBattleUnit(attacker)		//攻擊卡牌
-	skill, ok := attack.Skill[skillid]
-
-	if !ok {
-		fmt.Println("這個卡牌沒有這個技能")
-	}
-
-	if !skill.Condition() {
-		fmt.Println("技能不能使用")
-	}
-
-	battleRoom, ok := BattleRoomList[this.BattleRoom]
-	if !ok {
-		fmt.Println("不在房間中")
-	}
-
-	targetPlayer, ok := battleRoom.Target[this.MyUnit.InstId]
-	if !ok {
-		fmt.Println("目標卡牌的主人不在房間中")
-	}
-
-
-	skill.Action(attack, skill.StandbySkill(defender, targetPlayer.Player), battleRoom.Bout)
-}
+//func (this *GamePlayer) UseSkill(attacker int64, defender int64, skillid int32) {
+//	attack := this.GetBattleUnit(attacker)		//攻擊卡牌
+//	skill, ok := attack.Skill[skillid]
+//
+//	if !ok {
+//		fmt.Println("這個卡牌沒有這個技能")
+//	}
+//
+//	if !skill.Condition() {
+//		fmt.Println("技能不能使用")
+//	}
+//
+//	battleRoom, ok := BattleRoomList[this.BattleRoom]
+//	if !ok {
+//		fmt.Println("不在房間中")
+//	}
+//
+//	targetPlayer, ok := battleRoom.Target[this.MyUnit.InstId]
+//	if !ok {
+//		fmt.Println("目標卡牌的主人不在房間中")
+//	}
+//
+//
+//	skill.Action(attack, skill.StandbySkill(defender, targetPlayer.Player), battleRoom.Bout)
+//}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //战斗相关 设置卡牌
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//dont care mutli thread
+var battlePlayerList = []*GamePlayer{}
+func (this *GamePlayer) JoinBattle(){
+
+	battlePlayerList = append(battlePlayerList, this)
+
+	if len(battlePlayerList) == 2{
+		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
+		CreateBattle(battlePlayerList[0], battlePlayerList[1])
+
+		battlePlayerList = battlePlayerList[:0]
+	}
+	fmt.Println("JoinBattle", battlePlayerList)
+}
 
 func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置出战卡牌  战斗开始之前
 	if instId == 0 {
@@ -132,40 +154,42 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置�
 }
 
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵	每次回合之前
-	poss := map[int64]*Position{}
 
-	for _, po := range pos {
-		//if this.GetBattleUnit(int64(po.InstId)) == nil {
-		//	continue
-		//}
-		p := Position{}
-		p.Position = po.Position
-		p.InstId = po.InstId
-		poss[po.InstId] = &p
+	for _, p := range pos {
+		if this.GetBattleUnit(int64(p.InstId)) == nil {
+			return nil //错误消息
+		}
+		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_MAX{
+			return nil //错误消息 //检测缺失 阵营与位置关系
+		}
 	}
 
-	battleplayer := this.GetBattlePlayer(this.BattleRoom)
+	battleRoom := FindBattle(this.BattleId)
 
-	battleplayer.BattlePosition = poss
+	if battleRoom == nil{
+		//错误消息
+		return nil
+	}
 
-	this.TurnOver(this.BattleRoom)
-	fmt.Println("SetupBattle end ", &battleplayer.BattlePosition )
+	battleRoom.SetupPosition(this, pos)
+
+	this.session.SetupBattleOK()
 
 	return nil
 }
 
-func (this *GamePlayer) GetBattlePlayer (battleroom int64) *BattlePlayer {		//获取玩家的战斗属性
-	battleRoom, _ := BattleRoomList[this.BattleRoom]
-
-	player := battleRoom.GetPlayer(this.MyUnit.InstId)
-	return player
-}
-
-
-func (this *GamePlayer) TurnOver (battleroom int64)  {			//本回合结束
-	battleRoom, _ := BattleRoomList[this.BattleRoom]
-
-	battleRoom.TurnOver(this)
-
-	return
-}
+//func (this *GamePlayer) GetBattlePlayer (battleroom int64) *BattlePlayer {		//获取玩家的战斗属性
+//	battleRoom, _ := BattleRoomList[this.BattleRoom]
+//
+//	player := battleRoom.GetPlayer(this.MyUnit.InstId)
+//	return player
+//}
+//
+//
+//func (this *GamePlayer) TurnOver (battleroom int64)  {			//本回合结束
+//	battleRoom, _ := BattleRoomList[this.BattleRoom]
+//
+//	battleRoom.TurnOver(this)
+//
+//	return
+//}

@@ -8,8 +8,7 @@ type COM_BattleUnit struct{
   InstId int64  //1
   Position int32  //2
   HP int32  //3
-  Camp int  //4
-  Name string  //5
+  Name string  //4
 }
 func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -18,7 +17,6 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.InstId!=0)
   mask.WriteBit(this.Position!=0)
   mask.WriteBit(this.HP!=0)
-  mask.WriteBit(this.Camp!=0)
   mask.WriteBit(len(this.Name) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
@@ -57,15 +55,6 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.HP!=0){
       err := prpc.Write(buffer,this.HP)
-      if err != nil{
-        return err
-      }
-    }
-  }
-  // serialize Camp
-  {
-    if(this.Camp!=0){
-      err := prpc.Write(buffer,this.Camp)
       if err != nil{
         return err
       }
@@ -110,13 +99,6 @@ func (this *COM_BattleUnit)Deserialize(buffer *bytes.Buffer) error{
   // deserialize HP
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.HP)
-    if err != nil{
-      return err
-    }
-  }
-  // deserialize Camp
-  if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Camp)
     if err != nil{
       return err
     }

@@ -21,13 +21,13 @@ func (this *App) Run() {
 	)
 	logs.Init()
 
-	err = game.LoadUnitTable("F:/xiyou/config/tables/entity.csv")
+	err = game.LoadUnitTable("../../../config/tables/entity.csv")
 	if err != nil {
 		fmt.Println("LoadUnitTable", err.Error())
 		return
 	}
 
-	err = game.LoadSkillTable("F:/xiyou/config/tables/skill.csv")
+	err = game.LoadSkillTable("../../../config/tables/skill.csv")
 	if err != nil {
 		fmt.Println("LoadSkillTable", err.Error())
 		return

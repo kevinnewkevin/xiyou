@@ -3,8 +3,6 @@
 service COM_ClientToServer{
 	Login(COM_LoginInfo info);
 	CreatePlayer(int32 tempId, string playerName);
-	
-	//战斗相关 
 	SetBattleUnit(int64 instId); //设置上阵卡片
 	JoinBattle(); 				 //加入战斗
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
@@ -14,8 +12,6 @@ service COM_ServerToClient{
 	ErrorMessage(ErrorNo id);
 	LoginOK(COM_AccountInfo info);
 	CreatePlayerOK(COM_Player player);
-	
-	//战斗相关
 	JoinBattleOk();							//对应JoinBattle
 	SetupBattleOK();						//对应SetupBattle
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
