@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"logic/prpc"
 	"sync/atomic"
+	"sync"
 )
 
 const (
@@ -18,6 +19,7 @@ const (
 var roomInstId int64 = 1
 
 type BattleRoom struct {
+	sync.Mutex
 	InstId     int64         //房间ID
 	Status     int32         //战斗房间状态
 	Round      int32         //回合计数
@@ -67,6 +69,8 @@ func FindBattle(battleId int64) *BattleRoom {
 
 
 func (this *BattleRoom) BattleStart() {
+	this.Lock()
+	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		p.session.JoinBattleOk(int32(p.BattleCamp))
 	}
@@ -77,6 +81,8 @@ func (this *BattleRoom) BattleStart() {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
+	this.Lock()
+	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		var money int32
 		if p.BattleCamp == camp {
@@ -99,6 +105,8 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) Update() {
+	this.Lock()
+	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		if !p.IsActive {
 			return
@@ -145,6 +153,8 @@ func (this *BattleRoom) Update() {
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
+	this.Lock()
+	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		p.session.BattleReport(report)
 	}
@@ -155,6 +165,8 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
+	this.Lock()
+	defer this.Unlock()
 	targets := []*GameUnit{}
 	for _, u := range this.Units {
 		if u == nil {
@@ -174,6 +186,8 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition) {
+	this.Lock()
+	defer this.Unlock()
 	fmt.Println("SetupPosition.start")
 	if this.Round == 0 { //第一回合 必须设置主角卡
 		for _, pos := range posList {

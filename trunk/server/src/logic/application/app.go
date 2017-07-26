@@ -1,11 +1,11 @@
 package application
 
 import (
-	"net"
-	"suzuki/logs"
-	"logic/socket"
 	"fmt"
 	"logic/game"
+	"logic/socket"
+	"net"
+	"suzuki/logs"
 )
 
 type App struct {

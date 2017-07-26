@@ -7,7 +7,7 @@ import (
 
 type Skill struct {
 	SkillID int32		//技能ID
-	Crit int32			//暴击几率
+	Crit int32		//暴击几率
 	Damage int32		//伤害数值
 	BuffList []int32	//buff列表
 	CoolDown int32		//冷卻時間

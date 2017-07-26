@@ -4,9 +4,11 @@ import (
 	"logic/prpc"
 	"fmt"
 	"errors"
+	"sync"
 )
 
 type GamePlayer struct {
+	sync.Mutex
 	session        *Session    //链接
 	MyUnit         *GameUnit   //自己的卡片
 	UnitList       []*GameUnit //拥有的卡片
@@ -48,6 +50,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
+	this.Lock()
+	defer this.Unlock()
 	p := prpc.COM_Player{}
 	p.InstId = this.MyUnit.InstId
 	p.Name = this.MyUnit.InstName
@@ -62,6 +66,8 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 //角色数据接口
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 func (this *GamePlayer) GetUnit(instId int64) *GameUnit {
+	this.Lock()
+	defer this.Unlock()
 	if this.MyUnit.InstId == instId{
 		return  this.MyUnit
 	}
@@ -74,6 +80,8 @@ func (this *GamePlayer) GetUnit(instId int64) *GameUnit {
 	return nil
 }
 func (this *GamePlayer) GetBattleUnit(instId int64) *GameUnit {
+	this.Lock()
+	defer this.Unlock()
 	for _, v := range this.BattleUnitList {
 		if v == instId {
 			return this.GetUnit(instId)
@@ -132,7 +140,8 @@ func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) 
 //dont care mutli thread
 var battlePlayerList = []*GamePlayer{}
 func (this *GamePlayer) JoinBattle(){
-
+	this.Lock()
+	defer this.Unlock()
 	battlePlayerList = append(battlePlayerList, this)
 
 	if len(battlePlayerList) == 2{
@@ -145,6 +154,8 @@ func (this *GamePlayer) JoinBattle(){
 }
 
 func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置出战卡牌  战斗开始之前
+	this.Lock()
+	defer this.Unlock()
 	if instId == 0 {
 		return // 0是錯誤的
 	}
@@ -159,7 +170,8 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置�
 }
 
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵	每次回合之前
-
+	this.Lock()
+	defer this.Unlock()
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息

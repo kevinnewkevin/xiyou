@@ -2,8 +2,8 @@ package game
 
 import (
 	"logic/prpc"
-	"suzuki/conf"
 	"strconv"
+	"suzuki/conf"
 )
 
 type (
@@ -15,18 +15,18 @@ type (
 		Skills []int32
 	}
 	SkillRecord struct {
-		SkillID int32
-		Crit int32
-		Damage int32
-		BuffList []int32
-		CoolDown int32
-		TargetNum int
+		SkillID    int32
+		Crit       int32
+		Damage     int32
+		BuffList   []int32
+		CoolDown   int32
+		TargetNum  int
 		TargetCamp int
 	}
 )
 
 var (
-	unitTable =  map[int32]*UnitRecord{}
+	unitTable  = map[int32]*UnitRecord{}
 	skillTable = map[int32]*SkillRecord{}
 )
 
@@ -40,8 +40,8 @@ func LoadUnitTable(filename string) error {
 		u := UnitRecord{}
 		u.Id = int32(csv.GetInt(r, "UnitId"))
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
-		u.IProp = make([]int32,prpc.IPT_MAX)
-		u.CProp = make([]float32,prpc.CPT_MAX)
+		u.IProp = make([]int32, prpc.IPT_MAX)
+		u.CProp = make([]float32, prpc.CPT_MAX)
 		u.IProp[prpc.IPT_PHYLE] = csv.GetInt32(r, prpc.K_IPT_PHYLE)
 		u.IProp[prpc.IPT_LEVEL] = csv.GetInt32(r, prpc.K_IPT_LEVEL)
 		u.IProp[prpc.IPT_COPPER] = csv.GetInt32(r, prpc.K_IPT_COPPER)
@@ -65,7 +65,7 @@ func LoadUnitTable(filename string) error {
 		u.CProp[prpc.CPT_INCANTER] = csv.GetFloat32(r, prpc.K_CPT_INCANTER)
 		u.CProp[prpc.CPT_RESISTANCE] = csv.GetFloat32(r, prpc.K_CPT_RESISTANCE)
 
-		u.Skills = make([]int32,4)
+		u.Skills = make([]int32, 4)
 		u.Skills[0] = csv.GetInt32(r, "Skill1")
 		u.Skills[1] = csv.GetInt32(r, "Skill2")
 		u.Skills[2] = csv.GetInt32(r, "Skill3")
@@ -79,7 +79,6 @@ func LoadUnitTable(filename string) error {
 func GetUnitRecordById(id int32) *UnitRecord {
 	return unitTable[id]
 }
-
 
 func LoadSkillTable(filename string) error {
 	csv, err := conf.NewCSVFile(filename)

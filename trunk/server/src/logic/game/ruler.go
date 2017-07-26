@@ -2,7 +2,6 @@ package game
 
 import (
 	"logic/prpc"
-	"math"
 	"math/rand"
 )
 

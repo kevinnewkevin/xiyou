@@ -19,7 +19,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
-	this.player = CreatePlayer(tempId,playerName)
+	this.player = CreatePlayer(tempId, playerName)
 	this.player.SetSession(this)
 
 	r := this.player.GetPlayerCOM()
@@ -43,15 +43,13 @@ func (this *Session) SetBattleUnit(instId int64) error {
 	return nil
 } // 2
 
-
 func (this *Session) JoinBattle() error {
 
-	if this.player == nil{
-		return  nil
+	if this.player == nil {
+		return nil
 	}
 
 	this.player.JoinBattle()
-
 
 	return nil
 } // 3
@@ -74,7 +72,6 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 
 func (this *Session) Update() {
 
-
 	for {
 		err := this.peer.HandleSocket()
 		if err != nil {
@@ -89,11 +86,11 @@ func (this *Session) Update() {
 			}
 		}
 	}
-	endLoop:
+endLoop:
 
 	//do clean
 
-	if this.player != nil && this != nil{
+	if this.player != nil && this != nil {
 		this.player.SetSession(nil)
 		this.player = nil
 		this.peer = nil
