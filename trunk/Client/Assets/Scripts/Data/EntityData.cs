@@ -25,7 +25,7 @@ public class EntityData {
         for(int i=0; i < recordCounter; ++i)
         {
             data = new EntityData ();
-            data._UnitId = parser.GetInt (i, "EntityId");
+            data._UnitId = parser.GetInt (i, "UnitId");
             data._DisplayId = parser.GetInt(i, "DisplayId");
 
             if(metaData.ContainsKey(data._UnitId))
