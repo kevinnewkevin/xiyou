@@ -3,19 +3,23 @@ package socket
 import (
 	"bytes"
 	"net"
+	"sync"
 )
 
 type Peer struct {
+	sync.Mutex
 	TotalIncoming, TotalOutgoing   int
 	IncomingBuffer, OutgoingBuffer *bytes.Buffer
 	Connection                     net.Conn
 }
 
 func (this *Peer) MethodBegin() *bytes.Buffer {
+	this.Lock()
 	return this.OutgoingBuffer
 }
 
 func (this *Peer) MethodEnd() error {
+	defer this.Unlock()
 	c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
 	if e != nil {
 		return e
