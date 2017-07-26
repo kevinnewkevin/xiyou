@@ -205,7 +205,7 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, long instid)
     {
-        int tpos = ConvertedPos(pos);
+        int tpos = _Side == 0? pos: ConvertedPos(pos);
         Actor actor = GetActor(instid);
         if (actor != null)
         {
@@ -218,7 +218,7 @@ public class Battle {
     //场上删除一个角色
     static void DelActor(int pos)
     {
-        int tpos = ConvertedPos(pos);
+        int tpos = _Side == 0? pos: ConvertedPos(pos);
         if (_ActorInScene [tpos] != null)
             _ActorInScene [tpos].Fini();
         _ActorInScene [tpos] = null;
