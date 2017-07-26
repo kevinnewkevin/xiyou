@@ -25,8 +25,8 @@ public class SkillData {
         for(int i=0; i < recordCounter; ++i)
         {
             data = new SkillData ();
-            data._Id = parser.GetInt (i, "ID");
-            data._IsMelee = parser.GetBool (i, "isMelee");
+            data._Id = parser.GetInt (i, "SkillId");
+            data._IsMelee = parser.GetBool (i, "IsMelee");
 
             if(metaData.ContainsKey(data._Id))
             {

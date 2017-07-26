@@ -44,6 +44,7 @@ public class DataLoader {
         RegistTables("DisPlay", DisplayData.ParseData);
         RegistTables("Npc", NpcData.ParseData);
         RegistTables("Scene", SceneData.ParseData);
+        RegistTables("skill", SkillData.ParseData);
         RegistTables("tables/entity", EntityData.ParseData);
     }
 

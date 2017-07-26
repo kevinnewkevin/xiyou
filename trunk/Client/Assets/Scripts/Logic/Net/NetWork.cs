@@ -22,9 +22,9 @@ public class NetWoking
             socket_.NoDelay = true;
             return true;
         }
-        catch (System.Exception ex)
+        catch (System.Net.Sockets.SocketException ex)
         {
-            UnityEngine.Debug.LogError(ex.Message);
+            UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
             return false;
         }
     }
@@ -55,9 +55,9 @@ public class NetWoking
                     outgoing_buffer_.Crunch();
                 }
             }
-            catch (System.Exception ex)
+            catch (System.Net.Sockets.SocketException ex)
             {
-                UnityEngine.Debug.LogError(ex.Message);
+                UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
             }
         }
     }
@@ -71,9 +71,9 @@ public class NetWoking
                 int recved = socket_.Receive(incoming_buffer_.Buffer, incoming_buffer_.GetWritePtr(), incoming_buffer_.Space, System.Net.Sockets.SocketFlags.None);
                 incoming_buffer_.SetWritePtr(recved);
             }
-            catch (System.Exception ex)
+            catch (System.Net.Sockets.SocketException ex)
             {
-                UnityEngine.Debug.LogError(ex.Message);
+                UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
             }
         }
     }
