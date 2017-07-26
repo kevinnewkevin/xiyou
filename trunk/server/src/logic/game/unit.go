@@ -82,8 +82,21 @@ func(this *GameUnit)GetBattleUnitCOM()prpc.COM_BattleUnit{
 	return  u
 }
 
-func(this* GameUnit)CastSkill(battle *BattleRoom){
+func (this *GameUnit) SelectSkill(round int32) *Skill {
+	return this.Skill[0]
+}
 
+func(this* GameUnit)CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) {
 
+	skill := this.SelectSkill(battle.Round)
 
+	tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
+
+	acc, dead := skill.Action(this, tagetList, battle.Round)
+
+	return acc, dead
+}
+
+func (this *GameUnit) IsDead() bool {
+	return this.GetCProperty(prpc.CPT_HP) > 0
 }

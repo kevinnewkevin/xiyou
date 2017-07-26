@@ -26,15 +26,17 @@ func(this *Skill)Condition()bool{
 	return this.checkUse()
 } //能不能使用
 
-func(this *Skill)Action(caster *GameUnit, targetList []*GameUnit, bout int32) (prpc.COM_BattleAction, []int64) {
+func(this *Skill)Action(caster *GameUnit, targetList []*GameUnit, bout int32) (prpc.COM_BattleAction, bool) {
 	actionList := []prpc.COM_BattleActionTarget{}
-	allDeat := []int64{}
+	OwnerDead := false
 	for i:=0; i<len(targetList); i++ {
 		fmt.Println(i, "Action", targetList[i], "		")
 		finl := int32(targetList[i].CProperties[prpc.CPT_HP]) - this.Damage
 		if finl <= 0 {
 			finl = 0
-			allDeat = append(allDeat, targetList[i].InstId)
+			if targetList[i].Owner.MyUnit.InstId == targetList[i].InstId {
+				OwnerDead = true
+			}
 		}
 		targetList[i].CProperties[prpc.CPT_HP] = float32(finl)
 		t := prpc.COM_BattleActionTarget{}
@@ -51,8 +53,7 @@ func(this *Skill)Action(caster *GameUnit, targetList []*GameUnit, bout int32) (p
 	action.SkillId = this.SkillID
 	action.TargetList = actionList
 
-
-	return action, allDeat
+	return action, OwnerDead
 
 }//使用技能
 

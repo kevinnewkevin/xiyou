@@ -47,8 +47,13 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	p0.BattleId = room.InstId
 	p1.BattleId = room.InstId
 
+	p0.BattleCamp = prpc.CT_RED
+	p1.BattleCamp = prpc.CT_BLUE
+
 	BattleRoomList[room.InstId] = &room
 	fmt.Println("CreateBattleRoom", &room)
+
+	room.BattleStart()
 
 	return &room
 }
@@ -60,12 +65,33 @@ func FindBattle(battleId int64) *BattleRoom {
 	return nil
 }
 
+
+func (this *BattleRoom) BattleStart() {
+	for _, p := range this.PlayerList {
+		p.session.JoinBattleOk()
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////
 ////销毁部分
 ////////////////////////////////////////////////////////////////////////
 
-func (this *BattleRoom) BattleRoomOver() {
-	this.Status = kIdle
+func (this *BattleRoom) BattleRoomOver(camp int) {
+	for _, p := range this.PlayerList {
+		var money int32
+		if p.BattleCamp == camp {
+			money = 1000
+		} else {
+			money = 2000
+		}
+
+		result := prpc.COM_BattleResult{}
+
+		result.Money = money
+		p.session.BattleExit(result)
+	}
+
+	fmt.Println("BattleRoomOver, winner is ", camp)
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -83,10 +109,35 @@ func (this *BattleRoom) Update() {
 
 	report := prpc.COM_BattleReport{}
 
+	WinCamp := 0
 	for _, u := range this.Units {
+		if u.IsDead() {			// 非主角死亡跳過
+			continue
+		}
+
 		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
 
-		u.CastSkill(this)
+		ac, ownerdead := u.CastSkill(this)
+		report.ActionList = append(report.ActionList, ac)
+
+		fmt.Println("BattleAcction", u.InstId, "acction", ac)
+		if ownerdead {
+			this.Status = kIdle
+			WinCamp = u.Owner.BattleCamp
+			break
+		}
+	}
+	fmt.Println("Battle report", report)
+
+	for _, p := range this.PlayerList {		//戰鬥結束之後要重置屬性
+		p.IsActive = false
+	}
+
+	this.Round += 1
+	this.SendReport(report)
+
+	if this.Status == kIdle {
+		this.BattleRoomOver(WinCamp)
 	}
 }
 
@@ -94,6 +145,22 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 	for _, p := range this.PlayerList {
 		p.session.BattleReport(report)
 	}
+}
+
+////////////////////////////////////////////////////////////////////////
+////數據處理
+////////////////////////////////////////////////////////////////////////
+
+func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
+	targets := []*GameUnit{}
+	for _, u := range this.Units {
+		if u.Owner.BattleCamp == camp {
+			continue
+		}
+		targets = append(targets, u)
+	}
+
+	return targets
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -137,73 +204,5 @@ setup_check_success:
 		this.Units[pos.Position] = p.GetBattleUnit(pos.InstId)
 		this.Units[pos.Position].Position = pos.Position
 	}
+	p.IsActive = true
 }
-
-//func (this *BattleRoom) BattleAction(Player *BattlePlayer, AllPlayer map[int64]*BattlePlayer) {
-//	fmt.Println("BattleAcction start", Player.Player.MyUnit.InstId)
-//	report := prpc.COM_BattleReport{}
-//	fmt.Println("BattleAcction report start",report.UnitList, "ssssss", report.ActionList)
-//
-//	for _, bp := range AllPlayer {				//遍历所有参与战斗的
-//		for _, unit := range bp.BattlePosition {		//遍历本人所有战斗单位
-//			instid := unit.InstId
-//			//u := bp.Player.GetBattleUnit(instid)
-//
-//			var u *GameUnit
-//			u = bp.Player.GetUnit(instid)
-//
-//			if u == nil {
-//				continue
-//			}
-//
-//			skill := u.Skill[0]
-//
-//			targetPlayer, _ := this.Target[bp.Player.MyUnit.InstId]
-//			targetList := []*GameUnit{}
-//
-//			for _, pos := range targetPlayer.BattlePosition {
-//				e_u := targetPlayer.Player.GetBattleUnit(pos.InstId)
-//				if e_u == nil{
-//					continue
-//				}
-//				targetList = append(targetList, e_u)
-//			}
-//
-//			if len(targetList) == 0{
-//				targetList = append(targetList, targetPlayer.Player.MyUnit)
-//			}		//测试用代码
-//
-//			unit_con := prpc.COM_BattleUnit{}
-//
-//			unit_con.InstId = unit.InstId
-//			unit_con.Position = unit.Position
-//			unit_con.Camp = bp.Camp
-//			unit_con.UnitId = u.UnitId
-//			unit_con.Name = u.InstName
-//			unit_con.HP = int32(u.CProperties[prpc.CPT_HP])
-//
-//			report.UnitList = append(report.UnitList, unit_con)
-//
-//			fmt.Println("UnitId", unit_con.UnitId, "Instid ", unit_con.InstId)
-//
-//			al, dl := skill.Action(u, targetList, this.Bout)
-//
-//			if len(dl) > 0{
-//				//这里需要在战斗单位中删除某些角色
-//				for _, iid := range dl {
-//					delete(bp.BattlePosition, iid)
-//				}
-//				if len(bp.BattlePosition) == 0{
-//				}
-//			}
-//
-//			fmt.Println("BattleAcction", bp.Player.MyUnit.InstId, "target", targetPlayer.Player.MyUnit.InstId, "acction", al)
-//			report.ActionList = append(report.ActionList, al)
-//			fmt.Println("Battle report", report)
-//		}
-//	}
-//
-//	fmt.Println("Battle end, unitlist is ", report.UnitList, "		action is ", report.ActionList)
-//	this.SendReport(report)
-//
-//}
