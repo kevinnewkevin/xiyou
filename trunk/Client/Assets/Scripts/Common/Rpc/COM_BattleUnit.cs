@@ -5,7 +5,6 @@ public class COM_BattleUnit{
     mask.WriteBit(InstId!=0);
     mask.WriteBit(Position!=0);
     mask.WriteBit(HP!=0);
-    mask.WriteBit(Camp!=0);
     mask.WriteBit(Name!=null&&Name.Length!=0&&Name!="");
     w.Write(mask.Bytes);
     //S UnitId
@@ -23,10 +22,6 @@ public class COM_BattleUnit{
     //S HP
     if(HP!=0){
       w.Write(HP);
-    }
-    //S Camp
-    if(Camp!=0){
-      w.Write((byte)Camp);
     }
     //S Name
     if(Name!=null&&Name.Length!=0&&Name!=""){
@@ -62,14 +57,6 @@ public class COM_BattleUnit{
         return false;
       }
     }
-    //D Camp
-    if(mask.ReadBit()){
-      byte enumer = 0XFF;
-      if(!r.Read(ref enumer) || enumer >= 3 ){
-        return false;
-      }
-      Camp = enumer;
-    }
     //D Name
     if(mask.ReadBit()){
       if(!r.Read(ref Name)){
@@ -82,6 +69,5 @@ public class COM_BattleUnit{
   public long InstId;
   public int Position;
   public int HP;
-  public int Camp;
   public string Name;
 }
