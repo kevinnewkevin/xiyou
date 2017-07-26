@@ -19,10 +19,10 @@ public class Battle {
         BR_None
     }
 
-    static Actor[] _SelfActorInScene = new Actor[12/*BP_Max*/];
-    static Actor[] _OppoActorInScene = new Actor[12/*BP_Max*/];
-    static Transform[] _SelfPosInScene = new Transform[12/*BP_Max*/];
-    static Transform[] _OppoPosInScene = new Transform[12/*BP_Max*/];
+    static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
+    //static Actor[] _OppoActorInScene = new Actor[12/*BP_Max*/];
+    static Transform[] _PosInScene = new Transform[12/*BP_Max*/];
+    //static Transform[] _OppoPosInScene = new Transform[12/*BP_Max*/];
     static GameObject _SceneConfig;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
@@ -118,33 +118,15 @@ public class Battle {
                     int toIdx = int.Parse(point.name) - 1;
                     if (_Side == 0)
                     {
-                        if (toIdx < 6)
-                        {
-                            _SelfPosInScene [toIdx] = point;
-                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            _OppoPosInScene [toIdx] = point;
-                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
-                        }
+                        _PosInScene [toIdx] = point;
+                        _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                        _PosInScene [toIdx].gameObject.SetActive(false);
                     }
                     else
                     {
-                        if (toIdx < 6)
-                        {
-                            _SelfPosInScene [toIdx] = point;
-                            _SelfPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx + 6);
-                            _SelfPosInScene [toIdx].gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            _OppoPosInScene [toIdx] = point;
-                            _OppoPosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx - 6);
-                            _OppoPosInScene [toIdx].gameObject.SetActive(false);
-                        }
+                        _PosInScene [toIdx] = point;
+                        _PosInScene [toIdx].GetComponent<PointHandle>().Init(ConvertedPos(toIdx));
+                        _PosInScene [toIdx].gameObject.SetActive(false);
                     }
                 }
                 _IsStagePointInitSuc = true;
@@ -157,6 +139,11 @@ public class Battle {
         return _IsStagePointInitSuc;
     }
 
+    static int ConvertedPos(int pos)
+    {
+        return (pos + 6) % 12;
+    }
+
     static bool PlaceActor()
     {
         return true;
@@ -164,16 +151,10 @@ public class Battle {
 
     static void UnLoadAssets()
     {
-        for (int i = 0; i < _SelfActorInScene.Length; ++i)
+        for (int i = 0; i < _PosInScene.Length; ++i)
         {
-            if (_SelfActorInScene[i] != null)
-                _SelfActorInScene[i].Fini();
-        }
-
-        for (int i = 0; i < _OppoActorInScene.Length; ++i)
-        {
-            if (_OppoActorInScene[i] != null)
-                _OppoActorInScene[i].Fini();
+            if (_ActorInScene[i] != null)
+                _ActorInScene[i].Fini();
         }
     }
 
@@ -224,65 +205,36 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, long instid)
     {
+        int tpos = ConvertedPos(pos);
         Actor actor = GetActor(instid);
         if (actor != null)
         {
-            if(GamePlayer.IsMy(instid))
-                actor.MoveTo(_SelfPosInScene[pos].position, null);
-            else
-                actor.MoveTo(_OppoPosInScene[pos].position, null);
+            actor.MoveTo(_PosInScene[tpos].position, null);
             return;
         }
-        
-        if(GamePlayer.IsMy(instid))
-            _SelfActorInScene[pos] = new Actor(go, _SelfPosInScene[pos].position, instid);
-        else
-            _OppoActorInScene[pos] = new Actor(go, _OppoPosInScene[pos].position, instid);
+        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos].position, instid);
     }
 
     //场上删除一个角色
-    static void DelActor(int pos, bool self)
+    static void DelActor(int pos)
     {
-        if (self)
-        {
-            if (_SelfActorInScene [pos] != null)
-                _SelfActorInScene [pos].Fini();
-            _SelfActorInScene [pos] = null;
-        }
-        else
-        {
-            if (_OppoActorInScene [pos] != null)
-                _OppoActorInScene [pos].Fini();
-            _OppoActorInScene [pos] = null;
-        }
+        int tpos = ConvertedPos(pos);
+        if (_ActorInScene [tpos] != null)
+            _ActorInScene [tpos].Fini();
+        _ActorInScene [tpos] = null;
     }
 
     //场上找到一个角色
     static public Actor GetActor(long instid)
     {
-        if (GamePlayer.IsMy(instid))
+        for (int i = 0; i < _ActorInScene.Length; ++i)
         {
-            for (int i = 0; i < _SelfActorInScene.Length; ++i)
-            {
-                if (_SelfActorInScene [i] == null)
-                    continue;
+            if (_ActorInScene [i] == null)
+                continue;
 
-                if (_SelfActorInScene [i].InstID == instid)
-                    return _SelfActorInScene [i];
-            }
+            if (_ActorInScene [i].InstID == instid)
+                return _ActorInScene [i];
         }
-        else
-        {
-            for (int i = 0; i < _OppoActorInScene.Length; ++i)
-            {
-                if (_OppoActorInScene [i] == null)
-                    continue;
-
-                if (_OppoActorInScene [i].InstID == instid)
-                    return _OppoActorInScene [i];
-            }
-        }
-
         return null;
     }
 
@@ -305,20 +257,13 @@ public class Battle {
 
     static public void SwitchPoint(bool on)
     {
-        for(int i=0; i < _SelfPosInScene.Length; ++i)
+        for(int i=0; i < 6; ++i)
         {
-            if (_SelfPosInScene [i] != null)
+            if (_PosInScene [i] != null)
             {
-                _SelfPosInScene [i].gameObject.SetActive(on);
+                _PosInScene [i].gameObject.SetActive(on);
             }
         }
-//        for(int i=0; i < _OppoPosInScene.Length; ++i)
-//        {
-//            if (_OppoPosInScene [i] != null)
-//            {
-//                _OppoPosInScene [i].gameObject.SetActive(on);
-//            }
-//        }
     }
 
     static public void OperateSetActor(int pos)
