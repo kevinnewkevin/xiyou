@@ -49,8 +49,6 @@ func CreateUnitFromTable(id int32) *GameUnit {
 }
 
 func (this *GameUnit)GetBattleCamp()int{
-	this.Lock()
-	defer this.Unlock()
 	if this.Owner != nil {
 		return  this.Owner.BattleCamp
 	}
@@ -58,8 +56,6 @@ func (this *GameUnit)GetBattleCamp()int{
 }
 
 func (this* GameUnit) GetCProperty(id int32)float32{
-	this.Lock()
-	defer this.Unlock()
 	if id <= prpc.CPT_MIN || id >= prpc.CPT_MAX{
 		return 0
 	}
@@ -67,8 +63,6 @@ func (this* GameUnit) GetCProperty(id int32)float32{
 }
 
 func(this* GameUnit)GetUnitCOM()prpc.COM_Unit{
-	this.Lock()
-	defer this.Unlock()
 	u := prpc.COM_Unit{}
 	u.UnitId = this.UnitId
 	u.InstId = this.InstId
@@ -78,8 +72,6 @@ func(this* GameUnit)GetUnitCOM()prpc.COM_Unit{
 }
 
 func(this *GameUnit)GetBattleUnitCOM()prpc.COM_BattleUnit{
-	this.Lock()
-	defer this.Unlock()
 	u := prpc.COM_BattleUnit{}
 	u.Position = this.Position
 	u.InstId = this.InstId
@@ -91,14 +83,10 @@ func(this *GameUnit)GetBattleUnitCOM()prpc.COM_BattleUnit{
 }
 
 func (this *GameUnit) SelectSkill(round int32) *Skill {
-	this.Lock()
-	defer this.Unlock()
 	return this.Skill[0]
 }
 
 func(this* GameUnit)CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) {
-	this.Lock()
-	defer this.Unlock()
 	skill := this.SelectSkill(battle.Round)
 
 	tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
@@ -109,7 +97,5 @@ func(this* GameUnit)CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) 
 }
 
 func (this *GameUnit) IsDead() bool {
-	this.Lock()
-	defer this.Unlock()
 	return this.GetCProperty(prpc.CPT_HP) <= 0
 }
