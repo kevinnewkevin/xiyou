@@ -5,6 +5,7 @@ import (
 	"logic/prpc"
 	"sync/atomic"
 	"sync"
+	"time"
 )
 
 const (
@@ -14,6 +15,8 @@ const (
 	kTurn    = 1 //回合數
 	kMaxUnit = 6 //雙方最多上陣卡牌
 	kMaxMove = 2 //行动结束
+
+	kTimeSleep = 5	//檢測間隔
 )
 
 var roomInstId int64 = 1
@@ -56,6 +59,7 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	fmt.Println("CreateBattleRoom", &room)
 
 	room.BattleStart()
+	go room.BattleUpdate()
 
 	return &room
 }
@@ -69,10 +73,31 @@ func FindBattle(battleId int64) *BattleRoom {
 
 
 func (this *BattleRoom) BattleStart() {
-	this.Lock()
-	defer this.Unlock()
 	for _, p := range this.PlayerList {
+
+		if p == nil || p.session == nil {
+			continue
+		}
 		p.session.JoinBattleOk(int32(p.BattleCamp))
+	}
+}
+
+//臨時用
+func (this *BattleRoom) BattleUpdate() {
+	start := time.Now().Unix()
+	checkindex := 0
+	for this.Status == kUsed {
+
+		now := time.Now().Unix()
+
+		if now - kTimeSleep < start {
+			continue
+		}
+
+		fmt.Println("BattleUpdate, index is", checkindex)
+		this.Update()
+		start = time.Now().Unix()
+		checkindex += 1
 	}
 }
 
@@ -81,8 +106,6 @@ func (this *BattleRoom) BattleStart() {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
-	this.Lock()
-	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		var money int32
 		if p.BattleCamp == camp {
@@ -126,10 +149,14 @@ func (this *BattleRoom) Update() {
 		fmt.Println("report.UnitList, append", u)
 		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
 
+		fmt.Println("aaaaaaaa", u.IsDead())
+
 		if u.IsDead() {			// 非主角死亡跳過
+			fmt.Println("bbbbbbbb")
 			continue
 		}
 
+		fmt.Println("cccccccc")
 		ac, ownerdead := u.CastSkill(this)
 		report.ActionList = append(report.ActionList, ac)
 
@@ -164,8 +191,6 @@ func (this *BattleRoom) Update() {
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
-	this.Lock()
-	defer this.Unlock()
 	for _, p := range this.PlayerList {
 		p.session.BattleReport(report)
 	}
@@ -176,8 +201,6 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
-	this.Lock()
-	defer this.Unlock()
 	targets := []*GameUnit{}
 	for _, u := range this.Units {
 		if u == nil {
