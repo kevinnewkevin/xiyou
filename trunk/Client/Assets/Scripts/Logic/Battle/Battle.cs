@@ -189,6 +189,9 @@ public class Battle {
             DisplayData display;
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
+                if (GetActor(_BattleReport.UnitList [i].InstId) != null)
+                    continue;
+                
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
                 AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId);
