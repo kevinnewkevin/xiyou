@@ -99,6 +99,7 @@ public class Battle {
     //初始化战斗
     static public void Init(int side)
     {
+        _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
         _Turn = 1;
@@ -324,9 +325,8 @@ public class Battle {
             _OperatList.Add(bp);
 
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
-            int displayId = 1;
-
-            DisplayData displayData = DisplayData.GetData(displayId);
+            EntityData eData = EntityData.GetData(entity.UnitId);
+            DisplayData displayData = DisplayData.GetData(eData._DisplayId);
             AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID);
         }
 
