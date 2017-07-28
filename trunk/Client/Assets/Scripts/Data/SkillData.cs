@@ -6,6 +6,13 @@ public class SkillData {
 
     public int _Id;
     public bool _IsMelee;
+    public string _CastAnim;
+    public string _BeattackAnim;
+    public float _BeattackTime;
+    public float _EmitNumTime;
+    public int _BeattackEffectID;
+    public float _BeattackEffectTime;
+    public float _TotalTime;
 
     static Dictionary<int, SkillData> metaData;
 
@@ -27,6 +34,13 @@ public class SkillData {
             data = new SkillData ();
             data._Id = parser.GetInt (i, "SkillId");
             data._IsMelee = parser.GetBool (i, "IsMelee");
+            data._CastAnim = parser.GetString (i, "CastAnim");
+            data._BeattackAnim = parser.GetString (i, "BeattackAnim");
+            data._BeattackTime = parser.GetFloat (i, "BeattackTime");
+            data._EmitNumTime = parser.GetFloat (i, "EmitNumTime");
+            data._BeattackEffectID = parser.GetInt (i, "BeattackEffectId");
+            data._BeattackEffectTime = parser.GetFloat (i, "BeattackEffectTime");
+            data._TotalTime = parser.GetFloat(i, "TotalTime");
 
             if(metaData.ContainsKey(data._Id))
             {

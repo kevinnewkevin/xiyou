@@ -33,27 +33,27 @@ public class Skill {
         // judge whether is melee skill
         if (_SkillData._IsMelee)
         {
-            float attackTime = _Caster.ClipLength(Define.ANIMATION_PLAYER_ACTION_ATTACK);
+            float attackTime = _Caster.ClipLength(_SkillData._CastAnim);
             _Caster.MoveTo(_Targets[0].Forward, delegate
             {
                 //clip name in skilldata
-                _Caster.Play(Define.ANIMATION_PLAYER_ACTION_ATTACK);
+                _Caster.Play(_SkillData._CastAnim);
                 _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_RUN);
 
                 //1.目标播受击动作的时间
                 //2.目标播受击特效的时间
                 //3.目标弹伤害数字的时间
-                new Timer().Start(new TimerParam(0.3f, delegate
+                new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
                         _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
                         _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
                     }
-                }), new TimerParam(1f, delegate
+                }), new TimerParam(_SkillData._BeattackEffectTime, delegate
                 {
 
-                }), new TimerParam(1f, delegate
+                }), new TimerParam(_SkillData._EmitNumTime, delegate
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
@@ -71,26 +71,30 @@ public class Skill {
         else
         {
             //clip name in skilldata
-            _Caster.Play("");
-
+            _Caster.Play(_SkillData._CastAnim);
+            _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
             //1.目标播受击动作的时间
             //2.目标播受击特效的时间
             //3.目标弹伤害数字的时间
-            new Timer().Start(new TimerParam(1f, delegate
+            new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
             {
                 for (int i = 0; i < _Targets.Length; ++i)
                 {
                     _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
                 }
-            }), new TimerParam(1f, delegate
+            }), new TimerParam(_SkillData._BeattackEffectTime, delegate
             {
 
-            }), new TimerParam(1f, delegate
+            }), new TimerParam(_SkillData._EmitNumTime, delegate
             {
                 for (int i = 0; i < _Targets.Length; ++i)
                 {
                     _Targets[i].PopContent();
                 }
+            }), new TimerParam(_SkillData._TotalTime, delegate
+            {
+                Battle._ReportIsPlaying = false;
+                _Caster.Stop();
             }));
         }
 
