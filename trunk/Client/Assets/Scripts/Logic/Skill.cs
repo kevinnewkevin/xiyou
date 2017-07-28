@@ -33,11 +33,12 @@ public class Skill {
         // judge whether is melee skill
         if (_SkillData._IsMelee)
         {
+            float attackTime = _Caster.ClipLength(Define.ANIMATION_PLAYER_ACTION_ATTACK);
             _Caster.MoveTo(_Targets[0].Forward, delegate
             {
                 //clip name in skilldata
                 _Caster.Play(Define.ANIMATION_PLAYER_ACTION_ATTACK);
-                _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_RUN);
 
                 //1.目标播受击动作的时间
                 //2.目标播受击特效的时间
@@ -58,7 +59,7 @@ public class Skill {
                     {
                         _Targets[i].PopContent();
                     }
-                }), new TimerParam(1f, delegate
+                }), new TimerParam(attackTime, delegate
                 {
                     _Caster.MoveTo(_OriginPos, delegate {
                         Battle._ReportIsPlaying = false;

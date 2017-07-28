@@ -9,6 +9,8 @@ public class Actor {
 
     public GameObject _Headbar;
 
+    Transform _Pos;
+
     long _InstID;
 
     //Animator _Animator;
@@ -42,8 +44,9 @@ public class Actor {
         }
         _ActorObj = go;
         _InstID = instid;
-        _ActorObj.transform.position = pos.position;
-        _ActorObj.transform.rotation = pos.rotation;
+        _Pos = pos;
+        _ActorObj.transform.position = _Pos.position;
+        _ActorObj.transform.rotation = _Pos.rotation;
         Init();
     }
 
@@ -90,6 +93,8 @@ public class Actor {
         if (_IsRunning)
             Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
+        if(_Pos != null)
+            _ActorObj.transform.rotation = _Pos.rotation;
         _IsRunning = false;
     }
 
@@ -153,6 +158,14 @@ public class Actor {
 //                _Animator.SetTrigger(action);
 //                break;
 //        }
+    }
+
+    public float ClipLength(string clipName)
+    {
+        if (_Animation == null)
+            return 0f;
+
+        return _Animation.GetClip(clipName).length;
     }
 
     public void PlayQueue(string action)
