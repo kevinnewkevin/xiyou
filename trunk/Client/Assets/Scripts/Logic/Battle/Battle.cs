@@ -180,7 +180,7 @@ public class Battle {
     //播放一回合战报 处理快照
     static void Play()
     {
-        if (_ReportAction == null)
+        if (_ReportAction == null || _ReportAction.Count == 0)
             return;
 
         if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
