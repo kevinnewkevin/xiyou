@@ -175,6 +175,7 @@ public class Battle {
             if (_ActorInScene[i] != null)
                 _ActorInScene[i].Fini();
         }
+        _PosInScene = new Transform[12];
     }
 
     //播放一回合战报 处理快照
