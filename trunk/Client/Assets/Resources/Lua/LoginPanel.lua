@@ -9,7 +9,7 @@ function LoginPanel_start()
 end
 
 function LoginPanel_Test()
-	SceneLoader.LoadScene("main", false);
+    Proxy4Lua.CreatePlayer(1, "guowengui");
 end
 
 function LoginPanel_update()

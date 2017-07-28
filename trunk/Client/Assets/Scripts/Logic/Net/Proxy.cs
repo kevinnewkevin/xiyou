@@ -14,10 +14,9 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool CreatePlayerOK(ref COM_Player player)
     {
-        UnityEngine.Debug.Log("createplayerok");
         GamePlayer.Init(player);
-        World.InitPlayerActor();
-        World.InitNpcActor();
+        SceneLoader.LoadScene(Define.SCENE_MAIN);
+        UnityEngine.Debug.Log("createplayerok");
         return true;
     }
 

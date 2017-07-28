@@ -13,6 +13,11 @@ public class Proxy4Lua {
     {
         NetWoking.S.JoinBattle();
     }
+
+    static public void CreatePlayer(int templateId, string nickName)
+    {
+        NetWoking.S.CreatePlayer(templateId, nickName);
+    }
     #endregion
 
     #region 内部接口

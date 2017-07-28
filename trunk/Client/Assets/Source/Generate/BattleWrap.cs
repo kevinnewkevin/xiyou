@@ -30,6 +30,7 @@ public class BattleWrap
 		L.RegVar("_Side", get__Side, set__Side);
 		L.RegVar("_OperatList", get__OperatList, set__OperatList);
 		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
+		L.RegVar("SetResult", null, set_SetResult);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
 		L.EndClass();
 	}
@@ -526,6 +527,21 @@ public class BattleWrap
 		{
 			System.Collections.Generic.List<COM_BattlePosition> arg0 = (System.Collections.Generic.List<COM_BattlePosition>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<COM_BattlePosition>));
 			Battle._OperatList = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_SetResult(IntPtr L)
+	{
+		try
+		{
+			Battle.BattleResult arg0 = (Battle.BattleResult)ToLua.CheckObject(L, 2, typeof(Battle.BattleResult));
+			Battle.SetResult = arg0;
 			return 0;
 		}
 		catch(Exception e)

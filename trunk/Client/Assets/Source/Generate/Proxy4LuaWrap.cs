@@ -9,6 +9,7 @@ public class Proxy4LuaWrap
 		L.BeginClass(typeof(Proxy4Lua), typeof(System.Object));
 		L.RegFunction("BattleSetup", BattleSetup);
 		L.RegFunction("BattleJoin", BattleJoin);
+		L.RegFunction("CreatePlayer", CreatePlayer);
 		L.RegFunction("SelectCard4Ready", SelectCard4Ready);
 		L.RegFunction("New", _CreateProxy4Lua);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -61,6 +62,23 @@ public class Proxy4LuaWrap
 		{
 			ToLua.CheckArgsCount(L, 0);
 			Proxy4Lua.BattleJoin();
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreatePlayer(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			Proxy4Lua.CreatePlayer(arg0, arg1);
 			return 0;
 		}
 		catch(Exception e)
