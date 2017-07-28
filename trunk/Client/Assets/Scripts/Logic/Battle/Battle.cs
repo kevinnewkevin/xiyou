@@ -247,7 +247,7 @@ public class Battle {
             actor.MoveTo(_PosInScene[tpos].position, null);
             return;
         }
-        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos].position, instid);
+        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid);
     }
 
     //场上删除一个角色

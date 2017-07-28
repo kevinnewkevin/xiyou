@@ -20,7 +20,7 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid)
+    public Actor(GameObject go, Transform pos, long instid)
     {
         if (go == null)
         {
@@ -29,7 +29,8 @@ public class Actor {
         }
         _ActorObj = go;
         _InstID = instid;
-        _ActorObj.transform.position = pos;
+        _ActorObj.transform.position = pos.position;
+        _ActorObj.transform.rotation = pos.rotation;
         Init();
     }
 
