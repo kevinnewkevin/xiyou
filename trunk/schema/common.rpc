@@ -93,6 +93,7 @@ struct COM_BattleReport{
 
 //战斗结果
 struct COM_BattleResult{
+	int32 Win;
 	int32 Money;
 };
 

@@ -17,6 +17,7 @@ const (
 	kMaxMove = 2 //行动结束
 
 	kTimeSleep = 5	//檢測間隔
+	kTimeMax = 500	//戰鬥持續時間
 )
 
 var roomInstId int64 = 1
@@ -94,7 +95,7 @@ func (this *BattleRoom) BattleUpdate() {
 			continue
 		}
 
-		fmt.Println("BattleUpdate, index is", checkindex)
+		fmt.Println("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
 		this.Update()
 		start = time.Now().Unix()
 		checkindex += 1
@@ -108,15 +109,19 @@ func (this *BattleRoom) BattleUpdate() {
 func (this *BattleRoom) BattleRoomOver(camp int) {
 	for _, p := range this.PlayerList {
 		var money int32
+		var win int32
 		if p.BattleCamp == camp {
-			money = 1000
-		} else {
 			money = 2000
+			win = 1
+		} else {
+			money = 1000
+			win = 0
 		}
 
 		result := prpc.COM_BattleResult{}
 
 		result.Money = money
+		result.Win = win
 		p.session.BattleExit(result)
 	}
 
