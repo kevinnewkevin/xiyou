@@ -28,6 +28,7 @@ public class Battle {
     static public BattleState _CurrentState = BattleState.BS_Max;
     static public BattleResult _Result = BattleResult.BR_None;
     static public COM_BattleReport _BattleReport;
+    static public List<COM_BattleAction> _ReportAction;
 
     static bool _IsStagePointInitSuc;
     static public bool _OperationFinish;
@@ -39,6 +40,15 @@ public class Battle {
     static public int _Turn;
 
     static public int _Side;
+
+    static public COM_BattleReport BattleReport
+    {
+        set
+        {
+            _BattleReport = value;
+            _ReportAction = new List<COM_BattleAction>(_BattleReport.ActionList);
+        }
+    }
 
     static public int _LeftCardNum
     {
@@ -53,7 +63,6 @@ public class Battle {
         set
         {
             _Result = value;
-            _CurrentState = BattleState.BS_Result;
         }
     }
 
@@ -171,7 +180,7 @@ public class Battle {
     //播放一回合战报 处理快照
     static void Play()
     {
-        if (_BattleReport == null)
+        if (_ReportAction == null)
             return;
 
         if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
@@ -192,18 +201,18 @@ public class Battle {
             return;
 
         // cast skill
-        Actor actor = GetActor(_BattleReport.ActionList[0].InstId);
+        Actor actor = GetActor(_ReportAction[0].InstId);
         List<Actor> targets = new List<Actor>();
         Actor target;
-        for (int i = 0; i < _BattleReport.ActionList[0].TargetList.Length; ++i)
+        for (int i = 0; i < _ReportAction[0].TargetList.Length; ++i)
         {
-            target = GetActor(_BattleReport.ActionList[0].TargetList[i].InstId);
+            target = GetActor(_ReportAction[0].TargetList[i].InstId);
             targets.Add(target);
         }
-        Skill skill = new Skill(_BattleReport.ActionList[0].SkillId, actor, targets.ToArray());
+        Skill skill = new Skill(_ReportAction[0].SkillId, actor, targets.ToArray());
         skill.Cast();
 
-       System.Array.Copy( _BattleReport.ActionList,1, _BattleReport.ActionList, 0, _BattleReport.ActionList.Length - 1);
+        _ReportAction.RemoveAt(0);
 
         _ReportIsPlaying = true;
 
