@@ -20,6 +20,19 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
+    public Actor(GameObject go, Vector3 pos, long instid)
+    {
+        if (go == null)
+        {
+            Debug.LogWarning("Actor obj is null.");
+            return;
+        }
+        _ActorObj = go;
+        _InstID = instid;
+        _ActorObj.transform.position = pos;
+        Init();
+    }
+
     public Actor(GameObject go, Transform pos, long instid)
     {
         if (go == null)
