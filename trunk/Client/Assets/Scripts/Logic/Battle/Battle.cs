@@ -220,7 +220,7 @@ public class Battle {
         _ReportIsPlaying = true;
 
         //if final report play to end;
-        if (_BattleReport.ActionList.Length == 0)
+        if (_ReportAction.Count == 0)
             Judgement();
     }
 
