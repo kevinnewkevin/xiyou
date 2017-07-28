@@ -217,6 +217,9 @@ public class Battle {
         if (_ReportIsPlaying)
             return;
 
+        if (_BattleReport != null)
+            return;
+
         Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
         SceneLoader.LoadScene("main");
         Fini();
