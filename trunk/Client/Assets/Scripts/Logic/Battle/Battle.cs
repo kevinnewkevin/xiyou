@@ -219,6 +219,7 @@ public class Battle {
 
         Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
         SceneLoader.LoadScene("main");
+        Fini();
     }
 
     //场上添加一个角色
