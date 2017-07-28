@@ -47,7 +47,7 @@ public class Skill {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
                         _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                        _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_RUN);
+                        _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
                     }
                 }), new TimerParam(1f, delegate
                 {
