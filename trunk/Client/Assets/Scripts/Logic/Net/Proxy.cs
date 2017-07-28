@@ -36,7 +36,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool BattleExit(ref COM_BattleResult result)
     {
-        Battle._Result = Battle.BattleResult.BR_Win;
+        Battle.SetResult = (Battle.BattleResult)result.Win;
         return true;
     }
 

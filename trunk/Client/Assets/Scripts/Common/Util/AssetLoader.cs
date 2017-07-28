@@ -15,7 +15,7 @@ public class AssetLoader {
 
 	static public GameObject LoadAsset(string path)
     {
-#if EDITOR_MODE
+#if EDITOR_MODE || UNITY_STANDALONE_WIN
         Object obj = Resources.Load(path);
         if (obj == null)
             return null;
@@ -49,7 +49,7 @@ public class AssetLoader {
 #endif
     }
 
-#if EDITOR_MODE
+#if EDITOR_MODE || UNITY_STANDALONE_WIN
     static public ResourceRequest LoadAssetAsync(string path)
     {
         return Resources.LoadAsync(path);
@@ -79,7 +79,7 @@ public class AssetLoader {
 
     static public void UnloadAsset(string path)
     {
-#if EDITOR_MODE
+#if EDITOR_MODE || UNITY_STANDALONE_WIN
         if(_Manifest == null)
             InitCommonList();
 

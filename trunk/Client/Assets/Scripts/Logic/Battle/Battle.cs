@@ -14,8 +14,8 @@ public class Battle {
 
     public enum BattleResult
     {
-        BR_Win,
         BR_Lose,
+        BR_Win,
         BR_None
     }
 
@@ -48,6 +48,15 @@ public class Battle {
         }
     }
 
+    static public BattleResult SetResult
+    {
+        set
+        {
+            _Result = value;
+            _CurrentState = BattleState.BS_Result;
+        }
+    }
+
     static public List<COM_BattlePosition> _OperatList = new List<COM_BattlePosition>();
 
     static public void Update()
@@ -71,6 +80,7 @@ public class Battle {
                 Play();
                 break;
             case BattleState.BS_Result:
+                End();
                 break;
             default:
                 break;
@@ -200,6 +210,15 @@ public class Battle {
         //if final report play to end;
         if (_BattleReport.ActionList.Length == 0)
             Judgement();
+    }
+
+    static void End()
+    {
+        if (_ReportIsPlaying)
+            return;
+
+        Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
+        SceneLoader.LoadScene("main");
     }
 
     //场上添加一个角色
