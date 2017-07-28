@@ -40,5 +40,5 @@ function FlushData()
 end
 
 function OnEnterGame()
-	SceneLoader.LoadScene("main");
+	Proxy4Lua.CreatePlayer(1, "guowengui");
 end
