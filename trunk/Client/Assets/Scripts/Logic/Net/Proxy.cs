@@ -29,7 +29,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool BattleReport(ref COM_BattleReport report)
     {
-        Battle._BattleReport = report;
+        Battle.BattleReport = report;
         return true;
     }
 
