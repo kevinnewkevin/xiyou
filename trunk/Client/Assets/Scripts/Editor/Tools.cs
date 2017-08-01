@@ -22,6 +22,8 @@ public class Tools {
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.StandaloneWindows64);
+
+        AssetDatabase.Refresh();
     }
 
     static void SetPlayer()
@@ -199,7 +201,7 @@ public class Tools {
         {
             string str = files[i].Remove(0, len);
             string dest = LuaConst.luaResDir + "/" + str;
-            dest += ".bytes";
+            //dest += ".bytes";
             string dir = Path.GetDirectoryName(dest);
             Directory.CreateDirectory(dir);
             File.Copy(files[i], dest, true);

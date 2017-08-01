@@ -6,11 +6,16 @@ using FairyGUI;
 
 public class AppEntry : MonoBehaviour {
 
+    string context;
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
         CopyPastePatch.Apply();
         GRoot.inst.SetContentScaleFactor(1920, 1080);
+
+        Application.logMessageReceived += (condition, stackTrace, type) => {
+            context = condition + "\n" + stackTrace + "\n" + type;
+        };
 
         DataLoader.Init();
         UIManager.Init();
