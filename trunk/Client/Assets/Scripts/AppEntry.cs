@@ -6,15 +6,9 @@ using FairyGUI;
 
 public class AppEntry : MonoBehaviour {
 
-    public Transform[] _GlobalObjs;
-
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
-        for(int i=0; i < _GlobalObjs.Length; ++i)
-        {
-            DontDestroyOnLoad(_GlobalObjs[i]);
-        }
         CopyPastePatch.Apply();
         GRoot.inst.SetContentScaleFactor(1920, 1080);
 

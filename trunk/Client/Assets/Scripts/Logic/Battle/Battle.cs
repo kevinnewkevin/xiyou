@@ -250,10 +250,14 @@ public class Battle {
         Actor actor = GetActor(instid);
         if (actor != null)
         {
-            actor.MoveTo(_PosInScene[tpos].position, null);
+            actor.MoveTo(_PosInScene [tpos].position, null);
             return;
         }
         _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid);
+        _ActorInScene[tpos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
+        _ActorInScene [tpos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+
+        UIManager.SetDirty("BattlePanel");
     }
 
     //场上删除一个角色

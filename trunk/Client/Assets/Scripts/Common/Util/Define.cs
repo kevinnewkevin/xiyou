@@ -11,6 +11,5 @@
     public const string ANIMATION_PLAYER_ACTION_RUN = "run";
     public const string ANIMATION_PLAYER_ACTION_IDLE = "stand";
     public const string ANIMATION_PLAYER_ACTION_SHOW = "ruchang";
-    public const string ANIMATION_PLAYER_ACTION_ATTACK = "attack";
     public const string ANIMATION_PLAYER_ACTION_BEATTACK = "beattack";
 }

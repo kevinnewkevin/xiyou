@@ -13,8 +13,10 @@ public class Tools {
     static public void BuildAssetBundle()
     {
         SetPlayer();
+        SetEffect();
         SetUI();
         SetTable();
+        SetLua();
 
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
@@ -28,12 +30,58 @@ public class Tools {
         for(int i=0; i < _AllFiles.Count; ++i)
         {
             string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.PLAYER_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+                
+                if (deps [j].Equals(_assetPath))
+                    continue;
+
+                if (_AllDependences.Contains(deps [j]))
+                    continue;
+
+                _AllDependences.Add(deps[j]);
+                Debug.Log(deps[j]);
+            }
+        }
+        for(int i=0; i < _AllDependences.Count; ++i)
+        {
+            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
+            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.ASSET_EXT;
+        }
+        _AllFiles.Clear();
+        _AllDirectories.Clear();
+        _AllDependences.Clear();
+    }
+
+    static void SetEffect()
+    {
+        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.EFFECT_ASSET_PATH));
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
+            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
+            aimport.assetBundleName = PathDefine.EFFECT_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
+            string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            for(int j=0; j < deps.Length; ++j)
+            {
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+                
                 if (deps [j].Equals(_assetPath))
                     continue;
 
@@ -60,12 +108,19 @@ public class Tools {
         for(int i=0; i < _AllFiles.Count; ++i)
         {
             string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.UI_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+                
                 if (deps [j].Equals(_assetPath))
                     continue;
 
@@ -92,12 +147,19 @@ public class Tools {
         for(int i=0; i < _AllFiles.Count; ++i)
         {
             string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.TABLE_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+                
                 if (deps [j].Equals(_assetPath))
                     continue;
 
@@ -112,6 +174,45 @@ public class Tools {
         {
             AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
             aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.ASSET_EXT;
+        }
+        _AllFiles.Clear();
+        _AllDirectories.Clear();
+        _AllDependences.Clear();
+    }
+
+    static void SetLua()
+    {
+        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.LUA_ASSET_PATH));
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
+            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
+            aimport.assetBundleName = PathDefine.LUA_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.TXT_EXT;
+            string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            for(int j=0; j < deps.Length; ++j)
+            {
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+
+                if (deps [j].Equals(_assetPath))
+                    continue;
+
+                if (_AllDependences.Contains(deps [j]))
+                    continue;
+
+                _AllDependences.Add(deps[j]);
+                Debug.Log(deps[j]);
+            }
+        }
+        for(int i=0; i < _AllDependences.Count; ++i)
+        {
+            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
+            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.TXT_EXT;
         }
         _AllFiles.Clear();
         _AllDirectories.Clear();
