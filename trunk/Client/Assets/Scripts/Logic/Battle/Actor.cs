@@ -93,8 +93,8 @@ public class Actor {
         if (_IsRunning)
             Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
-        if(_Pos != null)
-            _ActorObj.transform.rotation = _Pos.rotation;
+//        if(_Pos != null)
+//            _ActorObj.transform.rotation = _Pos.rotation;
         _IsRunning = false;
     }
 
