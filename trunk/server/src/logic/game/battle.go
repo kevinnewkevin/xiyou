@@ -86,18 +86,25 @@ func (this *BattleRoom) BattleStart() {
 //臨時用
 func (this *BattleRoom) BattleUpdate() {
 	start := time.Now().Unix()
+	now_start := time.Now().Unix()
 	checkindex := 0
 	for this.Status == kUsed {
 
 		now := time.Now().Unix()
 
-		if now - kTimeSleep < start {
+		if now - kTimeSleep < now_start {		//每隔5S檢測一次
+			continue
+		}
+
+		if now - kTimeMax >= start {			//超時直接結束 並且沒有勝負方
+			this.Status = kIdle
+			this.BattleRoomOver(prpc.CT_MAX)
 			continue
 		}
 
 		fmt.Println("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
 		this.Update()
-		start = time.Now().Unix()
+		now_start = time.Now().Unix()
 		checkindex += 1
 	}
 }
@@ -108,6 +115,11 @@ func (this *BattleRoom) BattleUpdate() {
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
 	for _, p := range this.PlayerList {
+
+		if p == nil || p.session == nil {
+			continue
+		}
+
 		var money int32
 		var win int32
 		if p.BattleCamp == camp {
@@ -154,14 +166,10 @@ func (this *BattleRoom) Update() {
 		fmt.Println("report.UnitList, append", u)
 		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
 
-		fmt.Println("aaaaaaaa", u.IsDead())
-
 		if u.IsDead() {			// 非主角死亡跳過
-			fmt.Println("bbbbbbbb")
 			continue
 		}
 
-		fmt.Println("cccccccc")
 		ac, ownerdead := u.CastSkill(this)
 		report.ActionList = append(report.ActionList, ac)
 
@@ -174,7 +182,7 @@ func (this *BattleRoom) Update() {
 				if unit == nil {
 					continue
 				}
-				fmt.Println("aaa", unit)
+				fmt.Println("append", unit)
 				report.UnitList = append(report.UnitList, unit.GetBattleUnitCOM())
 			}
 
