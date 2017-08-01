@@ -82,6 +82,15 @@ function FlushData()
 			cards[i]["card"].visible = false;
 		end
 	end
+
+	local mainActor = Battle.GetActor(GamePlayer._InstID);
+	if Battle._Turn == 1 and mainActor == NULL then
+		if Battle._CurrentState == Battle.BattleState.BS_Oper then
+			stateIcon.enabled = false;
+		end
+	else 
+		stateIcon.enabled = true;
+	end
 end
 
 function OnCardClick(context)
