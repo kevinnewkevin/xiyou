@@ -1,4 +1,4 @@
-SkillId,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,BeattackAnim,BeattackTime,EmitNumTime,BeattackEffectId,BeattackEffectTime,TotalTime
-1,10,150,"1,2,3,4",1,1,1,1,"attack","beattack",0.3,1.2,,0.3,3
-2,5,300,,2,2,2,1,"attack","beattack",1,1.2,,0.3,3
-3,6,1000,1,22,1,1,0,"magic1","beattack",1,1.2,,0.3,3
+SkillId,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,CastEffect,BeattackAnim,BeattackEffect,BeattackTime,EmitNumTime,TotalTime
+1,10,150,"1,2,3,4",1,1,1,1,"attack","Effect/chongfeng","beattack","Effect/qiangci",0.3,1.2,3
+2,5,300,,2,2,2,1,"attack","Effect/buxuexuli_4","beattack","Effect/sanlianji_shifa_1",1,1.2,3
+3,6,1000,1,22,1,1,0,"magic1","Effect/buxuexuli_4","beattack","Effect/sanlianji_shifa_1",1,1.2,3

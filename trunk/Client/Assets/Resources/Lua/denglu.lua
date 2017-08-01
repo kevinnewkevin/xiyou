@@ -9,8 +9,8 @@ function denglu:OnEntry()
 end
 
 function denglu:OnInit()
-	UIPackage.AddPackage("UI/UI_Fairy/export/Package1");
-	self.contentPane = UIPackage.CreateObject("Package1", "denglu").asCom;
+	UIPackage.AddPackage("UI/UI_Fairy/export/denglu");
+	self.contentPane = UIPackage.CreateObject("denglu", "denglu").asCom;
 	self:Center();
 
 	local enterBtn = self.contentPane:GetChild("n3").asButton;

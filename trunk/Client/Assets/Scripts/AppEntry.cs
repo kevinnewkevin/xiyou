@@ -20,7 +20,6 @@ public class AppEntry : MonoBehaviour {
 
         DataLoader.Init();
         UIManager.Init();
-        DataLoader.BeginLoad();
 //
         //init network
         if (NetWoking.Open("10.10.10.188", 10999))
