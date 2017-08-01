@@ -179,44 +179,31 @@ public class Tools {
         _AllDirectories.Clear();
         _AllDependences.Clear();
     }
-
     static void SetLua()
     {
-        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.LUA_ASSET_PATH));
-        for(int i=0; i < _AllFiles.Count; ++i)
+        string sourcePath = string.Format("{0}/{1}/{2}", Application.dataPath, "Resources", PathDefine.LUA_ASSET_PATH);
+        if (!Directory.Exists(sourcePath))
         {
-            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
-            _assetPath = _assetPath.Replace("\\", "/");
-            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
-            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
-            aimport.assetBundleName = PathDefine.LUA_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.TXT_EXT;
-            string[] deps = AssetDatabase.GetDependencies(_assetPath);
-            for(int j=0; j < deps.Length; ++j)
-            {
-                if (deps [j].IndexOf(".js") != -1)
-                    continue;
-
-                if (deps [j].IndexOf(".cs") != -1)
-                    continue;
-
-                if (deps [j].Equals(_assetPath))
-                    continue;
-
-                if (_AllDependences.Contains(deps [j]))
-                    continue;
-
-                _AllDependences.Add(deps[j]);
-                Debug.Log(deps[j]);
-            }
+            return;
         }
-        for(int i=0; i < _AllDependences.Count; ++i)
+
+        string[] files = Directory.GetFiles(sourcePath, "*.lua", SearchOption.AllDirectories);
+        int len = sourcePath.Length;
+
+        if (sourcePath[len - 1] == '/' || sourcePath[len - 1] == '\\')
         {
-            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
-            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.TXT_EXT;
+            --len;
+        }         
+
+        for (int i = 0; i < files.Length; i++)
+        {
+            string str = files[i].Remove(0, len);
+            string dest = LuaConst.luaResDir + "/" + str;
+            dest += ".bytes";
+            string dir = Path.GetDirectoryName(dest);
+            Directory.CreateDirectory(dir);
+            File.Copy(files[i], dest, true);
         }
-        _AllFiles.Clear();
-        _AllDirectories.Clear();
-        _AllDependences.Clear();
     }
 
     static List<string> _AllFiles = new List<string>();

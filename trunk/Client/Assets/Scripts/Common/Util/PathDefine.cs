@@ -10,7 +10,7 @@ public class PathDefine {
     public const string UI_ASSET_PATH = "UI/UI_Fairy/export/";
     public const string COMMON_ASSET_PATH = "Common/";
     public const string TABLE_ASSET_PATH = "Table/";
-    public const string LUA_ASSET_PATH = "Lua/";
+    public const string LUA_ASSET_PATH = "ToLua/Lua/";
 
     //各平台区分 之后相对路径以表为准
 }
