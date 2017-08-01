@@ -3,6 +3,8 @@ require "FairyGUI"
 denglu = fgui.window_class(WindowBase)
 local Window;
 
+local enterBtn;
+
 function denglu:OnEntry()
 	Window = denglu.New();
 	Window:Show();
@@ -13,14 +15,17 @@ function denglu:OnInit()
 	self.contentPane = UIPackage.CreateObject("denglu", "denglu").asCom;
 	self:Center();
 
-	local enterBtn = self.contentPane:GetChild("n3").asButton;
+	enterBtn = self.contentPane:GetChild("n3").asButton;
 	enterBtn.onClick:Add(OnEnterGame);
 
 	FlushData();
 end
 
 function denglu:OnUpdate()
-	
+	if UIManager.IsDirty("denglu") then
+		FlushData();
+		UIManager.ClearDirty("denglu");
+	end
 end
 
 function denglu:OnTick()
@@ -36,7 +41,7 @@ function denglu:OnDispose()
 end
 
 function FlushData()
-	
+	enterBtn.enabled = not DataLoader._IsLoading;
 end
 
 function OnEnterGame()

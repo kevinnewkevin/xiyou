@@ -11,7 +11,7 @@ public class DataLoader {
 #endif
     static TableInfo _LoadingTable;
 
-    static bool _IsLoading;
+    public static bool _IsLoading;
 
     class TableInfo
     {
@@ -51,6 +51,7 @@ public class DataLoader {
     static public void BeginLoad()
     {
         _IsLoading = true;
+        UIManager.SetDirty("denglu");
     }
 
     static public void Update()
@@ -90,5 +91,6 @@ public class DataLoader {
         _Request = null;
         _LoadingTable = null;
         _IsLoading = false;
+        UIManager.SetDirty("denglu");
     }
 }

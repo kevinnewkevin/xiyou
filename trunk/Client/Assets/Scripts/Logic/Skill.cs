@@ -8,6 +8,7 @@ public class Skill {
     Actor _Caster;
     Actor[] _Targets;
     Vector3 _OriginPos;
+    COM_BattleActionTarget[] _Actions;
 
     GameObject _CastEff;
     GameObject[] _SkillEff;
@@ -15,7 +16,7 @@ public class Skill {
 
     // skilldata member value;
 
-	public Skill(int skillId, Actor caster, Actor[] targets)
+    public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets)
     {
         // get skilldata by id
 
@@ -86,6 +87,7 @@ public class Skill {
         _OriginPos = caster._ActorObj.transform.position;
         _Caster = caster;
         _Targets = targets;
+        _Actions = actionTargets;
     }
 
     public bool Cast()
@@ -139,13 +141,14 @@ public class Skill {
                     {
                         for (int i = 0; i < _Targets.Length; ++i)
                         {
-                            _Targets[i].PopContent();
+                            _Targets[i].PopContent(_Actions[i].ActionParam);
                         }
                     }), new TimerParam(attackTime, delegate
                     {
                         _Caster.MoveTo(_OriginPos, delegate {
                             Battle._ReportIsPlaying = false;
                             _Caster.Stop();
+                            _Caster.Reset();
                         });
                     }));
                 });
@@ -199,12 +202,13 @@ public class Skill {
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
-                        _Targets[i].PopContent();
+                        _Targets[i].PopContent(_Actions[i].ActionParam);
                     }
                 }), new TimerParam(_SkillData._TotalTime, delegate
                 {
                     Battle._ReportIsPlaying = false;
                     _Caster.Stop();
+                    _Caster.Reset();
                 }));
             }));
         }

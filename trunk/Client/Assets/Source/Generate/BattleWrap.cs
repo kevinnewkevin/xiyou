@@ -22,6 +22,7 @@ public class BattleWrap
 		L.RegVar("_CurrentState", get__CurrentState, set__CurrentState);
 		L.RegVar("_Result", get__Result, set__Result);
 		L.RegVar("_BattleReport", get__BattleReport, set__BattleReport);
+		L.RegVar("_ReportAction", get__ReportAction, set__ReportAction);
 		L.RegVar("_OperationFinish", get__OperationFinish, set__OperationFinish);
 		L.RegVar("_ReportIsPlaying", get__ReportIsPlaying, set__ReportIsPlaying);
 		L.RegVar("_SelectedHandCardInstID", get__SelectedHandCardInstID, set__SelectedHandCardInstID);
@@ -29,6 +30,7 @@ public class BattleWrap
 		L.RegVar("_Turn", get__Turn, set__Turn);
 		L.RegVar("_Side", get__Side, set__Side);
 		L.RegVar("_OperatList", get__OperatList, set__OperatList);
+		L.RegVar("BattleReport", null, set_BattleReport);
 		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
 		L.RegVar("SetResult", null, set_SetResult);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
@@ -260,6 +262,20 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__ReportAction(IntPtr L)
+	{
+		try
+		{
+			ToLua.PushObject(L, Battle._ReportAction);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__OperationFinish(IntPtr L)
 	{
 		try
@@ -431,6 +447,21 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__ReportAction(IntPtr L)
+	{
+		try
+		{
+			System.Collections.Generic.List<COM_BattleAction> arg0 = (System.Collections.Generic.List<COM_BattleAction>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<COM_BattleAction>));
+			Battle._ReportAction = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set__OperationFinish(IntPtr L)
 	{
 		try
@@ -527,6 +558,21 @@ public class BattleWrap
 		{
 			System.Collections.Generic.List<COM_BattlePosition> arg0 = (System.Collections.Generic.List<COM_BattlePosition>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<COM_BattlePosition>));
 			Battle._OperatList = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_BattleReport(IntPtr L)
+	{
+		try
+		{
+			COM_BattleReport arg0 = (COM_BattleReport)ToLua.CheckObject(L, 2, typeof(COM_BattleReport));
+			Battle.BattleReport = arg0;
 			return 0;
 		}
 		catch(Exception e)

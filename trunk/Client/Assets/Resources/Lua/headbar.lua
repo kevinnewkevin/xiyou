@@ -1,7 +1,7 @@
 require "FairyGUI"
 
 function Init(root, objData)
-	local com = UIPackage.CreateObject("headbar", "headbar").asCom;
+	local com = UIPackage.CreateObject("HeadBar", "HeadBar").asCom;
 	com.transform.parent = root;
 end
 

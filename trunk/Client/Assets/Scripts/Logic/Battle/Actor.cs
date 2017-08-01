@@ -57,12 +57,13 @@ public class Actor {
 //            Debug.LogWarning("Actor " + _ActorObj.name + " has no Animator launched.");
         _Animation = _ActorObj.GetComponent<Animation>();
 
-        UIPackage.AddPackage("UI/UI_Fairy/export/Common");
+        UIPackage.AddPackage("UI/EmitNumbers");
+        UIPackage.AddPackage("UI/HeadBar");
         _Headbar = new GameObject();
         _Headbar.AddComponent<Billboard>();
         UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
-        headbarpanel.componentName = "BloodBar";
-        headbarpanel.packageName = "Common";
+        headbarpanel.componentName = "HeadBar";
+        headbarpanel.packageName = "HeadBar";
         _Headbar.transform.parent = _ActorObj.transform;
         _Headbar.transform.localScale = Vector3.one;
         _Headbar.transform.localPosition = Vector3.zero;
@@ -93,9 +94,13 @@ public class Actor {
         if (_IsRunning)
             Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
-//        if(_Pos != null)
-//            _ActorObj.transform.rotation = _Pos.rotation;
         _IsRunning = false;
+    }
+
+    public void Reset()
+    {
+        if(_Pos != null)
+            _ActorObj.transform.rotation = _Pos.rotation;
     }
 
     int LaunchHandler(CallBackHandler callback)
@@ -182,9 +187,9 @@ public class Actor {
     }
 
     //Hud操作
-    public void PopContent()
+    public void PopContent(int value)
     {
-
+        EmitManager.inst.Emit(_ActorObj.transform, 0, value, UnityEngine.Random.Range(0, 10) == 5);
     }
 
     public long InstID

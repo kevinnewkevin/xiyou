@@ -63,6 +63,8 @@ public class Battle {
         set
         {
             _Result = value;
+            if (_ReportAction == null || _ReportAction.Count == 0)
+                Judgement();
         }
     }
 
@@ -215,7 +217,7 @@ public class Battle {
             target = GetActor(_ReportAction[0].TargetList[i].InstId);
             targets.Add(target);
         }
-        Skill skill = new Skill(_ReportAction[0].SkillId, actor, targets.ToArray());
+        Skill skill = new Skill(_ReportAction[0].SkillId, actor, targets.ToArray(), _ReportAction[0].TargetList);
         skill.Cast();
 
         _ReportAction.RemoveAt(0);
