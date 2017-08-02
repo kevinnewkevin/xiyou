@@ -10,10 +10,13 @@ SET(SRC
 	prpc.gen.cc
 )
 
+FILE(GLOB_RECURSE INL "*.inl")
+
+
 SOURCE_GROUP(Header FILES ${INC})
 SOURCE_GROUP(Source FILES ${SRC})
-
-ADD_LIBRARY(prpc_gen STATIC ${INC} ${SRC})
+SOURCE_GROUP(Inline FILES ${INL})
+ADD_LIBRARY(prpc_gen STATIC ${INC} ${SRC} ${INL} )
 
 
 

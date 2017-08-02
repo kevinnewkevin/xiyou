@@ -15,7 +15,7 @@ public:
 	
 	boost::asio::ip::tcp::socket &GetSocket();
 public:
-#include "COM_ClientToServer.fun"
+#include "COM_ClientToServer.f.inl"
 protected:
 	PRPCBuffer* MethodBegin(){
 		return &sendBuffer_;
