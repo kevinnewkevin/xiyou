@@ -143,7 +143,10 @@ public class Actor {
         if (_Animation == null)
             return;
 
-        _Animation.CrossFade(action);
+        if (_Animation.IsPlaying(action))
+            _Animation.Rewind(action);
+        else
+            _Animation.CrossFade(action);
 
 //        string[] info = action.Split(new char[]{'_'}, System.StringSplitOptions.RemoveEmptyEntries);
 //        if (info == null || info.Length < 2)
