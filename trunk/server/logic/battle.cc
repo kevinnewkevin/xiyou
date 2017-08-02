@@ -107,3 +107,6 @@ bool Battle::calcWinner(){
 	return false;
 }
 
+void Battle::release(){
+
+}
