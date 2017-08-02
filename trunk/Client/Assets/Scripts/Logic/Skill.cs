@@ -135,7 +135,10 @@ public class Skill {
 
                             //beattack effect
                             if (_BeattackEff[i] != null)
+                            {
+                                _BeattackEff[i].SetActive(false);
                                 _BeattackEff[i].SetActive(true);
+                            }
                         }
                     }), new TimerParam(_SkillData._EmitNumTime, delegate
                     {
@@ -196,7 +199,10 @@ public class Skill {
 
                         //beattack effect
                         if (_BeattackEff[i] != null)
+                        {
+                            _BeattackEff[i].SetActive(false);
                             _BeattackEff[i].SetActive(true);
+                        }
                     }
                 }), new TimerParam(_SkillData._EmitNumTime, delegate
                 {

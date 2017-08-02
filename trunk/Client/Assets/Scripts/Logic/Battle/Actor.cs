@@ -52,9 +52,6 @@ public class Actor {
 
     void Init()
     {
-//        _Animator = _ActorObj.GetComponent<Animator>();
-//        if (_Animator == null)
-//            Debug.LogWarning("Actor " + _ActorObj.name + " has no Animator launched.");
         _Animation = _ActorObj.GetComponent<Animation>();
 
         UIPackage.AddPackage("UI/EmitNumbers");
@@ -114,32 +111,23 @@ public class Actor {
         return handler.LaunchHandler(callback);
     }
 
-    public string IsPlaying
+    public bool IsPlaying
     {
         get
         {
             if (_ActorObj == null)
-                return "";
-
-//            if (_Animator == null)
-//                return "";
-
+                return false;
+        
             if (_Animation == null)
-                return "";
-
-//            AnimatorClipInfo[] aci = _Animator.GetCurrentAnimatorClipInfo(0);
-//            if (aci.Length == 1)
-//                return aci [0].clip.name;
-            return "";
+                return false;
+        
+            return _Animation.isPlaying;
         }
     }
 
     //播放某个动作
     public void Play(string action)
     {
-//        if (_Animator == null)
-//            return;
-
         if (_Animation == null)
             return;
 
@@ -147,25 +135,6 @@ public class Actor {
             _Animation.Rewind(action);
         else
             _Animation.CrossFade(action);
-
-//        string[] info = action.Split(new char[]{'_'}, System.StringSplitOptions.RemoveEmptyEntries);
-//        if (info == null || info.Length < 2)
-//        {
-//            Debug.LogWarning("Wrong animation transition parameters " + action);
-//            return;
-//        }
-//        switch(info[0])
-//        {
-//            case "b":
-//                _Animator.SetBool(action, bVal);
-//                break;
-//            case "f":
-//                _Animator.SetFloat(action, fVal);
-//                break;
-//            case "t":
-//                _Animator.SetTrigger(action);
-//                break;
-//        }
     }
 
     public float ClipLength(string clipName)
