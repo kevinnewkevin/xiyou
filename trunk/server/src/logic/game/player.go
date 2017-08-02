@@ -8,7 +8,7 @@ import (
 )
 
 type GamePlayer struct {
-	sync.Mutex
+	sync.Locker
 	session        *Session    //链接
 	MyUnit         *GameUnit   //自己的卡片
 	UnitList       []*GameUnit //拥有的卡片
