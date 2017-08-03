@@ -238,8 +238,7 @@ public class Battle {
             return;
 
         Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
-        //SceneLoader.LoadScene("main");
-        UIManager.Show("shengli_Component");
+        UIManager.Show("jiesuanjiemian");
         Fini();
     }
 
