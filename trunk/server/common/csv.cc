@@ -1,5 +1,5 @@
 #include "csv.h"
-#include <boost/assert.hpp>
+
 bool CSV::LoadFile( const char* filename)
 {
 	std::ifstream file;

@@ -1,38 +1,16 @@
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../common)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../prpc_gen)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/lua)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/common)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/prpc_gen)
 
-SET(INC
-	logic.h
+FILE(GLOB_RECURSE HEADER "*.h")
+FILE(GLOB_RECURSE SOURCE "*.cc")
 
-	unit_table.h
-	skill_table.h
-	
-	skill.h
-	session.h
-	entity.h
-	player.h
-	battle.h
-)
-	
-SET(SRC
-	logic.cc
-	
-	unit_table.cc
-	skill_table.cc
-	
-	skill.cc
-	session.cc
-	entity.cc
-	player.cc
-	battle.cc
-)
-
-SOURCE_GROUP(Header FILES ${INC})
-SOURCE_GROUP(Source FILES ${SRC})
+SOURCE_GROUP(Header FILES ${HEADER})
+SOURCE_GROUP(Source FILES ${SOURCE})
  
-ADD_EXECUTABLE(logic ${YACC} ${INC} ${SRC})
+ADD_EXECUTABLE(logic ${YACC} ${HEADER} ${SOURCE})
+TARGET_LINK_LIBRARIES(logic lua)
 TARGET_LINK_LIBRARIES(logic common)
 TARGET_LINK_LIBRARIES(logic prpc_gen)
 TARGET_LINK_LIBRARIES(logic ${Boost_LIBRARIES})

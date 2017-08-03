@@ -3,7 +3,7 @@
 #include "battle.h"
 #include "skill_table.h"
 #include "unit_table.h"
-
+#include "script.h"
 class Accepter : public boost::enable_shared_from_this < Accepter > {
 public:
 	Accepter(boost::asio::io_service &ioService, boost::asio::ip::tcp::endpoint &endpoint);
@@ -61,18 +61,39 @@ void Accepter::Svc(){
 		);
 }
 
+boost::shared_ptr<class Script> Logic::script_;
 
-void BattleUpdate(const boost::system::error_code& e, boost::asio::deadline_timer* t){
+void Logic::Init(){
+
+	script_ = boost::make_shared<Script>();
+	script_->Init();
 	
-	Battle::UpdateBattleList();
-	t->expires_at(t->expires_at() + boost::posix_time::seconds(1));
-	t->async_wait(boost::bind(BattleUpdate, boost::asio::placeholders::error, t));
-}
-
-void main(){
+	script_->LoadFile("../config/script/main.lua");
 
 	UnitData::Load("../config/tables/entity.csv");
 	SkillData::Load("../config/tables/skill.csv");
+
+
+}
+void Logic::Fini(){
+
+}
+void Logic::Update(){
+	Battle::UpdateBattleList();
+}
+
+
+void LogicUpdate(const boost::system::error_code& e, boost::asio::deadline_timer* t){
+	
+	Logic::Update();
+	t->expires_at(t->expires_at() + boost::posix_time::seconds(1));
+	t->async_wait(boost::bind(LogicUpdate, boost::asio::placeholders::error, t));
+}
+
+
+void main(){
+
+	Logic::Init();
 
 	boost::asio::io_service ioService;
 	boost::asio::io_service::work woker(ioService);
@@ -82,7 +103,7 @@ void main(){
 	accepter->Svc();	
 
 	boost::asio::deadline_timer t(ioService, boost::posix_time::seconds(1));
-	t.async_wait(boost::bind(BattleUpdate, boost::asio::placeholders::error, &t));
+	t.async_wait(boost::bind(LogicUpdate, boost::asio::placeholders::error, &t));
 
 	ioService.run();
 }

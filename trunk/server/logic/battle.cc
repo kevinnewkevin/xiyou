@@ -18,7 +18,7 @@ void Battle::CreateBattle(boost::shared_ptr<GamePlayer> pL, boost::shared_ptr<Ga
 }
 
 void Battle::UpdateBattleList(){
-	BOOST_LOG_TRIVIAL(trace) << "AASD";
+
 	for (auto itr = battles_.begin(); itr != battles_.end(); ++itr){
 		(*itr)->Update();
 	}

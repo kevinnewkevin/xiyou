@@ -29,11 +29,14 @@
 #include <thread>
 #include <fstream>
 
+#include <boost/assert.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 #include <boost/enable_shared_from_this.hpp>  
-
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
 
 
 #endif //end ifndef __RPC_CONFIG_H__

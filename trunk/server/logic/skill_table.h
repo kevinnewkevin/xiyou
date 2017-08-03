@@ -12,6 +12,7 @@ struct SkillData{
 	static const SkillData* GetSkillById(int32_t id);
 
 	static std::vector<SkillData> records_;
+	
 };
 
 

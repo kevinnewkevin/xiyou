@@ -3,7 +3,7 @@
 #include "config.h"
 #include "strconv.h"
 #include "strings.h"
-#include <boost/assert.hpp>
+
 class CSV
 {
 public:
