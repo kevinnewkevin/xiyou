@@ -21,21 +21,29 @@ function zhujiemian:OnInit()
 	self:Center();
 
 	stateIcon = self.contentPane:GetChild("n17").asButton;
-	stateIcon.onClick:Add(OnFolder);
+	stateIcon.onClick:Add(zhujiemian_OnFolder);
 
-	stateBar = self.contentPane:GetChild("n18"):GetController("c1");
+	local bottomGroup = self.contentPane:GetChild("n18");
+	stateBar = bottomGroup:GetController("c1");
+	local bottomBtnList = bottomGroup:GetChild("n15").asList;
+	local cardCargo = bottomBtnList:GetChildAt(3);
+	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
 	playerLevel = infoGroup:GetChild("n11");
 
-	FlushData();
+	zhujiemian_FlushData();
+end
+
+function zhujiemian:GetWindow()
+	return Window;
 end
 
 function zhujiemian:OnUpdate()
 	if UIManager.IsDirty("zhujiemian") then
-		FlushData();
+		zhujiemian_FlushData();
 		UIManager.ClearDirty("zhujiemian");
 	end
 end
@@ -52,13 +60,21 @@ function zhujiemian:OnDispose()
 	Window:Dispose();
 end
 
-function FlushData()
+function zhujiemian:OnHide()
+	Window:Hide();
+end
+
+function zhujiemian_FlushData()
 	playerName.text = GamePlayer._Name;
 	playerExp.text = "754782";
 	playerLevel.text = "89";
 end
 
-function OnFolder()
+function zhujiemian_OnFolder()
 	stateIcon:GetController("icon").selectedIndex = (stateIcon:GetController("icon").selectedIndex + 1) % 2;
 	stateBar.selectedIndex = stateIcon:GetController("icon").selectedIndex;
+end
+
+function zhujiemian_OnCardCargo()
+	UIManager.Show("paiku_Component");
 end

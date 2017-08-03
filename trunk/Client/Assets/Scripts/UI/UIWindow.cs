@@ -47,6 +47,16 @@ public class UIWindow {
         _Lua.CheckTop();
     }
 
+    public FairyGUI.Window GetWindow()
+    {
+        LuaFunction getWindow = _Lua.GetFunction(_UiName + ".GetWindow");
+        if (getWindow == null)
+        {
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no getWindow function.");
+        }
+        return (FairyGUI.Window)getWindow.Call(0)[0];
+    }
+
     //每帧更新
     public void Update()
     {
@@ -109,6 +119,17 @@ public class UIWindow {
         if (func == null)
         {
             Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no OnDispose function.");
+            return;
+        }
+        func.Call();
+    }
+
+    public void Hide()
+    {
+        LuaFunction func = _Lua.GetFunction(_UiName + ".OnHide");
+        if (func == null)
+        {
+            Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no OnHide function.");
             return;
         }
         func.Call();

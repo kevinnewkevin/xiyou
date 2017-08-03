@@ -11,6 +11,10 @@ function shengli_Component:OnEntry()
 	Window:Show();
 end
 
+function shengli_Component:GetWindow()
+	return Window;
+end
+
 function shengli_Component:OnInit()
 	UIPackage.AddPackage("UI/UI_Fairy/export/jiesuanjiemian");
 	self.contentPane = UIPackage.CreateObject("jiesuanjiemian", "shengli_Component").asCom;
@@ -46,6 +50,10 @@ end
 
 function shengli_Component:OnDispose()
 	Window:Dispose();
+end
+
+function shengli_Component:OnHide()
+	Window:Hide();
 end
 
 function shengli_Component_OnOkBtn()

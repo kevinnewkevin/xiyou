@@ -55,12 +55,12 @@ public class Actor {
         _Animation = _ActorObj.GetComponent<Animation>();
 
         UIPackage.AddPackage("UI/EmitNumbers");
-        UIPackage.AddPackage("UI/UI_Fairy/export/Common");
+        UIPackage.AddPackage("UI/UI_Fairy/export/xuetiao");
         _Headbar = new GameObject();
         _Headbar.AddComponent<Billboard>();
         UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
-        headbarpanel.componentName = "BloodBar";
-        headbarpanel.packageName = "Common";
+        headbarpanel.componentName = "xuetiao_Component";
+        headbarpanel.packageName = "xuetiao";
         _Headbar.transform.parent = _ActorObj.transform;
         _Headbar.transform.localScale = Vector3.one;
         _Headbar.transform.localPosition = new Vector3(0f, 2f, 0f);

@@ -19,6 +19,9 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchBegin(EventContext context)
     {
+        if (Stage.isTouchOnUI)
+            return;
+        
         isPress = true;
         preX = ((FairyGUI.InputEvent)context.data).x;
     }
@@ -57,6 +60,13 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchMove(EventContext context)
     {
+        if (Stage.isTouchOnUI)
+        {
+            isPress = false;
+            isMove = false;
+            return;
+        }
+
         if (!isPress)
             return;
         
@@ -72,15 +82,5 @@ public class MainSceneTouch : MonoBehaviour {
         Stage.inst.onTouchBegin.Remove(OnTouchBegin);
         Stage.inst.onTouchEnd.Remove(OnTouchEnd);
         Stage.inst.onTouchMove.Remove(OnTouchMove);
-    }
-
-    void OnGUI()
-    {
-        if (GUILayout.Button("bbbbbbbbbbbbbbbbbbbbbbbbbbbb"))
-        {
-            World.PlayerActor.Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-            World.PlayerActor.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-        }
-
     }
 }

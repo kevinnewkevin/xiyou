@@ -44,6 +44,10 @@ function BattlePanel:OnInit()
 	BattlePanel_FlushData();
 end
 
+function BattlePanel:GetWindow()
+	return Window;
+end
+
 function BattlePanel:OnUpdate()
 	if UIManager.IsDirty("BattlePanel") then
 		BattlePanel_FlushData();
@@ -52,7 +56,7 @@ function BattlePanel:OnUpdate()
 end
 
 function BattlePanel:OnTick()
-
+	--2秒倒计时 注意return
 	if battleStart == nil then
 		return;
 	end
@@ -70,6 +74,10 @@ end
 
 function BattlePanel:OnDispose()
 	Window:Dispose();
+end
+
+function BattlePanel:OnHide()
+	Window:Hide();
 end
 
 function BattlePanel_FlushData()

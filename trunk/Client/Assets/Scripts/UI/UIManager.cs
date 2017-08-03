@@ -29,6 +29,8 @@ public class UIManager {
 
         if (!_Windows.ContainsKey(uiName))
             _Windows.Add(uiName, new UIWindow(uiName));
+        else
+            _Windows[uiName].GetWindow().Show();
         
         if (!_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Add(uiName, false);
@@ -44,11 +46,10 @@ public class UIManager {
     {
         if (!IsShow(uiName))
             return;
+        
+        _Windows [uiName].Hide();
 
-        //TODO 暂时及时销毁界面
-        _Windows [uiName].Dispose();
-
-        AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+        //AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
 
         if (_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Remove(uiName);
@@ -56,11 +57,36 @@ public class UIManager {
 
     static public void HideAll()
     {
-        //TODO 暂时及时销毁界面
+        foreach(UIWindow window in _Windows.Values)
+        {
+            window.Hide();
+//            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+
+            if (_DirtyPool.ContainsKey(window.UIName))
+                _DirtyPool.Remove(window.UIName);
+        }
+    }
+
+    static public void Dispose(string uiName)
+    {
+        if (!IsShow(uiName))
+            return;
+
+        _Windows [uiName].Dispose();
+        _Windows.Remove(uiName);
+
+        //AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+
+        if (_DirtyPool.ContainsKey(uiName))
+            _DirtyPool.Remove(uiName);
+    }
+
+    static public void DisposeAll()
+    {
         foreach(UIWindow window in _Windows.Values)
         {
             window.Dispose();
-//            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+            //            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
 
             if (_DirtyPool.ContainsKey(window.UIName))
                 _DirtyPool.Remove(window.UIName);

@@ -29,6 +29,7 @@ public static class DelegateFactory
 		dict.Add(typeof(UnityEngine.AudioClip.PCMReaderCallback), UnityEngine_AudioClip_PCMReaderCallback);
 		dict.Add(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), UnityEngine_AudioClip_PCMSetPositionCallback);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), UnityEngine_UI_InputField_OnValidateInput);
+		dict.Add(typeof(DataLoader.ParseHandler), DataLoader_ParseHandler);
 		dict.Add(typeof(FairyGUI.EventCallback0), FairyGUI_EventCallback0);
 		dict.Add(typeof(FairyGUI.EventCallback1), FairyGUI_EventCallback1);
 		dict.Add(typeof(FairyGUI.ListItemRenderer), FairyGUI_ListItemRenderer);
@@ -726,6 +727,55 @@ public static class DelegateFactory
 		{
 			UnityEngine_UI_InputField_OnValidateInput_Event target = new UnityEngine_UI_InputField_OnValidateInput_Event(func, self);
 			UnityEngine.UI.InputField.OnValidateInput d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	class DataLoader_ParseHandler_Event : LuaDelegate
+	{
+		public DataLoader_ParseHandler_Event(LuaFunction func) : base(func) { }
+		public DataLoader_ParseHandler_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0, string param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0, string param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public static Delegate DataLoader_ParseHandler(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			DataLoader.ParseHandler fn = delegate(string param0, string param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			DataLoader_ParseHandler_Event target = new DataLoader_ParseHandler_Event(func);
+			DataLoader.ParseHandler d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			DataLoader_ParseHandler_Event target = new DataLoader_ParseHandler_Event(func, self);
+			DataLoader.ParseHandler d = target.CallWithSelf;
 			target.method = d.Method;
 			return d;
 		}
