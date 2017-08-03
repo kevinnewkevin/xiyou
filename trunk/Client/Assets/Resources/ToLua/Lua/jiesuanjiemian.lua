@@ -1,34 +1,34 @@
 require "FairyGUI"
 
-shengli_Component = fgui.window_class(WindowBase)
+jiesuanjiemian = fgui.window_class(WindowBase)
 local Window;
 
 local okBtn;
 local resultImg;
 
-function shengli_Component:OnEntry()
-	Window = shengli_Component.New();
+function jiesuanjiemian:OnEntry()
+	Window = jiesuanjiemian.New();
 	Window:Show();
 end
 
-function shengli_Component:GetWindow()
+function jiesuanjiemian:GetWindow()
 	return Window;
 end
 
-function shengli_Component:OnInit()
+function jiesuanjiemian:OnInit()
 	UIPackage.AddPackage("UI/UI_Fairy/export/jiesuanjiemian");
-	self.contentPane = UIPackage.CreateObject("jiesuanjiemian", "shengli_Component").asCom;
+	self.contentPane = UIPackage.CreateObject("jiesuanjiemian", "jiesuanjiemian").asCom;
 	self:Center();
 
 	resultImg = self.contentPane:GetChild("n36").asLoader;
 
 	okBtn = self.contentPane:GetChild("n33").asButton;
-	okBtn.onClick:Add(shengli_Component_OnOkBtn);
+	okBtn.onClick:Add(jiesuanjiemian_OnOkBtn);
 
-	shengli_Component_FlushData();
+	jiesuanjiemian_FlushData();
 end
 
-function shengli_Component_FlushData()
+function jiesuanjiemian_FlushData()
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
 	else
@@ -36,26 +36,26 @@ function shengli_Component_FlushData()
 	end
 end
 
-function shengli_Component:OnUpdate()
+function jiesuanjiemian:OnUpdate()
 	
 end
 
-function shengli_Component:OnTick()
+function jiesuanjiemian:OnTick()
 	
 end
 
-function shengli_Component:isShow()
+function jiesuanjiemian:isShow()
 	return Window.isShowing;
 end
 
-function shengli_Component:OnDispose()
+function jiesuanjiemian:OnDispose()
 	Window:Dispose();
 end
 
-function shengli_Component:OnHide()
+function jiesuanjiemian:OnHide()
 	Window:Hide();
 end
 
-function shengli_Component_OnOkBtn()
+function jiesuanjiemian_OnOkBtn()
 	SceneLoader.LoadScene("main");
 end

@@ -16,8 +16,7 @@ function zhujiemian:OnEntry()
 end
 
 function zhujiemian:OnInit()
-	UIPackage.AddPackage("UI/UI_Fairy/export/zhujiemian");
-	self.contentPane = UIPackage.CreateObject("zhujiemian", "Component1").asCom;
+	self.contentPane = UIPackage.CreateObject("zhujiemian", "zhujiemian").asCom;
 	self:Center();
 
 	stateIcon = self.contentPane:GetChild("n17").asButton;
@@ -76,5 +75,5 @@ function zhujiemian_OnFolder()
 end
 
 function zhujiemian_OnCardCargo()
-	UIManager.Show("paiku_Component");
+	UIManager.Show("paiku");
 end

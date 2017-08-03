@@ -15,7 +15,6 @@ function denglu:GetWindow()
 end
 
 function denglu:OnInit()
-	UIPackage.AddPackage("UI/UI_Fairy/export/denglu");
 	self.contentPane = UIPackage.CreateObject("denglu", "denglu").asCom;
 	self:Center();
 

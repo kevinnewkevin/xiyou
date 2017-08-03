@@ -19,8 +19,7 @@ function BattlePanel:OnEntry()
 end
 
 function BattlePanel:OnInit()
-	UIPackage.AddPackage("UI/UI_Fairy/export/Battle");
-	self.contentPane = UIPackage.CreateObject("Battle", "BattlePanel").asCom;
+	self.contentPane = UIPackage.CreateObject("BattlePanel", "BattlePanel").asCom;
 	self:Center();
 
 	battStartIcon = self.contentPane:GetChild("n7").asImage;
@@ -82,10 +81,10 @@ end
 
 function BattlePanel_FlushData()
 	if Battle._CurrentState == Battle.BattleState.BS_Oper then
-		stateIcon.url = UIPackage.GetItemURL("Battle", "battle_jieshuhuihe");
+		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_jieshuhuihe");
 		stateIcon.touchable = true;
 	else
-		stateIcon.url = UIPackage.GetItemURL("Battle", "battle_dengdaizhong");
+		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_dengdaizhong");
 		stateIcon.touchable = false;
 	end
 
