@@ -113,7 +113,19 @@ public class Tools {
             _assetPath = _assetPath.Replace("\\", "/");
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
-            aimport.assetBundleName = PathDefine.UI_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
+            int idx = shortPath.IndexOf("@");
+            if (idx != -1)
+            {
+                shortPath = shortPath.Remove(idx);
+                shortPath += "_res";
+            }
+            else
+            {
+                shortPath = shortPath.Remove(shortPath.IndexOf("."));
+                shortPath += "_desc";
+            }
+            string finalPath = PathDefine.UI_ASSET_PATH + shortPath + Define.ASSET_EXT;
+            aimport.assetBundleName = finalPath;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {

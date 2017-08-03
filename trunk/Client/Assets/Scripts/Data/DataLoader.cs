@@ -36,7 +36,14 @@ public class DataLoader {
 
     static public void RegistTables(string tableName, ParseHandler callback)
     {
-        _ParseTables.Enqueue(new TableInfo(tableName, callback));
+        #if EDITOR_MODE
+            _ParseTables.Enqueue(new TableInfo(tableName, callback));
+        #else
+            int idx = tableName.LastIndexOf("/");
+            if(idx != -1)
+                tableName = tableName.Substring(idx + 1);
+            _ParseTables.Enqueue(new TableInfo(tableName, callback));
+        #endif
     }
 
     static public void Init()
@@ -68,7 +75,11 @@ public class DataLoader {
                     #if EDITOR_MODE
                         _LoadingTable.Excute(_Request.asset.ToString());
                     #else
-                        _LoadingTable.Excute(_Request.assetBundle.LoadAsset(_LoadingTable._Name).ToString());
+                        string filename = _LoadingTable._Name;
+                        int idx = filename.LastIndexOf("/");
+                        if(idx != -1)
+                            filename = filename.Substring(idx + 1);
+                        _LoadingTable.Excute(_Request.assetBundle.LoadAsset(filename).ToString());
                     #endif
                 }
                 _Request = null;

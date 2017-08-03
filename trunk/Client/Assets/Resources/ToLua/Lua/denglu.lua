@@ -15,7 +15,7 @@ function denglu:GetWindow()
 end
 
 function denglu:OnInit()
-	self.contentPane = UIPackage.CreateObject("denglu", "denglu").asCom;
+	self.contentPane = UIPackage.CreateObject("denglu", "denglu_com").asCom;
 	self:Center();
 
 	enterBtn = self.contentPane:GetChild("n3").asButton;

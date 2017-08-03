@@ -1,9 +1,9 @@
 require "FairyGUI"
 
-paiku_Component = fgui.window_class(WindowBase)
+paiku = fgui.window_class(WindowBase)
 local Window;
 
-function paiku_Component:OnEntry()
+function paiku:OnEntry()
 	Window = paiku.New();
 	Window:Show();
 end
@@ -13,7 +13,7 @@ function paiku:GetWindow()
 end
 
 function paiku:OnInit()
-	self.contentPane = UIPackage.CreateObject("paiku", "paiku").asCom;
+	self.contentPane = UIPackage.CreateObject("paiku", "paiku_com").asCom;
 	self:Center();
 
 	local closeBtn = self.contentPane:GetChild("n7").asButton;

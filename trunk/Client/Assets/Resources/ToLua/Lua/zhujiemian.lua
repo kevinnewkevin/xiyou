@@ -16,7 +16,7 @@ function zhujiemian:OnEntry()
 end
 
 function zhujiemian:OnInit()
-	self.contentPane = UIPackage.CreateObject("zhujiemian", "zhujiemian").asCom;
+	self.contentPane = UIPackage.CreateObject("zhujiemian", "zhujiemian_com").asCom;
 	self:Center();
 
 	stateIcon = self.contentPane:GetChild("n17").asButton;

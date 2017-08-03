@@ -16,8 +16,7 @@ function jiesuanjiemian:GetWindow()
 end
 
 function jiesuanjiemian:OnInit()
-	UIPackage.AddPackage("UI/UI_Fairy/export/jiesuanjiemian");
-	self.contentPane = UIPackage.CreateObject("jiesuanjiemian", "jiesuanjiemian").asCom;
+	self.contentPane = UIPackage.CreateObject("jiesuanjiemian", "jiesuanjiemian_com").asCom;
 	self:Center();
 
 	resultImg = self.contentPane:GetChild("n36").asLoader;

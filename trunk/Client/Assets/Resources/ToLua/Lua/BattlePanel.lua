@@ -19,7 +19,7 @@ function BattlePanel:OnEntry()
 end
 
 function BattlePanel:OnInit()
-	self.contentPane = UIPackage.CreateObject("BattlePanel", "BattlePanel").asCom;
+	self.contentPane = UIPackage.CreateObject("BattlePanel", "BattlePanel_com").asCom;
 	self:Center();
 
 	battStartIcon = self.contentPane:GetChild("n7").asImage;
