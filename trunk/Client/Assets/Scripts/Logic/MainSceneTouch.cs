@@ -67,6 +67,13 @@ public class MainSceneTouch : MonoBehaviour {
         Debug.Log(dir);
     }
 
+    void OnDestroy()
+    {
+        Stage.inst.onTouchBegin.Remove(OnTouchBegin);
+        Stage.inst.onTouchEnd.Remove(OnTouchEnd);
+        Stage.inst.onTouchMove.Remove(OnTouchMove);
+    }
+
     void OnGUI()
     {
         if (GUILayout.Button("bbbbbbbbbbbbbbbbbbbbbbbbbbbb"))

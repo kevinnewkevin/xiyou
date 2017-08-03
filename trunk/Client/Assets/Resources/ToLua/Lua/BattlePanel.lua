@@ -19,13 +19,13 @@ function BattlePanel:OnInit()
 	self:Center();
 
 	local returnBtn = self.contentPane:GetChild("n8").asButton;
-	returnBtn.onClick:Add(OnReturnBtn);
+	returnBtn.onClick:Add(BattlePanel_OnReturnBtn);
 
 	autoBtn = self.contentPane:GetChild("n12").asButton;
-	autoBtn.onClick:Add(OnAutoBtn);
+	autoBtn.onClick:Add(BattlePanel_OnAutoBtn);
 
 	stateIcon = self.contentPane:GetChild("n16").asLoader;
-	stateIcon.onClick:Add(OnTurnOver);
+	stateIcon.onClick:Add(BattlePanel_OnTurnOver);
 
 	for i=1, 5 do
 		cards[i] = {};
@@ -34,12 +34,12 @@ function BattlePanel:OnInit()
 		cards[i]["cost"] = cards[i]["card"]:GetChild("cost");
 	end
 
-	FlushData();
+	BattlePanel_FlushData();
 end
 
 function BattlePanel:OnUpdate()
 	if UIManager.IsDirty("BattlePanel") then
-		FlushData();
+		BattlePanel_FlushData();
 		UIManager.ClearDirty("BattlePanel");
 	end
 end
@@ -56,7 +56,7 @@ function BattlePanel:OnDispose()
 	Window:Dispose();
 end
 
-function FlushData()
+function BattlePanel_FlushData()
 	if Battle._CurrentState == Battle.BattleState.BS_Oper then
 		stateIcon.url = UIPackage.GetItemURL("Battle", "battle_jieshuhuihe");
 		stateIcon.touchable = true;
@@ -69,7 +69,7 @@ function FlushData()
 	for i=1, 5 do
 		if i <= cardNum then
 			cards[i]["card"].data = i;
-			cards[i]["card"].onClick:Add(OnCardClick);
+			cards[i]["card"].onClick:Add(BattlePanel_OnCardClick);
 			cards[i]["power"].text = i;
 			cards[i]["cost"].text = i;
 			cards[i]["card"].visible = true;
@@ -93,22 +93,22 @@ function FlushData()
 	end
 end
 
-function OnCardClick(context)
+function BattlePanel_OnCardClick(context)
 	print(context.sender.data);
 	Proxy4Lua.SelectCard4Ready(context.sender.data - 1);
 end
 
-function OnReturnBtn()
+function BattlePanel_OnReturnBtn()
 	print("OnReturnBtn");
 	SceneLoader.LoadScene("main");
 end
 
-function OnTurnOver()
+function BattlePanel_OnTurnOver()
 	print("OnTurnOver");
 	Proxy4Lua.BattleSetup();
 end
 
-function OnAutoBtn()
+function BattlePanel_OnAutoBtn()
 	print("OnAutoBtn");
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
 	if GamePlayer._IsAuto then

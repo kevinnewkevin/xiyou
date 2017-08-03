@@ -55,15 +55,15 @@ public class Actor {
         _Animation = _ActorObj.GetComponent<Animation>();
 
         UIPackage.AddPackage("UI/EmitNumbers");
-        UIPackage.AddPackage("UI/HeadBar");
+        UIPackage.AddPackage("UI/UI_Fairy/export/Common");
         _Headbar = new GameObject();
         _Headbar.AddComponent<Billboard>();
         UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
-        headbarpanel.componentName = "HeadBar";
-        headbarpanel.packageName = "HeadBar";
+        headbarpanel.componentName = "BloodBar";
+        headbarpanel.packageName = "Common";
         _Headbar.transform.parent = _ActorObj.transform;
         _Headbar.transform.localScale = Vector3.one;
-        _Headbar.transform.localPosition = Vector3.zero;
+        _Headbar.transform.localPosition = new Vector3(0f, 2f, 0f);
     }
 
     //移动到场上某位置

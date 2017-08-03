@@ -357,6 +357,13 @@ public class Battle {
         get { return _CurrentState; }
     }
 
+    static public bool IsWin
+    {
+        get
+        {
+            return _Result == BattleResult.BR_Win;
+        }
+    }
 
     //销毁场景 角色 UI
     static public void Fini()

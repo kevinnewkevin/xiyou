@@ -34,6 +34,7 @@ public class BattleWrap
 		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
 		L.RegVar("SetResult", null, set_SetResult);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
+		L.RegVar("IsWin", get_IsWin, null);
 		L.EndClass();
 	}
 
@@ -393,6 +394,21 @@ public class BattleWrap
 		try
 		{
 			ToLua.Push(L, Battle.CurrentState);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_IsWin(IntPtr L)
+	{
+		try
+		{
+            UnityEngine.Debug.Log("call win");
+			LuaDLL.lua_pushboolean(L, Battle.IsWin);
 			return 1;
 		}
 		catch(Exception e)

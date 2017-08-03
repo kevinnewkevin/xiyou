@@ -27,4 +27,9 @@ public class BattleSceneTouch : MonoBehaviour {
             }
         }
     }
+
+    void OnDestroy()
+    {
+        Stage.inst.onTouchBegin.Remove(OnTouchBegin);
+    }
 }
