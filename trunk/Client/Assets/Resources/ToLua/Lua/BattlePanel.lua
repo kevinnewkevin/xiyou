@@ -5,6 +5,11 @@ local Window;
 
 local autoBtn;
 local stateIcon;
+local battStartIcon;
+
+local battleStart = {};
+battleStart.max = 1;
+battleStart.count = 0;
 
 local cards = {};
 
@@ -17,6 +22,8 @@ function BattlePanel:OnInit()
 	UIPackage.AddPackage("UI/UI_Fairy/export/Battle");
 	self.contentPane = UIPackage.CreateObject("Battle", "BattlePanel").asCom;
 	self:Center();
+
+	battStartIcon = self.contentPane:GetChild("n7").asImage;
 
 	local returnBtn = self.contentPane:GetChild("n8").asButton;
 	returnBtn.onClick:Add(BattlePanel_OnReturnBtn);
@@ -45,7 +52,16 @@ function BattlePanel:OnUpdate()
 end
 
 function BattlePanel:OnTick()
-	
+
+	if battleStart == nil then
+		return;
+	end
+
+	battleStart.count = battleStart.count + 1;
+	if battleStart.count > battleStart.max then
+		BattlePanel_OnHiddenBattleStart();
+		battleStart = nil;
+	end
 end
 
 function BattlePanel:isShow()
@@ -116,4 +132,9 @@ function BattlePanel_OnAutoBtn()
 	else
 		autoBtn:GetController("icon").selectedIndex = 0;
 	end
+end
+
+function BattlePanel_OnHiddenBattleStart()
+	print("BattlePanel_OnHiddenBattleStart");
+	battStartIcon.visible = false;
 end

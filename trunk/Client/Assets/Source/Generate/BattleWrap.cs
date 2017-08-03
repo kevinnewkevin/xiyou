@@ -407,7 +407,6 @@ public class BattleWrap
 	{
 		try
 		{
-            UnityEngine.Debug.Log("call win");
 			LuaDLL.lua_pushboolean(L, Battle.IsWin);
 			return 1;
 		}
