@@ -3,6 +3,8 @@ require "FairyGUI"
 xiangxiziliao = fgui.window_class(WindowBase)
 local Window;
 
+local holder;
+
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -18,6 +20,7 @@ function xiangxiziliao:OnInit()
 	self.modal = true;
 
 	self.closeButton = self.contentPane:GetChild("n4");
+	holder = self.contentPane:GetChild("n63").asGraph;
 
 	xiangxiziliao_FlushData();
 end
@@ -46,5 +49,5 @@ function xiangxiziliao:OnHide()
 end
 
 function xiangxiziliao_FlushData()
-	
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("Player/longtaizi"));
 end
