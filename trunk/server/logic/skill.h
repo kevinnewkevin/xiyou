@@ -28,7 +28,6 @@ private:
 	boost::shared_ptr<Condition>		 condition_;
 	boost::shared_ptr<Selecter>			 selecter_;
 	boost::shared_ptr<Action>			 action_;
-	
 };
 
 #endif

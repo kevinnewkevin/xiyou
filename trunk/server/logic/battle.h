@@ -4,9 +4,11 @@
 
 class Battle 
 	:public boost::enable_shared_from_this<Battle>{
-	static std::vector<boost::shared_ptr<Battle> > battles_;
+	static std::vector<boost::shared_ptr<Battle> > battleList_;
+	static std::unordered_map<int32_t, boost::shared_ptr<Battle> > battleIdTable_;
 public:
 	static void CreateBattle(boost::shared_ptr<class GamePlayer> pL, boost::shared_ptr<class GamePlayer> pR);
+	static boost::shared_ptr<Battle> FindBattle(int32_t battleId);
 	static void UpdateBattleList();
 public:
 	int32_t GetBattleId();
@@ -16,6 +18,7 @@ private:
 	void release();
 	bool calcWinner();
 private:
+	int32_t battleId_;
 	int32_t round_;
 	COM_BattleReport report_;
 	std::vector< boost::shared_ptr<class GameUnit> > unitList_;

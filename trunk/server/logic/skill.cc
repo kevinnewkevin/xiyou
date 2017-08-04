@@ -9,3 +9,7 @@ void Skill::Init(int32_t tmpId){
 	crit_ = skData->Crit;
 	damage_ = skData->Damage;
 }
+
+void Skill::Active(boost::shared_ptr<class GameUnit> caster, boost::shared_ptr<class Battle> context){
+	
+}

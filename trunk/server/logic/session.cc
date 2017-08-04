@@ -41,8 +41,6 @@ void Session::Open(){
 	);
 }
 
-
-
 void Session::receiveHandler(const boost::system::error_code &errorCode, std::size_t bytesTransferred){
 	if (errorCode){
 		return;
@@ -112,8 +110,7 @@ bool Session::Login(COM_LoginInfo &info){
 bool Session::CreatePlayer(int32_t tempId, std::string &playerName){
 	if (player_ != nullptr)
 		return true;
-	player_ = boost::make_shared<GamePlayer>();
-	player_->Init(tempId, playerName);
+	player_ = Player::CreatePlayer(shared_from_this(), playerName, tempId);
 	COM_Player inst;
 	player_->Save(inst);
 	CreatePlayerOK(inst);

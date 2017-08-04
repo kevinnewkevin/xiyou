@@ -5,9 +5,33 @@
 #include "session.h"
 #include "unit_table.h"
 
+std::vector<boost::shared_ptr<GamePlayer> > GamePlayer::playerList_;
+std::unordered_map<int64_t, boost::shared_ptr<GamePlayer> > GamePlayer::playerIdTable_;
+std::unordered_map<std::string, boost::shared_ptr<GamePlayer> > GamePlayer::playerNameTable_;
+
+boost::shared_ptr<GamePlayer> GamePlayer::CreatePlayer(boost::shared_ptr<class Session> session, const std::string &name, int32_t tmpId){
+	boost::shared_ptr<GamePlayer> player = boost::make_shared<GamePlayer>();
+	player->Init(tmpId, name);
+	playerList_.push_back(player);
+	playerIdTable_[player->GetPlayerId()] = player;
+	playerNameTable_[name] = player;
+	return player;
+}
+boost::shared_ptr<GamePlayer> GamePlayer::FindPlayer(int64_t playerId){
+	if (playerIdTable_.find(playerId) == playerIdTable_.end())
+		return nullptr;
+	return playerIdTable_[playerId];
+}
+boost::shared_ptr<GamePlayer> GamePlayer::FindPlayer(const std::string &playerName){
+	if (playerNameTable_.find(playerName) == playerNameTable_.end())
+		return nullptr;
+	return playerNameTable_[playerName];
+}
+
+//////////////////////////////////////////////////////////////////////////
 void GamePlayer::Init(int32_t tmpId, const std::string &name){
-	BOOST_ASSERT_MSG(UnitData::GetUnitById(tmpId) != nullptr, "can not find tmpId");
-	name_ = name;
+	BOOST_ASSERT_MSG(UnitData::GetUnitById(tmpId) != nullptr, "Can not find tmpId");
+	playerName_ = name;
 	myUnit_ = boost::make_shared<GameUnit>();
 	myUnit_->Init(tmpId);
 	///
@@ -25,13 +49,17 @@ void GamePlayer::Init(const COM_Player &inst){
 
 void GamePlayer::Save(COM_Player &inst){
 	inst.InstId = myUnit_->GetInstId();
-	inst.Name = name_;
+	inst.Name = playerName_;
 	myUnit_->Save(inst.Unit);
 	for (auto var : unitList_){
 		COM_Unit unit;
 		var->Save(unit);
 		inst.Employees.push_back(unit);
 	}
+}
+
+int64_t GamePlayer::GetPlayerId(){
+	return myUnit_->GetInstId();
 }
 
 boost::shared_ptr<GameUnit> GamePlayer::GetUnit(int64_t instId){

@@ -9,7 +9,6 @@ extern "C"
 #include "lauxlib.h"
 }
 
-
 #define CHK_LUA_STACK StackChecker __CHEKCER(state_);
 #define CHK_LUA_ERROR(STMT) do\
 {\
@@ -71,7 +70,6 @@ private:
 		int32_t    top_;
 	};
 	lua_State* state_;
-
 };
 
 template<>

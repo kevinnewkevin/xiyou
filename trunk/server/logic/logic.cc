@@ -99,6 +99,7 @@ void main(){
 	boost::asio::io_service::work woker(ioService);
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address_v4(), 1099);
 	boost::shared_ptr<Accepter>  accepter = boost::make_shared<Accepter>(ioService, endpoint);
+	
 	accepter->Open();
 	accepter->Svc();	
 

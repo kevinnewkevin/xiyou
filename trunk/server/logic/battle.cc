@@ -2,24 +2,36 @@
 #include "player.h"
 #include "entity.h"
 #include "battle.h"
-std::vector<boost::shared_ptr<Battle> > Battle::battles_;
+
+std::vector<boost::shared_ptr<Battle> > Battle::battleList_;
+std::unordered_map<int32_t, boost::shared_ptr<Battle> > Battle::battleIdTable_;
 
 void Battle::CreateBattle(boost::shared_ptr<GamePlayer> pL, boost::shared_ptr<GamePlayer> pR){
 	if (pL->GetBattlle() != nullptr)
 		return;
 	if (pR->GetBattlle() != nullptr)
 		return;
+	static int32_t idGen = 1;
 	boost::shared_ptr<Battle> battle = boost::make_shared<Battle>();
+	battleList_.push_back(battle);
+	battleIdTable_[idGen] = battle;
+	battle->battleId_ = idGen++;
 	battle->playerList_.push_back(pL);
 	battle->playerList_.push_back(pR);
-	battles_.push_back(battle);
+
 	pL->SetBattle(battle);
 	pR->SetBattle(battle);
 }
 
+boost::shared_ptr<Battle> Battle::FindBattle(int32_t battleId){
+	if (battleIdTable_.find(battleId) == battleIdTable_.end())
+		return nullptr;
+	return battleIdTable_[battleId];
+}
+
 void Battle::UpdateBattleList(){
 
-	for (auto itr = battles_.begin(); itr != battles_.end(); ++itr){
+	for (auto itr = battleList_.begin(); itr != battleList_.end(); ++itr){
 		(*itr)->Update();
 	}
 }
