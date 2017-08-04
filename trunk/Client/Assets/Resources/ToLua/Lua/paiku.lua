@@ -82,6 +82,6 @@ function paiku_FlushData()
 end
 
 function paiku_OnCardItem(context)
-	print(context.sender.data);
+	UIParamHolder.Set("paiku_OnCardItem", context.sender.data);
 	UIManager.Show("xiangxiziliao");
 end

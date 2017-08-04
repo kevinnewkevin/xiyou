@@ -11,6 +11,7 @@ public class GamePlayerWrap
 		L.RegFunction("GetCardByInstID", GetCardByInstID);
 		L.RegFunction("IsMy", IsMy);
 		L.RegFunction("IsMe", IsMe);
+		L.RegFunction("GetResPathInMyCards", GetResPathInMyCards);
 		L.RegFunction("New", _CreateGamePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("_InstID", get__InstID, set__InstID);
@@ -104,6 +105,23 @@ public class GamePlayerWrap
 			long arg0 = LuaDLL.tolua_checkint64(L, 1);
 			bool o = GamePlayer.IsMe(arg0);
 			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetResPathInMyCards(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			string o = GamePlayer.GetResPathInMyCards(arg0);
+			LuaDLL.lua_pushstring(L, o);
 			return 1;
 		}
 		catch(Exception e)

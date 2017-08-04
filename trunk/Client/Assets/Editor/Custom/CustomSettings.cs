@@ -161,6 +161,7 @@ public static class CustomSettings
         _GT(typeof(GamePlayer)),
         _GT(typeof(Battle)),
         _GT(typeof(Battle.BattleState)),
+        _GT(typeof(UIParamHolder)),
 
         _GT(typeof(EventContext)),
         _GT(typeof(EventDispatcher)),

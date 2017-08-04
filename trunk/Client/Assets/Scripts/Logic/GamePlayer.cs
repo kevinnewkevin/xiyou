@@ -53,4 +53,20 @@ public class GamePlayer {
     {
         return _InstID == instid;
     }
+
+    static public string GetResPathInMyCards(int idx)
+    {
+        if (idx < 0 || idx >= _Cards.Count)
+            return "";
+
+        EntityData edata = EntityData.GetData(_Cards[idx].UnitId);
+        if (edata == null)
+            return "";
+
+        DisplayData ddata = DisplayData.GetData(edata._DisplayId);
+        if (ddata == null)
+            return "";
+        
+        return ddata._AssetPath;
+    }
 }

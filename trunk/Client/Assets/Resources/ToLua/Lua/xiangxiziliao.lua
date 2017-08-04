@@ -49,5 +49,7 @@ function xiangxiziliao:OnHide()
 end
 
 function xiangxiziliao_FlushData()
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("Player/longtaizi"));
+	local index = UIParamHolder.Get("paiku_OnCardItem");
+	local modelRes = GamePlayer.GetResPathInMyCards(index);
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
 end
