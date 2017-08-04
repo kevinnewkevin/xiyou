@@ -11,6 +11,7 @@ public class Proxy4LuaWrap
 		L.RegFunction("BattleJoin", BattleJoin);
 		L.RegFunction("CreatePlayer", CreatePlayer);
 		L.RegFunction("SelectCard4Ready", SelectCard4Ready);
+		L.RegFunction("GetAssetGameObject", GetAssetGameObject);
 		L.RegFunction("New", _CreateProxy4Lua);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -96,6 +97,23 @@ public class Proxy4LuaWrap
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
 			Proxy4Lua.SelectCard4Ready(arg0);
 			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetAssetGameObject(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			FairyGUI.GoWrapper o = Proxy4Lua.GetAssetGameObject(arg0);
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch(Exception e)
 		{

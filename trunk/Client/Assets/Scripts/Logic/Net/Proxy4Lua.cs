@@ -30,5 +30,11 @@ public class Proxy4Lua {
         Battle.SwitchPoint(true);
     }
 
+    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath)
+    {
+        GameObject go = AssetLoader.LoadAsset(assetPath);
+        return new FairyGUI.GoWrapper(go);
+    }
+
     #endregion
 }

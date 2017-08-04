@@ -12,6 +12,8 @@ public class UIManagerWrap
 		L.RegFunction("IsShow", IsShow);
 		L.RegFunction("Hide", Hide);
 		L.RegFunction("HideAll", HideAll);
+		L.RegFunction("Dispose", Dispose);
+		L.RegFunction("DisposeAll", DisposeAll);
 		L.RegFunction("Update", Update);
 		L.RegFunction("SetDirty", SetDirty);
 		L.RegFunction("IsDirty", IsDirty);
@@ -117,6 +119,37 @@ public class UIManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 0);
 			UIManager.HideAll();
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Dispose(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			UIManager.Dispose(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DisposeAll(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UIManager.DisposeAll();
 			return 0;
 		}
 		catch(Exception e)
