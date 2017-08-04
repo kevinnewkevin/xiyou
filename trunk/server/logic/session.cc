@@ -110,7 +110,7 @@ bool Session::Login(COM_LoginInfo &info){
 bool Session::CreatePlayer(int32_t tempId, std::string &playerName){
 	if (player_ != nullptr)
 		return true;
-	player_ = Player::CreatePlayer(shared_from_this(), playerName, tempId);
+	player_ = GamePlayer::CreatePlayer(shared_from_this(), playerName, tempId);
 	COM_Player inst;
 	player_->Save(inst);
 	CreatePlayerOK(inst);
