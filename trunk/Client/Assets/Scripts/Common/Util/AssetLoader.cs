@@ -37,14 +37,15 @@ public class AssetLoader {
         assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
         AssetBundle ab = null;
         if(!AssetCounter.Excist(assetPath))
+        {
             ab = AssetBundle.LoadFromFile(assetPath);
+            AssetCounter.AddRef(assetPath, ab);
+        }
         else
             ab = AssetCounter.GetBundle(assetPath);
-        AssetCounter.AddRef(assetPath, ab);
+
         string assetName = path.Substring(path.LastIndexOf("/") + 1);
         Object o = ab.LoadAsset(assetName);
-        if(ab != null)
-            Debug.Log("ab != null");
         return GameObject.Instantiate(o) as GameObject;
 #endif
     }
@@ -80,15 +81,17 @@ public class AssetLoader {
     static public void UnloadAsset(string path)
     {
 #if EDITOR_MODE
+        Resources.UnloadUnusedAssets();
+#else
         if(_Manifest == null)
-            InitCommonList();
+        InitCommonList();
 
         string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
         string assetPath;
         for(int i=0; i < dep.Length; ++i)
         {
-            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-            AssetCounter.DelRef(assetPath);
+        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+        AssetCounter.DelRef(assetPath);
         }
         assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
         AssetCounter.DelRef(assetPath);

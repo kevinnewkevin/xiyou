@@ -75,7 +75,7 @@ public class UIManager {
         _Windows [uiName].Dispose();
         _Windows.Remove(uiName);
 
-        //AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+        AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
 
         if (_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Remove(uiName);
@@ -86,7 +86,7 @@ public class UIManager {
         foreach(UIWindow window in _Windows.Values)
         {
             window.Dispose();
-            //            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+            AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
 
             if (_DirtyPool.ContainsKey(window.UIName))
                 _DirtyPool.Remove(window.UIName);

@@ -11,7 +11,7 @@ public class AppEntry : MonoBehaviour {
 	void Start () {
         DontDestroyOnLoad(this);
         CopyPastePatch.Apply();
-        GRoot.inst.SetContentScaleFactor(1920, 1080);
+        GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
 
         Application.logMessageReceived += (condition, stackTrace, type) => {
             context = condition + "\n" + stackTrace + "\n" + type;
