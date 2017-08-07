@@ -6,6 +6,7 @@ import (
 	"logic/socket"
 	"net"
 	"suzuki/logs"
+	"lua"
 )
 
 type App struct {
@@ -13,6 +14,10 @@ type App struct {
 }
 
 func (this *App) Run() {
+	L := lua.Open()
+
+	lua.RegistSystemAPI(L)
+	fmt.Println(lua.LoadFile(L,"../../../config/scripts/test.lua"))
 
 	var (
 		err        error
@@ -37,6 +42,7 @@ func (this *App) Run() {
 		fmt.Println(err.Error())
 		return
 	}
+
 
 	go func() {
 		for {
