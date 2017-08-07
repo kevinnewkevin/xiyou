@@ -130,9 +130,28 @@ func OpenLibs(L LuaState) {
 }
 
 func LoadFile(L LuaState, fileName string) int {
-	cstr := C.CString(fileName)
-	defer C.free(unsafe.Pointer(cstr))
-	return int(C.luaL_loadfile(L, cstr))
+	fileNameC := C.CString(fileName)
+	defer C.free(unsafe.Pointer(fileNameC))
+	{
+		ret := int(C.luaL_loadfile(L, fileNameC))
+
+		if ret != 0 {
+			errorDescC := C.luaL_tostring(L, C.int(-1));
+			//defer C.free(errorDescC)
+			panic(errorDescC)
+			return ret
+		}
+	}
+	{
+		ret := int(C.lua_pcall(L, 0, 0, 0 ))
+		if ret != 0{
+			errorDescC := C.luaL_tostring(L,-1);
+			//defer C.free(errorDescC)
+			panic(errorDescC)
+			return ret
+		}
+	}
+	return 0
 }
 
 func LoadString(L LuaState, s string) int {

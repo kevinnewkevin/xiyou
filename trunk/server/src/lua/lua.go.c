@@ -16,3 +16,7 @@ void luaL_loadapi(lua_State* L, void* api, const char* funcName, const char* lib
 void luaL_openpanic(lua_State* L, void* pnc){
 	lua_atpanic(L ,(lua_CFunction)pnc);
 }
+
+const char* luaL_tostring(lua_State* L, int i){
+    return lua_tostring(L,i);
+}
