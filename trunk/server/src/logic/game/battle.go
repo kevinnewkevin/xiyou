@@ -30,6 +30,7 @@ type BattleRoom struct {
 	Units      []*GameUnit   //当前战斗中牌 数组索引跟下面玩家对应
 	PlayerList []*GamePlayer //房间中玩家信息
 	Turn       int32
+	Winner	   int		 //获胜者
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -48,6 +49,7 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Status = kUsed
 	room.InstId = atomic.AddInt64(&roomInstId, 1)
 	room.Round = 0
+	room.Winner = 0
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
 	p0.BattleId = room.InstId
@@ -135,6 +137,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		result.Money = money
 		result.Win = win
 		p.session.BattleExit(result)
+		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
 	}
 
 	fmt.Println("BattleRoomOver, winner is ", camp)
@@ -177,6 +180,7 @@ func (this *BattleRoom) Update() {
 		if ownerdead {
 			this.Status = kIdle
 			WinCamp = u.Owner.BattleCamp
+			this.Winner = u.Owner.BattleCamp
 			for _, a := range ac.TargetList {
 				unit := this.SelectOneUnit(a.InstId)
 				if unit == nil {
@@ -186,6 +190,13 @@ func (this *BattleRoom) Update() {
 				report.UnitList = append(report.UnitList, unit.GetBattleUnitCOM())
 			}
 
+		}
+
+		if this.calcWinner() == true {
+			this.Round += 1
+			this.SendReport(report)
+			this.BattleRoomOver(WinCamp)
+			this.Status = kIdle
 			break
 		}
 	}
@@ -198,9 +209,10 @@ func (this *BattleRoom) Update() {
 	this.Round += 1
 	this.SendReport(report)
 
-	if this.Status == kIdle {
-		this.BattleRoomOver(WinCamp)
-	}
+}
+
+func (this *BattleRoom) calcWinner() bool {
+	return this.Winner != 0
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {

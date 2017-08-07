@@ -83,7 +83,14 @@ func(this *GameUnit)GetBattleUnitCOM()prpc.COM_BattleUnit{
 }
 
 func (this *GameUnit) SelectSkill(round int32) *Skill {
-	return this.Skill[0]
+	var idx int32
+	if round > 2 {
+		idx = round % 3
+	} else {
+		idx = round
+	}
+
+	return this.Skill[idx]
 }
 
 func(this* GameUnit)CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) {
