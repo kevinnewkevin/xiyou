@@ -1,7 +1,6 @@
 package lua
 
 /*
-#cgo LDFLAGS: -llua
 #include "lua.go.h"
 */
 import "C"
