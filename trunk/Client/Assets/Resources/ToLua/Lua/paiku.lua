@@ -9,6 +9,9 @@ local allCardGroupList;
 local cardItemUrl = "ui://paiku/touxiangkuang_Label";
 local cardGroupUrl = "ui://paiku/paizuanniu_Button";
 
+local cardGroupList;
+local crtGroupIdx = 0;
+
 function paiku:OnEntry()
 	Window = paiku.New();
 	Window:Show();
@@ -35,16 +38,16 @@ function paiku:OnInit()
 	local bg = rightPart:GetChild("n3");
 	allCardGroupList = bg:GetChild("n5").asList;
 
-	--test
---	local cardNum = GamePlayer._Cards.Count;
---	for i=1, 500 do
---		local itemBtn = allCardList:AddItemFromPool(cardItemUrl);
---		itemBtn.onClick:Add(paiku_OnCardItem);
---	end
+	local cardGroup = rightPart:GetChild("n6");
+	cardGroupList = cardGroup:GetChild("n27").asList;
 
---	for i=1, 5 do
---		allCardGroupList:AddItemFromPool(cardGroupUrl);
---	end
+	--test
+
+	for i=1, 5 do
+		local groupItem = allCardGroupList:AddItemFromPool(cardGroupUrl);
+		groupItem.onClick:Add(paiku_OnSelectGroup);
+		groupItem.data = i - 1;
+	end
 
 	paiku_FlushData();
 end
@@ -52,6 +55,11 @@ end
 function paiku_RenderListItem(index, obj)
 	obj.onClick:Add(paiku_OnCardItem);
 	obj.data = index;
+end
+
+function paiku_OnSelectGroup(context)
+	crtGroupIdx = context.sender.data;
+	paiku_FlushData();
 end
 
 function paiku:OnUpdate()
@@ -78,10 +86,25 @@ function paiku:OnHide()
 end
 
 function paiku_FlushData()
-	
+	cardGroupList:RemoveChildrenToPool();
+	local groupCards = GamePlayer.GetGroupCards(crtGroupIdx);
+	for i=1, groupCards.Count do
+		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
+		itemBtn.onClick:Add(paiku_OnCardInGroup);
+		itemBtn.data = i - 1;
+	end
+end
+
+function paiku_OnCardInGroup(context)
+	UIParamHolder.Set("paiku_OnCardInGroupGroupIdx", crtGroupIdx);
+	UIParamHolder.Set("paiku_OnCardInGroupCardIdx", context.sender.data);
+	UIParamHolder.Set("paiku_OnCardItem", nil);
+	UIManager.Show("xiangxiziliao");
 end
 
 function paiku_OnCardItem(context)
 	UIParamHolder.Set("paiku_OnCardItem", context.sender.data);
+	UIParamHolder.Set("paiku_OnCardInGroupGroupIdx", nil);
+	UIParamHolder.Set("paiku_OnCardInGroupCardIdx", nil);
 	UIManager.Show("xiangxiziliao");
 end

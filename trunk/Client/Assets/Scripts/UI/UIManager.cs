@@ -33,7 +33,9 @@ public class UIManager {
             _Windows[uiName].GetWindow().Show();
         
         if (!_DirtyPool.ContainsKey(uiName))
-            _DirtyPool.Add(uiName, false);
+            _DirtyPool.Add(uiName, true);
+        else
+            _DirtyPool [uiName] = true;
     }
 
     static public bool IsShow(string uiName)
@@ -141,5 +143,23 @@ public class UIManager {
             return;
         
         _WantClearDirty.Add(uiName);
+    }
+
+    static public Window ShowMessageBox()
+    {
+        if (!_Windows.ContainsKey("tanchukuang"))
+            _Windows.Add("tanchukuang", new UIWindow("tanchukuang"));
+        else
+            _Windows["tanchukuang"].GetWindow().Show();
+
+        if (!_DirtyPool.ContainsKey("tanchukuang"))
+            _DirtyPool.Add("tanchukuang", false);
+
+        return _Windows["tanchukuang"].GetWindow();
+    }
+
+    static public void HideMessageBox()
+    {
+        Hide("tanchukuang");
     }
 }

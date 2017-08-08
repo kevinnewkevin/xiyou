@@ -13,15 +13,19 @@ public class GamePlayer {
 
     static public List<COM_Unit> _Cards = new List<COM_Unit>();
 
+    static public List<List<COM_Unit>> _CardGroup = new List<List<COM_Unit>>();
+
     static public void Init(COM_Player player)
     {
         _InstID = player.InstId;
         _Name = player.Name;
         _Data = player.Unit;
         _Cards.AddRange(player.Employees);
+
         UIManager.SetDirty("zhujiemian");
     }
 
+    //通过InstID获取卡牌
     static public COM_Unit GetCardByInstID(long instid)
     {
         if (_InstID == instid)
@@ -35,6 +39,16 @@ public class GamePlayer {
         return null;
     }
 
+    //通过索引获取卡组
+    static public List<COM_Unit> GetGroupCards(int idx)
+    {
+        if (idx < 0 || idx >= _CardGroup.Count)
+            return null;
+
+        return _CardGroup[idx];
+    }
+
+    //是我的卡牌
     static public bool IsMy(long instid)
     {
         if (_InstID == instid)
@@ -49,11 +63,27 @@ public class GamePlayer {
         return false;
     }
 
+    //是我自己
     static public bool IsMe(long instid)
     {
         return _InstID == instid;
     }
 
+    //在我的卡组里
+    static public bool IsInGroup(long instid)
+    {
+        for(int i=0; i < _CardGroup.Count; ++i)
+        {
+            for(int j=0; j < _CardGroup[i].Count; ++j)
+            {
+                if (_CardGroup [i] [j].InstId == instid)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    //通过索引获得卡牌形象
     static public string GetResPathInMyCards(int idx)
     {
         if (idx < 0 || idx >= _Cards.Count)
@@ -68,5 +98,55 @@ public class GamePlayer {
             return "";
         
         return ddata._AssetPath;
+    }
+
+    //通过索引获得卡组中卡牌形象
+    static public string GetResPathInMyGroup(int groupidx, int cardidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return "";
+
+        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+            return "";
+
+        EntityData edata = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
+        if (edata == null)
+            return "";
+
+        DisplayData ddata = DisplayData.GetData(edata._DisplayId);
+        if (ddata == null)
+            return "";
+
+        return ddata._AssetPath;
+    }
+
+    //通过索引获得卡牌UnitID
+    static public int GetUnitIDInMyCards(int idx)
+    {
+        if (idx < 0 || idx >= _Cards.Count)
+            return 0;
+        
+        return _Cards[idx].UnitId;
+    }
+
+    //通过索引获得卡牌InstID
+    static public long GetInstIDInMyCards(int idx)
+    {
+        if (idx < 0 || idx >= _Cards.Count)
+            return 0;
+
+        return _Cards[idx].InstId;
+    }
+
+    //通过索引获得卡组中卡牌InstID
+    static public long GetInstIDInMyGroup(int groupidx, int cardidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return 0;
+
+        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+            return 0;
+
+        return _CardGroup[groupidx][cardidx].InstId;
     }
 }
