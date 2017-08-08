@@ -19,6 +19,8 @@ public class AppEntry : MonoBehaviour {
 
         DataLoader.Init();
         UIManager.Init();
+        Define.Init();
+
 //
         //init network
         if (NetWoking.Open("10.10.10.188", 10999))
@@ -26,6 +28,7 @@ public class AppEntry : MonoBehaviour {
             UIManager.Show("denglu");
             DataLoader.BeginLoad();
         }
+
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}
 	

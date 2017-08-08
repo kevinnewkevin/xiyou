@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Define {
 
@@ -15,6 +16,8 @@ public class Define {
     public const string ANIMATION_PLAYER_ACTION_SHOW = "ruchang";
     public const string ANIMATION_PLAYER_ACTION_BEATTACK = "beattack";
 
+    static Dictionary<string, object> globalValues;
+
     public static void LaunchUIBundle(string uiName)
     {
         #if EDITOR_MODE
@@ -26,5 +29,46 @@ public class Define {
             AssetBundle resBundle = AssetBundle.LoadFromFile(path);
             FairyGUI.UIPackage.AddPackage(descBundle, resBundle);
         #endif
+    }
+
+    public static void Init()
+    {
+        globalValues = new Dictionary<string, object>();
+        LuaManager.Call("Global.lua", "RegGlobalValue");
+    }
+
+    public static int GetInt(string key)
+    {
+        if (!globalValues.ContainsKey(key))
+            return 0;
+
+        return System.Convert.ToInt32(globalValues [key]);
+    }
+
+    public static double GetFloat(string key)
+    {
+        if (!globalValues.ContainsKey(key))
+            return 0.0;
+
+        return System.Convert.ToDouble(globalValues [key]);
+    }
+
+    public static string GetStr(string key)
+    {
+        if (!globalValues.ContainsKey(key))
+            return string.Empty;
+
+        return string.Format("{0}", globalValues [key]);
+    }
+
+    public static void Set(string key, object val)
+    {
+        if (!globalValues.ContainsKey(key))
+        {
+            globalValues.Add(key, val);
+            return;
+        }
+
+        globalValues [key] = val;
     }
 }

@@ -187,11 +187,6 @@ public class Skill {
 
                 new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
                 {
-                    for (int i = 0; i < _SkillEff.Length; ++i)
-                    {
-                        GameObject.Destroy(_SkillEff[i]);
-                    }
-
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
                         _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
@@ -212,6 +207,11 @@ public class Skill {
                     }
                 }), new TimerParam(_SkillData._TotalTime, delegate
                 {
+                    for (int i = 0; i < _SkillEff.Length; ++i)
+                    {
+                        GameObject.Destroy(_SkillEff[i]);
+                    }
+
                     Battle._ReportIsPlaying = false;
                     _Caster.Stop();
                     _Caster.Reset();
@@ -220,5 +220,10 @@ public class Skill {
         }
 
         return true;
+    }
+
+    void Clear()
+    {
+        
     }
 }

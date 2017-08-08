@@ -142,7 +142,11 @@ public class Actor {
         if (_Animation == null)
             return 0f;
 
-        return _Animation.GetClip(clipName).length;
+        AnimationClip clip = _Animation.GetClip(clipName);
+        if (clip == null)
+            return 0f;
+
+        return clip.length;
     }
 
     public void PlayQueue(string action)
