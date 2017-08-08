@@ -21,17 +21,13 @@ public class AppEntry : MonoBehaviour {
         UIManager.Init();
         Define.Init();
 
-        UIManager.Show("paiku");
-
-        Debug.Log(Define.GetFloat("UIModelScale"));
-
 //
         //init network
-//        if (NetWoking.Open("10.10.10.188", 10999))
-//        {
-//            UIManager.Show("denglu");
-//            DataLoader.BeginLoad();
-//        }
+        if (NetWoking.Open("10.10.10.188", 10999))
+        {
+            UIManager.Show("denglu");
+            DataLoader.BeginLoad();
+        }
 
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}

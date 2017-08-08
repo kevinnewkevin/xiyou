@@ -4,6 +4,7 @@ public class PathDefine {
 
     //填表 Resources下路径 sim as table
 
+    public const string SCENE_ASSET_PATH = "../Scenes/";
     public const string PLAYER_ASSET_PATH = "Player/";
     public const string EFFECT_ASSET_PATH = "Effect/";
     public const string ICON_ASSET_PATH = "Icon/";

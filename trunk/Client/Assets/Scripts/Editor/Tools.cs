@@ -10,10 +10,20 @@ using System.Diagnostics;
 
 public class Tools {
 
-    [MenuItem("Tools/BuildAssetBundle")]
+    [MenuItem("Tools/1.拷贝数据表和脚本")]
+    static void CopyTableAndScripts()
+    {
+        Process p = new Process();
+        p.StartInfo.FileName = Application.dataPath + "/../../tools/copyClientFiles.bat";
+        p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.WorkingDirectory = "../tools/";
+        p.Start();
+    }
+
+    [MenuItem("Tools/2.打资源包")]
     static public void BuildAssetBundle()
     {
-        CopyTableAndScripts();
         SetPlayer();
         SetEffect();
         SetUI();
@@ -24,20 +34,28 @@ public class Tools {
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.StandaloneWindows64);
-
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/CopyTableAndScripts")]
-    static void CopyTableAndScripts()
+    [MenuItem("Tools/3.删除临时资源")]
+    static void DeleteTempFiles()
     {
         Process p = new Process();
-        p.StartInfo.FileName = Application.dataPath + "/../../tools/copyClientFiles.bat";
+        p.StartInfo.FileName = Application.dataPath + "/../../tools/removeResources.bat";
         p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
         p.StartInfo.UseShellExecute = true;
         p.StartInfo.WorkingDirectory = "../tools/";
         p.Start();
     }
+
+//    static void SetScene()
+//    {
+//        BuildPlayerOptions opti = new BuildPlayerOptions();
+//        opti.locationPathName = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/";
+//        opti.options = BuildOptions.CompressWithLz4;
+//        opti.targetGroup = BuildTargetGroup.Standalone;
+//        BuildPipeline.BuildPlayer(opti);
+//    }
 
     static void SetPlayer()
     {
@@ -232,6 +250,8 @@ public class Tools {
             File.Copy(files[i], dest, true);
         }
     }
+
+
 
     static List<string> _AllFiles = new List<string>();
     static List<string> _AllDirectories = new List<string>();
@@ -478,6 +498,155 @@ public class Tools {
         catch (Exception e)
         {
             UnityEngine.Debug.Log("ERROR : " + e.Message);
+        }
+    }
+}
+
+/// <summary>
+/// 关卡数据
+/// </summary>
+public class LevelData
+{
+    //关卡名称
+    public string levelName;
+    //物体列表
+    public List<DataType> objectsToData = new List< DataType>();
+
+    public void AddObj(string prefabName, GameObject obj)
+    {
+        DataType data = new DataType(prefabName, obj.transform.position, obj.transform.eulerAngles, obj.transform.localScale);
+        objectsToData.Add(data);
+    }
+}
+
+/// <summary>
+/// 物体数据，pos,rot,scale
+/// </summary>
+public class DataType
+{
+    public string prefabName;
+
+    public float posX;
+    public float posY;
+    public float posZ;
+    public float rotX;
+    public float rotY;
+    public float rotZ;
+    public float scaleX;
+    public float scaleY;
+    public float scaleZ;
+
+    public DataType()
+    {
+    }
+
+    public DataType( string name, Vector3 position, Vector3 rotation, Vector3 scale)
+    {
+        prefabName = name;
+
+        posX = position.x;
+        posY = position.y;
+        posZ = position.z;
+        rotX = rotation.x;
+        rotY = rotation.y;
+        rotZ = rotation.z;
+        scaleX = scale.x;
+        scaleY = scale.y;
+        scaleZ = scale.z;
+    }
+
+    public Vector3 GetPos()
+    {
+        return new Vector3(posX, posY, posZ);
+    }
+
+    public Vector3 GetRotation()
+    {
+        return new Vector3(rotX, rotY, rotZ);
+    }
+
+    public Vector3 GetScale()
+    {
+        return new Vector3(scaleX, scaleY, scaleZ);
+    }
+}
+
+public class SerializeScene : ScriptableWizard
+{
+    string assetPath;
+
+    [MenuItem("Tools/Serialize Scene")]
+    static void SerializeOpenScene()
+    {
+        
+        //SerializeScene ss = (SerializeScene)ScriptableWizard .DisplayWizard("Serialize Scene", typeof(SerializeScene ));
+    }
+
+    void OnWizardCreate()
+    {
+        // Get the path we'll use to write our assets:
+        assetPath = Application.dataPath + "/Resources/" + "SceneInfo/" ;
+
+        // Create the folder that will hold our assets:
+        if (! Directory.Exists(assetPath))
+        {
+            Directory.CreateDirectory(assetPath);
+        }
+
+        FindAssets();
+
+        // Make sure the new assets are (re-)imported:
+        AssetDatabase.Refresh();
+    }
+
+    private void FindAssets()
+    {
+        List< GameObject> objList = new List <GameObject >();
+        LevelData newLevel = new LevelData();
+
+        newLevel.levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        GameObject parent = GameObject.Find( "ObjectRoot" );
+        if (parent == null)
+        {
+            UnityEngine.Debug.LogError( "No ObjectRoot Node!");
+            return;
+        }
+
+        foreach ( Transform trans in parent.transform)
+        {
+            UnityEngine.Debug.Log(trans.name);
+            AddObjects(trans.name, trans.gameObject, ref newLevel);
+        }
+
+        string json = LitJson.JsonMapper.ToJson(newLevel);
+
+        FileInfo file = new FileInfo(assetPath + newLevel.levelName + ".txt");
+        try
+        {
+            file.Delete();
+        }
+        catch (System.IO. IOException e)
+        {
+
+            UnityEngine.Debug.Log(e.Message);
+        }
+
+        FileStream fs = new FileStream (assetPath + newLevel.levelName + ".txt", FileMode.OpenOrCreate, FileAccess .Write);
+        StreamWriter sw = new StreamWriter (fs);
+        sw.Write(json);
+        sw.Close();
+        fs.Close();
+    }
+
+    private void AddObjects( string prefabName, GameObject obj, ref LevelData level)
+    {
+        if ( PrefabType.PrefabInstance == PrefabUtility .GetPrefabType(obj))
+        {
+            level.AddObj(prefabName, obj);
+        }
+        else
+        {
+            UnityEngine.Debug.Log( "Not a Prefab!");
         }
     }
 }
