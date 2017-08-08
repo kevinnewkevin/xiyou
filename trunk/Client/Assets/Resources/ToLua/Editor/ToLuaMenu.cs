@@ -307,13 +307,13 @@ public static class ToLuaMenu
 
             if (dropType.IndexOf(list[i].type) >= 0)
             {
-                Debug.LogWarning(list[i].type.FullName + " in dropType table, not need to export");
+                UnityEngine.Debug.LogWarning(list[i].type.FullName + " in dropType table, not need to export");
                 allTypes.Remove(list[i]);
                 continue;
             }
             else if (beDropBaseType && baseType.IndexOf(list[i].type) >= 0)
             {
-                Debug.LogWarning(list[i].type.FullName + " is Base Type, not need to export");
+                UnityEngine.Debug.LogWarning(list[i].type.FullName + " is Base Type, not need to export");
                 allTypes.Remove(list[i]);
                 continue;
             }
@@ -366,7 +366,7 @@ public static class ToLuaMenu
             ToLuaExport.Generate(CustomSettings.saveDir);
         }
 
-        Debug.Log("Generate lua binding files over");
+        UnityEngine.Debug.Log("Generate lua binding files over");
         ToLuaExport.allTypes.Clear();
         allTypes.Clear();        
         AssetDatabase.Refresh();
@@ -468,7 +468,7 @@ public static class ToLuaMenu
         set.Clear();
         ToLuaExport.Clear();
         AssetDatabase.Refresh();
-        Debug.Log("Create lua delegate over");
+        UnityEngine.Debug.Log("Create lua delegate over");
     }    
 
     static ToLuaTree<string> InitTree()
@@ -976,7 +976,7 @@ public static class ToLuaMenu
         CopyLuaBytesFiles(LuaConst.luaDir, destDir);
         CopyLuaBytesFiles(LuaConst.toluaDir, destDir);
         AssetDatabase.Refresh();
-        Debug.Log("Copy lua files over");
+        UnityEngine.Debug.Log("Copy lua files over");
     }
 
     [MenuItem("Lua/Copy Lua  files to Persistent", false, 52)]
@@ -987,7 +987,7 @@ public static class ToLuaMenu
         CopyLuaBytesFiles(LuaConst.luaDir, destDir, false);
         CopyLuaBytesFiles(LuaConst.toluaDir, destDir, false);
         AssetDatabase.Refresh();
-        Debug.Log("Copy lua files over");
+        UnityEngine.Debug.Log("Copy lua files over");
     }
 
     static void GetAllDirs(string dir, List<string> list)
@@ -1221,7 +1221,7 @@ public static class ToLuaMenu
             ToLuaExport.Generate(dir);
         }
         
-        Debug.Log("Generate base type files over");
+        UnityEngine.Debug.Log("Generate base type files over");
         allTypes.Clear();
         AssetDatabase.Refresh();
     }
@@ -1265,7 +1265,7 @@ public static class ToLuaMenu
         CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaFieldWrap");
         CreateDefaultWrapFile(CustomSettings.toluaBaseType, "LuaInterface_LuaConstructorWrap");        
 
-        Debug.Log("Clear base type wrap files over");
+        UnityEngine.Debug.Log("Clear base type wrap files over");
         AssetDatabase.Refresh();
     }
             }

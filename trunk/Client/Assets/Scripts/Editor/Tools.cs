@@ -6,12 +6,14 @@ using System.Collections;
 using System.Collections.Generic;
 using SevenZip.Compression.LZMA;
 using SevenZip;
+using System.Diagnostics;
 
 public class Tools {
 
     [MenuItem("Tools/BuildAssetBundle")]
     static public void BuildAssetBundle()
     {
+        CopyTableAndScripts();
         SetPlayer();
         SetEffect();
         SetUI();
@@ -24,6 +26,17 @@ public class Tools {
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.StandaloneWindows64);
 
         AssetDatabase.Refresh();
+    }
+
+    [MenuItem("Tools/CopyTableAndScripts")]
+    static void CopyTableAndScripts()
+    {
+        Process p = new Process();
+        p.StartInfo.FileName = Application.dataPath + "/../../tools/copyClientFiles.bat";
+        p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.WorkingDirectory = "../tools/";
+        p.Start();
     }
 
     static void SetPlayer()
@@ -52,7 +65,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -91,7 +104,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -142,7 +155,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -181,7 +194,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -252,7 +265,7 @@ public class Tools {
     static void ClearAssetBundlesName()
     {
         int length = AssetDatabase.GetAllAssetBundleNames().Length;
-        Debug.Log(length);
+        UnityEngine.Debug.Log(length);
         string[] oldAssetBundleNames = new string[length];
         for(int i=0; i < length; ++i)
         {
@@ -263,7 +276,7 @@ public class Tools {
             AssetDatabase.RemoveAssetBundleName(oldAssetBundleNames[i], true);
         }
         length = AssetDatabase.GetAllAssetBundleNames().Length;
-        Debug.Log(length);
+        UnityEngine.Debug.Log(length);
     }
 
     [MenuItem("Tools/TestLoad")]
@@ -377,13 +390,13 @@ public class Tools {
         System.Text.StringBuilder output_7zip_File = new System.Text.StringBuilder(FolderToCompress + Path.DirectorySeparatorChar + fi.Name + @".7z");
         string output_stringBuilder = output_7zip_File.ToString();
 
-        Debug.Log("Output destination : " + output_stringBuilder);
+        UnityEngine.Debug.Log("Output destination : " + output_stringBuilder);
 
 
 
         foreach (string file in subfiles)
         {
-            Debug.Log("Files to Compress : " + file);
+            UnityEngine.Debug.Log("Files to Compress : " + file);
             // compressor.BeginCompressFiles(output_stringBuilder, file);
             CompressFileLZMA(file, output_stringBuilder);
             //AddToArchive(file);
@@ -464,7 +477,7 @@ public class Tools {
         }
         catch (Exception e)
         {
-            Debug.Log("ERROR : " + e.Message);
+            UnityEngine.Debug.Log("ERROR : " + e.Message);
         }
     }
 }
