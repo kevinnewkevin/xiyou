@@ -1,11 +1,10 @@
 package game
 
 import (
-	"logic/prpc"
-	"fmt"
 	"errors"
+	"fmt"
+	"logic/prpc"
 	"sync"
-
 )
 
 type GamePlayer struct {
@@ -15,13 +14,11 @@ type GamePlayer struct {
 	UnitList       []*GameUnit //拥有的卡片
 	BattleUnitList []int64     //默认出战卡片
 
-
 	//战斗相关辅助信息
-	BattleId     int64	   //所在房间编号
-	BattleCamp   int	   //阵营 //prpc.CompType
-	IsActive     bool 	   //是否激活
+	BattleId   int64 //所在房间编号
+	BattleCamp int   //阵营 //prpc.CompType
+	IsActive   bool  //是否激活
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //角色创建
@@ -46,9 +43,28 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		unit.Owner = &p
 	}
 
+	//TestActionByLua(p.MyUnit)
+
 	return &p
 
 }
+
+//
+//func TestActionByLua(u *GameUnit) {
+//	L := lua.Open()
+//	//lua.OpenLibs(L)
+//	lua.RegistSystemAPI(L)
+//	lua.RegistGameAPI(L)
+//	b := lua.LoadFile(L, "../../../config/scripts/test.lua")
+//	c := lua.GetTop(L)
+//	fmt.Println("11111", c, "2222222222", b)
+//	v := []interface{}{"123", 6, 8.9, "kkkkk"}
+//	r := []interface{}{0, 0, 0, 0, 0, 0, 0, 0, 0}
+//	lua.CallFuncEx(L, "Print_Ln2", v, &r)
+//
+//	fmt.Println(r)
+//
+//}
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	//this.Lock()
@@ -69,7 +85,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 func (this *GamePlayer) GetUnit(instId int64) *GameUnit {
 	//this.Lock()
 	//defer this.Unlock()
-	if this.MyUnit.InstId == instId{
+	if this.MyUnit.InstId == instId {
 		return this.MyUnit
 	}
 
@@ -96,7 +112,7 @@ func (this *GamePlayer) GetBattleUnit(instId int64) *GameUnit {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) error {
-	if skillpos >= 2{
+	if skillpos >= 2 {
 		fmt.Println("技能位置錯誤")
 		return errors.New("技能位置錯誤")
 	}
@@ -113,19 +129,20 @@ func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //dont care mutli thread
 var battlePlayerList = []*GamePlayer{}
-func (this *GamePlayer) JoinBattle(){
+
+func (this *GamePlayer) JoinBattle() {
 	//this.Lock()
 	//defer this.Unlock()
 
-	for _, v :=range  battlePlayerList{
-		if v ==this {
+	for _, v := range battlePlayerList {
+		if v == this {
 			return
 		}
 	}
 
 	battlePlayerList = append(battlePlayerList, this)
 
-	if len(battlePlayerList) == 2{
+	if len(battlePlayerList) == 2 {
 		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
 		CreateBattle(battlePlayerList[0], battlePlayerList[1])
 
@@ -134,7 +151,7 @@ func (this *GamePlayer) JoinBattle(){
 	fmt.Println("JoinBattle", battlePlayerList)
 }
 
-func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置出战卡牌  战斗开始之前
+func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出战卡牌  战斗开始之前
 	//this.Lock()
 	//defer this.Unlock()
 	if instId == 0 {
@@ -150,21 +167,21 @@ func (this *GamePlayer) SetBattleUnit(instId int64) {		//往战斗池里设置�
 	this.BattleUnitList = append(this.BattleUnitList, instId)
 }
 
-func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error {		//卡牌上阵	每次回合之前
+func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡牌上阵	每次回合之前
 	//this.Lock()
 	//defer this.Unlock()
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息
 		//}
-		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_RED_1{
+		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_RED_1 {
 			return nil //错误消息 //检测缺失 阵营与位置关系
 		}
 	}
 
 	battleRoom := FindBattle(this.BattleId)
 
-	if battleRoom == nil{
+	if battleRoom == nil {
 		//错误消息
 		return nil
 	}

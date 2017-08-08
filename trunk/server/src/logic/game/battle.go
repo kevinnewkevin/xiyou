@@ -3,8 +3,8 @@ package game
 import (
 	"fmt"
 	"logic/prpc"
-	"sync/atomic"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -16,8 +16,8 @@ const (
 	kMaxUnit = 6 //雙方最多上陣卡牌
 	kMaxMove = 2 //行动结束
 
-	kTimeSleep = 5	//檢測間隔
-	kTimeMax = 500	//戰鬥持續時間
+	kTimeSleep = 5   //檢測間隔
+	kTimeMax   = 500 //戰鬥持續時間
 )
 
 var roomInstId int64 = 1
@@ -30,7 +30,7 @@ type BattleRoom struct {
 	Units      []*GameUnit   //当前战斗中牌 数组索引跟下面玩家对应
 	PlayerList []*GamePlayer //房间中玩家信息
 	Turn       int32
-	Winner	   int		 //获胜者
+	Winner     int //获胜者
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -74,7 +74,6 @@ func FindBattle(battleId int64) *BattleRoom {
 	return nil
 }
 
-
 func (this *BattleRoom) BattleStart() {
 	for _, p := range this.PlayerList {
 
@@ -94,11 +93,11 @@ func (this *BattleRoom) BattleUpdate() {
 
 		now := time.Now().Unix()
 
-		if now - kTimeSleep < now_start {		//每隔5S檢測一次
+		if now-kTimeSleep < now_start { //每隔5S檢測一次
 			continue
 		}
 
-		if now - kTimeMax >= start {			//超時直接結束 並且沒有勝負方
+		if now-kTimeMax >= start { //超時直接結束 並且沒有勝負方
 			this.Status = kIdle
 			this.BattleRoomOver(prpc.CT_MAX)
 			continue
@@ -169,7 +168,7 @@ func (this *BattleRoom) Update() {
 		fmt.Println("report.UnitList, append", u)
 		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
 
-		if u.IsDead() {			// 非主角死亡跳過
+		if u.IsDead() { // 非主角死亡跳過
 			continue
 		}
 
@@ -202,7 +201,7 @@ func (this *BattleRoom) Update() {
 	}
 	fmt.Println("Battle report", report)
 
-	for _, p := range this.PlayerList {		//戰鬥結束之後要重置屬性
+	for _, p := range this.PlayerList { //戰鬥結束之後要重置屬性
 		p.IsActive = false
 	}
 
@@ -240,7 +239,7 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 	return targets
 }
 
-func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit{
+func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	for _, u := range this.Units {
 		if u == nil {
 			continue

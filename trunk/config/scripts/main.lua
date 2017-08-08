@@ -1,0 +1,1 @@
+sys.loadfile("test.lua")

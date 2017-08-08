@@ -3,10 +3,10 @@ package application
 import (
 	"fmt"
 	"logic/game"
+	"logic/lua"
 	"logic/socket"
 	"net"
 	"suzuki/logs"
-	"lua"
 )
 
 type App struct {
@@ -14,11 +14,6 @@ type App struct {
 }
 
 func (this *App) Run() {
-	L := lua.Open()
-
-	lua.RegistSystemAPI(L)
-	fmt.Println(lua.LoadFile(L,"../../../config/scripts/test.lua"))
-
 	var (
 		err        error
 		conn       net.Conn
@@ -37,12 +32,14 @@ func (this *App) Run() {
 		fmt.Println("LoadSkillTable", err.Error())
 		return
 	}
+
+	game.InitGlobalLuaState("../../../config/scripts/")
+
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-
 
 	go func() {
 		for {
