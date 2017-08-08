@@ -96,6 +96,7 @@ ModelImporter:
     7400012: dead
     7400014: Take 001 (7)
     9500000: //RootNode
+    11100000: //RootNode
     13700000: xiejiang
     13700002: yingzi
   materials:
@@ -922,10 +923,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
