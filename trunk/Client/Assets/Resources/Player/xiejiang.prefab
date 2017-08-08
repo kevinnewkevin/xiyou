@@ -260,7 +260,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4929007562392072}
-  - component: {fileID: 95490121892063896}
   - component: {fileID: 111622382977644932}
   m_Layer: 0
   m_Name: xiejiang
@@ -1174,23 +1173,6 @@ Transform:
   m_Father: {fileID: 4731423907195020}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95490121892063896
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464433436785388}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 7e67281fe3f57c0458c526122f19091a, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111622382977644932
 Animation:
   m_ObjectHideFlags: 1
@@ -1199,18 +1181,18 @@ Animation:
   m_GameObject: {fileID: 1464433436785388}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: c506d7009cf0a56428fe89e2e7fe2995, type: 2}
+  m_Animation: {fileID: 7400000, guid: 454c571f353b2b64987bba56d1e46fc3, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 517f16e4efc89514d955d38c828a5ffb, type: 2}
-  - {fileID: 7400000, guid: 645138f0c567685448a0a5c64e8e7714, type: 2}
-  - {fileID: 7400000, guid: 5f19247b67294de4a9716ab376735771, type: 2}
-  - {fileID: 7400000, guid: 0c2e65585e4a38c4abc779b7d1f6ffd1, type: 2}
-  - {fileID: 7400000, guid: e219c459d980e734b8b81e89b270918b, type: 2}
-  - {fileID: 7400000, guid: c506d7009cf0a56428fe89e2e7fe2995, type: 2}
+  - {fileID: 7400000, guid: b086dcf365f5e404db108147b4867e7f, type: 2}
+  - {fileID: 7400000, guid: c207aa30b3126de4cb1fba4d143d9cbc, type: 2}
+  - {fileID: 7400000, guid: a858333caae92134eb2f0319d8ecb1af, type: 2}
+  - {fileID: 7400000, guid: 6f3c3959b818f754d98aa483452d63a2, type: 2}
+  - {fileID: 7400000, guid: 5c5131b1bf1cd2942b3b1f920c919f0c, type: 2}
+  - {fileID: 7400000, guid: 454c571f353b2b64987bba56d1e46fc3, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_CullingType: 1
 --- !u!137 &137303797117488356
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1280,8 +1262,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4039187958487250}
   m_AABB:
-    m_Center: {x: -0.0022457838, y: 0.22565159, z: -0.010355145}
-    m_Extent: {x: 1.1611258, y: 0.6838157, z: 0.8173146}
+    m_Center: {x: 0.013295174, y: 0.15806612, z: 0.19937298}
+    m_Extent: {x: 1.1617832, y: 0.9424629, z: 1.1836017}
   m_DirtyAABB: 0
 --- !u!137 &137580230753193836
 SkinnedMeshRenderer:

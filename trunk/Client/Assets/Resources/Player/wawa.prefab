@@ -276,7 +276,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4380249322481370}
-  - component: {fileID: 95346997702412798}
   - component: {fileID: 111690119495252034}
   m_Layer: 0
   m_Name: wawa
@@ -566,23 +565,6 @@ Transform:
   m_Father: {fileID: 4380249322481370}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95346997702412798
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1756632842909126}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 00a3ec642cb4d1b4fa052df1b51ebd95, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111690119495252034
 Animation:
   m_ObjectHideFlags: 1
@@ -591,15 +573,15 @@ Animation:
   m_GameObject: {fileID: 1756632842909126}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 42ad4a052af1acd4280a6e822a397095, type: 2}
+  m_Animation: {fileID: 7400000, guid: 9e0a45379ff9ba041aba1eab07729682, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 6622ec10b50654544958f957bad94b2f, type: 2}
-  - {fileID: 7400000, guid: 42ad4a052af1acd4280a6e822a397095, type: 2}
-  - {fileID: 7400000, guid: d5aab5ecc5af7a742b97575ce3b48395, type: 2}
+  - {fileID: 7400000, guid: 3140dc50922843d4ab8ed6cf5d1a0da6, type: 2}
+  - {fileID: 7400000, guid: 9e0a45379ff9ba041aba1eab07729682, type: 2}
+  - {fileID: 7400000, guid: 276a2dac69f05b1458ab0c0a50f28128, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_CullingType: 1
 --- !u!137 &137407649690707628
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -700,6 +682,6 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4462872126620054}
   m_AABB:
-    m_Center: {x: -0.3153777, y: -0.003919795, z: 0.058378167}
-    m_Extent: {x: 0.4494362, y: 0.18528464, z: 0.22058183}
+    m_Center: {x: -0.3153777, y: -0.14474273, z: 0.028797649}
+    m_Extent: {x: 0.4494362, y: 0.45534933, z: 0.25016233}
   m_DirtyAABB: 0

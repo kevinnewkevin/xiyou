@@ -321,7 +321,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4053489185080450}
-  - component: {fileID: 95169109185391700}
   - component: {fileID: 111909371911850036}
   m_Layer: 0
   m_Name: xihailongwang
@@ -618,7 +617,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1993229869178810}
-  m_LocalRotation: {x: 0.6141715, y: -0.5851539, z: 0.13621126, w: 0.51169795}
+  m_LocalRotation: {x: 0.61417156, y: -0.58515394, z: 0.13621128, w: 0.511698}
   m_LocalPosition: {x: 0.008019866, y: -0.013255235, z: -0.042226028}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1.0000001}
   m_Children:
@@ -690,7 +689,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080951023162986}
-  m_LocalRotation: {x: 0.68418443, y: 0.14296724, z: 0.7149156, w: 0.0186528}
+  m_LocalRotation: {x: 0.6841844, y: 0.14296722, z: 0.7149155, w: 0.018652799}
   m_LocalPosition: {x: 0.09117866, y: -0.017669583, z: -0.08409031}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children:
@@ -1030,23 +1029,6 @@ Transform:
   m_Father: {fileID: 4053489185080450}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95169109185391700
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702473602585226}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 1e31ad2565bfaee4b9a88dce823d90b4, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111909371911850036
 Animation:
   m_ObjectHideFlags: 1
@@ -1055,20 +1037,20 @@ Animation:
   m_GameObject: {fileID: 1702473602585226}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 8811625be8da91943bcf76f4b79d1d57, type: 2}
+  m_Animation: {fileID: 7400000, guid: 8b047319671c42c42ac402e75314ebb5, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 7d605022acffe8b4aa2255c9d8703b41, type: 2}
-  - {fileID: 7400000, guid: c01363135c5eee0419b0676c50625c7e, type: 2}
-  - {fileID: 7400000, guid: 0000b45c69297f04c92e28eb971ae34f, type: 2}
-  - {fileID: 7400000, guid: ec84edb40279a9d409a7c7ad9dd1b282, type: 2}
-  - {fileID: 7400000, guid: 09716d91ae0c99d478a14e34b73e405a, type: 2}
-  - {fileID: 7400000, guid: 640f6d391384be64eb3bd7cf01e1e0ea, type: 2}
-  - {fileID: 7400000, guid: 016482c88a0de324b8f99cbe02d14883, type: 2}
-  - {fileID: 7400000, guid: 8811625be8da91943bcf76f4b79d1d57, type: 2}
+  - {fileID: 7400000, guid: 05234bd7426cd044ea0a641ad020db6f, type: 2}
+  - {fileID: 7400000, guid: 18b85d8966e7b6b42a3153b09d30ba27, type: 2}
+  - {fileID: 7400000, guid: 585685b9b9f8cde46a7f2d7151875147, type: 2}
+  - {fileID: 7400000, guid: 9df3b7f3dc0953e4897c79dc1967e5fe, type: 2}
+  - {fileID: 7400000, guid: 026d468ca49506341911cc969b0077ee, type: 2}
+  - {fileID: 7400000, guid: 974de54be65f09b40bee004d812b95b1, type: 2}
+  - {fileID: 7400000, guid: 6980e38e42a83224aa8c8b78423db511, type: 2}
+  - {fileID: 7400000, guid: 8b047319671c42c42ac402e75314ebb5, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_CullingType: 1
 --- !u!137 &137060444987690832
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1111,8 +1093,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4452383394336026}
   m_AABB:
-    m_Center: {x: -0.024508284, y: 0.00055894256, z: -0.00000011175871}
-    m_Extent: {x: 0.071529046, y: 0.07110561, z: 0.07258835}
+    m_Center: {x: -0.02450838, y: 0.0005590841, z: -0.00000011175871}
+    m_Extent: {x: 0.07152914, y: 0.07110575, z: 0.07258835}
   m_DirtyAABB: 0
 --- !u!137 &137079770836245386
 SkinnedMeshRenderer:
@@ -1181,8 +1163,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4737924161356090}
   m_AABB:
-    m_Center: {x: 0.049571455, y: -0.46549448, z: 0.0011777878}
-    m_Extent: {x: 0.9542362, y: 1.0530242, z: 0.78091836}
+    m_Center: {x: -0.0074731708, y: -0.38357306, z: 0.14414847}
+    m_Extent: {x: 1.0112808, y: 1.3742476, z: 1.2420238}
   m_DirtyAABB: 0
 --- !u!137 &137519970491499468
 SkinnedMeshRenderer:
