@@ -45,12 +45,12 @@ public class Define {
         return System.Convert.ToInt32(globalValues [key]);
     }
 
-    public static double GetFloat(string key)
+    public static float GetFloat(string key)
     {
         if (!globalValues.ContainsKey(key))
-            return 0.0;
+            return 0.0f;
 
-        return System.Convert.ToDouble(globalValues [key]);
+        return float.Parse(globalValues [key].ToString());
     }
 
     public static string GetStr(string key)

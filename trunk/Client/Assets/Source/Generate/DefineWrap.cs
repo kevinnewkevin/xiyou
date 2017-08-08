@@ -106,7 +106,7 @@ public class DefineWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			string arg0 = ToLua.CheckString(L, 1);
-			double o = Define.GetFloat(arg0);
+			float o = Define.GetFloat(arg0);
 			LuaDLL.lua_pushnumber(L, o);
 			return 1;
 		}

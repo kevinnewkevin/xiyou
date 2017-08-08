@@ -34,7 +34,7 @@ public class Proxy4Lua {
     {
         GameObject go = AssetLoader.LoadAsset(assetPath);
         go.transform.position = new Vector3(0f, 0f, 1000f);
-        go.transform.localScale = Vector3.one * 200f;
+        go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
         go.transform.Rotate(Vector3.up, 180f);
         return new FairyGUI.GoWrapper(go);
     }

@@ -17,7 +17,5 @@ function ExcuteNpc(id)
 end
 
 function RegGlobalValue()
-	Define.Set("123", 5);
-	Define.Set("1234", 3.4);
-	Define.Set("1235", "水电费");
+	Define.Set("UIModelScale", 200);
 end
