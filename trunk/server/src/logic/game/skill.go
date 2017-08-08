@@ -3,9 +3,7 @@ package game
 import (
 	"fmt"
 	"logic/prpc"
-	"unsafe"
 
-	"logic/lua"
 )
 
 type Skill struct {
@@ -88,12 +86,8 @@ func (this *Skill) RefreshBattle() {
 
 func (this *Skill) ActionByLua(u *GameUnit) {
 
-	fmt.Println("11111", c, "2222222222", b)
-	v := []interface{}{"123", 6, 8.9, unsafe.Pointer(u)}
-	r := []interface{}{0, 0, 0, 0, 0, 0, 0, 0, 0}
-	lua.CallFuncEx(L, "Print_Ln2", v, &r)
 
-	fmt.Println(r)
+
 
 }
 

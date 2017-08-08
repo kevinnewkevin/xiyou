@@ -1,66 +1,73 @@
-package game
+package lua
 
 /*
-#include "lua.go.h"
-extern int __panic(lua_State*);
-extern int __err(lua_State*);
-extern int __msg(lua_State*);
-extern int __log(lua_State*);
-extern int __test(lua_State*);
+extern int __panic(void*);
+extern int __err(void*);
+extern int __msg(void*);
+extern int __log(void*);
+extern int __test(void*);
 */
 import "C"
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 //export __panic
-func __panic(L LuaState) C.int {
-	errorDescC := C.GoString(C.luaL_tostring(L, C.int(-1)))
+func __panic(p unsafe.Pointer) C.int {
+	L := GetLuaState(p)
+	errorDescC := L.ToString(-1)
 	//defer C.free(errorDescC)
 	panic(errorDescC)
 	return 0
 }
 
 //export __err
-func __err(L LuaState) C.int {
+func __err(p unsafe.Pointer) C.int {
+	L := GetLuaState(p)
 	idx := 1
-	s := ToString(L, idx)
+	s := L.ToString(idx)
 	fmt.Println("LUA {{", s)
 	return 0
 }
 
 //export __msg
-func __msg(L LuaState) C.int {
+func __msg(p unsafe.Pointer) C.int {
+	L := GetLuaState(p)
 	idx := 1
-	s := ToString(L, idx)
+	s := L.ToString( idx)
 	fmt.Println("LUA [[", s)
 	return 0
 }
 
 //export __log
-func __log(L LuaState) C.int {
+func __log(p unsafe.Pointer) C.int {
+	L := GetLuaState(p)
 	idx := 1
-	s := ToString(L, idx)
+	s := L.ToString( idx)
 	fmt.Println("LUA >>", s)
 	return 0
 }
 
 //export __test
-func __test(L LuaState) C.int {
+func __test(p unsafe.Pointer) C.int {
+	L := GetLuaState(p)
 	idx := 1
-	v1 := ToInteger(L, idx)
+	v1 := L.ToInteger(idx)
 	idx++
-	v2 := ToInteger(L, idx)
+	v2 := L.ToInteger( idx)
 
 	idx = 0
-	PushInteger(L, v1+v2)
+	L.PushInteger(v1+v2)
 	idx++
 	return C.int(idx)
 }
 
-func RegistSystemAPI(L LuaState) {
-	OpenPanic(L, C.__panic)
-	LoadApi(L, C.__err, "err", "sys")
-	LoadApi(L, C.__log, "log", "sys")
-	LoadApi(L, C.__msg, "msg", "sys")
-	LoadApi(L, C.__test, "test", "sys")
+func (this *LuaState)OpenSys() {
+	this .OpenPanic(C.__panic)
+	this .LoadApi( C.__err, "err", "sys")
+	this .LoadApi( C.__log, "log", "sys")
+	this .LoadApi( C.__msg, "msg", "sys")
+	this .LoadApi( C.__test, "test", "sys")
 
 }

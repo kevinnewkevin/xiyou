@@ -3,7 +3,7 @@ package application
 import (
 	"fmt"
 	"logic/game"
-	"logic/lua"
+
 	"logic/socket"
 	"net"
 	"suzuki/logs"
@@ -33,7 +33,8 @@ func (this *App) Run() {
 		return
 	}
 
-	game.InitGlobalLuaState("../../../config/scripts/")
+	game.InitLua("../../../config/scripts/")
+	//game.InitGlobalLuaState()
 
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {

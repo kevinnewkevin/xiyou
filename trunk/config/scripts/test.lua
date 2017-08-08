@@ -12,17 +12,14 @@ function Print_Ln2(a,b,c,d)
 	return 1,2,3,4,5,6,7,8,9
 end
 
-local u1 = Player.GetPlayerUnit(100,2222)
-sys.log(u1)
+local a = 231231
+local b = "我看你咋加"
+local c = a + b
 
-local u2 = Player.GetUnitProperty(10)
-local u3 = Player.GetUnitProperty(1)
-
-sys.log("sssssssss "..u2.." aaaaaaaaaaaaa "..u3)
 
 function Action(battleid, casterid)
 	local targetids = Player.GetEnemy(battleid, casterid)
 	sys.log("targetids= ".. targetids)
 end
 
-sys.log("test.lua loaded")
+sys.log(""..c)
