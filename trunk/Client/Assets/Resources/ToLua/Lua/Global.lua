@@ -15,3 +15,7 @@ function ExcuteNpc(id)
 		Proxy4Lua.BattleJoin();
 	end
 end
+
+function RegGlobalValue()
+	
+end
