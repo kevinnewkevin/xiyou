@@ -206,4 +206,12 @@ public class GamePlayer {
             }
         }
     }
+
+    static public void DeleteGroup(int groupidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return;
+
+        _CardGroup [groupidx].Clear();
+    }
 }
