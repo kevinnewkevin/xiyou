@@ -41,6 +41,8 @@ function paiku:OnInit()
 	allCardGroupList = bg:GetChild("n5").asList;
 
 	local cardGroup = rightPart:GetChild("n6");
+	local deleteBtn = cardGroup:GetChild("n24").asButton;
+	deleteBtn.onClick:Add(paiku_OnDeleteGroup);
 	cardGroupList = cardGroup:GetChild("n27").asList;
 
 	--test
@@ -60,6 +62,18 @@ function paiku_RenderListItem(index, obj)
 	obj.data = GamePlayer.GetInstIDInMyCards(index);
 	obj.draggable = true;
 	obj.onDragEnd:Add(paiku_OnDropCard);
+end
+
+function paiku_OnDeleteGroup(context)
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否删除卡组？", false, paiku_OnDelete);
+end
+
+function paiku_OnDelete()
+	GamePlayer.DeleteGroup(crtGroupIdx);
+	paiku_FlushData();
+	UIManager.HideMessageBox();
+	UIManager.SetDirty("paiku");
 end
 
 function paiku_OnSelectGroup(context)
