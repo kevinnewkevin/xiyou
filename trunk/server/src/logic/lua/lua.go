@@ -4,7 +4,10 @@ package lua
 #include "lua.go.h"
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+	"fmt"
+)
 
 const (
 	LUA_VSERSION = C.LUA_VERSION
@@ -87,6 +90,7 @@ func(this *LuaState)  GetField( idx int, k string) {
 func(this *LuaState)  RawGet( idx int)                 { C.lua_rawget(this.luaState, C.int(idx)) }
 func (this *LuaState) RawGetI( idx int, n int)         { C.lua_rawgeti(this.luaState, C.int(idx), C.int(n)) }
 func (this *LuaState) CreateTable( nArr int, nRec int) { C.lua_createtable(this.luaState, C.int(nArr), C.int(nRec)) }
+func (this *LuaState) NewTable() 					   { C.lua_newtable (this.luaState) }
 func (this *LuaState) GetMetaTable( objIndex int) int  { return int(C.lua_getmetatable(this.luaState, C.int(objIndex))) }
 func (this *LuaState) GetEnvF( idx int)                { C.lua_getfenv(this.luaState, C.int(idx)) }
 
@@ -133,10 +137,12 @@ func (this *LuaState) CallFuncEx( funcName string, args []interface{}, results *
 		}
 	}
 
+	fmt.Println("CallFuncEx", len(*results))
+
 	this.Call(len(args), len(*results))
 
 	for i := 0; i < len(*results); i++ {
-		(*results)[i] = this.ToInteger( i+1)
+		(*results)[i] = this.ToString( i+1)
 	}
 
 	this.Pop(len(*results))
