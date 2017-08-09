@@ -188,6 +188,8 @@ public class GamePlayer {
             return;
 
         _CardGroup [groupidx].Add(card);
+
+        NetWoking.S.AddBattleUnit(instid, groupidx);
     }
 
     static public void TakeOffCard(long instid, int groupidx)
@@ -207,6 +209,8 @@ public class GamePlayer {
                 break;
             }
         }
+
+        NetWoking.S.PopBattleUnit(instid, groupidx);
     }
 
     static public void DeleteGroup(int groupidx)
