@@ -36,9 +36,9 @@ function xiangxiziliao_OnAddGroup()
 	local MessageBox = UIManager.ShowMessageBox();
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
-		MessageBox:SetData("提示", "是否取出卡组？", false, xiangxiziliao_OnMessageConfirm);
+		MessageBox:SetData("提示", "是否取出卡组？", false, xiangxiziliao_OnMessageConfirm, xiangxiziliao_OnMessageCancel);
 	else
-		MessageBox:SetData("提示", "是否加入卡组？", false, xiangxiziliao_OnMessageConfirm);
+		MessageBox:SetData("提示", "是否加入卡组？", false, xiangxiziliao_OnMessageConfirm, xiangxiziliao_OnMessageCancel);
 	end
 end
 
@@ -55,6 +55,11 @@ function xiangxiziliao_OnMessageConfirm()
 	end
 	UIManager.HideMessageBox();
 	UIManager.Hide("xiangxiziliao");
+	UIManager.SetDirty("paiku");
+end
+
+function xiangxiziliao_OnMessageCancel()
+	UIManager.HideMessageBox();
 	UIManager.SetDirty("paiku");
 end
 

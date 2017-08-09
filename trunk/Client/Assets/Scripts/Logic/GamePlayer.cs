@@ -17,6 +17,12 @@ public class GamePlayer {
 
     static public void Init(COM_Player player)
     {
+        _Cards.Clear();
+        _CardGroup.Clear();
+        for(int i=0; i < 5; ++i)
+        {
+            _CardGroup.Add(new List<COM_Unit>());
+        }
         _InstID = player.InstId;
         _Name = player.Name;
         _Data = player.Unit;
