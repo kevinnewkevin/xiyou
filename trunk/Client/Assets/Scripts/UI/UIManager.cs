@@ -162,4 +162,12 @@ public class UIManager {
     {
         Hide("tanchukuang");
     }
+
+    static public Window GetWindow(string uiName)
+    {
+        if (!_Windows.ContainsKey(uiName))
+            return null;
+
+        return _Windows [uiName].GetWindow();
+    }
 }

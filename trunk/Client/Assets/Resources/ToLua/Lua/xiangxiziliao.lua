@@ -34,6 +34,7 @@ end
 
 function xiangxiziliao_OnAddGroup()
 	local MessageBox = UIManager.ShowMessageBox();
+	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
 		MessageBox:SetData("提示", "是否取出卡组？", false, xiangxiziliao_OnMessageConfirm);
 	else
@@ -42,23 +43,19 @@ function xiangxiziliao_OnAddGroup()
 end
 
 function xiangxiziliao_OnMessageConfirm()
-	local index = UIParamHolder.Get("paiku_OnCardItem");
-	if index ~= nil then
-		local instid = GamePlayer.GetInstIDInMyCards(index);
-	end
-
-	local gindex = UIParamHolder.Get("paiku_OnCardInGroupGroupIdx");
-	local cindex = UIParamHolder.Get("paiku_OnCardInGroupCardIdx");
-	if gindex ~= nil and cindex ~= nil then
-		local instid = GamePlayer.GetInstIDInMyGroup(gindex, cindex);
-	end
-
+	local crtCardInstID = UIManager.GetWindow("paiku").GetCrtCard();
+	local crtGroupIdx = UIManager.GetWindow("paiku").GetCrtGroup();
+	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
-		print(" isInGroup ");
+		print("TakeOffCard");
+		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
 	else
-		print(" not isInGroup ");
+		print("PutInCard");
+		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
 	end
 	UIManager.HideMessageBox();
+	UIManager.Hide("xiangxiziliao");
+	UIManager.SetDirty("paiku");
 end
 
 function xiangxiziliao:OnUpdate()
@@ -85,28 +82,14 @@ function xiangxiziliao:OnHide()
 end
 
 function xiangxiziliao_FlushData()
-	local index = UIParamHolder.Get("paiku_OnCardItem");
-	local instId;
-	if index ~= nil then
-		local modelRes = GamePlayer.GetResPathInMyCards(index);
-		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
-		instId = GamePlayer.GetInstIDInMyCards(index);
-	end
+	local instId = UIManager.GetWindow("paiku").GetCrtCard();
+	local modelRes = GamePlayer.GetResPath(instId);
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
 
-	local gindex = UIParamHolder.Get("paiku_OnCardInGroupGroupIdx");
-	local cindex = UIParamHolder.Get("paiku_OnCardInGroupCardIdx");
-	if gindex ~= nil and cindex ~= nil then
-		local modelRes = GamePlayer.GetResPathInMyGroup(gindex, cindex);
-		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
-		instId = GamePlayer.GetInstIDInMyGroup(gindex, cindex);
-	end
-
-	isInGroup = GamePlayer.IsInGroup(instId);
+	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
-	print("controller.selectedIndex = 1;");
 		controller.selectedIndex = 1;
 	else
-	print("controller.selectedIndex = 0;");
 		controller.selectedIndex = 0;
 	end
 end

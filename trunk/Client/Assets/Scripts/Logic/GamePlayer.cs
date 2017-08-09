@@ -70,15 +70,15 @@ public class GamePlayer {
     }
 
     //在我的卡组里
-    static public bool IsInGroup(long instid)
+    static public bool IsInGroup(long instid, int groupidx)
     {
-        for(int i=0; i < _CardGroup.Count; ++i)
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return false;
+        
+        for(int j=0; j < _CardGroup[groupidx].Count; ++j)
         {
-            for(int j=0; j < _CardGroup[i].Count; ++j)
-            {
-                if (_CardGroup [i] [j].InstId == instid)
-                    return true;
-            }
+            if (_CardGroup [groupidx] [j].InstId == instid)
+                return true;
         }
         return false;
     }
@@ -98,6 +98,26 @@ public class GamePlayer {
             return "";
         
         return ddata._AssetPath;
+    }
+
+    static public string GetResPath(long instid)
+    {
+        for(int i=0; i < _Cards.Count; ++i)
+        {
+            if (_Cards [i].InstId == instid)
+            {
+                EntityData edata = EntityData.GetData(_Cards [i].UnitId);
+                if (edata == null)
+                    return "";
+
+                DisplayData ddata = DisplayData.GetData(edata._DisplayId);
+                if (ddata == null)
+                    return "";
+
+                return ddata._AssetPath;
+            }
+        }
+        return "";
     }
 
     //通过索引获得卡组中卡牌形象
@@ -148,5 +168,36 @@ public class GamePlayer {
             return 0;
 
         return _CardGroup[groupidx][cardidx].InstId;
+    }
+
+    static public void PutInCard(long instid, int groupidx)
+    {
+        COM_Unit card =  GetCardByInstID(instid);
+        if (card == null)
+            return;
+        
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return;
+
+        _CardGroup [groupidx].Add(card);
+    }
+
+    static public void TakeOffCard(long instid, int groupidx)
+    {
+        COM_Unit card =  GetCardByInstID(instid);
+        if (card == null)
+            return;
+        
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return;
+
+        for(int i=0; i < _CardGroup [groupidx].Count; ++i)
+        {
+            if (_CardGroup [groupidx] [i].InstId == instid)
+            {
+                _CardGroup [groupidx].RemoveAt(i);
+                break;
+            }
+        }
     }
 }
