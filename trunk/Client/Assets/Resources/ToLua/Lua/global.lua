@@ -13,6 +13,8 @@ end
 function ExcuteNpc(id)
 	if id == 1 then
 		Proxy4Lua.BattleJoin();
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "匹配中...", true);
 	end
 end
 

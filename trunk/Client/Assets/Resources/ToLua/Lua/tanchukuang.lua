@@ -100,4 +100,10 @@ function tanchukuang_FlushData()
 	if tcancel ~= nil then
 		_Cancel.onClick:Add(tcancel);
 	end
+
+	if tsingle then
+		if tconfirm2 == nil then
+			UIManager.GetWindow("tanchukuang").closeButton = _Confirm2;
+		end
+	end
 end

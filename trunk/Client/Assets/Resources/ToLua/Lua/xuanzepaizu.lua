@@ -8,7 +8,7 @@ local cardGroupList;
 local cardItemUrl = "ui://xuanzepaizu/touxiangkuang_Label";
 local cardGroupUrl = "ui://xuanzepaizu/paizuanniu_Button";
 
-local crtGroupIdx = 0;
+local crtGroupIdx;
 
 function xuanzepaizu:OnEntry()
 	Window = xuanzepaizu.New();
@@ -22,6 +22,11 @@ end
 function xuanzepaizu:OnInit()
 	self.contentPane = UIPackage.CreateObject("xuanzepaizu", "xuanzepaizu_com").asCom;
 	self:Center();
+
+	crtGroupIdx = GamePlayer._CrtBattleGroupIdx;
+
+	local confirmBtn = self.contentPane:GetChild("n11");
+	confirmBtn.onClick:Add(xuanzepaizu_OnConfirm);
 
 	local bg = self.contentPane:GetChild("n3");
 	allCardGroupList = bg:GetChild("n5").asList;
@@ -60,6 +65,14 @@ function xuanzepaizu_FlushData()
 	for i=1, groupCards.Count do
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
 	end
+end
+
+function xuanzepaizu_OnConfirm(context)
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "设置成功", true);
+
+	GamePlayer._CrtBattleGroupIdx = crtGroupIdx;
+	--sendmessage
 end
 
 function xuanzepaizu:OnTick()

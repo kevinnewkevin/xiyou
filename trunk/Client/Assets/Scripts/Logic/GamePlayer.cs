@@ -15,6 +15,8 @@ public class GamePlayer {
 
     static public List<List<COM_Unit>> _CardGroup = new List<List<COM_Unit>>();
 
+    static public int _CrtBattleGroupIdx;
+
     static public void Init(COM_Player player)
     {
         _Cards.Clear();
