@@ -43,28 +43,11 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		unit.Owner = &p
 	}
 
-	//TestActionByLua(p.MyUnit)
+	//TestActionByLua()
 
 	return &p
 
 }
-
-//
-//func TestActionByLua(u *GameUnit) {
-//	L := lua.Open()
-//	//lua.OpenLibs(L)
-//	lua.RegistSystemAPI(L)
-//	lua.RegistGameAPI(L)
-//	b := lua.LoadFile(L, "../../../config/scripts/test.lua")
-//	c := lua.GetTop(L)
-//	fmt.Println("11111", c, "2222222222", b)
-//	v := []interface{}{"123", 6, 8.9, "kkkkk"}
-//	r := []interface{}{0, 0, 0, 0, 0, 0, 0, 0, 0}
-//	lua.CallFuncEx(L, "Print_Ln2", v, &r)
-//
-//	fmt.Println(r)
-//
-//}
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	//this.Lock()

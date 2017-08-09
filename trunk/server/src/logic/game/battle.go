@@ -31,6 +31,9 @@ type BattleRoom struct {
 	PlayerList []*GamePlayer //房间中玩家信息
 	Turn       int32
 	Winner     int //获胜者
+	ReportAll  []prpc.COM_BattleReport		//zhanbao all
+	ReportOne  prpc.COM_BattleReport		//zhanbao
+	AcctionList  prpc.COM_BattleAction		//zhanbao
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -52,6 +55,7 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Winner = 0
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
+
 	p0.BattleId = room.InstId
 	p1.BattleId = room.InstId
 
@@ -67,9 +71,45 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	return &room
 }
 
+
+func CreateBattleTest(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
+
+	if p0 == p1 {
+		return nil
+	}
+
+	room := BattleRoom{}
+	room.Status = kUsed
+	room.InstId = 9999999999
+	room.Round = 0
+	room.Winner = 0
+	room.Units = make([]*GameUnit, prpc.BP_MAX)
+	room.PlayerList = append(room.PlayerList, p0, p1)
+
+	if p0 != nil && p1 != nil {
+		p0.BattleId = room.InstId
+		p1.BattleId = room.InstId
+
+		p0.BattleCamp = prpc.CT_RED
+		p1.BattleCamp = prpc.CT_BLUE
+	}
+
+	BattleRoomList[room.InstId] = &room
+	fmt.Println("CreateBattleRoom", &room)
+
+	room.BattleStart()
+	go room.BattleUpdate()
+
+	return &room
+}
+
 func FindBattle(battleId int64) *BattleRoom {
 	if room, ok := BattleRoomList[battleId]; ok {
 		return room
+	}
+
+	if battleId == 9999999999 {
+		return CreateBattleTest(nil, nil)
 	}
 	return nil
 }
@@ -157,64 +197,73 @@ func (this *BattleRoom) Update() {
 
 	//顺序排序
 
-	report := prpc.COM_BattleReport{}
-
 	WinCamp := 0
+
+	this.ReportOne = prpc.COM_BattleReport{}
+	this.AcctionList = prpc.COM_BattleAction{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
 		}
 
 		fmt.Println("report.UnitList, append", u)
-		report.UnitList = append(report.UnitList, u.GetBattleUnitCOM())
+		this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
 		if u.IsDead() { // 非主角死亡跳過
 			continue
 		}
 
-		ac, ownerdead := u.CastSkill(this)
-		report.ActionList = append(report.ActionList, ac)
+		ownerdead := u.CastSkill(this)
 
-		fmt.Println("BattleAcction", u.InstId, "acction", ac)
+		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
+
+		fmt.Println("BattleAcction", u.InstId, "acction", this.AcctionList)
+		fmt.Println("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
 		if ownerdead {
 			this.Status = kIdle
 			WinCamp = u.Owner.BattleCamp
 			this.Winner = u.Owner.BattleCamp
-			for _, a := range ac.TargetList {
+			for _, a := range this.AcctionList.TargetList {
 				unit := this.SelectOneUnit(a.InstId)
 				if unit == nil {
 					continue
 				}
 				fmt.Println("append", unit)
-				report.UnitList = append(report.UnitList, unit.GetBattleUnitCOM())
+				this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 			}
+			fmt.Println("this.Winner", this.Winner, WinCamp)
 
 		}
 
 		if this.calcWinner() == true {
 			this.Round += 1
-			this.SendReport(report)
+			this.SendReport(this.ReportOne)
 			this.BattleRoomOver(WinCamp)
 			this.Status = kIdle
 			break
 		}
 	}
-	fmt.Println("Battle report", report)
+	fmt.Println("Battle report", this.ReportOne)
 
 	for _, p := range this.PlayerList { //戰鬥結束之後要重置屬性
 		p.IsActive = false
 	}
 
-	this.Round += 1
-	this.SendReport(report)
+	if this.Status == kUsed {
+		this.Round += 1
+		this.SendReport(this.ReportOne)
+	}
+
+	this.ReportAll = append(this.ReportAll, this.ReportOne)
 
 }
 
 func (this *BattleRoom) calcWinner() bool {
-	return this.Winner != 0
+	return this.Winner != prpc.CT_MAX
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
+	fmt.Println("SendReport", "111111111111111111111111")
 	for _, p := range this.PlayerList {
 		p.session.BattleReport(report)
 	}
@@ -250,6 +299,23 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	}
 
 	return nil
+}
+
+////////////////////////////////////////////////////////////////////////
+////属性操控
+////////////////////////////////////////////////////////////////////////
+
+func (this *BattleRoom) MintsHp (target int64, damage int32, crit int32) {
+
+	t := prpc.COM_BattleActionTarget{}
+	t.InstId = target
+	t.ActionType = 1
+	t.ActionParam = damage
+	t.ActionParamExt = 0
+
+}
+func (this *BattleRoom) AddHp (target int64, damage int64, crit int32) {
+
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -302,5 +368,5 @@ setup_check_success:
 	}
 	p.IsActive = true
 
-	fmt.Println("SetupPosition", this.Units)
+	fmt.Println("SetupPosition", this.Units, p.BattleCamp)
 }

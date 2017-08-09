@@ -4,6 +4,7 @@ import (
 	"logic/prpc"
 	"sync"
 	"sync/atomic"
+	"fmt"
 )
 
 var genInstId int64 = 1
@@ -93,14 +94,21 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 	return this.Skill[idx]
 }
 
-func (this *GameUnit) CastSkill(battle *BattleRoom) (prpc.COM_BattleAction, bool) {
+func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
 
 	tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
 
+	battle.AcctionList.InstId = this.InstId
+	battle.AcctionList.SkillId = skill.SkillID
+
 	acc, dead := skill.Action(this, tagetList, battle.Round)
 
-	return acc, dead
+	battle.AcctionList.TargetList = acc
+	fmt.Println("CastSkill, acc ", acc)
+	fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
+
+	return dead
 }
 
 func (this *GameUnit) IsDead() bool {

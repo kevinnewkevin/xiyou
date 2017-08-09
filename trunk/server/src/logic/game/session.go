@@ -30,7 +30,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	return nil
 } // 1
-func (this *Session) SetBattleUnit(instId int64) error {
+func (this *Session) AddBattleUnit(instId int64, groupId int32) error {
 	fmt.Println("SetBattleUnit", instId)
 	this.player.SetBattleUnit(instId)
 
@@ -43,6 +43,19 @@ func (this *Session) SetBattleUnit(instId int64) error {
 	return nil
 } // 2
 
+func (this *Session) PopBattleUnit(instId int64, groupId int32) error {
+	fmt.Println("SetBattleUnit", instId)
+	this.player.SetBattleUnit(instId)
+
+	r := this.player.GetBattleUnit(instId)
+
+	this.SetBattleUnitOK(r.InstId)
+
+	fmt.Println("SetBattleUnitOK")
+
+	return nil
+} // 3
+
 func (this *Session) JoinBattle() error {
 
 	if this.player == nil {
@@ -52,7 +65,7 @@ func (this *Session) JoinBattle() error {
 	this.player.JoinBattle()
 
 	return nil
-} // 3
+} // 4
 
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 	fmt.Println("SetupBattle", positionList)
@@ -66,7 +79,7 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 	fmt.Println("SetupBattleOK", positionList)
 
 	return nil
-} // 4
+} // 5
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

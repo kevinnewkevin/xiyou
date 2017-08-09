@@ -3,7 +3,6 @@ package game
 import (
 	"fmt"
 	"logic/prpc"
-
 )
 
 type Skill struct {
@@ -27,7 +26,7 @@ func (this *Skill) Condition() bool {
 	return this.checkUse()
 } //能不能使用
 
-func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) (prpc.COM_BattleAction, bool) {
+func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) ([]prpc.COM_BattleActionTarget, bool) {
 	actionList := []prpc.COM_BattleActionTarget{}
 	OwnerDead := false
 	for i := 0; i < len(targetList); i++ {
@@ -49,8 +48,20 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 	}
 	this.UseTime = bout
 
+	//this.ActionByLua(caster)
+
+	return actionList, OwnerDead
+
+} //使用技能
+
+func (this *Skill) ActionBylua(battleid int64, casterid int64) (prpc.COM_BattleAction, bool) {
+	actionList := []prpc.COM_BattleActionTarget{}
+	OwnerDead := false
+
+
+
 	action := prpc.COM_BattleAction{}
-	action.InstId = caster.InstId
+	action.InstId = casterid
 	action.SkillId = this.SkillID
 	action.TargetList = actionList
 
@@ -86,8 +97,12 @@ func (this *Skill) RefreshBattle() {
 
 func (this *Skill) ActionByLua(u *GameUnit) {
 
-
-
+	//fmt.Println("11111", c, "2222222222", b)
+	//v := []interface{}{"123", 6, 8.9, unsafe.Pointer(u)}
+	//r := []interface{}{0, 0, 0, 0, 0, 0, 0, 0, 0}
+	//CallFuncEx(L, "Print_Ln2", v, &r)
+	//
+	//fmt.Println(r)
 
 }
 
@@ -105,4 +120,14 @@ func InitSkillFromTable(SkillId int32) *Skill {
 	s.BuffList = t.BuffList
 
 	return &s
+}
+
+func TestActionByLua() {
+
+	v := []interface{}{9999999999, 1}
+	r := []interface{}{false}
+	_L.CallFuncEx("SK_1_Action", v, &r)
+	fmt.Println("TestActionByLua", r)
+
+	return
 }
