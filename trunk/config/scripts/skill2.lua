@@ -16,8 +16,9 @@ sys.log("skill 2 start")
 function SK_2_Action(battleid, casterid)
 	local skillid = 2		-- 技能id
 	local skillAttack = 10	-- 技能攻击
+	local attackNum = 3		-- 攻击个数
 	
-	local t = Player.GetTargets(battleid, casterid, 3)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
+	local t = Player.GetTargets(battleid, casterid, attackNum)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
