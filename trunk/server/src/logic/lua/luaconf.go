@@ -1,6 +1,5 @@
 package lua
 
-
 const (
 	LUA_VERSION     = "Lua 5.1"
 	LUA_RELEASE     = "Lua 5.1.4"
@@ -343,4 +342,3 @@ type luaAPI interface {
 
 	luaL_openlibs(L uintptr)
 }
-

@@ -1,4 +1,5 @@
 package lua
+
 //#include <stdlib.h>
 import "C"
 import (
@@ -326,7 +327,6 @@ func (this *luaDLL) lua_upvalueid(L uintptr, idx int, n int) uintptr {
 //LUA_API void lua_upvaluejoin (lua_State *L, idx int1, int n1, idx int2, int n2);
 //LUA_API int lua_loadx (lua_State *L, lua_Reader reader, void *dt, const char *chunkname, const char *mode);
 
-
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>lauxlib<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 func (this *luaDLL) luaL_openlib(L uintptr, libname string, l uintptr, nup int) {
@@ -483,4 +483,10 @@ func (this *luaDLL) luaopen_ffi(L uintptr) int {
 func (this *luaDLL) luaL_openlibs(L uintptr) {
 	_, _, err := this.apimap["luaL_openlibs"].Call(L)
 	this.lasterror = err
+}
+
+
+func __init_windows(){
+	adapter = &luaDLL{}
+	adapter.init()
 }

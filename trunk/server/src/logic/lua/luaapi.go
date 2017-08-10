@@ -1,10 +1,20 @@
 package lua
 
+import "runtime"
+
 
 func __init() {
 	if adapter == nil {
-		adapter = &luaDLL{}
-		adapter.init()
+		switch runtime.GOOS {
+		case  `windows`:
+			__init_windows()
+			break
+		case `linux`:
+			//__init_linux()
+			break
+		default:
+			panic("can not init proc")
+		}
 	}
 }
 
