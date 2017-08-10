@@ -25,13 +25,15 @@ func InitLua(r string){
 	_R = r
 	_L = &lua.LuaState{}
 	_L.Open()
-
+	_L.OpenLibs()
 	_L.OpenSys()
 	_L.LoadApi(C.__loadfile,"loadfile","sys")
+
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
+
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadFile(_R + "main.lua")
 
@@ -98,11 +100,15 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {
 	idx ++
 	unitid := L.ToInteger(idx)
 	idx ++
-	property := L.ToInteger(idx)
+	property := L.ToString(idx)
 
 	fmt.Println(battleid, unitid, property)
 
-	L.PushInteger(50)
+	battle := FindBattle(int64(battleid))
+
+	date := battle.GetUnitProperty(int64(unitid), property)
+
+	L.PushInteger(date)
 
 	return 1
 }
@@ -120,13 +126,14 @@ func __GetTargets(p unsafe.Pointer) C.int {
 
 	ls := []int{1,2,3,4,5}
 
-	L.CreateTable(5, 0)
-	L.PushInteger(-1)
-	L.RawSetI(-2, 0)
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
 
 	for i :=0; i < len(ls); i++ {
+		L.PushInteger(i + 1)
 		L.PushInteger(ls[i])
-		L.RawSetI(-2, i+1)
+		L.SetTable(-3)
 	}
 
 	return 1

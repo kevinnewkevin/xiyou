@@ -305,7 +305,25 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 ////属性操控
 ////////////////////////////////////////////////////////////////////////
 
+func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
+	p_d := prpc.ToId_CPropertyType(property)
+
+	unit := this.SelectOneUnit(instid)
+
+	pro := unit.CProperties[p_d]
+
+	return int(pro)
+}
+
 func (this *BattleRoom) MintsHp (target int64, damage int32, crit int32) {
+
+	unit := this.SelectOneUnit(target)
+
+	if unit.IsDead(){
+		return
+	}
+
+	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
 	t := prpc.COM_BattleActionTarget{}
 	t.InstId = target
@@ -313,10 +331,30 @@ func (this *BattleRoom) MintsHp (target int64, damage int32, crit int32) {
 	t.ActionParam = damage
 	t.ActionParamExt = 0
 
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
+
+	this.isDeadOwner(target)
+
 }
 func (this *BattleRoom) AddHp (target int64, damage int64, crit int32) {
 
 }
+
+
+func (this *BattleRoom) isDeadOwner (target int64) {
+	unit := this.SelectOneUnit(target)
+
+	if unit.InstId != unit.Owner.MyUnit.InstId{
+		return
+	}
+
+	if !unit.IsDead() {
+		return
+	}
+
+	this.Winner = unit.Owner.BattleCamp
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 ////战斗过程

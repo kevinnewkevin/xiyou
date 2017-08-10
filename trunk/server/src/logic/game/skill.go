@@ -54,20 +54,20 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 
 } //使用技能
 
-func (this *Skill) ActionBylua(battleid int64, casterid int64) (prpc.COM_BattleAction, bool) {
-	actionList := []prpc.COM_BattleActionTarget{}
-	OwnerDead := false
+func (this *Skill) ActionBylua(battleid int64, casterid int64) {
+	//actionList := []prpc.COM_BattleActionTarget{}
+	v := []interface{}{battleid, casterid}
+	r := []interface{}{false}
 
+	luaName := "SK_" + string(this.SkillID) + "_Action"
 
+	_L.CallFuncEx(luaName, v, &r)
 
-	action := prpc.COM_BattleAction{}
-	action.InstId = casterid
-	action.SkillId = this.SkillID
-	action.TargetList = actionList
+	fmt.Println("TestActionByLua", r)
 
 	//this.ActionByLua(caster)
 
-	return action, OwnerDead
+	return
 
 } //使用技能
 

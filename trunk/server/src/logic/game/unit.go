@@ -111,6 +111,23 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	return dead
 }
 
+func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
+	skill := this.SelectSkill(battle.Round)
+
+	tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
+
+	battle.AcctionList.InstId = this.InstId
+	battle.AcctionList.SkillId = skill.SkillID
+
+	acc, dead := skill.Action(this, tagetList, battle.Round)
+
+	battle.AcctionList.TargetList = acc
+	fmt.Println("CastSkill, acc ", acc)
+	fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
+
+	return dead
+}
+
 func (this *GameUnit) IsDead() bool {
 	return this.GetCProperty(prpc.CPT_HP) <= 0
 }
