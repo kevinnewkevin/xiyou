@@ -35,7 +35,7 @@ func __err(p unsafe.Pointer) C.int {
 func __msg(p unsafe.Pointer) C.int {
 	L := GetLuaState(p)
 	idx := 1
-	s := L.ToString( idx)
+	s := L.ToString(idx)
 	fmt.Println("LUA [[", s)
 	return 0
 }
@@ -44,7 +44,7 @@ func __msg(p unsafe.Pointer) C.int {
 func __log(p unsafe.Pointer) C.int {
 	L := GetLuaState(p)
 	idx := 1
-	s := L.ToString( idx)
+	s := L.ToString(idx)
 	fmt.Println("LUA >>", s)
 	return 0
 }
@@ -55,19 +55,20 @@ func __test(p unsafe.Pointer) C.int {
 	idx := 1
 	v1 := L.ToInteger(idx)
 	idx++
-	v2 := L.ToInteger( idx)
+	v2 := L.ToInteger(idx)
 
 	idx = 0
-	L.PushInteger(v1+v2)
+	L.PushInteger(v1 + v2)
 	idx++
 	return C.int(idx)
 }
 
-func (this *LuaState)OpenSys() {
-	this .OpenPanic(C.__panic)
-	this .LoadApi( C.__err, "err", "sys")
-	this .LoadApi( C.__log, "log", "sys")
-	this .LoadApi( C.__msg, "msg", "sys")
-	this .LoadApi( C.__test, "test", "sys")
+func (this *LuaState) OpenSys() {
+	this.OpenPanic(C.__panic)
+
+	this.LoadApi(C.__err, "err", "sys")
+	this.LoadApi(C.__log, "log", "sys")
+	this.LoadApi(C.__msg, "msg", "sys")
+	this.LoadApi(C.__test, "test", "sys")
 
 }
