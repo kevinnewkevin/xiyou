@@ -17,12 +17,12 @@ function Action(battleid, casterid)
 	local targetids = Player.GetEnemy(battleid, casterid)
 	sys.log("targetids= ".. targetids)
 end
-t1 = Player.GetTargets()
+--t1 = Player.GetTargets()
 
-for i,v in ipairs(t1)
-    do
-        sys.log(v)
-end
+--for i,v in ipairs(t1)
+--    do
+--        sys.log(v)
+--end
 
 -- sys_log(t1)
 
