@@ -56,10 +56,10 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 
 func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	//actionList := []prpc.COM_BattleActionTarget{}
-	v := []interface{}{battleid, casterid}
-	r := []interface{}{false}
+	v := []interface{}{int(battleid), int(casterid)}
+	r := []interface{}{0}
 
-	luaName := "SK_" + string(this.SkillID) + "_Action"
+	luaName := "SK_1_Action"
 
 	_L.CallFuncEx(luaName, v, &r)
 

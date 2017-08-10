@@ -125,6 +125,9 @@ func (this *LuaState) CallFuncEx( funcName string, args []interface{}, results *
 		case int:
 			this.PushInteger( arg.(int))
 			break
+		case int64:
+			this.PushInteger( arg.(int))
+			break
 		case float64:
 			this.PushNumber(arg.(float64))
 			break
@@ -182,8 +185,8 @@ func (this *LuaState) OpenPackage() {
 func (this *LuaState) OpenLibs(){
 	C.luaopen_base(this.luaState)
 	C.luaopen_table(this.luaState)
-	C.luaopen_io(this.luaState)
-	C.luaopen_os(this.luaState)
+	//C.luaopen_io(this.luaState)
+	//C.luaopen_os(this.luaState)
 	C.luaopen_string(this.luaState)
 	C.luaopen_math(this.luaState)
 	//C.luaopen_debug(L)

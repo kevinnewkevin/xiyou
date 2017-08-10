@@ -52,7 +52,7 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Status = kUsed
 	room.InstId = atomic.AddInt64(&roomInstId, 1)
 	room.Round = 0
-	room.Winner = 0
+	room.Winner = prpc.CT_MAX
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
 
@@ -82,7 +82,7 @@ func CreateBattleTest(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Status = kUsed
 	room.InstId = 9999999999
 	room.Round = 0
-	room.Winner = 0
+	room.Winner = prpc.CT_MAX
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
 
@@ -187,17 +187,17 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) Update() {
-	this.Lock()
-	defer this.Unlock()
+
+	fmt.Println("update check")
 	for _, p := range this.PlayerList {
 		if !p.IsActive {
+			fmt.Println("update return")
 			return
 		}
 	}
+	fmt.Println("update start")
 
 	//顺序排序
-
-	WinCamp := 0
 
 	this.ReportOne = prpc.COM_BattleReport{}
 	this.AcctionList = prpc.COM_BattleAction{}
@@ -213,16 +213,13 @@ func (this *BattleRoom) Update() {
 			continue
 		}
 
-		ownerdead := u.CastSkill(this)
+		u.CastSkill2(this)
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
 
 		fmt.Println("BattleAcction", u.InstId, "acction", this.AcctionList)
 		fmt.Println("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
-		if ownerdead {
-			this.Status = kIdle
-			WinCamp = u.Owner.BattleCamp
-			this.Winner = u.Owner.BattleCamp
+		if this.calcWinner() == true {
 			for _, a := range this.AcctionList.TargetList {
 				unit := this.SelectOneUnit(a.InstId)
 				if unit == nil {
@@ -231,16 +228,14 @@ func (this *BattleRoom) Update() {
 				fmt.Println("append", unit)
 				this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 			}
-			fmt.Println("this.Winner", this.Winner, WinCamp)
+			fmt.Println("this.Winner", this.Winner)
 
-		}
-
-		if this.calcWinner() == true {
 			this.Round += 1
 			this.SendReport(this.ReportOne)
-			this.BattleRoomOver(WinCamp)
+			this.BattleRoomOver(this.Winner)
 			this.Status = kIdle
 			break
+
 		}
 	}
 	fmt.Println("Battle report", this.ReportOne)
@@ -315,13 +310,15 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 	return int(pro)
 }
 
-func (this *BattleRoom) MintsHp (target int64, damage int32, crit int32) {
+func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, crit int32) {
 
 	unit := this.SelectOneUnit(target)
 
 	if unit.IsDead(){
 		return
 	}
+	fmt.Println("MintsHp", this.AcctionList, "targethp = ", unit.CProperties[prpc.CPT_HP])
+	fmt.Println("MintsHp", this.ReportOne)
 
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
@@ -333,7 +330,10 @@ func (this *BattleRoom) MintsHp (target int64, damage int32, crit int32) {
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 
-	this.isDeadOwner(target)
+	fmt.Println("MintsHp2", this.AcctionList, "targethp = ", unit.CProperties[prpc.CPT_HP])
+	fmt.Println("MintsHp2", this.ReportOne)
+
+	this.isDeadOwner(casterid, target)
 
 }
 func (this *BattleRoom) AddHp (target int64, damage int64, crit int32) {
@@ -341,7 +341,7 @@ func (this *BattleRoom) AddHp (target int64, damage int64, crit int32) {
 }
 
 
-func (this *BattleRoom) isDeadOwner (target int64) {
+func (this *BattleRoom) isDeadOwner (casterid int64, target int64) {
 	unit := this.SelectOneUnit(target)
 
 	if unit.InstId != unit.Owner.MyUnit.InstId{
@@ -352,7 +352,8 @@ func (this *BattleRoom) isDeadOwner (target int64) {
 		return
 	}
 
-	this.Winner = unit.Owner.BattleCamp
+	caster := this.SelectOneUnit(casterid)
+	this.Winner = caster.Owner.BattleCamp
 }
 
 

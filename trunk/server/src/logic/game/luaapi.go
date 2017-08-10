@@ -72,18 +72,22 @@ func __GetTarget(p unsafe.Pointer) C.int {
 
 	fmt.Println(battleid, uid)
 
-	//battle := FindBattle(int64(battleid))
-	//
-	//for _, u := range battle.Units {
-	//	if u == nil {
-	//		continue
-	//	}
-	//	if u.Owner.BattleCamp == 2 {
-	//		continue
-	//	}
-	//}
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(uid))
 
-	L.PushInteger(11111)
+	t_id := 0
+	for _, u := range battle.Units {
+		if u == nil {
+			continue
+		}
+		if u.Owner.BattleCamp == unit.Owner.BattleCamp {
+			continue
+		}
+		t_id = int(u.InstId)
+		break
+	}
+
+	L.PushInteger(t_id)
 
 	return 1
 }
@@ -148,6 +152,8 @@ func __Attack(p unsafe.Pointer) C.int {
 	idx := 1
 	battleid := L.ToInteger(idx)
 	idx ++
+	caster := L.ToInteger(idx)
+	idx ++
 	target := L.ToInteger(idx)
 	idx ++
 	damage := L.ToInteger(idx)
@@ -156,9 +162,9 @@ func __Attack(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	battle.MintsHp(int64(target), int32(damage), int32(crit))
+	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	fmt.Println(battleid, target, crit, battle, damage)
+	fmt.Println(battleid, caster, target, crit, battle, damage)
 
 	return 1
 }

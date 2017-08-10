@@ -29,7 +29,7 @@ function SK_1_Action(battleid, casterid)
 		damage = 1
 	end
 	
-	Battle.Attack(battleid, t, damage, true)
+	Battle.Attack(battleid, casterid, t, damage, true)
 	-- Battle.AddBuff(1)
 	
 	-- 只给游戏返回 对谁造成了多少伤害
