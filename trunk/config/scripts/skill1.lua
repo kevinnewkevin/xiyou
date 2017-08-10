@@ -10,8 +10,8 @@ sys.log("skill 1 start")
 --  计算伤害数值
 --  计算是否暴击
 --  攻击
--- 
--- 
+-- 猴子一号技能 对单体造成本体攻击力130%的伤害, 并且增加本体速度5%
+-- 增加速度视作buff
 
 function SK_1_Action(battleid, casterid)
 	local skillid = 1		-- 技能id
@@ -20,16 +20,17 @@ function SK_1_Action(battleid, casterid)
 	local t = Player.GetTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	sys.log("GetTarget  ".. t)
 	
-	local caster_attack = Player.GetUnitProperty(battleid, casterid, 6)	-- 获取到攻击者的属性
-	local defender_def = Player.GetUnitProperty(battleid, t, 3)
-	
-	local damage = caster_attack - defender_def
+	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
+	local defender_def = Player.GetUnitProperty(battleid, t, "CPT_DEF")
+		
+	local damage = caster_attack * 1.3 - defender_def		-- 伤害公式
 	
 	if damage <= 0 then 
 		damage = 1
 	end
 	
 	Battle.Attack(battleid, t, damage, true)
+	-- Battle.AddBuff(1)
 	
 	-- 只给游戏返回 对谁造成了多少伤害
 	-- 并不参与计算
