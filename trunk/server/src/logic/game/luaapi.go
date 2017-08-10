@@ -124,11 +124,18 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	fmt.Println("__GetTargets")
 
 	L := lua.GetLuaState(p)
-	battleid := L.ToInteger(-1)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	num := L.ToInteger(idx)
 
-	fmt.Println(battleid)
+	fmt.Println(battleid, unitid, num)
 
-	ls := []int{1,2,3,4,5}
+	battle := FindBattle(int64(battleid))
+
+	ls := battle.SelectMoreTarget(int64(unitid), num)
 
 	L.NewTable()
 	//L.PushInteger(-1)
@@ -136,7 +143,7 @@ func __GetTargets(p unsafe.Pointer) C.int {
 
 	for i :=0; i < len(ls); i++ {
 		L.PushInteger(i + 1)
-		L.PushInteger(ls[i])
+		L.PushInteger(int(ls[i]))
 		L.SetTable(-3)
 	}
 

@@ -130,6 +130,44 @@ func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
 	return false
 }
 
+func (this *GameUnit) GetFrontList() []int {
+	if this.GetBattleCamp() == prpc.CT_RED {
+		return []int{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_3}
+	} else {
+		return []int{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_3}
+	}
+}
+
+func (this *GameUnit) GetBackList() []int {
+	if this.GetBattleCamp() == prpc.CT_RED {
+		return []int{prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_6}
+	} else {
+		return []int{prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
+	}
+}
+
 func (this *GameUnit) IsDead() bool {
 	return this.GetCProperty(prpc.CPT_HP) <= 0
+}
+
+func (this *GameUnit) isFront() bool {
+	li := this.GetFrontList()
+
+	for _, v := range li {
+		if v == int(this.Position) {
+			return true
+		}
+	}
+	return false
+}
+
+func (this *GameUnit) isBack() bool {
+	li := this.GetBackList()
+
+	for _, v := range li {
+		if v == int(this.Position) {
+			return true
+		}
+	}
+	return false
 }

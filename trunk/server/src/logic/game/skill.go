@@ -59,7 +59,7 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	v := []interface{}{int(battleid), int(casterid)}
 	r := []interface{}{0}
 
-	luaName := "SK_1_Action"
+	luaName := "SK_2_Action"
 
 	_L.CallFuncEx(luaName, v, &r)
 

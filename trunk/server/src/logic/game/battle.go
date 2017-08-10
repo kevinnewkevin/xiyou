@@ -6,6 +6,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+	"math/rand"
 )
 
 const (
@@ -268,6 +269,7 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 ////數據處理
 ////////////////////////////////////////////////////////////////////////
 
+//取得全部目标
 func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 	targets := []*GameUnit{}
 	for _, u := range this.Units {
@@ -278,6 +280,87 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 			continue
 		}
 		targets = append(targets, u)
+	}
+
+	return targets
+}
+
+//前排
+func (this *BattleRoom) SelectFrontTarget(camp int) []*GameUnit {
+	targets := []*GameUnit{}
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead(){
+			continue
+		}
+		if u.Owner.BattleCamp == camp {
+			continue
+		}
+		if !u.isFront() {
+			continue
+		}
+		targets = append(targets, u)
+	}
+
+	return targets
+}
+
+//后排
+func (this *BattleRoom) SelectBackTarget(camp int) []*GameUnit {
+	targets := []*GameUnit{}
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead(){
+			continue
+		}
+		if u.Owner.BattleCamp == camp {
+			continue
+		}
+		if !u.isBack() {
+			continue
+		}
+		targets = append(targets, u)
+	}
+
+	return targets
+}
+
+//取得全部目标
+func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
+	unit := this.SelectOneUnit(instid)
+
+	targets := []int64{}
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.Owner.BattleCamp == unit.Owner.BattleCamp {
+			continue
+		}
+		targets = append(targets, u.InstId)
+	}
+
+	fmt.Println("SelectMoreTarget step1 ", targets)
+	fmt.Println("SelectMoreTarget step1.1 ", num, len(targets), int(num) > int(len(targets)))
+
+	if num > 0 && int(num) < int(len(targets)){
+		rand.Seed(time.Now().UnixNano())
+		l := make([]int64, len(targets))
+		tmp := map[int64]int{}
+		var uid int64
+		for len(tmp) < num {
+			_, ok := tmp[uid]
+			for !ok {
+				//这里从targets里面随机选择
+				idx := rand.Intn(num - 1)
+				l = append(l, targets[idx])
+				tmp[targets[idx]] = 1
+			}
+		}
 	}
 
 	return targets
