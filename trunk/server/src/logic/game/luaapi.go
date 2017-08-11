@@ -7,6 +7,7 @@ extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
 extern int __Attack(void*);
+extern int __GetTime(void*);
 */
 import "C"
 import (
@@ -14,6 +15,7 @@ import (
 	"logic/lua"
 
 	"fmt"
+	"time"
 )
 
 var (
@@ -35,6 +37,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
+
+	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
 
 }
@@ -172,6 +176,19 @@ func __Attack(p unsafe.Pointer) C.int {
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
 	fmt.Println(battleid, caster, target, crit, battle, damage)
+
+	return 1
+}
+//export __GetTime
+func __GetTime(p unsafe.Pointer) C.int {
+
+	fmt.Println("__GetTime")
+
+	L := lua.GetLuaState(p)
+
+	time_unix := time.Now().Unix()
+
+	L.PushInteger(int(time_unix))
 
 	return 1
 }

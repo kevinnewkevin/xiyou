@@ -207,7 +207,6 @@ func (this *LuaState) LoadString(s string) int {
 
 func (this *LuaState) LoadApi(api unsafe.Pointer, funcName string, libName string) {
 	luaL_register2(this.luaState, libName, funcName, uintptr(api))
-	fmt.Println(luaapi_lasterror())
 }
 
 func (this *LuaState) OpenPanic(pnc unsafe.Pointer) {
