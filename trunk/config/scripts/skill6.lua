@@ -44,7 +44,7 @@ function  skill_6_Action (battleid, casterid)
 		
 		end
 		
-		Battle.Attack(battleid,casterid,demage,true)   --调用服务器   （伤害）
+		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器   （伤害）
 	end
 	
 	return  true
