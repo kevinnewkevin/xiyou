@@ -90,6 +90,7 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 	} else {
 		idx = round
 	}
+	fmt.Println("SelectSkill idx ", idx, "round ", round)
 
 	return this.Skill[idx]
 }
@@ -113,6 +114,8 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 
 func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
+
+	fmt.Println("CastSkill2 skill id is ", skill.SkillID)
 
 	//tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
 

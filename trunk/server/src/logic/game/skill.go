@@ -74,6 +74,7 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	r := []interface{}{0}
 
 	luaName := SkillidToLuaName(this.SkillID)
+	fmt.Println("SkillidToLuaName", luaName)
 
 	_L.CallFuncEx(luaName, v, &r)
 

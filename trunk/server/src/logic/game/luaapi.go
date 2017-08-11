@@ -135,7 +135,7 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	idx ++
 	num := L.ToInteger(idx)
 
-	fmt.Println(battleid, unitid, num)
+	fmt.Println("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
@@ -175,7 +175,7 @@ func __Attack(p unsafe.Pointer) C.int {
 
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	fmt.Println(battleid, caster, target, crit, battle, damage)
+	fmt.Println("55555555555555", battleid, caster, target, crit, damage)
 
 	return 1
 }
