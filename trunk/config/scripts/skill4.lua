@@ -6,17 +6,18 @@ sys.log(" skill 4 start")
 -- 
 -- 
 -- 所需接口
---  取得对应属性
---  计算伤害数值
+--	取得目标 （GetTarget（）  单   GetTargets（）  复）
+--  取得对应属性 GetUnitProperty()
+--  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
 -- 姜子牙一号技能 对敌方单目标造成等同物理攻击的伤害，并降低对手等同伤害值的法术强度，为自己增加等量的法术强度。
 
--- 法术强度视作buff
+-- 法术强度视作buff  Battle.buff
 
 function  skill_4_Action (battleid, casterid)
 
-	local  p = player.GetTarget(battleid,casterid)  --获取目标
+	local  p = player.GetTarget(battleid,casterid)  --获取目标 
 	
 	local  _property = player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
@@ -35,7 +36,7 @@ function  skill_4_Action (battleid, casterid)
 	
 	end
 	
-	Battle.Attack(battleid,casterid,demage,true)   --调用服务器   （伤害）
+	Battle.Attack(battleid,casterid,p,demage,true)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
 	return  true
 	 

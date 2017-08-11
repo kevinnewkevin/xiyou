@@ -6,13 +6,14 @@ sys.log(" skill 5 start")
 -- 
 -- 
 -- 所需接口
---  取得对应属性
---  计算伤害数值
+--	取得目标 （GetTarget（）  单   GetTargets（）  复）
+--  取得对应属性 GetUnitProperty()
+--  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
 -- 猴子2号技能 为周围的友方单位分别提供一个护盾，护盾抵挡的伤害值相当于姜子牙法术强度的10%。
 
--- 法术强度视作buff
+-- 法术强度视作buff Battle.buff
 
 function  skill_5_Action (battleid, casterid)
 
@@ -38,7 +39,7 @@ function  skill_5_Action (battleid, casterid)
 		
 		end
 		
-		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器   （伤害）
+		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	end
 	
 	return  true

@@ -6,14 +6,15 @@ sys.log(" skill 6 start")
 -- 
 -- 
 -- 所需接口
---  取得对应属性
---  计算伤害数值
+--	取得目标 （GetTarget（）  单   GetTargets（）  复）
+--  取得对应属性  GetUnitProperty()
+--  计算伤害数值  demage
 --  计算是否暴击
 --  攻击
 -- 姜子牙3号技能 吸收场上所有护盾，对敌方单体造成法术强度+护盾吸收值*3的伤害。
 
--- 法术强度视作buff
-
+-- 法术强度视作buff  Battle.buff
+ 
 function  skill_6_Action (battleid, casterid)
 
 	local  num = 0
@@ -44,7 +45,7 @@ function  skill_6_Action (battleid, casterid)
 		
 		end
 		
-		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器   （伤害）
+		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	end
 	
 	return  true
