@@ -54,12 +54,26 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 
 } //使用技能
 
+//临时函数
+func SkillidToLuaName(skillid int32) string {
+	switch skillid {
+	case 1:
+		return "SK_1_Action"
+	case 2:
+		return "SK_2_Action"
+	case 3:
+		return "SK_3_Action"
+	default:
+		return "SK_1_Action"
+	}
+}
+
 func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	//actionList := []prpc.COM_BattleActionTarget{}
 	v := []interface{}{int(battleid), int(casterid)}
 	r := []interface{}{0}
 
-	luaName := "SK_2_Action"
+	luaName := SkillidToLuaName(this.SkillID)
 
 	_L.CallFuncEx(luaName, v, &r)
 

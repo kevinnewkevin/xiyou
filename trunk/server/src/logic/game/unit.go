@@ -94,20 +94,6 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 	return this.Skill[idx]
 }
 
-//临时函数
-func SkillidToLuaName(skillid int32) string {
-	switch skillid {
-	case 1:
-		return "SK_1_Action"
-	case 2:
-		return "SK_2_Action"
-	case 3:
-		return "SK_3_Action"
-	default:
-		return "SK_1_Action"
-	}
-}
-
 func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
 
