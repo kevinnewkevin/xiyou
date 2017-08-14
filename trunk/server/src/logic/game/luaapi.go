@@ -7,6 +7,7 @@ extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
 extern int __Attack(void*);
+extern int __Cure(void*);
 extern int __GetTime(void*);
 */
 import "C"
@@ -37,6 +38,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
+	_L.LoadApi(C.__Cure,"Cure","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
@@ -176,6 +178,30 @@ func __Attack(p unsafe.Pointer) C.int {
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
 	fmt.Println("55555555555555", battleid, caster, target, crit, damage)
+
+	return 1
+}
+
+//export __Cure
+func __Cure(p unsafe.Pointer) C.int {
+
+	fmt.Println("__Attack battleid, t, damage, true")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	target := L.ToInteger(idx)
+	idx ++
+	damage := L.ToInteger(idx)
+	idx ++
+	crit := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.AddHp(int64(target), int32(damage), int32(crit))
+
+	fmt.Println("55555555555555", battleid, target, crit, damage)
 
 	return 1
 }

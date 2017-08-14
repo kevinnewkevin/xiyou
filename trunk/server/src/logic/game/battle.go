@@ -400,8 +400,6 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	if unit.IsDead(){
 		return
 	}
-	fmt.Println("MintsHp", this.AcctionList, "targethp = ", unit.CProperties[prpc.CPT_HP])
-	fmt.Println("MintsHp", this.ReportOne)
 
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
@@ -413,14 +411,25 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 
-	fmt.Println("MintsHp2", this.AcctionList, "targethp = ", unit.CProperties[prpc.CPT_HP])
-	fmt.Println("MintsHp2", this.ReportOne)
-
 	this.isDeadOwner(casterid, target)
 
 }
-func (this *BattleRoom) AddHp (target int64, damage int64, crit int32) {
+func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
+	unit := this.SelectOneUnit(target)
 
+	if unit.IsDead(){
+		return
+	}
+
+	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
+
+	t := prpc.COM_BattleActionTarget{}
+	t.InstId = target
+	t.ActionType = 1
+	t.ActionParam = damage
+	t.ActionParamExt = 0
+
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 }
 
 
