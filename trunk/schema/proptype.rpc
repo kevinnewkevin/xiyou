@@ -1,6 +1,7 @@
 
 enum IPropertyType{
 	IPT_MIN,
+	IPT_HP,			//生命
 	IPT_PHYLE, 		//种族
 	IPT_TITLE,		//称号
 	IPT_EXPERIENCE,	//经验
