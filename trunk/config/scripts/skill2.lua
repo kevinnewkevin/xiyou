@@ -13,7 +13,7 @@ sys.log("skill 2 start")
 -- 猴子2号技能 对三个目标造成150%伤害并减少对方双防15%，持续2回合。
 -- 增加速度视作buff
 
-function SK_2_Action(battleid, casterid)
+function SK_101_Action(battleid, casterid)
 	local skillid = 2		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 3		-- 攻击个数

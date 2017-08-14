@@ -13,7 +13,7 @@ sys.log("skill 1 start")
 -- 猴子一号技能 对单体造成本体攻击力130%的伤害, 并且增加本体速度5%
 -- 增加速度视作buff
 
-function SK_1_Action(battleid, casterid)
+function SK_100_Action(battleid, casterid)
 	local skillid = 1		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	

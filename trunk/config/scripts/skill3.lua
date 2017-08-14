@@ -16,7 +16,7 @@ sys.log("skill 3 start")
 -- 所有有概率的技能在使用概率之前都要使用这个函数,作用是通过服务器的时间戳来获取到一个随机种子
 set_random_seed()
 
-function SK_3_Action(battleid, casterid)
+function SK_102_Action(battleid, casterid)
 	local skillid = 2		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 0		-- 攻击个数
