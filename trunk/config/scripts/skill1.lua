@@ -32,7 +32,7 @@ function SK_1_Action(battleid, casterid)
 	Battle.Attack(battleid, casterid, t, damage, true)
 	-- Battle.AddBuff(1)
 	
-	sys.log("skill1 对id为"..v.."的目标造成"..damage.."点伤害")
+	sys.log("skill1 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	-- 只给游戏返回 对谁造成了多少伤害
 	-- 并不参与计算
