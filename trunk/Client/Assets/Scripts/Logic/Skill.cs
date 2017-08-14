@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class Skill {
 
+    // 技能静态数据
     SkillData _SkillData;
+
+    // 技能释放者
     Actor _Caster;
+
+    // 技能目标，可能有多个
     Actor[] _Targets;
+
+    // 释放者的原始位置(有位移时回归位置用)
     Vector3 _OriginPos;
+
+    // 该单元战报(取需要的数据用)
     COM_BattleActionTarget[] _Actions;
 
+    // 释放特效缓存
     GameObject _CastEff;
-    GameObject[] _SkillEff;
-    GameObject[] _BeattackEff;
 
-    // skilldata member value;
+    // 技能特效缓存
+    GameObject[] _SkillEff;
+
+    // 受击特效缓存
+    GameObject[] _BeattackEff;
 
     public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets)
     {
@@ -22,13 +34,18 @@ public class Skill {
 
         _SkillData = SkillData.GetData(skillId);
 
-        _CastEff = AssetLoader.LoadAsset(_SkillData._CastEffect);
-        if (_CastEff != null)
+
+        // 根据技能类型初始化特效
+        if (!string.IsNullOrEmpty(_SkillData._CastEffect))
         {
-            _CastEff.transform.parent = caster._ActorObj.transform;
-            _CastEff.transform.localPosition = Vector3.zero;
-            _CastEff.transform.localScale = Vector3.one;
-            _CastEff.SetActive(false);
+            _CastEff = AssetLoader.LoadAsset(_SkillData._CastEffect);
+            if (_CastEff != null)
+            {
+                _CastEff.transform.parent = caster._ActorObj.transform;
+                _CastEff.transform.localPosition = Vector3.zero;
+                _CastEff.transform.localScale = Vector3.one;
+                _CastEff.SetActive(false);
+            }
         }
 
         _SkillEff = new GameObject[targets.Length];
@@ -92,25 +109,29 @@ public class Skill {
 
     public bool Cast()
     {
-        Debug.Log("Skill Cast");
         if (_Caster == null)
             return false;
 
         if (_Targets == null || _Targets.Length == 0)
             return false;
 
-        // judge whether is melee skill
+        // 判断技能是否是近战
         if (_SkillData._IsMelee)
         {
-            //cast anim
+            // 播放释放者的释放动作
             _Caster.Play(_SkillData._CastAnim);
-            //cast effect
+            // 播放释放特效
             if (_CastEff != null)
                 _CastEff.SetActive(true);
 
+            // 获取攻击动作的时长(用于播放攻击动作后的回归调用)
             float attackTime = _Caster.ClipLength(_SkillData._AttackAnim);
+
+            // 同时根据技能表的释放时间计时
             new Timer().Start(new TimerParam(_SkillData._CastTime, delegate
             {
+
+                // 播放技能特效
                 for (int i = 0; i < _SkillEff.Length; ++i)
                 {
                     //skill effect
@@ -118,10 +139,16 @@ public class Skill {
                         _SkillEff[i].SetActive(true);
                 }
 
+
+                // 释放者播放奔跑动作
                 _Caster.Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+
+                // 释放者移动到目标前
                 _Caster.MoveTo(_Targets[0].Forward, delegate
                 {
                     _Caster.Stop();
+
+                    // 释放者播放攻击动作
                     _Caster.Play(_SkillData._AttackAnim);
                     //1.目标播受击动作和特效的时间
                     //2.目标弹伤害数字的时间
@@ -159,10 +186,10 @@ public class Skill {
         }
         else
         {
-            //clip name in skilldata
+            // 播放释放动作
             _Caster.Play(_SkillData._CastAnim);
             _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-            //cast effect
+            // 播放释放特效
             if (_CastEff != null)
                 _CastEff.SetActive(true);
             //1.目标播受击动作和特效的时间
@@ -172,11 +199,12 @@ public class Skill {
             {
                 for (int i = 0; i < _SkillEff.Length; ++i)
                 {
-                    //skill effect
+                    //播放技能特效
                     if (_SkillEff[i] != null)
                         _SkillEff[i].SetActive(true);
                 }
 
+                // 如果技能移动方式为fly 即有位移 则控制其移动
                 if(_SkillData._Motion == SkillData.MotionType.MT_Fly)
                 {
                     for (int i = 0; i < _SkillEff.Length; ++i)
@@ -185,6 +213,7 @@ public class Skill {
                     }
                 }
 
+                // 技能表受击时间播放受击目标受击动作和受击特效
                 new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
@@ -207,6 +236,7 @@ public class Skill {
                     }
                 }), new TimerParam(_SkillData._TotalTime, delegate
                 {
+                    // 远程类技能根据TotalTime 总时间回归复原
                     for (int i = 0; i < _SkillEff.Length; ++i)
                     {
                         GameObject.Destroy(_SkillEff[i]);

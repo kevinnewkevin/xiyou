@@ -297,6 +297,7 @@ public class Battle {
             CurrentState = BattleState.BS_Result;
 
         _BattleReport = null;
+        _Turn++;
     }
 
     static public void SwitchPoint(bool on)
