@@ -170,12 +170,14 @@ func __Attack(p unsafe.Pointer) C.int {
 	target := L.ToInteger(idx)
 	idx ++
 	damage := L.ToInteger(idx)
+	idx ++
+	crit := L.ToInteger(idx)
 
 	battle := FindBattle(int64(battleid))
 
-	battle.MintsHp(int64(caster), int64(target), int32(damage))
+	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	fmt.Println("55555555555555", battleid, caster, target, damage)
+	fmt.Println("55555555555555", battleid, caster, target, crit, damage)
 
 	return 1
 }
@@ -192,12 +194,14 @@ func __Cure(p unsafe.Pointer) C.int {
 	target := L.ToInteger(idx)
 	idx ++
 	damage := L.ToInteger(idx)
+	idx ++
+	crit := L.ToInteger(idx)
 
 	battle := FindBattle(int64(battleid))
 
-	battle.AddHp(int64(target), int32(damage))
+	battle.AddHp(int64(target), int32(damage), int32(crit))
 
-	fmt.Println("55555555555555", battleid, target, damage)
+	fmt.Println("55555555555555", battleid, target, crit, damage)
 
 	return 1
 }

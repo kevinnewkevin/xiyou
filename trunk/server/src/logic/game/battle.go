@@ -393,7 +393,7 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 	return int(pro)
 }
 
-func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32) {
+func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, crit int32) {
 
 	unit := this.SelectOneUnit(target)
 
@@ -414,7 +414,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32) {
 	this.isDeadOwner(casterid, target)
 
 }
-func (this *BattleRoom) AddHp (target int64, damage int32) {
+func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	unit := this.SelectOneUnit(target)
 
 	if unit.IsDead(){
