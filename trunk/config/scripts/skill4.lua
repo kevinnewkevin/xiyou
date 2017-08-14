@@ -16,7 +16,7 @@ sys.log(" skill 4 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_103_Action(battleid, casterid)
-	local skillid = 1		-- 技能id
+	local skillid = 103		-- 技能id
 	
 	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
 	

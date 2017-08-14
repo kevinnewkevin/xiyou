@@ -17,7 +17,7 @@ sys.log(" skill 5 start")
 
 function SK_104_Action(battleid, casterid)
 
-	local skillid = 2		-- 技能id
+	local skillid = 104		-- 技能id
 
 	local  num = 0  -- 攻击个数
 	

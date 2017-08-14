@@ -14,7 +14,7 @@ sys.log("skill 2 start")
 -- 增加速度视作buff
 
 function SK_101_Action(battleid, casterid)
-	local skillid = 2		-- 技能id
+	local skillid = 101		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 3		-- 攻击个数
 	

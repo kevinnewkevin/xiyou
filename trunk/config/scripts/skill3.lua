@@ -17,7 +17,7 @@ sys.log("skill 3 start")
 set_random_seed()
 
 function SK_102_Action(battleid, casterid)
-	local skillid = 3		-- 技能id
+	local skillid = 102		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 0		-- 攻击个数
 	

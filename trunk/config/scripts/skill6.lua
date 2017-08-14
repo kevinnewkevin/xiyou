@@ -16,7 +16,7 @@ sys.log(" skill 6 start")
 -- 法术强度视作buff  Battle.buff
  
 function SK_105_Action(battleid, casterid)
-	local skillid = 3		-- 技能id
+	local skillid = 105		-- 技能id
 
 	local  num = 0   --攻击个数
 

@@ -14,7 +14,7 @@ sys.log("skill 1 start")
 -- 增加速度视作buff
 
 function SK_100_Action(battleid, casterid)
-	local skillid = 1		-- 技能id
+	local skillid = 100		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	
 	local t = Player.GetTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
