@@ -177,3 +177,12 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 
 	return nil
 }
+
+func (this *GamePlayer) SetProprty(battleid int64, camp int) {
+	this.BattleId = battleid
+	this.BattleCamp = camp
+
+	for _, u := range this.UnitList {
+		u.ResetBattle()
+	}
+}

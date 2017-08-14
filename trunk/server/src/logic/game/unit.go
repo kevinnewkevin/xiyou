@@ -21,7 +21,9 @@ type GameUnit struct {
 	Skill       map[int32]*Skill
 
 	//战斗的实际信息
-	Position int32 //prpc.BattlePosition
+	Position 	int32 //prpc.BattlePosition
+	Buff 		[]int32 //增益状态
+	Debuff 		[]int32 //负面状态
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -174,3 +176,19 @@ func (this *GameUnit) isBack() bool {
 	}
 	return false
 }
+
+func (this *GameUnit)ResetBattle() {
+	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
+	this.Buff = []int32{}
+	this.Debuff = []int32{}
+}
+
+func (this *GameUnit)CheckBuff (){
+
+}
+
+func (this *GameUnit)CheckDebuff (){
+
+}
+
+

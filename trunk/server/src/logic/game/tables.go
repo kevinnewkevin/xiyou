@@ -23,11 +23,16 @@ type (
 		TargetNum  int
 		TargetCamp int
 	}
+	SkillLuaRecord struct {
+		SkillID    int32
+		LuaScprit  string
+	}
 )
 
 var (
-	unitTable  = map[int32]*UnitRecord{}
-	skillTable = map[int32]*SkillRecord{}
+	UnitTable  = map[int32]*UnitRecord{}
+	SkillTable = map[int32]*SkillRecord{}
+	SkillLuaTable = map[int32]*SkillLuaRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -42,6 +47,7 @@ func LoadUnitTable(filename string) error {
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
 		u.IProp = make([]int32, prpc.IPT_MAX)
 		u.CProp = make([]float32, prpc.CPT_MAX)
+		u.IProp[prpc.IPT_HP] = csv.GetInt32(r, prpc.K_IPT_HP)
 		u.IProp[prpc.IPT_PHYLE] = csv.GetInt32(r, prpc.K_IPT_PHYLE)
 		u.IProp[prpc.IPT_LEVEL] = csv.GetInt32(r, prpc.K_IPT_LEVEL)
 		u.IProp[prpc.IPT_COPPER] = csv.GetInt32(r, prpc.K_IPT_COPPER)
@@ -71,13 +77,13 @@ func LoadUnitTable(filename string) error {
 		u.Skills[2] = csv.GetInt32(r, "Skill3")
 		u.Skills[3] = csv.GetInt32(r, "Skill4")
 
-		unitTable[u.Id] = &u
+		UnitTable[u.Id] = &u
 	}
 	return nil
 }
 
 func GetUnitRecordById(id int32) *UnitRecord {
-	return unitTable[id]
+	return UnitTable[id]
 }
 
 func LoadSkillTable(filename string) error {
@@ -98,11 +104,30 @@ func LoadSkillTable(filename string) error {
 		}
 		s.TargetNum = csv.GetInt(r, "TargetNum")
 		s.TargetCamp = csv.GetInt(r, "TargetCamp")
-		skillTable[s.SkillID] = &s
+		SkillTable[s.SkillID] = &s
 	}
 	return nil
 }
 
 func GetSkillRecordById(id int32) *SkillRecord {
-	return skillTable[id]
+	return SkillTable[id]
+}
+
+func LoadSkillLuaTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		s := SkillLuaRecord{}
+		s.SkillID = int32(csv.GetInt(r, "SkillId"))
+		s.LuaScprit = csv.GetString(r, "TargetCamp")
+		SkillLuaTable[s.SkillID] = &s
+	}
+	return nil
+}
+
+func GetSkillLuaRecordById(id int32) *SkillLuaRecord {
+	return SkillLuaTable[id]
 }

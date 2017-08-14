@@ -57,11 +57,14 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
 
-	p0.BattleId = room.InstId
-	p1.BattleId = room.InstId
+	//p0.BattleId = room.InstId
+	//p1.BattleId = room.InstId
+	//
+	//p0.BattleCamp = prpc.CT_RED
+	//p1.BattleCamp = prpc.CT_BLUE
 
-	p0.BattleCamp = prpc.CT_RED
-	p1.BattleCamp = prpc.CT_BLUE
+	p0.SetProprty(room.InstId, prpc.CT_RED)
+	p1.SetProprty(room.InstId, prpc.CT_RED)
 
 	BattleRoomList[room.InstId] = &room
 	fmt.Println("CreateBattleRoom", &room)
@@ -214,6 +217,9 @@ func (this *BattleRoom) Update() {
 			continue
 		}
 
+		u.CheckBuff()
+		u.CheckDebuff()
+
 		u.CastSkill2(this)
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
@@ -344,9 +350,6 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 		targets = append(targets, u.InstId)
 	}
 
-	fmt.Println("SelectMoreTarget step1 ", targets)
-	fmt.Println("SelectMoreTarget step1.1 ", num, len(targets), int(num) > int(len(targets)))
-
 	if num > 0 && int(num) < int(len(targets)){
 		rand.Seed(time.Now().UnixNano())
 		l := make([]int64, len(targets))
@@ -401,13 +404,21 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		return
 	}
 
+	for _, debuff := range unit.Debuff {
+		fmt.Println("debuff", debuff)
+	}
+
+	for _, debuff := range unit.Buff {
+		fmt.Println("debuff", debuff)
+	}
+
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
 	t := prpc.COM_BattleActionTarget{}
 	t.InstId = target
 	t.ActionType = 1
 	t.ActionParam = damage
-	t.ActionParamExt = 0
+	t.ActionParamExt = crit
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 
@@ -427,11 +438,20 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	t.InstId = target
 	t.ActionType = 1
 	t.ActionParam = damage
-	t.ActionParamExt = 0
+	t.ActionParamExt = crit
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 }
 
+func (this *BattleRoom) AddBuff(target int64, buffid int32) {
+// 上buff
+
+}
+
+func (this *BattleRoom) AddDebuff(target int64, buffid int32) {
+// 上buff
+
+}
 
 func (this *BattleRoom) isDeadOwner (casterid int64, target int64) {
 	unit := this.SelectOneUnit(target)
