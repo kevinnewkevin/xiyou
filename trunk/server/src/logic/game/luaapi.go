@@ -9,6 +9,7 @@ extern int __GetUnitProperty(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
 extern int __GetTime(void*);
+extern int __GetCrit(void*);
 */
 import "C"
 import (
@@ -39,6 +40,7 @@ func InitLua(r string){
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
+	_L.LoadApi(C.__GetCrit,"GetCrit","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
@@ -205,6 +207,21 @@ func __Cure(p unsafe.Pointer) C.int {
 
 	return 1
 }
+
+//export __GetCrit
+func __GetCrit(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	skillid := L.ToInteger(idx)
+
+	crit := IsCrit(int32(skillid))
+
+	L.PushInteger(crit)
+
+	return 1
+}
+
 //export __GetTime
 func __GetTime(p unsafe.Pointer) C.int {
 
