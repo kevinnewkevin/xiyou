@@ -15,13 +15,14 @@ sys.log(" skill 6 start")
 
 -- 法术强度视作buff  Battle.buff
  
-function  skill_6_Action (battleid, casterid)
+function SK_105_Action(battleid, casterid)
+	local skillid = 3		-- 技能id
 
-	local  num = 0
+	local  num = 0   --攻击个数
 
-	local  p = player.GetTargets(battleid,casterid,num)  --获取目标
+	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
 	
-	local  _property = player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
 	
 	for i,v in ipairs(p) do
@@ -36,16 +37,22 @@ function  skill_6_Action (battleid, casterid)
 		
 		--local  spell = Battle.AddBuff(1)   （暂时么有这个函数）  法术强度
 	
-		local  demage  = spell+ p_property*3-defender_def    --伤害 公式
+		--local  damage  = spell+ p_property*3-defender_def    --伤害 公式
+		
+		local  damage  = 6   --伤害 公式 --测试
 	
 		--判断伤害
-		if demage <= 0 then 
+		if damage <= 0 then 
 		
-			demage = 1
+			damage = 1
 		
 		end
 		
-		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		local crit = Battle.GetCrit(skillid)   --是否暴击
+		
+		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		--sys.log("skill6 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

@@ -15,31 +15,26 @@ sys.log(" skill 5 start")
 
 -- 法术强度视作buff Battle.buff
 
-function  skill_5_Action (battleid, casterid)
+function SK_104_Action(battleid, casterid)
 
-	local  num = 0
+	local skillid = 2		-- 技能id
 
-	local  p = player.GetTargets(battleid,casterid,num)  --获取目标
+	local  num = 0  -- 攻击个数
 	
-	local  _property = player.GetUnitProperty(battleid,v,"CPT_ATK")  --获取攻击者属性
+
+	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	
 	
 	--local  p_property = Battle.AddBuff(1) 攻击者法术
 	
 	for i,v in ipairs(p) do
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
 	
-		--local  p_property = Battle.AddBuff(1)  --给友方分别提供一个盾牌（暂时么有这个函数）
+		--local  p_property = Battle.AddBuff(p_property*0.1)  --给友方分别提供一个盾牌（暂时么有这个函数）
 	
-		local  demage  = p_property*0.1-defender_def  --伤害 公式（）
-	
-		--判断伤害
-		if demage <= 0 then 
 		
-			demage = 1
+		local  damage  = 5  --伤害 公式（）--测试
 		
-		end
-		
-		Battle.Attack(battleid,casterid,v,demage,true)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		--sys.log("skill5 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

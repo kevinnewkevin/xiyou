@@ -17,7 +17,7 @@ sys.log("skill 3 start")
 set_random_seed()
 
 function SK_102_Action(battleid, casterid)
-	local skillid = 2		-- 技能id
+	local skillid = 3		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 0		-- 攻击个数
 	
@@ -37,8 +37,9 @@ function SK_102_Action(battleid, casterid)
 		if damage <= 0 then 
 			damage = 1
 		end
-	
-		Battle.Attack(battleid, casterid, v, damage, true)
+		sys.log(1)
+		local crit = Battle.GetCrit(skillid)   --是否暴击
+		Battle.Attack(battleid, casterid, v, damage, crit)
 		
 		sys.log("skill3 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
