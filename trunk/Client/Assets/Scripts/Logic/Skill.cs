@@ -130,16 +130,6 @@ public class Skill {
             // 同时根据技能表的释放时间计时
             new Timer().Start(new TimerParam(_SkillData._CastTime, delegate
             {
-
-                // 播放技能特效
-                for (int i = 0; i < _SkillEff.Length; ++i)
-                {
-                    //skill effect
-                    if (_SkillEff[i] != null)
-                        _SkillEff[i].SetActive(true);
-                }
-
-
                 // 释放者播放奔跑动作
                 _Caster.Play(Define.ANIMATION_PLAYER_ACTION_RUN);
 
@@ -150,6 +140,13 @@ public class Skill {
 
                     // 释放者播放攻击动作
                     _Caster.Play(_SkillData._AttackAnim);
+                    // 播放技能特效
+                    for (int i = 0; i < _SkillEff.Length; ++i)
+                    {
+                        //skill effect
+                        if (_SkillEff[i] != null)
+                            _SkillEff[i].SetActive(true);
+                    }
                     //1.目标播受击动作和特效的时间
                     //2.目标弹伤害数字的时间
                     //3.施法者回归时间
