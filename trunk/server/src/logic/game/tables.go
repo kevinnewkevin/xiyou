@@ -4,7 +4,6 @@ import (
 	"logic/prpc"
 	"strconv"
 	"suzuki/conf"
-	"go/types"
 )
 
 type (
