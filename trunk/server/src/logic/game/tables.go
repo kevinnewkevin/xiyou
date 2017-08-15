@@ -22,6 +22,7 @@ type (
 		CoolDown   int32
 		TargetNum  int
 		TargetCamp int
+		LuaScprit  string
 	}
 	SkillLuaRecord struct {
 		SkillID    int32
@@ -104,6 +105,7 @@ func LoadSkillTable(filename string) error {
 		}
 		s.TargetNum = csv.GetInt(r, "TargetNum")
 		s.TargetCamp = csv.GetInt(r, "TargetCamp")
+		s.LuaScprit = csv.GetString(r, "LuaName")
 		SkillTable[s.SkillID] = &s
 	}
 	return nil

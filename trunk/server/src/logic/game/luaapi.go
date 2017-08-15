@@ -95,6 +95,8 @@ func __GetTarget(p unsafe.Pointer) C.int {
 		break
 	}
 
+	fmt.Println("__GetTargets end ,", t_id)
+
 	L.PushInteger(t_id)
 
 	return 1

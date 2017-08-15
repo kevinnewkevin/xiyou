@@ -64,7 +64,7 @@ func CreateBattle(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	//p1.BattleCamp = prpc.CT_BLUE
 
 	p0.SetProprty(room.InstId, prpc.CT_RED)
-	p1.SetProprty(room.InstId, prpc.CT_RED)
+	p1.SetProprty(room.InstId, prpc.CT_BLUE)
 
 	BattleRoomList[room.InstId] = &room
 	fmt.Println("CreateBattleRoom", &room)
@@ -192,23 +192,20 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 func (this *BattleRoom) Update() {
 
-	fmt.Println("update check")
 	for _, p := range this.PlayerList {
 		if !p.IsActive {
-			fmt.Println("update return")
 			return
 		}
 	}
-	fmt.Println("update start")
 
 	//顺序排序
 
 	this.ReportOne = prpc.COM_BattleReport{}
-	this.AcctionList = prpc.COM_BattleAction{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
 		}
+		this.AcctionList = prpc.COM_BattleAction{}
 
 		fmt.Println("report.UnitList, append", u)
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
@@ -217,8 +214,8 @@ func (this *BattleRoom) Update() {
 			continue
 		}
 
-		u.CheckBuff()
-		u.CheckDebuff()
+		u.CheckBuff(1)
+		u.CheckDebuff(1)
 
 		u.CastSkill2(this)
 
@@ -420,7 +417,11 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	t.ActionParam = damage
 	t.ActionParamExt = crit
 
+	fmt.Println("MintsHp", target, damage, t)
+
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
+
+	fmt.Println("MintsHp2 ", this.AcctionList.TargetList)
 
 	this.isDeadOwner(casterid, target)
 
@@ -476,6 +477,7 @@ func IsCrit(skillid int32) int {
 	skill := GetSkillRecordById(skillid)
 
 	per := rand.Intn(100)
+	fmt.Println("IsCrit", skill.Crit)
 
 	if per <= int(skill.Crit) {
 		return 1

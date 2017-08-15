@@ -22,8 +22,8 @@ type GameUnit struct {
 
 	//战斗的实际信息
 	Position 	int32 //prpc.BattlePosition
-	Buff 		[]int32 //增益状态
-	Debuff 		[]int32 //负面状态
+	Buff 		[]*Buff //增益状态
+	Debuff 		[]*Buff //负面状态
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -119,17 +119,11 @@ func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
 
 	fmt.Println("CastSkill2 skill id is ", skill.SkillID)
 
-	//tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
-
 	battle.AcctionList.InstId = this.InstId
 	battle.AcctionList.SkillId = skill.SkillID
 
 	skill.ActionBylua(battle.InstId, this.InstId)
 
-	//acc, dead := skill.Action(this, tagetList, battle.Round)
-
-	//battle.AcctionList.TargetList = acc
-	//fmt.Println("CastSkill, acc ", acc)
 	fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
 
 	return false
@@ -179,16 +173,20 @@ func (this *GameUnit) isBack() bool {
 
 func (this *GameUnit)ResetBattle() {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
-	this.Buff = []int32{}
-	this.Debuff = []int32{}
+	this.Buff = []*Buff{}
+	this.Debuff = []*Buff{}
 }
 
-func (this *GameUnit)CheckBuff (){
-
-}
-
-func (this *GameUnit)CheckDebuff (){
+func (this *GameUnit)CheckBuff (round int32){
+	//检测那些有行为的buff 比如定时增加血量的那种
 
 }
 
+func (this *GameUnit)CheckDebuff (round int32){
+	//检测那些有行为的debuff 比如定时损血
 
+}
+
+func erase(arr []interface{} , idx int) []interface{}{
+	return	append(arr[:idx], arr[idx+1:]...)
+}

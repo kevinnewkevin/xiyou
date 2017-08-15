@@ -14,7 +14,7 @@ type Skill struct {
 	UseTime    int32   //使用時間
 	TargetNum  int32   //目標個數
 	TargetCamp int32   //目標陣營 我方 敵方
-
+	LuaScprit  string  //lua
 }
 
 const (
@@ -68,10 +68,9 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	v := []interface{}{int(battleid), int(casterid)}
 	r := []interface{}{0}
 
-	luaName := SkillidToLuaName(this.SkillID)
-	fmt.Println("SkillidToLuaName", luaName)
+	fmt.Println("SkillidToLuaName", this.LuaScprit)
 
-	_L.CallFuncEx(luaName, v, &r)
+	_L.CallFuncEx(this.LuaScprit, v, &r)
 
 	fmt.Println("TestActionByLua", r)
 
@@ -128,6 +127,7 @@ func InitSkillFromTable(SkillId int32) *Skill {
 	s.Crit = t.Crit
 	s.Damage = t.Damage
 	s.BuffList = t.BuffList
+	s.LuaScprit = t.LuaScprit
 
 	return &s
 }
