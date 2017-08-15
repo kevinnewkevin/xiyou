@@ -68,11 +68,8 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	v := []interface{}{int(battleid), int(casterid)}
 	r := []interface{}{0}
 
-	fmt.Println("SkillidToLuaName", this.LuaScprit)
 
 	_L.CallFuncEx(this.LuaScprit, v, &r)
-
-	fmt.Println("TestActionByLua", r)
 
 	//this.ActionByLua(caster)
 

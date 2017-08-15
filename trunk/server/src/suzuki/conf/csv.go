@@ -193,7 +193,8 @@ func (this *CSV) TryGetStrings(row int, column string, defaultValues []string) [
 	if s == "" {
 		return defaultValues
 	}
-	return strings.Split(s, "|")
+	s = strings.Trim(s, "\"")
+	return strings.Split(s, ",")
 }
 
 func (this *CSV) LoadFile(fileName string) error {

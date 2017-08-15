@@ -34,6 +34,11 @@ type (
 		Type 	int32
 		Kind 	int32
 	}
+	BattleRecord struct {
+		BattleId	int32
+		MainId		int32
+		SmallId		[]int32
+	}
 )
 
 var (
@@ -41,6 +46,7 @@ var (
 	SkillTable = map[int32]*SkillRecord{}
 	SkillLuaTable = map[int32]*SkillLuaRecord{}
 	BuffTable = map[int32]*BuffRecord{}
+	BattleTable = map[int32]*BattleRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -160,4 +166,28 @@ func LoadBuffTable(filename string) error {
 
 func GetBuffRecordById(id int32) *BuffRecord {
 	return BuffTable[id]
+}
+
+func LoadBattleTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		b := BattleRecord{}
+		b.BattleId = int32(csv.GetInt(r, "ID"))
+		b.MainId = int32(csv.GetInt(r, "MainID"))
+		string1 := csv.GetStrings(r, "SmallID")
+		for i := 0; i < len(string1); i++ {
+			buffid, _ := strconv.Atoi(string1[i])
+			b.SmallId = append(b.SmallId, int32(buffid))
+		}
+		BattleTable[b.BattleId] = &b
+	}
+	return nil
+}
+
+func GetBattleRecordById(id int32) *BattleRecord {
+	return BattleTable[id]
 }

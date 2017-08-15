@@ -88,7 +88,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 		if u == nil {
 			continue
 		}
-		if u.Owner.BattleCamp == unit.Owner.BattleCamp {
+		if u.Camp == unit.Camp {
 			continue
 		}
 		t_id = int(u.InstId)
@@ -141,7 +141,7 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	idx ++
 	num := L.ToInteger(idx)
 
-	fmt.Println("4444444444", battleid, unitid, num)
+	//fmt.Println("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 

@@ -125,9 +125,10 @@ func (this *GamePlayer) JoinBattle() {
 
 	battlePlayerList = append(battlePlayerList, this)
 
-	if len(battlePlayerList) == 2 {
+	if len(battlePlayerList) == 1 {
 		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
-		CreateBattle(battlePlayerList[0], battlePlayerList[1])
+		//CreatePvP(battlePlayerList[0], battlePlayerList[1])
+		CreatePvE(battlePlayerList[0], 1)
 
 		battlePlayerList = battlePlayerList[:0]
 	}
@@ -153,6 +154,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡牌上阵	每次回合之前
 	//this.Lock()
 	//defer this.Unlock()
+	//fmt.Println("SetupBattle", pos)
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息
@@ -168,7 +170,6 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 		//错误消息
 		return nil
 	}
-
 	battleRoom.SetupPosition(this, pos)
 
 	this.session.SetupBattleOK()
@@ -181,8 +182,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 	this.BattleId = battleid
 	this.BattleCamp = camp
+	this.MyUnit.ResetBattle(camp, true)
 
 	for _, u := range this.UnitList {
-		u.ResetBattle()
+		u.ResetBattle(camp, false)
 	}
 }

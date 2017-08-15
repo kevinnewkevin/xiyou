@@ -12,6 +12,8 @@ var genInstId int64 = 1
 type GameUnit struct {
 	sync.Mutex
 	Owner       *GamePlayer //所有者
+	IsMain		bool
+	Camp		int
 	UnitId      int32
 	InstId      int64
 	InstName    string
@@ -52,10 +54,8 @@ func CreateUnitFromTable(id int32) *GameUnit {
 }
 
 func (this *GameUnit) GetBattleCamp() int {
-	if this.Owner != nil {
-		return this.Owner.BattleCamp
-	}
-	return prpc.CT_MAX
+
+	return this.Camp
 }
 
 func (this *GameUnit) GetCProperty(id int32) float32 {
@@ -92,7 +92,6 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 	} else {
 		idx = round
 	}
-	fmt.Println("SelectSkill idx ", idx, "round ", round)
 
 	return this.Skill[idx]
 }
@@ -100,7 +99,7 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
 
-	tagetList := battle.SelectAllTarget(this.Owner.BattleCamp)
+	tagetList := battle.SelectAllTarget(this.Camp)
 
 	battle.AcctionList.InstId = this.InstId
 	battle.AcctionList.SkillId = skill.SkillID
@@ -108,8 +107,8 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	acc, dead := skill.Action(this, tagetList, battle.Round)
 
 	battle.AcctionList.TargetList = acc
-	fmt.Println("CastSkill, acc ", acc)
-	fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
+	//fmt.Println("CastSkill, acc ", acc)
+	//fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
 
 	return dead
 }
@@ -171,10 +170,12 @@ func (this *GameUnit) isBack() bool {
 	return false
 }
 
-func (this *GameUnit)ResetBattle() {
+func (this *GameUnit)ResetBattle(camp int, ismain bool) {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
 	this.Buff = []*Buff{}
 	this.Debuff = []*Buff{}
+	this.Camp = camp
+	this.IsMain = ismain
 }
 
 func (this *GameUnit)CheckBuff (round int32){

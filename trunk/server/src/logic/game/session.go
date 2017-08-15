@@ -68,7 +68,7 @@ func (this *Session) JoinBattle() error {
 } // 4
 
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
-	fmt.Println("SetupBattle", positionList)
+	//fmt.Println("SetupBattle", positionList)
 	r := this.player.SetupBattle(positionList)
 
 	if r != nil {
@@ -76,7 +76,7 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 	}
 
 	this.SetupBattleOK()
-	fmt.Println("SetupBattleOK", positionList)
+	//fmt.Println("SetupBattleOK", positionList)
 
 	return nil
 } // 5
