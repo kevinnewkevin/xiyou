@@ -16,7 +16,7 @@ sys.log(" skill 7 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_106_Action(battleid, casterid)
-	local skillid = 1		-- 技能id
+	local skillid = 106		-- 技能id
 
 	local  num = 0   --攻击个数
 	
@@ -29,7 +29,7 @@ function SK_106_Action(battleid, casterid)
 	for i,v in ipairs(p) do
 		--local  add_buff = Battle.AddBuff(p_buff*0.2)  --给所有友方加物理强度    （暂时么有这个函数）
 		local  damage  =7 --测试
-		sys.log("skill1 对id为"..v.."的目标造成"..damage.."点伤害")
+		sys.log("skill7 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

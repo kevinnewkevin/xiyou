@@ -16,7 +16,7 @@ sys.log(" skill 11 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_110_Action(battleid, casterid)
-	local skillid = 2		-- 技能id
+	local skillid = 110		-- 技能id
 	
 
 	local  num = 3   --攻击个数
@@ -34,7 +34,7 @@ function SK_110_Action(battleid, casterid)
 	
 		--local  damage  = del_buff-defender_def        --伤害 公式（）
 		
-		local  damage  = 11 --测试
+		local  damage  = 11  --测试
 	
 		--判断伤害
 		if damage <= 0 then 
@@ -46,7 +46,7 @@ function SK_110_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log("skill1 对id为"..v.."的目标造成"..damage.."点伤害")
+		sys.log("skill11 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

@@ -16,7 +16,7 @@ sys.log("skill 14 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_113_Action(battleid, casterid)
-	local skillid = 2		-- 技能id
+	local skillid = 113		-- 技能id
 	
 	local t = Player.GetTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
@@ -25,7 +25,7 @@ function SK_113_Action(battleid, casterid)
 	
 	--local  p_property = Battle.AddBuff(buffid,spell*0.3)  --给一个友方单位增加一个荆棘（暂时么有这个函数）   持续三回合
 	
-	sys.log("skill1 对id为"..casterid.."的目标增加"..p_property.."点伤害")
+	sys.log("skill14 对id为"..t.."的目标增加"..p_property.."点伤害")
 	
 	
 	return true

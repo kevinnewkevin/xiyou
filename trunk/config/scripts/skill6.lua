@@ -52,7 +52,7 @@ function SK_105_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		--sys.log("skill6 对id为"..v.."的目标造成"..damage.."点伤害")
+		sys.log("skill6 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

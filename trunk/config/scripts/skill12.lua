@@ -16,7 +16,7 @@ sys.log(" skill 12 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_111_Action(battleid, casterid)
-	local skillid = 3		-- 技能id
+	local skillid = 111		-- 技能id
 	local  p = Player.GetTarget(battleid,casterid)  --获取目标
 	
 	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
@@ -26,11 +26,13 @@ function SK_111_Action(battleid, casterid)
 		
 		--local  damage_buff = Battle.AddBuff(1)  --敌对方法术强度
 		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  -- 防御
+		local defender_def = Player.GetUnitProperty(battleid, p, "CPT_DEF")  -- 防御
+		sys.log(1)
 	
 		--local  demage  = damage_buff-defender_def        --伤害 公式(法术强度的伤害  -   防御）
 		
 		local  damage  = 12 --测试
+		sys.log(2)
 	
 		--判断伤害
 		if damage <= 0 then 
@@ -38,11 +40,13 @@ function SK_111_Action(battleid, casterid)
 			damage = 1
 		
 		end
+		sys.log(3)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
+		sys.log(4)
+		Battle.Attack(battleid,casterid,p,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log("skill1 对id为"..casterid.."的目标造成"..damage.."点伤害")
+		sys.log("skill12 对id为"..p.."的目标造成"..damage.."点伤害")
 
 	
 	return  true

@@ -34,7 +34,7 @@ function SK_104_Action(battleid, casterid)
 		
 		local  damage  = 5  --伤害 公式（）--测试
 		
-		--sys.log("skill5 对id为"..v.."的目标造成"..damage.."点伤害")
+		sys.log("skill5 对id为"..v.."的目标造成"..damage.."点伤害")
 	end
 	
 	return  true

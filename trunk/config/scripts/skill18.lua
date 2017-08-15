@@ -1,4 +1,4 @@
-sys.log(" skill 13 start")
+sys.log(" skill 18 start")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -11,12 +11,12 @@ sys.log(" skill 13 start")
 --  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
--- 女娲1号技能 为所有友方单位回复相当于法术强度50%的生命值。
+-- 观音3号技能 驱散我方全体所有负面效果，并且减少伤害20%，持续1回合。
 
 -- 物理强度视作buff Battle.buff
 
-function SK_112_Action(battleid, casterid)
-	local skillid = 112		-- 技能id
+function SK_117_Action(battleid, casterid)
+	local skillid = 117		-- 技能id
 
 	local  num = 0   --攻击个数
 
@@ -24,17 +24,17 @@ function SK_112_Action(battleid, casterid)
 	
 	for i,v in ipairs(p) do
 		
-		--local  damage_buff = Battle.AddBuff(1)  --法术强度
+		--local  damage_buff = Battle.AddBuff(1)  --驱散负面效果
 	
-		--local  recovery  = Battle.AddBuff(damage_buff*50%)      --回血 公式(法术强度的50%）
+		--local  recovery  = Battle.AddBuff(1)      --公式(减少20%的伤害）
 		
 		local  recovery  = 13 --测试
 	
-		sys.log("skill13 对id为"..v.."的目标造成"..recovery.."点回血")
+		sys.log("skill18 对id为"..v.."的目标减少"..recovery.."点伤害")
 	end
 	
 	return  true
 	 
 end
 
-sys.log( "skill 13 end")
+sys.log( "skill 18 end")
