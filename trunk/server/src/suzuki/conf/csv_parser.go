@@ -32,13 +32,6 @@ func (this *CSV) parseFile(filename string) error {
 
 	for {
 		line, err := buf.ReadString('\n')
-		if len(line) == 0 || line == "" {
-			continue
-		}
-		err2 := this.parseSource(line)
-		if err2 != nil {
-			return err2
-		}
 
 		if err != nil {
 			if err == io.EOF {
@@ -46,6 +39,13 @@ func (this *CSV) parseFile(filename string) error {
 			}
 			return err
 		}
+
+		err = this.parseSource(line)
+		if err != nil {
+			return err
+		}
+
+
 	}
 
 	return nil
@@ -85,6 +85,9 @@ func (this *CSV) parseHeader(s string) error {
 }
 
 func (this *CSV) parseSource(s string) error {
+	if len(s) == 0 {
+		return  nil
+	}
 	s = strings.Trim(s, "\n\r\t ")
 	r := []string{}
 	q := 0
