@@ -130,7 +130,7 @@ func (this *LuaState) CallFuncEx(funcName string, args []interface{}, results *[
 		}
 	}
 
-	fmt.Println("CallFuncEx", len(*results))
+	fmt.Println("CallFuncEx", len(*results), funcName)
 
 	this.Call(len(args), len(*results))
 
