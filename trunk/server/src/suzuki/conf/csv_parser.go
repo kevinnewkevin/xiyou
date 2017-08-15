@@ -32,7 +32,9 @@ func (this *CSV) parseFile(filename string) error {
 
 	for {
 		line, err := buf.ReadString('\n')
-
+		if len(line) == 0 || line == "" {
+			continue
+		}
 		err2 := this.parseSource(line)
 		if err2 != nil {
 			return err2
