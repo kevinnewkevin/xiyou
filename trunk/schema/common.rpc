@@ -73,9 +73,10 @@ struct COM_BattleUnit{
 //战斗操作对象
 struct COM_BattleActionTarget{
 	int64 				InstId;				//target
-	BattleActionType	ActionType;
-	int32				ActionParam;
-	int32				ActionParamExt;
+	BattleActionType	ActionType;			//伤害类型
+	int32				ActionParam;		//伤害数值
+	string				ActionParamExt;		//是否暴击
+	bool				Dead;				//死亡
 };
 
 //战

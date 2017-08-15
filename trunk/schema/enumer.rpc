@@ -47,3 +47,15 @@ enum BattlePositionType{
 	
 	BP_MAX,
 };
+
+//伤害状态
+enum BattleExt{
+	BE_Crit,		//暴击
+	BE_Miss,		//闪避
+	BE_3,			//等等
+	BE_4,
+	BE_5,
+	BE_6,
+	BE_7,
+	BE_MAX,
+};
