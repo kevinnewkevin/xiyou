@@ -4,6 +4,7 @@ import (
 	"logic/prpc"
 	"strconv"
 	"suzuki/conf"
+	"go/types"
 )
 
 type (
@@ -28,12 +29,19 @@ type (
 		SkillID    int32
 		LuaScprit  string
 	}
+	BuffRecord struct {
+		BuffId	int32
+		Until	int32
+		Type 	int32
+		Kind 	int32
+	}
 )
 
 var (
 	UnitTable  = map[int32]*UnitRecord{}
 	SkillTable = map[int32]*SkillRecord{}
 	SkillLuaTable = map[int32]*SkillLuaRecord{}
+	BuffTable = map[int32]*BuffRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -132,4 +140,25 @@ func LoadSkillLuaTable(filename string) error {
 
 func GetSkillLuaRecordById(id int32) *SkillLuaRecord {
 	return SkillLuaTable[id]
+}
+
+func LoadBuffTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		b := BuffRecord{}
+		b.BuffId = int32(csv.GetInt(r, "BuffId"))
+		b.Until = int32(csv.GetInt(r, "Until"))
+		b.Type = int32(csv.GetInt(r, "Type"))
+		b.Kind = int32(csv.GetInt(r, "Kind"))
+		BuffTable[b.BuffId] = &b
+	}
+	return nil
+}
+
+func GetBuffRecordById(id int32) *BuffRecord {
+	return BuffTable[id]
 }

@@ -33,6 +33,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadBuffTable("../../../config/tables/buff.csv")
+	if err != nil {
+		fmt.Println("LoadBuffTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 	//game.InitGlobalLuaState()
 

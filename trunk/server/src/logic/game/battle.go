@@ -444,13 +444,25 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 }
 
-func (this *BattleRoom) AddBuff(target int64, buffid int32) {
+func (this *BattleRoom) AddBuff(target int64, buffid int32, data int32) {
 // 上buff
+
+	unit := this.SelectOneUnit(target)
+
+	buff := NewBuff(unit, buffid, data, this.Round)
+
+	unit.Buff = append(unit.Buff, buff)
 
 }
 
-func (this *BattleRoom) AddDebuff(target int64, buffid int32) {
+func (this *BattleRoom) AddDebuff(target int64, buffid int32, data int32) {
 // 上buff
+
+	unit := this.SelectOneUnit(target)
+
+	buff := NewBuff(unit, buffid, data, this.Round)
+
+	unit.Debuff = append(unit.Debuff, buff)
 
 }
 

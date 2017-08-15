@@ -238,3 +238,25 @@ func __GetTime(p unsafe.Pointer) C.int {
 	return 1
 }
 
+//export __Addbuff
+func __Addbuff(p unsafe.Pointer) C.int {
+
+	fmt.Println("__Addbuff")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	target := L.ToInteger(idx)
+	idx ++
+	buffid := L.ToInteger(idx)
+	idx ++
+	data := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.AddBuff(int64(target), int32(buffid), int32(data))
+
+	return 1
+}
+
