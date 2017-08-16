@@ -18,14 +18,12 @@ sys.log(" skill 21 start")
 function SK_120_Action(battleid, casterid)
 	local skillid = 120		-- 技能id
 	
-	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
-
-	--local  add_buff = Battle.AddBuff(battleid,del_buff*0.2)    --造成的伤害增加20%，可叠加。
+	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
+	 --local  add_buff = Battle.AddBuff(battleid,del_buff*0.2)    --造成的伤害增加20%，可叠加。
+		
+	sys.log("skil20")
 	
-	local  damage  = 4 --伤害 公式（攻击属性） --测试
-	
-	sys.log("skill20 对id为"..p.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

@@ -18,20 +18,20 @@ sys.log(" skill 6 start")
 function SK_105_Action(battleid, casterid)
 	local skillid = 105		-- 技能id
 
-	local  num = 0   --攻击个数
+	local  attackNum = 0   --攻击个数
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 	
 		--local  p_property = Battle.AddBuff(1)  --吸收场上所有盾牌（暂时么有这个函数）
 		
 	end
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 	
 		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  --获取防御
 		

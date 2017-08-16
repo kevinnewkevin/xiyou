@@ -11,21 +11,18 @@ sys.log(" skill 20 start")
 --  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
--- 黄牙老象2号技能 为一个友方目标回复法术强度的生命值，并且使其每次受到伤害都会回复10%法术强度的生命值，持续1回合。
+-- 黄牙老象2号技能 下3次受到的伤害降低40%。
 
 -- 法术强度视作buff  Battle.buff
 
 function SK_119_Action(battleid, casterid)
 	local skillid = 119		-- 技能id
 	
-	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
+	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	--local  add_buff = Battle.AddBuff(battleid,del_buff*0.4)    --降低伤害40%
+	--local  add_buff = Battle.AddBuff(battleid,del_buff*0.4)    --下3次受到的伤害降低40%。
 	
-	
-	local  damage  = 4 --伤害 公式（攻击属性） --测试
-	
-	sys.log("skill20 对id为"..p.."的目标造成"..damage.."点伤害")
+	sys.log("skill20")
 	
 	return  true
 	 

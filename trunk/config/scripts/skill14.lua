@@ -25,7 +25,7 @@ function SK_113_Action(battleid, casterid)
 	
 	--local  p_property = Battle.AddBuff(buffid,spell*0.3)  --给一个友方单位增加一个荆棘（暂时么有这个函数）   持续三回合
 	
-	sys.log("skill14 对id为"..t.."的目标增加"..p_property.."点伤害")
+	sys.log("skill14")
 	
 	
 	return true

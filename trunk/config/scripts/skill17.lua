@@ -18,7 +18,7 @@ sys.log(" skill 17 start")
 function SK_116_Action(battleid, casterid)
 	local skillid = 116		-- 技能id
 	
-	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
+	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
 	--local  del_buff = Battle.AddBuff(1)     --法术强度
 	
@@ -27,9 +27,7 @@ function SK_116_Action(battleid, casterid)
 	--local  add_buff = Battle.AddBuff(battleid,del_buff*0.1)    --每回合伤害回复法术强度10%的生命值
 	
 	
-	local  damage  = 4 --伤害 公式（攻击属性） --测试
-	
-	sys.log("skill17 对id为"..p.."的目标造成"..damage.."点伤害")
+	sys.log("skill17")
 	
 	return  true
 	 

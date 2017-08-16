@@ -18,19 +18,18 @@ sys.log(" skill 18 start")
 function SK_117_Action(battleid, casterid)
 	local skillid = 117		-- 技能id
 
-	local  num = 0   --攻击个数
+	local  attackNum = 0   --攻击个数
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 		
 		--local  damage_buff = Battle.AddBuff(1)  --驱散负面效果
 	
 		--local  recovery  = Battle.AddBuff(1)      --公式(减少20%的伤害）
 		
-		local  recovery  = 13 --测试
 	
-		sys.log("skill18 对id为"..v.."的目标减少"..recovery.."点伤害")
+		sys.log("skill18")
 	end
 	
 	return  true

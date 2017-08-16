@@ -18,9 +18,9 @@ sys.log(" skill 10 start")
 function SK_109_Action(battleid, casterid)
 	local skillid = 109		-- 技能id
 
-	local  p = Player.GetTarget(battleid,casterid)  --获取目标
+	local  t = Player.GetTarget(battleid,casterid)  --获取目标
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 
 	
 		--local  del_buff = Battle.AddBuff(1)  --敌对方物理强度
@@ -47,8 +47,8 @@ function SK_109_Action(battleid, casterid)
 		
 		sys.log(crit)
 		
-		Battle.Attack(battleid,casterid,p,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log("skill10 对id为"..p.."的目标造成"..damage.."点伤害")
+		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		sys.log("skill10 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	
 	return  true

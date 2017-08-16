@@ -18,19 +18,18 @@ sys.log(" skill 13 start")
 function SK_112_Action(battleid, casterid)
 	local skillid = 112		-- 技能id
 
-	local  num = 0   --攻击个数
+	local  attackNum = 0   --攻击个数
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 		
 		--local  damage_buff = Battle.AddBuff(1)  --法术强度
 	
 		--local  recovery  = Battle.AddBuff(damage_buff*50%)      --回血 公式(法术强度的50%）
 		
-		local  recovery  = 13 --测试
 	
-		sys.log("skill13 对id为"..v.."的目标造成"..recovery.."点回血")
+		sys.log("skill13 ")
 	end
 	
 	return  true

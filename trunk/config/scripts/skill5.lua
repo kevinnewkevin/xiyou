@@ -19,22 +19,19 @@ function SK_104_Action(battleid, casterid)
 
 	local skillid = 104		-- 技能id
 
-	local  num = 0  -- 攻击个数
+	local  attackNum = 0  -- 攻击个数
 	
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	
-	--local  p_property = Battle.AddBuff(1) 攻击者法术
+	--local  Spell= Battle.AddBuff(1)   --姜子牙法术
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 	
-		--local  p_property = Battle.AddBuff(p_property*0.1)  --给友方分别提供一个盾牌（暂时么有这个函数）
+		--Battle.AddBuff(Spell*0.1)  --给友方分别提供一个盾牌（暂时么有这个buff）
 	
-		
-		local  damage  = 5  --伤害 公式（）--测试
-		
-		sys.log("skill5 对id为"..v.."的目标造成"..damage.."点伤害")
+		sys.log("skill5")
 	end
 	
 	return  true

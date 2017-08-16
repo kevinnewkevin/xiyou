@@ -24,7 +24,7 @@ function SK_114_Action(battleid, casterid)
 	--local  spell = Battle.AddBuff(1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
 	
 	
-	sys.log("skill15 对id为"..t.."的目标增加免疫伤害")
+	sys.log("skill15")
 	
 	
 	return true

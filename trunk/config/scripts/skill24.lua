@@ -23,7 +23,7 @@ function SK_123_Action(battleid, casterid)
 	
 	--local  add_buff = Battle.AddBuff(battleid)    -- 下一次落雷必定连击
 	
-	sys.log("skill20")
+	sys.log("skill24")
 	
 	return  true
 

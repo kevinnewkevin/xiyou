@@ -18,18 +18,18 @@ sys.log(" skill 7 start")
 function SK_106_Action(battleid, casterid)
 	local skillid = 106		-- 技能id
 
-	local  num = 0   --攻击个数
+	local  attackNum = 0   --攻击个数
 	
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	--local  p_buff = Battle.AddBuff(1)  --自己物理强度
 	
 
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 		--local  add_buff = Battle.AddBuff(p_buff*0.2)  --给所有友方加物理强度    （暂时么有这个函数）
-		local  damage  =7 --测试
-		sys.log("skill7 对id为"..v.."的目标造成"..damage.."点伤害")
+		
+		sys.log("skill7")
 	end
 	
 	return  true

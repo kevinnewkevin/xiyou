@@ -18,19 +18,19 @@ sys.log(" skill 23 start")
 function SK_122_Action(battleid, casterid)
 	local skillid = 122	-- 技能id
 
-	local  num = 0  --攻击个数
+	local  attackNum = 0  --攻击个数
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 		
 		--local  del_buff = Battle.AddBuff(1)  --法术强度
 		
 		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
 	
-		--local  demage  = del_buff*0.5-defender_def  --伤害 公式（物理伤害 减 防御 ）
+		--local  damage  = del_buff*0.5-defender_def  --伤害 公式（物理伤害 减 防御 ）
 		
 		local  damage  = 8--测试
 		

@@ -18,21 +18,22 @@ sys.log(" skill 16 start")
 function SK_115_Action(battleid, casterid)
 	local skillid = 115		-- 技能id
 	
-	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
+	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
 	
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
 	
 	local defender_def = Player.GetUnitProperty(battleid, casterid, "CPT_DEF")  --获取防御属性
 	
+	--local  add_buff = Battle.AddBuff(1)     --法术强度
 	
 	--local  del_buff = Battle.AddBuff(1)     --降低目标法术强度
 	
 	--local  p_property = Battle.AddBuff(2)     --降低目标40%物理强度
 	
-	--local  demage  = del_buff-defender_def    --伤害 公式（攻击属性）
+	--local  demage  = add_buff-defender_def    --伤害 公式（）
 	
 	local  damage  = 4 --伤害 公式（攻击属性） --测试
 	
@@ -46,9 +47,9 @@ function SK_115_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	Battle.Attack(battleid,casterid,p,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	sys.log("skill16 对id为"..p.."的目标造成"..damage.."点伤害")
+	sys.log("skill16 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

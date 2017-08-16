@@ -1,4 +1,4 @@
-sys.log(" skill 19 start")
+sys.log(" skill 26 start")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -11,28 +11,28 @@ sys.log(" skill 19 start")
 --  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
--- 黄牙老象1号技能 对敌方一列目标造成物理强度的伤害。
+-- 龙王2号技能 对敌方全体造成50%法术强度的伤害，并减少20%的速度。
 
--- 物理强度视作buff Battle.buff
+-- 法术强度视作buff  Battle.buff
 
-function SK_118_Action(battleid, casterid)
-	local skillid = 118	-- 技能id
+function SK_125_Action(battleid, casterid)
+	local skillid = 125	-- 技能id
 
-	local  attackNum = 2  --攻击个数
+	local  attackNum = 0  --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
-
+	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	
 	for i,v in ipairs(t) do
 		
-		--local  del_buff = Battle.AddBuff(1)  --敌对方物理强度
+		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  --防御
 		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
+		--local  add_buff = Battle.AddBuff(battleid)    -- 法术强度
 	
-		--local  demage  = del_buff-defender_def  --伤害 公式（物理伤害 减 防御 ）
+		--local  damage  = add_buff*0.5-defender_def  --伤害 公式（ ）
 		
-		local  damage  = 8--测试
+		local  damage  = 8   --测试
 		
 		--判断伤害
 		if damage <= 0 then 
@@ -43,12 +43,15 @@ function SK_118_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		--local  add_buff = Battle.AddBuff(battleid)    -- 减少20%的速度
 	
-		sys.log("skill19 对id为"..v.."的目标减少"..recovery.."点伤害")
+		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
 	end
 	
 	return  true
 	 
+	 
 end
 
-sys.log( "skill 19 end")
+sys.log( "skill 26 end")

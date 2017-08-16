@@ -20,15 +20,15 @@ function SK_107_Action(battleid, casterid)
 
 	local skillid = 107	-- 技能id
 
-	local  num = 3   --攻击个数
+	local  attackNum = 3   --攻击个数
 
-	local  p = Player.GetTargets(battleid,casterid,num)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
 	
 	--local  battleid_buff = Battle.AddBuff(1)  --释放者物理强度 
 	
-	for i,v in ipairs(p) do
+	for i,v in ipairs(t) do
 	
 		--local  del_buff = Battle.AddBuff(1)  --敌对方物理强度
 		
