@@ -43,7 +43,7 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 		t.InstId = targetList[i].InstId
 		t.ActionType = 1
 		t.ActionParam = this.Damage
-		t.ActionParamExt = finl
+		t.ActionParamExt = prpc.ToName_BattleExt(int(1))
 		actionList = append(actionList, t)
 	}
 	this.UseTime = bout

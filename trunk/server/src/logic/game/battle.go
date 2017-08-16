@@ -493,7 +493,8 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	t.InstId = target
 	t.ActionType = 1
 	t.ActionParam = damage
-	t.ActionParamExt = crit
+	t.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+	t.Dead = unit.IsDead()
 
 	//fmt.Println("MintsHp", target, damage, t)
 
@@ -517,7 +518,7 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	t.InstId = target
 	t.ActionType = 1
 	t.ActionParam = damage
-	t.ActionParamExt = crit
+	t.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
 }
