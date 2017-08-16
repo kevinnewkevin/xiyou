@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="726,151" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_dstk" name="n4" src="dstk6" xy="0,0" size="726,151"/>
+    <image id="n7_dstk" name="n7" src="dstk7" xy="0,0" size="726,151">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n5_dstk" name="n5" src="dstk4" xy="12,18"/>
+    <text id="n6_dstk" name="n6" xy="29,26" size="205,40" font="方正楷体_GBK" fontSize="32" color="#ffffff" autoSize="none" strokeColor="#000000" text="啦啦啦啦啦啦"/>
+    <component id="n14_dstk" name="n14" src="dstkn" xy="48,76"/>
+    <component id="n15_dstk" name="n15" src="dstkn" xy="116,76"/>
+    <component id="n16_dstk" name="n16" src="dstkn" xy="184,76"/>
+    <component id="n12_dstk" name="n12" src="dstkm" xy="0,0" hideByEditor="true"/>
+    <component id="n8_dstk" name="n8" src="dstki" xy="308,17"/>
+    <component id="n9_dstk" name="n9" src="dstki" xy="446,17"/>
+    <component id="n10_dstk" name="n10" src="dstki" xy="584,17"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

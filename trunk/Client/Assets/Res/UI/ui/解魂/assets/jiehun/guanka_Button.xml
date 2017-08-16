@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="477,748" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n29_vpj2" name="n29" src="vpj2b" xy="-2,2" size="469,741">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <loader id="n34_j6bg" name="n34" xy="30,17" size="430,720" url="ui://nuudi1w0vpj22" fill="scaleFree"/>
+    <loader id="n5_vpj2" name="n5" xy="50,30" size="382,480" url="ui://nuudi1w0vpj2q"/>
+    <loader id="n7_vpj2" name="n7" xy="50,32" size="380,477">
+      <relation target="n5_vpj2" sidePair="center-center,middle-middle"/>
+    </loader>
+    <image id="n8_vpj2" name="n8" src="vpj21" xy="55,37"/>
+    <text id="n9_vpj2" name="n9" xy="72,65" size="52,323" font="方正楷体_GBK" fontSize="41" color="#ffffff" align="center" autoSize="none" text="啦啦啦啦啦啦">
+      <relation target="n8_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n11_vpj2" name="n11" src="vpj25" xy="58,370"/>
+    <text id="n12_vpj2" name="n12" xy="44,430" size="101,46" font="方正楷体_GBK" fontSize="35" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="45/45">
+      <relation target="n11_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n13_vpj2" name="n13" src="vpj27" xy="69,478" size="348,120"/>
+    <text id="n14_vpj2" name="n14" xy="91,492" size="304,93" font="方正楷体_GBK" fontSize="27" color="#ffffff" autoSize="none" strokeColor="#000000" text="啦">
+      <relation target="n13_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n15_vpj2" name="n15" src="vpj2r" xy="62,632">
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <component id="n18_vpj2" name="n18" src="vpj2u" xy="95,596">
+      <relation target="n15_vpj2" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n19_vpj2" name="n19" src="vpj28" xy="113,649">
+      <relation target="n18_vpj2" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n20_vpj2" name="n20" xy="120,668" size="31,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" align="center" vAlign="middle" strokeColor="#000000" text="99">
+      <relation target="n19_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n22_vpj2" name="n22" src="vpj2u" xy="217,596">
+      <relation target="n15_vpj2" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n23_vpj2" name="n23" src="vpj28" xy="235,648">
+      <relation target="n22_vpj2" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n24_vpj2" name="n24" xy="242,667" size="31,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" align="center" vAlign="middle" strokeColor="#000000" text="99">
+      <relation target="n23_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n26_vpj2" name="n26" src="vpj2u" xy="341,596">
+      <relation target="n15_vpj2" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n27_vpj2" name="n27" src="vpj28" xy="360,648">
+      <relation target="n26_vpj2" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n28_vpj2" name="n28" xy="367,667" size="31,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" align="center" vAlign="middle" strokeColor="#000000" text="99">
+      <relation target="n27_vpj2" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n30_vpj2" name="n30" src="vpj2j" xy="363,17"/>
+    <image id="n31_vpj2" name="n31" src="vpj2i" xy="-21,680"/>
+    <component id="n32_t6vc" name="n32" src="t6vc15" xy="27,17"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

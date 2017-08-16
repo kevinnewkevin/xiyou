@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="n8u04fho" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="l97w0" name="jianglizhanshi_com.xml" path="/" exported="true"/>
+    <image id="l97w1" name="tck_fengexian.png" path="/" exported="true" scale="9grid" scale9grid="78,1,6,2"/>
+    <image id="l97w2" name="tck_biaoti.png" path="/" exported="true" scale="9grid" scale9grid="8,13,8,26"/>
+    <image id="l97w4" name="daojuk.png" path="/" exported="true"/>
+    <component id="l97w5" name="daoju_Button.xml" path="/" exported="true"/>
+    <image id="n0c96" name="tsk_01.png" path="/" exported="true" scale="9grid" scale9grid="145,168,16,13"/>
+    <image id="n0c97" name="tsk_02.png" path="/" exported="true" scale="9grid" scale9grid="122,16,2,21"/>
+    <image id="d3p98" name="anniu1.png" path="/" exported="true"/>
+    <component id="d3p99" name="anniu_Button.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="jianglizhanshi" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
+</packageDescription>

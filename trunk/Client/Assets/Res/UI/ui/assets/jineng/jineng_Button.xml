@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="130,130" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_j2bx" name="n4" src="j2bxq" xy="0,0"/>
+    <image id="n6_j2bx" name="n6" src="j2bxo" xy="1,1" alpha="0">
+      <gearLook controller="button" pages="0" values="0,0,0,1" default="1,0,0,1"/>
+    </image>
+    <image id="n5_j2bx" name="n5" src="j2bxp" xy="83,83"/>
+    <text id="n7_j2bx" name="n7" xy="85,90" size="41,39" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="10&#xA;&#xA;&#xA;"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

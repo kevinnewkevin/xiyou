@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="525,555">
+  <displayList>
+    <image id="n0_ljwx" name="n0" src="ljwx1" xy="4,17" size="489,530"/>
+    <component id="n1_ljwx" name="n1" src="ljwx8" xy="422,2"/>
+    <image id="n2_ljwx" name="n2" src="ljwx0" xy="59,66" size="380,50"/>
+    <image id="n3_ljwx" name="n3" src="ljwx5" xy="34,126"/>
+    <image id="n4_ljwx" name="n4" src="ljwx4" xy="116,211">
+      <relation target="n3_ljwx" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n5_ljwx" name="n5" src="ljwx2" xy="28,268" size="436,4"/>
+    <image id="n6_ljwx" name="n6" src="ljwx3" xy="171,146"/>
+    <text id="n7_ljwx" name="n7" xy="181,148" size="67,37" font="方正楷体_GBK" fontSize="30" color="#e25226" bold="true" text="主动"/>
+    <text id="n8_ljwx" name="n8" xy="174,194" size="190,37" font="方正楷体_GBK" fontSize="30" autoSize="none" text="啦啦啦啦啦啦"/>
+    <text id="n9_ljwx" name="n9" xy="155,74" size="190,37" font="方正楷体_GBK" fontSize="30" align="center" vAlign="middle" autoSize="none" text="技能详情"/>
+    <text id="n10_ljwx" name="n10" xy="59,283" size="371,179" font="方正楷体_GBK" fontSize="30" autoSize="none" text="啦啦啦啦啦啦"/>
+    <text id="n11_ljwx" name="n11" xy="132,489" size="128,37" font="方正楷体_GBK" fontSize="30" align="center" vAlign="middle" autoSize="none" text="冷却时间"/>
+    <image id="n12_ljwx" name="n12" src="ljwx2" xy="28,480" size="436,4"/>
+    <text id="n13_cmjg" name="n13" xy="120,216" size="38,37" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="10&#xA;"/>
+    <text id="n14_cmjg" name="n14" xy="263,489" size="128,37" font="方正楷体_GBK" fontSize="30" color="#ae340f" vAlign="middle" autoSize="none" text="3回合"/>
+  </displayList>
+</component>

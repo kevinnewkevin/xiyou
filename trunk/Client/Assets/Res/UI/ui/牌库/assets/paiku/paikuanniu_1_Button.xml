@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="120,64" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="qu1s11" xy="0,0" size="120,64">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2" name="n2" src="qu1s11" xy="0,0" size="120,64">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n3_qu1s" name="n3" xy="16,6" size="90,55" font="方正粗楷简体" fontSize="42" color="#511d1a" autoSize="none" text="全部">
+      <gearColor controller="button" pages="1,2,3" values="#ffffff,#000000|#ffffff,#000000|#ffffff,#000000" default="#511d1a,#000000" tween="true"/>
+    </text>
+  </displayList>
+  <Button mode="Radio"/>
+</component>
