@@ -79,11 +79,13 @@ struct COM_BattleActionTarget{
 	bool				Dead;				//死亡
 };
 
+
 //战
 struct COM_BattleAction{
 	int64 			 			InstId;
 	int32 			 			SkillId;
 	COM_BattleActionTarget[] 	TargetList;
+	//int32[] 					BuffList;
 };
 
 //战报
