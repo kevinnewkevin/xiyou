@@ -129,12 +129,21 @@ func (this *GamePlayer) JoinBattle() {
 
 	if len(battlePlayerList) == 1 {
 		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
-		//CreatePvP(battlePlayerList[0], battlePlayerList[1])
-		CreatePvE(battlePlayerList[0], 1)
+		CreatePvP(battlePlayerList[0], battlePlayerList[1])
+		//CreatePvE(battlePlayerList[0], 1)
 
 		battlePlayerList = battlePlayerList[:0]
 	}
 	fmt.Println("JoinBattle", battlePlayerList)
+}
+
+func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
+	//this.Lock()
+	//defer this.Unlock()
+
+	CreatePvE(battlePlayerList[0], 1)
+
+	fmt.Println("JoinBattlePvE", battlePlayerList)
 }
 
 func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出战卡牌  战斗开始之前

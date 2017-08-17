@@ -81,6 +81,10 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 	return nil
 } // 5
 
+
+func (this* Session) JoinBattlePvE(a,b int32)error{
+	return nil
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
