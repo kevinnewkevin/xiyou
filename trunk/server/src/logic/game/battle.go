@@ -640,7 +640,7 @@ func (this *BattleRoom) AddDebuff(casterid int64, target int64, buffid int32, da
 }
 
 func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, data int32, over bool) {
-	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害")
+	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
 	unit := this.SelectOneUnit(target)
 
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(data)

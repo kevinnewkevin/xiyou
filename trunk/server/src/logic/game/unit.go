@@ -198,10 +198,7 @@ func (this *GameUnit)CheckAllBuff (round int32){
 	needDelete := map[*Buff]int{}
 	this.DelBuff = []*Buff{}
 
-	for _, buff := range this.Allbuff{						//如果是沒行動的就無視
-		if buff.BuffKind == kKindNow {
-			continue
-		}
+	for _, buff := range this.Allbuff{
 		if this.IsDead() {		//buff執行中玩家卡牌可能死掉
 			break
 		}

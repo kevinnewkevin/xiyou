@@ -53,29 +53,32 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 func (this *Buff) Update(round int32) bool {
 	fmt.Println("buff每回合更新 实例ID为:", this.InstId)
 
+	needDel := false
+
 	if this.Round == round {
 		fmt.Println("本回合上的buff本回合不生效", this.Round, "   ", round)
-		return false
+		return needDel
+	}
+
+	if this.IsOver(round) {			//buff結束需要刪除
+		fmt.Println("本buff到期 需要删除")
+		needDel = true
 	}
 
 	if this.BuffKind == kKindNow {		//沒有行為的不需要進行結算
 		fmt.Println("本buff不需要行为")
-		return false
+		return needDel
 	} else if this.BuffKind == kKindUntil {
-		if this.IsOver(round) {			//buff結束需要刪除
-			return true
-		}
 		//v := []interface{}{int(this.Owner.Owner.BattleId),int(this.BuffId), int(this.InstId)}
 		//r := []interface{}{0}
 		//
 		//
 		//_L.CallFuncEx("", v, &r)
-		fmt.Println("11111")
-		testBattleBuff(this, !this.IsOver(round))
+		testBattleBuff(this, this.IsOver(round))
 
-		return false
+		return needDel
 	} else {
-		return false
+		return needDel
 	}
 }
 
@@ -84,7 +87,7 @@ func (this *Buff) IsOver(round int32) bool {
 }
 
 func testBattleBuff(buff *Buff, over bool) {
-	fmt.Println("testBattleBuff 1, buffid:", buff.BuffId)
+	fmt.Println("testBattleBuff 1, buffid:", buff.BuffId, "over", over)
 	fmt.Println(buff.Owner.BattleId)
 	battle := FindBattle(buff.Owner.BattleId)
 
@@ -93,7 +96,15 @@ func testBattleBuff(buff *Buff, over bool) {
 	}
 	fmt.Println("testBattleBuff 2")
 
-	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, over)
+	var o bool
+
+	if over {
+		o = false
+	} else {
+		o = true
+	}
+
+	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, o)
 }
 
 
