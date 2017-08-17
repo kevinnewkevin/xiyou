@@ -126,6 +126,9 @@ public class Battle {
     //初始化战斗
     static public void Init(int side)
     {
+        _Fee = 5;
+
+
         _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
@@ -170,9 +173,9 @@ public class Battle {
             {
                 _SelectedHandCardInstID = _HandCards [i].InstId;
                 OperateSetActor(FindEmptyPos());
-                BattleSetup();
             }
         }
+        BattleSetup();
     }
 
     static bool LoadAssets()
@@ -379,8 +382,10 @@ public class Battle {
                     break;
                 }
             }
+            if (emptyPos != -1)
+                return (_Side == 0? emptyPos: ConvertedPos(emptyPos));
         }
-        return emptyPos;
+        return (_Side == 0? emptyPos: ConvertedPos(emptyPos));
     }
 
     static public void BattleSetup()
