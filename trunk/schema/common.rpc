@@ -97,7 +97,7 @@ struct COM_BattleBuffAction{
 //战
 struct COM_BattleAction{
 	int64 			 			InstId;					//释放者实例id
-	COM_BattleBuffAction[] 		BuffList;				//本回合结算buff
+	COM_BattleBuffAction 		BuffList;				//本回合结算buff
 	int32 			 			SkillId;				//释放技能id
 	int32[] 					SkillBuff;				//技能给予释放者的buff
 	COM_BattleActionTarget[] 	TargetList;				//技能目标的情况
@@ -111,7 +111,10 @@ struct COM_BattleReport{
 
 //战斗结果
 struct COM_BattleResult{
-	int32 Win;
-	int32 Money;
+	int32 	Win;
+	int32 	Money;
+	int32[] KillMOnsters;
+	int32 	BattleRound;
+	int32 	MySelfDeathNum;
 };
 

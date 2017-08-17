@@ -26,6 +26,9 @@ type GameUnit struct {
 	Position 	int32 //prpc.BattlePosition
 	Buff 		[]*Buff //增益状态
 	Debuff 		[]*Buff //负面状态
+	Allbuff		[]*Buff	//全体buff
+	DelBuff		[]*Buff	//需要刪除的buff
+	BattleId	int64	//zhandou id
 }
 
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -116,14 +119,14 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
 
-	fmt.Println("CastSkill2 skill id is ", skill.SkillID)
+	//fmt.Println("CastSkill2 skill id is ", skill.SkillID)
 
 	battle.AcctionList.InstId = this.InstId
 	battle.AcctionList.SkillId = skill.SkillID
 
 	skill.ActionBylua(battle.InstId, this.InstId)
 
-	fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
+	//fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
 
 	return false
 }
@@ -170,12 +173,14 @@ func (this *GameUnit) isBack() bool {
 	return false
 }
 
-func (this *GameUnit)ResetBattle(camp int, ismain bool) {
+func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
 	this.Buff = []*Buff{}
 	this.Debuff = []*Buff{}
+	this.Allbuff = []*Buff{}
 	this.Camp = camp
 	this.IsMain = ismain
+	this.BattleId = battleid
 }
 
 func (this *GameUnit)CheckBuff (round int32){
@@ -188,6 +193,93 @@ func (this *GameUnit)CheckDebuff (round int32){
 
 }
 
+func (this *GameUnit)CheckAllBuff (round int32){
+	fmt.Println("checkallBuff round is ", round)			//檢測buff效果
+	needDelete := map[*Buff]int{}
+	this.DelBuff = []*Buff{}
+
+	for _, buff := range this.Allbuff{						//如果是沒行動的就無視
+		if buff.BuffKind == kKindNow {
+			continue
+		}
+		if this.IsDead() {		//buff執行中玩家卡牌可能死掉
+			break
+		}
+		if buff.Update(round) {
+			needDelete[buff] = 1
+			this.DelBuff = append(this.DelBuff, buff)		//這個是給戰鬥房間用的 用來寫入戰報
+		}
+	}
+
+	this.deletBuff(needDelete)
+}
+
+func (this *GameUnit) deletBuff (need map[*Buff]int){
+	newList := []*Buff{}
+	for _, buff := range this.Allbuff {
+		_, ok := need[buff]
+		if ok {
+			continue
+		}
+		newList = append(newList, buff)
+	}
+
+	fmt.Println("deletBuff", need)
+	this.Allbuff = newList
+}
+
 func erase(arr []interface{} , idx int) []interface{}{
 	return	append(arr[:idx], arr[idx+1:]...)
+}
+
+func (this *GameUnit) PopAllBuffByDebuff() {
+//删除卡牌身上所有的debuff
+	tmp := map[*Buff]int{}
+
+	for _, buff := range this.Allbuff {
+		if buff.BuffType == kTypeBuff{
+			continue
+		}
+		tmp[buff] = 1
+	}
+
+	newBufflist := []*Buff{}
+
+	for _, v := range this.Allbuff {
+		_, ok := tmp[v]
+		if ok {
+			continue
+		}
+
+		newBufflist = append(newBufflist, v)
+	}
+
+	fmt.Println("PopAllBuffByDebuff")
+	this.Allbuff = newBufflist
+}
+
+func (this *GameUnit) PopAllBuffByBuff() {
+//删除卡牌身上的buff
+	tmp := map[*Buff]int{}
+
+	for _, buff := range this.Allbuff {
+		if buff.BuffType == kTypeDebuff{
+			continue
+		}
+		tmp[buff] = 1
+	}
+
+	newBufflist := []*Buff{}
+
+	for _, v := range this.Allbuff {
+		_, ok := tmp[v]
+		if ok {
+			continue
+		}
+
+		newBufflist = append(newBufflist, v)
+	}
+
+	fmt.Println("PopAllBuffByBuff")
+	this.Allbuff = newBufflist
 }

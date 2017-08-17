@@ -10,15 +10,15 @@ import (
 )
 
 const (
-	kIdle = 0 // 无效状态
-	kUsed = 1 // 使用状态
+	kIdle = 0 			// 无效状态
+	kUsed = 1 			// 使用状态
 
-	kTurn    = 1 //回合數
-	kMaxUnit = 6 //雙方最多上陣卡牌
-	kMaxMove = 2 //行动结束
+	kTurn    = 1 		//回合數
+	kMaxUnit = 6 		//雙方最多上陣卡牌
+	kMaxMove = 2 		//行动结束
 
-	kTimeSleep = 5   //檢測間隔
-	kTimeMax   = 500 //戰鬥持續時間
+	kTimeSleep = 5   	//檢測間隔
+	kTimeMax   = 50000	//戰鬥持續時間
 )
 
 var roomInstId int64 = 1
@@ -34,18 +34,20 @@ type Monster struct {
 
 type BattleRoom struct {
 	sync.Mutex
-	Type 	   int32		 //战斗类型 1是pvp 2是pve
-	InstId     int64         //房间ID
-	Status     int32         //战斗房间状态
-	Round      int32         //回合计数
-	Units      []*GameUnit   //当前战斗中牌 数组索引跟下面玩家对应
-	PlayerList []*GamePlayer //房间中玩家信息
-	Monster    *Monster
-	Turn       int32
-	Winner     int //获胜者
-	ReportAll  []prpc.COM_BattleReport		//zhanbao all
-	ReportOne  prpc.COM_BattleReport		//zhanbao
-	AcctionList  prpc.COM_BattleAction		//zhanbao
+	Type 	   	int32		 				//战斗类型 1是pvp 2是pve
+	InstId     	int64         				//房间ID
+	Status     	int32         				//战斗房间状态
+	Round      	int32         				//回合计数
+	Units      	[]*GameUnit   				//当前战斗中牌 数组索引跟下面玩家对应
+	Dead      	[]*GameUnit   				//本回合死亡的人数
+	PlayerList 	[]*GamePlayer 				//房间中玩家信息
+	Monster    	*Monster
+	Turn       	int32
+	Winner     	int 						//获胜者
+	ReportAll  	[]prpc.COM_BattleReport		//整场战斗的所有战报
+	ReportOne  	prpc.COM_BattleReport		//每回合的战报
+	AcctionList prpc.COM_BattleAction		//行动单元
+	TargetCOM	prpc.COM_BattleActionTarget	//行动单元中的每个子元素
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -65,7 +67,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.PlayerList = append(room.PlayerList, p)
 	room.Type = 2
 
-	room.Monster = CreateMonster(battleid)
+	room.Monster = CreateMonster(battleid, room.InstId)
 
 	p.SetProprty(room.InstId, prpc.CT_RED)
 
@@ -78,7 +80,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	return &room
 }
 
-func CreateMonster(battleid int32) *Monster{
+func CreateMonster(battleid int32, roomid int64) *Monster{
 	t := GetBattleRecordById(battleid)
 
 	m := Monster{}
@@ -86,13 +88,13 @@ func CreateMonster(battleid int32) *Monster{
 	m.MainUnit = CreateUnitFromTable(t.MainId)
 	m.MainUnit.IsMain = true
 	m.MainUnit.Camp = prpc.CT_BLUE
-	fmt.Println("CreateMonster t1.SmallID", t.SmallId)
+	m.MainUnit.BattleId = roomid
 
 	for _, uid := range t.SmallId {
-		fmt.Println("CreateMonster for", uid)
 		t1 := CreateUnitFromTable(uid)
 		t1.Camp = prpc.CT_BLUE
 		t1.IsMain = false
+		t1.BattleId = roomid
 		m.BattleUnitList = append(m.BattleUnitList, t1)
 	}
 
@@ -192,6 +194,10 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		var money int32
 		var win int32
+		round := this.Round
+		deathnum := p.MyDeathNum
+		killmonster := p.KillUnits
+
 		if p.BattleCamp == camp {
 			money = 2000
 			win = 1
@@ -204,6 +210,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		result.Money = money
 		result.Win = win
+		result.BattleRound = round
+		result.KillMOnsters = killmonster
+		result.MySelfDeathNum = deathnum
 		p.session.BattleExit(result)
 		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
 	}
@@ -229,6 +238,7 @@ func (this *BattleRoom) Update() {
 	//顺序排序
 
 	this.ReportOne = prpc.COM_BattleReport{}
+	this.Dead = []*GameUnit{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -242,11 +252,21 @@ func (this *BattleRoom) Update() {
 		}
 
 		this.AcctionList = prpc.COM_BattleAction{}
+		this.TargetOn()
 
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
 
+		fmt.Println("BuffMintsHp 11111", this.AcctionList)
+
+		u.CheckAllBuff(this.Round)
+		this.UpdateBuffState(u)
+
+		fmt.Println("BuffMintsHp 22222", this.AcctionList)
+
 		u.CastSkill2(this)
+
+		this.TargetOver()
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
 
@@ -273,6 +293,11 @@ func (this *BattleRoom) Update() {
 	}
 	fmt.Println("Battle report unitlist is ", this.ReportOne.UnitList)
 	fmt.Println("Battle report acctionlist is ", this.ReportOne.ActionList)
+
+	this.showReport()
+
+	this.SetBattleUnits()
+
 	fmt.Println("Battle status ", this.Status)
 
 	for _, p := range this.PlayerList { //戰鬥結束之後要重置屬性
@@ -290,6 +315,50 @@ func (this *BattleRoom) Update() {
 
 func (this *BattleRoom) calcWinner() bool {
 	return this.Winner != prpc.CT_MAX
+}
+
+func (this *BattleRoom) SetBattleUnits() {
+	for _, unit := range this.Dead {
+		this.Units[unit.Position] = nil
+	}
+}
+
+func (this *BattleRoom) showReport()  {
+	for idx, re := range this.ReportOne.ActionList{
+		fmt.Println("第", idx + 1, "条动作单元")
+		fmt.Println("行动的卡牌ID ", re.InstId)
+		fmt.Println("身上的buff变更 ")
+
+		fmt.Println("\tbuff数值", re.BuffList.BuffData)
+		fmt.Println("\tBUFF变更", re.BuffList.BuffChange)
+		fmt.Println("\t本卡是否因为buff死亡", re.BuffList.Dead)
+
+		fmt.Println("使用的技能 ", re.SkillId)
+		fmt.Println("技能自带的buff ", re.SkillBuff)
+		fmt.Println("技能释放的目标信息为")
+		for idx1, l := range re.TargetList {
+			fmt.Println("\t第", idx1 + 1, "个目标")
+			fmt.Println("\t目标实例ID为", l.InstId)
+			fmt.Println("\t目标受击类型", l.ActionType)
+			fmt.Println("\t目标伤害", l.ActionParam)
+			fmt.Println("\t目标额外信息", l.ActionParamExt)
+			fmt.Println("\t目标是否死亡", l.Dead)
+			fmt.Println("\t目标中的buff", l.BuffAdd)
+			fmt.Print("\n")
+		}
+		fmt.Print("\n")
+	}
+}
+
+func (this *BattleRoom) UpdateBuffState(unit *GameUnit) {
+	for _, buff := range unit.DelBuff {
+		bf := prpc.COM_BattleBuff{}
+		bf.BuffId = buff.BuffId
+		bf.Change = false
+
+		this.AcctionList.BuffList.BuffChange = append(this.AcctionList.BuffList.BuffChange, bf)
+	}
+	return
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
@@ -489,20 +558,27 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
-	t := prpc.COM_BattleActionTarget{}
-	t.InstId = target
-	t.ActionType = 1
-	t.ActionParam = damage
-	t.ActionParamExt = prpc.ToName_BattleExt(int(crit))
-	t.Dead = unit.IsDead()
+	this.TargetCOM.InstId = target
+	this.TargetCOM.ActionType = 1
+	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+	this.TargetCOM.Dead = unit.IsDead()
 
 	//fmt.Println("MintsHp", target, damage, t)
 
-	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
-
 	//fmt.Println("MintsHp2 ", this.AcctionList.TargetList)
 
-	this.isDeadOwner(casterid, target)
+	if unit.IsDead() {
+		this.isDeadOwner(casterid, target)
+		this.Dead = append(this.Dead, unit)
+		if unit.Owner != nil{
+			unit.Owner.MyDeathNum += 1
+		}
+		caster := this.SelectOneUnit(casterid)
+		if caster.Owner != nil {
+			caster.Owner.KillUnits = append(caster.Owner.KillUnits, unit.UnitId)
+		}
+	}
 
 }
 func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
@@ -514,35 +590,75 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 
 	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
 
-	t := prpc.COM_BattleActionTarget{}
-	t.InstId = target
-	t.ActionType = 1
-	t.ActionParam = damage
-	t.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.InstId = target
+	this.TargetCOM.ActionType = 1
+	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 
-	this.AcctionList.TargetList = append(this.AcctionList.TargetList, t)
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
 
-func (this *BattleRoom) AddBuff(target int64, buffid int32, data int32) {
+func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data int32) {
 // 上buff
 
 	unit := this.SelectOneUnit(target)
 
-	buff := NewBuff(unit, buffid, data, this.Round)
+	buff := NewBuff(unit, casterid, buffid, data, this.Round)
 
-	unit.Buff = append(unit.Buff, buff)
+	unit.Allbuff = append(unit.Allbuff, buff)
+
+	fmt.Println("实例ID为", target, "的卡牌获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff")
+	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffid)
 
 }
 
-func (this *BattleRoom) AddDebuff(target int64, buffid int32, data int32) {
+func (this *BattleRoom) AddDebuff(casterid int64, target int64, buffid int32, data int32) {
 // 上buff
 
 	unit := this.SelectOneUnit(target)
 
-	buff := NewBuff(unit, buffid, data, this.Round)
+	buff := NewBuff(unit, casterid, buffid, data, this.Round)
 
-	unit.Debuff = append(unit.Debuff, buff)
+	unit.Allbuff = append(unit.Allbuff, buff)
+	fmt.Println("实例ID为", target, "的卡牌获得了id为", buff.InstId, "的debuff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff")
+	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffid)
 
+}
+
+func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, data int32) {
+	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害")
+	unit := this.SelectOneUnit(target)
+
+	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(data)
+
+	this.AcctionList.BuffList.BuffData = append(this.AcctionList.BuffList.BuffData, data)
+
+	if unit.IsDead() {
+		this.AcctionList.BuffList.Dead = true
+		this.isDeadOwner(casterid, target)
+		this.Dead = append(this.Dead, unit)
+		if unit.Owner != nil{
+			unit.Owner.MyDeathNum += 1
+		}
+		caster := this.SelectOneUnit(casterid)
+		if caster.Owner != nil {
+			caster.Owner.KillUnits = append(caster.Owner.KillUnits, unit.UnitId)
+		}
+	}
+}
+
+func (this *BattleRoom) BuffAddHp(target int64, data int32) {
+
+}
+
+func (this *BattleRoom) TargetOn() {
+	this.TargetCOM = prpc.COM_BattleActionTarget{}
+}
+
+
+func (this *BattleRoom) TargetOver() {
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
 
 func (this *BattleRoom) isDeadOwner (casterid int64, target int64) {

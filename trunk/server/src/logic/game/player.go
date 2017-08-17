@@ -9,15 +9,17 @@ import (
 
 type GamePlayer struct {
 	sync.Locker
-	session        *Session    //链接
-	MyUnit         *GameUnit   //自己的卡片
-	UnitList       []*GameUnit //拥有的卡片
-	BattleUnitList []int64     //默认出战卡片
+	session        	*Session    //链接
+	MyUnit         	*GameUnit   //自己的卡片
+	UnitList       	[]*GameUnit //拥有的卡片
+	BattleUnitList 	[]int64     //默认出战卡片
 
 	//战斗相关辅助信息
-	BattleId   int64 //所在房间编号
-	BattleCamp int   //阵营 //prpc.CompType
-	IsActive   bool  //是否激活
+	BattleId   		int64 		//所在房间编号
+	BattleCamp 		int   		//阵营 //prpc.CompType
+	IsActive   		bool  		//是否激活
+	KillUnits 	 	[]int32 	//杀掉的怪物
+	MyDeathNum		int32		//战斗中自身死亡数量
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,9 +184,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 	this.BattleId = battleid
 	this.BattleCamp = camp
-	this.MyUnit.ResetBattle(camp, true)
+	this.MyUnit.ResetBattle(camp, true, battleid)
 
 	for _, u := range this.UnitList {
-		u.ResetBattle(camp, false)
+		u.ResetBattle(camp, false, battleid)
 	}
 }
