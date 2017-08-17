@@ -87,10 +87,10 @@ struct COM_BattleActionTarget{
 };
 
 //战报buff
-struct COM_BattleBuffAction{	
-	int32				BuffId;		//buffid
+struct COM_BattleBuffAction{
 	int32				BuffData;	//每回合结算的buff数据
 	bool				Dead;		//是否因为buff导致了死亡
+	COM_BattleBuff		BuffChange;
 };
 
 //战
