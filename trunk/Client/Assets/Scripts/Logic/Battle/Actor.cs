@@ -9,6 +9,8 @@ public class Actor {
 
     public HeadBar _Headbar;
 
+    public int _RealPosInScene;
+
     Transform _Pos;
 
     long _InstID;
@@ -25,7 +27,7 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid)
+    public Actor(GameObject go, Vector3 pos, long instid, int realPos)
     {
         if (go == null)
         {
@@ -34,11 +36,12 @@ public class Actor {
         }
         _ActorObj = go;
         _InstID = instid;
+        _RealPosInScene = realPos;
         _ActorObj.transform.position = pos;
         Init();
     }
 
-    public Actor(GameObject go, Transform pos, long instid)
+    public Actor(GameObject go, Transform pos, long instid, int realPos)
     {
         if (go == null)
         {
@@ -48,6 +51,7 @@ public class Actor {
         _ActorObj = go;
         _InstID = instid;
         _Pos = pos;
+        _RealPosInScene = realPos;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
         Init();

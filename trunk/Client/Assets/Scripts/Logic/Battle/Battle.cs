@@ -21,9 +21,7 @@ public class Battle {
     }
 
     static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
-    //static Actor[] _OppoActorInScene = new Actor[12/*BP_Max*/];
     static Transform[] _PosInScene = new Transform[12/*BP_Max*/];
-    //static Transform[] _OppoPosInScene = new Transform[12/*BP_Max*/];
     static GameObject _SceneConfig;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
@@ -94,10 +92,18 @@ public class Battle {
                 }
                 break;
             case BattleState.BS_Oper:
-                if (_OperationFinish)
+                if (GamePlayer._IsAuto)
                 {
-                    _OperatList.Clear();
                     CurrentState = BattleState.BS_Play;
+                    PutCardInBattle();
+                }
+                else
+                {
+                    if (_OperationFinish)
+                    {
+                        _OperatList.Clear();
+                        CurrentState = BattleState.BS_Play;
+                    }
                 }
                 break;
             case BattleState.BS_Play:
@@ -152,6 +158,21 @@ public class Battle {
         _HandCards.Add(_MyGroupCards[idx]);
         _MyGroupCards.RemoveAt(idx);
         RandHandCards(--count);
+    }
+
+    static public void PutCardInBattle()
+    {
+        EntityData entity = null;
+        for(int i=0; i < _HandCards.Count; ++i)
+        {
+            entity = EntityData.GetData(_HandCards [i].UnitId);
+            if (entity != null && entity._Cost <= _Fee)
+            {
+                _SelectedHandCardInstID = _HandCards [i].InstId;
+                OperateSetActor(FindEmptyPos());
+                BattleSetup();
+            }
+        }
     }
 
     static bool LoadAssets()
@@ -253,7 +274,7 @@ public class Battle {
         if (_CrtBuffChecker == null)
         {
             // 处理buff结算 和自身buff的增删
-            _CrtBuffChecker = new BuffChecker(_CrtActor, _ReportAction [0].BuffList, _ReportAction [0].SkillBuff);
+            _CrtBuffChecker = new BuffChecker(_CrtActor, _ReportAction [0].BuffList);
             _CrtBuffChecker.Check();
             return;
         }
@@ -311,7 +332,7 @@ public class Battle {
             actor.MoveTo(_PosInScene [tpos].position, null);
             return;
         }
-        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid);
+        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, pos);
         _ActorInScene[tpos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [tpos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
@@ -339,6 +360,27 @@ public class Battle {
                 return _ActorInScene [i];
         }
         return null;
+    }
+
+    static public int FindEmptyPos()
+    {
+        int emptyPos = -1;
+        for(int i = 0; i < _PosInScene.Length; ++i)
+        {
+            emptyPos = i;
+            for (int j = 0; j < _ActorInScene.Length; ++j)
+            {
+                if (_ActorInScene [j] == null)
+                    continue;
+
+                if (_ActorInScene [j]._RealPosInScene == i)
+                {
+                    emptyPos = -1;
+                    break;
+                }
+            }
+        }
+        return emptyPos;
     }
 
     static public void BattleSetup()
@@ -381,6 +423,9 @@ public class Battle {
 
     static public void OperateSetActor(int pos)
     {
+        if (pos == -1)
+            return;
+        
         bool contains = false;
         for(int i=0; i < _OperatList.Count; ++i)
         {
@@ -403,6 +448,7 @@ public class Battle {
             EntityData eData = EntityData.GetData(entity.UnitId);
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
             AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID);
+            RemoveHandCard(_SelectedHandCardInstID);
         }
 
         SwitchPoint(false);
@@ -416,6 +462,18 @@ public class Battle {
         EntityData eData = EntityData.GetData(_HandCards[idx].UnitId);
         
         return eData;
+    }
+
+    static public void RemoveHandCard(long instid)
+    {
+        for(int i=0; i < _HandCards.Count; ++i)
+        {
+            if (_HandCards [i].InstId == instid)
+            {
+                _HandCards.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     static public bool IsSelfCard(int cardIdx)

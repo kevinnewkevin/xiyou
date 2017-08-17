@@ -9,16 +9,11 @@ public class BuffChecker {
 
     List<COM_BattleBuffAction> _BuffCheck;
 
-    COM_BattleBuff[] _BuffChange;
-
-    public BuffChecker(Actor actor, COM_BattleBuffAction[] buffCheck, COM_BattleBuff[] buffChange)
+    public BuffChecker(Actor actor, COM_BattleBuffAction[] buffCheck)
     {
         _Actor = actor;
         if(buffCheck != null)
             _BuffCheck = new List<COM_BattleBuffAction>(buffCheck);
-
-        if(buffChange != null)
-            _BuffChange = buffChange;
     }
     // 结算
     public void Check()
@@ -31,11 +26,11 @@ public class BuffChecker {
 
         if (_BuffCheck == null || _BuffCheck.Count <= 0)
         {
-            HandleBuff();
+            Clear();
             return;
         }
 
-        BuffData data = BuffData.GetData(_BuffCheck [0].BuffId);
+        BuffData data = BuffData.GetData(_BuffCheck [0].BuffChange.BuffId);
         float maxTime = 0f;
         if (maxTime < data._AnimTime + _Actor.ClipLength(data._Anim))
             maxTime = data._AnimTime + _Actor.ClipLength(data._Anim);
@@ -66,8 +61,7 @@ public class BuffChecker {
             }
             else
             {
-                _BuffCheck.RemoveAt(0);
-                Check();
+                HandleBuff();
             }
         }));
     }
@@ -75,19 +69,24 @@ public class BuffChecker {
     void HandleBuff()
     {
         if (_Actor == null)
-            return;
-
-        if (_BuffChange != null)
         {
-            for (int i = 0; i < _BuffChange.Length; ++i)
-            {
-                if (_BuffChange [i].Change)
-                    _Actor.AddBuff(_BuffChange [i].BuffId);
-                else
-                    _Actor.RemoveBuff(_BuffChange [i].BuffId);
-            }
+            Clear();
+            return;
         }
-        Clear();
+
+        if (_BuffCheck == null || _BuffCheck.Count <= 0)
+        {
+            Clear();
+            return;
+        }
+
+        if (_BuffCheck[0].BuffChange.Change)
+            _Actor.AddBuff(_BuffCheck[0].BuffChange.BuffId);
+        else
+            _Actor.RemoveBuff(_BuffCheck[0].BuffChange.BuffId);
+
+        _BuffCheck.RemoveAt(0);
+        Check();
     }
 
     void Clear()
