@@ -8,8 +8,8 @@ import (
 type Buff struct {
 	Owner       *GameUnit	//挂在谁身上
 	BuffId		int32		//基础id
-	CasterId	int64		//基础id
-	InstId		int32
+	CasterId	int64		//buff释放者id
+	InstId		int32		//buff实例ID
 	Round		int32		//哪个回合上的
 	BuffUntil	int32		//持续多久
 	BuffType	int32		//buff类型 增益还是减益
@@ -51,13 +51,15 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 
 
 func (this *Buff) Update(round int32) bool {
-	fmt.Println("buff Update, buff id is ", this.BuffId, this.BuffKind == kKindNow, this.BuffKind == kKindUntil)
+	fmt.Println("buff每回合更新 实例ID为:", this.InstId)
 
 	if this.Round == round {
+		fmt.Println("本回合上的buff本回合不生效", this.Round, "   ", round)
 		return false
 	}
 
 	if this.BuffKind == kKindNow {		//沒有行為的不需要進行結算
+		fmt.Println("本buff不需要行为")
 		return false
 	} else if this.BuffKind == kKindUntil {
 		if this.IsOver(round) {			//buff結束需要刪除
@@ -69,7 +71,7 @@ func (this *Buff) Update(round int32) bool {
 		//
 		//_L.CallFuncEx("", v, &r)
 		fmt.Println("11111")
-		testBattleBuff(this)
+		testBattleBuff(this, !this.IsOver(round))
 
 		return false
 	} else {
@@ -81,7 +83,7 @@ func (this *Buff) IsOver(round int32) bool {
 	return this.Round + this.BuffUntil <= round
 }
 
-func testBattleBuff(buff *Buff) {
+func testBattleBuff(buff *Buff, over bool) {
 	fmt.Println("testBattleBuff 1, buffid:", buff.BuffId)
 	fmt.Println(buff.Owner.BattleId)
 	battle := FindBattle(buff.Owner.BattleId)
@@ -91,7 +93,7 @@ func testBattleBuff(buff *Buff) {
 	}
 	fmt.Println("testBattleBuff 2")
 
-	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.Data)
+	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, over)
 }
 
 
