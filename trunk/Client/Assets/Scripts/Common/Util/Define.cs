@@ -15,6 +15,7 @@ public class Define {
     public const string ANIMATION_PLAYER_ACTION_IDLE = "stand";
     public const string ANIMATION_PLAYER_ACTION_SHOW = "ruchang";
     public const string ANIMATION_PLAYER_ACTION_BEATTACK = "beattack";
+    public const string ANIMATION_PLAYER_ACTION_DEAD = "dead";
 
     static Dictionary<string, object> globalValues;
 
