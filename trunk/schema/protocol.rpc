@@ -6,6 +6,7 @@ service COM_ClientToServer{
 	AddBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
 	PopBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
 	JoinBattle(); 				 //加入战斗
+	JoinBattlePvE(int32 bigGuanqia, int32 SmallGuanqia); 			 //加入战斗
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
 };
 
