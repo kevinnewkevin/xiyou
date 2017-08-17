@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using FairyGUI;
 
 public class Actor {
@@ -7,7 +7,7 @@ public class Actor {
     //场上角色的Obj
     public GameObject _ActorObj;
 
-    public GameObject _Headbar;
+    public HeadBar _Headbar;
 
     Transform _Pos;
 
@@ -19,6 +19,9 @@ public class Actor {
     const float MOVE_SPEED = 4f;
 
     bool _IsRunning;
+
+    // 身上持有的buff列表
+    List<int> _BuffList;
 
     public delegate void CallBackHandler();
 
@@ -54,16 +57,13 @@ public class Actor {
     {
         _Animation = _ActorObj.GetComponent<Animation>();
 
-        UIPackage.AddPackage("UI/EmitNumbers");
-        Define.LaunchUIBundle("xuetiao");
-        _Headbar = new GameObject();
-        _Headbar.AddComponent<Billboard>();
-        UIPanel headbarpanel = _Headbar.AddComponent<UIPanel>();
-        headbarpanel.componentName = "xuetiao_com";
-        headbarpanel.packageName = "xuetiao";
-        _Headbar.transform.parent = _ActorObj.transform;
-        _Headbar.transform.localScale = Vector3.one;
-        _Headbar.transform.localPosition = new Vector3(0f, 2f, 0f);
+        _Headbar = new HeadBar(this);
+    }
+
+    public void Update()
+    {
+        if (_Headbar != null)
+            _Headbar.Update();
     }
 
     //移动到场上某位置
@@ -164,7 +164,47 @@ public class Actor {
     //Hud操作
     public void PopContent(int value)
     {
-        EmitManager.inst.Emit(_ActorObj.transform, 0, value, UnityEngine.Random.Range(0, 10) == 5);
+        _Headbar.PopContent(value);
+    }
+
+    public void AddBuff(int buffid)
+    {
+        if (_BuffList == null)
+            _BuffList = new List<int>();
+//
+//        if (!_BuffList.Contains(buffid) /* || 可叠加 读表 */)
+            _BuffList.Add(buffid);
+
+        _Headbar._IsDirty = true;
+    }
+
+    public void RemoveBuff(int buffid)
+    {
+        if (_BuffList == null)
+            return;
+
+        if (_BuffList.Contains(buffid))
+            _BuffList.Remove(buffid);
+
+        _Headbar._IsDirty = true;
+    }
+
+    public List<int> BuffList
+    {
+        get
+        {
+            return _BuffList;
+        }
+    }
+
+    public int BuffCount
+    {
+        get
+        {
+            if (_BuffList == null)
+                return 0;
+            return _BuffList.Count;
+        }
     }
 
     public long InstID

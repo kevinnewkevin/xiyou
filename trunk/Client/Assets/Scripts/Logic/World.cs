@@ -40,4 +40,10 @@ public class World {
             return _PlayerActor;
         }
     }
+
+    static public void Update()
+    {
+        if(_PlayerActor != null)
+            _PlayerActor.Update();
+    }
 }

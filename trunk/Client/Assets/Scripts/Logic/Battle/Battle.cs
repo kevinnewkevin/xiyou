@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using FairyGUI;
 
 public class Battle {
 
@@ -33,13 +34,25 @@ public class Battle {
     static bool _IsStagePointInitSuc;
     static public bool _OperationFinish;
     static public bool _ReportIsPlaying;    //仅代表每一个战报单元的状态
+    static public bool _ActorLaunched;
+
+    static BuffChecker _CrtBuffChecker;
+    static Skill _CrtSkill;
+    static Actor _CrtActor;
+    static List<Actor> _CrtTargets;
 
     static public long _SelectedHandCardInstID;
     static public List<COM_Unit> _HandCards = new List<COM_Unit>();
 
     static public int _Turn;
 
+    static public int _Fee;
+
+    static public int _MaxFee;
+
     static public int _Side;
+
+    static public List<COM_Unit> _MyGroupCards;
 
     static public COM_BattleReport BattleReport
     {
@@ -96,6 +109,12 @@ public class Battle {
             default:
                 break;
         }
+
+        for(int i=0; i < _ActorInScene.Length; ++i)
+        {
+            if (_ActorInScene[i] != null)
+                _ActorInScene [i].Update();
+        }
     }
 
     //初始化战斗
@@ -111,18 +130,28 @@ public class Battle {
         _HandCards.Clear();
 
         _HandCards.Add(GamePlayer._Data);
-        RandHandCards(2);
+        _MyGroupCards = GamePlayer.GetBattleCardsCopy();
+
+        int _MaxFee = Define.GetInt("MaxFee");
 
         UIManager.SetDirty("BattlePanel");
     }
 
     static public void RandHandCards(int count)
     {
-        while(count > 0)
-        {
-            _HandCards.Add(GamePlayer._Cards[Random.Range(0, GamePlayer._Cards.Count)]);
-            count--;
-        }
+        if (_MyGroupCards.Count <= 0)
+            return;
+        
+        if (count <= 0)
+            return;
+
+        int idx = Random.Range(0, _MyGroupCards.Count);
+        if (idx < 0 || idx >= _MyGroupCards.Count)
+            return;
+        
+        _HandCards.Add(_MyGroupCards[idx]);
+        _MyGroupCards.RemoveAt(idx);
+        RandHandCards(--count);
     }
 
     static bool LoadAssets()
@@ -188,6 +217,7 @@ public class Battle {
         if (_ReportAction == null || _ReportAction.Count == 0)
             return;
 
+        // 处理每回合新上场角色
         if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
         {
             EntityData entity;
@@ -205,37 +235,66 @@ public class Battle {
             return;
         }
 
-        if (_ReportIsPlaying)
+
+        if (!_ActorLaunched)
+        {
+            // 获取该次行动的施法者 目标
+            _CrtActor = GetActor(_ReportAction [0].InstId);
+            _CrtTargets = new List<Actor>();
+            Actor target;
+            for (int i = 0; i < _ReportAction [0].TargetList.Length; ++i)
+            {
+                target = GetActor(_ReportAction [0].TargetList [i].InstId);
+                _CrtTargets.Add(target);
+            }
+            _ActorLaunched = true;
+        }
+
+        if (_CrtBuffChecker == null)
+        {
+            // 处理buff结算 和自身buff的增删
+            _CrtBuffChecker = new BuffChecker(_CrtActor, _ReportAction [0].BuffList, _ReportAction [0].SkillBuff);
+            _CrtBuffChecker.Check();
             return;
+        }
+        else if (!_CrtBuffChecker._IsChecked)
+        {
+            return;
+        }
 
         // cast skill
-        Actor actor = GetActor(_ReportAction[0].InstId);
-        List<Actor> targets = new List<Actor>();
-        Actor target;
-        for (int i = 0; i < _ReportAction[0].TargetList.Length; ++i)
+        if (_CrtSkill == null)
         {
-            target = GetActor(_ReportAction[0].TargetList[i].InstId);
-            targets.Add(target);
+            _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList);
+            _CrtSkill.Cast();
+            return;
         }
-        Skill skill = new Skill(_ReportAction[0].SkillId, actor, targets.ToArray(), _ReportAction[0].TargetList);
-        skill.Cast();
+        else if(!_CrtSkill._IsCasted)
+        {
+            return;
+        }
 
         _ReportAction.RemoveAt(0);
+        CheckEnd();
+    }
 
-        _ReportIsPlaying = true;
-
-        //if final report play to end;
-        if (_ReportAction.Count == 0)
+    static public void CheckEnd()
+    {
+        if (_ReportAction == null || _ReportAction.Count == 0)
             Judgement();
+
+        _ActorLaunched = false;
+        _CrtBuffChecker = null;
+        _CrtSkill = null;
     }
 
     static void End()
     {
-        if (_ReportIsPlaying)
-            return;
-
         if (_BattleReport != null)
+        {
+            CurrentState = BattleState.BS_Play;
             return;
+        }
 
         Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
         UIManager.Show("jiesuanjiemian");
@@ -297,7 +356,16 @@ public class Battle {
             CurrentState = BattleState.BS_Result;
 
         _BattleReport = null;
+
+        // 从第二回合开始 每回合结束加 1 费
         _Turn++;
+        if (_Turn > 1)
+            AddFee(1);
+
+        if (_Turn == 2)
+            RandHandCards(3);
+        if(_Turn > 2)
+            RandHandCards(1);
     }
 
     static public void SwitchPoint(bool on)
@@ -340,6 +408,16 @@ public class Battle {
         SwitchPoint(false);
     }
 
+    static public EntityData GetHandCard(int idx)
+    {
+        if (idx < 0 || idx >= _HandCards.Count)
+            return null;
+
+        EntityData eData = EntityData.GetData(_HandCards[idx].UnitId);
+        
+        return eData;
+    }
+
     static public bool IsSelfCard(int cardIdx)
     {
         if (cardIdx < 0 || cardIdx >= _HandCards.Count)
@@ -363,6 +441,28 @@ public class Battle {
         {
             return _Result == BattleResult.BR_Win;
         }
+    }
+
+    static public void AddFee(int count)
+    {
+        _Fee += count;
+        if (_Fee > _MaxFee)
+            _Fee = _MaxFee;
+
+        UIManager.SetDirty("BattlePanel");
+    }
+
+    static public bool CostFee(int count)
+    {
+        if (count > _MaxFee)
+            return false;
+        
+        if (_Fee < count)
+            return false;
+        
+        _Fee -= count;
+        UIManager.SetDirty("BattlePanel");
+        return true;
     }
 
     //销毁场景 角色 UI

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Skill {
 
+    public bool _IsCasting;
+    public bool _IsCasted;
+
     // 技能静态数据
     SkillData _SkillData;
 
@@ -30,10 +33,15 @@ public class Skill {
 
     public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets)
     {
+        _IsCasting = true;
         // get skilldata by id
 
         _SkillData = SkillData.GetData(skillId);
-
+        if (_SkillData == null)
+        {
+            Clear();
+            return;
+        }
 
         // 根据技能类型初始化特效
         if (!string.IsNullOrEmpty(_SkillData._CastEffect))
@@ -110,10 +118,16 @@ public class Skill {
     public bool Cast()
     {
         if (_Caster == null)
+        {
+            Clear();
             return false;
+        }
 
         if (_Targets == null || _Targets.Length == 0)
+        {
+            Clear();
             return false;
+        }
 
         // 判断技能是否是近战
         if (_SkillData._IsMelee)
@@ -173,7 +187,7 @@ public class Skill {
                     }), new TimerParam(attackTime, delegate
                     {
                         _Caster.MoveTo(_OriginPos, delegate {
-                            Battle._ReportIsPlaying = false;
+                            Clear();
                             _Caster.Stop();
                             _Caster.Reset();
                         });
@@ -239,7 +253,7 @@ public class Skill {
                         GameObject.Destroy(_SkillEff[i]);
                     }
 
-                    Battle._ReportIsPlaying = false;
+                    Clear();
                     _Caster.Stop();
                     _Caster.Reset();
                 }));
@@ -251,6 +265,7 @@ public class Skill {
 
     void Clear()
     {
-        
+        _IsCasting = false;
+        _IsCasted = true;
     }
 }

@@ -220,4 +220,9 @@ public class GamePlayer {
 
         _CardGroup [groupidx].Clear();
     }
+
+    static public List<COM_Unit> GetBattleCardsCopy()
+    {
+        return new List<COM_Unit>(_CardGroup [_CrtBattleGroupIdx]);
+    }
 }

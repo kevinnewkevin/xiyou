@@ -157,4 +157,13 @@ public class MainSceneTouch : MonoBehaviour {
         Stage.inst.onTouchEnd.Remove(OnTouchEnd);
         Stage.inst.onTouchMove.Remove(OnTouchMove);
     }
+
+//    void OnGUI()
+//    {
+//        if (GUILayout.Button("加buff"))
+//            World.PlayerActor.AddBuff(1);
+//
+//        if (GUILayout.Button("减buff"))
+//            World.PlayerActor.RemoveBuff(1);
+//    }
 }
