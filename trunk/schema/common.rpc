@@ -70,6 +70,12 @@ struct COM_BattleUnit{
 	string 		Name;
 };
 
+//Buff变更
+struct COM_BattleBuff{
+	int32			BuffId;			//buffid
+	bool			Change;			//buff变更 true是增加 false是删除
+};
+
 //战斗操作对象
 struct COM_BattleActionTarget{
 	int64 				InstId;				//target
@@ -77,29 +83,22 @@ struct COM_BattleActionTarget{
 	int32				ActionParam;		//伤害数值
 	string				ActionParamExt;		//是否暴击
 	bool				Dead;				//死亡
-	int32[]				BuffAdd;			//目标是否增加的buff
-};
-
-//Buff变更
-struct COM_BattleBuff{
-	int32			BuffId;			//buffid
-	bool			Change;			//buff变更 true是增加 false是删除
+	COM_BattleBuff[]	BuffAdd;			//目标是否增加的buff
 };
 
 //战报buff
-struct COM_BattleBuffAction{		
-	int32[]				BuffData;	//每回合结算的buff数据
-	COM_BattleBuff[]	BuffChange;	//本回合buff整体的变化
+struct COM_BattleBuffAction{	
+	int32				BuffId;		//buffid
+	int32				BuffData;	//每回合结算的buff数据
 	bool				Dead;		//是否因为buff导致了死亡
 };
-
 
 //战
 struct COM_BattleAction{
 	int64 			 			InstId;					//释放者实例id
 	COM_BattleBuffAction 		BuffList;				//本回合结算buff
 	int32 			 			SkillId;				//释放技能id
-	int32[] 					SkillBuff;				//技能给予释放者的buff
+	COM_BattleBuff[] 			SkillBuff;				//技能给予释放者的buff
 	COM_BattleActionTarget[] 	TargetList;				//技能目标的情况
 };
 
