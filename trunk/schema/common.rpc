@@ -96,7 +96,7 @@ struct COM_BattleBuffAction{
 //战
 struct COM_BattleAction{
 	int64 			 			InstId;					//释放者实例id
-	COM_BattleBuffAction 		BuffList;				//本回合结算buff
+	COM_BattleBuffAction[] 		BuffList;				//本回合结算buff
 	int32 			 			SkillId;				//释放技能id
 	COM_BattleBuff[] 			SkillBuff;				//技能给予释放者的buff
 	COM_BattleActionTarget[] 	TargetList;				//技能目标的情况
