@@ -14,8 +14,11 @@ public class BuffChecker {
     public BuffChecker(Actor actor, COM_BattleBuffAction[] buffCheck, COM_BattleBuff[] buffChange)
     {
         _Actor = actor;
-        _BuffCheck = new List<COM_BattleBuffAction>(buffCheck);
-        _BuffChange = buffChange;
+        if(buffCheck != null)
+            _BuffCheck = new List<COM_BattleBuffAction>(buffCheck);
+
+        if(buffChange != null)
+            _BuffChange = buffChange;
     }
     // 结算
     public void Check()
@@ -74,12 +77,15 @@ public class BuffChecker {
         if (_Actor == null)
             return;
 
-        for(int i=0; i < _BuffChange.Length; ++i)
+        if (_BuffChange != null)
         {
-            if(_BuffChange[i].Change)
-                _Actor.AddBuff(_BuffChange[i].BuffId);
-            else
-                _Actor.RemoveBuff(_BuffChange[i].BuffId);
+            for (int i = 0; i < _BuffChange.Length; ++i)
+            {
+                if (_BuffChange [i].Change)
+                    _Actor.AddBuff(_BuffChange [i].BuffId);
+                else
+                    _Actor.RemoveBuff(_BuffChange [i].BuffId);
+            }
         }
         Clear();
     }
