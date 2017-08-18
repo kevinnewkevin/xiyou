@@ -27,6 +27,8 @@ function zhujiemian:OnInit()
 	local bottomBtnList = bottomGroup:GetChild("n15").asList;
 	local cardCargo = bottomBtnList:GetChildAt(3);
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
+	local taskBtn = bottomBtnList:GetChildAt(4);
+	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
 
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
@@ -77,3 +79,9 @@ end
 function zhujiemian_OnCardCargo()
 	UIManager.Show("paiku");
 end
+
+function zhujiemian_OnTaskBtn()
+	UIManager.Show("jiehun");
+end
+
+
