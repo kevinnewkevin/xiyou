@@ -126,9 +126,6 @@ public class Battle {
     //初始化战斗
     static public void Init(int side)
     {
-        _Fee = 5;
-
-
         _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;

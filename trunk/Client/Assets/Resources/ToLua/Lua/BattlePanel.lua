@@ -6,6 +6,7 @@ local Window;
 local autoBtn;
 local stateIcon;
 local battStartIcon;
+local battleTurn;
 
 local battleStart = {};
 battleStart.max = 1;
@@ -14,6 +15,7 @@ battleStart.count = 0;
 local cards = {};
 local cardsInGroup = {};
 local cardsInGroupNum;
+local fees = {};
 
 function BattlePanel:OnEntry()
 	Window = BattlePanel.New();
@@ -25,6 +27,8 @@ function BattlePanel:OnInit()
 	self:Center();
 
 	battStartIcon = self.contentPane:GetChild("n7").asImage;
+
+	battleTurn = self.contentPane:GetChild("n36");
 
 	local returnBtn = self.contentPane:GetChild("n8").asButton;
 	returnBtn.onClick:Add(BattlePanel_OnReturnBtn);
@@ -40,13 +44,18 @@ function BattlePanel:OnInit()
 		cards[i]["card"] = self.contentPane:GetChild("n" .. (16 + i)).asCom;
 		cards[i]["power"] = cards[i]["card"]:GetChild("power");
 		cards[i]["cost"] = cards[i]["card"]:GetChild("cost");
+		cards[i]["card"].data = i;
+		cards[i]["card"].onClick:Add(BattlePanel_OnCardClick);
 	end
 
 	for i=1, 10 do
 		cardsInGroup[i] = self.contentPane:GetChild("n" .. (23 + i));
-		if cardsInGroup[i] == nil then
-			print(i .. " is nil");
-		end
+	end
+
+	for i=1, 5 do
+		fees[i] = {};
+		fees[i]["com"] = self.contentPane:GetChild("n" .. (36 + i));
+		fees[i]["controller"] = fees[i]["com"]:GetController("c1");
 	end
 
 	cardsInGroupNum = self.contentPane:GetChild("n43");
@@ -100,17 +109,21 @@ function BattlePanel_FlushData()
 	end
 
 	local cardNum = Battle._LeftCardNum;
+	local eData;
 	for i=1, 5 do
 		if i <= cardNum then
-			cards[i]["card"].data = i;
-			cards[i]["card"].onClick:Add(BattlePanel_OnCardClick);
+			eData = Battle.GetHandCard(i-1);
 			cards[i]["power"].text = i;
-			cards[i]["cost"].text = i;
+			cards[i]["cost"].text = eData._Cost;
 			cards[i]["card"].visible = true;
-			if Battle._Turn == 1 and not Battle.IsSelfCard(i-1) then
-				cards[i]["card"].enabled = false;
-			else
+			if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
 				cards[i]["card"].enabled = true;
+			else
+				if Battle._Fee < eData._Cost then
+					cards[i]["card"].enabled = false;
+				else
+					cards[i]["card"].enabled = true;
+				end
 			end
 		else
 			cards[i]["card"].visible = false;
@@ -118,7 +131,7 @@ function BattlePanel_FlushData()
 	end
 
 	local mainActor = Battle.GetActor(GamePlayer._InstID);
-	if Battle._Turn == 1 and mainActor == NULL then
+	if Battle._Turn == 1 and mainActor == nil then
 		if Battle._CurrentState == Battle.BattleState.BS_Oper then
 			stateIcon.enabled = false;
 		end
@@ -140,16 +153,45 @@ function BattlePanel_FlushData()
 	else
 		cardsInGroupNum.visible = true;
 	end
+
+	battleTurn.text = "第" .. Battle._Turn .. "回合";
+	BattlePanel_SetFeeCount(Battle._Fee);
+end
+
+function BattlePanel_SetFeeCount(count)
+	print(count .. " fee");
+	for i=1, 5 do
+		if i <= count then
+			print("visible = true");
+			fees[i]["com"].visible = true;
+		else
+			fees[i]["com"].visible = false;
+		end
+		fees[i]["controller"].selectedIndex = 1;
+	end
+end
+
+function BattlePanel_SetFeeCostCount(count)
+	for i=1, 5 do
+		if i <= count then
+			fees[i]["controller"].selectedIndex = 0;
+		else
+			fees[i]["controller"].selectedIndex = 1;
+		end
+	end
 end
 
 function BattlePanel_OnCardClick(context)
 	print(context.sender.data);
 	Proxy4Lua.SelectCard4Ready(context.sender.data - 1);
+	local eData = Battle.GetHandCard(context.sender.data - 1);
+	if eData ~= nil then
+		BattlePanel_SetFeeCostCount(eData._Cost);
+	end
 end
 
 function BattlePanel_OnReturnBtn()
 	print("OnReturnBtn");
-	SceneLoader.LoadScene("main");
 end
 
 function BattlePanel_OnTurnOver()
