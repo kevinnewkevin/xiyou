@@ -451,6 +451,7 @@ public class Battle {
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
             AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID);
             RemoveHandCard(_SelectedHandCardInstID);
+            CostFee(eData._Cost);
         }
 
         SwitchPoint(false);
