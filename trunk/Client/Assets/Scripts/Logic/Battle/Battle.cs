@@ -138,7 +138,7 @@ public class Battle {
         _HandCards.Add(GamePlayer._Data);
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
-        int _MaxFee = Define.GetInt("MaxFee");
+        _MaxFee = Define.GetInt("MaxFee");
 
         UIManager.SetDirty("BattlePanel");
     }
