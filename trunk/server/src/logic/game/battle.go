@@ -796,3 +796,29 @@ setup_check_success:
 
 	//fmt.Println("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
 }
+
+////////////////////////////////////////////////////////////////////////
+////属性检测
+////////////////////////////////////////////////////////////////////////
+
+func (this *BattleRoom) HasBuff(target int64) bool {
+	unit := this.SelectOneUnit(target)
+
+	for _, buff := range unit.Allbuff {
+		if buff.BuffType == kTypeBuff {
+			return true
+		}
+	}
+	return false
+}
+
+func (this *BattleRoom) HasDebuff(target int64) bool {
+	unit := this.SelectOneUnit(target)
+
+	for _, buff := range unit.Allbuff {
+		if buff.BuffType == kTypeDebuff {
+			return true
+		}
+	}
+	return false
+}

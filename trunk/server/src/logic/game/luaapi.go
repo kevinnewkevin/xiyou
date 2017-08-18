@@ -12,6 +12,8 @@ extern int __Cure(void*);
 extern int __GetTime(void*);
 extern int __GetCrit(void*);
 extern int __AddBuff(void*);
+extern int __HasBuff(void*);
+extern int __HasDebuff(void*);
 */
 import "C"
 import (
@@ -45,6 +47,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__Cure,"Cure","Battle")
 	_L.LoadApi(C.__GetCrit,"GetCrit","Battle")
 	_L.LoadApi(C.__AddBuff,"AddBuff","Battle")
+	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
+	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
@@ -297,6 +301,48 @@ func __AddBuff(p unsafe.Pointer) C.int {
 	battle := FindBattle(int64(battleid))
 
 	battle.AddBuff(int64(casterid), int64(target), int32(buffid), int32(data))
+
+	return 1
+}
+
+//export __HasBuff
+func __HasBuff(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__AddBuff")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	target := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	//battle.AddBuff(int64(casterid), int64(target), int32(buffid), int32(data))
+	has := battle.HasBuff(int64(target))
+
+	L.PushBoolean(has)
+
+	return 1
+}
+
+//export __HasDebuff
+func __HasDebuff(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__AddBuff")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	target := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	//battle.AddBuff(int64(casterid), int64(target), int32(buffid), int32(data))
+	has := battle.HasDebuff(int64(target))
+
+	L.PushBoolean(has)
 
 	return 1
 }
