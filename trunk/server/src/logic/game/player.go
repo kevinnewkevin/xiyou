@@ -127,7 +127,7 @@ func (this *GamePlayer) JoinBattle() {
 
 	battlePlayerList = append(battlePlayerList, this)
 
-	if len(battlePlayerList) == 1 {
+	if len(battlePlayerList) == 2 {
 		//把他俩都拉到战斗力去			这里还要加一个判断,不能重复加入战斗
 		CreatePvP(battlePlayerList[0], battlePlayerList[1])
 		//CreatePvE(battlePlayerList[0], 1)
