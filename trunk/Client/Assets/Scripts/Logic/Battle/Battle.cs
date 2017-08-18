@@ -250,7 +250,7 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].HP, _BattleReport.UnitList[i].HP);
             }
             _BattleReport.UnitList = null;
             return;
@@ -323,7 +323,7 @@ public class Battle {
     }
 
     //场上添加一个角色
-    static void AddActor(GameObject go, int pos, long instid)
+    static void AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp)
     {
         int tpos = _Side == 0? pos: ConvertedPos(pos);
         Actor actor = GetActor(instid);
@@ -332,7 +332,7 @@ public class Battle {
             actor.MoveTo(_PosInScene [tpos].position, null);
             return;
         }
-        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, pos);
+        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, pos, crtHp, maxHp);
         _ActorInScene[tpos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [tpos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
@@ -449,7 +449,7 @@ public class Battle {
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
             EntityData eData = EntityData.GetData(entity.UnitId);
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
-            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID);
+            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100);
             RemoveHandCard(_SelectedHandCardInstID);
             CostFee(eData._Cost);
         }

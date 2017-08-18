@@ -11,6 +11,9 @@ public class Actor {
 
     public int _RealPosInScene;
 
+    public int _CrtValue;   //当前血量
+    public int _MaxValue;  //最大血量
+
     Transform _Pos;
 
     long _InstID;
@@ -27,7 +30,7 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid, int realPos)
+    public Actor(GameObject go, Vector3 pos, long instid, int realPos, int crtHp, int maxHp)
     {
         if (go == null)
         {
@@ -37,11 +40,13 @@ public class Actor {
         _ActorObj = go;
         _InstID = instid;
         _RealPosInScene = realPos;
+        _CrtValue = crtHp;
+        _MaxValue = maxHp;
         _ActorObj.transform.position = pos;
         Init();
     }
 
-    public Actor(GameObject go, Transform pos, long instid, int realPos)
+    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp)
     {
         if (go == null)
         {
@@ -52,6 +57,8 @@ public class Actor {
         _InstID = instid;
         _Pos = pos;
         _RealPosInScene = realPos;
+        _CrtValue = crtHp;
+        _MaxValue = maxHp;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
         Init();
@@ -62,6 +69,14 @@ public class Actor {
         _Animation = _ActorObj.GetComponent<Animation>();
 
         _Headbar = new HeadBar(this);
+    }
+
+    public void UpdateValue(int value, int maxValue)
+    {
+        _CrtValue += value;
+        if(maxValue != -1)
+            _MaxValue = maxValue;
+        _Headbar._IsDirty = true;
     }
 
     public void Update()

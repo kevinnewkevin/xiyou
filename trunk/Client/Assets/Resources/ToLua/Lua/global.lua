@@ -20,4 +20,5 @@ end
 
 function RegGlobalValue()
 	Define.Set("UIModelScale", 200);
+	Define.Set("MaxFee", 5);
 end

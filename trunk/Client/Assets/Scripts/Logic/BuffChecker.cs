@@ -47,6 +47,7 @@ public class BuffChecker {
             
         }), new TimerParam(data._EmitTime, delegate
         {
+            _Actor.UpdateValue(_BuffCheck[0].BuffData, -1/*_BuffCheck[0].BuffMax*/);
             _Actor.PopContent(_BuffCheck[0].BuffData);
         }), new TimerParam(maxTime, delegate
         {

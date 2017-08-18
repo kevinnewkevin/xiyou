@@ -182,6 +182,7 @@ public class Skill {
                     {
                         for (int i = 0; i < _Targets.Length; ++i)
                         {
+                            _Targets[i].UpdateValue(_Actions[i].ActionParam, -1);
                             _Targets[i].PopContent(_Actions[i].ActionParam);
                         }
                     }), new TimerParam(attackTime, delegate
@@ -243,6 +244,7 @@ public class Skill {
                 {
                     for (int i = 0; i < _Targets.Length; ++i)
                     {
+                        _Targets[i].UpdateValue(_Actions[i].ActionParam, -1);
                         _Targets[i].PopContent(_Actions[i].ActionParam);
                     }
                 }), new TimerParam(_SkillData._TotalTime, delegate
