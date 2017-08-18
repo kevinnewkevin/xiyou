@@ -53,6 +53,7 @@ public class DataLoader {
         RegistTables("Scene", SceneData.ParseData);
         RegistTables("skill", SkillData.ParseData);
         RegistTables("entity", EntityData.ParseData);
+		RegistTables("HeroStroy", HeroStroyData.ParseData);
         RegistTables("buff", BuffData.ParseData);
     }
 
