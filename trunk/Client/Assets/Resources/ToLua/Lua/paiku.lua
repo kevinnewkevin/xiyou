@@ -44,6 +44,8 @@ function paiku:OnInit()
 	local deleteBtn = cardGroup:GetChild("n24").asButton;
 	deleteBtn.onClick:Add(paiku_OnDeleteGroup);
 	cardGroupList = cardGroup:GetChild("n27").asList;
+	local setBattleBtn = cardGroup:GetChild("n29").asButton;
+	setBattleBtn.onClick:Add(paiku_OnSetBattle);
 
 	--test
 
@@ -69,9 +71,19 @@ function paiku_OnDeleteGroup(context)
 	MessageBox:SetData("提示", "是否删除卡组？", false, paiku_OnDelete);
 end
 
+function paiku_OnSetBattle(context)
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否设置当前卡组为出战卡组？", false, paiku_OnSet);
+end
+
+function paiku_OnSet(context)
+	GamePlayer._CrtBattleGroupIdx = crtGroupIdx;
+	UIManager.HideMessageBox();
+	UIManager.SetDirty("paiku");
+end
+
 function paiku_OnDelete()
 	GamePlayer.DeleteGroup(crtGroupIdx);
-	paiku_FlushData();
 	UIManager.HideMessageBox();
 	UIManager.SetDirty("paiku");
 end
@@ -117,6 +129,16 @@ function paiku_FlushData()
 		itemBtn.data = GamePlayer.GetInstIDInMyGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
 		itemBtn.onDragEnd:Add(paiku_OnDropCard);
+	end
+
+	local groupItem;
+	for i=1, 5 do
+		groupItem = allCardGroupList:GetChildAt(i-1);
+		if i - 1 == GamePlayer._CrtBattleGroupIdx then
+			groupItem:GetChild("n4").visible = true;
+		else
+			groupItem:GetChild("n4").visible = false;
+		end
 	end
 end
 

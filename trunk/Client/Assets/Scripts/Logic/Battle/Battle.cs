@@ -488,6 +488,17 @@ public class Battle {
         return GamePlayer.IsMe(_HandCards[cardIdx].InstId);
     }
 
+    static public int CardsInGroupCount
+    {
+        get
+        {
+            if (_MyGroupCards == null)
+                return 0;
+            
+            return _MyGroupCards.Count;
+        }
+    }
+
     static public BattleState CurrentState
     {
         set

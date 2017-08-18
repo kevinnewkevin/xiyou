@@ -12,6 +12,8 @@ battleStart.max = 1;
 battleStart.count = 0;
 
 local cards = {};
+local cardsInGroup = {};
+local cardsInGroupNum;
 
 function BattlePanel:OnEntry()
 	Window = BattlePanel.New();
@@ -39,6 +41,15 @@ function BattlePanel:OnInit()
 		cards[i]["power"] = cards[i]["card"]:GetChild("power");
 		cards[i]["cost"] = cards[i]["card"]:GetChild("cost");
 	end
+
+	for i=1, 10 do
+		cardsInGroup[i] = self.contentPane:GetChild("n" .. (23 + i));
+		if cardsInGroup[i] == nil then
+			print(i .. " is nil");
+		end
+	end
+
+	cardsInGroupNum = self.contentPane:GetChild("n43");
 
 	BattlePanel_FlushData();
 end
@@ -113,6 +124,21 @@ function BattlePanel_FlushData()
 		end
 	else 
 		stateIcon.enabled = true;
+	end
+
+	for i=1, 10 do
+		if i <= Battle.CardsInGroupCount then
+			cardsInGroup[i].visible = true;
+		else
+			cardsInGroup[i].visible = false;
+		end
+	end
+
+	cardsInGroupNum.text = Battle.CardsInGroupCount;
+	if Battle.CardsInGroupCount <= 0 then
+		cardsInGroupNum.visible = false;
+	else
+		cardsInGroupNum.visible = true;
 	end
 end
 
