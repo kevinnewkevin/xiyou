@@ -19,6 +19,7 @@ public static class LuaBinder
 		BattleWrap.Register(L);
 		UIParamHolderWrap.Register(L);
 		DefineWrap.Register(L);
+		EntityDataWrap.Register(L);
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_TransformWrap.Register(L);

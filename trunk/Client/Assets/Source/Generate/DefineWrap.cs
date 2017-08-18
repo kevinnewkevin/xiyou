@@ -24,6 +24,7 @@ public class DefineWrap
 		L.RegVar("ANIMATION_PLAYER_ACTION_IDLE", get_ANIMATION_PLAYER_ACTION_IDLE, null);
 		L.RegVar("ANIMATION_PLAYER_ACTION_SHOW", get_ANIMATION_PLAYER_ACTION_SHOW, null);
 		L.RegVar("ANIMATION_PLAYER_ACTION_BEATTACK", get_ANIMATION_PLAYER_ACTION_BEATTACK, null);
+		L.RegVar("ANIMATION_PLAYER_ACTION_DEAD", get_ANIMATION_PLAYER_ACTION_DEAD, null);
 		L.EndClass();
 	}
 
@@ -268,6 +269,20 @@ public class DefineWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ANIMATION_PLAYER_ACTION_DEAD(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, Define.ANIMATION_PLAYER_ACTION_DEAD);
 			return 1;
 		}
 		catch(Exception e)

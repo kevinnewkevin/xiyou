@@ -35,7 +35,7 @@ public class EmitComponent : GComponent
 		else
 			tf.font = EmitManager.inst.hurtFont2;
 		_numberText.textFormat = tf;
-		_numberText.text = "-" + hurt;
+        _numberText.text = hurt > 0? hurt.ToString(): "-" + hurt;
 
 		if (critical)
 			_symbolLoader.url = EmitManager.inst.criticalSign;

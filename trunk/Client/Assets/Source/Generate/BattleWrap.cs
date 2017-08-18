@@ -10,12 +10,19 @@ public class BattleWrap
 		L.RegFunction("Update", Update);
 		L.RegFunction("Init", Init);
 		L.RegFunction("RandHandCards", RandHandCards);
+		L.RegFunction("PutCardInBattle", PutCardInBattle);
+		L.RegFunction("CheckEnd", CheckEnd);
 		L.RegFunction("GetActor", GetActor);
+		L.RegFunction("FindEmptyPos", FindEmptyPos);
 		L.RegFunction("BattleSetup", BattleSetup);
 		L.RegFunction("Judgement", Judgement);
 		L.RegFunction("SwitchPoint", SwitchPoint);
 		L.RegFunction("OperateSetActor", OperateSetActor);
+		L.RegFunction("GetHandCard", GetHandCard);
+		L.RegFunction("RemoveHandCard", RemoveHandCard);
 		L.RegFunction("IsSelfCard", IsSelfCard);
+		L.RegFunction("AddFee", AddFee);
+		L.RegFunction("CostFee", CostFee);
 		L.RegFunction("Fini", Fini);
 		L.RegFunction("New", _CreateBattle);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -25,14 +32,19 @@ public class BattleWrap
 		L.RegVar("_ReportAction", get__ReportAction, set__ReportAction);
 		L.RegVar("_OperationFinish", get__OperationFinish, set__OperationFinish);
 		L.RegVar("_ReportIsPlaying", get__ReportIsPlaying, set__ReportIsPlaying);
+		L.RegVar("_ActorLaunched", get__ActorLaunched, set__ActorLaunched);
 		L.RegVar("_SelectedHandCardInstID", get__SelectedHandCardInstID, set__SelectedHandCardInstID);
 		L.RegVar("_HandCards", get__HandCards, set__HandCards);
 		L.RegVar("_Turn", get__Turn, set__Turn);
+		L.RegVar("_Fee", get__Fee, set__Fee);
+		L.RegVar("_MaxFee", get__MaxFee, set__MaxFee);
 		L.RegVar("_Side", get__Side, set__Side);
+		L.RegVar("_MyGroupCards", get__MyGroupCards, set__MyGroupCards);
 		L.RegVar("_OperatList", get__OperatList, set__OperatList);
 		L.RegVar("BattleReport", null, set_BattleReport);
 		L.RegVar("_LeftCardNum", get__LeftCardNum, null);
 		L.RegVar("SetResult", null, set_SetResult);
+		L.RegVar("CardsInGroupCount", get_CardsInGroupCount, null);
 		L.RegVar("CurrentState", get_CurrentState, set_CurrentState);
 		L.RegVar("IsWin", get_IsWin, null);
 		L.EndClass();
@@ -110,6 +122,36 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PutCardInBattle(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Battle.PutCardInBattle();
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CheckEnd(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Battle.CheckEnd();
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetActor(IntPtr L)
 	{
 		try
@@ -118,6 +160,22 @@ public class BattleWrap
 			long arg0 = LuaDLL.tolua_checkint64(L, 1);
 			Actor o = Battle.GetActor(arg0);
 			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FindEmptyPos(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			int o = Battle.FindEmptyPos();
+			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
 		catch(Exception e)
@@ -189,6 +247,39 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetHandCard(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			EntityData o = Battle.GetHandCard(arg0);
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int RemoveHandCard(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			long arg0 = LuaDLL.tolua_checkint64(L, 1);
+			Battle.RemoveHandCard(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IsSelfCard(IntPtr L)
 	{
 		try
@@ -196,6 +287,39 @@ public class BattleWrap
 			ToLua.CheckArgsCount(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
 			bool o = Battle.IsSelfCard(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddFee(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			Battle.AddFee(arg0);
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CostFee(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			bool o = Battle.CostFee(arg0);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
@@ -305,6 +429,20 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__ActorLaunched(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushboolean(L, Battle._ActorLaunched);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__SelectedHandCardInstID(IntPtr L)
 	{
 		try
@@ -347,11 +485,53 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__Fee(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle._Fee);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__MaxFee(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle._MaxFee);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__Side(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushinteger(L, Battle._Side);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__MyGroupCards(IntPtr L)
+	{
+		try
+		{
+			ToLua.PushObject(L, Battle._MyGroupCards);
 			return 1;
 		}
 		catch(Exception e)
@@ -380,6 +560,20 @@ public class BattleWrap
 		try
 		{
 			LuaDLL.lua_pushinteger(L, Battle._LeftCardNum);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_CardsInGroupCount(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, Battle.CardsInGroupCount);
 			return 1;
 		}
 		catch(Exception e)
@@ -507,6 +701,21 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__ActorLaunched(IntPtr L)
+	{
+		try
+		{
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			Battle._ActorLaunched = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set__SelectedHandCardInstID(IntPtr L)
 	{
 		try
@@ -552,12 +761,57 @@ public class BattleWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__Fee(IntPtr L)
+	{
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			Battle._Fee = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__MaxFee(IntPtr L)
+	{
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			Battle._MaxFee = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set__Side(IntPtr L)
 	{
 		try
 		{
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			Battle._Side = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__MyGroupCards(IntPtr L)
+	{
+		try
+		{
+			System.Collections.Generic.List<COM_Unit> arg0 = (System.Collections.Generic.List<COM_Unit>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<COM_Unit>));
+			Battle._MyGroupCards = arg0;
 			return 0;
 		}
 		catch(Exception e)

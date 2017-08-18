@@ -22,6 +22,7 @@ public class GamePlayerWrap
 		L.RegFunction("PutInCard", PutInCard);
 		L.RegFunction("TakeOffCard", TakeOffCard);
 		L.RegFunction("DeleteGroup", DeleteGroup);
+		L.RegFunction("GetBattleCardsCopy", GetBattleCardsCopy);
 		L.RegFunction("New", _CreateGamePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("_InstID", get__InstID, set__InstID);
@@ -30,6 +31,7 @@ public class GamePlayerWrap
 		L.RegVar("_Data", get__Data, set__Data);
 		L.RegVar("_Cards", get__Cards, set__Cards);
 		L.RegVar("_CardGroup", get__CardGroup, set__CardGroup);
+		L.RegVar("_CrtBattleGroupIdx", get__CrtBattleGroupIdx, set__CrtBattleGroupIdx);
 		L.EndClass();
 	}
 
@@ -314,6 +316,22 @@ public class GamePlayerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetBattleCardsCopy(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			System.Collections.Generic.List<COM_Unit> o = GamePlayer.GetBattleCardsCopy();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get__InstID(IntPtr L)
 	{
 		try
@@ -389,6 +407,20 @@ public class GamePlayerWrap
 		try
 		{
 			ToLua.PushObject(L, GamePlayer._CardGroup);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get__CrtBattleGroupIdx(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushinteger(L, GamePlayer._CrtBattleGroupIdx);
 			return 1;
 		}
 		catch(Exception e)
@@ -479,6 +511,21 @@ public class GamePlayerWrap
 		{
 			System.Collections.Generic.List<System.Collections.Generic.List<COM_Unit>> arg0 = (System.Collections.Generic.List<System.Collections.Generic.List<COM_Unit>>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<System.Collections.Generic.List<COM_Unit>>));
 			GamePlayer._CardGroup = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set__CrtBattleGroupIdx(IntPtr L)
+	{
+		try
+		{
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GamePlayer._CrtBattleGroupIdx = arg0;
 			return 0;
 		}
 		catch(Exception e)
