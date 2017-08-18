@@ -171,6 +171,7 @@ func (this *BattleRoom) BattleStart() {
 func (this *BattleRoom) BattleUpdate() {
 	start := time.Now().Unix()
 	now_start := time.Now().Unix()
+	Round_start := time.Now().Unix()
 	checkindex := 0
 	for this.Status == kUsed {
 
@@ -184,6 +185,17 @@ func (this *BattleRoom) BattleUpdate() {
 			this.Status = kIdle
 			this.BattleRoomOver(prpc.CT_MAX)
 			continue
+
+		}
+		if now - Round_start >= 20 {			// 20S不行动就自动帮你打了
+			for _, p := range this.PlayerList {
+
+				if p == nil || p.session == nil {
+					continue
+				}
+				p.IsActive = true
+			}
+			Round_start = time.Now().Unix()
 		}
 
 		fmt.Println("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
@@ -595,7 +607,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		fmt.Println("debuff", debuff)
 	}
 
-	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
+	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(damage)
 
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
@@ -627,7 +639,7 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 		return
 	}
 
-	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(damage)
+	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(damage)
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
@@ -677,7 +689,7 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
 	unit := this.SelectOneUnit(target)
 
-	unit.CProperties[prpc.CPT_HP] = unit.CProperties[prpc.CPT_HP] - float32(data)
+	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(data)
 
 	buffCOM := prpc.COM_BattleBuffAction{}
 	buffCOM.BuffChange.BuffId = buffid

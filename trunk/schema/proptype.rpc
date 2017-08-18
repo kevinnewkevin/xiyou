@@ -1,7 +1,7 @@
 
 enum IPropertyType{
 	IPT_MIN,
-	IPT_HP,			//生命
+	IPT_HP,			//基本生命
 	IPT_PHYLE, 		//种族
 	IPT_TITLE,		//称号
 	IPT_EXPERIENCE,	//经验
@@ -14,7 +14,8 @@ enum IPropertyType{
 
 enum CPropertyType{
 	CPT_MIN,
-	CPT_HP,				//生命
+	CPT_HP,				//最大生命
+	CPT_CHP,			//当前生命
 	CPT_ATK,			//攻击
 	CPT_DEF,			//防御
 	CPT_MAGIC_ATK,		//魔法攻击

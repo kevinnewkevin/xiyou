@@ -91,6 +91,7 @@ func (this *GameUnit) GetBattleUnitCOM() prpc.COM_BattleUnit {
 	u.InstId = this.InstId
 	u.UnitId = this.UnitId
 	u.HP = int32(this.GetCProperty(prpc.CPT_HP))
+	u.CHP = int32(this.GetCProperty(prpc.CPT_CHP))
 	u.Position = this.Position
 	u.Name = this.InstName
 	return u
@@ -160,7 +161,7 @@ func (this *GameUnit) GetBackList() []int {
 }
 
 func (this *GameUnit) IsDead() bool {
-	return this.GetCProperty(prpc.CPT_HP) <= 0
+	return this.GetCProperty(prpc.CPT_CHP) <= 0
 }
 
 func (this *GameUnit) isFront() bool {
@@ -187,6 +188,7 @@ func (this *GameUnit) isBack() bool {
 
 func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
+	this.CProperties[prpc.CPT_CHP] = float32(this.IProperties[prpc.IPT_HP])
 	this.Buff = []*Buff{}
 	this.Debuff = []*Buff{}
 	this.Allbuff = []*Buff{}

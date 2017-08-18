@@ -31,14 +31,14 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 	OwnerDead := false
 	for i := 0; i < len(targetList); i++ {
 		fmt.Println(i, "Action", targetList[i], "		")
-		finl := int32(targetList[i].CProperties[prpc.CPT_HP]) - this.Damage
+		finl := int32(targetList[i].CProperties[prpc.CPT_CHP]) - this.Damage
 		if finl <= 0 {
 			finl = 0
 			if targetList[i].Owner.MyUnit.InstId == targetList[i].InstId {
 				OwnerDead = true
 			}
 		}
-		targetList[i].CProperties[prpc.CPT_HP] = float32(finl)
+		targetList[i].CProperties[prpc.CPT_CHP] = float32(finl)
 		t := prpc.COM_BattleActionTarget{}
 		t.InstId = targetList[i].InstId
 		t.ActionType = 1

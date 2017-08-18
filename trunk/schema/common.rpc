@@ -80,7 +80,8 @@ struct COM_BattleUnit{
 	int32 		UnitId;
 	int64 		InstId;
 	int32 		Position;
-	int32 		HP;
+	int32 		HP;			//卡牌的最大血量 可以变化
+	int32 		CHP;		//卡牌的当前血量
 	string 		Name;
 };
 
