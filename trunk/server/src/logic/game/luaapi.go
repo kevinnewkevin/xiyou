@@ -3,6 +3,7 @@ package game
 /*
 extern int __loadfile(void*);
 extern int __GetStrings(void*);
+extern int __GetFriend(void*);
 extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
@@ -35,6 +36,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__loadfile,"loadfile","sys")
 
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
+	_L.LoadApi(C.__GetFriend,"GetFriend","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
@@ -91,6 +93,41 @@ func __GetTarget(p unsafe.Pointer) C.int {
 			continue
 		}
 		if u.Camp == unit.Camp {
+			continue
+		}
+		t_id = int(u.InstId)
+		break
+	}
+
+	//fmt.Println("__GetTargets end ,", t_id)
+
+	L.PushInteger(t_id)
+
+	return 1
+}
+
+//export __GetFriend
+func __GetFriend(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__GetTargets")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	uid := L.ToInteger(idx)
+
+	//fmt.Println(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(uid))
+
+	t_id := 0
+	for _, u := range battle.Units {
+		if u == nil {
+			continue
+		}
+		if u.Camp != unit.Camp {
 			continue
 		}
 		t_id = int(u.InstId)
