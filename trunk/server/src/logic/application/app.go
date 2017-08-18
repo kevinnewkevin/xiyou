@@ -46,6 +46,7 @@ func (this *App) Run() {
 	}
 
 	game.InitLua("../../../config/scripts/")
+
 	//game.InitGlobalLuaState()
 
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")

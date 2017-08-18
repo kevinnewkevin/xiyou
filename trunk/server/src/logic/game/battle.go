@@ -7,7 +7,20 @@ import (
 	"sync/atomic"
 	"time"
 	"math/rand"
+	"sort"
 )
+
+type UnitList []*GameUnit
+
+func (a UnitList) Len() int {    // 重写 Len() 方法
+	return len(a)
+}
+func (a UnitList) Swap(i, j int){     // 重写 Swap() 方法
+	a[i], a[j] = a[j], a[i]
+}
+func (a UnitList) Less(i, j int) bool {    // 重写 Less() 方法， 从大到小排序
+	return a[j].CProperties[prpc.CPT_AGILE] < a[i].CProperties[prpc.CPT_AGILE]
+}
 
 const (
 	kIdle = 0 			// 无效状态
@@ -102,7 +115,6 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 
 	return &m
 }
-
 
 func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 
@@ -241,7 +253,10 @@ func (this *BattleRoom) Update() {
 
 	this.ReportOne = prpc.COM_BattleReport{}
 	this.Dead = []*GameUnit{}
-	for _, u := range this.Units {
+
+	unitllist := this.SortUnits()
+
+	for _, u := range unitllist {
 		if u == nil {
 			continue
 		}
@@ -315,6 +330,20 @@ func (this *BattleRoom) Update() {
 
 	this.ReportAll = append(this.ReportAll, this.ReportOne)
 
+}
+
+func (this *BattleRoom) SortUnits() []*GameUnit {
+	ul := []*GameUnit{}
+	for _, u := range this.Units{
+		if u == nil {
+			continue
+		}
+		ul = append(ul, u)
+	}
+
+	sort.Sort(UnitList(ul))
+
+	return ul
 }
 
 func (this *BattleRoom) calcWinner() bool {
