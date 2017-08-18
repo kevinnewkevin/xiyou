@@ -223,8 +223,13 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		result.Money = money
 		result.Win = win
 		result.BattleRound = round
-		result.KillMOnsters = killmonster
+		result.KillMonsters = killmonster
 		result.MySelfDeathNum = deathnum
+
+		if this.Type == prpc.BT_PVE {
+			p.CalcSmallChapterStar(result)
+		}
+
 		p.session.BattleExit(result)
 		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
 	}

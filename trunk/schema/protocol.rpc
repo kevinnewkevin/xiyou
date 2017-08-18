@@ -6,8 +6,9 @@ service COM_ClientToServer{
 	AddBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
 	PopBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
 	JoinBattle(); 				 //加入战斗
-	JoinBattlePvE(int32 bigGuanqia, int32 SmallGuanqia); 			 //加入战斗
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
+	RequestChapterData(int32 chapterId);
+	ChallengeSmallChapter(int32 smallChapterId);
 };
 
 service COM_ServerToClient{
@@ -19,4 +20,5 @@ service COM_ServerToClient{
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
 	BattleReport(COM_BattleReport report); 	//战报
 	BattleExit(COM_BattleResult result); 	//战斗结果
+	SycnChapterData(COM_Chapter data);
 };

@@ -20,6 +20,10 @@ type GamePlayer struct {
 	IsActive   		bool  		//是否激活
 	KillUnits 	 	[]int32 	//杀掉的怪物
 	MyDeathNum		int32		//战斗中自身死亡数量
+
+	//story chapter
+	ChapterID		int32		//正在进行的关卡
+	Chapters		[]*prpc.COM_Chapter
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,23 +36,25 @@ func (this *GamePlayer) SetSession(session *Session) {
 
 func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
-	p.MyUnit = CreateUnitFromTable(tid)
+	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
-	p.MyUnit.Owner = &p
 
 	//来两个默认的小兵
-	p.UnitList = append(p.UnitList, CreateUnitFromTable(2))
-	p.UnitList = append(p.UnitList, CreateUnitFromTable(3))
-
-	//給默認的小兵設置主人
-	for _, unit := range p.UnitList {
-		unit.Owner = &p
-	}
-
-	//TestActionByLua()
+	p.UnitList = append(p.UnitList, p.NewGameUnit(2))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(3))
 
 	return &p
 
+}
+
+func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
+	unit := CreateUnitFromTable(tid)
+	unit.Owner = this
+	chapterids := GetUnitChapterById(tid)
+	for i:=0;i<len(chapterids) ;i++  {
+		OpenChapter(this,chapterids[i])
+	}
+	return unit
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -61,7 +67,17 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	for _, u := range this.UnitList {
 		p.Employees = append(p.Employees, u.GetUnitCOM())
 	}
+	for _, c := range this.Chapters {
+		p.Chapters = append(p.Chapters, *c)
+	}
 	return p
+}
+
+func (this *GamePlayer)IsBattle() bool {
+	if this.BattleId == 0 {
+		return false
+	}
+	return true
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

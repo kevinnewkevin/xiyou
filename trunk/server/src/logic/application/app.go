@@ -45,9 +45,23 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadStoryChapterTable("../../../config/tables/HeroStroy.csv")
+	if err != nil {
+		fmt.Println("LoadStoryTable", err.Error())
+		return
+	}
+
+	err = game.LoadSmallChapterTable("../../../config/tables/Checkpoint.csv")
+	if err != nil {
+		fmt.Println("LoadSmallChapterTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()
+
+	game.CreatePlayer(1,"111")
 
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {

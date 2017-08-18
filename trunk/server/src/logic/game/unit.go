@@ -31,7 +31,7 @@ type GameUnit struct {
 	DelBuff		[]*Buff	//需要刪除的buff
 	BattleId	int64	//zhandou id
 }
-
+//如果是创建怪物卡牌的话 player = 你来
 func CreateUnitFromTable(id int32) *GameUnit {
 	t := GetUnitRecordById(id)
 	if t == nil {
@@ -67,6 +67,13 @@ func (this *GameUnit) GetCProperty(id int32) float32 {
 		return 0
 	}
 	return this.CProperties[id]
+}
+
+func (this *GameUnit) GetIProperty(id int32) int32 {
+	if id <= prpc.IPT_MIN || id >= prpc.IPT_MAX {
+		return 0
+	}
+	return this.IProperties[id]
 }
 
 func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {

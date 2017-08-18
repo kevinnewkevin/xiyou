@@ -11,6 +11,13 @@ enum EquipmentSlot{
 	ES_MAX,
 };
 
+enum BattleType{
+	BT_MIN,
+	BT_PVP,
+	BT_PVE,
+	BT_MAX,
+};
+
 //战斗阵营
 enum CampType{
 	CT_RED,

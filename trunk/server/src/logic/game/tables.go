@@ -4,6 +4,7 @@ import (
 	"logic/prpc"
 	"strconv"
 	"suzuki/conf"
+	"strings"
 )
 
 type (
@@ -13,6 +14,7 @@ type (
 		IProp  []int32
 		CProp  []float32
 		Skills []int32
+		chapters []int32
 	}
 	SkillRecord struct {
 		SkillID    int32
@@ -91,6 +93,12 @@ func LoadUnitTable(filename string) error {
 		u.Skills[2] = csv.GetInt32(r, "Skill3")
 		u.Skills[3] = csv.GetInt32(r, "Skill4")
 
+		strTmp := strings.Split(csv.GetString(r,"ChapterID"),";")
+		for i:=0;i<len(strTmp);i++{
+			id,_ := strconv.Atoi(strTmp[i])
+			u.chapters = append(u.chapters,int32(id))
+		}
+
 		UnitTable[u.Id] = &u
 	}
 	return nil
@@ -98,6 +106,13 @@ func LoadUnitTable(filename string) error {
 
 func GetUnitRecordById(id int32) *UnitRecord {
 	return UnitTable[id]
+}
+
+func GetUnitChapterById(id int32) []int32 {
+	if UnitTable[id] == nil {
+		return nil
+	}
+	return UnitTable[id].chapters
 }
 
 func LoadSkillTable(filename string) error {
@@ -119,6 +134,7 @@ func LoadSkillTable(filename string) error {
 		s.TargetNum = csv.GetInt(r, "TargetNum")
 		s.TargetCamp = csv.GetInt(r, "TargetCamp")
 		s.LuaScprit = csv.GetString(r, "LuaName")
+
 		SkillTable[s.SkillID] = &s
 	}
 	return nil

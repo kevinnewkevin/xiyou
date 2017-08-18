@@ -81,10 +81,24 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition) error {
 	return nil
 } // 5
 
+func (this *Session)RequestChapterData(chapterId int32) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.GetMyChapterDataById(chapterId)
 
-func (this* Session) JoinBattlePvE(a,b int32)error{
 	return nil
 }
+
+func (this *Session)ChallengeSmallChapter(smallChapterId int32) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.AttackChapter(smallChapterId)
+
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

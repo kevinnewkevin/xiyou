@@ -27,12 +27,26 @@ struct COM_Unit{
 	COM_ItemInst[]	Equipments;
 };
 
+//英雄故事章节
+struct COM_SmallChapter{
+	int32			SmallChapterId;
+	bool			Star1;
+	bool			Star2;
+	bool			Star3;
+};
+
+struct COM_Chapter{
+	int32				ChapterId;
+	COM_SmallChapter[]	SmallChapters;
+};
+
 //角色实例
 struct COM_Player{
-	int64 			InstId;
-	string			Name;
-	COM_Unit		Unit;
-	COM_Unit[]		Employees;
+	int64 				InstId;
+	string				Name;
+	COM_Unit			Unit;
+	COM_Unit[]			Employees;
+	COM_Chapter[]		Chapters;
 };
 
 //战斗位置
@@ -112,7 +126,7 @@ struct COM_BattleReport{
 struct COM_BattleResult{
 	int32 	Win;
 	int32 	Money;
-	int32[] KillMOnsters;
+	int32[] KillMonsters;
 	int32 	BattleRound;
 	int32 	MySelfDeathNum;
 };
