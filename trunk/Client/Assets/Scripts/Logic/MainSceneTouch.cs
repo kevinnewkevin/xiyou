@@ -96,6 +96,9 @@ public class MainSceneTouch : MonoBehaviour {
 
     void Update()
     {
+        if (Stage.isTouchOnUI)
+            return;
+        
         if (Input.GetMouseButtonDown (0))
         {  
             lastPos = Input.mousePosition;  
