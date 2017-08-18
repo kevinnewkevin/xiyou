@@ -117,6 +117,10 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 }
 
 func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
+	if this.IsDead() {
+		return false
+	}
+
 	skill := this.SelectSkill(battle.Round)
 
 	//fmt.Println("CastSkill2 skill id is ", skill.SkillID)
