@@ -200,6 +200,7 @@ public static class CustomSettings
         _GT(typeof(Relations)),
         _GT(typeof(RelationType)),
         _GT(typeof(EntityData)),
+		_GT(typeof(HeroStroyData)),
 
         _GT(typeof(LuaWindow)),
     };
