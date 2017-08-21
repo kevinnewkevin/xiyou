@@ -52,5 +52,5 @@ function denglu_FlushData()
 end
 
 function denglu_OnEnterGame()
-	Proxy4Lua.CreatePlayer(1, "guowengui");
+	Proxy4Lua.CreatePlayer(1, "小西游名字七字");
 end

@@ -6,6 +6,10 @@ local Window;
 local playerName;
 local playerLevel;
 local playerExp;
+local gold;
+local chopper;
+local stamaPoint;
+local expBar;
 
 local stateIcon;
 local stateBar;
@@ -34,6 +38,12 @@ function zhujiemian:OnInit()
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
 	playerLevel = infoGroup:GetChild("n11");
+	expBar = infoGroup:GetChild("n8").asProgress;
+
+	local moneyGroup = self.contentPane:GetChild("n16").asCom;
+	gold = moneyGroup:GetChild("n5");
+	chopper = moneyGroup:GetChild("n7");
+	stamaPoint = moneyGroup:GetChild("n12");
 
 	zhujiemian_FlushData();
 end
@@ -67,8 +77,14 @@ end
 
 function zhujiemian_FlushData()
 	playerName.text = GamePlayer._Name;
-	playerExp.text = "754782";
-	playerLevel.text = "89";
+	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. 99999;
+	playerLevel.text = GamePlayer._Data.IProperties[5];
+
+	gold.text = GamePlayer._Data.IProperties[8];
+	chopper.text = GamePlayer._Data.IProperties[6];
+	stamaPoint.text = GamePlayer._Data.IProperties[2];
+
+	expBar.value = GamePlayer._Data.IProperties[4] / 99999.0 * 100;
 end
 
 function zhujiemian_OnFolder()

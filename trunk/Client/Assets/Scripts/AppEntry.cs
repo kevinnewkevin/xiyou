@@ -23,7 +23,7 @@ public class AppEntry : MonoBehaviour {
 
 //
         //init network
-        if (NetWoking.Open("10.10.10.188", 10999))
+        if (NetWoking.Open("127.0.0.1", 10999))
         {
             UIManager.Show("denglu");
             DataLoader.BeginLoad();
@@ -31,13 +31,14 @@ public class AppEntry : MonoBehaviour {
 
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         NetWoking.SetupNetFPS();
         TimerManager.Update();
         DataLoader.Update();
         UIManager.Update();
+        World.Update();
         Battle.Update();
         SceneLoader.Update();
 	}
