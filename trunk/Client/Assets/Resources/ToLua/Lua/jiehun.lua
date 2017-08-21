@@ -6,6 +6,7 @@ local Window;
 local cardGroupUrl = "ui://jiehun/guanka_Button";
 local cardGroupList;
 local guankaId = 0;
+local stamaPoint;
 function jiehun:OnEntry()      
 	Window = jiehun.New();
 	Window:Show();
@@ -21,6 +22,8 @@ function jiehun:OnInit()
 		cardGroupList = self.contentPane:GetChild("n1").asList;
 	cardGroupList:SetVirtual();
 	cardGroupList.itemRenderer = jiehun_RenderListItem;
+
+	stamaPoint = self.contentPane:GetChild("n12");
 	
 	jiehun_FlushData();
 end
@@ -76,4 +79,6 @@ end
 
 function jiehun_FlushData()
 	cardGroupList.numItems = HeroStroyData.metaData.Count;
+
+	stamaPoint.text = GamePlayer._Data.IProperties[2];
 end
