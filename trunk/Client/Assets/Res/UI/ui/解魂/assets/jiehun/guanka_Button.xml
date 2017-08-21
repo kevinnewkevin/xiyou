@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="477,748" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n29_vpj2" name="n29" src="vpj2b" xy="-2,2" size="469,741">
       <gearDisplay controller="button" pages="1,3"/>
     </image>
     <loader id="n34_j6bg" name="n34" xy="30,17" size="430,720" url="ui://nuudi1w0vpj22" fill="scaleFree"/>
-    <loader id="n5_vpj2" name="n5" xy="50,30" size="382,480" url="ui://nuudi1w0vpj2q"/>
-    <loader id="n7_vpj2" name="n7" xy="50,32" size="380,477">
-      <relation target="n5_vpj2" sidePair="center-center,middle-middle"/>
-    </loader>
+    <loader id="n5_vpj2" name="n5" xy="49,30" size="382,480"/>
     <image id="n8_vpj2" name="n8" src="vpj21" xy="55,37"/>
     <text id="n9_vpj2" name="n9" xy="72,65" size="52,323" font="方正楷体_GBK" fontSize="41" color="#ffffff" align="center" autoSize="none" text="啦啦啦啦啦啦">
       <relation target="n8_vpj2" sidePair="center-center,middle-middle"/>
