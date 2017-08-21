@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="bvfv9rua" jpegQuality="80" compressPNG="true">
   <resources>
-    <image id="zr5s0" name="02huang_Card.png" path="/" exported="true"/>
-    <image id="zr5s1" name="01hong_Card.png" path="/" exported="true"/>
+    <image id="ygs22" name="longtaizi_card.png" path="/" exported="true"/>
+    <image id="ygs23" name="longwang_card.png" path="/" exported="true"/>
+    <image id="ygs24" name="longxia_card.png" path="/" exported="true"/>
+    <image id="ygs25" name="nezha_card.png" path="/" exported="true"/>
+    <image id="ygs26" name="pangxie_card.png" path="/" exported="true"/>
+    <image id="ygs27" name="shajiangjun_card.png" path="/" exported="true"/>
   </resources>
-  <publish name="Card"/>
+  <publish name="Card" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>

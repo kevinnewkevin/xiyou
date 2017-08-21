@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="g4zpdr2i" jpegQuality="80" compressPNG="true">
   <resources>
-    <image id="83720" name="ICON_Checkpoint1_hong.png" path="/" exported="true"/>
-    <image id="83721" name="ICON_Checkpoint1_huang.png" path="/" exported="true"/>
+    <image id="vx322" name="icon_Checkpoint1_shajiangjun.png" path="/" exported="true"/>
+    <image id="vx323" name="icon_Checkpoint1_longtaizi.png" path="/" exported="true"/>
+    <image id="vx324" name="icon_Checkpoint1_longwang.png" path="/" exported="true"/>
+    <image id="vx325" name="icon_Checkpoint1_longxia.png" path="/" exported="true"/>
+    <image id="vx326" name="icon_Checkpoint1_nezha.png" path="/" exported="true"/>
+    <image id="vx327" name="icon_Checkpoint1_pangxie.png" path="/" exported="true"/>
   </resources>
-  <publish name="guankatupian"/>
+  <publish name="guankatupian" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>
