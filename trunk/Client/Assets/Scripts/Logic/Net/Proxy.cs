@@ -53,4 +53,10 @@ class Proxy : ICOM_ServerToClientProxy
     {
         return true;
     }
+
+	public bool SycnChapterData(ref COM_Chapter chapter)
+	{
+			return true;
+	}
+
 }
