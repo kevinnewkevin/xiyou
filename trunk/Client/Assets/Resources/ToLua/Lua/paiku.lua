@@ -12,6 +12,7 @@ local cardGroupUrl = "ui://paiku/paizuanniu_Button";
 local cardGroupList;
 local crtGroupIdx = 0;
 local crtCardInstID = 0;
+local crtCardsFee = 0;
 
 local isInGroup;
 
@@ -36,6 +37,16 @@ function paiku:OnInit()
 	allCardList:SetVirtual();
 	allCardList.itemRenderer = paiku_RenderListItem;
 
+	local feeList = leftPart:GetChild("n34").asList;
+	local feeMax = feeList.numItems;
+	local feeItem;
+	for i=1, feeMax do
+		feeItem = feeList:GetChildAt(i-1);
+		feeItem.data = i-1;
+		feeItem.onClick:Add(paiku_OnFeeItemClick);
+	end
+	feeList.selectedIndex = crtCardsFee;
+
 	local rightPart = self.contentPane:GetChild("n5").asCom;
 	local bg = rightPart:GetChild("n3");
 	allCardGroupList = bg:GetChild("n5").asList;
@@ -59,11 +70,18 @@ function paiku:OnInit()
 	paiku_FlushData();
 end
 
+function paiku_OnFeeItemClick(context)
+	crtCardsFee = context.sender.data;
+	UIManager.SetDirty("paiku");
+end
+
 function paiku_RenderListItem(index, obj)
 	obj.onClick:Add(paiku_OnCardItem);
-	obj.data = GamePlayer.GetInstIDInMyCards(index);
+	obj.data = GamePlayer.GetInstIDInMyCards(crtCardsFee, index);
 	obj.draggable = true;
 	obj.onDragEnd:Add(paiku_OnDropCard);
+	local fee = obj:GetChild("n7");
+	fee.text = GamePlayer.GetFeeInMyCards(crtCardsFee, index);
 end
 
 function paiku_OnDeleteGroup(context)
@@ -117,7 +135,11 @@ function paiku:OnHide()
 end
 
 function paiku_FlushData()
-	allCardList.numItems = GamePlayer._Cards.Count;
+	local cards = 0;
+	if GamePlayer.CardsByFee(crtCardsFee) ~= nil then
+		cards = GamePlayer.CardsByFee(crtCardsFee).Count;
+	end
+	allCardList.numItems = cards;
 	cardGroupList:RemoveChildrenToPool();
 	local groupCards = GamePlayer.GetGroupCards(crtGroupIdx);
 	if groupCards == nil then
