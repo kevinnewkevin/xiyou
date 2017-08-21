@@ -15,8 +15,6 @@ public class NpcHandle : MonoBehaviour {
     public void Excute()
     {
         Debug.Log("Excute Npc Function " + ID.ToString());
-        //TODO Test for wait battle.
-        LuaManager.Call("Global.lua", "ExcuteNpc", ID);
-//        SceneLoader.LoadScene(Define.SCENE_BATTLE);
+        LuaManager.Call("global.lua", "ExcuteNpc", ID);
     }
 }
