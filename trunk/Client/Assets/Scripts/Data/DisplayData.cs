@@ -6,6 +6,7 @@ public class DisplayData {
 
     public int _Id;
     public string _AssetPath;
+    public string _HeadIcon;
 
     static Dictionary<int, DisplayData> metaData;
 
@@ -27,6 +28,7 @@ public class DisplayData {
             data = new DisplayData ();
             data._Id = parser.GetInt (i, "ID");
             data._AssetPath = parser.GetString(i, "AssetsPath");
+            data._HeadIcon = parser.GetString(i, "HeadIcon");
 
             if(metaData.ContainsKey(data._Id))
             {

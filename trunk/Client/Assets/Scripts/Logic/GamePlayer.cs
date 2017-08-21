@@ -164,6 +164,19 @@ public class GamePlayer {
         return ddata._AssetPath;
     }
 
+    static public string GetMyHeadIcon()
+    {
+        EntityData eData = EntityData.GetData(_Data.UnitId);
+        if (eData == null)
+            return string.Empty;
+
+        DisplayData dData = DisplayData.GetData(eData._DisplayId);
+        if (dData == null)
+            return string.Empty;
+
+        return dData._HeadIcon;
+    }
+
     //通过索引获得卡牌UnitID
     static public int GetUnitIDInMyCards(int idx)
     {

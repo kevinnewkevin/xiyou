@@ -26,7 +26,6 @@ public class HeadBar {
 
         UIPackage.AddPackage("UI/EmitNumbers");
         Define.LaunchUIBundle("xuetiao");
-        Define.LaunchUIBundle("icon");
 
         _Root = root;
         _Headbar = new GameObject();

@@ -10,6 +10,7 @@ local gold;
 local chopper;
 local stamaPoint;
 local expBar;
+local headIcon;
 
 local stateIcon;
 local stateBar;
@@ -39,6 +40,7 @@ function zhujiemian:OnInit()
 	playerExp = infoGroup:GetChild("n10");
 	playerLevel = infoGroup:GetChild("n11");
 	expBar = infoGroup:GetChild("n8").asProgress;
+	headIcon = infoGroup:GetChild("n13").asLoader;
 
 	local moneyGroup = self.contentPane:GetChild("n16").asCom;
 	gold = moneyGroup:GetChild("n5");
@@ -76,6 +78,7 @@ function zhujiemian:OnHide()
 end
 
 function zhujiemian_FlushData()
+	headIcon.url = "ui://" .. GamePlayer.GetMyHeadIcon();
 	playerName.text = GamePlayer._Name;
 	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. 99999;
 	playerLevel.text = GamePlayer._Data.IProperties[5];

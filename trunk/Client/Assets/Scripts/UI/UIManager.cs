@@ -16,6 +16,8 @@ public class UIManager {
         _Lua = new LuaState();
         LuaBinder.Bind(_Lua);
         _Lua.Start();
+
+        Define.LaunchUIBundle("icon");
     }
 
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();
