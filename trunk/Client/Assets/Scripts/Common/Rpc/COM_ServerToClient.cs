@@ -187,6 +187,34 @@
   }
   public COM_BattleResult result;
 }
+ class COM_ServerToClient_SycnChapterData{
+  public virtual void Serialize(IWriter w){
+    Mask mask = new Mask(1);
+    mask.WriteBit(true); // data
+    w.Write(mask.Bytes);
+    //S data
+    {
+      data.Serialize(w);
+    }
+  }
+  public virtual bool Deserialize(IReader r){
+    Mask mask = new Mask(1);
+    if(!r.Read(ref mask.Bytes)){
+      return false;
+    }
+    //D data
+    if(mask.ReadBit()){
+      if(data==null){
+        data = new COM_Chapter();
+      }
+      if(!data.Deserialize(r)){
+        return false;
+      }
+    }
+    return true;
+  }
+  public COM_Chapter data;
+}
 public abstract class COM_ServerToClientStub {
   public void ErrorMessage(int id ){
     IWriter w = MethodBegin();
@@ -266,6 +294,16 @@ public abstract class COM_ServerToClientStub {
     _7.Serialize(w);
     MethodEnd();
   }
+  public void SycnChapterData(COM_Chapter data ){
+    IWriter w = MethodBegin();
+    if(w==null){
+      return;
+    }
+    w.Write((ushort)8);
+    _8.data = data;
+    _8.Serialize(w);
+    MethodEnd();
+  }
   public abstract IWriter MethodBegin();
   public abstract void MethodEnd();
   
@@ -276,6 +314,7 @@ public abstract class COM_ServerToClientStub {
   COM_ServerToClient_SetBattleUnitOK _5 = new COM_ServerToClient_SetBattleUnitOK();
   COM_ServerToClient_BattleReport _6 = new COM_ServerToClient_BattleReport();
   COM_ServerToClient_BattleExit _7 = new COM_ServerToClient_BattleExit();
+  COM_ServerToClient_SycnChapterData _8 = new COM_ServerToClient_SycnChapterData();
 };
 public interface ICOM_ServerToClientProxy {
   bool ErrorMessage( int id ); // 0
@@ -286,6 +325,7 @@ public interface ICOM_ServerToClientProxy {
   bool SetBattleUnitOK( long instId ); // 5
   bool BattleReport(ref COM_BattleReport report ); // 6
   bool BattleExit(ref COM_BattleResult result ); // 7
+  bool SycnChapterData(ref COM_Chapter data ); // 8
 }
 public class COM_ServerToClientDispatcher {
   public static bool ErrorMessage(IReader r, ICOM_ServerToClientProxy p){ // 0
@@ -381,6 +421,18 @@ public class COM_ServerToClientDispatcher {
     }
     return p.BattleExit(ref _7.result);
   }
+  public static bool SycnChapterData(IReader r, ICOM_ServerToClientProxy p){ // 8
+    if(r==null){
+      return false;
+    }
+    if(p==null){
+      return false;
+    }
+    if(!_8.Deserialize(r)){
+      return false;
+    }
+    return p.SycnChapterData(ref _8.data);
+  }
   public static bool Execute(IReader r, ICOM_ServerToClientProxy p){
     if(r==null){
       return false;
@@ -409,6 +461,8 @@ public class COM_ServerToClientDispatcher {
         return BattleReport(r,p);
       case 7 :
         return BattleExit(r,p);
+      case 8 :
+        return SycnChapterData(r,p);
       default:
         return false;
     }
@@ -421,4 +475,5 @@ public class COM_ServerToClientDispatcher {
   static COM_ServerToClient_SetBattleUnitOK _5 = new COM_ServerToClient_SetBattleUnitOK();
   static COM_ServerToClient_BattleReport _6 = new COM_ServerToClient_BattleReport();
   static COM_ServerToClient_BattleExit _7 = new COM_ServerToClient_BattleExit();
+  static COM_ServerToClient_SycnChapterData _8 = new COM_ServerToClient_SycnChapterData();
 }

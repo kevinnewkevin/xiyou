@@ -4,7 +4,9 @@ public class COM_BattleActionTarget{
     mask.WriteBit(InstId!=0);
     mask.WriteBit(ActionType!=0);
     mask.WriteBit(ActionParam!=0);
-    mask.WriteBit(ActionParamExt!=0);
+    mask.WriteBit(ActionParamExt!=null&&ActionParamExt.Length!=0&&ActionParamExt!="");
+    mask.WriteBit(!Dead);
+    mask.WriteBit(BuffAdd!=null&&BuffAdd.Length!=0);
     w.Write(mask.Bytes);
     //S InstId
     if(InstId!=0){
@@ -19,8 +21,18 @@ public class COM_BattleActionTarget{
       w.Write(ActionParam);
     }
     //S ActionParamExt
-    if(ActionParamExt!=0){
+    if(ActionParamExt!=null&&ActionParamExt.Length!=0&&ActionParamExt!=""){
       w.Write(ActionParamExt);
+    }
+    //S Dead
+    {
+    }
+    //S BuffAdd
+    if(BuffAdd!=null&&BuffAdd.Length!=0){
+      w.WriteSize(BuffAdd.Length);
+      for(int i=0; i<BuffAdd.Length; ++i){
+        BuffAdd[i].Serialize(w);
+      }
     }
   }
   public virtual bool Deserialize(IReader r){
@@ -54,10 +66,30 @@ public class COM_BattleActionTarget{
         return false;
       }
     }
+    //D Dead
+    {
+      Dead = mask.ReadBit();
+    }
+    //D BuffAdd
+    if(mask.ReadBit()){
+      int size = 0;
+      if(!r.ReadSize(ref size) || size > 255){
+        return false;
+      }
+      BuffAdd = new COM_BattleBuff[size];
+      for(int i=0; i<size; ++i){
+        BuffAdd[i] = new COM_BattleBuff();
+        if(!BuffAdd[i].Deserialize(r)){
+          return false;
+        }
+      }
+    }
     return true;
   }
   public long InstId;
   public int ActionType;
   public int ActionParam;
-  public int ActionParamExt;
+  public string ActionParamExt;
+  public bool Dead;
+  public COM_BattleBuff[] BuffAdd;
 }

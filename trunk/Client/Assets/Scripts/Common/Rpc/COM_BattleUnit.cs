@@ -5,6 +5,7 @@ public class COM_BattleUnit{
     mask.WriteBit(InstId!=0);
     mask.WriteBit(Position!=0);
     mask.WriteBit(HP!=0);
+    mask.WriteBit(CHP!=0);
     mask.WriteBit(Name!=null&&Name.Length!=0&&Name!="");
     w.Write(mask.Bytes);
     //S UnitId
@@ -22,6 +23,10 @@ public class COM_BattleUnit{
     //S HP
     if(HP!=0){
       w.Write(HP);
+    }
+    //S CHP
+    if(CHP!=0){
+      w.Write(CHP);
     }
     //S Name
     if(Name!=null&&Name.Length!=0&&Name!=""){
@@ -57,6 +62,12 @@ public class COM_BattleUnit{
         return false;
       }
     }
+    //D CHP
+    if(mask.ReadBit()){
+      if(!r.Read(ref CHP)){
+        return false;
+      }
+    }
     //D Name
     if(mask.ReadBit()){
       if(!r.Read(ref Name)){
@@ -69,5 +80,6 @@ public class COM_BattleUnit{
   public long InstId;
   public int Position;
   public int HP;
+  public int CHP;
   public string Name;
 }
