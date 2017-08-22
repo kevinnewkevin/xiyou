@@ -13,6 +13,16 @@ public class Proxy4Lua {
     {
         NetWoking.S.JoinBattle();
     }
+	
+	static public void RequestChapterData(int id)
+	{
+		NetWoking.S.RequestChapterData(id);
+	}
+
+	static public void ChallengeSmallChapter(int id)
+	{
+		NetWoking.S.ChallengeSmallChapter(id);
+	}
 
     static public void CreatePlayer(int templateId, string nickName)
     {

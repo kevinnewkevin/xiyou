@@ -56,7 +56,8 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool SycnChapterData(ref COM_Chapter chapter)
 	{
-			return true;
+		JieHunSystem.instance.ChapterData = chapter;	
+		return true;
 	}
 
 }
