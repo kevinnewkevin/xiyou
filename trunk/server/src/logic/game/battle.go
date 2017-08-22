@@ -190,7 +190,11 @@ func (this *BattleRoom) BattleUpdate() {
 		if now - Round_start >= 20 {			// 20S不行动就自动帮你打了
 			for _, p := range this.PlayerList {
 
-				if p == nil || p.session == nil {
+				//if p == nil || p.session == nil {
+				//	continue
+				//}
+
+				if p == nil {
 					continue
 				}
 				p.IsActive = true
@@ -242,6 +246,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			p.CalcSmallChapterStar(result)
 		}
 
+		p.BattleId = 0
+		p.BattleCamp = prpc.CT_MAX
+
 		p.session.BattleExit(result)
 		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
 	}
@@ -262,6 +269,7 @@ func (this *BattleRoom) Update() {
 
 	if this.Type == 2 {
 		this.MonsterMove()
+		//this.PlayerMove()
 	}
 
 	//顺序排序
@@ -415,6 +423,9 @@ func (this *BattleRoom) UpdateBuffState(unit *GameUnit) {
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 	fmt.Println("SendReport", "111111111111111111111111")
 	for _, p := range this.PlayerList {
+		if p == nil || p.session == nil {
+			continue
+		}
 		p.session.BattleReport(report)
 	}
 }
@@ -485,18 +496,27 @@ func (this *BattleRoom) SelectBackTarget(camp int) []*GameUnit {
 
 //取得全部目标
 func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
+	fmt.Println("targets start = ", num)
 	unit := this.SelectOneUnit(instid)
 
 	targets := []int64{}
+	idx := 0
 	for _, u := range this.Units {
+		fmt.Println(idx)
 		if u == nil {
 			continue
 		}
 		if u.Camp == unit.Camp {
 			continue
 		}
+		if idx >= num {
+			break
+		}
+		idx += 1
 		targets = append(targets, u.InstId)
 	}
+
+	fmt.Println("targets length1 = ", len(targets))
 
 	//if num > 0 && int(num) < int(len(targets)){
 	//	rand.Seed(time.Now().UnixNano())
@@ -513,10 +533,9 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	//		}
 	//	}
 	//}
-	fmt.Println("targets length = ", len(targets))
+	//fmt.Println("targets length2 = ", len(targets))
 	return targets
 }
-
 
 
 //取得全部友方目标
@@ -567,10 +586,34 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 }
 
 ////////////////////////////////////////////////////////////////////////
+////player测试
+////////////////////////////////////////////////////////////////////////
+
+func (this *BattleRoom) PlayerMove() {
+	fmt.Println("PlayerMove 1", this.Units)
+	p := this.PlayerList[0]
+	if this.Round == 0 {
+		pos := this.monsterMiddle(p.BattleCamp)
+		this.Units[pos] = p.MyUnit
+		p.MyUnit.Position = int32(pos)
+	} else {
+		//pos := this.monsterPos(p.BattleCamp)
+		//this.Units[pos] = this.Monster.BattleUnitList[0]
+		//this.Monster.BattleUnitList[0].Position = int32(pos)
+		//this.Monster.BattleUnitList = this.Monster.BattleUnitList[1:]
+	}
+
+	fmt.Println("PlayerMove 2", this.Units)
+
+	return
+}
+
+////////////////////////////////////////////////////////////////////////
 ////PVE行为
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) MonsterMove() {
+	fmt.Println("MonsterMove 1", this.Units)
 	if this.Round == 0 {
 		pos := this.monsterMiddle(this.Monster.BattleCamp)
 		this.Units[pos] = this.Monster.MainUnit
@@ -581,6 +624,8 @@ func (this *BattleRoom) MonsterMove() {
 		this.Monster.BattleUnitList[0].Position = int32(pos)
 		this.Monster.BattleUnitList = this.Monster.BattleUnitList[1:]
 	}
+
+	fmt.Println("MonsterMove 2", this.Units)
 
 	return
 }
@@ -680,7 +725,7 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
-	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParam = -damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
