@@ -202,8 +202,10 @@ public static class CustomSettings
         _GT(typeof(RelationType)),
         _GT(typeof(EntityData)),
 		_GT(typeof(HeroStroyData)),
+		 GT(typeof(CheckpointData)),
 
         _GT(typeof(LuaWindow)),
+
     };
 
     public static List<Type> dynamicList = new List<Type>()
