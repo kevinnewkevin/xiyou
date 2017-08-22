@@ -14,12 +14,14 @@ public static class LuaBinder
 		SceneLoaderWrap.Register(L);
 		Proxy4LuaWrap.Register(L);
 		COM_BattlePositionWrap.Register(L);
+		COM_UnitWrap.Register(L);
 		UIManagerWrap.Register(L);
 		GamePlayerWrap.Register(L);
 		BattleWrap.Register(L);
 		UIParamHolderWrap.Register(L);
 		DefineWrap.Register(L);
 		EntityDataWrap.Register(L);
+		HeroStroyDataWrap.Register(L);
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_TransformWrap.Register(L);
