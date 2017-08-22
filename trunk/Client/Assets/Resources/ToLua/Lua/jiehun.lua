@@ -46,13 +46,17 @@ function jiehun_RenderListItem(index, obj)
 	obj.onClick:Add(jiehun_OnSelectGroup);
 	local data = HeroStroyData.GetData(index+1);
 	obj.data =index+1;
-	 local suo = obj:GetChild("n9");
-	 suo.text = data.Name_;
-
+	 local name = obj:GetChild("n9");
+	 name.text = data.Name_;
+	 local desc = obj:GetChild("n14");
+	 desc.text = data.Desc_;
+	 local suo = obj:GetChild("n32");
+	 suo.visible  = false;
 end
 
 function jiehun_OnSelectGroup(context)
 	guankaId = context.sender.data;
+	Proxy4Lua.RequestChapterData(guankaId );
 	UIManager.Show("guanka");
 	jiehun_FlushData();
 end
