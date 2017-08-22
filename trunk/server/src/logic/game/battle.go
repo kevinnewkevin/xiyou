@@ -519,7 +519,7 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 
 
 
-//取得全部目标
+//取得全部友方目标
 func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
 	unit := this.SelectOneUnit(instid)
 
@@ -676,6 +676,50 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	}
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(damage)
+
+	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.InstId = target
+	this.TargetCOM.ActionType = 1
+	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
+}
+
+//降低法术
+
+func (this *BattleRoom) ReduceSpell (target int64, damage int32, crit int32) {
+	unit := this.SelectOneUnit(target)
+
+	if unit.IsDead(){
+		return
+	}
+
+	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] - float32(damage)
+
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round, "法术降到",unit.CProperties[prpc.CPT_MAGIC_ATK],"降低了",damage )
+
+	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.InstId = target
+	this.TargetCOM.ActionType = 1
+	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+
+	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
+}
+
+//增加法术
+
+func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
+	unit := this.SelectOneUnit(target)
+
+	if unit.IsDead(){
+		return
+	}
+
+	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] + float32(damage)
+
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round, "法术增加到",unit.CProperties[prpc.CPT_MAGIC_ATK],"增加了",damage )
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
