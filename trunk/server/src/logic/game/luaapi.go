@@ -4,6 +4,7 @@ package game
 extern int __loadfile(void*);
 extern int __GetStrings(void*);
 extern int __GetFriend(void*);
+extern int __GetFriends(void*);
 extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
@@ -36,9 +37,9 @@ func InitLua(r string){
 	_L.OpenLibs()
 	_L.OpenSys()
 	_L.LoadApi(C.__loadfile,"loadfile","sys")
-
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
 	_L.LoadApi(C.__GetFriend,"GetFriend","Player")
+	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
