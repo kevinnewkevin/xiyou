@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 public class Tools {
 
-    [MenuItem("Tools/1.拷贝数据表和脚本")]
+    [MenuItem("Tools/1.拷贝数据表和脚本", false, 1)]
     static void CopyTableAndScripts()
     {
         Process p = new Process();
@@ -21,8 +21,8 @@ public class Tools {
         p.Start();
     }
 
-    [MenuItem("Tools/2.打资源包")]
-    static public void BuildAssetBundle()
+    [MenuItem("Tools/2.打资源包/PC", false, 2)]
+    static public void BuildAssetBundlePC()
     {
         SetPlayer();
         SetEffect();
@@ -37,7 +37,39 @@ public class Tools {
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/3.删除临时资源")]
+    [MenuItem("Tools/2.打资源包/Android", false, 2)]
+    static public void BuildAssetBundleAndroid()
+    {
+        SetPlayer();
+        SetEffect();
+        SetUI();
+        SetTable();
+        SetLua();
+
+        string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
+        if (!Directory.Exists(resPkgPath))
+            Directory.CreateDirectory(resPkgPath);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.Android);
+        AssetDatabase.Refresh();
+    }
+
+    [MenuItem("Tools/2.打资源包/iOS", false, 2)]
+    static public void BuildAssetBundleiOS()
+    {
+        SetPlayer();
+        SetEffect();
+        SetUI();
+        SetTable();
+        SetLua();
+
+        string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
+        if (!Directory.Exists(resPkgPath))
+            Directory.CreateDirectory(resPkgPath);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.iOS);
+        AssetDatabase.Refresh();
+    }
+
+    [MenuItem("Tools/3.删除临时资源", false, 3)]
     static void DeleteTempFiles()
     {
         Process p = new Process();
