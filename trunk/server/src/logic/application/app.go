@@ -61,7 +61,6 @@ func (this *App) Run() {
 
 	//game.InitGlobalLuaState()
 
-	game.CreatePlayer(1,"111")
 
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {
