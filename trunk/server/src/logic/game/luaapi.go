@@ -203,6 +203,38 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	return 1
 }
 
+//export __GetFriends
+func __GetFriends(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__GetTargets")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	num := L.ToInteger(idx)
+
+	////fmt.Println("4444444444", battleid, unitid, num)
+
+	battle := FindBattle(int64(battleid))
+
+	ls := battle.SelectMoreTarget(int64(unitid), num)
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(ls); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(ls[i]))
+		L.SetTable(-3)
+	}
+
+	return 1
+}
+
 //export __Attack
 func __Attack(p unsafe.Pointer) C.int {
 

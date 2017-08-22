@@ -517,6 +517,42 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	return targets
 }
 
+
+
+//取得全部目标
+func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
+	unit := this.SelectOneUnit(instid)
+
+	friends := []int64{}
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.Camp != unit.Camp {
+			continue
+		}
+		friends = append(friends, u.InstId)
+	}
+
+	//if num > 0 && int(num) < int(len(targets)){
+	//	rand.Seed(time.Now().UnixNano())
+	//	l := make([]int64, len(targets))
+	//	tmp := map[int64]int{}
+	//	var uid int64 = 0
+	//	for len(tmp) <= num {
+	//		_, ok := tmp[uid]
+	//		for !ok {
+	//			//这里从targets里面随机选择
+	//			idx := rand.Intn(num - 1)
+	//			l = append(l, targets[idx])
+	//			tmp[targets[idx]] = 1
+	//		}
+	//	}
+	//}
+	fmt.Println("friends length = ", len(friends))
+	return friends
+}
+
 func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	for _, u := range this.Units {
 		if u == nil {
