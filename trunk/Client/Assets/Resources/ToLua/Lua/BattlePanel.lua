@@ -42,8 +42,11 @@ function BattlePanel:OnInit()
 	for i=1, 5 do
 		cards[i] = {};
 		cards[i]["card"] = self.contentPane:GetChild("n" .. (16 + i)).asCom;
+		cards[i]["card"].draggable = true;
+		cards[i]["card"].onDragStart:Add(BattlePanel_OnDragStart);
 		cards[i]["power"] = cards[i]["card"]:GetChild("power");
 		cards[i]["cost"] = cards[i]["card"]:GetChild("cost");
+		cards[i]["icon"] = cards[i]["card"]:GetChild("card").asLoader;
 		cards[i]["card"].data = i;
 		cards[i]["card"].onClick:Add(BattlePanel_OnCardClick);
 	end
@@ -61,6 +64,10 @@ function BattlePanel:OnInit()
 	cardsInGroupNum = self.contentPane:GetChild("n43");
 
 	BattlePanel_FlushData();
+end
+
+function BattlePanel_OnDragStart(context)
+	context:PreventDefault();
 end
 
 function BattlePanel:GetWindow()
@@ -110,9 +117,12 @@ function BattlePanel_FlushData()
 
 	local cardNum = Battle._LeftCardNum;
 	local eData;
+	local dData;
 	for i=1, 5 do
 		if i <= cardNum then
 			eData = Battle.GetHandCard(i-1);
+			dData = Battle.GetHandCardDisplay(i-1);
+			cards[i]["icon"].url = "ui://" .. dData._CardIcon;
 			cards[i]["power"].text = i;
 			cards[i]["cost"].text = eData._Cost;
 			cards[i]["card"].visible = true;

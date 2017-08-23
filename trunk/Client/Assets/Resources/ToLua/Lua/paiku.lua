@@ -76,6 +76,7 @@ function paiku_OnFeeItemClick(context)
 end
 
 function paiku_RenderListItem(index, obj)
+	obj:GetChild("n5").asLoader.url = "ui://" .. GamePlayer.GetCardHeadIcon(index);
 	obj.onClick:Add(paiku_OnCardItem);
 	obj.data = GamePlayer.GetInstIDInMyCards(crtCardsFee, index);
 	obj.draggable = true;
@@ -147,6 +148,9 @@ function paiku_FlushData()
 	end
 	for i=1, groupCards.Count do
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
+		itemBtn:GetChild("n5").asLoader.url = "ui://" .. GamePlayer.GetGroupCardHeadIcon(crtGroupIdx, i - 1);
+		local fee = itemBtn:GetChild("n7");
+		fee.text = GamePlayer.GetFeeInGroupCards(crtGroupIdx, i - 1);
 		itemBtn.onClick:Add(paiku_OnCardInGroup);
 		itemBtn.data = GamePlayer.GetInstIDInMyGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;

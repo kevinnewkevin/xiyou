@@ -8,6 +8,8 @@ local holder;
 local controller;
 local isInGroup;
 
+local fee;
+
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -28,6 +30,8 @@ function xiangxiziliao:OnInit()
 	local addGroupBtn = self.contentPane:GetChild("n61").asButton;
 	addGroupBtn.onClick:Add(xiangxiziliao_OnAddGroup);
 	controller = addGroupBtn:GetController("huang");
+
+	fee = self.contentPane:GetChild("n58");
 
 	xiangxiziliao_FlushData();
 end
@@ -97,4 +101,6 @@ function xiangxiziliao_FlushData()
 	else
 		controller.selectedIndex = 0;
 	end
+
+	fee.text = GamePlayer.GetFee(instId);
 end
