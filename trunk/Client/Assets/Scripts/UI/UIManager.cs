@@ -18,6 +18,7 @@ public class UIManager {
         _Lua.Start();
 
         Define.LaunchUIBundle("icon");
+        Define.LaunchUIBundle("Card");
     }
 
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();

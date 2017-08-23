@@ -144,6 +144,22 @@ public class GamePlayer {
         return "";
     }
 
+    static public int GetFee(long instid)
+    {
+        for(int i=0; i < _CardsByFee [0].Count; ++i)
+        {
+            if (_CardsByFee [0] [i].InstId == instid)
+            {
+                EntityData edata = EntityData.GetData(_CardsByFee [0] [i].UnitId);
+                if (edata == null)
+                    return -1;
+
+                return edata._Cost;
+            }
+        }
+        return -1;
+    }
+
     //通过索引获得卡组中卡牌形象
     static public string GetResPathInMyGroup(int groupidx, int cardidx)
     {
@@ -174,6 +190,41 @@ public class GamePlayer {
         if (dData == null)
             return string.Empty;
 
+        return dData._HeadIcon;
+    }
+
+    static public string GetCardHeadIcon(int cardidx)
+    {
+        if (cardidx < 0 || cardidx >= _CardsByFee.Count)
+            return "";
+
+        EntityData eData = EntityData.GetData(_CardsByFee[0][cardidx].UnitId);
+        if (eData == null)
+            return string.Empty;
+
+        DisplayData dData = DisplayData.GetData(eData._DisplayId);
+        if (dData == null)
+            return string.Empty;
+        
+        return dData._HeadIcon;
+    }
+
+    static public string GetGroupCardHeadIcon(int groupidx, int cardidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return "";
+
+        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+            return "";
+
+        EntityData eData = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
+        if (eData == null)
+            return string.Empty;
+
+        DisplayData dData = DisplayData.GetData(eData._DisplayId);
+        if (dData == null)
+            return string.Empty;
+        UnityEngine.Debug.Log(dData._HeadIcon);
         return dData._HeadIcon;
     }
 
@@ -208,6 +259,22 @@ public class GamePlayer {
             return -1;
 
         EntityData eData = EntityData.GetData(_CardsByFee [fee][idx].UnitId);
+        if (eData == null)
+            return -1;
+        
+        return eData._Cost;
+    }
+
+    //通过卡组索引和卡牌索引获得卡牌费用
+    static public int GetFeeInGroupCards(int groupidx, int cardidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return -1;
+
+        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+            return -1;
+
+        EntityData eData = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
         if (eData == null)
             return -1;
         

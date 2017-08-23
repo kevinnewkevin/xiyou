@@ -467,6 +467,19 @@ public class Battle {
         return eData;
     }
 
+    static public DisplayData GetHandCardDisplay(int idx)
+    {
+        if (idx < 0 || idx >= _HandCards.Count)
+            return null;
+
+        EntityData eData = GetHandCard(idx);
+        if (eData == null)
+            return null;
+
+        DisplayData dData = DisplayData.GetData(eData._DisplayId);
+        return dData;
+    }
+
     static public void RemoveHandCard(long instid)
     {
         for(int i=0; i < _HandCards.Count; ++i)
