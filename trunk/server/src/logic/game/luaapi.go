@@ -8,6 +8,9 @@ extern int __GetFriends(void*);
 extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
+extern int __ChangeUnitProperty(void*);
+extern int __ChangeSheld(void*);
+extern int __ChangeSpecial(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
 extern int __GetTime(void*);
@@ -15,6 +18,7 @@ extern int __GetCrit(void*);
 extern int __AddBuff(void*);
 extern int __HasBuff(void*);
 extern int __HasDebuff(void*);
+extern int __BuffMintsHp(void*);
 */
 import "C"
 import (
@@ -43,6 +47,9 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
+	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
+	_L.LoadApi(C.__ChangeSheld,"ChangeSheld","Player")
+	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -50,6 +57,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__AddBuff,"AddBuff","Battle")
 	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
+	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
@@ -70,6 +78,13 @@ func __loadfile(p unsafe.Pointer) C.int {
 
 //export __GetStrings
 func __GetStrings(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+	idx:= 1
+
+	i := L.ToInteger(idx)
+
+	fmt.Println("__GetStrings", int32(i))
 
 	//fmt.Println("__GetStrings")
 
@@ -146,7 +161,6 @@ func __GetFriend(p unsafe.Pointer) C.int {
 	return 1
 }
 
-
 //export __GetUnitProperty
 func __GetUnitProperty(p unsafe.Pointer) C.int {
 
@@ -171,6 +185,75 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {
 	return 1
 }
 
+//export __ChangeUnitProperty
+func __ChangeUnitProperty(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__ChangeUnitProperty")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	data := L.ToInteger(idx)
+	idx ++
+	property := L.ToString(idx)
+
+	//fmt.Println(battleid, unitid, property)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.ChangeUnitProperty(int64(unitid), int32(data), property)
+
+	return 1
+}
+
+//export __ChangeSheld
+func __ChangeSheld(p unsafe.Pointer) C.int {
+
+	fmt.Println("__ChangeSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	data := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	unit.VirtualHp += int32(data)
+
+	return 1
+}
+
+//export __ChangeSpecial
+func __ChangeSpecial(p unsafe.Pointer) C.int {
+
+	fmt.Println("__ChangeSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+	idx ++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	unit.ChangeSpec(spec, int32(buffinstid))
+
+	return 1
+}
 
 //export __GetTargets
 func __GetTargets(p unsafe.Pointer) C.int {
@@ -379,4 +462,30 @@ func __HasDebuff(p unsafe.Pointer) C.int {
 
 	return 1
 }
+
+//export __BuffMintsHp
+func __BuffMintsHp(p unsafe.Pointer) C.int {
+
+	fmt.Println("__BuffMintsHp")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buff := unit.SelectBuff(int32(buffinstid))
+
+	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, buff.IsOver(battle.Round))
+
+	return 1
+}
+
+
 

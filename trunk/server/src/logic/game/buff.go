@@ -15,6 +15,7 @@ type Buff struct {
 	BuffType	int32		//buff类型 增益还是减益
 	BuffKind	int32		//buff种类 有行动还是没行动 有行动就是类似每回合恢复血量或者每回合掉血 没行动就是增加个盾之类的
 	Data		int32 		//数值 加血 掉血 护盾 可以为0
+	Over 		bool		//是否中断
 }
 
 const (
@@ -45,8 +46,33 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 	NewBuff.BuffUntil = b.Until
 	NewBuff.BuffType = b.Type
 	NewBuff.BuffKind = b.Kind
+	NewBuff.Over = false
 
 	return &NewBuff
+}
+
+func (this *Buff) AddProperty() {
+	if this.BuffKind == kKindUntil {		// 只有直接增加属性的BUFF才会走到这里
+		return
+	}
+	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data)
+	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
+	r := []interface{}{0}
+
+	fmt.Println("buff_1_add", int(this.Owner.BattleId), int(this.Data))
+	_L.CallFuncEx("buff_1_add", v, &r)
+}
+
+func (this *Buff) DeleteProperty(battleud int64, unitid int64) {
+	if this.BuffKind == kKindUntil {
+		return
+	}
+	fmt.Println("DeleteProperty", int(this.Owner.BattleId), this.Data)
+	v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
+	r := []interface{}{0}
+
+	fmt.Println("buff_1_delete", int(this.Owner.BattleId), int(unitid), int(this.Data))
+	_L.CallFuncEx("buff_1_delete", v, &r)
 }
 
 
@@ -69,12 +95,12 @@ func (this *Buff) Update(round int32) bool {
 		fmt.Println("本buff不需要行为")
 		return needDel
 	} else if this.BuffKind == kKindUntil {
-		//v := []interface{}{int(this.Owner.Owner.BattleId),int(this.BuffId), int(this.InstId)}
-		//r := []interface{}{0}
-		//
-		//
-		//_L.CallFuncEx("", v, &r)
-		testBattleBuff(this, this.IsOver(round))
+		v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
+		r := []interface{}{0}
+
+		fmt.Println("buff_1_update", int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId))
+		_L.CallFuncEx("buff_1_update", v, &r)
+		//testBattleBuff(this, this.IsOver(round))
 
 		return needDel
 	} else {
@@ -83,7 +109,21 @@ func (this *Buff) Update(round int32) bool {
 }
 
 func (this *Buff) IsOver(round int32) bool {
-	return this.Round + this.BuffUntil <= round
+	o := false
+
+	if this.Over {
+		o = true
+	} else if this.Round + this.BuffUntil <= round {
+		o = true
+	}
+
+	return o
+}
+
+func (this *Buff) Special(data int32) int {
+	// 处理特殊属性
+
+	return 1
 }
 
 func testBattleBuff(buff *Buff, over bool) {

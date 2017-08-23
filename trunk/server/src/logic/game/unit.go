@@ -5,7 +5,6 @@ import (
 	"sync"
 	"sync/atomic"
 	"fmt"
-
 )
 
 var genInstId int64 = 1
@@ -30,6 +29,9 @@ type GameUnit struct {
 	Allbuff		[]*Buff	//全体buff
 	DelBuff		[]*Buff	//需要刪除的buff
 	BattleId	int64	//zhandou id
+	//战斗 buff需要的数据
+	VirtualHp	int32	//护盾数值
+	Special 	map[int32][]int32	//特殊属性效果
 }
 //如果是创建怪物卡牌的话 player = 你来
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -74,6 +76,17 @@ func (this *GameUnit) GetIProperty(id int32) int32 {
 		return 0
 	}
 	return this.IProperties[id]
+}
+
+func (this *GameUnit) ChangeSpec(spec string, buffinstid int32) {
+	spe := prpc.ToId_BuffSpecial(spec)
+	bufflist, ok := this.Special[int32(spe)]
+	if !ok {
+		this.Special[int32(spe)] = []int32{buffinstid}
+	} else {
+		this.Special[int32(spe)] = append(bufflist, buffinstid)
+	}
+	return
 }
 
 func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
@@ -195,6 +208,8 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.Camp = camp
 	this.IsMain = ismain
 	this.BattleId = battleid
+	this.VirtualHp = 0
+	this.Special = map[int32][]int32{}
 }
 
 func (this *GameUnit)CheckBuff (round int32){
@@ -205,6 +220,16 @@ func (this *GameUnit)CheckBuff (round int32){
 func (this *GameUnit)CheckDebuff (round int32){
 	//检测那些有行为的debuff 比如定时损血
 
+}
+
+func (this *GameUnit)SelectBuff (instid int32) *Buff {
+	for _, buff := range this.Allbuff {
+		if buff.InstId == instid {
+			return buff
+		}
+	}
+
+	return nil
 }
 
 func (this *GameUnit)CheckAllBuff (round int32){
@@ -233,6 +258,7 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 			continue
 		}
 		newList = append(newList, buff)
+		buff.DeleteProperty(this.BattleId, this.InstId)
 	}
 
 	fmt.Println("deletBuff", need)

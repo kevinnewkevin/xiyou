@@ -502,14 +502,13 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	targets := []int64{}
 	idx := 0
 	for _, u := range this.Units {
-		fmt.Println(idx)
 		if u == nil {
 			continue
 		}
 		if u.Camp == unit.Camp {
 			continue
 		}
-		if idx >= num {
+		if num > 0 && idx > num {
 			break
 		}
 		idx += 1
@@ -671,6 +670,16 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 
 	return int(pro)
 }
+func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property string) {
+	fmt.Println("增加攻击力,目标为 ", instid, data)
+	p_d := prpc.ToId_CPropertyType(property)
+
+	unit := this.SelectOneUnit(instid)
+
+	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
+
+	return
+}
 
 func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, crit int32) {
 
@@ -686,6 +695,30 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	for _, debuff := range unit.Buff {
 		fmt.Println("debuff", debuff)
+	}
+
+	if unit.VirtualHp >= damage {			//计算护盾减伤之后的伤害
+		damage = 0
+		unit.VirtualHp = unit.VirtualHp - damage
+	} else {
+		damage = damage - unit.VirtualHp
+	}
+
+	//应该还有个百分比减伤判断
+
+	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
+		bf, ok := unit.Special[prpc.BF_UNDEAD]
+		if ok && len(bf) > 0 {
+			fmt.Println("免死触发")
+			damage = 0
+			if len(bf) == 1 {			// 只有一个就删除掉这个效果
+				delete(unit.Special, prpc.BF_UNDEAD)
+			} else {
+				unit.Special[prpc.BF_UNDEAD] = bf[:1]
+			}
+			buff := unit.SelectBuff(bf[0])
+			buff.Over = true
+		}
 	}
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(damage)
@@ -785,6 +818,7 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 	unit := this.SelectOneUnit(target)
 
 	buff := NewBuff(unit, casterid, buffid, data, this.Round)
+	buff.AddProperty()
 
 	unit.Allbuff = append(unit.Allbuff, buff)
 
@@ -803,6 +837,7 @@ func (this *BattleRoom) AddDebuff(casterid int64, target int64, buffid int32, da
 	unit := this.SelectOneUnit(target)
 
 	buff := NewBuff(unit, casterid, buffid, data, this.Round)
+	buff.AddProperty()
 
 	unit.Allbuff = append(unit.Allbuff, buff)
 	fmt.Println("实例ID为", target, "的卡牌获得了id为", buff.InstId, "的debuff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff")
