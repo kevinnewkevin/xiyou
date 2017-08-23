@@ -108,23 +108,37 @@ public class GamePlayer {
     }
 
     //通过索引获得卡牌形象
-    static public string GetResPathInMyCards(int idx)
+    static public DisplayData GetDisplayDataByIndex(int idx)
     {
         if (idx < 0 || idx >= _CardsByFee [0].Count)
-            return "";
+            return null;
 
         EntityData edata = EntityData.GetData(_CardsByFee [0][idx].UnitId);
         if (edata == null)
-            return "";
+            return null;
 
         DisplayData ddata = DisplayData.GetData(edata._DisplayId);
-        if (ddata == null)
-            return "";
-        
-        return ddata._AssetPath;
+        return ddata;
     }
 
-    static public string GetResPath(long instid)
+    //通过索引获得卡牌形象
+    static public DisplayData GetDisplayDataByIndex(int fee, int idx)
+    {
+        if (!_CardsByFee.ContainsKey(fee))
+            return null;
+
+        if (idx < 0 || idx >= _CardsByFee[fee].Count)
+            return null;
+
+        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
+        if (edata == null)
+            return null;
+
+        DisplayData ddata = DisplayData.GetData(edata._DisplayId);
+        return ddata;
+    }
+
+    static public DisplayData GetDisplayDataByInstID(long instid)
     {
         for(int i=0; i < _CardsByFee [0].Count; ++i)
         {
@@ -132,100 +146,87 @@ public class GamePlayer {
             {
                 EntityData edata = EntityData.GetData(_CardsByFee [0] [i].UnitId);
                 if (edata == null)
-                    return "";
+                    return null;
 
                 DisplayData ddata = DisplayData.GetData(edata._DisplayId);
-                if (ddata == null)
-                    return "";
-
-                return ddata._AssetPath;
+                return ddata;
             }
         }
-        return "";
+        return null;
     }
 
-    static public int GetFee(long instid)
+    static public EntityData GetEntityDataByIndex(int idx)
     {
-        for(int i=0; i < _CardsByFee [0].Count; ++i)
-        {
-            if (_CardsByFee [0] [i].InstId == instid)
-            {
-                EntityData edata = EntityData.GetData(_CardsByFee [0] [i].UnitId);
-                if (edata == null)
-                    return -1;
+        if (idx < 0 || idx >= _CardsByFee[0].Count)
+            return null;
 
-                return edata._Cost;
+        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
+        return edata;
+    }
+
+    static public EntityData GetEntityDataByIndex(int fee, int idx)
+    {
+        if (!_CardsByFee.ContainsKey(fee))
+            return null;
+
+        if (idx < 0 || idx >= _CardsByFee[0].Count)
+            return null;
+
+        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
+        return edata;
+    }
+
+    static public EntityData GetEntityDataByInstID(long instid)
+    {
+        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        {
+            if (_CardsByFee[0][i].InstId == instid)
+            {
+                EntityData edata = EntityData.GetData(_CardsByFee[0][i].UnitId);
+                return edata;
             }
         }
-        return -1;
+        return null;
     }
 
     //通过索引获得卡组中卡牌形象
-    static public string GetResPathInMyGroup(int groupidx, int cardidx)
+    static public DisplayData GetDisplayDataByIndexFromGroup(int groupidx, int cardidx)
     {
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
-            return "";
+            return null;
 
         if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
-            return "";
+            return null;
 
         EntityData edata = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
         if (edata == null)
-            return "";
+            return null;
 
         DisplayData ddata = DisplayData.GetData(edata._DisplayId);
-        if (ddata == null)
-            return "";
-
-        return ddata._AssetPath;
+        return ddata;
     }
 
-    static public string GetMyHeadIcon()
+    //通过索引获得卡组中卡牌形象
+    static public EntityData GetEntityDataByIndexFromGroup(int groupidx, int cardidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return null;
+
+        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+            return null;
+
+        EntityData edata = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
+        return edata;
+    }
+
+    static public DisplayData GetMyDisplayData()
     {
         EntityData eData = EntityData.GetData(_Data.UnitId);
         if (eData == null)
-            return string.Empty;
+            return null;
 
         DisplayData dData = DisplayData.GetData(eData._DisplayId);
-        if (dData == null)
-            return string.Empty;
-
-        return dData._HeadIcon;
-    }
-
-    static public string GetCardHeadIcon(int cardidx)
-    {
-        if (cardidx < 0 || cardidx >= _CardsByFee.Count)
-            return "";
-
-        EntityData eData = EntityData.GetData(_CardsByFee[0][cardidx].UnitId);
-        if (eData == null)
-            return string.Empty;
-
-        DisplayData dData = DisplayData.GetData(eData._DisplayId);
-        if (dData == null)
-            return string.Empty;
-        
-        return dData._HeadIcon;
-    }
-
-    static public string GetGroupCardHeadIcon(int groupidx, int cardidx)
-    {
-        if (groupidx < 0 || groupidx >= _CardGroup.Count)
-            return "";
-
-        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
-            return "";
-
-        EntityData eData = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
-        if (eData == null)
-            return string.Empty;
-
-        DisplayData dData = DisplayData.GetData(eData._DisplayId);
-        if (dData == null)
-            return string.Empty;
-        UnityEngine.Debug.Log(dData._HeadIcon);
-        return dData._HeadIcon;
+        return dData;
     }
 
     //通过索引获得卡牌UnitID
@@ -238,7 +239,7 @@ public class GamePlayer {
     }
 
     //通过索引获得卡牌InstID
-    static public long GetInstIDInMyCards(int fee, int idx)
+    static public long GetInstID(int fee, int idx)
     {
         if (!_CardsByFee.ContainsKey(fee))
             return 0;
@@ -249,40 +250,8 @@ public class GamePlayer {
         return _CardsByFee [fee][idx].InstId;
     }
 
-    //通过索引获得卡牌费用
-    static public int GetFeeInMyCards(int fee, int idx)
-    {
-        if (!_CardsByFee.ContainsKey(fee))
-            return -1;
-
-        if (idx < 0 || idx >= _CardsByFee [fee].Count)
-            return -1;
-
-        EntityData eData = EntityData.GetData(_CardsByFee [fee][idx].UnitId);
-        if (eData == null)
-            return -1;
-        
-        return eData._Cost;
-    }
-
-    //通过卡组索引和卡牌索引获得卡牌费用
-    static public int GetFeeInGroupCards(int groupidx, int cardidx)
-    {
-        if (groupidx < 0 || groupidx >= _CardGroup.Count)
-            return -1;
-
-        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
-            return -1;
-
-        EntityData eData = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
-        if (eData == null)
-            return -1;
-        
-        return eData._Cost;
-    }
-
     //通过索引获得卡组中卡牌InstID
-    static public long GetInstIDInMyGroup(int groupidx, int cardidx)
+    static public long GetInstIDFromGroup(int groupidx, int cardidx)
     {
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
             return 0;

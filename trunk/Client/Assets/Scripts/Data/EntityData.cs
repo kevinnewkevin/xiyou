@@ -7,6 +7,7 @@ public class EntityData {
     public int _UnitId;
     public int _DisplayId;
     public int _Cost;
+    public string _Name;
 
     static Dictionary<int, EntityData> metaData;
 
@@ -29,6 +30,7 @@ public class EntityData {
             data._UnitId = parser.GetInt (i, "UnitId");
             data._DisplayId = parser.GetInt(i, "DisplayId");
             data._Cost = parser.GetInt(i, "Cost");
+            data._Name = parser.GetString(i, "Name");
 
             if(metaData.ContainsKey(data._UnitId))
             {

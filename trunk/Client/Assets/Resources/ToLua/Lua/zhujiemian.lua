@@ -78,7 +78,8 @@ function zhujiemian:OnHide()
 end
 
 function zhujiemian_FlushData()
-	headIcon.url = "ui://" .. GamePlayer.GetMyHeadIcon();
+	local displayData = GamePlayer.GetMyDisplayData();
+	headIcon.url = "ui://" .. displayData._HeadIcon;
 	playerName.text = GamePlayer._Name;
 	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. 99999;
 	playerLevel.text = GamePlayer._Data.IProperties[5];

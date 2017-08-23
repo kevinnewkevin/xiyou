@@ -76,13 +76,15 @@ function paiku_OnFeeItemClick(context)
 end
 
 function paiku_RenderListItem(index, obj)
-	obj:GetChild("n5").asLoader.url = "ui://" .. GamePlayer.GetCardHeadIcon(index);
+	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, index);
+	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
+	obj:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj.onClick:Add(paiku_OnCardItem);
-	obj.data = GamePlayer.GetInstIDInMyCards(crtCardsFee, index);
+	obj.data = GamePlayer.GetInstID(crtCardsFee, index);
 	obj.draggable = true;
 	obj.onDragEnd:Add(paiku_OnDropCard);
 	local fee = obj:GetChild("n7");
-	fee.text = GamePlayer.GetFeeInMyCards(crtCardsFee, index);
+	fee.text = entityData._Cost;
 end
 
 function paiku_OnDeleteGroup(context)
@@ -146,13 +148,17 @@ function paiku_FlushData()
 	if groupCards == nil then
 		return;
 	end
+	local displayData;
+	local entityData;
 	for i=1, groupCards.Count do
+		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
+		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
-		itemBtn:GetChild("n5").asLoader.url = "ui://" .. GamePlayer.GetGroupCardHeadIcon(crtGroupIdx, i - 1);
+		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 		local fee = itemBtn:GetChild("n7");
-		fee.text = GamePlayer.GetFeeInGroupCards(crtGroupIdx, i - 1);
+		fee.text = entityData._Cost
 		itemBtn.onClick:Add(paiku_OnCardInGroup);
-		itemBtn.data = GamePlayer.GetInstIDInMyGroup(crtGroupIdx, i - 1);
+		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
 		itemBtn.onDragEnd:Add(paiku_OnDropCard);
 	end

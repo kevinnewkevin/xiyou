@@ -9,6 +9,7 @@ local controller;
 local isInGroup;
 
 local fee;
+local name;
 
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
@@ -32,6 +33,7 @@ function xiangxiziliao:OnInit()
 	controller = addGroupBtn:GetController("huang");
 
 	fee = self.contentPane:GetChild("n58");
+	name = self.contentPane:GetChild("n60");
 
 	xiangxiziliao_FlushData();
 end
@@ -92,7 +94,8 @@ end
 
 function xiangxiziliao_FlushData()
 	local instId = UIManager.GetWindow("paiku").GetCrtCard();
-	local modelRes = GamePlayer.GetResPath(instId);
+	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
+	local modelRes = displayData._AssetPath;
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
 
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
@@ -102,5 +105,7 @@ function xiangxiziliao_FlushData()
 		controller.selectedIndex = 0;
 	end
 
-	fee.text = GamePlayer.GetFee(instId);
+	local entityData = GamePlayer.GetEntityDataByInstID(instId);
+	fee.text = entityData._Cost;
+	name.text = entityData._Name;
 end
