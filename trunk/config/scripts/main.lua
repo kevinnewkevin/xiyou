@@ -37,3 +37,5 @@ sys.loadfile("skill34.lua")
 sys.loadfile("skill35.lua")
 sys.loadfile("skill36.lua")
 sys.loadfile("skill37.lua")
+
+sys.loadfile("bufftest.lua")
