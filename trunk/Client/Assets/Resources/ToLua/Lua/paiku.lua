@@ -181,12 +181,13 @@ end
 function paiku_OnDropCard(context)
 	crtCardInstID = context.sender.data;
 	isInGroup = GamePlayer.IsInGroup(crtCardInstID, crtGroupIdx);
-	local MessageBox = UIManager.ShowMessageBox();
+	paiku_OnMessageConfirm();
+	--[[local MessageBox = UIManager.ShowMessageBox();
 	if isInGroup then
 		MessageBox:SetData("提示", "是否取出卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
 	else
 		MessageBox:SetData("提示", "是否加入卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
-	end
+	end--]]
 end
 
 function paiku_OnMessageConfirm()
@@ -198,7 +199,7 @@ function paiku_OnMessageConfirm()
 		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
 		print("PutInCard");
 	end
-	UIManager.HideMessageBox();
+	--UIManager.HideMessageBox();
 	UIManager.SetDirty("paiku");
 end
 
