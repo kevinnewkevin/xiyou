@@ -40,6 +40,7 @@ function SK_102_Action(battleid, casterid)
 		sys.log(1)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		Battle.Attack(battleid, casterid, v, damage, crit)
+		Battle.AddBuff(battleid, casterid, v, 3, 5)
 		
 		sys.log("skill3 对id为"..v.."的目标造成"..damage.."点伤害")
 	end

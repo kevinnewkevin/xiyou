@@ -28,10 +28,11 @@ function SK_100_Action(battleid, casterid)
 	if damage <= 0 then 
 		damage = 1
 	end
-	sys.log(1)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-	sys.log(2)
+	sys.log("是否暴击"..crit)
 	Battle.Attack(battleid, casterid, t, damage, crit)
+	sys.log("852741963")
+	Battle.AddBuff(battleid, casterid, t, 1, 5)
 	-- Battle.AddBuff(1)
 	
 	sys.log("skill1 对id为"..t.."的目标造成"..damage.."点伤害")	
