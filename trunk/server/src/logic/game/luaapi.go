@@ -19,6 +19,12 @@ extern int __AddBuff(void*);
 extern int __HasBuff(void*);
 extern int __HasDebuff(void*);
 extern int __BuffMintsHp(void*);
+extern int __GetCalcMagicDef(void*);
+extern int __GetUnitMtk(void*);
+extern int __GetUnitAtk(void*);
+extern int GetCalcDef(void*);
+
+
 */
 import "C"
 import (
@@ -50,6 +56,10 @@ func InitLua(r string){
 	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
 	_L.LoadApi(C.__ChangeSheld,"ChangeSheld","Player")
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
+	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
+	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
+	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
+	_L.LoadApi(C.__GetClacDef,"GetCalcDef","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -491,7 +501,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //export __GetUnitDamage
-func __GetUnitDamage(p unsafe.Pointer) C.int {
+func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理   伤害
 
 	fmt.Println("__GetUnitDamage")
 
@@ -541,7 +551,7 @@ func __GetUnitSheldPer(p unsafe.Pointer) C.int {		//获取减伤百分比
 }
 
 //export __GetUnitAtk
-func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比
+func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理
 
 	fmt.Println("__GetUnitAtk")
 
@@ -563,8 +573,31 @@ func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比
 	return 1
 }
 
+
+//export __GetCalcDef
+func __GetCalcDef(p unsafe.Pointer) C.int {		//获取减伤百分比  物理防御
+
+	fmt.Println("__GetUnitAtk")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	atk := CalcDef(unit)
+
+	L.PushInteger(int(atk))
+
+	return 1
+}
 //export __GetUnitMtk
-func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比
+func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术
 
 	fmt.Println("__GetUnitMtk")
 
@@ -585,7 +618,28 @@ func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比
 
 	return 1
 }
+//export __GetCalcMagicDef
+func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
 
+	fmt.Println("__GetUnitMtk")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	mtk := CalcMagicDef(unit)
+
+	L.PushInteger(int(mtk))
+
+	return 1
+}
 
 
 
