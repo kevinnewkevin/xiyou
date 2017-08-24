@@ -214,7 +214,6 @@ public class Skill {
                     //播放技能特效
                     if (_SkillEff[i] != null)
                         _SkillEff[i].SetActive(true);
-                    _SkillEff[i].transform.LookAt(_Targets[i]._ActorObj.transform, Vector3.up);
                 }
 
                 // 如果技能移动方式为fly 即有位移 则控制其移动
@@ -222,7 +221,16 @@ public class Skill {
                 {
                     for (int i = 0; i < _SkillEff.Length; ++i)
                     {
+                        _SkillEff[i].transform.LookAt(_Targets[i]._ActorObj.transform, Vector3.up);
                         iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime, "position", _Targets[i]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
+                    }
+                }
+
+                if (_SkillData._Motion == SkillData.MotionType.MT_Self)
+                {
+                    for (int i = 0; i < _SkillEff.Length; ++i)
+                    {
+                        _SkillEff[i].transform.LookAt(_Caster._ActorObj.transform, Vector3.up);
                     }
                 }
 
