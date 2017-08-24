@@ -886,7 +886,7 @@ public static class ToLuaMenu
     }
 
     [MenuItem("Lua/Generate All", false, 5)]
-    static void GenLuaAll()
+    public static void GenLuaAll()
     {
         if (EditorApplication.isCompiling)
         {
