@@ -210,7 +210,7 @@ func __ChangeUnitProperty(p unsafe.Pointer) C.int {
 	idx ++
 	property := L.ToString(idx)
 
-	//fmt.Println(battleid, unitid, property)
+	fmt.Println("__ChangeUnitProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -491,8 +491,9 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
+	fmt.Println("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
-	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, buff.IsOver(battle.Round))
+	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
 	return 1
 }
@@ -528,13 +529,25 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理   伤害
 }
 
 //export __GetUnitSheld
-func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取护盾数值
+func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取场上所有玩家护盾数值
 
 	fmt.Println("__GetUnitSheld")
 
 	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
 
-	L.PushInteger(1)
+	battle := FindBattle(int64(battleid))
+
+	var sheld int32
+	for _, u := range battle.Units {
+		if u == nil {
+			continue
+		}
+		sheld += u.VirtualHp
+	}
+
+	L.PushInteger(int(sheld))
 
 	return 1
 }

@@ -676,8 +676,10 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property string) {
 	fmt.Println("增加攻击力,目标为 ", instid, data)
 	p_d := prpc.ToId_CPropertyType(property)
+	fmt.Println("1111111", p_d)
 
 	unit := this.SelectOneUnit(instid)
+	fmt.Println("2222222", unit)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
 
@@ -788,7 +790,7 @@ func (this *BattleRoom) ReduceSpell (target int64, damage int32, crit int32) {
 
 	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] - float32(damage)
 
-	fmt.Println("实例ID为", target, "的卡牌在第", this.Round, "法术降到",unit.CProperties[prpc.CPT_MAGIC_ATK],"降低了",damage )
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "法术降到",unit.CProperties[prpc.CPT_MAGIC_ATK],"降低了",damage )
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
@@ -810,7 +812,7 @@ func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
 
 	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] + float32(damage)
 
-	fmt.Println("实例ID为", target, "的卡牌在第", this.Round, "法术增加到",unit.CProperties[prpc.CPT_MAGIC_ATK],"增加了",damage )
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "法术增加到",unit.CProperties[prpc.CPT_MAGIC_ATK],"增加了",damage )
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
@@ -835,7 +837,7 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 
 	unit.Allbuff = append(unit.Allbuff, buff)
 
-	fmt.Println("实例ID为", target, "的卡牌在第", this.Round, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
 
 }

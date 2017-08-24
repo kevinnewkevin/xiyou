@@ -236,7 +236,7 @@ func (this *GameUnit)SelectBuff (instid int32) *Buff {
 }
 
 func (this *GameUnit)CheckAllBuff (round int32){
-	fmt.Println("checkallBuff round is ", round)			//檢測buff效果
+	fmt.Println(this.InstId, "checkallBuff round is ", round)			//檢測buff效果
 	needDelete := map[*Buff]int{}
 	this.DelBuff = []*Buff{}
 
@@ -245,11 +245,13 @@ func (this *GameUnit)CheckAllBuff (round int32){
 			break
 		}
 		if buff.Update(round) {
+			fmt.Println("CheckAllBuff one", buff.InstId, buff.Round)
 			needDelete[buff] = 1
 			this.DelBuff = append(this.DelBuff, buff)		//這個是給戰鬥房間用的 用來寫入戰報
 		}
 	}
 
+	fmt.Println(this.InstId, "checkallBuff over", len(needDelete))			//檢測buff效果
 	this.deletBuff(needDelete)
 }
 
@@ -258,10 +260,10 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 	for _, buff := range this.Allbuff {
 		_, ok := need[buff]
 		if ok {
+			buff.DeleteProperty(this.BattleId, this.InstId)
 			continue
 		}
 		newList = append(newList, buff)
-		buff.DeleteProperty(this.BattleId, this.InstId)
 	}
 
 	fmt.Println("deletBuff", need)

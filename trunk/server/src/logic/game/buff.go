@@ -67,22 +67,22 @@ func (this *Buff) DeleteProperty(battleud int64, unitid int64) {
 	if this.BuffKind == kKindUntil {
 		return
 	}
-	fmt.Println("DeleteProperty", int(this.Owner.BattleId), this.Data)
+	fmt.Println("DeleteProperty", this.Data, this.InstId)
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
 	r := []interface{}{0}
 
-	fmt.Println("buff_1_delete", int(this.Owner.BattleId), int(unitid), int(this.Data))
+	fmt.Println("buff_1_delete", int(unitid), this.InstId)
 	_L.CallFuncEx("buff_1_delete", v, &r)
 }
 
 
 func (this *Buff) Update(round int32) bool {
-	fmt.Println("buff每回合更新 实例ID为:", this.InstId)
+	fmt.Println("buff每回合更新 实例ID为:", this.InstId, "round is ", round, "myRound is ", this.Round)
 
 	needDel := false
 
 	if this.Round == round {
-		fmt.Println("本回合上的buff本回合不生效", this.Round, "   ", round)
+		fmt.Println("本回合上的buff本回合不生效", this.Round, round, needDel)
 		return needDel
 	}
 
@@ -98,7 +98,7 @@ func (this *Buff) Update(round int32) bool {
 		v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
 		r := []interface{}{0}
 
-		fmt.Println("buff_1_update", int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId))
+		fmt.Println("buff_1_update", int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
 		_L.CallFuncEx("buff_1_update", v, &r)
 		//testBattleBuff(this, this.IsOver(round))
 
