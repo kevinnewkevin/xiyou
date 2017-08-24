@@ -6,59 +6,30 @@ AnimationClip:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: tiaodaishangshen
-  serializedVersion: 6
-  m_Legacy: 0
+  serializedVersion: 4
+  m_AnimationType: 2
   m_Compressed: 0
   m_UseHighQualityCurve: 1
   m_RotationCurves: []
   m_CompressedRotationCurves: []
-  m_EulerCurves: []
   m_PositionCurves: []
-  m_ScaleCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: {x: 2.164122, y: 2.1641235, z: 2.1641235}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.2666667
-        value: {x: 2.164122, y: 2.1641235, z: 2.1641235}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.3
-        value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    path: 
+  m_ScaleCurves: []
   m_FloatCurves:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -66,21 +37,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -88,21 +56,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -110,21 +75,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -132,21 +94,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -154,21 +113,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -176,21 +132,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -198,21 +151,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -220,21 +170,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -242,21 +189,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -264,21 +208,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -286,21 +227,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -308,21 +246,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -330,21 +265,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -352,21 +284,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -374,21 +303,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -396,33 +322,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -430,33 +351,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -464,33 +380,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -498,33 +409,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -532,33 +438,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -566,33 +467,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -600,33 +496,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -634,33 +525,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -668,33 +554,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -702,33 +583,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -736,33 +612,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -770,33 +641,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -804,33 +670,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -838,33 +699,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -872,33 +728,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -906,33 +757,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -945,248 +791,206 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 3
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 914802057
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 914802057
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 914802057
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 914802057
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 1895888582
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 1895888582
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 1895888582
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 1895888582
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 109495689
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 377931145
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 646366601
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 109495689
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 377931145
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 646366601
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 109495689
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 377931145
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 646366601
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 109495689
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 377931145
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 646366601
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 1090582214
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 1359017670
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 643986835
+    - path: 643986835
       attribute: 1627453126
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 1090582214
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 1359017670
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3296044746
+    - path: 3296044746
       attribute: 1627453126
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 1090582214
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 1359017670
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 749213122
+    - path: 749213122
       attribute: 1627453126
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 1090582214
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 1359017670
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3677029945
+    - path: 3677029945
       attribute: 1627453126
       script: {fileID: 0}
-      typeID: 23
+      classID: 23
       customType: 22
       isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
-    m_AdditiveReferencePoseClip: {fileID: 0}
-    m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.6333333
+    m_StopTime: 1.16666663
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
-    m_HasAdditiveReferencePose: 0
     m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
@@ -1201,21 +1005,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1223,21 +1024,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1245,21 +1043,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1267,21 +1062,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1289,21 +1081,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1311,21 +1100,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1333,21 +1119,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1355,21 +1138,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1377,21 +1157,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1399,21 +1176,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1421,21 +1195,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1443,21 +1214,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1465,21 +1233,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.x
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -1487,21 +1252,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.y
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -1509,21 +1271,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        tangentMode: 10
+      - time: 1.13333333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.z
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -1531,21 +1290,18 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.5
+      - time: .5
         value: 0
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
+      - time: 1.13333333
         value: -1
-        inSlope: -0.88235295
-        outSlope: -0.88235295
-        tangentMode: 34
+        inSlope: -1.57894742
+        outSlope: -1.57894742
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._MainTex_ST.w
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -1553,33 +1309,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1587,33 +1338,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1621,33 +1367,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1655,33 +1396,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 01/xiangshangtiaodai01
     classID: 23
@@ -1689,33 +1425,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1723,33 +1454,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1757,33 +1483,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1791,33 +1512,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 02/xiangshangtiaodai02
     classID: 23
@@ -1825,33 +1541,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1859,33 +1570,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1893,33 +1599,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1927,33 +1628,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 03/xiangshangtiaodai03
     classID: 23
@@ -1961,33 +1657,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.r
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -1995,33 +1686,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.g
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -2029,33 +1715,28 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
-        value: 0.5
+      - time: .466666669
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5
+        tangentMode: 10
+      - time: .5
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 0.5
+        tangentMode: 10
+      - time: 1.13333333
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5
+        tangentMode: 10
+      - time: 1.16666663
+        value: .5
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.b
     path: 04/xiangshangtiaodai04
     classID: 23
@@ -2063,123 +1744,31 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
-        time: 0.46666667
+      - time: .466666669
         value: 0
-        inSlope: 15.176473
-        outSlope: 15.176473
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.5058824
-        inSlope: 7.258313
-        outSlope: 7.258313
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.2666667
+        inSlope: 15.1764727
+        outSlope: 15.1764727
+        tangentMode: 10
+      - time: .5
+        value: .505882382
+        inSlope: 7.58514023
+        outSlope: 7.58514023
+        tangentMode: 10
+      - time: 1.13333333
+        value: .501960814
+        inSlope: -7.53251553
+        outSlope: -7.53251553
+        tangentMode: 10
+      - time: 1.16666663
         value: 0
-        inSlope: 0.3545687
-        outSlope: 0.3545687
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 1.6333333
-        value: 0.5019608
-        inSlope: 1.368984
-        outSlope: 1.368984
-        tangentMode: 34
+        inSlope: -15.0588388
+        outSlope: -15.0588388
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
     attribute: material._TintColor.a
     path: 04/xiangshangtiaodai04
     classID: 23
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 2.164122
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 2.164122
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.3
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.x
-    path: 
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 2.1641235
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 2.1641235
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.3
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.y
-    path: 
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 2.1641235
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.2666667
-        value: 2.1641235
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1.3
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.z
-    path: 
-    classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
-  m_HasGenericRootTransform: 0
-  m_HasMotionFloatCurves: 0
-  m_GenerateMotionCurves: 0
   m_Events: []
