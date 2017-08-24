@@ -15,6 +15,7 @@ type (
 		CProp  []float32
 		Skills []int32
 		chapters []int32
+		BaseName string
 	}
 	SkillRecord struct {
 		SkillID    int32
@@ -63,6 +64,7 @@ func LoadUnitTable(filename string) error {
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
 		u.IProp = make([]int32, prpc.IPT_MAX)
 		u.CProp = make([]float32, prpc.CPT_MAX)
+		u.BaseName = csv.GetString(r, "Name")
 		u.IProp[prpc.IPT_HP] = csv.GetInt32(r, prpc.K_IPT_HP)
 		u.IProp[prpc.IPT_PHYLE] = csv.GetInt32(r, prpc.K_IPT_PHYLE)
 		u.IProp[prpc.IPT_LEVEL] = csv.GetInt32(r, prpc.K_IPT_LEVEL)

@@ -18,6 +18,7 @@ type GameUnit struct {
 	InstId      int64
 	InstName    string
 	DisPlay     int32
+	Level     	int32
 	IProperties []int32
 	CProperties []float32
 	Skill       map[int32]*Skill
@@ -46,6 +47,8 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId
 	u.Skill = map[int32]*Skill{}
+	u.Level = 1
+	u.InstName = t.BaseName
 	for i := 0; i < len(t.Skills); i++ {
 		if t.Skills[i] == 0 {
 			continue

@@ -488,4 +488,105 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//export __GetUnitDamage
+func __GetUnitDamage(p unsafe.Pointer) C.int {
+
+	fmt.Println("__GetUnitDamage")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	casterid := L.ToInteger(idx)
+	idx ++
+	targetid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	caster := battle.SelectOneUnit(int64(casterid))
+
+	target := battle.SelectOneUnit(int64(targetid))
+
+	finaldamage := CalcDamage(caster, target)
+
+	L.PushNumber(float64(finaldamage))
+
+
+	return 1
+}
+
+//export __GetUnitSheld
+func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取护盾数值
+
+	fmt.Println("__GetUnitSheld")
+
+	L := lua.GetLuaState(p)
+
+	L.PushInteger(1)
+
+	return 1
+}
+
+//export __GetUnitSheldPer
+func __GetUnitSheldPer(p unsafe.Pointer) C.int {		//获取减伤百分比
+
+	fmt.Println("__GetUnitSheldPer")
+
+	L := lua.GetLuaState(p)
+	L.PushInteger(1)
+
+	return 1
+}
+
+//export __GetUnitAtk
+func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比
+
+	fmt.Println("__GetUnitAtk")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	atk := CalcAtk(unit)
+
+	L.PushInteger(int(atk))
+
+	return 1
+}
+
+//export __GetUnitMtk
+func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比
+
+	fmt.Println("__GetUnitMtk")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	mtk := CalcMagicAtk(unit)
+
+	L.PushInteger(int(mtk))
+
+	return 1
+}
+
+
+
+
 
