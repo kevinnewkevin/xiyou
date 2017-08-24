@@ -1,3 +1,4 @@
+using System.Net;
 
 public class NetWoking 
 {
@@ -17,7 +18,9 @@ public class NetWoking
     public static bool Open(string host, int port) {
         try
         {
-            socket_.Connect(host, port);
+            IPAddress ip;
+            ip = IPAddress.Parse(host);
+            socket_.Connect(new IPEndPoint(ip, port));
             socket_.Blocking = false;
             socket_.NoDelay = true;
             return true;
