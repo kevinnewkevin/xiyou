@@ -17,17 +17,14 @@ public class NetWoking
     }
     public static bool Open(string host, int port) {
         try
-        {
-            IPAddress ip;
-            ip = IPAddress.Parse(host);
-            socket_.Connect(new IPEndPoint(ip, port));
-            socket_.Blocking = false;
-            socket_.NoDelay = true;
+		{ 
+			socket_.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Tcp, System.Net.Sockets.SocketOptionName.NoDelay, true);
+            socket_.Connect(host, port);
             return true;
         }
         catch (System.Net.Sockets.SocketException ex)
         {
-            UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
+            UnityEngine.Debug.LogError(ex.Message + "1:" + ex.ErrorCode);
             return false;
         }
     }
@@ -60,7 +57,7 @@ public class NetWoking
             }
             catch (System.Net.Sockets.SocketException ex)
             {
-                UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
+                UnityEngine.Debug.LogError(ex.Message + "2:" + ex.ErrorCode);
             }
         }
     }
@@ -76,7 +73,7 @@ public class NetWoking
             }
             catch (System.Net.Sockets.SocketException ex)
             {
-                UnityEngine.Debug.LogError(ex.Message + ":" + ex.ErrorCode);
+                UnityEngine.Debug.LogError(ex.Message + "3:" + ex.ErrorCode);
             }
         }
     }
@@ -92,6 +89,8 @@ public class NetWoking
 
     public static void SetupNetFPS()
     {
+		if (!socket_.Connected)
+				return;		
         DoWrite();
         DoRead();
         DoDispatch();
