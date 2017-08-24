@@ -37,8 +37,10 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid, string name, string title)
+    public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes)
     {
+        Debug.Log(name);
+
         if (go == null)
         {
             Debug.LogWarning("Actor obj is null.");
@@ -49,6 +51,10 @@ public class Actor {
         _ActorObj.transform.position = pos;
         _Name = name;
         _Title = title;
+        if (questes != null)
+        {
+            _QuestList = new List<int>(questes);
+        }
         Init(false);
     }
 
@@ -227,7 +233,7 @@ public class Actor {
         {
             if(_QuestList == null)
                 return false;
-            return _QuestList.Count == 0; 
+            return _QuestList.Count != 0; 
         }
     }
 

@@ -7,7 +7,7 @@ public class NpcData {
 	public int _Id;
     public int _Display;
     public string _OpenUI;
-    public string _QuestID;
+    public int[] _QuestID;
     public Vector3 _Position;
 
     static Dictionary<int, NpcData> metaData;
@@ -31,7 +31,13 @@ public class NpcData {
             data._Id = parser.GetInt (i, "ID");
             data._Display = parser.GetInt (i, "DisPlayID");
             data._OpenUI = parser.GetString (i, "UIPath");
-            data._QuestID = parser.GetString (i, "QuestID");
+            string questes = parser.GetString (i, "QuestID");
+            string[] qusetesArr = questes.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+            data._QuestID = new int[qusetesArr.Length];
+            for (int j = 0; j < qusetesArr.Length; ++j)
+            {
+                data._QuestID[j] = int.Parse(qusetesArr[j]);
+            }
             string[] posStr = parser.GetString (i, "Position").Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
             if (posStr.Length != 3)
                 Debug.Log("Error Position in table: Npc.csv");
