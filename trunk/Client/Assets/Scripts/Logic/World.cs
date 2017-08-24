@@ -13,7 +13,7 @@ public class World {
         // load player Asset for gameobject
         DisplayData display = DisplayData.GetData(1);
         GameObject go = AssetLoader.LoadAsset(display._AssetPath);
-        _PlayerActor = new Actor(go, new Vector3(20f, -14.3f, 4f), GamePlayer._InstID, -1, 100, 100);
+        _PlayerActor = new Actor(go, new Vector3(20f, -14.3f, 4f), GamePlayer._InstID, GamePlayer._Name, "");
         Camera.main.GetComponent<CameraTracker>().MoveToLookAt = go.transform.position.x;
     }
 

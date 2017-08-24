@@ -243,14 +243,19 @@ public class Battle {
         {
             EntityData entity;
             DisplayData display;
+            Actor actor;
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
-                if (GetActor(_BattleReport.UnitList [i].InstId) != null)
+                actor = GetActor(_BattleReport.UnitList[i].InstId);
+                if (actor != null)
+                {
+                    actor.SetValue(_BattleReport.UnitList[i].HP, _BattleReport.UnitList[i].CHP);
                     continue;
+                }
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].HP, _BattleReport.UnitList[i].HP);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].HP, _BattleReport.UnitList[i].CHP);
             }
             _BattleReport.UnitList = null;
             return;

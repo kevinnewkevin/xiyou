@@ -7,6 +7,10 @@ public class Actor {
     //场上角色的Obj
     public GameObject _ActorObj;
 
+    public string _Name;
+
+    public string _Title;
+
     public HeadBar _Headbar;
 
     public int _RealPosInScene;
@@ -28,9 +32,12 @@ public class Actor {
     // 身上持有的buff列表
     List<int> _BuffList;
 
+    // 身上持有的任务列表
+    List<int> _QuestList;
+
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid, int realPos, int crtHp, int maxHp)
+    public Actor(GameObject go, Vector3 pos, long instid, string name, string title)
     {
         if (go == null)
         {
@@ -39,11 +46,10 @@ public class Actor {
         }
         _ActorObj = go;
         _InstID = instid;
-        _RealPosInScene = realPos;
-        _CrtValue = crtHp;
-        _MaxValue = maxHp;
         _ActorObj.transform.position = pos;
-        Init();
+        _Name = name;
+        _Title = title;
+        Init(false);
     }
 
     public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp)
@@ -64,11 +70,11 @@ public class Actor {
         Init();
     }
 
-    void Init()
+    void Init(bool normal = true)
     {
         _Animation = _ActorObj.GetComponent<Animation>();
 
-        _Headbar = new HeadBar(this);
+        _Headbar = new HeadBar(this, normal? 0: 1);
     }
 
     public void UpdateValue(int value, int maxValue)
@@ -76,6 +82,13 @@ public class Actor {
         _CrtValue += value;
         if(maxValue != -1)
             _MaxValue = maxValue;
+        _Headbar._IsDirty = true;
+    }
+
+    public void SetValue(int value, int maxValue)
+    {
+        _CrtValue = value;
+        _MaxValue = maxValue;
         _Headbar._IsDirty = true;
     }
 
@@ -206,6 +219,16 @@ public class Actor {
             _BuffList.Remove(buffid);
 
         _Headbar._IsDirty = true;
+    }
+
+    public bool HasQuest
+    {
+        get
+        {
+            if(_QuestList == null)
+                return false;
+            return _QuestList.Count == 0; 
+        }
     }
 
     public List<int> BuffList

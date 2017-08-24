@@ -11,6 +11,14 @@ public class HeadBar {
 
     GProgressBar _BloodBar;
 
+    GTextField _Name;
+
+    GTextField _Title;
+
+    GComponent _HeadIconCom;
+
+    GLoader _QuestIcon;
+
     Actor _Root;
 
     GList _BuffList;
@@ -19,7 +27,7 @@ public class HeadBar {
 
     public bool _IsDirty;
 
-    public HeadBar(Actor root)
+    public HeadBar(Actor root, int state)
     {
         if (root._ActorObj == null)
             return;
@@ -39,6 +47,12 @@ public class HeadBar {
         _HeadBarCom = headbarpanel.ui;
         _BuffList = _HeadBarCom.GetChild("n7").asList;
         _BloodBar = _HeadBarCom.GetChild("n5").asProgress;
+        GComponent labelCom = _HeadBarCom.GetChild("n8").asCom;
+        _Name = labelCom.GetChild("n0").asTextField;
+        _Title = labelCom.GetChild("n1").asTextField;
+        _HeadIconCom = _HeadBarCom.GetChild("n9").asCom;
+        _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
+        _HeadBarCom.GetController("xuetiao").selectedIndex = state;
 
         _IsDirty = true;
     }
@@ -69,6 +83,12 @@ public class HeadBar {
         }
 
         _BloodBar.TweenValue((int)((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
+
+        _Name.text = _Root._Name;
+        _Title.text = _Root._Title;
+
+        if (!_Root.HasQuest)
+            _HeadIconCom.visible = false;
 
         _IsDirty = false;
     }
