@@ -265,11 +265,39 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 	this.Allbuff = newList
 }
 
+func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
+	maxPer := 75
+
+	bl, ok := this.Special[prpc.BF_SHELD]
+
+	if !ok || len(bl) == 0 {
+		return 0
+	}
+
+	sheld := 0
+
+	for _, instid := range bl {
+		buff := this.SelectBuff(instid)
+		if buff == nil || buff.IsOver(round) {
+			continue
+		}
+		sheld += int(buff.Data)
+	}
+
+	if sheld > maxPer {
+		sheld = maxPer
+	}
+
+	per := float32(sheld) / 100.0
+
+	return per
+}
+
 func erase(arr []interface{} , idx int) []interface{}{
 	return	append(arr[:idx], arr[idx+1:]...)
 }
 
-func (this *GameUnit) PopAllBuffByDebuff() {
+func (this *GameUnit) PopAllBuffByDebuff() int {
 //删除卡牌身上所有的debuff
 	tmp := map[*Buff]int{}
 
@@ -293,6 +321,8 @@ func (this *GameUnit) PopAllBuffByDebuff() {
 
 	fmt.Println("PopAllBuffByDebuff")
 	this.Allbuff = newBufflist
+
+	return len(tmp)
 }
 
 func (this *GameUnit) PopAllBuffByBuff() {

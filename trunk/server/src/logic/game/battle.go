@@ -697,15 +697,24 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		fmt.Println("debuff", debuff)
 	}
 
+	////////////////////////////////////////////////////////////////////////
 	if unit.VirtualHp >= damage {			//计算护盾减伤之后的伤害
 		damage = 0
 		unit.VirtualHp = unit.VirtualHp - damage
 	} else {
 		damage = damage - unit.VirtualHp
 	}
+	////////////////////////////////////////////////////////////////////////
 
-	//应该还有个百分比减伤判断
+	////////////////////////////////////////////////////////////////////////
+	per := unit.ClacSheldPer(this.Round)		//百分比减伤 结果是最终减伤多少
+	if per > 0 {
+		persent := 1.0 - per					//实际受到的伤害百分比
+		damage = int32(float32(damage) * persent)
+	}
+	////////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////////
 	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
 		bf, ok := unit.Special[prpc.BF_UNDEAD]
 		if ok && len(bf) > 0 {
@@ -720,6 +729,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 			buff.Over = true
 		}
 	}
+	////////////////////////////////////////////////////////////////////////
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(damage)
 
