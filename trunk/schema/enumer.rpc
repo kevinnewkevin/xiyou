@@ -66,11 +66,14 @@ enum BattleExt{
 	BE_7,
 	BE_MAX,
 };
-//buff特殊效果
+//buff特殊效果,暂时放在unit上
 enum BuffSpecial{
 	BF_MIN,
 	BF_JUMP,		//跳过回合 比如眩晕 昏睡等效果
 	BF_CRIT,		//必然暴击
 	BF_UNDEAD,		//免除一次造成死亡的伤害
+	BF_SHELD,		//减伤盾 百分比
+	BF_WEAK,		//增加受到的伤害
+	BF_STRONG,		//增加输出的伤害
 	BF_MAX,
 };
