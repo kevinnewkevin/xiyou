@@ -10,7 +10,26 @@ using System.Diagnostics;
 
 public class Tools {
 
-    [MenuItem("Tools/1.拷贝数据表和脚本", false, 1)]
+    [MenuItem("Tools/每次更新后执行", false, 1)]
+    static void AfterUpdate()
+    {
+        ToLuaMenu.ClearLuaFiles();
+        ToLuaMenu.GenLuaAll();
+        CopyTableAndScripts();
+        GenRPC();
+    }
+
+    static void GenRPC()
+    {
+        Process p = new Process();
+        p.StartInfo.FileName = Application.dataPath + "/../../tools/rpc.bat";
+        p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.WorkingDirectory = "../tools/";
+        p.Start();
+    }
+
+    [MenuItem("Tools/1.拷贝数据表和脚本", false, 2)]
     static void CopyTableAndScripts()
     {
         Process p = new Process();
@@ -21,7 +40,7 @@ public class Tools {
         p.Start();
     }
 
-    [MenuItem("Tools/2.打资源包/PC", false, 2)]
+    [MenuItem("Tools/2.打资源包/PC", false, 3)]
     static public void BuildAssetBundlePC()
     {
         SetPlayer();
@@ -37,7 +56,7 @@ public class Tools {
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/2.打资源包/Android", false, 2)]
+    [MenuItem("Tools/2.打资源包/Android", false, 3)]
     static public void BuildAssetBundleAndroid()
     {
         SetPlayer();
@@ -53,7 +72,7 @@ public class Tools {
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/2.打资源包/iOS", false, 2)]
+    [MenuItem("Tools/2.打资源包/iOS", false, 3)]
     static public void BuildAssetBundleiOS()
     {
         SetPlayer();
@@ -69,7 +88,7 @@ public class Tools {
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/3.删除临时资源", false, 3)]
+    [MenuItem("Tools/3.删除临时资源", false, 4)]
     static void DeleteTempFiles()
     {
         Process p = new Process();
