@@ -171,7 +171,7 @@ func (this *BattleRoom) BattleStart() {
 func (this *BattleRoom) BattleUpdate() {
 	start := time.Now().Unix()
 	now_start := time.Now().Unix()
-	Round_start := time.Now().Unix()
+	//Round_start := time.Now().Unix()
 	checkindex := 0
 	for this.Status == kUsed {
 
@@ -187,20 +187,20 @@ func (this *BattleRoom) BattleUpdate() {
 			continue
 
 		}
-		if now - Round_start >= 20 {			// 20S不行动就自动帮你打了
-			for _, p := range this.PlayerList {
-
-				//if p == nil || p.session == nil {
-				//	continue
-				//}
-
-				if p == nil {
-					continue
-				}
-				p.IsActive = true
-			}
-			Round_start = time.Now().Unix()
-		}
+		//if now - Round_start >= 20 {			// 20S不行动就自动帮你打了
+		//	for _, p := range this.PlayerList {
+		//
+		//		//if p == nil || p.session == nil {
+		//		//	continue
+		//		//}
+		//
+		//		if p == nil {
+		//			continue
+		//		}
+		//		p.IsActive = true
+		//	}
+		//	Round_start = time.Now().Unix()
+		//}
 
 		fmt.Println("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
 		this.Update()
@@ -619,6 +619,9 @@ func (this *BattleRoom) MonsterMove() {
 		this.Monster.MainUnit.Position = int32(pos)
 	} else {
 		pos := this.monsterPos(this.Monster.BattleCamp)
+		if pos == prpc.BP_MAX {
+			return
+		}
 		this.Units[pos] = this.Monster.BattleUnitList[0]
 		this.Monster.BattleUnitList[0].Position = int32(pos)
 		this.Monster.BattleUnitList = this.Monster.BattleUnitList[1:]
