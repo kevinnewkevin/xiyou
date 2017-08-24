@@ -39,13 +39,14 @@ function xiangxiziliao:OnInit()
 end
 
 function xiangxiziliao_OnAddGroup()
-	local MessageBox = UIManager.ShowMessageBox();
+	xiangxiziliao_OnMessageConfirm();
+	--[[local MessageBox = UIManager.ShowMessageBox();
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
 		MessageBox:SetData("提示", "是否取出卡组？", false, xiangxiziliao_OnMessageConfirm, xiangxiziliao_OnMessageCancel);
 	else
 		MessageBox:SetData("提示", "是否加入卡组？", false, xiangxiziliao_OnMessageConfirm, xiangxiziliao_OnMessageCancel);
-	end
+	end--]]
 end
 
 function xiangxiziliao_OnMessageConfirm()
@@ -53,13 +54,11 @@ function xiangxiziliao_OnMessageConfirm()
 	local crtGroupIdx = UIManager.GetWindow("paiku").GetCrtGroup();
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
-		print("TakeOffCard");
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
 	else
-		print("PutInCard");
 		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
 	end
-	UIManager.HideMessageBox();
+	--UIManager.HideMessageBox();
 	UIManager.Hide("xiangxiziliao");
 	UIManager.SetDirty("paiku");
 end
