@@ -68,7 +68,7 @@ func (this *Buff) DeleteProperty(battleud int64, unitid int64) {
 		return
 	}
 	fmt.Println("DeleteProperty", int(this.Owner.BattleId), this.Data)
-	v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
+	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
 	r := []interface{}{0}
 
 	fmt.Println("buff_1_delete", int(this.Owner.BattleId), int(unitid), int(this.Data))
