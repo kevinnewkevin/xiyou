@@ -174,6 +174,7 @@ namespace LuaInterface
                 string path = FindFile(fileName);
                 byte[] str = null;
 
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
                 if (!string.IsNullOrEmpty(path) && File.Exists(path))
                 {
 #if !UNITY_WEBPLAYER
@@ -182,7 +183,18 @@ namespace LuaInterface
                     throw new LuaException("can't run in web platform, please switch to other platform");
 #endif
                 }
-
+#else
+                WWW www = new WWW(path);
+                while(true)
+                {
+                    if (www.isDone)
+                    {
+                        if(string.IsNullOrEmpty(www.error))
+                            str = www.text;
+                        break;
+                    }
+                }
+#endif
                 return str;
             }
             else
