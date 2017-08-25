@@ -168,6 +168,9 @@ public class Actor {
         if (_Animation == null)
             return;
 
+        if(_Animation.GetClip(action) == null)
+            return;
+
         if (_Animation.IsPlaying(action))
             _Animation.Rewind(action);
         else
