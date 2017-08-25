@@ -32,8 +32,8 @@ public class BuffChecker {
 
         BuffData data = BuffData.GetData(_BuffCheck [0].BuffChange.BuffId);
         float maxTime = 0f;
-        if (maxTime < data._AnimTime + _Actor.ClipLength(data._Anim))
-            maxTime = data._AnimTime + _Actor.ClipLength(data._Anim);
+        if (maxTime < data._AnimTime + _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_BEATTACK))
+            maxTime = data._AnimTime + _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
         if (maxTime < data._EffectTime)
             maxTime = data._EffectTime;
         if (maxTime < data._EmitTime)

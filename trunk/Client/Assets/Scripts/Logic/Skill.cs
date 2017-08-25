@@ -189,8 +189,8 @@ public class Skill {
                         {
                             for (int j = 0; j < _Targets.Length; ++j)
                             {
-                                _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                                _Targets[j].PopContent(_Actions[j].ActionParam);
+                                _Targets[j].UpdateValue(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length, -1);
+                                _Targets[j].PopContent(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length);
                             }
                         }));
                     }
@@ -258,8 +258,8 @@ public class Skill {
                     {
                         for (int j = 0; j < _Targets.Length; ++j)
                         {
-                            _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                            _Targets[j].PopContent(_Actions[j].ActionParam);
+                            _Targets[j].UpdateValue(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length, -1);
+                            _Targets[j].PopContent(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length);
                         }
                     }));
                 }
