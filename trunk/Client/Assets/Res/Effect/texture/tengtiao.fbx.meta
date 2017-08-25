@@ -1,0 +1,342 @@
+fileFormatVersion: 2
+guid: 0f67fdec34240794fb03b40439b4401d
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: joint1
+    100002: joint2
+    100004: joint2 1
+    100006: joint2 2
+    100008: joint2 3
+    100010: joint2 4
+    100012: joint3
+    100014: joint3 1
+    100016: joint3 2
+    100018: joint3 3
+    100020: joint3 4
+    100022: joint4
+    100024: joint4 1
+    100026: joint4 2
+    100028: joint4 3
+    100030: joint4 4
+    100032: joint5
+    100034: joint5 1
+    100036: joint5 2
+    100038: joint5 3
+    100040: joint6
+    100042: joint6 1
+    100044: joint6 2
+    100046: joint6 3
+    100048: joint7
+    100050: joint7 1
+    100052: joint7 2
+    100054: joint7 3
+    100056: polySurface11
+    100058: polySurface12
+    100060: polySurface13
+    100062: polySurface14
+    100064: //RootNode
+    400000: joint1
+    400002: joint2
+    400004: joint2 1
+    400006: joint2 2
+    400008: joint2 3
+    400010: joint2 4
+    400012: joint3
+    400014: joint3 1
+    400016: joint3 2
+    400018: joint3 3
+    400020: joint3 4
+    400022: joint4
+    400024: joint4 1
+    400026: joint4 2
+    400028: joint4 3
+    400030: joint4 4
+    400032: joint5
+    400034: joint5 1
+    400036: joint5 2
+    400038: joint5 3
+    400040: joint6
+    400042: joint6 1
+    400044: joint6 2
+    400046: joint6 3
+    400048: joint7
+    400050: joint7 1
+    400052: joint7 2
+    400054: joint7 3
+    400056: polySurface11
+    400058: polySurface12
+    400060: polySurface13
+    400062: polySurface14
+    400064: //RootNode
+    4300000: polySurface11
+    4300002: polySurface12
+    4300004: polySurface13
+    4300006: polySurface14
+    7400000: Take 001
+    7400002: jingci
+    7400004: jingci
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: polySurface11
+    13700002: polySurface12
+    13700004: polySurface13
+    13700006: polySurface14
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 92
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5/joint6
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5/joint6/joint7
+        weight: 1
+      - path: joint2
+        weight: 1
+      - path: joint2/joint2 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1/joint6 1
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1/joint6 1/joint7 1
+        weight: 1
+      - path: joint3
+        weight: 1
+      - path: joint3/joint2 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2/joint6 2
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2/joint6 2/joint7 2
+        weight: 1
+      - path: joint4
+        weight: 1
+      - path: joint4/joint2 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3/joint6 3
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3/joint6 3/joint7 3
+        weight: 1
+      - path: polySurface11
+        weight: 1
+      - path: polySurface12
+        weight: 1
+      - path: polySurface13
+        weight: 1
+      - path: polySurface14
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: jingci
+      takeName: Take 001
+      firstFrame: 95
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5/joint6
+        weight: 1
+      - path: joint1/joint2 1/joint3 1/joint4 1/joint5/joint6/joint7
+        weight: 1
+      - path: joint2
+        weight: 1
+      - path: joint2/joint2 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1/joint6 1
+        weight: 1
+      - path: joint2/joint2 2/joint3 2/joint4 2/joint5 1/joint6 1/joint7 1
+        weight: 1
+      - path: joint3
+        weight: 1
+      - path: joint3/joint2 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2/joint6 2
+        weight: 1
+      - path: joint3/joint2 3/joint3 3/joint4 3/joint5 2/joint6 2/joint7 2
+        weight: 1
+      - path: joint4
+        weight: 1
+      - path: joint4/joint2 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3/joint6 3
+        weight: 1
+      - path: joint4/joint2 4/joint3 4/joint4 4/joint5 3/joint6 3/joint7 3
+        weight: 1
+      - path: polySurface11
+        weight: 1
+      - path: polySurface12
+        weight: 1
+      - path: polySurface13
+        weight: 1
+      - path: polySurface14
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
