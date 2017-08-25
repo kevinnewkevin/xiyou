@@ -281,13 +281,20 @@ func (this *BattleRoom) Update() {
 
 	unitllist := this.SortUnits()
 
+	for _, unit := range unitllist {
+		if unit == nil {
+			continue
+		}
+		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+	}
+
 	for _, u := range unitllist {
 		if u == nil {
 			continue
 		}
 
 		//fmt.Println("report.UnitList, append", u)
-		this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
+		//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
 		if u.IsDead() { // 非主角死亡跳過
 			continue
@@ -295,6 +302,7 @@ func (this *BattleRoom) Update() {
 
 		this.AcctionList = prpc.COM_BattleAction{}
 		this.TargetOn()
+		fmt.Println("TargetOn", this.TargetCOM)
 
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
@@ -304,6 +312,7 @@ func (this *BattleRoom) Update() {
 
 		u.CastSkill2(this)
 
+		fmt.Println("TargetOver", this.TargetCOM)
 		this.TargetOver()
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
@@ -619,7 +628,7 @@ func (this *BattleRoom) MonsterMove() {
 			return
 		}
 		if len(this.Monster.BattleUnitList) == 0 {
-			return 
+			return
 		}
 		this.Units[pos] = this.Monster.BattleUnitList[0]
 		this.Monster.BattleUnitList[0].Position = int32(pos)
@@ -746,6 +755,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	this.TargetCOM.ActionParam = -damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 	this.TargetCOM.Dead = unit.IsDead()
+	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
 
 	//fmt.Println("MintsHp", target, damage, t)
 
@@ -829,6 +839,7 @@ func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
 func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data int32) {
 // 上buff
 
+	fmt.Println("bufflen 0", this.TargetCOM)
 	buffCOM := prpc.COM_BattleBuff{}
 	buffCOM.BuffId = buffid
 	buffCOM.Change = true
@@ -841,7 +852,9 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 	unit.Allbuff = append(unit.Allbuff, buff)
 
 	fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	fmt.Println("bufflen", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
+	fmt.Println("bufflen 1 ", this.TargetCOM)
 
 }
 
@@ -859,6 +872,7 @@ func (this *BattleRoom) AddDebuff(casterid int64, target int64, buffid int32, da
 
 	unit.Allbuff = append(unit.Allbuff, buff)
 	fmt.Println("实例ID为", target, "的卡牌获得了id为", buff.InstId, "的debuff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff")
+	fmt.Println("bufflen 1 ", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
 
 }
