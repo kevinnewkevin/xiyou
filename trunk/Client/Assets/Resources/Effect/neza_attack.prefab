@@ -1043,7 +1043,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668446860568120}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.004, y: -0.178, z: -0.117}
+  m_LocalPosition: {x: -0.004, y: -0.232, z: -0.117}
   m_LocalScale: {x: 0.17328866, y: 0.17328854, z: 0.16429392}
   m_Children: []
   m_Father: {fileID: 4958022626828412}
@@ -1194,8 +1194,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1816418363535902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.022571, y: 0.052008, z: -0.08066}
-  m_LocalScale: {x: 0.31857476, y: 0.31857476, z: 0.31857476}
+  m_LocalPosition: {x: -0.027486, y: 0.052662, z: -0.086532}
+  m_LocalScale: {x: 0.26177788, y: 0.26177788, z: 0.26177788}
   m_Children:
   - {fileID: 4909732767289304}
   - {fileID: 4703451780497458}
@@ -1361,7 +1361,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730912625252758}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.015000075, y: -0.177, z: -0.114}
+  m_LocalPosition: {x: -0.015000075, y: -0.23, z: -0.114}
   m_LocalScale: {x: 0.17328866, y: 0.17328854, z: 0.16429392}
   m_Children: []
   m_Father: {fileID: 4958022626828412}
@@ -1516,8 +1516,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022843868105028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 2.18, z: 0.99}
-  m_LocalScale: {x: 9.618997, y: 10.145621, z: 9.619006}
+  m_LocalPosition: {x: -0.16314, y: 1.99, z: 0.75633}
+  m_LocalScale: {x: 7.561991, y: 7.975998, z: 7.561999}
   m_Children:
   - {fileID: 4584380972373432}
   - {fileID: 4883012394216562}
@@ -4852,7 +4852,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -399127805
+  randomSeed: 909769978
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4999,7 +4999,7 @@ ParticleSystem:
       maxColor: {r: 0.97794116, g: 0.38443208, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 50
+      scalar: 30
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8003,7 +8003,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.5586207, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 9
+      scalar: 7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -11012,7 +11012,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.5586207, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 9
+      scalar: 7
       maxCurve:
         serializedVersion: 2
         m_Curve:
