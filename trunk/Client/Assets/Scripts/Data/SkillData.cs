@@ -21,8 +21,8 @@ public class SkillData {
     public string _AttackAnim;
     public string _BeattackEffect;
     public float _CastTime;
-    public float _BeattackTime;
-    public float _EmitNumTime;
+    public float[] _BeattackTime;
+    public float[] _EmitNumTime;
     public float _TotalTime;
     public MotionType _Motion;
     public bool _Single;
@@ -54,8 +54,21 @@ public class SkillData {
             data._SkillEffect = parser.GetString (i, "SkillEffect");
             data._AttackAnim = parser.GetString(i, "AttackAnim");
             data._CastTime = parser.GetFloat(i, "CastTime");
-            data._BeattackTime = parser.GetFloat (i, "BeattackTime");
-            data._EmitNumTime = parser.GetFloat (i, "EmitNumTime");
+            string beatkTimes = parser.GetString (i, "BeattackTime");
+            string[] beatkTimeAry = beatkTimes.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+            int j;
+            data._BeattackTime = new float[beatkTimeAry.Length];
+            for(j=0; j < beatkTimeAry.Length; ++j)
+            {
+                data._BeattackTime[j] = float.Parse(beatkTimeAry[j]);
+            }
+            string emitTimes = parser.GetString (i, "EmitNumTime");
+            string[] emitTimeAry = beatkTimes.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
+            data._EmitNumTime = new float[emitTimeAry.Length];
+            for(j=0; j < emitTimeAry.Length; ++j)
+            {
+                data._EmitNumTime[j] = float.Parse(emitTimeAry[j]);
+            }
             data._TotalTime = parser.GetFloat(i, "TotalTime");
             data._Motion = (MotionType)Enum.Parse(typeof(MotionType), parser.GetString(i, "MotionType"));
             data._Single = parser.GetInt(i, "SingleSkill") == 1;

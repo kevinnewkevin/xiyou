@@ -164,28 +164,36 @@ public class Skill {
                     //1.目标播受击动作和特效的时间
                     //2.目标弹伤害数字的时间
                     //3.施法者回归时间
-                    new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
+                    for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
                     {
-                        for (int i = 0; i < _Targets.Length; ++i)
+                        new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                         {
-                            _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                            _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-
-                            //beattack effect
-                            if (_BeattackEff[i] != null)
+                            for (int j = 0; j < _Targets.Length; ++j)
                             {
-                                _BeattackEff[i].SetActive(false);
-                                _BeattackEff[i].SetActive(true);
+                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+
+                                //beattack effect
+                                if (_BeattackEff[j] != null)
+                                {
+                                    _BeattackEff[j].SetActive(false);
+                                    _BeattackEff[j].SetActive(true);
+                                }
                             }
-                        }
-                    }), new TimerParam(_SkillData._EmitNumTime, delegate
+                        }));
+                    }
+                    for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
                     {
-                        for (int i = 0; i < _Targets.Length; ++i)
+                        new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], delegate
                         {
-                            _Targets[i].UpdateValue(_Actions[i].ActionParam, -1);
-                            _Targets[i].PopContent(_Actions[i].ActionParam);
-                        }
-                    }), new TimerParam(attackTime, delegate
+                            for (int j = 0; j < _Targets.Length; ++j)
+                            {
+                                _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                                _Targets[j].PopContent(_Actions[j].ActionParam);
+                            }
+                        }));
+                    }
+                    new Timer().Start(new TimerParam(attackTime, delegate
                     {
                         _Caster.MoveTo(_OriginPos, delegate {
                             Clear();
@@ -222,41 +230,40 @@ public class Skill {
                     for (int i = 0; i < _SkillEff.Length; ++i)
                     {
                         _SkillEff[i].transform.LookAt(_Targets[i]._ActorObj.transform, Vector3.up);
-                        iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime, "position", _Targets[i]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
+                        iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime[0], "position", _Targets[i]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
                     }
                 }
-
-                if (_SkillData._Motion == SkillData.MotionType.MT_Self)
+                for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
                 {
-                    for (int i = 0; i < _SkillEff.Length; ++i)
+                    new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                     {
-                        _SkillEff[i].transform.LookAt(_Caster._ActorObj.transform, Vector3.up);
-                    }
-                }
-
-                // 技能表受击时间播放受击目标受击动作和受击特效
-                new Timer().Start(new TimerParam(_SkillData._BeattackTime, delegate
-                {
-                    for (int i = 0; i < _Targets.Length; ++i)
-                    {
-                        _Targets[i].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                        _Targets[i].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-
-                        //beattack effect
-                        if (_BeattackEff[i] != null)
+                        for (int j = 0; j < _Targets.Length; ++j)
                         {
-                            _BeattackEff[i].SetActive(false);
-                            _BeattackEff[i].SetActive(true);
+                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+
+                            //beattack effect
+                            if (_BeattackEff[j] != null)
+                            {
+                                _BeattackEff[j].SetActive(false);
+                                _BeattackEff[j].SetActive(true);
+                            }
                         }
-                    }
-                }), new TimerParam(_SkillData._EmitNumTime, delegate
+                    }));
+                }
+                for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
                 {
-                    for (int i = 0; i < _Targets.Length; ++i)
+                    new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], delegate
                     {
-                        _Targets[i].UpdateValue(_Actions[i].ActionParam, -1);
-                        _Targets[i].PopContent(_Actions[i].ActionParam);
-                    }
-                }), new TimerParam(_SkillData._TotalTime, delegate
+                        for (int j = 0; j < _Targets.Length; ++j)
+                        {
+                            _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                            _Targets[j].PopContent(_Actions[j].ActionParam);
+                        }
+                    }));
+                }
+                // 技能表受击时间播放受击目标受击动作和受击特效
+                new Timer().Start(new TimerParam(_SkillData._TotalTime, delegate
                 {
                     // 远程类技能根据TotalTime 总时间回归复原
                     for (int i = 0; i < _SkillEff.Length; ++i)

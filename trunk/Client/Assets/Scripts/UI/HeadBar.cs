@@ -82,7 +82,7 @@ public class HeadBar {
             _Headbar.transform.localPosition = new Vector3(0f, 2f + (line - 1) * 0.245f, 0f);
         }
 
-        _BloodBar.TweenValue((int)((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
+        _BloodBar.TweenValue(((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
 
         _Name.text = _Root._Name;
         _Title.text = _Root._Title;
