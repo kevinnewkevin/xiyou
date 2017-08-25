@@ -80,11 +80,14 @@ function paiku_RenderListItem(index, obj)
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
 	obj:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj.onClick:Add(paiku_OnCardItem);
-	obj.data = GamePlayer.GetInstID(crtCardsFee, index);
+	local instId = GamePlayer.GetInstID(crtCardsFee, index);
+	obj.data = instId;
 	obj.draggable = true;
 	obj.onDragEnd:Add(paiku_OnDropCard);
 	local fee = obj:GetChild("n7");
+	local inGroup = obj:GetChild("n9");
 	fee.text = entityData._Cost;
+	inGroup.visible = GamePlayer.IsInGroup(instId, crtGroupIdx);
 end
 
 function paiku_OnDeleteGroup(context)
