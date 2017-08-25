@@ -185,8 +185,6 @@ public class Skill {
                                     _BeattackEff[j].SetActive(true);
                                 }
                             }
-
-                            HandleBuff();
                         }));
                     }
                     for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
@@ -207,6 +205,7 @@ public class Skill {
                     }
                     new Timer().Start(new TimerParam(attackTime, delegate
                     {
+                        HandleBuff();
                         _Caster.MoveTo(_OriginPos, delegate {
                             Clear();
                             _Caster.Stop();
@@ -261,7 +260,6 @@ public class Skill {
                                 _BeattackEff[j].SetActive(true);
                             }
                         }
-                        HandleBuff();
                     }));
                 }
                 for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
@@ -283,6 +281,7 @@ public class Skill {
                 // 技能表受击时间播放受击目标受击动作和受击特效
                 new Timer().Start(new TimerParam(_SkillData._TotalTime, delegate
                 {
+                    HandleBuff();
                     // 远程类技能根据TotalTime 总时间回归复原
                     for (int i = 0; i < _SkillEff.Length; ++i)
                     {
