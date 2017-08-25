@@ -82,6 +82,7 @@ public class Skill {
             _SkillEff[0].transform.parent = caster._ActorObj.transform;
             _SkillEff[0].transform.localPosition = Vector3.zero;
             _SkillEff[0].transform.localScale = Vector3.one;
+            _SkillEff[0].transform.rotation = caster._ActorObj.transform.rotation;
             _SkillEff[0].SetActive(false);
         }
         else if(_SkillData._Motion == SkillData.MotionType.MT_Fly)
