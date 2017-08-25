@@ -31,8 +31,7 @@ public class World {
             string assetPath = DisplayData.GetData(npc._Display)._AssetPath;
             // load player Asset for gameobject
             GameObject go = AssetLoader.LoadAsset(assetPath);
-            Debug.Log(npc._QuestID);
-            _NpcActors[i] = new Actor(go, npc._Position, npc._Id, "土地", "", npc._QuestID);
+            _NpcActors[i] = new Actor(go, npc._Position, npc._Id, "", "", npc._QuestID);
             NpcHandle npcHandler = go.AddComponent<NpcHandle>();
             npcHandler.ID = npc._Id;
         }
