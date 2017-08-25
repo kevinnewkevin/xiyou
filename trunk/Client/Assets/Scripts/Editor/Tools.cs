@@ -119,6 +119,7 @@ public class Tools {
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.PLAYER_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
             for(int j=0; j < deps.Length; ++j)
             {
                 deps [j] = deps [j].ToLower();
@@ -159,6 +160,7 @@ public class Tools {
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.EFFECT_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
             for(int j=0; j < deps.Length; ++j)
             {
                 deps [j] = deps [j].ToLower();
@@ -211,6 +213,7 @@ public class Tools {
             string finalPath = PathDefine.UI_ASSET_PATH + shortPath + Define.ASSET_EXT;
             aimport.assetBundleName = finalPath;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
             for(int j=0; j < deps.Length; ++j)
             {
                 deps [j] = deps [j].ToLower();
@@ -251,6 +254,7 @@ public class Tools {
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.TABLE_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
             for(int j=0; j < deps.Length; ++j)
             {
                 deps [j] = deps [j].ToLower();
