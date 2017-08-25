@@ -68,6 +68,8 @@ func (this *App) Run() {
 		return
 	}
 
+	//game.TestPlayer()
+
 	go func() {
 		for {
 			conn, err = this.l.Accept()

@@ -301,7 +301,7 @@ func (this *BattleRoom) Update() {
 		}
 
 		this.AcctionList = prpc.COM_BattleAction{}
-		this.TargetOn()
+		//this.TargetOn()
 		fmt.Println("TargetOn", this.TargetCOM)
 
 		u.CheckBuff(this.Round)
@@ -313,7 +313,7 @@ func (this *BattleRoom) Update() {
 		u.CastSkill2(this)
 
 		fmt.Println("TargetOver", this.TargetCOM)
-		this.TargetOver()
+		//this.TargetOver()
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
 
@@ -684,10 +684,8 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property string) {
 	fmt.Println("增加攻击力,目标为 ", instid, data)
 	p_d := prpc.ToId_CPropertyType(property)
-	fmt.Println("1111111", p_d)
 
 	unit := this.SelectOneUnit(instid)
-	fmt.Println("2222222", unit)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
 
@@ -759,7 +757,8 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	//fmt.Println("MintsHp", target, damage, t)
 
-	//fmt.Println("MintsHp2 ", this.AcctionList.TargetList)
+	fmt.Println("攻擊  catserid ", casterid, this.AcctionList.TargetList)
+	fmt.Println("MintsHp 1  ", this.TargetCOM)
 
 	if unit.IsDead() {
 		this.isDeadOwner(casterid, target)

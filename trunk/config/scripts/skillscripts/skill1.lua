@@ -14,6 +14,7 @@ sys.log("skill 1 start")
 -- 增加速度视作buff
 
 function SK_100_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
 	local skillid = 100		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	
@@ -23,7 +24,8 @@ function SK_100_Action(battleid, casterid)
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	local defender_def = Player.GetUnitProperty(battleid, t, "CPT_DEF")
 		
-	local damage = caster_attack * 1.3 - defender_def		-- 伤害公式
+	--local damage = caster_attack * 1.3 - defender_def		-- 伤害公式
+	local damage = Player.GetUnitDamage(battleid, casterid, t)
 	
 	if damage <= 0 then 
 		damage = 1
@@ -31,9 +33,8 @@ function SK_100_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	sys.log("是否暴击"..crit)
 	Battle.Attack(battleid, casterid, t, damage, crit)
-	sys.log("852741963")
 	Battle.AddBuff(battleid, casterid, t, 1, 5)
-	-- Battle.AddBuff(1)
+	Battle.TargetOver(battleid)
 	
 	sys.log("skill1 对id为"..t.."的目标造成"..damage.."点伤害")	
 	-- 只给游戏返回 对谁造成了多少伤害

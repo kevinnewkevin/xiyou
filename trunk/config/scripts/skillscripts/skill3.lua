@@ -27,8 +27,10 @@ function SK_102_Action(battleid, casterid)
 	
 	sys_log(t)
 	for i,v in ipairs(t)	do
+		Battle.TargetOn(battleid)
 		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
-		local damage = caster_attack * 2.3 - defender_def		-- 伤害公式
+		--local damage = caster_attack * 2.3 - defender_def		-- 伤害公式
+		local damage = Player.GetUnitDamage(battleid, casterid, v)
 		
 		if percent() <= 20 then 						-- 低于20%就会触发双倍伤害
 			damage = damage * 2
@@ -41,6 +43,7 @@ function SK_102_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		Battle.Attack(battleid, casterid, v, damage, crit)
 		Battle.AddBuff(battleid, casterid, v, 3, 5)
+		Battle.TargetOver(battleid)
 		
 		sys.log("skill3 对id为"..v.."的目标造成"..damage.."点伤害")
 	end

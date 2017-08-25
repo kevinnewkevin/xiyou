@@ -30,6 +30,7 @@ function buff_1_delete(battleid, unitid, data)
 -- 如果属于加属性的 这里需要删掉对应的属性
 -- 加什么属性是已知的
 -- 护盾类的debuff需要重新判定
+	sys.log("buff_1_delete"..battleid..unitid..data)
 
 	Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_ATK") 	-- 修改属性
 	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减去护盾

@@ -24,6 +24,8 @@ extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
 extern int __GetCalcDef(void*);
 extern int __GetUnitDamage(void*);
+extern int __TargetOver(void*);
+extern int __TargetOn(void*);
 
 
 */
@@ -70,6 +72,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
+	_L.LoadApi(C.__TargetOver,"TargetOver","Battle")
+	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
 	_L.LoadFile(_R + "main.lua")
@@ -652,6 +656,38 @@ func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法�
 	mtk := CalcMagicDef(unit)
 
 	L.PushInteger(int(mtk))
+
+	return 1
+}
+//export __TargetOver
+func __TargetOver(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
+
+	fmt.Println("__TargetOver")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.TargetOver()
+
+	return 1
+}
+//export __TargetOn
+func __TargetOn(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
+
+	fmt.Println("__TargetOn")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.TargetOn()
 
 	return 1
 }
