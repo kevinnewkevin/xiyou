@@ -244,7 +244,7 @@ func __ChangeSheld(p unsafe.Pointer) C.int {
 //export __ChangeSpecial
 func __ChangeSpecial(p unsafe.Pointer) C.int {
 
-	fmt.Println("__ChangeSheld")
+	fmt.Println("__ChangeSpecial")
 
 	L := lua.GetLuaState(p)
 	idx := 1

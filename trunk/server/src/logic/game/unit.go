@@ -92,6 +92,49 @@ func (this *GameUnit) ChangeSpec(spec string, buffinstid int32) {
 	return
 }
 
+func (this *GameUnit) CheckSpec(spec string) bool { //unit.checkspec(是否有免死)
+	spe := prpc.ToId_BuffSpecial(spec)
+	bufflist, ok := this.Special[int32(spe)]
+
+	if !ok {
+		return false
+	}
+
+	if len(bufflist) == 0 {
+		return false
+	}
+
+	return true
+}
+
+func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
+	maxPer := 75
+
+	bl, ok := this.Special[prpc.BF_SHELD]
+
+	if !ok || len(bl) == 0 {
+		return 0
+	}
+
+	sheld := 0
+
+	for _, instid := range bl {
+		buff := this.SelectBuff(instid)
+		if buff == nil || buff.IsOver(round) {
+			continue
+		}
+		sheld += int(buff.Data)
+	}
+
+	if sheld > maxPer {
+		sheld = maxPer
+	}
+
+	per := float32(sheld) / 100.0
+
+	return per
+}
+
 func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 	u := prpc.COM_Unit{}
 	u.UnitId = this.UnitId
@@ -268,34 +311,6 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 
 	fmt.Println("deletBuff", need)
 	this.Allbuff = newList
-}
-
-func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
-	maxPer := 75
-
-	bl, ok := this.Special[prpc.BF_SHELD]
-
-	if !ok || len(bl) == 0 {
-		return 0
-	}
-
-	sheld := 0
-
-	for _, instid := range bl {
-		buff := this.SelectBuff(instid)
-		if buff == nil || buff.IsOver(round) {
-			continue
-		}
-		sheld += int(buff.Data)
-	}
-
-	if sheld > maxPer {
-		sheld = maxPer
-	}
-
-	per := float32(sheld) / 100.0
-
-	return per
 }
 
 func erase(arr []interface{} , idx int) []interface{}{

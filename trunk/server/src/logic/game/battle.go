@@ -738,9 +738,13 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(damage)
 
+	if crit == 0 {
+		crit = prpc.BE_MAX
+	}
+
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
-	this.TargetCOM.ActionParam = damage
+	this.TargetCOM.ActionParam = -damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 	this.TargetCOM.Dead = unit.IsDead()
 
@@ -773,7 +777,7 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
-	this.TargetCOM.ActionParam = -damage
+	this.TargetCOM.ActionParam = damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
@@ -869,7 +873,7 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 	buffCOM := prpc.COM_BattleBuffAction{}
 	buffCOM.BuffChange.BuffId = buffid
 	buffCOM.BuffChange.Change = over
-	buffCOM.BuffData = data
+	buffCOM.BuffData = -data
 	buffCOM.Dead = unit.IsDead()
 
 	this.AcctionList.BuffList = append(this.AcctionList.BuffList, buffCOM)
