@@ -35,7 +35,7 @@ public class Define {
     public static void Init()
     {
         globalValues = new Dictionary<string, object>();
-        LuaManager.Call("Global.lua", "RegGlobalValue");
+        LuaManager.Call("global.lua", "RegGlobalValue");
     }
 
     public static int GetInt(string key)
