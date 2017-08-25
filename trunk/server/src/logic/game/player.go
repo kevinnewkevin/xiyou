@@ -42,6 +42,13 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	//来两个默认的小兵
 	p.UnitList = append(p.UnitList, p.NewGameUnit(2))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(3))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(4))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(5))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(7))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(8))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(9))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(10))
 
 	return &p
 
@@ -176,6 +183,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 		return //在出战设置你妹
 	}
 	this.BattleUnitList = append(this.BattleUnitList, instId)
+	fmt.Println("SetBattleUnit ", this.BattleUnitList)
 }
 
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡牌上阵	每次回合之前

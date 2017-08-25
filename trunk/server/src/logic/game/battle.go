@@ -842,7 +842,7 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 	fmt.Println("bufflen 0", this.TargetCOM)
 	buffCOM := prpc.COM_BattleBuff{}
 	buffCOM.BuffId = buffid
-	buffCOM.Change = true
+	buffCOM.Change = 1
 
 	unit := this.SelectOneUnit(target)
 
@@ -863,7 +863,7 @@ func (this *BattleRoom) AddDebuff(casterid int64, target int64, buffid int32, da
 
 	buffCOM := prpc.COM_BattleBuff{}
 	buffCOM.BuffId = buffid
-	buffCOM.Change = true
+	buffCOM.Change = 1
 
 	unit := this.SelectOneUnit(target)
 
@@ -885,7 +885,11 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 
 	buffCOM := prpc.COM_BattleBuffAction{}
 	buffCOM.BuffChange.BuffId = buffid
-	buffCOM.BuffChange.Change = over
+	if over {
+		buffCOM.BuffChange.Change = 0
+	} else {
+		buffCOM.BuffChange.Change = 2
+	}
 	buffCOM.BuffData = -data
 	buffCOM.Dead = unit.IsDead()
 
