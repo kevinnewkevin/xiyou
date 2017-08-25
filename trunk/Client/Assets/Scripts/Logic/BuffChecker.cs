@@ -41,7 +41,7 @@ public class BuffChecker {
 
         new Timer().Start(new TimerParam(data._AnimTime, delegate
         {
-            _Actor.Play(data._Anim);
+            _Actor.Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
         }), new TimerParam(data._EffectTime, delegate
         {
             
