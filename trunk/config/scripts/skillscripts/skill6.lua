@@ -31,12 +31,12 @@ function SK_105_Action(battleid, casterid)
 	local HDnum =  Player.GetUnitSheld(battleid)   --护盾值
 	
 	
-	--Battle.DeleteAllUnitSheld()
+	--Battle.AddBuff(battleid,casterid,t,2,5)
 	
 	local  num = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
 	
 	for i,v in ipairs(t) do
-	
+		
 		
 		local  damage  = caster_attack+HDnum*3-defender_def    --伤害 公式
 		

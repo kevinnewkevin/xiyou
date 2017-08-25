@@ -18,6 +18,7 @@ sys.log(" skill 4 start")
 function SK_103_Action(battleid, casterid)
 
 	Battle.TargetOn(battleid) --清空数据
+	
 	local skillid = 103		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 

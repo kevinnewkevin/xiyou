@@ -26,7 +26,7 @@ function SK_136_Action(battleid, casterid)
 		
 		local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
-		local  damaga = caster_attack*0.3*9-defender_def
+		local  damage = caster_attack*0.3*9-defender_def
 		
 		
 		--判断伤害

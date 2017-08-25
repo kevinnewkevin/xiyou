@@ -25,7 +25,7 @@ function SK_129_Action(battleid, casterid)
 		
 		local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-		local  damaga = caster_attack-defender_def
+		local  damage = caster_attack-defender_def
 		
 		debuffnum = Player.PopAllBuffByDebuff(battleid,t)
 		
