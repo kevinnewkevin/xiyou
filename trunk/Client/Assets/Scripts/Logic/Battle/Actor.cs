@@ -25,7 +25,7 @@ public class Actor {
     //Animator _Animator;
     Animation _Animation;
 
-    const float MOVE_SPEED = 4f;
+    float MOVE_SPEED = 4f;
 
     bool _IsRunning;
 
