@@ -22,6 +22,9 @@ public class Skill {
     // 该单元战报(取需要的数据用)
     COM_BattleActionTarget[] _Actions;
 
+    // 技能释放后自身增删的buff
+    COM_BattleBuff[] _SkillBuff;
+
     // 释放特效缓存
     GameObject _CastEff;
 
@@ -31,7 +34,7 @@ public class Skill {
     // 受击特效缓存
     GameObject[] _BeattackEff;
 
-    public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets)
+    public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets, COM_BattleBuff[] skillBuffs)
     {
         _IsCasting = true;
         // get skilldata by id
@@ -114,6 +117,7 @@ public class Skill {
         _Caster = caster;
         _Targets = targets;
         _Actions = actionTargets;
+        _SkillBuff = skillBuffs;
     }
 
     public bool Cast()
@@ -286,7 +290,7 @@ public class Skill {
 
     void HandleBuff()
     {
-        Actor target;
+        Actor target = null;
         for(int i=0; i < _Actions.Length; ++i)
         {
             target = Battle.GetActor(_Actions[i].InstId);
@@ -299,6 +303,17 @@ public class Skill {
                     else
                         target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
                 }
+            }
+        }
+
+        if (_SkillBuff != null)
+        {
+            for(int i=0; i < _SkillBuff.Length; ++i)
+            {
+                if (_SkillBuff [i].Change)
+                    _Caster.AddBuff(_SkillBuff [i].BuffId);
+                else
+                    _Caster.RemoveBuff(_SkillBuff [i].BuffId);
             }
         }
     }

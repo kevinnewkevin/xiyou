@@ -291,7 +291,7 @@ public class Battle {
         // cast skill
         if (_CrtSkill == null)
         {
-            _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList);
+            _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList, _ReportAction[0].SkillBuff);
             _CrtSkill.Cast();
             return;
         }
