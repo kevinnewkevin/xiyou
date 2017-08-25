@@ -67,11 +67,11 @@ public class Skill {
             {
                 if (_SkillData._Motion == SkillData.MotionType.MT_Target)
                 {
-                    _SkillEff [0].transform.parent = _Targets[0]._ActorObj.transform;
+                    _SkillEff [0].transform.parent = targets[0]._ActorObj.transform;
                 }
                 else
                 {
-                    _SkillEff [0].transform.parent = _Caster._ActorObj.transform;
+                    _SkillEff [0].transform.parent = caster._ActorObj.transform;
                 }
                 _SkillEff [0].transform.localPosition = Vector3.zero;
                 _SkillEff [0].transform.localScale = Vector3.one;
