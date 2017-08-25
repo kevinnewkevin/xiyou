@@ -299,12 +299,8 @@ func (this *BattleRoom) Update() {
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
 
-		fmt.Println("BuffMintsHp 11111", this.AcctionList)
-
 		u.CheckAllBuff(this.Round)
 		this.UpdateBuffState(u)
-
-		fmt.Println("BuffMintsHp 22222", this.AcctionList)
 
 		u.CastSkill2(this)
 
@@ -621,6 +617,9 @@ func (this *BattleRoom) MonsterMove() {
 		pos := this.monsterPos(this.Monster.BattleCamp)
 		if pos == prpc.BP_MAX {
 			return
+		}
+		if len(this.Monster.BattleUnitList) == 0 {
+			return 
 		}
 		this.Units[pos] = this.Monster.BattleUnitList[0]
 		this.Monster.BattleUnitList[0].Position = int32(pos)

@@ -23,6 +23,7 @@ extern int __GetCalcMagicDef(void*);
 extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
 extern int __GetCalcDef(void*);
+extern int __GetUnitDamage(void*);
 
 
 */
@@ -60,6 +61,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
 	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
 	_L.LoadApi(C.__GetCalcDef,"GetCalcDef","Player")
+	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
