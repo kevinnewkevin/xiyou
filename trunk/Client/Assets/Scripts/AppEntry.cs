@@ -10,9 +10,6 @@ public class AppEntry : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
-        #if UNITY_EDITOR
-        CopyPastePatch.Apply();
-        #endif
         GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
 
         Application.logMessageReceived += (condition, stackTrace, type) => {
