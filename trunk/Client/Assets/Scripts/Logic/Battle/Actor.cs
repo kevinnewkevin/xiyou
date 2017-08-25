@@ -81,6 +81,8 @@ public class Actor {
         _Animation = _ActorObj.GetComponent<Animation>();
 
         _Headbar = new HeadBar(this, normal? 0: 1);
+
+        MOVE_SPEED = Define.GetFloat("MoveSpeed");
     }
 
     public void UpdateValue(int value, int maxValue)

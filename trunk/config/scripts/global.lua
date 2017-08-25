@@ -21,5 +21,6 @@ end
 function RegGlobalValue()
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
+	Define.Set("MoveSpeed", 2);
 	Define.Set("PointLight", "Effect/chushengdian");
 end
