@@ -121,6 +121,7 @@ public class Tools {
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                deps [j] = deps [j].ToLower();
                 if (deps [j].IndexOf(".js") != -1)
                     continue;
 
@@ -160,6 +161,7 @@ public class Tools {
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                deps [j] = deps [j].ToLower();
                 if (deps [j].IndexOf(".js") != -1)
                     continue;
 
@@ -211,6 +213,7 @@ public class Tools {
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                deps [j] = deps [j].ToLower();
                 if (deps [j].IndexOf(".js") != -1)
                     continue;
 
@@ -250,6 +253,7 @@ public class Tools {
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             for(int j=0; j < deps.Length; ++j)
             {
+                deps [j] = deps [j].ToLower();
                 if (deps [j].IndexOf(".js") != -1)
                     continue;
 
