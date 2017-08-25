@@ -313,6 +313,14 @@ public class Skill {
                     else
                         target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
                 }
+
+                if (_Actions [i].Dead)
+                {
+                    target.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
+                    new Timer().Start(target.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, delegate {
+                        Battle.DelActor(target._RealPosInScene);
+                    });
+                }
             }
         }
 

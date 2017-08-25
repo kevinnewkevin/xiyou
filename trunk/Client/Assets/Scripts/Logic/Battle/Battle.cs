@@ -345,7 +345,7 @@ public class Battle {
     }
 
     //场上删除一个角色
-    static void DelActor(int pos)
+    static public void DelActor(int pos)
     {
         int tpos = _Side == 0? pos: ConvertedPos(pos);
         if (_ActorInScene [tpos] != null)

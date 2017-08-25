@@ -59,6 +59,7 @@ public class BuffChecker {
                 new Timer().Start(deadTime, delegate
                 {
                     Clear();
+                    Battle.DelActor(_Actor._RealPosInScene);
                 });
             }
             else

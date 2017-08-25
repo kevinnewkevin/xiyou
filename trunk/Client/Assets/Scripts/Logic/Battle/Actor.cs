@@ -267,6 +267,6 @@ public class Actor {
 
     public void Fini()
     {
-
+        GameObject.Destroy(_ActorObj);
     }
 }
