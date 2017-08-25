@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4699847865974500}
-  - component: {fileID: 95390176579017458}
   - component: {fileID: 111646839795878538}
   m_Layer: 0
   m_Name: longtaizi
@@ -1309,23 +1308,6 @@ Transform:
   m_Father: {fileID: 4973383119687656}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95390176579017458
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1057474082122288}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 793a5e35784cf2e45b66d7082d38bf0c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 16557aa4abeaf2f45bce56a1b71564e1, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111646839795878538
 Animation:
   m_ObjectHideFlags: 1
