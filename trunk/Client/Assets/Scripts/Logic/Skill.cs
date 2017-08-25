@@ -308,9 +308,9 @@ public class Skill {
             {
                 for(int j=0; j < _Actions[i].BuffAdd.Length; ++j)
                 {
-                    if (_Actions [i].BuffAdd [j].Change)
+                    if (_Actions [i].BuffAdd [j].Change == 1)
                         target.AddBuff(_Actions [i].BuffAdd [j].BuffId);
-                    else
+                    else if(_Actions [i].BuffAdd [j].Change == 0)
                         target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
                 }
 
@@ -328,9 +328,9 @@ public class Skill {
         {
             for(int i=0; i < _SkillBuff.Length; ++i)
             {
-                if (_SkillBuff [i].Change)
+                if (_SkillBuff [i].Change == 1)
                     _Caster.AddBuff(_SkillBuff [i].BuffId);
-                else
+                else if(_SkillBuff [i].Change == 0)
                     _Caster.RemoveBuff(_SkillBuff [i].BuffId);
             }
         }

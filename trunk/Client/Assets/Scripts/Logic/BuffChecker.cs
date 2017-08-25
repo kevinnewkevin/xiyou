@@ -83,9 +83,9 @@ public class BuffChecker {
             return;
         }
 
-        if (_BuffCheck[0].BuffChange.Change)
+        if (_BuffCheck[0].BuffChange.Change == 1)
             _Actor.AddBuff(_BuffCheck[0].BuffChange.BuffId);
-        else
+        else if (_BuffCheck[0].BuffChange.Change == 0)
             _Actor.RemoveBuff(_BuffCheck[0].BuffChange.BuffId);
 
         _BuffCheck.RemoveAt(0);
