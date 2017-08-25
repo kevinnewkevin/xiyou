@@ -16,23 +16,22 @@ sys.log(" skill 26 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_125_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 125	-- 技能id
 
 	local  attackNum = 0  --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
 	for i,v in ipairs(t) do
 		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  --防御
+		local defender_def = Player.GetClacMagicDef(battleid, v)  --防御
 		
-		--local  add_buff = Battle.AddBuff(battleid)    -- 法术强度
 	
-		--local  damage  = add_buff*0.5-defender_def  --伤害 公式（ ）
-		
-		local  damage  = 8   --测试
+		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
 		
 		--判断伤害
 		if damage <= 0 then 
@@ -44,7 +43,8 @@ function SK_125_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		--local  add_buff = Battle.AddBuff(battleid)    -- 减少20%的速度
+		 Battle.AddBuff(battleid,casterid,v,8,6)    -- 减少20%的速度
+		Battle.TargetOver(battleid)
 	
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
 	end

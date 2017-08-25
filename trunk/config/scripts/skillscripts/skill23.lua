@@ -16,23 +16,24 @@ sys.log(" skill 23 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_122_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 122	-- 技能id
 
 	local  attackNum = 0  --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  _property = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 	
 	for i,v in ipairs(t) do
 		
-		--local  del_buff = Battle.AddBuff(1)  --法术强度
 		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
+		
+		local defender_def = Player.GetCalcMagicDef(battleid, v)
 	
-		--local  damage  = del_buff*0.5-defender_def  --伤害 公式（物理伤害 减 防御 ）
+		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（物理伤害 减 防御 ）
 		
-		local  damage  = 8--测试
 		
 		--判断伤害
 		if damage <= 0 then 
@@ -46,6 +47,7 @@ function SK_122_Action(battleid, casterid)
 	
 		sys.log("skill23 对id为"..v.."的目标减少"..damage.."点伤害")
 	end
+	Battle.TargetOver(battleid)
 	
 	return  true
 	 

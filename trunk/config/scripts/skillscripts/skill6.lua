@@ -16,30 +16,30 @@ sys.log(" skill 6 start")
 -- 法术强度视作buff  Battle.buff
  
 function SK_105_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid) --清空数据
 	local skillid = 105		-- 技能id
 
 	local  attackNum = 0   --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,t)  --获取 被攻击者法强 
 	
+	local  _attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
+	
+	local HDnum =  Player.GetUnitSheld(battleid)   --护盾值
+	
+	
+	--Battle.DeleteAllUnitSheld()
+	
+	local  num = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
 	
 	for i,v in ipairs(t) do
 	
-		--local  p_property = Battle.AddBuff(1)  --吸收场上所有盾牌（暂时么有这个函数）
 		
-	end
-	
-	for i,v in ipairs(t) do
-	
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  --获取防御
+		local  damage  = caster_attack+HDnum*3-defender_def    --伤害 公式
 		
-		--local  spell = Battle.AddBuff(1)   （暂时么有这个函数）  法术强度
-	
-		--local  damage  = spell+ p_property*3-defender_def    --伤害 公式
-		
-		local  damage  = 6   --伤害 公式 --测试
 	
 		--判断伤害
 		if damage <= 0 then 
@@ -51,6 +51,8 @@ function SK_105_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		Battle.TargetOver(battleid)  --赋给下个目标
 		
 		sys.log("skill6 对id为"..v.."的目标造成"..damage.."点伤害")
 	end

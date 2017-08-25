@@ -18,40 +18,42 @@ sys.log(" skill 8 start")
 
 function SK_107_Action(battleid, casterid)
 
+	Battle.TargetOn(battleid) --清空数据
+
 	local skillid = 107	-- 技能id
 
 	local  attackNum = 3   --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
-	
-	--local  battleid_buff = Battle.AddBuff(1)  --释放者物理强度 
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取被攻击攻击者属性  物理
 	
 	for i,v in ipairs(t) do
 	
-		--local  del_buff = Battle.AddBuff(1)  --敌对方物理强度
-		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
+		local defender_def = Player.GetCalcDef(battleid,v)  --防御
 	
-		--local  demage  = del_buff*0.5-defender_def  --伤害 公式（50%的物理伤害 减 防御 ）
-		
-		--battleid_buff = battleid_buff + battleid_buff*o.1
-		
-		local  damage  = 8--测试
-		
+		local damage  = caster_attack*0.5-defender_def  --伤害 公式（50%的物理伤害 减 防御 ）
+	
 		--判断伤害
 		if damage <= 0 then 
 		
 			damage = 1
 		
 		end
+	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
+		Battle.AddBuff(battleid,casterid,v,3,caster_attack*0.1) --每击中一个敌人增加自己10%的物理强度
+		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log("skill8 对id为"..v.."的目标造成"..damage.."点伤害")
+		
+		Battle.TargetOver(battleid)  --赋给下个目标
+		
+		sys.log("skill8 对id为"..v.."的目标造成"..damage.."点伤害")  
+		
 	end
 	
+	sys.log("skill8"..caster_attack)
 	return  true
 	 
 end

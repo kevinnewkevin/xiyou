@@ -16,27 +16,23 @@ sys.log(" skill 16 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_115_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
+
 	local skillid = 115		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 	
+	local  caster_magic = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性   法术
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local defender_def = Player.GetCalcMagicDef(battleid, t)  --获取防御属性
 	
+	Battle.AddBuff(battleid,casterid, t,6, -caster_magic*0.4)     --降低目标40%法术强度
 	
-	local defender_def = Player.GetUnitProperty(battleid, casterid, "CPT_DEF")  --获取防御属性
+	Battle.AddBuff(battleid,casterid, t, 7,-caster_attack*0.4)     --降低目标40%物理强度
 	
-	--local  add_buff = Battle.AddBuff(1)     --法术强度
-	
-	--local  del_buff = Battle.AddBuff(1)     --降低目标法术强度
-	
-	--local  p_property = Battle.AddBuff(2)     --降低目标40%物理强度
-	
-	--local  demage  = add_buff-defender_def    --伤害 公式（）
-	
-	local  damage  = 4 --伤害 公式（攻击属性） --测试
-	
+	local  damage  = caster_magic-defender_def    --伤害 公式（）
 	
 	--判断伤害
 	if damage <= 0 then 
@@ -48,6 +44,8 @@ function SK_115_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
+	Battle.TargetOver(battleid)
 	
 	sys.log("skill16 对id为"..t.."的目标造成"..damage.."点伤害")
 	

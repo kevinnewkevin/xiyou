@@ -16,15 +16,18 @@ sys.log(" skill 17 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_116_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
+
 	local skillid = 116		-- 技能id
 	
-	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
+	local  t = Player.GetFriend(battleid,casterid)  --获取目标 
 	
-	--local  del_buff = Battle.AddBuff(1)     --法术强度
+	local  caster_attack = Player.GetUnitMit(battleid,casterid)  --获取攻击者属性
 	
-	--local  p_property = Battle.AddBuff(battleid,del_buff)    --回复法术强度的生命值
+	local crit = Battle.GetCrit(skillid)
 
-	--local  add_buff = Battle.AddBuff(battleid,del_buff*0.1)    --每回合伤害回复法术强度10%的生命值
+	 Player.Cure(battleid, t, caster_attack*0.1, crit)    --每回合伤害回复法术强度10%的生命值
+	 Battle.TargetOver(battleid)
 	
 	
 	sys.log("skill17")

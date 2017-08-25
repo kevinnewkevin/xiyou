@@ -20,16 +20,14 @@ function SK_132_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 		
+		
+		local defender_def = Player.GetClacMagicDef(battleid,t)   -- 防御
 	
-		--local  del_buff = Battle.AddBuff(1)  --法术强度
+		local  damaga = caster_attack-defender_def
 		
-		local defender_def = Player.GetUnitProperty(battleid,t, "CPT_DEF")   -- 防御
-	
-		--local  damaga = del_buff-defender_def
-		
-		local  damage  = 9 --测试
+
 	
 		--判断伤害
 		if damage <= 0 then 

@@ -16,29 +16,30 @@ sys.log(" skill 22 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_121_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
 	local skillid = 121		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
-	
-		--local  del_buff = Battle.AddBuff(1)  --敌对方法术强度
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 		
-		local defender_def = Player.GetUnitProperty(battleid,t, "CPT_DEF")
+		local defender_def = Player.GetCalcMagicDef(battleid,t)
 	
-		--local  damaga = del_buff-defender_def
+		local  damaga = caster_attack-defender_def
 		
-		local  damage  = 9 --测试
-	
+		
 		--判断伤害
 		if damage <= 0 then 
 		
 			damage = 1
 		
 		end
+		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		Battle.TargetOver(battleid)
 		
 		sys.log("skil22 对id为"..t.."的目标造成"..damage.."点伤害")
 	

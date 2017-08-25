@@ -16,12 +16,16 @@ sys.log("skill 15 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_114_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 114		-- 技能id
 	
-	local t = Player.GetTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
+	local t = Player.GetFriend(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
 	
-	--local  spell = Battle.AddBuff(1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
+	Battle.AddBuff(battleid,casterid,t,2,1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
+	
+	Battle.TargetOver(battleid)
 	
 	
 	sys.log("skill15")

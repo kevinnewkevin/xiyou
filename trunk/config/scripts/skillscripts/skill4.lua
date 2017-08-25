@@ -16,24 +16,14 @@ sys.log(" skill 4 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_103_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid) --清空数据
 	local skillid = 103		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
-	
-	
-	local defender_def = Player.GetUnitProperty(battleid, p, "CPT_DEF")  --获取防御属性
-	
-	
-	-- Battle.AddBuff(1)   --降低对手同等伤害的法术强度
-	
-	-- Battle.AddBuff(2)   --增加自己等量的法术强度
-	
-	--local  demage  = caster_attack --伤害 公式（攻击属性）
-	
-	local  damage  = 4 --伤害 公式（攻击属性） --测试
-	
+	local damage=Player.GetUnitDamage(battleid,casterid,t)   --获取物理伤害
+
 	
 	--判断伤害
 	if damage <= 0 then 
@@ -44,9 +34,17 @@ function SK_103_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
+	Battle.AddBuff(battleid,casterid,t,3,-damage)   --降低对手同等伤害的法术强度
+	
+	Battle.AddBuff(battleid,casterid,casterid,3,damage)   --增加自己等量的法术强度
+	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
+	Battle.TargetOver(battleid)  --赋给下个目标
+	
+	
 	sys.log("skill4 对id为"..t.."的目标造成"..damage.."点伤害")
+	
 	
 	return  true
 	 

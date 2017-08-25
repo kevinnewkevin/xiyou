@@ -16,22 +16,25 @@ sys.log(" skill 13 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_112_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid) --清空数据
 	local skillid = 112		-- 技能id
 
 	local  attackNum = 0   --攻击个数
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
 	for i,v in ipairs(t) do
-		
-		--local  damage_buff = Battle.AddBuff(1)  --法术强度
 	
-		--local  recovery  = Battle.AddBuff(damage_buff*50%)      --回血 公式(法术强度的50%）
-		
+		local crit = Battle.GetCrit(skillid)   --是否暴击
 	
+		Battle.Cure(battleid,v,caster_attack*0.5,crit)      --回血 公式(法术强度的50%）
+		
 		sys.log("skill13 ")
 	end
-	
+	Battle.TargetOver(battleid) --赋给下一个目标
 	return  true
 	 
 end

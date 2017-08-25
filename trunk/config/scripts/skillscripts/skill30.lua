@@ -16,21 +16,19 @@ sys.log(" skill 30 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_129_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
 	local skillid = 129		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 		
+		local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-		--local  del_buff = Battle.AddBuff(1)  --物理强度
+		local  damaga = caster_attack-defender_def
 		
-		local defender_def = Player.GetUnitProperty(battleid,t, "CPT_DEF")   -- 防御
-	
-		--local  damaga = del_buff-defender_def
+		debuffnum = Player.PopAllBuffByDebuff(battleid,t)
 		
-		local  damage  = 9 --测试
-	
 		--判断伤害
 		if damage <= 0 then 
 		
@@ -41,9 +39,19 @@ function SK_129_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		--local  del_buff = Battle.AddBuff(battleid,del_buff*0.5)  --解除所有负面效果,每解除一个负面效果进行一次额外攻击，额外攻击造成50%物理强度的伤害。
+		if debuffnum > 0 then 
+			demage = int(caster_attack / 2)
+			
+			for a=1,debuffnum,1 do
+			
+				Battle.Attack(battleid,casterid,t,demage,crit)
 		
-		sys.log("skil22 对id为"..t.."的目标造成"..damage.."点伤害")
+			end
+		
+		end
+		Battle.TargetOver(battleid)
+		
+		sys.log("skil30 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

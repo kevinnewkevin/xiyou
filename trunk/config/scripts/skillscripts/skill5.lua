@@ -17,22 +17,23 @@ sys.log(" skill 5 start")
 
 function SK_104_Action(battleid, casterid)
 
+Battle.TargetOn(battleid) --清空数据
+
 	local skillid = 104		-- 技能id
 
 	local  attackNum = 0  -- 攻击个数
 	
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 	
-	
-	--local  Spell= Battle.AddBuff(1)   --姜子牙法术
+	local  damage = Player.GetUnitMtk(battleid,casterid)  --获取法术强度百分比
 	
 	for i,v in ipairs(t) do
 	
-		--Battle.AddBuff(Spell*0.1)  --给友方分别提供一个盾牌（暂时么有这个buff）
+	Battle.AddBuff(battleid,casterid,v,4,damage*0.1)  --给友方分别提供一个盾牌
 	
-		sys.log("skill5")
 	end
+	Battle.TargetOver(battleid)  --赋给下个目标
 	
 	return  true
 	 

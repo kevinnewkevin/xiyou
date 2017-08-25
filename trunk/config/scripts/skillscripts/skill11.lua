@@ -16,6 +16,8 @@ sys.log(" skill 11 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_110_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid) -- 清空数据
 	local skillid = 110		-- 技能id
 	
 
@@ -23,18 +25,14 @@ function SK_110_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 
 	
 	for i,v in ipairs(t) do
 	
-		--local  del_buff = Battle.AddBuff(1)  --敌对方物理强度
-		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  -- 防御
+		local defender_def = Player.GetCalcDef(battleid, v)  -- 防御
 	
-		--local  damage  = del_buff-defender_def        --伤害 公式（）
-		
-		local  damage  = 11  --测试
+	    local  damage  = caster_attack-defender_def        --伤害 公式（）
 	
 		--判断伤害
 		if damage <= 0 then 
@@ -45,9 +43,21 @@ function SK_110_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
+		local HasDebuff = Battle.HasDebuff(battleid,v)   --负面效果   
+		
+		--如果敌方目标有负面效果，则必定暴击。
+		
+		if HasDebuff == true  then
+			
+			--Player.ChangeSpecial(battleid,casterid,1,"BF_CRIT")  -- casterid 单元id    v buff实例id
+			
+			crit = 0
+			
+		end
+		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		--local  damage  = Battle.AddBuff(battleid,v)        --如果敌方目标有负面效果，则必定暴击。
+		Battle.TargetOver(battleid)  -- 赋给下个目标
 		
 		sys.log("skill11 对id为"..v.."的目标造成"..damage.."点伤害")
 	end

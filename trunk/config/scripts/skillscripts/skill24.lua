@@ -16,12 +16,16 @@ sys.log(" skill 24 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_123_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
 
 	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
-
-	--local  add_buff = Battle.AddBuff(battleid)    -- 使下一次雷击必定溅射
 	
-	--local  add_buff = Battle.AddBuff(battleid)    -- 下一次落雷必定连击
+	
+	Battle.AddBuff(battleid,casterid,p,2,7)    -- 使下一次雷击必定溅射
+	
+	Battle.AddBuff(battleid,casterid,p,3,8)    -- 下一次落雷必定连击
+	
+	Battle.TargetOver(battleid)
 	
 	sys.log("skill24")
 	

@@ -16,21 +16,25 @@ sys.log(" skill 18 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_117_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
 	local skillid = 117		-- 技能id
 
 	local  attackNum = 0   --攻击个数
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	local  caster_attack = Player.GetUnitDamage(battleid,casterid,t)  --获取伤害
 	
 	for i,v in ipairs(t) do
 		
-		--local  damage_buff = Battle.AddBuff(1)  --驱散负面效果
+		Player.PopAllBuffByDebuff(battleid,v)
 	
-		--local  recovery  = Battle.AddBuff(1)      --公式(减少20%的伤害）
+		Battle.AddBuff(battleid,casterid,v,1, -caster_attack*0.2)      --公式(减少20%的伤害）
 		
 	
 		sys.log("skill18")
 	end
+	Battle.TargetOver(battleid)
 	
 	return  true
 	 

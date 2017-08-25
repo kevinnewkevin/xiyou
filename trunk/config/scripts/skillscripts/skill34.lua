@@ -16,20 +16,20 @@ sys.log(" skill 34 start")
 -- 法术 物理强度视作buff  Battle.buff
 
 function SK_133_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 133	-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 		
+		
+		local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-		--local  del_buff = Battle.AddBuff(1)  --物理强度
+		local  damaga = caster_attack-defender_def
 		
-		local defender_def = Player.GetUnitProperty(battleid,t, "CPT_DEF")   -- 防御
-	
-		--local  damaga = del_buff-defender_def
 		
-		local  damage  = 9 --测试
 	
 		--判断伤害
 		if damage <= 0 then 
@@ -41,7 +41,7 @@ function SK_133_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	
+		Battle.TargetOver(battleid)
 		
 		sys.log("skil34 对id为"..t.."的目标造成"..damage.."点伤害")
 	

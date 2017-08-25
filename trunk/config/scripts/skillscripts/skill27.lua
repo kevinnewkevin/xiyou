@@ -16,23 +16,23 @@ sys.log(" skill 27 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_126_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 126	-- 技能id
 
 	local  attackNum = 0  --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitProperty(battleid,casterid,"CPT_ATK")  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 	
 	for i,v in ipairs(t) do
 		
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")  --防御
+		local defender_def = Player.GetCalcMagicDef(battleid, v)  --防御
 		
-		--local  add_buff = Battle.AddBuff(battleid)    -- 法术强度
 	
-		--local  damage  = add_buff-defender_def  --伤害 公式（ ）
+		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
 		
-		local  damage  = 8   --测试
 		
 		--判断伤害
 		if damage <= 0 then 
@@ -43,11 +43,24 @@ function SK_126_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		
-		--local  add_buff = Battle.AddBuff(battleid,add_buff*0.5)    -- 并清除所有敌方负向状态，每清除一个负向状态额外造成50%法术强度的伤害
 	
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
 	end
+	
+	debuffnum = Player.PopAllBuffByDebuff(battleid,t)
+	
+		if debuffnum >0 then 
+			demage = int(caster_attack / 2)
+			
+			for a=1,debuffnum,1 do
+			
+				Battle.Attack(battleid,casterid,t,demage,crit)
+		
+			end
+		
+		end
+		
+		Battle.TargetOver(battleid)
 	
 	return  true
 	 
