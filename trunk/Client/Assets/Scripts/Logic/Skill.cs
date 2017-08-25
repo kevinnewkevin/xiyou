@@ -340,5 +340,24 @@ public class Skill {
     {
         _IsCasting = false;
         _IsCasted = true;
+
+        if (_CastEff != null)
+            Destroy(_CastEff);
+
+        if (_SkillEff != null)
+        {
+            for(int i=0; i < _SkillEff.Length; ++i)
+            {
+                Destroy(_SkillEff[i]);
+            }
+        }
+
+        if (_BeattackEff != null)
+        {
+            for(int i=0; i < _BeattackEff.Length; ++i)
+            {
+                Destroy(_BeattackEff[i]);
+            }
+        }
     }
 }
