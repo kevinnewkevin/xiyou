@@ -249,7 +249,7 @@ public class Battle {
                 actor = GetActor(_BattleReport.UnitList[i].InstId);
                 if (actor != null)
                 {
-                    actor.SetValue(_BattleReport.UnitList[i].HP, _BattleReport.UnitList[i].CHP);
+                    actor.SetValue(_BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP);
                     continue;
                 }
                 
