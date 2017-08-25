@@ -88,7 +88,7 @@ struct COM_BattleUnit{
 //Buff变更
 struct COM_BattleBuff{
 	int32			BuffId;			//buffid
-	bool			Change;			//buff变更 true是增加 false是删除
+	int32			Change;			//buff变更 1是增加 0是删除 其他不变
 };
 
 //战斗操作对象
