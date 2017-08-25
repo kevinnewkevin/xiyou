@@ -19,52 +19,21 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0, y: 0, z: -1.72}
-        inSlope: {x: 0, y: 0, z: 17.15122}
-        outSlope: {x: 0, y: 0, z: 17.15122}
-        tangentMode: -1032847321
+        value: {x: 0.96, y: 1.21, z: 1.34}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
       - serializedVersion: 2
-        time: 0.68333334
-        value: {x: 0, y: 0, z: 10}
-        inSlope: {x: 0, y: 0, z: 17.15122}
-        outSlope: {x: 0, y: 0, z: 17.15122}
+        time: 0.5
+        value: {x: 0.96, y: 1.21, z: 22.33}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: 
-  m_ScaleCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: {x: 1, y: 1, z: 1}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 0.6666667
-        value: {x: 1, y: 1, z: 1}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 110760548
-      - serializedVersion: 2
-        time: 0.68333334
-        value: {x: 1, y: 1, z: 1}
-        inSlope: {x: -30.000029, y: -30.000029, z: -30.000029}
-        outSlope: {x: -30.000029, y: -30.000029, z: -30.000029}
-        tangentMode: 110760548
-      - serializedVersion: 2
-        time: 0.7
-        value: {x: 0, y: 0, z: 0}
-        inSlope: {x: -60.000057, y: -60.000057, z: -60.000057}
-        outSlope: {x: -60.000057, y: -60.000057, z: -60.000057}
-        tangentMode: 67
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    path: 
+  m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
@@ -80,7 +49,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.7
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -101,16 +70,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
+        value: 0.96
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.68333334
-        value: 0
+        time: 0.5
+        value: 0.96
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -123,16 +92,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
+        value: 1.21
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.68333334
-        value: 0
+        time: 0.5
+        value: 1.21
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -145,122 +114,20 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -1.72
-        inSlope: 17.15122
-        outSlope: 17.15122
-        tangentMode: 34
+        value: 1.34
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.68333334
-        value: 10
-        inSlope: 17.15122
-        outSlope: 17.15122
-        tangentMode: 34
+        time: 0.5
+        value: 22.33
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: 
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.68333334
-        value: 1
-        inSlope: -30.000029
-        outSlope: -30.000029
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.7
-        value: 0
-        inSlope: -60.000057
-        outSlope: -60.000057
-        tangentMode: 34
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.x
-    path: 
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.68333334
-        value: 1
-        inSlope: -30.000029
-        outSlope: -30.000029
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.7
-        value: 0
-        inSlope: -60.000057
-        outSlope: -60.000057
-        tangentMode: 34
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.y
-    path: 
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.68333334
-        value: 1
-        inSlope: -30.000029
-        outSlope: -30.000029
-        tangentMode: 34
-      - serializedVersion: 2
-        time: 0.7
-        value: 0
-        inSlope: -60.000057
-        outSlope: -60.000057
-        tangentMode: 34
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalScale.z
     path: 
     classID: 4
     script: {fileID: 0}
