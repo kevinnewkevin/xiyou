@@ -1,6 +1,7 @@
-hbv51.xml|602|<component size="1920,1080" opaque="false">
+hbv51.xml|663|<component size="1920,1080" opaque="false">
   <displayList>
     <image id="n1_hbv5" name="n1" src="hbv5n" xy="0,0"/>
+    <image id="n19_sv0v" name="n19" src="sv0v1s" xy="0,99"/>
     <image id="n2_hbv5" name="n2" src="hbv5k" xy="1640,0"/>
     <component id="n7_hbv5" name="n7" src="hbv5q" xy="1742,10"/>
     <component id="n8_hbv5" name="n8" src="hbv5r" xy="1828,10"/>
@@ -292,7 +293,7 @@ hbv51.xml|602|<component size="1920,1080" opaque="false">
     <image id="n2" name="bar" src="hbv5a" xy="3,3" size="211,24"/>
   </displayList>
   <ProgressBar/>
-</component>package.xml|4735|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|4817|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
     <component id="hbv51" name="zhujiemian_com" path="/" size="1920,1080" exported="true"/>
     <component id="hbv511" name="Label2" path="/" size="982,84" exported="true"/>
@@ -347,7 +348,8 @@ hbv51.xml|602|<component size="1920,1080" opaque="false">
     <image id="hbv5j" name="xiaoxi" path="/" size="82,77" exported="true"/>
     <image id="hbv5k" name="youbian" path="/" size="280,110" exported="true"/>
     <image id="hbv5l" name="youjian" path="/" size="82,77" exported="true"/>
-    <image id="hbv5n" name="zuobian" path="/" size="563,217" exported="true"/>
+    <image id="hbv5n" name="zuobian" path="/" size="347,179" exported="true"/>
+    <image id="sv0v1s" name="zuobianyun" path="/" size="196,95" exported="true"/>
     <atlas id="atlas0" size="1024,1024" file="atlas0.png"/>
   </resources>
 </packageDescription>
