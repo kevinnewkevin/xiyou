@@ -181,6 +181,8 @@ public class Skill {
                                     _BeattackEff[j].SetActive(true);
                                 }
                             }
+
+                            HandleBuff();
                         }));
                     }
                     for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
@@ -250,6 +252,7 @@ public class Skill {
                                 _BeattackEff[j].SetActive(true);
                             }
                         }
+                        HandleBuff();
                     }));
                 }
                 for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
@@ -271,7 +274,6 @@ public class Skill {
                     {
                         GameObject.Destroy(_SkillEff[i]);
                     }
-
                     Clear();
                     _Caster.Stop();
                     _Caster.Reset();
@@ -280,6 +282,25 @@ public class Skill {
         }
 
         return true;
+    }
+
+    void HandleBuff()
+    {
+        Actor target;
+        for(int i=0; i < _Actions.Length; ++i)
+        {
+            target = Battle.GetActor(_Actions[i].InstId);
+            if (target != null)
+            {
+                for(int j=0; j < _Actions[i].BuffAdd.Length; ++j)
+                {
+                    if (_Actions [i].BuffAdd [j].Change)
+                        target.AddBuff(_Actions [i].BuffAdd [j].BuffId);
+                    else
+                        target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
+                }
+            }
+        }
     }
 
     void Clear()
