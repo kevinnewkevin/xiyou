@@ -196,7 +196,12 @@ public class Skill {
                             for (int j = 0; j < _Targets.Length; ++j)
                             {
                                 _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                                _Targets[j].PopContent(Mathf.CeilToInt(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length));
+                                int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
+                                if(disValue == 0)
+                                {
+                                    disValue = _Actions[j].ActionParam > 0? 1: -1;
+                                }
+                                _Targets[j].PopContent(disValue);
                             }
                         }));
                     }
@@ -266,7 +271,12 @@ public class Skill {
                         for (int j = 0; j < _Targets.Length; ++j)
                         {
                             _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                            _Targets[j].PopContent(Mathf.CeilToInt(_Actions[j].ActionParam / _SkillData._EmitNumTime.Length));
+                            int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
+                            if(disValue == 0)
+                            {
+                                disValue = _Actions[j].ActionParam > 0? 1: -1;
+                            }
+                            _Targets[j].PopContent(disValue);
                         }
                     }));
                 }
