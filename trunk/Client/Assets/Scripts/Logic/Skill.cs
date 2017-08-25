@@ -342,13 +342,13 @@ public class Skill {
         _IsCasted = true;
 
         if (_CastEff != null)
-            Destroy(_CastEff);
+            GameObject.Destroy(_CastEff);
 
         if (_SkillEff != null)
         {
             for(int i=0; i < _SkillEff.Length; ++i)
             {
-                Destroy(_SkillEff[i]);
+                GameObject.Destroy(_SkillEff[i]);
             }
         }
 
@@ -356,7 +356,7 @@ public class Skill {
         {
             for(int i=0; i < _BeattackEff.Length; ++i)
             {
-                Destroy(_BeattackEff[i]);
+                GameObject.Destroy(_BeattackEff[i]);
             }
         }
     }
