@@ -59,44 +59,62 @@ public class Skill {
             }
         }
 
-        _SkillEff = new GameObject[targets.Length];
-        if (_SkillData._Motion == SkillData.MotionType.MT_Target)
+        if (_SkillData._Single)
         {
-            for (int i = 0; i < targets.Length; ++i)
+            _SkillEff = new GameObject[1];
+            _SkillEff [0] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
+            if (_SkillEff [0] != null)
             {
-                _SkillEff [i] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
-                if (_SkillEff [i] != null)
+                if (_SkillData._Motion == SkillData.MotionType.MT_Target)
                 {
-                    if (_SkillData._Motion == SkillData.MotionType.MT_Target)
+                    _SkillEff [0].transform.parent = _Targets[0]._ActorObj.transform;
+                }
+                else
+                {
+                    _SkillEff [0].transform.parent = _Caster._ActorObj.transform;
+                }
+                _SkillEff [0].transform.localPosition = Vector3.zero;
+                _SkillEff [0].transform.localScale = Vector3.one;
+                _SkillEff [0].SetActive(false);
+            }
+        }
+        else
+        {
+            _SkillEff = new GameObject[targets.Length];
+            if (_SkillData._Motion == SkillData.MotionType.MT_Target)
+            {
+                for (int i = 0; i < targets.Length; ++i)
+                {
+                    _SkillEff [i] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
+                    if (_SkillEff [i] != null)
                     {
                         _SkillEff [i].transform.parent = targets [i]._ActorObj.transform;
                         _SkillEff [i].transform.localPosition = Vector3.zero;
                         _SkillEff [i].transform.localScale = Vector3.one;
+                        _SkillEff [i].SetActive(false);
                     }
-
-                    _SkillEff [i].SetActive(false);
                 }
             }
-        }
-        else if(_SkillData._Motion == SkillData.MotionType.MT_Self)
-        {
-            _SkillEff = new GameObject[1];
-            _SkillEff[0] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
-            _SkillEff[0].transform.parent = caster._ActorObj.transform;
-            _SkillEff[0].transform.localPosition = Vector3.zero;
-            _SkillEff[0].transform.localScale = Vector3.one;
-            _SkillEff[0].transform.rotation = caster._ActorObj.transform.rotation;
-            _SkillEff[0].SetActive(false);
-        }
-        else if(_SkillData._Motion == SkillData.MotionType.MT_Fly)
-        {
-            for (int i = 0; i < targets.Length; ++i)
+            else if(_SkillData._Motion == SkillData.MotionType.MT_Self)
             {
-                _SkillEff [i] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
-                if (_SkillEff [i] != null)
+                _SkillEff = new GameObject[1];
+                _SkillEff[0] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
+                _SkillEff[0].transform.parent = caster._ActorObj.transform;
+                _SkillEff[0].transform.localPosition = Vector3.zero;
+                _SkillEff[0].transform.localScale = Vector3.one;
+                _SkillEff[0].transform.rotation = caster._ActorObj.transform.rotation;
+                _SkillEff[0].SetActive(false);
+            }
+            else if(_SkillData._Motion == SkillData.MotionType.MT_Fly)
+            {
+                for (int i = 0; i < targets.Length; ++i)
                 {
-                    _SkillEff [i].transform.position = caster._ActorObj.transform.position;
-                    _SkillEff [i].SetActive(false);
+                    _SkillEff [i] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
+                    if (_SkillEff [i] != null)
+                    {
+                        _SkillEff [i].transform.position = caster._ActorObj.transform.position;
+                        _SkillEff [i].SetActive(false);
+                    }
                 }
             }
         }
