@@ -26,6 +26,7 @@ extern int __GetCalcDef(void*);
 extern int __GetUnitDamage(void*);
 extern int __TargetOver(void*);
 extern int __TargetOn(void*);
+extern int __PopAllBuffByDebuff(void*);
 
 
 */
@@ -64,6 +65,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
 	_L.LoadApi(C.__GetCalcDef,"GetCalcDef","Player")
 	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
+	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -688,6 +690,30 @@ func __TargetOn(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防�
 	battle := FindBattle(int64(battleid))
 
 	battle.TargetOn()
+
+	return 1
+}
+
+//export __PopAllBuffByDebuff
+func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果
+
+	fmt.Println("__PopAllBuffByDebuff")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	num := unit.PopAllBuffByDebuff()
+
+	L.PushInteger(num)
+
 
 	return 1
 }
