@@ -409,7 +409,7 @@ public class Battle {
         // 从第二回合开始 每回合结束加 1 费
         _Turn++;
         if (_Turn > 1)
-            AddFee(1);
+            AddFee(_Turn);
 
         if (_Turn == 2)
             RandHandCards(3);
@@ -561,6 +561,7 @@ public class Battle {
         CurrentState = BattleState.BS_Max;
         _Result = BattleResult.BR_None;
         _ReportIsPlaying = false;
+        _Fee = 0;
         UnLoadAssets();
     }
 }
