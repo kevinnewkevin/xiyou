@@ -556,7 +556,7 @@ public class Battle {
 
     static public void AddFee(int count)
     {
-        _Fee += count;
+        _Fee = count;
         if (_Fee > _MaxFee)
             _Fee = _MaxFee;
 
