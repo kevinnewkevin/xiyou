@@ -15,6 +15,9 @@ public class AssetLoader {
 
 	static public GameObject LoadAsset(string path)
     {
+        if (string.IsNullOrEmpty(path))
+            return null;
+        path = path.ToLower();
 #if EDITOR_MODE
         Object obj = Resources.Load(path);
         if (obj == null)
@@ -53,11 +56,16 @@ public class AssetLoader {
 #if EDITOR_MODE
     static public ResourceRequest LoadAssetAsync(string path)
     {
+        path = path.ToLower();
         return Resources.LoadAsync(path);
     }
 #else
     static public AssetBundleCreateRequest LoadAssetAsync(string path)
     {
+        if (string.IsNullOrEmpty(path))
+            return null;
+        
+        path = path.ToLower();
         if(_Manifest == null)
             InitCommonList();
 
@@ -80,6 +88,7 @@ public class AssetLoader {
 
     static public void UnloadAsset(string path)
     {
+        path = path.ToLower();
 #if EDITOR_MODE
         Resources.UnloadUnusedAssets();
 #else

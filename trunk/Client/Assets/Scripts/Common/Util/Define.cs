@@ -21,6 +21,7 @@ public class Define {
 
     public static void LaunchUIBundle(string uiName)
     {
+        uiName = uiName.ToLower();
         #if EDITOR_MODE
             FairyGUI.UIPackage.AddPackage(PathDefine.UI_ASSET_PATH + uiName);
         #else
