@@ -788,7 +788,7 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	this.TargetCOM.ActionParam = damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 
-	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
+	//this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
 
 //降低法术
