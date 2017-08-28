@@ -378,6 +378,12 @@ public class Battle {
         return null;
     }
 
+    static public bool IsEmptyPos(int pos)
+    {
+        int tpos = _Side == 0? pos: ConvertedPos(pos);
+        return _ActorInScene [tpos] == null;
+    }
+
     static public int FindEmptyPos()
     {
         int emptyPos = -1;
@@ -434,7 +440,11 @@ public class Battle {
         {
             if (_PosInScene [i] != null)
             {
-                _PosInScene [i].gameObject.SetActive(on);
+                if(IsEmptyPos(i) && on)
+                    _PosInScene [i].gameObject.SetActive(on);
+
+                if(!on)
+                    _PosInScene [i].gameObject.SetActive(on);
             }
         }
     }
