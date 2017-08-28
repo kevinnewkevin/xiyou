@@ -50,7 +50,11 @@ public class Battle {
 
     static public int _Side;
 
+    static public Vector3 _Center;
+
     static public List<COM_Unit> _MyGroupCards;
+
+    static public BattleCamera _BattleCamera;
 
     static public COM_BattleReport BattleReport
     {
@@ -187,23 +191,30 @@ public class Battle {
                 for(int i=0; i < _SceneConfig.transform.childCount; ++i)
                 {
                     point = _SceneConfig.transform.GetChild(i);
-                    int toIdx = int.Parse(point.name) - 1;
-                    if (_Side == 0)
-                    {
-                        _PosInScene [toIdx] = point;
-                        _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                        _PosInScene [toIdx].gameObject.SetActive(false);
-                    }
+                    if (point.name.Equals("center"))
+                        _Center = point.transform.position;
                     else
                     {
-                        _PosInScene [toIdx] = point;
-                        _PosInScene [toIdx].GetComponent<PointHandle>().Init(ConvertedPos(toIdx));
-                        _PosInScene [toIdx].gameObject.SetActive(false);
+                        int toIdx = int.Parse(point.name) - 1;
+                        if (_Side == 0)
+                        {
+                            _PosInScene [toIdx] = point;
+                            _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                            _PosInScene [toIdx].gameObject.SetActive(false);
+                        } else
+                        {
+                            _PosInScene [toIdx] = point;
+                            _PosInScene [toIdx].GetComponent<PointHandle>().Init(ConvertedPos(toIdx));
+                            _PosInScene [toIdx].gameObject.SetActive(false);
+                        }
                     }
                 }
                 _IsStagePointInitSuc = true;
             }
         }
+
+        if(_BattleCamera == null)
+            _BattleCamera = Camera.main.gameObject.AddComponent<BattleCamera>();
 
         // 加载角色资源
         //TODO
