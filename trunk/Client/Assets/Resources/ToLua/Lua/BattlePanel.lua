@@ -198,6 +198,10 @@ function BattlePanel_OnCardClick(context)
 	if eData ~= nil then
 		BattlePanel_SetFeeCostCount(eData._Cost);
 	end
+
+	for i=1, 5 do
+		cards[i]["card"]:SetScale(0.5, 0.5);
+	end
 end
 
 function BattlePanel_OnReturnBtn()
@@ -207,6 +211,9 @@ end
 function BattlePanel_OnTurnOver()
 	print("OnTurnOver");
 	Proxy4Lua.BattleSetup();
+	for i=1, 5 do
+		cards[i]["card"]:SetScale(1, 1);
+	end
 end
 
 function BattlePanel_OnAutoBtn()
