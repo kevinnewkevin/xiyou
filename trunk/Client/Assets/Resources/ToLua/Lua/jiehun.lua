@@ -50,7 +50,7 @@ function jiehun_RenderListItem(index, obj)
 	 name.text = data.Name_;
 	 local desc = obj:GetChild("n14");
 	 desc.text = data.Desc_;
-	 	 local img = obj:GetChild("n5");
+	 local img = obj:GetChild("n5");
 	img.asLoader.url = "ui://" .. data.Icon_;
 	 local suo = obj:GetChild("n32");
 	 suo.visible  = false;
