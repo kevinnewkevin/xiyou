@@ -16,7 +16,7 @@ sys.log(" skill 7 start")
 -- 物理强度视作buff Battle.buff
 
 function SK_106_Action(battleid, casterid)
-	Battle.TargetOn(battleid) --清空数据
+	 --清空数据
 
 	local skillid = 106		-- 技能id
 
@@ -29,14 +29,15 @@ function SK_106_Action(battleid, casterid)
 	
 
 	for i,v in ipairs(t) do
-		
-		Battle.Cure(battleid, casterid, v, 0, 0)
+		Battle.TargetOn(battleid)
+		Battle.Cure(battleid, v, 0, 0)
 		Battle.AddBuff(battleid,casterid,v,1,caster_attack*0.2)
+		Battle.TargetOver(battleid)  --赋给下个目标
 		
-		sys.log("skill7")
+		sys.log("skill7, "..v)
 	end
 	
-	Battle.TargetOver(battleid)  --赋给下个目标
+	
 	
 	return  true
 	 

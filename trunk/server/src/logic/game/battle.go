@@ -304,7 +304,6 @@ func (this *BattleRoom) Update() {
 
 		this.AcctionList = prpc.COM_BattleAction{}
 		//this.TargetOn()
-		fmt.Println("TargetOn", this.TargetCOM)
 
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
@@ -314,7 +313,6 @@ func (this *BattleRoom) Update() {
 
 		u.CastSkill2(this)
 
-		fmt.Println("TargetOver", this.TargetCOM)
 		//this.TargetOver()
 
 		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)

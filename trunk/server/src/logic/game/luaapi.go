@@ -322,7 +322,8 @@ func __GetFriends(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	ls := battle.SelectMoreTarget(int64(unitid), num)
+	ls := battle.SelectMoreFriend(int64(unitid), num)
+	fmt.Println("__GetFriends", ls)
 
 	L.NewTable()
 	//L.PushInteger(-1)
