@@ -193,8 +193,11 @@ public class Skill {
                         {
                             for (int j = 0; j < _Targets.Length; ++j)
                             {
-                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                                if(_Actions[j].ActionParam < 0)
+                                {
+                                    _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                                    _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                                }
 
                                 //beattack effect
                                 if (_BeattackEff[j] != null)
@@ -246,6 +249,10 @@ public class Skill {
         }
         else
         {
+//            Battle._BattleCamera.Range(_Caster._ActorObj);
+//            new Timer().Start(new TimerParam(_SkillData._CastTime, delegate{
+//                Battle._BattleCamera.Reset();
+//            }));
             // 播放释放动作
             _Caster.Play(_SkillData._CastAnim);
             _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
