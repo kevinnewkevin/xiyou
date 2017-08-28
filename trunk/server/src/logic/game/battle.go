@@ -840,6 +840,7 @@ func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
 func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data int32) {
 // 上buff
 
+	return
 	fmt.Println("bufflen 0", this.TargetCOM)
 	buffCOM := prpc.COM_BattleBuff{}
 	buffCOM.BuffId = buffid

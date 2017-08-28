@@ -25,12 +25,12 @@ function SK_106_Action(battleid, casterid)
 
 	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 	
-	
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 	
 
 	for i,v in ipairs(t) do
-	
+		
+		Battle.Cure(battleid, casterid, v, 0, 0)
 		Battle.AddBuff(battleid,casterid,v,1,caster_attack*0.2)
 		
 		sys.log("skill7")
