@@ -211,7 +211,6 @@ public class Skill {
                         {
                             for (int j = 0; j < _Targets.Length; ++j)
                             {
-                                _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
                                 int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
                                 if(disValue == 0)
                                 {
@@ -221,6 +220,18 @@ public class Skill {
                             }
                         }));
                     }
+
+                    if(_SkillData._EmitNumTime.Length > 0)
+                    {
+                        new Timer().Start(new TimerParam(_SkillData._EmitNumTime[0], delegate
+                        {
+                            for (int j = 0; j < _Targets.Length; ++j)
+                            {
+                                _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                            }
+                        }));
+                    }
+
                     new Timer().Start(new TimerParam(attackTime, delegate
                     {
                         HandleBuff();
