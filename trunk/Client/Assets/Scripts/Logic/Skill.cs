@@ -323,12 +323,19 @@ public class Skill {
             target = Battle.GetActor(_Actions[i].InstId);
             if (target != null)
             {
-                for(int j=0; j < _Actions[i].BuffAdd.Length; ++j)
+                if (_Actions [i].BuffAdd == null)
                 {
-                    if (_Actions [i].BuffAdd [j].Change == 1)
-                        target.AddBuff(_Actions [i].BuffAdd [j].BuffId);
-                    else if(_Actions [i].BuffAdd [j].Change == 0)
-                        target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
+                    Debug.LogWarning(" _Actions [i].BuffAdd is null!");
+                }
+                else
+                {
+                    for(int j=0; j < _Actions[i].BuffAdd.Length; ++j)
+                    {
+                        if (_Actions [i].BuffAdd [j].Change == 1)
+                            target.AddBuff(_Actions [i].BuffAdd [j].BuffId);
+                        else if(_Actions [i].BuffAdd [j].Change == 0)
+                            target.RemoveBuff(_Actions [i].BuffAdd [j].BuffId);
+                    }
                 }
 
                 if (_Actions [i].Dead)
