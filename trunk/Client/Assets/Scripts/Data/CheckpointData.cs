@@ -11,6 +11,7 @@ public class CheckpointData
 	public int _battleID;
 	public int _DropID;
 	public int _Main;
+	public string _Name;
 	static public Dictionary<int, List<CheckpointData>> metaData;
 
 	static public void ParseData(string content, string fileName)
@@ -37,7 +38,7 @@ public class CheckpointData
 				data._battleID = parser.GetInt (i, "BattleID"); 
 				data._DropID = parser.GetInt (i, "DropID"); 
 				data._Main = parser.GetInt (i, "Main"); 
-			
+				data._Name = parser.GetString(i, "Name");
 				if (!metaData.ContainsKey (data._HerID)) 
 				{
 						metaData [data._HerID] = new List<CheckpointData> ();
