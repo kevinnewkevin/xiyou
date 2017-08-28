@@ -99,15 +99,17 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable(t.MainId)
-	m.MainUnit.IsMain = true
-	m.MainUnit.Camp = prpc.CT_BLUE
-	m.MainUnit.BattleId = roomid
+	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
+	//m.MainUnit.IsMain = true
+	//m.MainUnit.Camp = prpc.CT_BLUE
+	//m.MainUnit.BattleId = roomid
 
 	for _, uid := range t.SmallId {
 		t1 := CreateUnitFromTable(uid)
-		t1.Camp = prpc.CT_BLUE
-		t1.IsMain = false
-		t1.BattleId = roomid
+		t1.ResetBattle(prpc.CT_BLUE, false, roomid)
+		//t1.Camp = prpc.CT_BLUE
+		//t1.IsMain = false
+		//t1.BattleId = roomid
 		m.BattleUnitList = append(m.BattleUnitList, t1)
 	}
 

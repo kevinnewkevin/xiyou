@@ -24,33 +24,33 @@ function SK_127_Action(battleid, casterid)
 
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 
-		Battle.AddBuff(battleid, casterid,casterid,1, caster_attack*0.3)  --使自己受到伤害增加30%
-		
-		Battle.AddBuff(battleid,casterid, t, 1,caster_attack*0.3)  --造成的伤害增加30%
+	Battle.AddBuff(battleid, casterid,casterid,1, caster_attack*0.3)  --使自己受到伤害增加30%
 	
-		
-		local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
-		
-		sys.log(1)
-		
-		local  damage = caster_attack-defender_def
-		
-		sys.log(2)
+	Battle.AddBuff(battleid,casterid, t, 1,caster_attack*0.3)  --造成的伤害增加30%
 	
-		--判断伤害
-		if damage <= 0 then 
-		
-			damage = 1
-		
-		end
-		sys.log(5)
-		local crit = Battle.GetCrit(skillid)   --是否暴击
-		sys.log(3)
-		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log(4)
-		Battle.TargetOver(battleid)
-		
-		sys.log("skil22 对id为"..t.."的目标造成"..damage.."点伤害")
+	
+	local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
+	
+	sys.log(1)
+	
+	local  damage = caster_attack-defender_def
+	
+	sys.log(2)
+	
+	--判断伤害
+	if damage <= 0 then 
+	
+		damage = 1
+	
+	end
+	sys.log(5)
+	local crit = Battle.GetCrit(skillid)   --是否暴击
+	sys.log(3)
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	sys.log(4)
+	Battle.TargetOver(battleid)
+	
+	sys.log("skil22 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

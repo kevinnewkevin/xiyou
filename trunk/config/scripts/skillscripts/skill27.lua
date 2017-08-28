@@ -17,7 +17,6 @@ sys.log(" skill 27 start")
 
 function SK_126_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid)
 	local skillid = 126	-- 技能id
 
 	local  attackNum = 0  --攻击个数
@@ -27,7 +26,7 @@ function SK_126_Action(battleid, casterid)
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 	
 	for i,v in ipairs(t) do
-		
+		Battle.TargetOn(battleid)
 		local defender_def = Player.GetCalcMagicDef(battleid, v)  --防御
 		
 	
@@ -42,25 +41,25 @@ function SK_126_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		-- Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+
+		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
 	
+		--if debuffnum >0 then 
+		--	demage1 = int(caster_attack / 2)
+			
+		--	for a=1,debuffnum,1 do
+			
+		--		damage += damage1
+		--
+		--	end
+		
+		--end
+		Battle.Attack(battleid,casterid,v,damage,crit)
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
-	end
-	
-	debuffnum = Player.PopAllBuffByDebuff(battleid,t)
-	
-		if debuffnum >0 then 
-			demage = int(caster_attack / 2)
-			
-			for a=1,debuffnum,1 do
-			
-				Battle.Attack(battleid,casterid,t,demage,crit)
-		
-			end
-		
-		end
 		
 		Battle.TargetOver(battleid)
+	end
 	
 	return  true
 	 

@@ -321,7 +321,16 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 //删除卡牌身上所有的debuff
 	tmp := map[*Buff]int{}
 
+	if len(this.Allbuff) == 0 || this.Allbuff == nil {
+		return 0
+	}
+
+	fmt.Println(this.Allbuff)
 	for _, buff := range this.Allbuff {
+		fmt.Println(buff)
+		if buff == nil {
+			continue
+		}
 		if buff.BuffType == kTypeBuff{
 			continue
 		}
