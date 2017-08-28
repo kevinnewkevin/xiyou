@@ -944,6 +944,10 @@ func (this *BattleRoom) isDeadOwner (casterid int64, target int64) {
 func IsCrit(skillid int32) int {
 	skill := GetSkillRecordById(skillid)
 
+	if skill == nil {
+		return 0
+	}
+
 	per := rand.Intn(100)
 	//fmt.Println("IsCrit", skill.Crit)
 
