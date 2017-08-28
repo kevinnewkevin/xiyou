@@ -86,7 +86,7 @@ end
 function guakan_RenderListItem(index, obj)
 	 local data = CheckpointData.GetData(guankaID);
 	 local name = obj:GetChild("n6");
-	 name.text = tostring(data[index]._ID);
+	 name.text = data[index]._Name;
 	 local open = obj:GetChild("n12");
 	 open.visible  = false;
 	 obj.data = data[index]._ID;
