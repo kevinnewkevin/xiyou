@@ -233,6 +233,12 @@ public class Skill {
                         {
                             for (int j = 0; j < _Targets.Length; ++j)
                             {
+                                if(_Targets[j] == null)
+                                    continue;
+                                
+                                if(_Actions[j].ActionParam == 0)
+                                    continue;
+                                
                                 _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
                             }
                         }));
@@ -311,6 +317,9 @@ public class Skill {
                         for (int j = 0; j < _Targets.Length; ++j)
                         {
                             if(_Targets[j] == null)
+                                continue;
+
+                            if(_Actions[j].ActionParam == 0)
                                 continue;
                             
                             _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
