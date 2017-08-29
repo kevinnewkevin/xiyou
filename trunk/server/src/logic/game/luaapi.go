@@ -112,7 +112,7 @@ func __GetStrings(p unsafe.Pointer) C.int {
 //export __GetTarget
 func __GetTarget(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__GetTargets")
+	//fmt.Println("__GetTarget")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -127,6 +127,10 @@ func __GetTarget(p unsafe.Pointer) C.int {
 
 	t_id := 0
 	for _, u := range battle.Units {
+		if u.IsDead() {
+			continue
+		}
+
 		if u == nil {
 			continue
 		}
@@ -137,7 +141,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 		break
 	}
 
-	//fmt.Println("__GetTargets end ,", t_id)
+	//fmt.Println("__GetTarget end ,", t_id)
 
 	L.PushInteger(t_id)
 
@@ -147,7 +151,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 //export __GetFriend
 func __GetFriend(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__GetTargets")
+	//fmt.Println("__GetFriend")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -172,7 +176,7 @@ func __GetFriend(p unsafe.Pointer) C.int {
 		break
 	}
 
-	//fmt.Println("__GetTargets end ,", t_id)
+	//fmt.Println("__GetFriend end ,", t_id)
 
 	L.PushInteger(t_id)
 

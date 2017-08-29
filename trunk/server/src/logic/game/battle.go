@@ -510,6 +510,9 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 		if u == nil {
 			continue
 		}
+		if u.IsDead() {
+			continue
+		}
 		if u.Camp == unit.Camp {
 			continue
 		}
