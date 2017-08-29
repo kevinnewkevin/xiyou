@@ -29,7 +29,7 @@ extern int __GetUnitDamage(void*);
 extern int __TargetOver(void*);
 extern int __TargetOn(void*);
 extern int __PopAllBuffByDebuff(void*);
-
+extern int __GetUnitSheld(void*);
 
 */
 import "C"
@@ -69,6 +69,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetCalcDef,"GetCalcDef","Player")
 	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
 	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
+	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")

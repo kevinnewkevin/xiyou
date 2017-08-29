@@ -351,6 +351,7 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 	fmt.Println("PopAllBuffByDebuff")
 	this.Allbuff = newBufflist
 
+	fmt.Println(len(tmp))
 	return len(tmp)
 }
 
