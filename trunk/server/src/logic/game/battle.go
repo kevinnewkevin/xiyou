@@ -499,6 +499,39 @@ func (this *BattleRoom) SelectBackTarget(camp int) []*GameUnit {
 	return targets
 }
 
+func GetCampPos(camp int) []int {
+	if camp == prpc.CT_RED {
+		return []int{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_6}
+	} else if camp == prpc.CT_BLUE {
+		return []int{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_3, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
+	}
+	return []int{}
+}
+
+//一竖排敌人,传递第一个选中的敌人,就是先调用getTarget
+func (this *BattleRoom) SelectLineTraget(unitid int64) []int64 {
+	unit := this.SelectOneUnit(unitid)
+
+	targetList := []int64{unitid}
+	var targetPos int32
+
+	pos_list := GetCampPos(unit.Camp)
+	if unit.Position > int32(pos_list[2]) {
+		targetPos = unit.Position - 3
+	} else {
+		targetPos = unit.Position + 3
+	}
+
+	targetunit := this.Units[targetPos]
+	if targetunit == nil {
+		return targetList
+	}
+
+	targetList = append(targetList, targetunit.InstId)
+
+	return targetList
+}
+
 //取得全部目标
 func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	fmt.Println("targets start = ", num)
