@@ -22,6 +22,8 @@ public class Actor {
 
     long _InstID;
 
+    int _DisplayID;
+
     //Animator _Animator;
     Animation _Animation;
 
@@ -36,6 +38,8 @@ public class Actor {
     List<int> _QuestList;
 
     Vector3 _DestPosition;
+
+    Vector3 _ForwardPlus;
 
     public delegate void CallBackHandler();
 
@@ -60,7 +64,7 @@ public class Actor {
         Init(false);
     }
 
-    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp)
+    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayId)
     {
         if (go == null)
         {
@@ -73,8 +77,11 @@ public class Actor {
         _RealPosInScene = realPos;
         _CrtValue = crtHp;
         _MaxValue = maxHp;
+        _DisplayID = displayId;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
+        DisplayData dData = DisplayData.GetData(displayId);
+        _ForwardPlus = _ActorObj.transform.forward * dData._Distance;
         Init();
     }
 
@@ -211,7 +218,7 @@ public class Actor {
 
     public Vector3 Forward
     {
-        get{ return _ActorObj.transform.position + _ActorObj.transform.forward; }
+        get{ return _ActorObj.transform.position + _ForwardPlus; }
     }
 
     //Hud操作
