@@ -125,6 +125,9 @@ public class Skill {
             _BeattackEff[i] = AssetLoader.LoadAsset(_SkillData._BeattackEffect);
             if (_BeattackEff [i] != null)
             {
+                if (targets [i] == null)
+                    continue;
+                
                 _BeattackEff[i].transform.parent = targets[i]._ActorObj.transform;
                 _BeattackEff[i].transform.localPosition = Vector3.zero;
                 _BeattackEff[i].transform.localScale = Vector3.one;
