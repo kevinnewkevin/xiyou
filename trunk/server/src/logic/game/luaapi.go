@@ -805,7 +805,7 @@ func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 
 	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
 
-	fmt.Println(len(FrontTarget))
+	fmt.Println(unitid, "Front", len(FrontTarget), "info", FrontTarget)
 
 	//L.PushInteger(int(num))
 
@@ -839,7 +839,7 @@ func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 
 	LineTraget := battle.SelectLineTraget(int64(unitid))
 
-	fmt.Println(len(LineTraget))
+	fmt.Println(unitid, "line", len(LineTraget), "info", LineTraget)
 
 	//L.PushInteger(int(num))
 

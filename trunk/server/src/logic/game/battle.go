@@ -549,7 +549,7 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 		if u.Camp == unit.Camp {
 			continue
 		}
-		if num > 0 && idx > num {
+		if num > 0 && idx >= num {
 			break
 		}
 		idx += 1
