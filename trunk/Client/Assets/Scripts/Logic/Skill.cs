@@ -310,6 +310,9 @@ public class Skill {
                     {
                         for (int j = 0; j < _Targets.Length; ++j)
                         {
+                            if(_Targets[j] == null)
+                                continue;
+                            
                             _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
                             int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
                             if(disValue == 0)

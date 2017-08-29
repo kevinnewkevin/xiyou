@@ -35,6 +35,8 @@ public class Actor {
     // 身上持有的任务列表
     List<int> _QuestList;
 
+    Vector3 _DestPosition;
+
     public delegate void CallBackHandler();
 
     public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes)
@@ -100,6 +102,8 @@ public class Actor {
         _Headbar._IsDirty = true;
     }
 
+    CallBackHandler _MoveCallBack;
+
     public void Update()
     {
         if (_Headbar != null)
@@ -112,6 +116,8 @@ public class Actor {
         if (_ActorObj == null)
             return;
 
+        _MoveCallBack = moveToCallback;
+        _DestPosition = position;
         _ActorObj.transform.LookAt(position);
 
         //为角色obj添加回调脚本和事件
@@ -119,6 +125,10 @@ public class Actor {
 
         //Tween position
         iTween.MoveTo(_ActorObj, iTween.Hash("speed", MOVE_SPEED, "position", position, "oncomplete", "HandlerFunction", "oncompleteparams", param.ToString(), "easetype", iTween.EaseType.linear));
+
+//        _ActorObj.transform.position = _DestPosition;
+//        if (_MoveCallBack != null)
+//            _MoveCallBack();
 
         if (!_IsRunning)
             Play(Define.ANIMATION_PLAYER_ACTION_RUN);
