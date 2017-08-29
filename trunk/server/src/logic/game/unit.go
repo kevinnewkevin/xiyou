@@ -170,18 +170,19 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
 
-	tagetList := battle.SelectAllTarget(this.Camp)
+	//tagetList := battle.SelectAllTarget(this.Camp)
 
 	battle.AcctionList.InstId = this.InstId
 	battle.AcctionList.SkillId = skill.SkillID
 
-	acc, dead := skill.Action(this, tagetList, battle.Round)
+	//acc, dead := skill.Action(this, tagetList, battle.Round)
 
-	battle.AcctionList.TargetList = acc
+	//battle.AcctionList.TargetList = acc
 	//fmt.Println("CastSkill, acc ", acc)
 	//fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
 
-	return dead
+	//return dead
+	return true
 }
 
 func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
