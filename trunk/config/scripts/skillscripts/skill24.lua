@@ -17,13 +17,16 @@ sys.log(" skill 24 start")
 
 function SK_123_Action(battleid, casterid)
 	Battle.TargetOn(battleid)
+	
+	local skillid = 123	-- 技能id
 
 	local  p = Player.GetTarget(battleid,casterid)  --获取目标 
 	
+	Battle.Cure(battleid,casterid,0,0)
 	
-	Battle.AddBuff(battleid,casterid,p,2,7)    -- 使下一次雷击必定溅射
+	--Battle.AddBuff(battleid,casterid,p,2,7)    -- 使下一次雷击必定溅射
 	
-	Battle.AddBuff(battleid,casterid,p,3,8)    -- 下一次落雷必定连击
+	--Battle.AddBuff(battleid,casterid,p,3,8)    -- 下一次落雷必定连击
 	
 	Battle.TargetOver(battleid)
 	

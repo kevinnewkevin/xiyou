@@ -17,7 +17,7 @@ sys.log(" skill 13 start")
 
 function SK_112_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid) --清空数据
+	
 	local skillid = 112		-- 技能id
 
 	local  attackNum = 0   --攻击个数
@@ -28,13 +28,17 @@ function SK_112_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 	
+		Battle.TargetOn(battleid) --清空数据
+	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 	
 		Battle.Cure(battleid,v,caster_attack*0.5,crit)      --回血 公式(法术强度的50%）
 		
+		Battle.TargetOver(battleid) --赋给下一个目标
+		
 		sys.log("skill13 ")
 	end
-	Battle.TargetOver(battleid) --赋给下一个目标
+	
 	return  true
 	 
 end

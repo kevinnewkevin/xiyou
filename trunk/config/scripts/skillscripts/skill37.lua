@@ -24,26 +24,26 @@ function SK_136_Action(battleid, casterid)
 
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 		
-		local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
+	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
-		local  damage = caster_attack*0.3*9-defender_def
+	local  damage = caster_attack*0.3*9-defender_def
 		
 		
-		--判断伤害
-		if damage <= 0 then 
+	--判断伤害
+	if damage <= 0 then 
 		
-			damage = 1
+		damage = 1
 		
-		end
-		local crit = Battle.GetCrit(skillid)   --是否暴击
+	end
+	local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		Battle.AddBuff(battleid,casterid,t,9,caster_attack*0.1)  --每次都到伤害降低10%速度
+	Battle.AddBuff(battleid,casterid,t,9,caster_attack*0.1)  --每次都到伤害降低10%速度
 		
-		Battle.TargetOver(battleid)
+	Battle.TargetOver(battleid)
 		
-		sys.log("skil36对id为"..t.."的目标造成"..damage.."点伤害")
+	sys.log("skil36对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

@@ -17,18 +17,22 @@ sys.log(" skill 11 start")
 
 function SK_110_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid) -- 清空数据
+	
 	local skillid = 110		-- 技能id
 	
 
-	local  attackNum = 3   --攻击个数
+	--local  attackNum = 3   --攻击个数
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.FrontTarget(battleid,casterid)  --获取目标
+	
+	sys.log("前排人数")
 	
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 
 	
 	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid) -- 清空数据
 	
 		local defender_def = Player.GetCalcDef(battleid, v)  -- 防御
 	

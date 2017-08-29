@@ -32,7 +32,6 @@ function SK_126_Action(battleid, casterid)
 	
 		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
 		
-		
 		--判断伤害
 		if damage <= 0 then 
 		
@@ -45,16 +44,17 @@ function SK_126_Action(battleid, casterid)
 
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
 	
-		--if debuffnum >0 then 
-		--	demage1 = int(caster_attack / 2)
+		if debuffnum >0 then 
+			demage = int(caster_attack / 2) --额外造成50%法术强度的伤害
 			
-		--	for a=1,debuffnum,1 do
+			for a=1,debuffnum,1 do
 			
-		--		damage += damage1
-		--
-		--	end
+				damage = damage + demage
+	
+			end
 		
-		--end
+		end
+		
 		Battle.Attack(battleid,casterid,v,damage,crit)
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
 		

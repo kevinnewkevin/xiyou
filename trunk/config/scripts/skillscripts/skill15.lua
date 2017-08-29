@@ -22,6 +22,9 @@ function SK_114_Action(battleid, casterid)
 	
 	local t = Player.GetFriend(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
+	sys.log("nvwa"..t)
+	
+	Battle.Cure(battleid,t,0,0)
 	
 	Battle.AddBuff(battleid,casterid,t,2,1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
 	

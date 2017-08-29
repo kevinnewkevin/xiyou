@@ -17,26 +17,29 @@ sys.log(" skill 6 start")
  
 function SK_105_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid) --清空数据
+	
 	local skillid = 105		-- 技能id
 
 	local  attackNum = 0   --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitMtk(battleid,t)  --获取 被攻击者法强 
 	
-	local  _attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
+	
+	sys.log(1)
 	
 	local HDnum =  Player.GetUnitSheld(battleid)   --护盾值
 	
+	sys.log(2)
 	
-	--Battle.AddBuff(battleid,casterid,t,2,5)
+	--Battle.AddBuff(battleid,casterid,t,2,5)   --吸收场上所有护盾
 	
-	local  num = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
 	
 	for i,v in ipairs(t) do
-		
+		Battle.TargetOn(battleid) --清空数据
+	
+		local  defender_def = Player.GetCalcMagicDef(battleid,v)  --获取被攻击者的法强防御
 		
 		local  damage  = caster_attack+HDnum*3-defender_def    --伤害 公式
 		

@@ -23,7 +23,9 @@ function SK_113_Action(battleid, casterid)
 	local t = Player.GetFriend(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  法术
-
+	
+	Battle.Cure(battleid,t,0,0)
+	
 	Battle.AddBuff(battleid,casterid, t,1, caster_attack*0.3)  --给一个友方单位增加一个荆棘（暂时么有这个函数）   持续三回合
 	
 	Battle.TargetOver(battleid) -- 赋给下个目标

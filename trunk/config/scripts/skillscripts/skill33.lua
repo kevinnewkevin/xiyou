@@ -16,32 +16,33 @@ sys.log(" skill 33 start")
 -- 法术强度视作buff  Battle.buff
 
 function SK_132_Action(battleid, casterid)
+
+	Battle.TargetOn(battleid)
 	local skillid = 132	-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  法术
 		
 		
-		local defender_def = Player.GetClacMagicDef(battleid,t)   -- 防御
+	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
-		local  damaga = caster_attack-defender_def
+	local  damage = caster_attack-defender_def
 		
 
 	
-		--判断伤害
-		if damage <= 0 then 
+	--判断伤害
+	if damage <= 0 then 
 		
-			damage = 1
+		damage = 1
 		
-		end
-		local crit = Battle.GetCrit(skillid)   --是否暴击
+	end
+	local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	Battle.TargetOver(battleid)
 		
-	
-		
-		sys.log("skil33 对id为"..t.."的目标造成"..damage.."点伤害")
+	sys.log("skil33 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

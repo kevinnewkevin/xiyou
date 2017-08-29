@@ -37,18 +37,23 @@ function SK_129_Action(battleid, casterid)
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
 	
 	if debuffnum > 0 then 
-		demage = int(caster_attack / 2)
+		demage = int(caster_attack / 2) --额外造成50%物理强度的伤害
 		
 		for a=1,debuffnum,1 do
 		
-			Battle.Attack(battleid,casterid,t,demage,crit)
+			--Battle.Attack(battleid,casterid,t,demage,crit)
+			
+			damage = damage + demage
 	
 		end
 	
 	end
+	
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
 	Battle.TargetOver(battleid)
 	
 	sys.log("skil30 对id为"..t.."的目标造成"..damage.."点伤害")

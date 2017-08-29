@@ -18,7 +18,7 @@ sys.log(" skill 8 start")
 
 function SK_107_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid) --清空数据
+	
 
 	local skillid = 107	-- 技能id
 
@@ -29,6 +29,8 @@ function SK_107_Action(battleid, casterid)
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取被攻击攻击者属性  物理
 	
 	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid) --清空数据
 	
 		local defender_def = Player.GetCalcDef(battleid,v)  --防御
 	

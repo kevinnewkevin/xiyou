@@ -17,7 +17,7 @@ sys.log(" skill 5 start")
 
 function SK_104_Action(battleid, casterid)
 
-Battle.TargetOn(battleid) --清空数据
+
 
 	local skillid = 104		-- 技能id
 
@@ -29,11 +29,16 @@ Battle.TargetOn(battleid) --清空数据
 	local  damage = Player.GetUnitMtk(battleid,casterid)  --获取法术强度百分比
 	
 	for i,v in ipairs(t) do
-	
-	Battle.AddBuff(battleid,casterid,v,4,damage*0.1)  --给友方分别提供一个盾牌
+		Battle.TargetOn(battleid) --清空数据
+		
+		Battle.Cure(battleid, v,0, 0)
+		
+		Battle.AddBuff(battleid,casterid,v,4,damage*0.1)  --给友方分别提供一个盾牌
+		
+		Battle.TargetOver(battleid)  --赋给下个目标
 	
 	end
-	Battle.TargetOver(battleid)  --赋给下个目标
+
 	
 	return  true
 	 

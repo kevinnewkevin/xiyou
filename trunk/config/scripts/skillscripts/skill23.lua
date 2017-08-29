@@ -17,7 +17,7 @@ sys.log(" skill 23 start")
 
 function SK_122_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid)
+	
 	local skillid = 122	-- 技能id
 
 	local  attackNum = 0  --攻击个数
@@ -28,7 +28,7 @@ function SK_122_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		
-		
+		Battle.TargetOn(battleid)
 		
 		local defender_def = Player.GetCalcMagicDef(battleid, v)
 	
@@ -44,10 +44,11 @@ function SK_122_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		Battle.TargetOver(battleid)
 	
 		sys.log("skill23 对id为"..v.."的目标减少"..damage.."点伤害")
 	end
-	Battle.TargetOver(battleid)
+	
 	
 	return  true
 	 

@@ -25,26 +25,26 @@ function SK_134_Action(battleid, casterid)
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 		
 		
-		local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
+	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
-		local  damage = caster_attack-defender_def
+	local  damage = caster_attack-defender_def
 		
 	
-		--判断伤害
-		if damage <= 0 then 
+	--判断伤害
+	if damage <= 0 then 
 		
-			damage = 1
+		damage = 1
+	
+	end
+	local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		end
-		local crit = Battle.GetCrit(skillid)   --是否暴击
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	Battle.AddBuff(battleid,casterid,t,1,0)  --受到该伤害的目标无法回复生命值
 		
-		Battle.AddBuff(battleid,casterid,t,1,0)  --受到该伤害的目标无法回复生命值
+	Battle.TargetOver(battleid)
 		
-		Battle.TargetOver(battleid)
-		
-		sys.log("skil35 对id为"..t.."的目标造成"..damage.."点伤害")
+	sys.log("skil35 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	return  true
 	 

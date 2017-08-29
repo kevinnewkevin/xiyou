@@ -22,12 +22,13 @@ function SK_116_Action(battleid, casterid)
 	
 	local  t = Player.GetFriend(battleid,casterid)  --获取目标 
 	
-	local  caster_attack = Player.GetUnitMit(battleid,casterid)  --获取攻击者属性
+	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
 	local crit = Battle.GetCrit(skillid)
 
-	 Player.Cure(battleid, t, caster_attack*0.1, crit)    --每回合伤害回复法术强度10%的生命值
-	 Battle.TargetOver(battleid)
+	Battle.Cure(battleid, t, caster_attack*0.1, crit)    --每回合伤害回复法术强度10%的生命值
+	
+	Battle.TargetOver(battleid)
 	
 	
 	sys.log("skill17")

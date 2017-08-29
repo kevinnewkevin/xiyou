@@ -1,5 +1,7 @@
 sys.log(" skill 4 start")
 
+
+
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
 -- 循环/直接使用接口操控战斗 类似 战斗.攻击(战斗id, 释放者id, 承受者ID, 伤害数值, 是否暴击)
@@ -35,11 +37,11 @@ function SK_103_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	Battle.AddBuff(battleid,casterid,t,3,-damage)   --降低对手同等伤害的法术强度
-	
-	Battle.AddBuff(battleid,casterid,casterid,3,damage)   --增加自己等量的法术强度
-	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
+	Battle.AddBuff(battleid,casterid,t,5,-damage)   --降低对手同等伤害的法术强度
+	
+	Battle.AddBuff(battleid,casterid,casterid,2,damage)   --增加自己等量的法术强度
 	
 	Battle.TargetOver(battleid)  --赋给下个目标
 	

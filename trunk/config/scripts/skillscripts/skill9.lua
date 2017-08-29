@@ -22,28 +22,30 @@ function SK_108_Action(battleid, casterid)
 
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标
 	
+	sys.log("目标"..t)
+	
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取被攻击者属性
 	
-		local defender_def = Player.GetCalcDef(battleid,t)
+	local defender_def = Player.GetCalcDef(battleid,t)
+
+	local  damage  = caster_attack*0.2*5-defender_def      --伤害 公式（20%的物理伤害   加减少10%的防御）
+		
+	--判断伤害
+	if damage <= 0 then 
+		
+		damage = 1
+		
+	end
+	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-		local  damage  = caster_attack*0.2*5-defender_def      --伤害 公式（20%的物理伤害   加减少10%的防御）
+	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		--判断伤害
-		if damage <= 0 then 
+	Battle.AddBuff(battleid,casterid,t,4,-defender_def*0.1)
 		
-			damage = 1
 		
-		end
-		local crit = Battle.GetCrit(skillid)   --是否暴击
-	
+	Battle.TargetOver(battleid)  --赋给下个目标
 		
-		Battle.AddBuff(battleid,casterid,t,4,-defender_def*0.1)
-		
-		Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		
-		Battle.TargetOver(battleid)  --赋给下个目标
-		
-		sys.log("skill9 对id为"..t.."的目标造成"..damage.."点伤害")
+	sys.log("skill9 对id为"..t.."的目标造成"..damage.."点伤害")
 	
 	
 	return  true

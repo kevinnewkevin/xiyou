@@ -17,16 +17,21 @@ sys.log(" skill 19 start")
 
 function SK_118_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid)
+	
 	local skillid = 118	-- 技能id
 
-	local  attackNum = 2  --攻击个数
+	--local  attackNum = 2  --攻击个数
+	
+	local  p = Player.GetTarget(battleid,casterid)  --获取目标
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.LineTraget(battleid,p)  --获取目标
 	
 	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 
 	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid)
+		
 		local defender_def = Player.GetCalcDef(battleid, v)
 	
 		local  damage  = caster_attack-defender_def  --伤害 公式（物理伤害 减 防御 ）
@@ -40,10 +45,12 @@ function SK_118_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		Battle.TargetOver(battleid)
 	
-		sys.log("skill19 对id为"..v.."的目标减少"..recovery.."点伤害")
+		sys.log("skill19 对id为"..v.."的目标减少"..damage.."点伤害")
 	end
-	Battle.TargetOver(battleid)
+	
 	
 	return  true
 	 
