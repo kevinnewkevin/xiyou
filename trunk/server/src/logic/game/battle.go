@@ -440,8 +440,8 @@ func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 ////////////////////////////////////////////////////////////////////////
 
 //取得全部目标
-func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
-	targets := []*GameUnit{}
+func (this *BattleRoom) SelectAllTarget(camp int) []int64 {
+	targets := []int64{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -449,15 +449,15 @@ func (this *BattleRoom) SelectAllTarget(camp int) []*GameUnit {
 		if u.Camp == camp {
 			continue
 		}
-		targets = append(targets, u)
+		targets = append(targets, u.InstId)
 	}
 
 	return targets
 }
 
 //前排
-func (this *BattleRoom) SelectFrontTarget(camp int) []*GameUnit {
-	targets := []*GameUnit{}
+func (this *BattleRoom) SelectFrontTarget(camp int) []int64 {
+	targets := []int64{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -471,15 +471,15 @@ func (this *BattleRoom) SelectFrontTarget(camp int) []*GameUnit {
 		if !u.isFront() {
 			continue
 		}
-		targets = append(targets, u)
+		targets = append(targets, u.InstId)
 	}
 
 	return targets
 }
 
 //后排
-func (this *BattleRoom) SelectBackTarget(camp int) []*GameUnit {
-	targets := []*GameUnit{}
+func (this *BattleRoom) SelectBackTarget(camp int) []int64 {
+	targets := []int64{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -493,7 +493,7 @@ func (this *BattleRoom) SelectBackTarget(camp int) []*GameUnit {
 		if !u.isBack() {
 			continue
 		}
-		targets = append(targets, u)
+		targets = append(targets, u.InstId)
 	}
 
 	return targets
