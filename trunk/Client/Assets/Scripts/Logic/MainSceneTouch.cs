@@ -21,11 +21,12 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchBegin(EventContext context)
     {
+        if (Stage.isTouchOnUI)
+            return;
+        
         _Premag = ((InputEvent)context.data).position.magnitude;
         _IsPress = true;
         _IsMoved = false;
-        if (Stage.isTouchOnUI)
-            return;
     }
 
     void OnTouchEnd()

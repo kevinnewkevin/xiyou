@@ -7,7 +7,7 @@ public class BattleSceneTouch : MonoBehaviour {
 
     bool _IsPress;
 
-    float _Premag;
+    float _PreVmag, _PreHmag;
 
 	// Use this for initialization
 	void Start () {
@@ -18,19 +18,19 @@ public class BattleSceneTouch : MonoBehaviour {
 
     void OnTouchBegin()
     {
+        if (Stage.isTouchOnUI)
+            return;
+        
         _IsPress = true;
-        if (!Stage.isTouchOnUI)
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
+        if (Physics.Raycast(ray, out hit))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
-            if (Physics.Raycast(ray, out hit))
+            if (hit.transform.CompareTag("Point"))
             {
-                if (hit.transform.CompareTag("Point"))
-                {
-                    PointHandle handler = hit.transform.GetComponent<PointHandle>();
-                    if (handler != null)
-                        handler.Excute();
-                }
+                PointHandle handler = hit.transform.GetComponent<PointHandle>();
+                if (handler != null)
+                    handler.Excute();
             }
         }
     }
@@ -41,13 +41,29 @@ public class BattleSceneTouch : MonoBehaviour {
         {
             if (_IsPress)
             {
-                float crtmag = ((InputEvent)context.data).position.magnitude;
-                bool anti = false;
-                if (_Premag > crtmag)
-                    anti = true;
-                _Premag = crtmag;
-                Camera.main.transform.RotateAround(Battle._Center, Vector3.up, crtmag * Time.deltaTime * 0.1f * (anti? -1f: 1f));
+                Vector2 pos = ((InputEvent)context.data).position;
+                Vector2 hPos = new Vector2(pos.x, 0f);
+                Vector2 vPos = new Vector2(0f, pos.y);
+                float crtHmag = hPos.magnitude;
+                float crtVmag = vPos.magnitude;
+                bool hanti = false;
+                if (_PreHmag > crtHmag)
+                    hanti = true;
+
+                bool vanti = false;
+                if (_PreVmag > crtVmag)
+                    vanti = true;
+
+                float h = Mathf.Abs(_PreHmag - crtHmag);
+                float v = Mathf.Abs(_PreVmag - crtVmag);
+                if(h > v)
+                    Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.up, crtVmag * Time.deltaTime * 0.1f * (hanti? -1f: 1f));
+                else if(h < v)
+                    Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.right, crtHmag * Time.deltaTime * 0.1f * (vanti? -1f: 1f));
                 Camera.main.transform.LookAt(Battle._Center);
+
+                _PreHmag = crtHmag;
+                _PreVmag = crtVmag;
             }
         }
     }
