@@ -911,7 +911,23 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 	}
 }
 
-func (this *BattleRoom) BuffAddHp(target int64, data int32) {
+func (this *BattleRoom) BuffAddHp(target int64, buffid int32, data int32, over bool) {
+	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌增加了", data, "点血量, over", over)
+	unit := this.SelectOneUnit(target)
+
+	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(data)
+
+	buffCOM := prpc.COM_BattleBuffAction{}
+	buffCOM.BuffChange.BuffId = buffid
+	if over {
+		buffCOM.BuffChange.Change = 0
+	} else {
+		buffCOM.BuffChange.Change = 2
+	}
+	buffCOM.BuffData = data
+	buffCOM.Dead = unit.IsDead()
+
+	this.AcctionList.BuffList = append(this.AcctionList.BuffList, buffCOM)
 
 }
 

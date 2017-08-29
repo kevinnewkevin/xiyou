@@ -9,7 +9,8 @@ extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetUnitProperty(void*);
 extern int __ChangeUnitProperty(void*);
-extern int __ChangeSheld(void*);
+extern int __AddSheld(void*);
+extern int __PopSheld(void*);
 extern int __ChangeSpecial(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
@@ -19,6 +20,7 @@ extern int __AddBuff(void*);
 extern int __HasBuff(void*);
 extern int __HasDebuff(void*);
 extern int __BuffMintsHp(void*);
+extern int __BuffCureHp(void*);
 extern int __GetCalcMagicDef(void*);
 extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
@@ -58,7 +60,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
 	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
-	_L.LoadApi(C.__ChangeSheld,"ChangeSheld","Player")
+	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
+	_L.LoadApi(C.__PopSheld,"PopSheld","Player")
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
 	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
 	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
@@ -74,6 +77,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
+	_L.LoadApi(C.__BuffCureHp,"BuffCureHp","Battle")
 	_L.LoadApi(C.__TargetOver,"TargetOver","Battle")
 	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
@@ -127,11 +131,10 @@ func __GetTarget(p unsafe.Pointer) C.int {
 
 	t_id := 0
 	for _, u := range battle.Units {
-		if u.IsDead() {
+		if u == nil {
 			continue
 		}
-
-		if u == nil {
+		if u.IsDead() {
 			continue
 		}
 		if u.Camp == unit.Camp {
@@ -231,10 +234,10 @@ func __ChangeUnitProperty(p unsafe.Pointer) C.int {
 	return 1
 }
 
-//export __ChangeSheld
-func __ChangeSheld(p unsafe.Pointer) C.int {
+//export __AddSheld
+func __AddSheld(p unsafe.Pointer) C.int {
 
-	fmt.Println("__ChangeSheld")
+	fmt.Println("__AddSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -242,13 +245,43 @@ func __ChangeSheld(p unsafe.Pointer) C.int {
 	idx ++
 	unitid := L.ToInteger(idx)
 	idx ++
-	data := L.ToInteger(idx)
+	buffinstid := L.ToInteger(idx)
 
 	battle := FindBattle(int64(battleid))
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	unit.VirtualHp += int32(data)
+	buff := unit.SelectBuff(int32(buffinstid))
+
+	unit.VirtualHp += int32(buff.Data)
+
+	return 1
+}
+
+//export __PopSheld
+func __PopSheld(p unsafe.Pointer) C.int {
+
+	fmt.Println("__PopSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buff := unit.SelectBuff(int32(buffinstid))
+
+	unit.VirtualHp -= int32(buff.Data)
+
+	if unit.VirtualHp < 0 {
+		unit.VirtualHp = 0
+	}
 
 	return 1
 }
@@ -507,6 +540,31 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 	fmt.Println("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
+
+	return 1
+}
+
+//export __BuffCureHp
+func __BuffCureHp(p unsafe.Pointer) C.int {
+
+	fmt.Println("__BuffMintsHp")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buff := unit.SelectBuff(int32(buffinstid))
+	fmt.Println("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+
+	battle.BuffAddHp(buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
 	return 1
 }
