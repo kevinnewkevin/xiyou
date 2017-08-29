@@ -31,6 +31,7 @@ public class BattleSceneTouch : MonoBehaviour {
                 PointHandle handler = hit.transform.GetComponent<PointHandle>();
                 if (handler != null)
                     handler.Excute();
+                _IsPress = false;
             }
         }
     }
@@ -56,10 +57,18 @@ public class BattleSceneTouch : MonoBehaviour {
 
                 float h = Mathf.Abs(_PreHmag - crtHmag);
                 float v = Mathf.Abs(_PreVmag - crtVmag);
-                if(h > v)
-                    Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.up, crtVmag * Time.deltaTime * 0.1f * (hanti? -1f: 1f));
-                else if(h < v)
-                    Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.right, crtHmag * Time.deltaTime * 0.1f * (vanti? -1f: 1f));
+                if (h > v)
+                    Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.up, crtVmag * Time.deltaTime * 0.1f * (hanti ? -1f : 1f));
+                else if (h < v)
+                {
+                    float gap = Camera.main.transform.position.y - Battle._Center.y;
+                    if(gap >= 6f && vanti)
+                        Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.right, crtHmag * Time.deltaTime * 0.05f * (vanti ? -1f : 1f));
+                    else if(gap <= 2f && !vanti)
+                        Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.right, crtHmag * Time.deltaTime * 0.05f * (vanti ? -1f : 1f));
+                    else if(gap < 6f && gap > 2f)
+                        Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.right, crtHmag * Time.deltaTime * 0.05f * (vanti ? -1f : 1f));
+                }
                 Camera.main.transform.LookAt(Battle._Center);
 
                 _PreHmag = crtHmag;
