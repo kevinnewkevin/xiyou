@@ -11,9 +11,10 @@ public class AppEntry : MonoBehaviour {
 	void Start () {
         DontDestroyOnLoad(this);
         GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
+        UIConfig.defaultFont = "方正楷体_GBK";
 
         Application.logMessageReceived += (condition, stackTrace, type) => {
-            context = condition + "\n" + stackTrace + "\n" + type;
+            context += condition + "\n" + stackTrace + "\n" + type;
         };
 
         DataLoader.Init();
