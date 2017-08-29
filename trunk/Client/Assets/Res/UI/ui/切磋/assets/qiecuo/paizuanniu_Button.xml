@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="147,342" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="rvp5e" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="center-center,top-top"/>
+    </image>
+    <image id="n2" name="n2" src="rvp5f" xy="-30,-13">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n3_zlcj" name="n3" xy="51,45" size="36,169" font="方正楷体_GBK" fontSize="27" color="#ffffff" leading="-1" autoSize="none" strokeColor="#000000" text="啦啦啦啦啦啦&#xA;">
+      <gearXY controller="button" pages="1,3" values="31,42|31,42" default="51,45"/>
+      <relation target="n1" sidePair="left-left,top-top"/>
+    </text>
+    <image id="n4_t6vc" name="n4" src="t6vc1j" xy="-16,-8"/>
+  </displayList>
+  <Button mode="Radio" downEffect="scale" downEffectValue="0.90"/>
+</component>
