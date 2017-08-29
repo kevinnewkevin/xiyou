@@ -289,8 +289,11 @@ public class Skill {
                     {
                         for (int j = 0; j < _Targets.Length; ++j)
                         {
-                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                            if(_Actions[j].ActionParam < 0)
+                            {
+                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                            }
 
                             //beattack effect
                             if (_BeattackEff[j] != null)
