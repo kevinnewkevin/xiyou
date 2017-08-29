@@ -30,7 +30,8 @@ extern int __TargetOver(void*);
 extern int __TargetOn(void*);
 extern int __PopAllBuffByDebuff(void*);
 extern int __GetUnitSheld(void*);
-
+extern int __FrontTarget(void*);
+extern int __LineTraget(void*);
 */
 import "C"
 import (
@@ -70,6 +71,9 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
 	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
 	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
+	_L.LoadApi(C.__FrontTarget,"FrontTarget","Player")
+	_L.LoadApi(C.__LineTraget,"LineTraget","Player")
+
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -783,5 +787,72 @@ func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果
 }
 
 
+//export __FrontTarget
+func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
+
+	fmt.Println("__FrontTarget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
+
+	fmt.Println(len(FrontTarget))
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(FrontTarget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(FrontTarget[i]))
+		L.SetTable(-3)
+	}
 
 
+	return 1
+}
+
+//export __LineTraget
+func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
+
+	fmt.Println("__LineTraget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	LineTraget := battle.SelectLineTraget(int64(unitid))
+
+	fmt.Println(len(LineTraget))
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(LineTraget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(LineTraget[i]))
+		L.SetTable(-3)
+	}
+
+
+	return 1
+}
