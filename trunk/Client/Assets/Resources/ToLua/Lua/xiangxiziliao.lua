@@ -13,6 +13,30 @@ local name;
 
 local skillList;
 
+local atk;
+local def;
+local matk;
+local mdef;
+local crit;
+local critdmg;
+local combo;
+local split;
+local rec;
+local reflect;
+local suck;
+
+local atkplus;
+local defplus;
+local matkplus;
+local mdefplus;
+local critplus;
+local critdmgplus;
+local comboplus;
+local splitplus;
+local recplus;
+local reflectplus;
+local suckplus;
+
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -38,6 +62,30 @@ function xiangxiziliao:OnInit()
 	name = self.contentPane:GetChild("n60");
 
 	skillList = self.contentPane:GetChild("n49").asList;
+
+	atk = self.contentPane:GetChild("n31");
+	def = self.contentPane:GetChild("n32");
+	matk = self.contentPane:GetChild("n33");
+	mdef = self.contentPane:GetChild("n34");
+	crit = self.contentPane:GetChild("n35");
+	critdmg = self.contentPane:GetChild("n36");
+	combo = self.contentPane:GetChild("n37");
+	split = self.contentPane:GetChild("n38");
+	rec = self.contentPane:GetChild("n67");
+	reflect = self.contentPane:GetChild("n68");
+	suck = self.contentPane:GetChild("n69");
+
+	atkplus = self.contentPane:GetChild("n39");
+	defplus = self.contentPane:GetChild("n40");
+	matkplus = self.contentPane:GetChild("n41");
+	mdefplus = self.contentPane:GetChild("n42");
+	critplus = self.contentPane:GetChild("n43");
+	critdmgplus = self.contentPane:GetChild("n44");
+	comboplus = self.contentPane:GetChild("n45");
+	splitplus = self.contentPane:GetChild("n46");
+	recplus = self.contentPane:GetChild("n70");
+	reflectplus = self.contentPane:GetChild("n71");
+	suckplus = self.contentPane:GetChild("n72");
 
 	xiangxiziliao_FlushData();
 end
@@ -119,6 +167,31 @@ function xiangxiziliao_FlushData()
 	local entityData = GamePlayer.GetEntityDataByInstID(instId);
 	fee.text = entityData._Cost;
 	name.text = entityData._Name;
+
+	local entityInst = GamePlayer.GetCardByInstID(instId);
+	atk.text = entityInst.CProperties[3];
+	def.text = entityInst.CProperties[4];
+	matk.text = entityInst.CProperties[5];
+	mdef.text = entityInst.CProperties[6];
+	crit.text = entityInst.CProperties[9];
+	critdmg.text = entityInst.CProperties[12];
+	combo.text = entityInst.CProperties[10];
+	split.text = entityInst.CProperties[11];
+	rec.text = entityInst.CProperties[13];
+	reflect.text = entityInst.CProperties[14];
+	suck.text = entityInst.CProperties[15];
+
+	atkplus.text = "";
+	defplus.text = "";
+	matkplus.text = "";
+	mdefplus.text = "";
+	critplus.text = "";
+	critdmgplus.text = "";
+	comboplus.text = "";
+	splitplus.text = "";
+	recplus.text = "";
+	reflectplus.text = "";
+	suckplus.text = "";
 
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
