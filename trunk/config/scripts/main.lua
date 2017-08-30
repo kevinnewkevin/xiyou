@@ -39,3 +39,8 @@ sys.loadfile("skillscripts/skill36.lua")
 sys.loadfile("skillscripts/skill37.lua")
 
 sys.loadfile("buffscripts/bufftest.lua")
+sys.loadfile("buffscripts/buff100.lua")
+sys.loadfile("buffscripts/buff101.lua")
+sys.loadfile("buffscripts/buff102.lua")
+sys.loadfile("buffscripts/buff103.lua")
+sys.loadfile("buffscripts/buff104.lua")
