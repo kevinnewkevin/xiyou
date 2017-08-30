@@ -30,33 +30,38 @@ function SK_126_Action(battleid, casterid)
 		local defender_def = Player.GetCalcMagicDef(battleid, v)  --防御
 		
 	
-		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
+		local  trueDamage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
 		
 		--判断伤害
-		if damage <= 0 then 
+		if trueDamage <= 0 then 
 		
-			damage = 1
+			trueDamage = 1
 		
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		-- Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-
+		
+		sys.log("PopAllBuffByDebuff 1")
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
+		sys.log("PopAllBuffByDebuff 2 "..debuffnum)
 	
 		if debuffnum >0 then 
+			sys.log("PopAllBuffByDebuff 2.1 ")
 			demage = int(caster_attack / 2) --额外造成50%法术强度的伤害
 			
 			for a=1,debuffnum,1 do
 			
-				damage = damage + demage
+				trueDamage = trueDamage + demage
 	
 			end
-		
+			sys.log("PopAllBuffByDebuff 2.2 ")
 		end
 		
-		Battle.Attack(battleid,casterid,v,damage,crit)
-		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
+		sys.log("PopAllBuffByDebuff 3")
+		
+		Battle.Attack(battleid,casterid,v,trueDamage,crit)
+		sys.log("skill26 对id为"..v.."的目标减少"..trueDamage.."点伤害")
 		
 		Battle.TargetOver(battleid)
 	end
