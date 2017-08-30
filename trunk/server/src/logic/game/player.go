@@ -284,7 +284,11 @@ func (this *GamePlayer)AddUnitToGroup(instId int64,groupId int32) int {
 	}
 
 	for _,unit := range group.UnitList{
-		if card.UnitId == unit.UnitId {
+		tmp := this.GetUnit(unit)
+		if tmp==nil {
+			continue
+		}
+		if card.UnitId == tmp.UnitId {
 			return 4
 		}
 	}
@@ -308,7 +312,7 @@ func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupId int32) int {
 	index := 100
 
 	for i:=0;i<len(group.UnitList);i++  {
-		if group.UnitList[i].InstId == instId {
+		if group.UnitList[i] == instId {
 			index = i
 		}
 	}
