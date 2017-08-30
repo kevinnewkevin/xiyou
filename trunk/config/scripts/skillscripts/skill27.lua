@@ -40,27 +40,22 @@ function SK_126_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		-- Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		
-		sys.log("PopAllBuffByDebuff 1")
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
-		sys.log("PopAllBuffByDebuff 2 "..debuffnum)
+		
 	
 		if debuffnum >0 then 
-			sys.log("PopAllBuffByDebuff 2.1 ")
-			demage = int(caster_attack / 2) --额外造成50%法术强度的伤害
+			
+			local demage = caster_attack*0.5  --额外造成50%法术强度的伤害
 			
 			for a=1,debuffnum,1 do
 			
 				trueDamage = trueDamage + demage
 	
 			end
-			sys.log("PopAllBuffByDebuff 2.2 ")
 		end
 		
-		sys.log("PopAllBuffByDebuff 3")
-		
 		Battle.Attack(battleid,casterid,v,trueDamage,crit)
+		
 		sys.log("skill26 对id为"..v.."的目标减少"..trueDamage.."点伤害")
 		
 		Battle.TargetOver(battleid)
