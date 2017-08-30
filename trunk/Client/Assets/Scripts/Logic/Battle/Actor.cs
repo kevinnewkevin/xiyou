@@ -80,8 +80,6 @@ public class Actor {
         _DisplayID = displayId;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
-        DisplayData dData = DisplayData.GetData(displayId);
-        _ForwardPlus = _ActorObj.transform.forward * dData._Distance;
         Init();
     }
 
@@ -216,9 +214,18 @@ public class Actor {
         _Animation.CrossFadeQueued(action);
     }
 
-    public Vector3 Forward
+    public Vector3 Forward(float ajax)
     {
-        get{ return _ActorObj.transform.position + _ForwardPlus; }
+        return _ActorObj.transform.position + _ActorObj.transform.forward * ajax;
+    }
+
+    public float ForwardAjax
+    {
+        get
+        {
+            DisplayData dData = DisplayData.GetData(_DisplayID);
+            return dData._Distance;
+        }
     }
 
     //Hud操作
