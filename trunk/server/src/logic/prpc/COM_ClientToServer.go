@@ -19,6 +19,18 @@ type COM_ClientToServer_PopBattleUnit struct{
   instId int64  //0
   groupId int32  //1
 }
+type COM_ClientToServer_SetBattleUnit struct{
+  instId int64  //0
+  groupName string  //1
+  isBattle bool  //2
+}
+type COM_ClientToServer_DelUnitGroup struct{
+  groupName string  //0
+}
+type COM_ClientToServer_SetUnitGroupName struct{
+  oldName string  //0
+  newName string  //1
+}
 type COM_ClientToServer_SetupBattle struct{
   positionList []COM_BattlePosition  //0
 }
@@ -36,10 +48,13 @@ type COM_ClientToServerProxy interface{
   CreatePlayer(tempId int32, playerName string ) error // 1
   AddBattleUnit(instId int64, groupId int32 ) error // 2
   PopBattleUnit(instId int64, groupId int32 ) error // 3
-  JoinBattle() error // 4
-  SetupBattle(positionList []COM_BattlePosition ) error // 5
-  RequestChapterData(chapterId int32 ) error // 6
-  ChallengeSmallChapter(smallChapterId int32 ) error // 7
+  SetBattleUnit(instId int64, groupName string, isBattle bool ) error // 4
+  DelUnitGroup(groupName string ) error // 5
+  SetUnitGroupName(oldName string, newName string ) error // 6
+  JoinBattle() error // 7
+  SetupBattle(positionList []COM_BattlePosition ) error // 8
+  RequestChapterData(chapterId int32 ) error // 9
+  ChallengeSmallChapter(smallChapterId int32 ) error // 10
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -226,6 +241,146 @@ func (this *COM_ClientToServer_PopBattleUnit)Deserialize(buffer *bytes.Buffer) e
   // deserialize groupId
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.groupId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SetBattleUnit)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.instId!=0)
+  mask.WriteBit(len(this.groupName) != 0)
+  mask.WriteBit(this.isBattle)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instId
+  {
+    if(this.instId!=0){
+      err := prpc.Write(buffer,this.instId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize groupName
+  if len(this.groupName) != 0{
+    err := prpc.Write(buffer,this.groupName)
+    if err != nil {
+      return err
+    }
+  }
+  // serialize isBattle
+  {
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SetBattleUnit)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.instId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize groupName
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.groupName)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize isBattle
+  this.isBattle = mask.ReadBit();
+  return nil
+}
+func (this *COM_ClientToServer_DelUnitGroup)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(len(this.groupName) != 0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize groupName
+  if len(this.groupName) != 0{
+    err := prpc.Write(buffer,this.groupName)
+    if err != nil {
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_DelUnitGroup)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize groupName
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.groupName)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SetUnitGroupName)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(len(this.oldName) != 0)
+  mask.WriteBit(len(this.newName) != 0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize oldName
+  if len(this.oldName) != 0{
+    err := prpc.Write(buffer,this.oldName)
+    if err != nil {
+      return err
+    }
+  }
+  // serialize newName
+  if len(this.newName) != 0{
+    err := prpc.Write(buffer,this.newName)
+    if err != nil {
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SetUnitGroupName)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize oldName
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.oldName)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize newName
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.newName)
     if err != nil{
       return err
     }
@@ -425,12 +580,66 @@ func(this* COM_ClientToServerStub)PopBattleUnit(instId int64, groupId int32 ) er
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ClientToServerStub)JoinBattle() error {
+func(this* COM_ClientToServerStub)SetBattleUnit(instId int64, groupName string, isBattle bool ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
   err := prpc.Write(buffer,uint16(4))
+  if err != nil{
+    return err
+  }
+  _4 := COM_ClientToServer_SetBattleUnit{}
+  _4.instId = instId;
+  _4.groupName = groupName;
+  _4.isBattle = isBattle;
+  err = _4.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)DelUnitGroup(groupName string ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(5))
+  if err != nil{
+    return err
+  }
+  _5 := COM_ClientToServer_DelUnitGroup{}
+  _5.groupName = groupName;
+  err = _5.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)SetUnitGroupName(oldName string, newName string ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(6))
+  if err != nil{
+    return err
+  }
+  _6 := COM_ClientToServer_SetUnitGroupName{}
+  _6.oldName = oldName;
+  _6.newName = newName;
+  err = _6.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)JoinBattle() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(7))
   if err != nil{
     return err
   }
@@ -441,13 +650,13 @@ func(this* COM_ClientToServerStub)SetupBattle(positionList []COM_BattlePosition 
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(5))
+  err := prpc.Write(buffer,uint16(8))
   if err != nil{
     return err
   }
-  _5 := COM_ClientToServer_SetupBattle{}
-  _5.positionList = positionList;
-  err = _5.Serialize(buffer)
+  _8 := COM_ClientToServer_SetupBattle{}
+  _8.positionList = positionList;
+  err = _8.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -458,13 +667,13 @@ func(this* COM_ClientToServerStub)RequestChapterData(chapterId int32 ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(6))
+  err := prpc.Write(buffer,uint16(9))
   if err != nil{
     return err
   }
-  _6 := COM_ClientToServer_RequestChapterData{}
-  _6.chapterId = chapterId;
-  err = _6.Serialize(buffer)
+  _9 := COM_ClientToServer_RequestChapterData{}
+  _9.chapterId = chapterId;
+  err = _9.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -475,13 +684,13 @@ func(this* COM_ClientToServerStub)ChallengeSmallChapter(smallChapterId int32 ) e
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(7))
+  err := prpc.Write(buffer,uint16(10))
   if err != nil{
     return err
   }
-  _7 := COM_ClientToServer_ChallengeSmallChapter{}
-  _7.smallChapterId = smallChapterId;
-  err = _7.Serialize(buffer)
+  _10 := COM_ClientToServer_ChallengeSmallChapter{}
+  _10.smallChapterId = smallChapterId;
+  err = _10.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -543,6 +752,48 @@ func Bridging_COM_ClientToServer_PopBattleUnit(buffer *bytes.Buffer, p COM_Clien
   }
   return p.PopBattleUnit(_3.instId,_3.groupId)
 }
+func Bridging_COM_ClientToServer_SetBattleUnit(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _4 := COM_ClientToServer_SetBattleUnit{}
+  err := _4.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SetBattleUnit(_4.instId,_4.groupName,_4.isBattle)
+}
+func Bridging_COM_ClientToServer_DelUnitGroup(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _5 := COM_ClientToServer_DelUnitGroup{}
+  err := _5.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.DelUnitGroup(_5.groupName)
+}
+func Bridging_COM_ClientToServer_SetUnitGroupName(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _6 := COM_ClientToServer_SetUnitGroupName{}
+  err := _6.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SetUnitGroupName(_6.oldName,_6.newName)
+}
 func Bridging_COM_ClientToServer_JoinBattle(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -559,12 +810,12 @@ func Bridging_COM_ClientToServer_SetupBattle(buffer *bytes.Buffer, p COM_ClientT
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _5 := COM_ClientToServer_SetupBattle{}
-  err := _5.Deserialize(buffer)
+  _8 := COM_ClientToServer_SetupBattle{}
+  err := _8.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.SetupBattle(_5.positionList)
+  return p.SetupBattle(_8.positionList)
 }
 func Bridging_COM_ClientToServer_RequestChapterData(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
@@ -573,12 +824,12 @@ func Bridging_COM_ClientToServer_RequestChapterData(buffer *bytes.Buffer, p COM_
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _6 := COM_ClientToServer_RequestChapterData{}
-  err := _6.Deserialize(buffer)
+  _9 := COM_ClientToServer_RequestChapterData{}
+  err := _9.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.RequestChapterData(_6.chapterId)
+  return p.RequestChapterData(_9.chapterId)
 }
 func Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
@@ -587,12 +838,12 @@ func Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer *bytes.Buffer, p C
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _7 := COM_ClientToServer_ChallengeSmallChapter{}
-  err := _7.Deserialize(buffer)
+  _10 := COM_ClientToServer_ChallengeSmallChapter{}
+  err := _10.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.ChallengeSmallChapter(_7.smallChapterId)
+  return p.ChallengeSmallChapter(_10.smallChapterId)
 }
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
@@ -616,12 +867,18 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
     case 3 :
       return Bridging_COM_ClientToServer_PopBattleUnit(buffer,p);
     case 4 :
-      return Bridging_COM_ClientToServer_JoinBattle(buffer,p);
+      return Bridging_COM_ClientToServer_SetBattleUnit(buffer,p);
     case 5 :
-      return Bridging_COM_ClientToServer_SetupBattle(buffer,p);
+      return Bridging_COM_ClientToServer_DelUnitGroup(buffer,p);
     case 6 :
-      return Bridging_COM_ClientToServer_RequestChapterData(buffer,p);
+      return Bridging_COM_ClientToServer_SetUnitGroupName(buffer,p);
     case 7 :
+      return Bridging_COM_ClientToServer_JoinBattle(buffer,p);
+    case 8 :
+      return Bridging_COM_ClientToServer_SetupBattle(buffer,p);
+    case 9 :
+      return Bridging_COM_ClientToServer_RequestChapterData(buffer,p);
+    case 10 :
       return Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)

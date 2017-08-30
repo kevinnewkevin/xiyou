@@ -40,6 +40,12 @@ struct COM_Chapter{
 	COM_SmallChapter[]	SmallChapters;
 };
 
+//卡组
+struct COM_UnitGroup{
+	string			GroupName;
+	COM_Unit[]		UnitList;	
+};
+
 //角色实例
 struct COM_Player{
 	int64 				InstId;
@@ -47,6 +53,7 @@ struct COM_Player{
 	COM_Unit			Unit;
 	COM_Unit[]			Employees;
 	COM_Chapter[]		Chapters;
+	COM_UnitGroup[]		UnitGroup;
 };
 
 //战斗位置

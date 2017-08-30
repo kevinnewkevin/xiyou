@@ -5,6 +5,9 @@ service COM_ClientToServer{
 	CreatePlayer(int32 tempId, string playerName);
 	AddBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
 	PopBattleUnit(int64 instId, int32 groupId); //设置上阵卡片
+	SetBattleUnit(int64 instId, string groupName, bool isBattle);
+	DelUnitGroup(string groupName);
+	SetUnitGroupName(string oldName,string newName);
 	JoinBattle(); 				 //加入战斗
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
 	RequestChapterData(int32 chapterId);
@@ -18,6 +21,9 @@ service COM_ServerToClient{
 	JoinBattleOk(int32 Camp);				//对应JoinBattle
 	SetupBattleOK();						//对应SetupBattle
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
+	SetBattleUnitGroupOK(int64 instId, string groupName, bool isBattle);
+	DelUnitGroupOK(string groupName);
+	SetUnitGroupNameOK(string oldName,string newName);
 	BattleReport(COM_BattleReport report); 	//战报
 	BattleExit(COM_BattleResult result); 	//战斗结果
 	SycnChapterData(COM_Chapter data);

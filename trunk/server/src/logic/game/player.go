@@ -7,12 +7,18 @@ import (
 	"sync"
 )
 
+const (
+	unitGroupMax		= 5			//卡组上限
+	onceUnitGroupMax 	= 10		//每组卡片上限
+)
+
 type GamePlayer struct {
 	sync.Locker
 	session        	*Session    //链接
 	MyUnit         	*GameUnit   //自己的卡片
 	UnitList       	[]*GameUnit //拥有的卡片
 	BattleUnitList 	[]int64     //默认出战卡片
+	UnitGroup		[]*prpc.COM_UnitGroup
 
 	//战斗相关辅助信息
 	BattleId   		int64 		//所在房间编号
@@ -26,9 +32,38 @@ type GamePlayer struct {
 	Chapters		[]*prpc.COM_Chapter
 }
 
+var (
+	PlayerStore		[]*GamePlayer
+)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //角色创建
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func FindPlayerByInstId(instid int64) *GamePlayer{
+	for _, p :=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		if p.MyUnit.InstId == instid {
+			return p
+		}
+	}
+	return nil
+}
+
+func FindPlayerByInstName(instName string) *GamePlayer {
+	for _,p:=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		if p.MyUnit.InstName == instName {
+			return p
+		}
+	}
+
+	return nil
+}
 
 func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
@@ -38,10 +73,9 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
-
 	//来两个默认的小兵
-	p.UnitList = append(p.UnitList, p.NewGameUnit(2))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(3))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
+	p.UnitList = append(p.UnitList, p.NewGameUnit(7))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(4))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(5))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
@@ -50,6 +84,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.UnitList = append(p.UnitList, p.NewGameUnit(9))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(10))
 
+	PlayerStore = append(PlayerStore, &p)
+	p.InitUnitGroup()
 	return &p
 
 }
@@ -184,6 +220,132 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 	}
 	this.BattleUnitList = append(this.BattleUnitList, instId)
 	fmt.Println("SetBattleUnit ", this.BattleUnitList)
+}
+
+func (this *GamePlayer)InitUnitGroup()  {
+	for i:=0;i<unitGroupMax ;i++  {
+		unitgroup := prpc.COM_UnitGroup{}
+		unitgroup.GroupName = fmt.Sprintf("卡组%d",i+1)
+		this.UnitGroup = append(this.UnitGroup,&unitgroup)
+	}
+}
+
+func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupName string, isBattle bool)  {
+	if this == nil {
+		return
+	}
+	if this.GetUnit(instId) == nil {
+		return
+	}
+
+	if isBattle {
+		addError := this.AddUnitToGroup(instId,groupName)
+		if addError != 0{
+			fmt.Println("AddUnitToGroup Error",addError)
+		}
+	}else {
+		addError := this.RemoveUnitToGroup(instId,groupName)
+		if addError != 0{
+			fmt.Println("RemoveUnitToGroup Error",addError)
+		}
+	}
+}
+
+func (this *GamePlayer)GetUnitGroupByName(groupName string) *prpc.COM_UnitGroup {
+	for _,g:=range this.UnitGroup{
+		if g==nil {
+			continue
+		}
+		if g.GroupName == groupName {
+			return g;
+		}
+	}
+	return nil
+}
+
+func (this *GamePlayer)AddUnitToGroup(instId int64,groupName string) int {
+	group := this.GetUnitGroupByName(groupName)
+	if group==nil {
+		return 1
+	}
+
+	if len(group.UnitList) >= onceUnitGroupMax {
+		return 2
+	}
+
+	card := this.GetUnit(instId)
+	if card==nil {
+		return 3
+	}
+
+	for _,unit := range group.UnitList{
+		if card.UnitId == unit.UnitId {
+			return 4
+		}
+	}
+
+	group.UnitList = append(group.UnitList,card.GetUnitCOM())
+
+	if this.session != nil {
+		this.session.SetBattleUnitGroupOK(instId,groupName,true)
+	}
+	return 0
+}
+
+func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupName string) int {
+	group := this.GetUnitGroupByName(groupName)
+	if group==nil {
+		return 1
+	}
+
+	card := this.GetUnit(instId)
+	if card==nil {
+		return 2
+	}
+
+	index := 100
+
+	for i:=0;i<len(group.UnitList);i++  {
+		if group.UnitList[i].InstId == instId {
+			index = i
+		}
+	}
+
+	if index > onceUnitGroupMax {
+		return 3
+	}
+
+	group.UnitList = append(group.UnitList[:index], group.UnitList[index+1:]...)
+	if this.session != nil{
+		this.session.SetBattleUnitGroupOK(instId,groupName,false)
+	}
+
+	return 0
+}
+
+func (this *GamePlayer)DeleteUnitGroup(groupName string)  {
+	for i:=0;i<len(this.UnitGroup) ;i++  {
+		if this.UnitGroup[i].GroupName == groupName {
+			unitgroup := prpc.COM_UnitGroup{}
+			unitgroup.GroupName = fmt.Sprintf("卡组%d",i+1)
+			this.UnitGroup[i] = &unitgroup
+
+			if this.session != nil {
+				this.session.DelUnitGroupOK(groupName)
+			}
+		}
+	}
+}
+
+func (this *GamePlayer)ChangeUnitGroupName(oldName string,newName string)  {
+	group := this.GetUnitGroupByName(oldName)
+	if group==nil {
+		return
+	}
+	group.GroupName = newName
+	if this.session != nil {
+		this.session.SetUnitGroupNameOK(oldName,newName)
+	}
 }
 
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡牌上阵	每次回合之前
