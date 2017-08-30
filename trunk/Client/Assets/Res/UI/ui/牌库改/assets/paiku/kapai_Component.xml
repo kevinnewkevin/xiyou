@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="906,1074">
+  <displayList>
+    <image id="n0_b9pp" name="n0" src="rvp53" xy="91,47" size="798,1024"/>
+    <image id="n2_o31m" name="n2" src="rvp57" xy="425,2">
+      <relation target="n0_b9pp" sidePair="left-left,top-top"/>
+    </image>
+    <image id="n3_o31m" name="n3" src="rvp5a" xy="869,53">
+      <relation target="n0_b9pp" sidePair="left-left,top-top"/>
+    </image>
+    <image id="n10_o31m" name="n10" src="o31my" xy="156,159" size="670,71" hideByEditor="true"/>
+    <image id="n13_qu1s" name="n13" src="o31mz" xy="302,160" size="4,62" hideByEditor="true"/>
+    <image id="n14_qu1s" name="n14" src="o31mz" xy="428,160" size="4,62" hideByEditor="true"/>
+    <image id="n15_qu1s" name="n15" src="o31mz" xy="554,160" size="4,62" hideByEditor="true"/>
+    <image id="n16_qu1s" name="n16" src="o31mz" xy="680,160" size="4,62" hideByEditor="true"/>
+    <image id="n18_qu1s" name="n18" src="o31ms" xy="396,96" size="200,49"/>
+    <text id="n19_qu1s" name="n19" xy="419,95" size="154,46" font="方正粗楷简体" fontSize="34" color="#f8edbd" align="center" vAlign="middle" autoSize="none" text="我的卡牌">
+      <relation target="n18_qu1s" sidePair="center-center,middle-middle"/>
+    </text>
+    <list id="n27_qu1s" name="n27" xy="166,163" size="654,838" layout="flow_hz" overflow="scroll" margin="6,0,6,6" lineGap="-1" colGap="14" defaultItem="ui://y2r47n1iqu1s17"/>
+    <text id="n33_qu1s" name="n33" xy="654,1001" size="206,44" font="方正粗楷简体" fontSize="30" color="#511d1a" align="center" vAlign="middle" text="（数量：300）&#xA;"/>
+    <list id="n34_k57y" name="n34" xy="3,151" size="126,738">
+      <item url="ui://y2r47n1iok6e1m"/>
+      <item url="ui://y2r47n1irvp5m"/>
+      <item url="ui://y2r47n1io31mu"/>
+      <item url="ui://y2r47n1io31mv"/>
+      <item url="ui://y2r47n1io31mw"/>
+      <item url="ui://y2r47n1io31mx"/>
+    </list>
+    <list id="n35_k57y" name="n35" xy="177,159" size="640,66" hideByEditor="true" layout="flow_hz" scroll="horizontal" colGap="8">
+      <item url="ui://y2r47n1iqu1s12"/>
+      <item url="ui://y2r47n1iqu1s13"/>
+      <item url="ui://y2r47n1iqu1s14"/>
+      <item url="ui://y2r47n1iqu1s15"/>
+      <item url="ui://y2r47n1iqu1s16"/>
+    </list>
+  </displayList>
+</component>
