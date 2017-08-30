@@ -52,7 +52,7 @@ public class Battle {
 
     static public Vector3 _Center;
 
-    static public List<COM_Unit> _MyGroupCards;
+    static public List<long> _MyGroupCards;
 
     static public BattleCamera _BattleCamera;
 
@@ -161,8 +161,9 @@ public class Battle {
         int idx = Random.Range(0, _MyGroupCards.Count);
         if (idx < 0 || idx >= _MyGroupCards.Count)
             return;
-        
-        _HandCards.Add(_MyGroupCards[idx]);
+
+        COM_Unit unit = GamePlayer.GetCardByInstID(_MyGroupCards[idx]);
+        _HandCards.Add(unit);
         _MyGroupCards.RemoveAt(idx);
         RandHandCards(--count);
     }

@@ -15,7 +15,7 @@ public class GamePlayer {
 
     static public Dictionary<string, List<COM_Unit>> _CardsByType = new Dictionary<string, List<COM_Unit>>();
 
-    static public List<List<COM_Unit>> _CardGroup = new List<List<COM_Unit>>();
+    static public List<List<long>> _CardGroup = new List<List<long>>();
 
     static public List<string> _CardGroupName = new List<string>();
 
@@ -25,13 +25,16 @@ public class GamePlayer {
     {
         Clear();
         string name = "";
-        _CardGroup = new List<List<COM_Unit>>(player.UnitGroup.Length);
         for(int i=0; i < player.UnitGroup.Length; ++i)
+            _CardGroup.Add(new List<COM_Unit>());
+        
+        for(int i=0; i < _CardGroup.Count; ++i)
         {
-            if (player.UnitGroup [i].UnitList == null)
-                _CardGroup [player.UnitGroup [i].GroupId - 1] = new List<COM_Unit>();
-            else
-                _CardGroup [player.UnitGroup [i].GroupId - 1] = new List<COM_Unit>(player.UnitGroup [i].UnitList);
+            if (player.UnitGroup [i].UnitList != null)
+            {
+                for(int j=0; j < player.UnitGroup [i].UnitList.Length; ++j)
+                    _CardGroup [player.UnitGroup [i].GroupId - 1].AddRange(player.UnitGroup [i].UnitList);
+            }
 
             name = PlayerPrefs.GetString("XYSK_XIYOU_ACCOUNT_PLUGINID" + i);
             _CardGroupName.Add(name);
@@ -75,7 +78,7 @@ public class GamePlayer {
     }
 
     //通过索引获取卡组
-    static public List<COM_Unit> GetGroupCards(int idx)
+    static public List<long> GetGroupCards(int idx)
     {
         if (idx < 0 || idx >= _CardGroup.Count)
             return null;
@@ -129,7 +132,7 @@ public class GamePlayer {
         
         for(int j=0; j < _CardGroup[groupidx].Count; ++j)
         {
-            if (_CardGroup [groupidx] [j].InstId == instid)
+            if (_CardGroup [groupidx] [j] == instid)
                 return true;
         }
         return false;
@@ -235,7 +238,11 @@ public class GamePlayer {
         if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
             return null;
 
-        EntityData edata = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
+        COM_Unit unit = GetCardByInstID(_CardGroup[groupidx][cardidx]);
+        if (unit == null)
+            return null;
+
+        EntityData edata = EntityData.GetData(unit.UnitId);
         if (edata == null)
             return null;
 
@@ -252,7 +259,11 @@ public class GamePlayer {
         if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
             return null;
 
-        EntityData edata = EntityData.GetData(_CardGroup[groupidx][cardidx].UnitId);
+        COM_Unit unit = GetCardByInstID(_CardGroup[groupidx][cardidx]);
+        if (unit == null)
+            return null;
+
+        EntityData edata = EntityData.GetData(unit.UnitId);
         return edata;
     }
 
@@ -296,7 +307,7 @@ public class GamePlayer {
         if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
             return 0;
 
-        return _CardGroup[groupidx][cardidx].InstId;
+        return _CardGroup[groupidx][cardidx];
     }
 
     static public void PutInCard(long instid, int groupidx)
@@ -308,7 +319,7 @@ public class GamePlayer {
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
             return;
 
-        _CardGroup [groupidx].Add(card);
+        _CardGroup [groupidx].Add(instid);
 
         NetWoking.S.SetBattleUnit(instid, groupidx + 1, true);
     }
@@ -324,7 +335,7 @@ public class GamePlayer {
 
         for(int i=0; i < _CardGroup [groupidx].Count; ++i)
         {
-            if (_CardGroup [groupidx] [i].InstId == instid)
+            if (_CardGroup [groupidx] [i] == instid)
             {
                 _CardGroup [groupidx].RemoveAt(i);
                 break;
@@ -343,9 +354,9 @@ public class GamePlayer {
         NetWoking.S.DelUnitGroup(groupidx + 1);
     }
 
-    static public List<COM_Unit> GetBattleCardsCopy()
+    static public List<long> GetBattleCardsCopy()
     {
-        return new List<COM_Unit>(_CardGroup [_CrtBattleGroupIdx]);
+        return new List<long>(_CardGroup [_CrtBattleGroupIdx]);
     }
 
     static public List<COM_Unit> CardsByFee(int fee)
