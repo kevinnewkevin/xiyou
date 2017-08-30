@@ -33,6 +33,21 @@ public class Timer {
         TimerManager.Add(this);
     }
 
+    public void Reset(float time, TimerCallBack callback)
+    {
+        _TimerParams.Clear();
+        _TimerParams.Add(new TimerParam(time, callback));
+    }
+
+    public void Reset(params TimerParam[] callbackParam)
+    {
+        if(callbackParam == null)
+            return;
+
+        _TimerParams.Clear();
+        _TimerParams.AddRange(callbackParam);
+    }
+
     public void Update()
     {
         if (_TimerParams.Count == 0)

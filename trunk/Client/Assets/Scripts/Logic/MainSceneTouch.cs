@@ -10,6 +10,10 @@ public class MainSceneTouch : MonoBehaviour {
 
     float _Premag;
 
+    Timer _DestLightTimer;
+
+    GameObject _DestLight;
+
 	// Use this for initialization
 	void Start () {
         World.InitPlayerActor();
@@ -43,10 +47,37 @@ public class MainSceneTouch : MonoBehaviour {
             {
                 if (hit.transform.name.Equals("Cube"))
                 {
+                    if (_DestLight == null)
+                    {
+                        string dlpath = Define.GetStr("DestLight");
+                        _DestLight = AssetLoader.LoadAsset(dlpath);
+                    }
+                    else
+                        _DestLight.SetActive(false);
+                    Vector3 dest = new Vector3(hit.point.x, World._GroudHeight, hit.point.z);
+                    _DestLight.transform.position = dest;
+                    _DestLight.SetActive(true);
                     Camera.main.GetComponent<CameraTracker>().MoveToLookAt = hit.point.x;
-                    World.PlayerActor.MoveTo(new Vector3(hit.point.x, -14.31f, hit.point.z), delegate {
+                    World.PlayerActor.MoveTo(dest, delegate {
                         World.PlayerActor.Stop();
                     });
+
+                    if (_DestLightTimer == null || _DestLightTimer._IsDead)
+                    {
+                        _DestLightTimer = new Timer();
+                        _DestLightTimer.Start(1f, delegate
+                        {
+                            if (_DestLight != null)
+                                _DestLight.SetActive(false);
+                        });
+                    }
+                    else
+                    {
+                        _DestLightTimer.Reset(1f, delegate {
+                            if (_DestLight != null)
+                                _DestLight.SetActive(false);
+                        });
+                    }
                 }
 
                 if (hit.transform.CompareTag("Npc"))

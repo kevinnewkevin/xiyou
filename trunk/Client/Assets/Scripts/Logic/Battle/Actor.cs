@@ -143,7 +143,8 @@ public class Actor {
 
     public void Stop()
     {
-        Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
+        if(_IsRunning)
+            Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
         _IsRunning = false;
     }
