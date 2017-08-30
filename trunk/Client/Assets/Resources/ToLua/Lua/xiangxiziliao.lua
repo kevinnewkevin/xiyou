@@ -196,8 +196,10 @@ function xiangxiziliao_FlushData()
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = SkillData.GetData(entityData._Skills[i - 1]);
+		local loader = skill:GetChild("n8").asLoader;
+		loader.url = "";
 		if sData ~= nil then
-			skill:GetChild("n8").asLoader.url = "ui://" .. sData._Icon;
+			loader.url = "ui://" .. sData._Icon;
 		end
 	end
 end
