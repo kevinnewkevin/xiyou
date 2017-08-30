@@ -565,7 +565,7 @@ Transform:
   - {fileID: 4535422353078200}
   m_Father: {fileID: 4365095721713278}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 347.37137, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!4 &4762807646960274
 Transform:
   m_ObjectHideFlags: 1
@@ -18889,7 +18889,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.5586207, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 3
+      scalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
