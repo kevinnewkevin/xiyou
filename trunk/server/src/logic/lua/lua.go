@@ -20,7 +20,6 @@ type LuaState struct {
 }
 
 func (this *LuaState) Open() {
-	__init()
 	this.luaState = luaL_newstate()
 	_CLua2GLua[this.luaState] = this
 }
@@ -49,15 +48,15 @@ func (this *LuaState) Type(idx int) int        { return lua_type(this.luaState, 
 func (this *LuaState) TypeName(idx int) string { return lua_typename(this.luaState, idx) }
 
 func (this *LuaState) ToNumber(idx int) float64 { return lua_tonumber(this.luaState, idx) }
-func (this *LuaState) ToInteger(idx int) int    { return lua_tointeger(this.luaState, idx) }
+func (this *LuaState) ToInteger(idx int) int    { return int(lua_tointeger(this.luaState, idx)) }
 func (this *LuaState) ToBoolean(idx int) bool   { return lua_toboolean(this.luaState, idx) != 0 }
 func (this *LuaState) ToString(idx int) string {
-	return lua_tolstring(this.luaState, idx, 0)
+	return lua_tolstring(this.luaState, idx, nil)
 }
 
 func (this *LuaState) PushNil()             { lua_pushnil(this.luaState) }
 func (this *LuaState) PushNumber(n float64) { lua_pushnumber(this.luaState, n) }
-func (this *LuaState) PushInteger(n int)    { lua_pushinteger(this.luaState, n) }
+func (this *LuaState) PushInteger(n int)    { lua_pushinteger(this.luaState, uintptr(n)) }
 func (this *LuaState) PushString(s string) {
 	lua_pushstring(this.luaState, s)
 }
@@ -173,15 +172,10 @@ func (this *LuaState) OpenPackage() {
 	luaopen_package(this.luaState)
 }
 func (this *LuaState) OpenLibs() {
-	//luaL_openlibs(this.luaState)
 	luaopen_base(this.luaState)
 	luaopen_table(this.luaState)
-	//C.luaopen_io(this.luaState)
-	//C.luaopen_os(this.luaState)
 	luaopen_string(this.luaState)
 	luaopen_math(this.luaState)
-	//C.luaopen_debug(L)
-	//C.luaopen_package(L)
 }
 
 func (this *LuaState) LoadFile(fileName string) int {
@@ -189,13 +183,13 @@ func (this *LuaState) LoadFile(fileName string) int {
 	r := luaL_loadfile(this.luaState, fileName)
 
 	if r != 0 {
-		panic(lua_tolstring(this.luaState, -1, 0))
+		panic(lua_tolstring(this.luaState, -1, nil))
 	}
 
 	r = lua_pcall(this.luaState, 0, 0, 0)
 
 	if r != 0 {
-		panic(lua_tolstring(this.luaState, -1, 0))
+		panic(lua_tolstring(this.luaState, -1, nil))
 	}
 
 	return 0
