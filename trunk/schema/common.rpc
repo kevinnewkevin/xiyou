@@ -43,7 +43,7 @@ struct COM_Chapter{
 //卡组
 struct COM_UnitGroup{
 	int32			GroupId;
-	COM_Unit[]		UnitList;	
+	int64[]			UnitList;	
 };
 
 //角色实例

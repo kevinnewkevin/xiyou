@@ -256,7 +256,7 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle 
 	}
 }
 
-func (this *GamePlayer)GetUnitGroupByName(groupId int32) *prpc.COM_UnitGroup {
+func (this *GamePlayer)GetUnitGroupById(groupId int32) *prpc.COM_UnitGroup {
 	for _,g:=range this.UnitGroup{
 		if g==nil {
 			continue
@@ -269,7 +269,7 @@ func (this *GamePlayer)GetUnitGroupByName(groupId int32) *prpc.COM_UnitGroup {
 }
 
 func (this *GamePlayer)AddUnitToGroup(instId int64,groupId int32) int {
-	group := this.GetUnitGroupByName(groupId)
+	group := this.GetUnitGroupById(groupId)
 	if group==nil {
 		return 1
 	}
@@ -289,13 +289,13 @@ func (this *GamePlayer)AddUnitToGroup(instId int64,groupId int32) int {
 		}
 	}
 
-	group.UnitList = append(group.UnitList,card.GetUnitCOM())
+	group.UnitList = append(group.UnitList,card.InstId)
 
 	return 0
 }
 
 func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupId int32) int {
-	group := this.GetUnitGroupByName(groupId)
+	group := this.GetUnitGroupById(groupId)
 	if group==nil {
 		return 1
 	}
