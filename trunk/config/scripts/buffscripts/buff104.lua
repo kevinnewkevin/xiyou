@@ -4,19 +4,21 @@
 sys.log("buff1")
 
 function buff_104_add(battleid, unitid, buffinstid) 
-	Player.ChangeSpecial(battleid, unit, buffinstid)
+	-- Player.ChangeSpecial(battleid, unit, buffinstid)
+	sys.log("buff_104_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
 function buff_104_update(battleid, buffinstid, unitid)	
 	buff_id = 104 --配置表中的buffid
 	
-	Battle.BuffMintsHp(battleid, unitid, buffinstid)
+	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_1_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_104_update "..","..battleid..","..buffinstid..","..unitid)
 	
 end
 
 function buff_104_delete(battleid, unitid, buffinstid, data)
-
+	-- Player.ChangeSpecial(battleid, unit, buffinstid)
+	sys.log("buff_104_delete "..","..battleid..","..buffinstid..","..unitid)
 
 end

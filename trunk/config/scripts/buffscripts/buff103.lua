@@ -4,23 +4,24 @@
 sys.log("buff1")
 
 function buff_103_add(battleid, unitid, buffinstid) 
-	Player.AddSheld(battleid, unit, buffinstid)
+	-- Player.AddSheld(battleid, unit, buffinstid)
+	sys.log("buff_103_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
 function buff_103_update(battleid, buffinstid, unitid)	
 	buff_id = 103 --配置表中的buffid
 	
-	Battle.BuffMintsHp(battleid, unitid, buffinstid)
+	--Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_1_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_103_update "..","..battleid..","..buffinstid..","..unitid)
+
 	
 end
 
-function buff_103_delete(battleid, unitid, data)
+function buff_103_delete(battleid, unitid, buffinstid, data)
 
-	-- sys.log("buff_1_delete"..battleid..unitid..data)
-
-	-- Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_ATK") 	-- 修改属性
 	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减去护盾
-
+	sys.log("buff_103_delete "..","..battleid..","..buffinstid..","..unitid)
+	
+	
 end
