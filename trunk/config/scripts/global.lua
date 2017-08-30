@@ -23,4 +23,6 @@ function RegGlobalValue()
 	Define.Set("MaxFee", 5);
 	Define.Set("MoveSpeed", 8);
 	Define.Set("PointLight", "Effect/chushengdian");
+	Define.Set("DestLight", "Effect/chushengdian");
+	Define.Set("BornPos", "20,-14.3,4");
 end
