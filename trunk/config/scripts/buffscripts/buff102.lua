@@ -3,16 +3,16 @@
 -- 参数暂定为 battleid targetid data
 sys.log("buff1")
 
-function buff_101_add(battleid, unitid, buffinstid) 
+function buff_102_add(battleid, unitid, buffinstid) 
 	Player.ChangeUnitProperty(battleid, unitid, data, "CPT_ATK")
 end
 
-function buff_101_update(battleid, buffinstid, unitid)	
-	buff_id = 101 --配置表中的buffid
+function buff_102_update(battleid, buffinstid, unitid)	
+	buff_id = 102 --配置表中的buffid
 	
 end
 
-function buff_101_delete(battleid, unitid, data)
+function buff_102_delete(battleid, unitid, buffinstid, data)
 
 	-- sys.log("buff_1_delete"..battleid..unitid..data)
 
