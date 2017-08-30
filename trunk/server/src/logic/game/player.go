@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"logic/prpc"
 	"sync"
+	"github.com/astaxie/beego/plugins/apiauth"
+	"golang.org/x/crypto/acme"
 )
 
 const (
@@ -19,7 +21,6 @@ type GamePlayer struct {
 	UnitList       	[]*GameUnit //拥有的卡片
 	BattleUnitList 	[]int64     //默认出战卡片
 	UnitGroup		[]*prpc.COM_UnitGroup
-
 	//战斗相关辅助信息
 	BattleId   		int64 		//所在房间编号
 	BattleCamp 		int   		//阵营 //prpc.CompType
@@ -74,8 +75,6 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
 	//来两个默认的小兵
-	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(7))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(4))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(5))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
