@@ -99,29 +99,21 @@ func (this *Session)ChallengeSmallChapter(smallChapterId int32) error {
 	return nil
 }
 
-func (this *Session)SetBattleUnit(instId int64, groupName string, isBattle bool) error {
+func (this *Session)SetBattleUnit(instId int64, groupId int32, isBattle bool) error {
 	if this.player == nil {
 		return nil
 	}
 
-	this.player.SetBattleUnitGroup(instId,groupName,isBattle)
+	this.player.SetBattleUnitGroup(instId,groupId,isBattle)
 
 	return nil
 }
 
-func (this *Session)DelUnitGroup(groupName string ) error {
+func (this *Session)DelUnitGroup(groupId int32) error {
 	if this.player == nil {
 		return nil
 	}
-	this.player.DeleteUnitGroup(groupName)
-	return nil
-}
-
-func (this *Session)SetUnitGroupName(oldName string, newName string ) error  {
-	if this.player == nil {
-		return nil
-	}
-	this.player.ChangeUnitGroupName(oldName,newName)
+	this.player.DeleteUnitGroup(groupId)
 	return nil
 }
 

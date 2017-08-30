@@ -225,12 +225,12 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 func (this *GamePlayer)InitUnitGroup()  {
 	for i:=0;i<unitGroupMax ;i++  {
 		unitgroup := prpc.COM_UnitGroup{}
-		unitgroup.GroupName = fmt.Sprintf("卡组%d",i+1)
+		unitgroup.GroupId = int32(i+1)
 		this.UnitGroup = append(this.UnitGroup,&unitgroup)
 	}
 }
 
-func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupName string, isBattle bool)  {
+func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle bool)  {
 	if this == nil {
 		return
 	}
@@ -239,32 +239,32 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupName string, isBatt
 	}
 
 	if isBattle {
-		addError := this.AddUnitToGroup(instId,groupName)
+		addError := this.AddUnitToGroup(instId,groupId)
 		if addError != 0{
 			fmt.Println("AddUnitToGroup Error",addError)
 		}
 	}else {
-		addError := this.RemoveUnitToGroup(instId,groupName)
+		addError := this.RemoveUnitToGroup(instId,groupId)
 		if addError != 0{
 			fmt.Println("RemoveUnitToGroup Error",addError)
 		}
 	}
 }
 
-func (this *GamePlayer)GetUnitGroupByName(groupName string) *prpc.COM_UnitGroup {
+func (this *GamePlayer)GetUnitGroupByName(groupId int32) *prpc.COM_UnitGroup {
 	for _,g:=range this.UnitGroup{
 		if g==nil {
 			continue
 		}
-		if g.GroupName == groupName {
+		if g.GroupId == groupId {
 			return g;
 		}
 	}
 	return nil
 }
 
-func (this *GamePlayer)AddUnitToGroup(instId int64,groupName string) int {
-	group := this.GetUnitGroupByName(groupName)
+func (this *GamePlayer)AddUnitToGroup(instId int64,groupId int32) int {
+	group := this.GetUnitGroupByName(groupId)
 	if group==nil {
 		return 1
 	}
@@ -286,14 +286,11 @@ func (this *GamePlayer)AddUnitToGroup(instId int64,groupName string) int {
 
 	group.UnitList = append(group.UnitList,card.GetUnitCOM())
 
-	if this.session != nil {
-		this.session.SetBattleUnitGroupOK(instId,groupName,true)
-	}
 	return 0
 }
 
-func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupName string) int {
-	group := this.GetUnitGroupByName(groupName)
+func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupId int32) int {
+	group := this.GetUnitGroupByName(groupId)
 	if group==nil {
 		return 1
 	}
@@ -316,35 +313,16 @@ func (this *GamePlayer)RemoveUnitToGroup(instId int64,groupName string) int {
 	}
 
 	group.UnitList = append(group.UnitList[:index], group.UnitList[index+1:]...)
-	if this.session != nil{
-		this.session.SetBattleUnitGroupOK(instId,groupName,false)
-	}
 
 	return 0
 }
 
-func (this *GamePlayer)DeleteUnitGroup(groupName string)  {
+func (this *GamePlayer)DeleteUnitGroup(groupId int32)  {
 	for i:=0;i<len(this.UnitGroup) ;i++  {
-		if this.UnitGroup[i].GroupName == groupName {
+		if this.UnitGroup[i].GroupId == groupId {
 			unitgroup := prpc.COM_UnitGroup{}
-			unitgroup.GroupName = fmt.Sprintf("卡组%d",i+1)
 			this.UnitGroup[i] = &unitgroup
-
-			if this.session != nil {
-				this.session.DelUnitGroupOK(groupName)
-			}
 		}
-	}
-}
-
-func (this *GamePlayer)ChangeUnitGroupName(oldName string,newName string)  {
-	group := this.GetUnitGroupByName(oldName)
-	if group==nil {
-		return
-	}
-	group.GroupName = newName
-	if this.session != nil {
-		this.session.SetUnitGroupNameOK(oldName,newName)
 	}
 }
 
