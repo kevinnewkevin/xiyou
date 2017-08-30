@@ -26,7 +26,7 @@ public class GamePlayer {
         Clear();
         string name = "";
         for(int i=0; i < player.UnitGroup.Length; ++i)
-            _CardGroup.Add(new List<COM_Unit>());
+            _CardGroup.Add(new List<long>());
         
         for(int i=0; i < _CardGroup.Count; ++i)
         {
