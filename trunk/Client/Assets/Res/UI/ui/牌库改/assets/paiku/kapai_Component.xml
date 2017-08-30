@@ -8,11 +8,6 @@
     <image id="n3_o31m" name="n3" src="rvp5a" xy="869,53">
       <relation target="n0_b9pp" sidePair="left-left,top-top"/>
     </image>
-    <image id="n10_o31m" name="n10" src="o31my" xy="156,159" size="670,71" hideByEditor="true"/>
-    <image id="n13_qu1s" name="n13" src="o31mz" xy="302,160" size="4,62" hideByEditor="true"/>
-    <image id="n14_qu1s" name="n14" src="o31mz" xy="428,160" size="4,62" hideByEditor="true"/>
-    <image id="n15_qu1s" name="n15" src="o31mz" xy="554,160" size="4,62" hideByEditor="true"/>
-    <image id="n16_qu1s" name="n16" src="o31mz" xy="680,160" size="4,62" hideByEditor="true"/>
     <image id="n18_qu1s" name="n18" src="o31ms" xy="396,96" size="200,49"/>
     <text id="n19_qu1s" name="n19" xy="419,95" size="154,46" font="方正粗楷简体" fontSize="34" color="#f8edbd" align="center" vAlign="middle" autoSize="none" text="我的卡牌">
       <relation target="n18_qu1s" sidePair="center-center,middle-middle"/>
@@ -26,13 +21,6 @@
       <item url="ui://y2r47n1io31mv"/>
       <item url="ui://y2r47n1io31mw"/>
       <item url="ui://y2r47n1io31mx"/>
-    </list>
-    <list id="n35_k57y" name="n35" xy="177,159" size="640,66" hideByEditor="true" layout="flow_hz" scroll="horizontal" colGap="8">
-      <item url="ui://y2r47n1iqu1s12"/>
-      <item url="ui://y2r47n1iqu1s13"/>
-      <item url="ui://y2r47n1iqu1s14"/>
-      <item url="ui://y2r47n1iqu1s15"/>
-      <item url="ui://y2r47n1iqu1s16"/>
     </list>
   </displayList>
 </component>
