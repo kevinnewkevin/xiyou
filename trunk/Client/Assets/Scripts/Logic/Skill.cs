@@ -173,10 +173,8 @@ public class Skill {
                 // 释放者播放奔跑动作
                 _Caster.Play(Define.ANIMATION_PLAYER_ACTION_RUN);
 
-                int 
-
                 // 释放者移动到目标前
-                _Caster.MoveTo(_Targets[0].Forward(_Targets[0].ForwardAjax), delegate
+                _Caster.MoveTo(_Targets[0].Forward(_Caster.ForwardAjax), delegate
                 {
                     _Caster.Stop();
 
