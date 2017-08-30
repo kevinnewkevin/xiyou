@@ -242,7 +242,7 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle 
 	if this.GetUnit(instId) == nil {
 		return
 	}
-	fmt.Println("SetBattleUnitGroup InstId",instId,"GroupID",groupId)
+	fmt.Println("SetBattleUnitGroup InstId",instId,"GroupID",groupId,"IsBattle",isBattle)
 	if isBattle {
 		addError := this.AddUnitToGroup(instId,groupId)
 		if addError != 0{
