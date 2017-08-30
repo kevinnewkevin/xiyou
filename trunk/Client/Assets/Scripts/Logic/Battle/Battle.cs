@@ -151,6 +151,9 @@ public class Battle {
     {
         if (_MyGroupCards.Count <= 0)
             return;
+
+        if (_HandCards.Count >= 5)
+            return;
         
         if (count <= 0)
             return;
@@ -387,7 +390,7 @@ public class Battle {
     static public int FindEmptyPos()
     {
         int emptyPos = -1;
-        for(int i = 0; i < _PosInScene.Length; ++i)
+        for(int i = 0; i < 6; ++i)
         {
             emptyPos = i;
             for (int j = 0; j < _ActorInScene.Length; ++j)

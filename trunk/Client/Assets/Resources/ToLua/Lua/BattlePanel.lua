@@ -118,6 +118,7 @@ function BattlePanel_FlushData()
 	local cardNum = Battle._LeftCardNum;
 	local eData;
 	local dData;
+	local noPos = Battle.FindEmptyPos() == -1;
 	for i=1, 5 do
 		if i <= cardNum then
 			eData = Battle.GetHandCard(i-1);
@@ -126,13 +127,18 @@ function BattlePanel_FlushData()
 			cards[i]["power"].text = i;
 			cards[i]["cost"].text = eData._Cost;
 			cards[i]["card"].visible = true;
-			if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
-				cards[i]["card"].enabled = true;
+
+			if noPos then
+				cards[i]["card"].enabled = false;
 			else
-				if Battle._Fee < eData._Cost then
-					cards[i]["card"].enabled = false;
-				else
+				if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
 					cards[i]["card"].enabled = true;
+				else
+					if Battle._Fee < eData._Cost then
+						cards[i]["card"].enabled = false;
+					else
+						cards[i]["card"].enabled = true;
+					end
 				end
 			end
 		else

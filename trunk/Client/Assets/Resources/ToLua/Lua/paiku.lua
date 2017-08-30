@@ -206,6 +206,13 @@ function paiku_OnDropCard(context)
 end
 
 function paiku_OnMessageConfirm()
+	if GamePlayer.IsGroupMax(crtGroupIdx) then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "卡组已满", true);
+		UIManager.SetDirty("paiku");
+		return;
+	end
+
 	isInGroup = GamePlayer.IsInGroup(crtCardInstID, crtGroupIdx);
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);

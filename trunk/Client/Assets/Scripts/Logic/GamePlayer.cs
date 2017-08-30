@@ -107,6 +107,15 @@ public class GamePlayer {
         return false;
     }
 
+    //在我的卡组里
+    static public bool IsGroupMax(int groupidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return false;
+
+        return _CardGroup [groupidx].Count == 10;
+    }
+
     //通过索引获得卡牌形象
     static public DisplayData GetDisplayDataByIndex(int idx)
     {
