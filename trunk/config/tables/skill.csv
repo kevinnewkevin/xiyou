@@ -1,7 +1,7 @@
 SkillId,Name,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,CastEffect,CastTime,SkillEffect,AttackAnim,BeattackEffect,BeattackTime,EmitNumTime,TotalTime,MotionType,SingleSkill,Camera,LuaName
-107,乾坤圈,10,,,,,,0,attack,,1,Effect/neza_skill01,,Effect/shouji,0.25,0.25,1.2,MT_Fly,1,,SK_107_Action
+107,乾坤圈,10,,,,,,0,attack,Effect/neza_skill01_2,1,Effect/neza_skill01,,Effect/shouji,0.25,0.25,1.2,MT_Fly,1,,SK_107_Action
 108,火尖枪,10,,,,,,1,,,0.65,Effect/neza_skill02,magic1,,0.3;0.4;0.5;0.6;1.3,0.3;0.4;0.5;0.6;1.3,,MT_Self,,,SK_108_Action
-106,混天绫,10,,,,,,0,magic2,,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,,SK_106_Action
+106,混天绫,10,,,,,,0,magic2,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,,SK_106_Action
 124,行云,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_attack,,,0.5,0.5,2,MT_Target,1,,SK_124_Action
 125,布雨,10,,,,,,0,magic1,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill01_fx1,,,0.5,0.5,2,MT_Target,1,,SK_125_Action
 126,消灾,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill02_fx1,,,0.5,0.5,2,MT_Target,1,,SK_126_Action
