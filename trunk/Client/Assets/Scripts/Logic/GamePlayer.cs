@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class GamePlayer {
@@ -17,14 +17,19 @@ public class GamePlayer {
 
     static public List<List<COM_Unit>> _CardGroup = new List<List<COM_Unit>>();
 
+    static public List<string> _CardGroupName = new List<string>();
+
     static public int _CrtBattleGroupIdx;
 
     static public void Init(COM_Player player)
     {
         Clear();
+        string name = "";
         for(int i=0; i < 5; ++i)
         {
             _CardGroup.Add(new List<COM_Unit>());
+            name = PlayerPrefs.GetString("XYSK_XIYOU" + i);
+            _CardGroupName.Add(name);
         }
         _InstID = player.InstId;
         _Name = player.Name;
@@ -87,6 +92,23 @@ public class GamePlayer {
         return false;
     }
 
+    static public void ChangeGroupName(int groupidx, string name)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroup.Count)
+            return;
+        
+        _CardGroupName[groupidx] = name;
+        PlayerPrefs.SetString("XYSK_XIYOU" + groupidx, name);
+    }
+
+    static public string GetGroupName(int groupidx)
+    {
+        if (groupidx < 0 || groupidx >= _CardGroupName.Count)
+            return "";
+
+        return _CardGroupName [groupidx];
+    }
+
     //是我自己
     static public bool IsMe(long instid)
     {
@@ -107,7 +129,7 @@ public class GamePlayer {
         return false;
     }
 
-    //在我的卡组里
+    //卡组最大数
     static public bool IsGroupMax(int groupidx)
     {
         if (groupidx < 0 || groupidx >= _CardGroup.Count)

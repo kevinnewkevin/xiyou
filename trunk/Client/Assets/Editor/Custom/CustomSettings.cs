@@ -200,10 +200,14 @@ public static class CustomSettings
         _GT(typeof(GObjectPool)),
         _GT(typeof(Relations)),
         _GT(typeof(RelationType)),
+        _GT(typeof(Actor)),
         _GT(typeof(EntityData)),
         _GT(typeof(DisplayData)),
 		_GT(typeof(HeroStroyData)),
 		_GT(typeof(CheckpointData)),
+        _GT(typeof(List<COM_Unit>)),
+        _GT(typeof(List<CheckpointData>)),
+        _GT(typeof(Dictionary<int, HeroStroyData>)),
 
         _GT(typeof(LuaWindow)),
 

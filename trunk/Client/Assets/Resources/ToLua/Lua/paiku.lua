@@ -13,6 +13,7 @@ local cardGroupList;
 local crtGroupIdx = 0;
 local crtCardInstID = 0;
 local crtCardsFee = 0;
+local crtCardName;
 
 local isInGroup;
 
@@ -53,10 +54,13 @@ function paiku:OnInit()
 
 	local cardGroup = rightPart:GetChild("n6");
 	local deleteBtn = cardGroup:GetChild("n24").asButton;
+	crtCardName = cardGroup:GetChild("n23");
 	deleteBtn.onClick:Add(paiku_OnDeleteGroup);
 	cardGroupList = cardGroup:GetChild("n27").asList;
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
 	setBattleBtn.onClick:Add(paiku_OnSetBattle);
+	local changeNameBtn = cardGroup:GetChild("n25").asButton;
+	changeNameBtn.onClick:Add(paiku_OnChangeGroupName);
 
 	--test
 
@@ -173,8 +177,17 @@ function paiku_FlushData()
 	end
 
 	local groupItem;
+	local groupName;
 	for i=1, 5 do
 		groupItem = allCardGroupList:GetChildAt(i-1);
+		groupName = GamePlayer.GetGroupName(i - 1);
+		if groupName == "" then
+			groupName = "卡组" .. i;
+		end
+		groupItem:GetChild("n3").text = groupName;
+		if crtGroupIdx == i - 1 then
+			crtCardName.text = groupName;
+		end
 		if i - 1 == GamePlayer._CrtBattleGroupIdx then
 			groupItem:GetChild("n4").visible = true;
 		else
@@ -191,6 +204,11 @@ end
 function paiku_OnCardItem(context)
 	crtCardInstID = context.sender.data;
 	UIManager.Show("xiangxiziliao");
+end
+
+function paiku_OnChangeGroupName(context)
+	GamePlayer.ChangeGroupName(crtGroupIdx, crtCardName.text);
+	UIManager.SetDirty("paiku");
 end
 
 function paiku_OnDropCard(context)
