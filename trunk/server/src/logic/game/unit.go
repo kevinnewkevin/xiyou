@@ -21,6 +21,7 @@ type GameUnit struct {
 	Level     	int32
 	IProperties []int32
 	CProperties []float32
+	Cost 		int32
 	Skill       map[int32]*Skill
 
 	//战斗的实际信息
@@ -49,6 +50,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.Skill = map[int32]*Skill{}
 	u.Level = 1
 	u.InstName = t.BaseName
+	u.Cost = t.Cost
 	for i := 0; i < len(t.Skills); i++ {
 		if t.Skills[i] == 0 {
 			continue
@@ -326,9 +328,9 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 		return 0
 	}
 
-	fmt.Println(this.Allbuff)
+	fmt.Println("allbuff 1", this.Allbuff)
 	for _, buff := range this.Allbuff {
-		fmt.Println(buff)
+		fmt.Println("this buff", buff)
 		if buff == nil {
 			continue
 		}
@@ -343,16 +345,16 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 	for _, v := range this.Allbuff {
 		_, ok := tmp[v]
 		if ok {
+			v.DeleteProperty(this.BattleId, this.InstId)
 			continue
 		}
-
 		newBufflist = append(newBufflist, v)
 	}
 
 	fmt.Println("PopAllBuffByDebuff")
 	this.Allbuff = newBufflist
-
-	fmt.Println(len(tmp))
+	fmt.Println("allbuff 2", this.Allbuff)
+	fmt.Println(len(tmp), tmp)
 	return len(tmp)
 }
 
@@ -372,6 +374,7 @@ func (this *GameUnit) PopAllBuffByBuff() {
 	for _, v := range this.Allbuff {
 		_, ok := tmp[v]
 		if ok {
+			v.DeleteProperty(this.BattleId, this.InstId)
 			continue
 		}
 

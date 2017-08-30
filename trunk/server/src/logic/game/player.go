@@ -25,6 +25,7 @@ type GamePlayer struct {
 	IsActive   		bool  		//是否激活
 	KillUnits 	 	[]int32 	//杀掉的怪物
 	MyDeathNum		int32		//战斗中自身死亡数量
+	BattlePoint		int32		//战斗點數
 
 	//story chapter
 	ChapterID		int32		//正在进行的关卡
@@ -366,6 +367,7 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 	this.BattleId = battleid
 	this.BattleCamp = camp
+	this.BattlePoint = 1
 	this.MyUnit.ResetBattle(camp, true, battleid)
 
 	for _, u := range this.UnitList {

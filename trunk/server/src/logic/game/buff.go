@@ -52,27 +52,25 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 }
 
 func (this *Buff) AddProperty() {
-	if this.BuffKind == kKindUntil {		// 只有直接增加属性的BUFF才会走到这里
-		return
-	}
-	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data)
+
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
 	r := []interface{}{0}
+	buff_t := GetBuffRecordById(this.BuffId)
+	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId)
 
-	fmt.Println("buff_1_add", int(this.Owner.BattleId), int(this.Data))
-	_L.CallFuncEx("buff_1_add", v, &r)
+	_L.CallFuncEx(buff_t.AddLua, v, &r)
 }
 
 func (this *Buff) DeleteProperty(battleud int64, unitid int64) {
-	if this.BuffKind == kKindUntil {
-		return
-	}
+
 	fmt.Println("DeleteProperty", this.Data, this.InstId)
-	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
+	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
 
-	fmt.Println("buff_1_delete", int(unitid), this.InstId)
-	_L.CallFuncEx("buff_1_delete", v, &r)
+	buff_t := GetBuffRecordById(this.BuffId)
+
+	fmt.Println(buff_t.PopLua, int(unitid), this.InstId)
+	_L.CallFuncEx(buff_t.PopLua, v, &r)
 }
 
 
@@ -98,8 +96,10 @@ func (this *Buff) Update(round int32) bool {
 		v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
 		r := []interface{}{0}
 
-		fmt.Println("buff_1_update", int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
-		_L.CallFuncEx("buff_1_update", v, &r)
+		buff_t := GetBuffRecordById(this.BuffId)
+
+		fmt.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
+		_L.CallFuncEx(buff_t.UpdateLua, v, &r)
 		//testBattleBuff(this, this.IsOver(round))
 
 		return needDel

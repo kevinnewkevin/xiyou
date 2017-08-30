@@ -11,6 +11,7 @@ type (
 	UnitRecord struct {
 		Id     int32
 		DispId int32
+		Cost   int32
 		IProp  []int32
 		CProp  []float32
 		Skills []int32
@@ -32,10 +33,13 @@ type (
 		LuaScprit  string
 	}
 	BuffRecord struct {
-		BuffId	int32
-		Until	int32
-		Type 	int32
-		Kind 	int32
+		BuffId		int32
+		Until		int32
+		Type 		int32
+		Kind 		int32
+		AddLua 		string
+		UpdateLua 	string
+		PopLua 		string
 	}
 	BattleRecord struct {
 		BattleId	int32
@@ -62,6 +66,7 @@ func LoadUnitTable(filename string) error {
 		u := UnitRecord{}
 		u.Id = int32(csv.GetInt(r, "UnitId"))
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
+		u.Cost = int32(csv.GetInt(r, "Cost"))
 		u.IProp = make([]int32, prpc.IPT_MAX)
 		u.CProp = make([]float32, prpc.CPT_MAX)
 		u.BaseName = csv.GetString(r, "Name")
@@ -178,6 +183,9 @@ func LoadBuffTable(filename string) error {
 		b.Until = int32(csv.GetInt(r, "Until"))
 		b.Type = int32(csv.GetInt(r, "Type"))
 		b.Kind = int32(csv.GetInt(r, "Kind"))
+		b.AddLua = csv.GetString(r, "AddScript")
+		b.UpdateLua = csv.GetString(r, "UpdateScript")
+		b.PopLua = csv.GetString(r, "PopScript")
 		BuffTable[b.BuffId] = &b
 	}
 	return nil

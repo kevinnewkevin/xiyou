@@ -782,7 +782,6 @@ func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果
 
 	L.PushInteger(num)
 
-
 	return 1
 }
 
