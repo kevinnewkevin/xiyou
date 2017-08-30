@@ -25,12 +25,18 @@ public class GamePlayer {
     {
         Clear();
         string name = "";
-        for(int i=0; i < 5; ++i)
+        _CardGroup = new List<List<COM_Unit>>(player.UnitGroup.Length);
+        for(int i=0; i < player.UnitGroup.Length; ++i)
         {
-            _CardGroup.Add(new List<COM_Unit>());
-            name = PlayerPrefs.GetString("XYSK_XIYOU" + i);
+            if (player.UnitGroup [i].UnitList == null)
+                _CardGroup [player.UnitGroup [i].GroupId - 1] = new List<COM_Unit>();
+            else
+                _CardGroup [player.UnitGroup [i].GroupId - 1] = new List<COM_Unit>(player.UnitGroup [i].UnitList);
+
+            name = PlayerPrefs.GetString("XYSK_XIYOU_ACCOUNT_PLUGINID" + i);
             _CardGroupName.Add(name);
         }
+
         _InstID = player.InstId;
         _Name = player.Name;
         _Data = player.Unit;
@@ -98,7 +104,7 @@ public class GamePlayer {
             return;
         
         _CardGroupName[groupidx] = name;
-        PlayerPrefs.SetString("XYSK_XIYOU" + groupidx, name);
+        PlayerPrefs.SetString("XYSK_XIYOU_ACCOUNT_PLUGINID" + groupidx, name);
     }
 
     static public string GetGroupName(int groupidx)
@@ -304,7 +310,7 @@ public class GamePlayer {
 
         _CardGroup [groupidx].Add(card);
 
-        NetWoking.S.AddBattleUnit(instid, groupidx);
+        NetWoking.S.SetBattleUnit(instid, groupidx + 1, true);
     }
 
     static public void TakeOffCard(long instid, int groupidx)
@@ -325,7 +331,7 @@ public class GamePlayer {
             }
         }
 
-        NetWoking.S.PopBattleUnit(instid, groupidx);
+        NetWoking.S.SetBattleUnit(instid, groupidx + 1, false);
     }
 
     static public void DeleteGroup(int groupidx)
@@ -334,6 +340,7 @@ public class GamePlayer {
             return;
 
         _CardGroup [groupidx].Clear();
+        NetWoking.S.DelUnitGroup(groupidx + 1);
     }
 
     static public List<COM_Unit> GetBattleCardsCopy()
