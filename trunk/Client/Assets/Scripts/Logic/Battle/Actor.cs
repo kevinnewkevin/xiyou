@@ -292,6 +292,11 @@ public class Actor {
 
     public void Fini()
     {
+        DisplayData dData = DisplayData.GetData(_DisplayID);
+        if (dData == null)
+            Debug.LogWarning("There is MEMORY WASTED! " + _DisplayID);
+        else
+            AssetLoader.UnloadAsset(dData._AssetPath);
         GameObject.Destroy(_ActorObj);
     }
 }

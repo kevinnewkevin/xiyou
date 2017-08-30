@@ -402,13 +402,17 @@ public class Skill {
         _IsCasted = true;
 
         if (_CastEff != null)
+        {
             GameObject.Destroy(_CastEff);
+            AssetLoader.UnloadAsset(_SkillData._CastEffect);
+        }
 
         if (_SkillEff != null)
         {
             for(int i=0; i < _SkillEff.Length; ++i)
             {
                 GameObject.Destroy(_SkillEff[i]);
+                AssetLoader.UnloadAsset(_SkillData._SkillEffect);
             }
         }
 
@@ -417,6 +421,7 @@ public class Skill {
             for(int i=0; i < _BeattackEff.Length; ++i)
             {
                 GameObject.Destroy(_BeattackEff[i]);
+                AssetLoader.UnloadAsset(_SkillData._BeattackEffect);
             }
         }
     }
