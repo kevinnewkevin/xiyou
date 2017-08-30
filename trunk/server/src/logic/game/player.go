@@ -83,6 +83,11 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 
 	PlayerStore = append(PlayerStore, &p)
 	p.InitUnitGroup()
+
+	for _,u := range p.UnitList{
+		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+	}
+	
 	return &p
 
 }
@@ -237,7 +242,7 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle 
 	if this.GetUnit(instId) == nil {
 		return
 	}
-
+	fmt.Println("SetBattleUnitGroup InstId",instId,"GroupID",groupId)
 	if isBattle {
 		addError := this.AddUnitToGroup(instId,groupId)
 		if addError != 0{
