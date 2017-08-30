@@ -182,6 +182,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1331376195714416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4320299060119926}
+  - component: {fileID: 111944572303024358}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1358072670534166
 GameObject:
   m_ObjectHideFlags: 1
@@ -302,7 +318,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1709860618783358
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -399,7 +415,7 @@ Transform:
   m_LocalScale: {x: 0.7576752, y: 0.7576752, z: 0.75767547}
   m_Children: []
   m_Father: {fileID: 4365095721713278}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -13.795001}
 --- !u!4 &4211081270186578
 Transform:
@@ -420,13 +436,27 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1242460265033988}
-  m_LocalRotation: {x: 0.037149645, y: -0.81648463, z: -0.5651193, w: -0.11230654}
+  m_LocalRotation: {x: 0.03714965, y: -0.81648475, z: -0.5651194, w: -0.11230656}
   m_LocalPosition: {x: -0.09, y: 0.74, z: 1.95}
   m_LocalScale: {x: 0.25439602, y: 0.32052273, z: 0.3066724}
   m_Children: []
   m_Father: {fileID: 4762807646960274}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 248.617, y: -22.820007, z: 190.472}
+--- !u!4 &4320299060119926
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331376195714416}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4792986338153404}
+  m_Father: {fileID: 4365095721713278}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4365095721713278
 Transform:
   m_ObjectHideFlags: 1
@@ -437,9 +467,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4792986338153404}
   - {fileID: 4196969823270446}
   - {fileID: 4753751140636392}
+  - {fileID: 4320299060119926}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -548,7 +578,7 @@ Transform:
   m_Children:
   - {fileID: 4535422353078200}
   m_Father: {fileID: 4365095721713278}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!4 &4762807646960274
 Transform:
@@ -586,7 +616,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1709860618783358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.46, y: 2.52, z: 0}
+  m_LocalPosition: {x: -0.46, y: 2.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4546543457870682}
@@ -596,7 +626,7 @@ Transform:
   - {fileID: 4488291148227456}
   - {fileID: 4382368739938410}
   - {fileID: 4190404602879604}
-  m_Father: {fileID: 4365095721713278}
+  m_Father: {fileID: 4320299060119926}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4817617651983718
@@ -621,7 +651,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1085514223650372}
-  m_LocalRotation: {x: 0.03714965, y: -0.81648475, z: -0.5651194, w: -0.11230656}
+  m_LocalRotation: {x: 0.037149645, y: -0.81648463, z: -0.5651193, w: -0.11230654}
   m_LocalPosition: {x: -0.09, y: 0.74, z: 1.95}
   m_LocalScale: {x: 0.25439602, y: 0.32052273, z: 0.3066724}
   m_Children: []
@@ -961,6 +991,21 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!111 &111944572303024358
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331376195714416}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c3bf5899e45c64f4e8af95cf5a178667, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c3bf5899e45c64f4e8af95cf5a178667, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!198 &198064367592242024
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1016,7 +1061,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1172806935
+  randomSeed: 1472814772
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4025,7 +4070,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1959470681
+  randomSeed: 928062288
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7023,7 +7068,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1423515877
+  randomSeed: -476848779
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9954,7 +9999,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 920802168
+  randomSeed: 923252807
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12885,7 +12930,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 641974549
+  randomSeed: 1442034245
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15775,7 +15820,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 2030909314
+  randomSeed: 1554499114
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21728,7 +21773,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1415123916
+  randomSeed: 1900965590
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24726,7 +24771,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1762715632
+  randomSeed: -1210031678
   InitialModule:
     serializedVersion: 3
     enabled: 1
