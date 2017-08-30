@@ -167,7 +167,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4270895498769426}
-  - component: {fileID: 111458822404995448}
   m_Layer: 0
   m_Name: neza_skill01
   m_TagString: Untagged
@@ -712,21 +711,6 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 2a98e951b939a9f4bb3de8144c305363, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 2a98e951b939a9f4bb3de8144c305363, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!111 &111458822404995448
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452535221857172}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 0ca812af01f4b4c4b81ba86d1cb8d64d, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 0ca812af01f4b4c4b81ba86d1cb8d64d, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
