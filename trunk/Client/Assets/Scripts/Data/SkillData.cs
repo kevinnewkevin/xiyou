@@ -73,7 +73,7 @@ public class SkillData {
             data._TotalTime = parser.GetFloat(i, "TotalTime");
             data._Motion = (MotionType)Enum.Parse(typeof(MotionType), parser.GetString(i, "MotionType"));
             data._Single = parser.GetInt(i, "SingleSkill") == 1;
-            data._Icon = parser.GetString(i, "Icon");
+            data._Icon = parser.GetString(i, "ICON");
 
             if(metaData.ContainsKey(data._Id))
             {
