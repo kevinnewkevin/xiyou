@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"logic/prpc"
 	"sync"
-	"github.com/astaxie/beego/plugins/apiauth"
-	"golang.org/x/crypto/acme"
 )
 
 const (
@@ -111,6 +109,9 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 	for _, c := range this.Chapters {
 		p.Chapters = append(p.Chapters, *c)
+	}
+	for _,ug := range this.UnitGroup{
+		p.UnitGroup = append(p.UnitGroup,*ug)
 	}
 	return p
 }
