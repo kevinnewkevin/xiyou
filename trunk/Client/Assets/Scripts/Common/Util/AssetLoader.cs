@@ -27,29 +27,38 @@ public class AssetLoader {
         if(_Manifest == null)
         InitCommonList();
 
-        string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
-        string assetPath;
-        for(int i=0; i < dep.Length; ++i)
+        try
         {
+            string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+            string assetPath;
+            for(int i=0; i < dep.Length; ++i)
+            {
             assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
             if(!AssetCounter.Excist(assetPath))
-                AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+            AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
             else
-                AssetCounter.GetBundle(assetPath);
-        }
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
-        AssetBundle ab = null;
-        if(!AssetCounter.Excist(assetPath))
-        {
+            AssetCounter.GetBundle(assetPath);
+            }
+            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            AssetBundle ab = null;
+            if(!AssetCounter.Excist(assetPath))
+            {
             ab = AssetBundle.LoadFromFile(assetPath);
             AssetCounter.AddRef(assetPath, ab);
-        }
-        else
+            }
+            else
             ab = AssetCounter.GetBundle(assetPath);
 
-        string assetName = path.Substring(path.LastIndexOf("/") + 1);
-        Object o = ab.LoadAsset(assetName);
-        return GameObject.Instantiate(o) as GameObject;
+            string assetName = path.Substring(path.LastIndexOf("/") + 1);
+            Object o = ab.LoadAsset(assetName);
+            return GameObject.Instantiate(o) as GameObject;
+        }
+        catch(System.Exception e)
+        {
+            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            return null;
+        }
+
 #endif
     }
 
