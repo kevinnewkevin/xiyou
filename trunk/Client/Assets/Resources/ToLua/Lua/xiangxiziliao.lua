@@ -11,6 +11,8 @@ local isInGroup;
 local fee;
 local name;
 
+local skillList;
+
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -34,6 +36,8 @@ function xiangxiziliao:OnInit()
 
 	fee = self.contentPane:GetChild("n58");
 	name = self.contentPane:GetChild("n60");
+
+	skillList = self.contentPane:GetChild("n49").asList;
 
 	xiangxiziliao_FlushData();
 end
@@ -115,4 +119,12 @@ function xiangxiziliao_FlushData()
 	local entityData = GamePlayer.GetEntityDataByInstID(instId);
 	fee.text = entityData._Cost;
 	name.text = entityData._Name;
+
+	for i=1, 4 do
+		local skill = skillList:GetChildAt(i - 1);
+		local sData = SkillData.GetData(entityData._Skills[i - 1]);
+		if sData ~= nil then
+			skill:GetChild("n8").asLoader.url = "ui://" .. sData._Icon;
+		end
+	end
 end

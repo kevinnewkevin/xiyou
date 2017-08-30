@@ -8,6 +8,7 @@ public class EntityData {
     public int _DisplayId;
     public int _Cost;
     public string _Name;
+    public int[] _Skills;
 
     static Dictionary<int, EntityData> metaData;
 
@@ -31,6 +32,11 @@ public class EntityData {
             data._DisplayId = parser.GetInt(i, "DisplayId");
             data._Cost = parser.GetInt(i, "Cost");
             data._Name = parser.GetString(i, "Name");
+            data._Skills = new int[4];
+            for(int j=0; j < 4; ++j)
+            {
+                data._Skills[j] = parser.GetInt(i, "Skill" + (j + 1).ToString());
+            }
 
             if(metaData.ContainsKey(data._UnitId))
             {

@@ -27,6 +27,7 @@ public class SkillData {
     public MotionType _Motion;
     public bool _Single;
     public string _Camera;
+    public string _Icon;
 
     static Dictionary<int, SkillData> metaData;
 
@@ -72,6 +73,7 @@ public class SkillData {
             data._TotalTime = parser.GetFloat(i, "TotalTime");
             data._Motion = (MotionType)Enum.Parse(typeof(MotionType), parser.GetString(i, "MotionType"));
             data._Single = parser.GetInt(i, "SingleSkill") == 1;
+            data._Icon = parser.GetString(i, "Icon");
 
             if(metaData.ContainsKey(data._Id))
             {

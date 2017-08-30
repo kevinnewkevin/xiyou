@@ -203,6 +203,7 @@ public static class CustomSettings
         _GT(typeof(Actor)),
         _GT(typeof(EntityData)),
         _GT(typeof(DisplayData)),
+        _GT(typeof(SkillData)),
 		_GT(typeof(HeroStroyData)),
 		_GT(typeof(CheckpointData)),
         _GT(typeof(List<COM_Unit>)),
