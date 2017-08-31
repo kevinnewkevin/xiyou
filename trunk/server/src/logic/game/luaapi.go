@@ -26,6 +26,7 @@ extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
 extern int __GetCalcDef(void*);
 extern int __GetUnitDamage(void*);
+extern int __GetMagicDamage(void*);
 extern int __TargetOver(void*);
 extern int __TargetOn(void*);
 extern int __PopAllBuffByDebuff(void*);
@@ -33,6 +34,7 @@ extern int __GetUnitSheld(void*);
 extern int __FrontTarget(void*);
 extern int __LineTraget(void*);
 extern int __BackTarget(void*);
+
 */
 import "C"
 import (
@@ -70,6 +72,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
 	_L.LoadApi(C.__GetCalcDef,"GetCalcDef","Player")
 	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
+	_L.LoadApi(C.__GetMagicDamage,"GetMagicDamage","Player")
 	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
 	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
 	_L.LoadApi(C.__FrontTarget,"FrontTarget","Player")
@@ -552,7 +555,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 }
 
 //export __BuffCureHp
-func __BuffCureHp(p unsafe.Pointer) C.int {
+func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 
 	fmt.Println("__BuffMintsHp")
 
@@ -580,7 +583,7 @@ func __BuffCureHp(p unsafe.Pointer) C.int {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //export __GetUnitDamage
-func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理   伤害
+func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 
 	fmt.Println("__GetUnitDamage")
 
@@ -599,6 +602,33 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理   伤害
 	target := battle.SelectOneUnit(int64(targetid))
 
 	finaldamage := CalcDamage(caster, target)
+
+	L.PushNumber(float64(finaldamage))
+
+
+	return 1
+}
+
+//export __GetUnitDamage
+func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
+
+	fmt.Println("__GetUnitDamage")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	casterid := L.ToInteger(idx)
+	idx ++
+	targetid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	caster := battle.SelectOneUnit(int64(casterid))
+
+	target := battle.SelectOneUnit(int64(targetid))
+
+	finaldamage := CalcMagicDamage(caster, target)
 
 	L.PushNumber(float64(finaldamage))
 
@@ -642,7 +672,7 @@ func __GetUnitSheldPer(p unsafe.Pointer) C.int {		//获取减伤百分比
 }
 
 //export __GetUnitAtk
-func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理
+func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理强度
 
 	fmt.Println("__GetUnitAtk")
 
@@ -688,7 +718,7 @@ func __GetCalcDef(p unsafe.Pointer) C.int {		//获取减伤百分比  物理防�
 	return 1
 }
 //export __GetUnitMtk
-func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术
+func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术强度
 
 	fmt.Println("__GetUnitMtk")
 
@@ -732,7 +762,7 @@ func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法�
 	return 1
 }
 //export __TargetOver
-func __TargetOver(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
+func __TargetOver(p unsafe.Pointer) C.int {		//结束后
 
 	fmt.Println("__TargetOver")
 
@@ -748,7 +778,7 @@ func __TargetOver(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 �
 	return 1
 }
 //export __TargetOn
-func __TargetOn(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
+func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 
 	fmt.Println("__TargetOn")
 
@@ -765,7 +795,7 @@ func __TargetOn(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防�
 }
 
 //export __PopAllBuffByDebuff
-func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果
+func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果    返回负面buff数量
 
 	fmt.Println("__PopAllBuffByDebuff")
 
