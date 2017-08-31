@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="400,90">
+  <displayList>
+    <image id="n1_xqay" name="n1" src="e0vz0" xy="3,13" size="359,75"/>
+  </displayList>
+  <transition name="t1">
+    <item time="0" type="Size" target="n1_xqay" tween="true" startValue="33,75" endValue="391,75" duration="6"/>
+  </transition>
+</component>
