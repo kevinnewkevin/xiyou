@@ -32,6 +32,7 @@ extern int __PopAllBuffByDebuff(void*);
 extern int __GetUnitSheld(void*);
 extern int __FrontTarget(void*);
 extern int __LineTraget(void*);
+extern int __BackTarget(void*);
 */
 import "C"
 import (
@@ -73,6 +74,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
 	_L.LoadApi(C.__FrontTarget,"FrontTarget","Player")
 	_L.LoadApi(C.__LineTraget,"LineTraget","Player")
+	_L.LoadApi(C.__BackTarget,"BackTarget","Player")
 
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
@@ -849,6 +851,42 @@ func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 	for i :=0; i < len(LineTraget); i++ {
 		L.PushInteger(i + 1)
 		L.PushInteger(int(LineTraget[i]))
+		L.SetTable(-3)
+	}
+
+
+	return 1
+}
+
+//export __BackTarget
+func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
+
+	fmt.Println("__BackTarget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	BackTarget := battle.SelectBackTarget(int(unit.Camp))
+
+	fmt.Println(unitid, "Back", len(BackTarget), "info", BackTarget)
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(BackTarget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(BackTarget[i]))
 		L.SetTable(-3)
 	}
 
