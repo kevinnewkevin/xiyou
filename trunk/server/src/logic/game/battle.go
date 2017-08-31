@@ -290,6 +290,8 @@ func (this *BattleRoom) Update() {
 		//this.PlayerMove()
 	}
 
+	//this.CheckPlayerIsMove()
+
 	//顺序排序
 
 	fmt.Println("站前回合为 ", this.Round)
@@ -395,6 +397,23 @@ func (this *BattleRoom) SortUnits() []*GameUnit {
 
 func (this *BattleRoom) calcWinner() bool {
 	return this.Winner != prpc.CT_MAX
+}
+
+func (this *BattleRoom) CheckPlayerIsMove() {
+	fmt.Println("CheckPlayerIsMove 1", this.Units)
+	for _, p := range this.PlayerList {
+		if p == nil || p.session == nil {
+			continue
+		}
+		p.IsActive = true
+		if p.MyUnit.Position != prpc.BP_MAX {
+			continue
+		}
+		pos := this.positionMiddle(p.BattleCamp)
+		p.MyUnit.Position = int32(pos)
+		this.Units[pos] = p.MyUnit
+	}
+	fmt.Println("CheckPlayerIsMove 1", this.Units)
 }
 
 func (this *BattleRoom) SetBattleUnits() {
@@ -654,7 +673,7 @@ func (this *BattleRoom) PlayerMove() {
 	fmt.Println("PlayerMove 1", this.Units)
 	p := this.PlayerList[0]
 	if this.Round == 0 {
-		pos := this.monsterMiddle(p.BattleCamp)
+		pos := this.positionMiddle(p.BattleCamp)
 		this.Units[pos] = p.MyUnit
 		p.MyUnit.Position = int32(pos)
 	} else {
@@ -676,7 +695,7 @@ func (this *BattleRoom) PlayerMove() {
 func (this *BattleRoom) MonsterMove() {
 	fmt.Println("MonsterMove 1", this.Units)
 	if this.Round == 0 {
-		pos := this.monsterMiddle(this.Monster.BattleCamp)
+		pos := this.positionMiddle(this.Monster.BattleCamp)
 		this.Units[pos] = this.Monster.MainUnit
 		this.Monster.MainUnit.Position = int32(pos)
 	} else {
@@ -697,7 +716,7 @@ func (this *BattleRoom) MonsterMove() {
 	return
 }
 
-func (this *BattleRoom)monsterMiddle(camp int) int {
+func (this *BattleRoom)positionMiddle(camp int) int {
 	if camp == prpc.CT_RED {
 		return prpc.BP_RED_5
 	} else {
@@ -913,6 +932,26 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 
 }
 
+func (this *BattleRoom) DeleteBuff(target int64, buffinstid int32, data int32) {
+// 去buff
+
+	buffCOM := prpc.COM_BattleBuff{}
+
+	unit := this.SelectOneUnit(target)
+
+	buff := unit.SelectBuff(buffinstid)
+	buff.DeleteProperty()
+
+	buffCOM.BuffId = buff.BuffId
+	buffCOM.Change = 0
+
+	fmt.Println("bufflen front", this.TargetCOM)
+	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
+	fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合失去了id为", buff.InstId, "的buff, buff表中的ID为", buff.BuffId, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	fmt.Println("bufflen back", this.TargetCOM)
+
+}
+
 func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, data int32, over bool) {
 	fmt.Println("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
 	unit := this.SelectOneUnit(target)
@@ -1015,7 +1054,7 @@ func IsCrit(skillid int32) int {
 
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition) {
 
-	//Println("SetupPosition.start")
+	fmt.Println("SetupPosition.start", posList)
 	if this.Round == 0 { //第一回合 必须设置主角卡
 		for _, pos := range posList {
 			//fmt.Println("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)

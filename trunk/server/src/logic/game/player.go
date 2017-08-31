@@ -361,7 +361,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 		//错误消息
 		return nil
 	}
+	fmt.Println("SetupBattle 1 ", battleRoom.Units)
 	battleRoom.SetupPosition(this, pos)
+	fmt.Println("SetupBattle 2 ", battleRoom.Units)
 
 	this.session.SetupBattleOK()
 

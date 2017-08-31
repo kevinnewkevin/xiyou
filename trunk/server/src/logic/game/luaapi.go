@@ -557,7 +557,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {
 //export __BuffCureHp
 func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 
-	fmt.Println("__BuffMintsHp")
+	fmt.Println("__BuffCureHp")
 
 	L := lua.GetLuaState(p)
 	idx := 1

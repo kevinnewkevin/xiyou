@@ -61,15 +61,16 @@ func (this *Buff) AddProperty() {
 	_L.CallFuncEx(buff_t.AddLua, v, &r)
 }
 
-func (this *Buff) DeleteProperty(battleud int64, unitid int64) {
+func (this *Buff) DeleteProperty() {
 
 	fmt.Println("DeleteProperty", this.Data, this.InstId)
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
+	this.Over = true
 
 	buff_t := GetBuffRecordById(this.BuffId)
 
-	fmt.Println(buff_t.PopLua, int(unitid), this.InstId)
+	fmt.Println(buff_t.PopLua, this.Owner.InstId, this.InstId)
 	_L.CallFuncEx(buff_t.PopLua, v, &r)
 }
 

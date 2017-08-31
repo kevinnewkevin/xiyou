@@ -94,6 +94,21 @@ func (this *GameUnit) ChangeSpec(spec string, buffinstid int32) {
 	return
 }
 
+func (this *GameUnit) GetSpecial(spec string) []int32 {		//获取对应sepce枚举对应的buffid 可能为空
+	tmp := []int32{}
+	spe := prpc.ToId_BuffSpecial(spec)
+	bufflist, ok := this.Special[int32(spe)]
+	if !ok {
+		return tmp
+	} else {
+		for _, v := range bufflist {
+			tmp = append(tmp, v)
+		}
+	}
+
+	return tmp
+}
+
 func (this *GameUnit) CheckSpec(spec string) bool { //unit.checkspec(是否有免死)
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
@@ -258,6 +273,7 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.IsMain = ismain
 	this.BattleId = battleid
 	this.VirtualHp = 0
+	this.Position = prpc.BP_MAX
 	this.Special = map[int32][]int32{}
 }
 
@@ -306,7 +322,7 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 	for _, buff := range this.Allbuff {
 		_, ok := need[buff]
 		if ok {
-			buff.DeleteProperty(this.BattleId, this.InstId)
+			buff.DeleteProperty()
 			continue
 		}
 		newList = append(newList, buff)
@@ -345,7 +361,7 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 	for _, v := range this.Allbuff {
 		_, ok := tmp[v]
 		if ok {
-			v.DeleteProperty(this.BattleId, this.InstId)
+			v.DeleteProperty()
 			continue
 		}
 		newBufflist = append(newBufflist, v)
@@ -374,7 +390,7 @@ func (this *GameUnit) PopAllBuffByBuff() {
 	for _, v := range this.Allbuff {
 		_, ok := tmp[v]
 		if ok {
-			v.DeleteProperty(this.BattleId, this.InstId)
+			v.DeleteProperty()
 			continue
 		}
 

@@ -68,7 +68,6 @@ func (this *App) Run() {
 		return
 	}
 
-	//game.TestPlayer()
 
 	go func() {
 		for {
