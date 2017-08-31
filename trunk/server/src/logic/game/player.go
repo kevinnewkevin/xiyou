@@ -14,11 +14,13 @@ const (
 
 type GamePlayer struct {
 	sync.Locker
-	session        	*Session    //链接
-	MyUnit         	*GameUnit   //自己的卡片
-	UnitList       	[]*GameUnit //拥有的卡片
-	BattleUnitList 	[]int64     //默认出战卡片
-	UnitGroup		[]*prpc.COM_UnitGroup
+	session        			*Session    //链接
+	MyUnit         			*GameUnit   //自己的卡片
+	UnitList       			[]*GameUnit //拥有的卡片
+	BattleUnitList 			[]int64     //默认出战卡片
+	DefaultUnitGroup		int			//默认战斗卡片组
+	BattleUnitGroup			int32		//战斗卡片组
+	UnitGroup				[]*prpc.COM_UnitGroup
 	//战斗相关辅助信息
 	BattleId   		int64 		//所在房间编号
 	BattleCamp 		int   		//阵营 //prpc.CompType
@@ -30,6 +32,8 @@ type GamePlayer struct {
 	//story chapter
 	ChapterID		int32		//正在进行的关卡
 	Chapters		[]*prpc.COM_Chapter
+
+	TianTiVal		int32
 }
 
 var (
@@ -81,7 +85,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.UnitList = append(p.UnitList, p.NewGameUnit(8))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(9))
 	p.UnitList = append(p.UnitList, p.NewGameUnit(10))
-
+	p.DefaultUnitGroup = 1
+	p.TianTiVal	= 0
 	PlayerStore = append(PlayerStore, &p)
 	p.InitUnitGroup()
 
@@ -119,6 +124,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	for _,ug := range this.UnitGroup{
 		p.UnitGroup = append(p.UnitGroup,*ug)
 	}
+	p.TianTiVal = this.TianTiVal
 	return p
 }
 
@@ -380,7 +386,9 @@ func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func TestPlayer() {
-	P := CreatePlayer(1, "testPlayer")
-
-	CreatePvE(P, 1)
+	P1 := CreatePlayer(1, "testPlayer")
+	P2 := CreatePlayer(1, "testPlayer2")
+	StartMatching(P1,1)
+	StartMatching(P2,1)
+	//CreatePvE(P, 1)
 }

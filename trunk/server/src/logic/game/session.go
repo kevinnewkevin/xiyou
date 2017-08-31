@@ -117,6 +117,14 @@ func (this *Session)DelUnitGroup(groupId int32) error {
 	return nil
 }
 
+func  (this *Session)StartMatching(groupId int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	StartMatching(this.player,groupId)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

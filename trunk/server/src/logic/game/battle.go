@@ -250,7 +250,20 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		if this.Type == prpc.BT_PVE {
 			p.CalcSmallChapterStar(result)
 		}
-
+		if this.Type == prpc.BT_PVP {
+			for _,once := range this.PlayerList{
+				if once == nil {
+					continue
+				}
+				if once.MyUnit.InstId == p.MyUnit.InstId {
+					continue
+				}
+				if p.BattleCamp == once.BattleCamp {
+					continue
+				}
+				CaleTianTiVal(p,once,camp)
+			}
+		}
 		p.BattleId = 0
 		p.BattleCamp = prpc.CT_MAX
 

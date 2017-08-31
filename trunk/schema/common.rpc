@@ -54,6 +54,7 @@ struct COM_Player{
 	COM_Unit[]			Employees;
 	COM_Chapter[]		Chapters;
 	COM_UnitGroup[]		UnitGroup;
+	int32				TianTiVal;
 };
 
 //战斗位置

@@ -11,6 +11,7 @@ service COM_ClientToServer{
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
 	RequestChapterData(int32 chapterId);
 	ChallengeSmallChapter(int32 smallChapterId);
+	StartMatching(int32 groupId);
 };
 
 service COM_ServerToClient{

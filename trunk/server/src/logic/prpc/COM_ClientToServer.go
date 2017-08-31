@@ -36,6 +36,9 @@ type COM_ClientToServer_RequestChapterData struct{
 type COM_ClientToServer_ChallengeSmallChapter struct{
   smallChapterId int32  //0
 }
+type COM_ClientToServer_StartMatching struct{
+  groupId int32  //0
+}
 type COM_ClientToServerStub struct{
   Sender prpc.StubSender
 }
@@ -50,6 +53,7 @@ type COM_ClientToServerProxy interface{
   SetupBattle(positionList []COM_BattlePosition ) error // 7
   RequestChapterData(chapterId int32 ) error // 8
   ChallengeSmallChapter(smallChapterId int32 ) error // 9
+  StartMatching(groupId int32 ) error // 10
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -459,6 +463,42 @@ func (this *COM_ClientToServer_ChallengeSmallChapter)Deserialize(buffer *bytes.B
   }
   return nil
 }
+func (this *COM_ClientToServer_StartMatching)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.groupId!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize groupId
+  {
+    if(this.groupId!=0){
+      err := prpc.Write(buffer,this.groupId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_StartMatching)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize groupId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.groupId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -628,6 +668,23 @@ func(this* COM_ClientToServerStub)ChallengeSmallChapter(smallChapterId int32 ) e
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)StartMatching(groupId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(10))
+  if err != nil{
+    return err
+  }
+  _10 := COM_ClientToServer_StartMatching{}
+  _10.groupId = groupId;
+  err = _10.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -763,6 +820,20 @@ func Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer *bytes.Buffer, p C
   }
   return p.ChallengeSmallChapter(_9.smallChapterId)
 }
+func Bridging_COM_ClientToServer_StartMatching(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _10 := COM_ClientToServer_StartMatching{}
+  err := _10.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.StartMatching(_10.groupId)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -796,6 +867,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_RequestChapterData(buffer,p);
     case 9 :
       return Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer,p);
+    case 10 :
+      return Bridging_COM_ClientToServer_StartMatching(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

@@ -60,8 +60,8 @@ func (this *App) Run() {
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()
-
-
+	game.InitTianTi()
+	//game.TestPlayer()
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {
 		fmt.Println(err.Error())
