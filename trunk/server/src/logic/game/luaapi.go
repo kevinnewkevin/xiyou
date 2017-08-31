@@ -12,6 +12,8 @@ extern int __ChangeUnitProperty(void*);
 extern int __AddSheld(void*);
 extern int __PopSheld(void*);
 extern int __ChangeSpecial(void*);
+extern int __GetSpecial(void*);
+extern int __GetCheckSpec(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
 extern int __GetTime(void*);
@@ -34,6 +36,7 @@ extern int __GetUnitSheld(void*);
 extern int __FrontTarget(void*);
 extern int __LineTraget(void*);
 extern int __BackTarget(void*);
+
 
 */
 import "C"
@@ -67,6 +70,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
 	_L.LoadApi(C.__PopSheld,"PopSheld","Player")
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
+	_L.LoadApi(C.__GetSpecial,"GetSpecial","Player")
+	_L.LoadApi(C.__GetCheckSpec,"GetCheckSpec","Player")
 	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
 	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
 	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
@@ -221,7 +226,7 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {
 }
 
 //export __ChangeUnitProperty
-func __ChangeUnitProperty(p unsafe.Pointer) C.int {
+func __ChangeUnitProperty(p unsafe.Pointer) C.int {   //加减属性值
 
 	//fmt.Println("__ChangeUnitProperty")
 
@@ -245,7 +250,7 @@ func __ChangeUnitProperty(p unsafe.Pointer) C.int {
 }
 
 //export __AddSheld
-func __AddSheld(p unsafe.Pointer) C.int {
+func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 
 	fmt.Println("__AddSheld")
 
@@ -269,7 +274,7 @@ func __AddSheld(p unsafe.Pointer) C.int {
 }
 
 //export __PopSheld
-func __PopSheld(p unsafe.Pointer) C.int {
+func __PopSheld(p unsafe.Pointer) C.int {   //减护盾
 
 	fmt.Println("__PopSheld")
 
@@ -297,7 +302,7 @@ func __PopSheld(p unsafe.Pointer) C.int {
 }
 
 //export __ChangeSpecial
-func __ChangeSpecial(p unsafe.Pointer) C.int {
+func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有替换，么加上
 
 	fmt.Println("__ChangeSpecial")
 
@@ -318,6 +323,72 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {
 	unit.ChangeSpec(spec, int32(buffinstid))
 
 	return 1
+}
+
+//export __GetSpecial
+func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
+
+	fmt.Println("__GetSpecial")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx++
+	unitid := L.ToInteger(idx)
+	idx++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buffid := unit.GetSpecial(spec)
+
+	L.NewTable()
+
+	for i:=1;i<len(buffid);i++{
+
+		L.PushInteger(i+1)
+
+		L.PushInteger(int(buffid[i]))
+
+		L.SetTable(-3)
+
+	}
+
+
+
+	return 1
+
+}
+
+//export __GetCheckSpec
+func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
+
+	fmt.Println("__GetCheckSpec")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+
+	battleid := L.ToInteger(idx)
+	idx++
+	unitid := L.ToInteger(idx)
+	idx++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	_bool := unit.CheckSpec(spec)
+
+	L.PushBoolean(_bool)
+
+	return 1
+
+
 }
 
 //export __GetTargets
@@ -381,6 +452,112 @@ func __GetFriends(p unsafe.Pointer) C.int {
 		L.PushInteger(int(ls[i]))
 		L.SetTable(-3)
 	}
+
+	return 1
+}
+
+//export __FrontTarget
+func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
+
+	fmt.Println("__FrontTarget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
+
+	fmt.Println(unitid, "Front", len(FrontTarget), "info", FrontTarget)
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(FrontTarget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(FrontTarget[i]))
+		L.SetTable(-3)
+	}
+
+
+	return 1
+}
+
+//export __LineTraget
+func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
+
+	fmt.Println("__LineTraget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	LineTraget := battle.SelectLineTraget(int64(unitid))
+
+	fmt.Println(unitid, "line", len(LineTraget), "info", LineTraget)
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(LineTraget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(LineTraget[i]))
+		L.SetTable(-3)
+	}
+
+
+	return 1
+}
+
+//export __BackTarget
+func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
+
+	fmt.Println("__BackTarget")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	BackTarget := battle.SelectBackTarget(int(unit.Camp))
+
+	fmt.Println(unitid, "Back", len(BackTarget), "info", BackTarget)
+
+	//L.PushInteger(int(num))
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(BackTarget); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(BackTarget[i]))
+		L.SetTable(-3)
+	}
+
 
 	return 1
 }
@@ -463,6 +640,9 @@ func __GetTime(p unsafe.Pointer) C.int {
 	return 1
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
 //export __AddBuff
 func __AddBuff(p unsafe.Pointer) C.int {
 
@@ -530,7 +710,7 @@ func __HasDebuff(p unsafe.Pointer) C.int {
 }
 
 //export __BuffMintsHp
-func __BuffMintsHp(p unsafe.Pointer) C.int {
+func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 
 	fmt.Println("__BuffMintsHp")
 
@@ -578,6 +758,31 @@ func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 
 	return 1
 }
+
+//export __PopAllBuffByDebuff
+func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果    返回负面buff数量
+
+	fmt.Println("__PopAllBuffByDebuff")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	num := unit.PopAllBuffByDebuff()
+
+	L.PushInteger(num)
+
+	return 1
+}
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -794,132 +999,6 @@ func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 	return 1
 }
 
-//export __PopAllBuffByDebuff
-func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果    返回负面buff数量
-
-	fmt.Println("__PopAllBuffByDebuff")
-
-	L := lua.GetLuaState(p)
-
-	idx := 1
-	battleid := L.ToInteger(idx)
-	idx ++
-	unitid := L.ToInteger(idx)
-
-	battle := FindBattle(int64(battleid))
-
-	unit := battle.SelectOneUnit(int64(unitid))
-
-	num := unit.PopAllBuffByDebuff()
-
-	L.PushInteger(num)
-
-	return 1
-}
 
 
-//export __FrontTarget
-func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 
-	fmt.Println("__FrontTarget")
-
-	L := lua.GetLuaState(p)
-
-	idx := 1
-	battleid := L.ToInteger(idx)
-	idx ++
-	unitid := L.ToInteger(idx)
-
-	battle := FindBattle(int64(battleid))
-
-	unit := battle.SelectOneUnit(int64(unitid))
-
-	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
-
-	fmt.Println(unitid, "Front", len(FrontTarget), "info", FrontTarget)
-
-	//L.PushInteger(int(num))
-
-	L.NewTable()
-	//L.PushInteger(-1)
-	//L.RawSetI(-2, 0)
-
-	for i :=0; i < len(FrontTarget); i++ {
-		L.PushInteger(i + 1)
-		L.PushInteger(int(FrontTarget[i]))
-		L.SetTable(-3)
-	}
-
-
-	return 1
-}
-
-//export __LineTraget
-func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
-
-	fmt.Println("__LineTraget")
-
-	L := lua.GetLuaState(p)
-
-	idx := 1
-	battleid := L.ToInteger(idx)
-	idx ++
-	unitid := L.ToInteger(idx)
-
-	battle := FindBattle(int64(battleid))
-
-	LineTraget := battle.SelectLineTraget(int64(unitid))
-
-	fmt.Println(unitid, "line", len(LineTraget), "info", LineTraget)
-
-	//L.PushInteger(int(num))
-
-	L.NewTable()
-	//L.PushInteger(-1)
-	//L.RawSetI(-2, 0)
-
-	for i :=0; i < len(LineTraget); i++ {
-		L.PushInteger(i + 1)
-		L.PushInteger(int(LineTraget[i]))
-		L.SetTable(-3)
-	}
-
-
-	return 1
-}
-
-//export __BackTarget
-func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
-
-	fmt.Println("__BackTarget")
-
-	L := lua.GetLuaState(p)
-
-	idx := 1
-	battleid := L.ToInteger(idx)
-	idx ++
-	unitid := L.ToInteger(idx)
-
-	battle := FindBattle(int64(battleid))
-
-	unit := battle.SelectOneUnit(int64(unitid))
-
-	BackTarget := battle.SelectBackTarget(int(unit.Camp))
-
-	fmt.Println(unitid, "Back", len(BackTarget), "info", BackTarget)
-
-	//L.PushInteger(int(num))
-
-	L.NewTable()
-	//L.PushInteger(-1)
-	//L.RawSetI(-2, 0)
-
-	for i :=0; i < len(BackTarget); i++ {
-		L.PushInteger(i + 1)
-		L.PushInteger(int(BackTarget[i]))
-		L.SetTable(-3)
-	}
-
-
-	return 1
-}
