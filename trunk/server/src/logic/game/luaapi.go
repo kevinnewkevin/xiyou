@@ -609,7 +609,7 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 	return 1
 }
 
-//export __GetUnitDamage
+//export __GetMagicDamage
 func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 
 	fmt.Println("__GetUnitDamage")
