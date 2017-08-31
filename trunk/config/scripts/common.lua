@@ -96,3 +96,18 @@ function min_property_one(battleid,unitid,property)
 	return arr_pro[idx]   --返回最大血的人物  单个
 	
 end
+
+-- 计算最终伤害数值 战斗id ,释放者ID, 目标ID
+function ClacDamageByAllBuff(battleid, casterid, targetid) 
+	-- 取得释放者的所有伤害增加数字
+	-- 取得目标的所有减伤数字
+	-- 然后计算
+	
+	local sheld = 0			-- 获取到的护盾数值
+	local max_per = 75		-- 最大减伤百分比 
+	local per = 0			-- 获取到的减伤百分比
+	
+	
+	
+	
+end
