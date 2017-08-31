@@ -2,11 +2,11 @@
 <component size="60,95" pivot="0.5,0.5" anchor="true">
   <controller name="c1" pages="0,dahuo,1,xiaohuo" selected="0"/>
   <displayList>
-    <image id="n1_gswf" name="n1" src="olbbc" xy="0,0" pivot="0.5,0.5" anchor="true">
+    <movieclip id="n3_syc5" name="n1" src="syc514" xy="-1,-22" pivot="0.5,0.5" anchor="true">
       <gearDisplay controller="c1" pages="1"/>
-    </image>
-    <image id="n2_gswf" name="n2" src="olbbd" xy="0,0" pivot="0.5,0.5" anchor="true">
+    </movieclip>
+    <movieclip id="n4_syc5" name="n2" src="gswf13" xy="-3,-30" pivot="0.5,0.5" anchor="true">
       <gearDisplay controller="c1" pages="0"/>
-    </image>
+    </movieclip>
   </displayList>
 </component>
