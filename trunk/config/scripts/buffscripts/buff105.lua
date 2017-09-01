@@ -17,8 +17,8 @@ function buff_105_delete(battleid, unitid, buffinstid, data)
 
 	 sys.log("buff_105_delete"..battleid..unitid..data)
 
-	Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_MAGIC_ATK")
-	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减属性值 法术
+	Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_MAGIC_ATK")-- 减属性值 法术
+	-- Player.ChangeSheld(battleid, unit, -data)						 	
 
 	sys.log("buff_105_delete "..","..battleid..","..buffinstid..","..unitid)
 	

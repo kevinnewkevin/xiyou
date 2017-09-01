@@ -4,7 +4,9 @@
 sys.log("buff1")
 
 function buff_109_add(battleid, unitid, buffinstid,data) 
-	 Player.ChangeSpecial(battleid, unitid, buffinstid,data,"CPT_AGILE")  --加 减速
+	 --Player.ChangeSpecial(battleid, unitid, buffinstid,data,"CPT_AGILE") 
+	 
+	 Player.ChangeUnitProperty(battleid, unitid, data, "CPT_AGILE") --加 减速
 	
 	sys.log("buff_109_add "..","..battleid..","..buffinstid..","..unitid)
 end
@@ -20,7 +22,9 @@ end
 
 function buff_109_delete(battleid, unitid, buffinstid,data)
 
-	Player.PopSpec(battleid, unitid, buffinstid,-data,"CPT_AGILE")   --减 减速
+	--Player.PopSpec(battleid, unitid, buffinstid,-data,"CPT_AGILE")   
+	
+	 Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_AGILE")--减 减速
 	
 	sys.log("buff_109_delete "..","..battleid..","..buffinstid..","..unitid)
 

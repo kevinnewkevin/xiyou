@@ -5,7 +5,7 @@ sys.log("buff1")
 
 function buff_113_add(battleid, unitid, buffinstid) 
 	sys.log("buff_113_add "..","..battleid..","..buffinstid..","..unitid)
-	Player.ChangeUnitProperty(battleid, unitid, "BF_WFHFSM")  --加 无法恢复生命
+	 Player.ChangeSpecial(battleid, unitid,buffinstid, "BF_WFHFSM")  --加 无法恢复生命
 end
 
 function buff_113_update(battleid, buffinstid, unitid)	
@@ -17,8 +17,8 @@ function buff_113_delete(battleid, unitid, buffinstid)
 
 	 sys.log("buff_113_delete"..battleid..unitid)
 
-	Player.ChangeUnitProperty(battleid, unitid, "BF_WFHFSM")
-	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减 无法恢复生命
+	 Player.ChangeSpecial(battleid, unitid,buffinstid, "BF_WFHFSM")-- 减 无法恢复生命
+	-- Player.ChangeSheld(battleid, unit, -data)						 	
 
 	sys.log("buff_113_delete "..","..battleid..","..buffinstid..","..unitid)
 	
