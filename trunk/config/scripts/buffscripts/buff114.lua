@@ -3,28 +3,28 @@
 -- 参数暂定为 battleid targetid data
 sys.log("buff1")
 
-function buff_110_add(battleid, unitid, buffinstid) 
-	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_WEAK")  --加物理防御
-	 Player.ChangeSpecial(battleid, unitid, buffinstid,"CPT_MAGIC_DEF")  --加法术防御
+function buff_114_add(battleid, unitid, buffinstid,data) 
+	 Player.ChangeSpecial(battleid, unitid, buffinstid,data,"CPT_DEF")  --加物理防御
+	 Player.ChangeSpecial(battleid, unitid, buffinstid,data,"CPT_MAGIC_DEF")  --加法术防御
 
 	
-	sys.log("buff_110_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_114_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
-function buff_110_update(battleid, buffinstid, unitid)	
-	buff_id = 110 --配置表中的buffid
+function buff_114_update(battleid, buffinstid, unitid)	
+	buff_id = 114 --配置表中的buffid
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_106_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_104_update "..","..battleid..","..buffinstid..","..unitid)
 	
 end
 
-function buff_110_delete(battleid, unitid, buffinstid)
+function buff_114_delete(battleid, unitid, buffinstid)
 
-	Player.PopSpec(battleid, unitid, buffinstid,"CPT_DEF")   --减物理防御
-	Player.PopSpec(battleid, unitid, buffinstid,"CPT_MAGIC_DEF")   --减法术防御
+	Player.PopSpec(battleid, unitid, buffinstid,-data,"CPT_DEF")   --减物理防御
+	Player.PopSpec(battleid, unitid, buffinstid,-data,"CPT_MAGIC_DEF")   --减法术防御
 	
-	sys.log("buff_110_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_114_delete "..","..battleid..","..buffinstid..","..unitid)
 
 end

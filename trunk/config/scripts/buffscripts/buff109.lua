@@ -20,7 +20,7 @@ end
 
 function buff_109_delete(battleid, unitid, buffinstid,data)
 
-	Player.PopSpec(battleid, unitid, buffinstid,data,"CPT_AGILE")   --减 减速
+	Player.PopSpec(battleid, unitid, buffinstid,-data,"CPT_AGILE")   --减 减速
 	
 	sys.log("buff_109_delete "..","..battleid..","..buffinstid..","..unitid)
 

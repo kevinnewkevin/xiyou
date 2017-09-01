@@ -3,9 +3,9 @@
 -- 参数暂定为 battleid targetid data
 sys.log("buff1")
 
-function buff_113_add(battleid, unitid, buffinstid, data) 
+function buff_113_add(battleid, unitid, buffinstid) 
 	sys.log("buff_113_add "..","..battleid..","..buffinstid..","..unitid)
-	Player.ChangeUnitProperty(battleid, unitid, data, "BF_WFHFSM")  --加 无法恢复生命
+	Player.ChangeUnitProperty(battleid, unitid, "BF_WFHFSM")  --加 无法恢复生命
 end
 
 function buff_113_update(battleid, buffinstid, unitid)	
@@ -13,11 +13,11 @@ function buff_113_update(battleid, buffinstid, unitid)
 	sys.log("buff_113_update "..","..battleid..","..buffinstid..","..unitid)
 end
 
-function buff_113_delete(battleid, unitid, buffinstid, data)
+function buff_113_delete(battleid, unitid, buffinstid)
 
-	 sys.log("buff_113_delete"..battleid..unitid..data)
+	 sys.log("buff_113_delete"..battleid..unitid)
 
-	Player.ChangeUnitProperty(battleid, unitid, -data, "BF_WFHFSM")
+	Player.ChangeUnitProperty(battleid, unitid, "BF_WFHFSM")
 	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减 无法恢复生命
 
 	sys.log("buff_113_delete "..","..battleid..","..buffinstid..","..unitid)
