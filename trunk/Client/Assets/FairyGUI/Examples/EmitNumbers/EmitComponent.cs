@@ -4,63 +4,86 @@ using DG.Tweening;
 
 public class EmitComponent : GComponent
 {
-	GLoader _symbolLoader;
-	GTextField _numberText;
+    GLoader _symbolLoader;
+    GTextField _numberText_cri;
+	GTextField _numberText_norm;
 	Transform _owner;
 
 	const float OFFSET_ADDITION = 2.2f;
 	static Vector2 JITTER_FACTOR = new Vector2(80, 80);
 
+    GComponent gcom;
+    GComponent criCom;
+    GComponent normCom;
+    GTextField crtTextfield;
+
 	public EmitComponent()
 	{
-		this.touchable = false;
+        gcom = UIPackage.CreateObject("zhandoushuzi", "ziti_com").asCom;
+        this.AddChild(gcom);
+        gcom.touchable = false;
 
-		_symbolLoader = new GLoader();
-		_symbolLoader.autoSize = true;
-		AddChild(_symbolLoader);
+        criCom = gcom.GetChild("n0").asCom;
+        normCom = gcom.GetChild("n1").asCom;
 
-		_numberText = new GTextField();
-		_numberText.autoSize = AutoSizeType.Both;
-
-		AddChild(_numberText);
+        _numberText_cri = criCom.GetChild("n3").asTextField;
+        _numberText_norm = normCom.GetChild("n3").asTextField;
 	}
 
-	public void SetHurt(Transform owner, int type, long hurt, bool critical)
+    public void SetHurt(Transform owner, int hurt, string special)
 	{
 		_owner = owner;
 
-		TextFormat tf = _numberText.textFormat;
-		if (type == 0)
-			tf.font = EmitManager.inst.hurtFont1;
+        bool isCritical = special.Equals("baoji");
+
+        crtTextfield = isCritical ? _numberText_cri : _numberText_norm;
+        TextFormat tf = crtTextfield.textFormat;
+        if (hurt < 0)
+            tf.font = EmitManager.inst.hurtFont;
 		else
-			tf.font = EmitManager.inst.hurtFont2;
-		_numberText.textFormat = tf;
-        _numberText.text = hurt.ToString();
+            tf.font = EmitManager.inst.recoverFont;
 
-		if (critical)
-			_symbolLoader.url = EmitManager.inst.criticalSign;
-		else
-			_symbolLoader.url = "";
+        if (isCritical)
+        {
+            tf.font = EmitManager.inst.criticalFont;
+            criCom.visible = true;
+            normCom.visible = false;
+        }
+        else
+        {
+            criCom.visible = false;
+            normCom.visible = true;
+        }
+        crtTextfield.textFormat = tf;
+        crtTextfield.text = hurt.ToString();
 
-		UpdateLayout();
+//        if (!string.IsNullOrEmpty(special))
+//            _symbolLoader.url = EmitManager.inst.specialSign + special;
+//        else
+//            _symbolLoader.url = "";
 
-		this.alpha = 1;
+//		UpdateLayout();
+
+//		this.alpha = 1;
 		UpdatePosition(Vector2.zero);
-		Vector2 rnd = Vector2.Scale(UnityEngine.Random.insideUnitCircle, JITTER_FACTOR);
-		int toX = (int)rnd.x * 2;
-		int toY = (int)rnd.y * 2;
+//		Vector2 rnd = Vector2.Scale(UnityEngine.Random.insideUnitCircle, JITTER_FACTOR);
+//		int toX = (int)rnd.x * 2;
+//		int toY = (int)rnd.y * 2;
 
 		EmitManager.inst.view.AddChild(this);
-		DOTween.To(() => Vector2.zero, val => { this.UpdatePosition(val); }, new Vector2(toX, toY), 1f)
-			.SetTarget(this).OnComplete(this.OnCompleted);
-		this.TweenFade(0, 0.5f).SetDelay(0.5f);
+        new Timer().Start(2f, delegate{
+            this.OnCompleted();
+        });
+//		DOTween.To(() => Vector2.zero, val => { this.UpdatePosition(val); }, new Vector2(toX, toY), 1f)
+//			.SetTarget(this).OnComplete(this.OnCompleted);
+//		this.TweenFade(0, 0.5f).SetDelay(0.5f);
 	}
 
 	void UpdateLayout()
 	{
-		this.SetSize(_symbolLoader.width + _numberText.width, Mathf.Max(_symbolLoader.height, _numberText.height));
-		_numberText.SetXY(_symbolLoader.width > 0 ? (_symbolLoader.width + 2) : 0,
-		(this.height - _numberText.height) / 2);
+        this.SetSize(_symbolLoader.width + crtTextfield.width, Mathf.Max(_symbolLoader.height, crtTextfield.height));
+        crtTextfield.SetXY(_symbolLoader.width > 0 ? (_symbolLoader.width + 2) : 0,
+            (this.height - crtTextfield.height) / 2);
 		_symbolLoader.y = (this.height - _symbolLoader.height) / 2;
 	}
 

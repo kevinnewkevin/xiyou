@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LuaInterface;
 
 public class Skill {
 
@@ -8,13 +9,13 @@ public class Skill {
     public bool _IsCasted;
 
     // 技能静态数据
-    SkillData _SkillData;
+    public SkillData _SkillData;
 
     // 技能释放者
-    Actor _Caster;
+    public Actor _Caster;
 
     // 技能目标，可能有多个
-    Actor[] _Targets;
+    public Actor[] _Targets;
 
     // 释放者的原始位置(有位移时回归位置用)
     Vector3 _OriginPos;
@@ -33,6 +34,14 @@ public class Skill {
 
     // 受击特效缓存
     GameObject[] _BeattackEff;
+
+    int crtTargetIdx;
+
+    bool IsSec;
+
+    LuaState _Lua;
+    LuaFunction _InitFunc;
+    LuaFunction _CastFunc;
 
     public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets, COM_BattleBuff[] skillBuffs)
     {
@@ -139,10 +148,30 @@ public class Skill {
         _Targets = targets;
         _Actions = actionTargets;
         _SkillBuff = skillBuffs;
+
+        IsSec = _SkillData._Motion == SkillData.MotionType.MT_Sec;
+
+//        _Lua = new LuaState();
+//        LuaBinder.Bind(_Lua);
+//        _Lua.Start();
+//        _Lua.DoFile("skill_client.lua");
+//
+//        _InitFunc = _Lua.GetFunction("Init");
+//        _CastFunc = _Lua.GetFunction("Cast");
+//
+//        if (_InitFunc != null)
+//            _InitFunc.Call(this);
+//
+//        _Lua.CheckTop();
     }
 
     public bool Cast()
     {
+//        if (_CastFunc != null)
+//            _CastFunc.Call();
+//
+//        _Lua.CheckTop();
+
         if (_Caster == null)
         {
             Clear();
@@ -155,200 +184,129 @@ public class Skill {
             return false;
         }
 
-        // 判断技能是否是近战
         if (_SkillData._IsMelee)
+            Melee();
+        else
+            Range();
+        return true;
+    }
+
+    void Melee()
+    {
+        Play(_Caster, _SkillData._CastAnim);
+
+        CastEffect();
+
+        OnTimeDo(_SkillData._CastTime, Melee_BeforeMove);
+        crtTargetIdx = 0;
+    }
+
+    void Melee_BeforeMove()
+    {
+        if (crtTargetIdx < 0 || crtTargetIdx >= _Targets.Length)
         {
-            // 播放释放者的释放动作
-            _Caster.Play(_SkillData._CastAnim);
-            // 播放释放特效
-            if (_CastEff != null)
-                _CastEff.SetActive(true);
+            Melee_End();
+            return;
+        }
 
-            // 获取攻击动作的时长(用于播放攻击动作后的回归调用)
-            float attackTime = _Caster.ClipLength(_SkillData._AttackAnim);
+        Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
 
-            // 同时根据技能表的释放时间计时
-            new Timer().Start(new TimerParam(_SkillData._CastTime, delegate
-            {
-                // 释放者播放奔跑动作
-                _Caster.Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+        MoveTo(_Caster, _Targets[crtTargetIdx].Forward(_Caster.ForwardAjax), Melee_Moved);
+    }
 
-                // 释放者移动到目标前
-                _Caster.MoveTo(_Targets[0].Forward(_Caster.ForwardAjax), delegate
-                {
-                    _Caster.Stop();
+    void Melee_Moved()
+    {
+        Stop(_Caster);
 
-                    // 释放者播放攻击动作
-                    _Caster.Play(_SkillData._AttackAnim);
-                    // 播放技能特效
-                    for (int i = 0; i < _SkillEff.Length; ++i)
-                    {
-                        //skill effect
-                        if (_SkillEff[i] != null)
-                            _SkillEff[i].SetActive(true);
-                    }
-                    //1.目标播受击动作和特效的时间
-                    //2.目标弹伤害数字的时间
-                    //3.施法者回归时间
-                    for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
-                    {
-                        new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
-                        {
-                            for (int j = 0; j < _Targets.Length; ++j)
-                            {
-                                if(_Actions[j].ActionParam < 0)
-                                {
-                                    _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                                    _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-                                }
+        Play(_Caster, _SkillData._AttackAnim);
 
-                                //beattack effect
-                                if (_BeattackEff[j] != null)
-                                {
-                                    _BeattackEff[j].SetActive(false);
-                                    _BeattackEff[j].SetActive(true);
-                                }
-                            }
-                        }));
-                    }
-                    for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
-                    {
-                        new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], delegate
-                        {
-                            for (int j = 0; j < _Targets.Length; ++j)
-                            {
-                                int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
-                                if(disValue == 0)
-                                {
-                                    disValue = _Actions[j].ActionParam > 0? 1: -1;
-                                }
-                                _Targets[j].PopContent(disValue);
-                            }
-                        }));
-                    }
-
-                    if(_SkillData._EmitNumTime.Length > 0)
-                    {
-                        new Timer().Start(new TimerParam(_SkillData._EmitNumTime[0], delegate
-                        {
-                            for (int j = 0; j < _Targets.Length; ++j)
-                            {
-                                if(_Targets[j] == null)
-                                    continue;
-                                
-                                if(_Actions[j].ActionParam == 0)
-                                    continue;
-                                
-                                _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                            }
-                        }));
-                    }
-
-                    new Timer().Start(new TimerParam(attackTime, delegate
-                    {
-                        HandleBuff();
-                        _Caster.MoveTo(_OriginPos, delegate {
-                            Clear();
-                            _Caster.Stop();
-                            _Caster.Reset();
-                        });
-                    }));
-                });
-            }));
+        if (IsSec)
+        {
+            SkillEffect(crtTargetIdx);
+            BeattackEffect(crtTargetIdx);
+            EmitNum(crtTargetIdx);
         }
         else
         {
-//            Battle._BattleCamera.Range(_Caster._ActorObj);
-//            new Timer().Start(new TimerParam(_SkillData._CastTime, delegate{
-//                Battle._BattleCamera.Reset();
-//            }));
-            // 播放释放动作
-            _Caster.Play(_SkillData._CastAnim);
-            _Caster.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-            // 播放释放特效
-            if (_CastEff != null)
-                _CastEff.SetActive(true);
-            //1.目标播受击动作和特效的时间
-            //2.目标弹伤害数字的时间
-            //3.技能总时间
-            new Timer().Start(new TimerParam(_SkillData._CastTime, delegate
-            {
-                for (int i = 0; i < _SkillEff.Length; ++i)
-                {
-                    //播放技能特效
-                    if (_SkillEff[i] != null)
-                        _SkillEff[i].SetActive(true);
-                }
-
-                // 如果技能移动方式为fly 即有位移 则控制其移动
-                if(_SkillData._Motion == SkillData.MotionType.MT_Fly)
-                {
-                    for (int i = 0; i < _SkillEff.Length; ++i)
-                    {
-                        _SkillEff[i].transform.LookAt(_Targets[i]._ActorObj.transform, Vector3.up);
-                        iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime[0], "position", _Targets[i]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
-                    }
-                }
-                for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
-                {
-                    new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
-                    {
-                        for (int j = 0; j < _Targets.Length; ++j)
-                        {
-                            if(_Actions[j].ActionParam < 0)
-                            {
-                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-                            }
-
-                            //beattack effect
-                            if (_BeattackEff[j] != null)
-                            {
-                                _BeattackEff[j].SetActive(false);
-                                _BeattackEff[j].SetActive(true);
-                            }
-                        }
-                    }));
-                }
-                for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
-                {
-                    new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], delegate
-                    {
-                        for (int j = 0; j < _Targets.Length; ++j)
-                        {
-                            if(_Targets[j] == null)
-                                continue;
-
-                            if(_Actions[j].ActionParam == 0)
-                                continue;
-                            
-                            _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
-                            int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
-                            if(disValue == 0)
-                            {
-                                disValue = _Actions[j].ActionParam > 0? 1: -1;
-                            }
-                            _Targets[j].PopContent(disValue);
-                        }
-                    }));
-                }
-                // 技能表受击时间播放受击目标受击动作和受击特效
-                new Timer().Start(new TimerParam(_SkillData._TotalTime, delegate
-                {
-                    HandleBuff();
-                    // 远程类技能根据TotalTime 总时间回归复原
-                    for (int i = 0; i < _SkillEff.Length; ++i)
-                    {
-                        GameObject.Destroy(_SkillEff[i]);
-                    }
-                    Clear();
-                    _Caster.Stop();
-                    _Caster.Reset();
-                }));
-            }));
+            SkillEffect();
+            BeattackEffect();
+            EmitNum();
         }
 
-        return true;
+        float attackTime = GetClipLength(_Caster, _SkillData._AttackAnim);
+        OnTimeDo(attackTime, Melee_EndMove);
+    }
+
+    void Melee_EndMove()
+    {
+        if (IsSec)
+        {
+            crtTargetIdx = crtTargetIdx + 1;
+            Melee_BeforeMove();
+        }
+        else
+            Melee_End();
+    }
+
+    void Melee_End()
+    {
+        Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
+        CheckBuffGoBackToOrigin();
+    }
+
+    void Range()
+    {
+        Play(_Caster, _SkillData._CastAnim);
+        PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        CastEffect();
+        OnTimeDo(_SkillData._CastTime, Range_BeforeCast);
+        crtTargetIdx = 0;
+    }
+
+    void Range_BeforeCast()
+    {
+        if (IsSec)
+        {
+            if (crtTargetIdx < 0 || crtTargetIdx > _Targets.Length)
+            {
+                Range_End();
+                return;
+            }
+            SkillEffect(crtTargetIdx);
+            BeattackEffect(crtTargetIdx);
+            EmitNum(crtTargetIdx);
+            HandleTrack(crtTargetIdx);
+        }
+        else
+        {
+            SkillEffect();
+            BeattackEffect();
+            EmitNum();
+        }
+        if (_SkillData._Motion == SkillData.MotionType.MT_Fly)
+        {
+            HandleTrack();
+        }
+        OnTimeDo(_SkillData._BeattackTime[0], Range_EndCast);
+    }
+
+    void Range_EndCast()
+    {
+        if (IsSec)
+        {
+            crtTargetIdx = crtTargetIdx + 1;
+            Range_BeforeCast();
+        }
+        else
+        {
+            Range_End();
+        }
+    }
+
+    void Range_End()
+    {
+        Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        CheckBuffGoBackToOrigin();
     }
 
     void HandleBuff()
@@ -396,7 +354,278 @@ public class Skill {
         }
     }
 
-    void Clear()
+    public int TargetCount
+    {
+        get
+        {
+            if (_Targets == null)
+                return 0;
+            
+            return _Targets.Length;
+        }
+    }
+
+    public void MoveTo(Actor actor, Vector3 position, Actor.CallBackHandler callback)
+    {
+        if (actor != null)
+            actor.MoveTo(position, callback);
+    }
+
+    public void Play(Actor actor, string anim)
+    {
+        if (actor != null)
+            actor.Play(anim);
+    }
+
+    public void PlayQueue(Actor actor, string anim)
+    {
+        if (actor != null)
+            actor.PlayQueue(anim);
+    }
+
+    public void Stop(Actor actor)
+    {
+        if (actor != null)
+            actor.Stop();
+    }
+
+    public float GetClipLength(Actor actor, string anim)
+    {
+        if (actor != null)
+            return actor.ClipLength(anim);
+        return 0f;
+    }
+
+    public void CastEffect()
+    {
+        if (_CastEff != null)
+        {
+            _CastEff.SetActive(false);
+            _CastEff.SetActive(true);
+        }
+    }
+
+    public void SkillEffect(int idx)
+    {
+        if (idx < 0 || idx >= _SkillEff.Length)
+            return;
+
+        if (_SkillEff [idx] != null)
+        {
+            _SkillEff [idx].SetActive(false);
+            _SkillEff [idx].SetActive(true);
+        }
+    }
+
+    public void SkillEffect()
+    {
+        for (int i = 0; i < _SkillEff.Length; ++i)
+        {
+            if (_SkillEff [i] != null)
+            {
+                _SkillEff [i].SetActive(false);
+                _SkillEff [i].SetActive(true);
+            }
+        }
+    }
+
+    public void BeattackEffect(int idx)
+    {
+        if (idx < 0 || idx >= _BeattackEff.Length)
+            return;
+        
+        for (int i = 0; i < _SkillData._BeattackTime.Length; ++i)
+        {
+            new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
+            {
+                if(idx < 0 || idx >= _Targets.Length)
+                    return;
+
+                if(_Actions[idx].ActionParam < 0)
+                {
+                    _Targets[idx].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                    _Targets[idx].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                }
+
+                //beattack effect
+                if (_BeattackEff[idx] != null)
+                {
+                    _BeattackEff[idx].SetActive(false);
+                    _BeattackEff[idx].SetActive(true);
+                }
+            }));
+        }
+    }
+
+    public void BeattackEffect()
+    {
+        for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
+        {
+            new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
+            {
+                for (int j = 0; j < _Targets.Length; ++j)
+                {
+                    if(_Actions[j].ActionParam < 0)
+                    {
+                        _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                        _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                    }
+
+                    //beattack effect
+                    if (_BeattackEff[j] != null)
+                    {
+                        _BeattackEff[j].SetActive(false);
+                        _BeattackEff[j].SetActive(true);
+                    }
+                }
+            }));
+        }
+    }
+
+    public void EmitNum(int idx)
+    {
+        if (idx < 0 || idx >= _Actions.Length)
+            return;
+        
+        for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
+        {
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack)delegate
+            {
+                if(idx < 0 || idx >= _Targets.Length)
+                    return;
+                
+                if(_Targets[idx] == null)
+                    return;
+
+                if(_Actions[idx].ActionParam == 0)
+                    return;
+
+                _Targets[idx].UpdateValue(_Actions[idx].ActionParam, -1);
+                int disValue = _Actions[idx].ActionParam / _SkillData._EmitNumTime.Length;
+                if(disValue == 0)
+                {
+                    disValue = _Actions[idx].ActionParam > 0? 1: -1;
+                }
+                _Targets[idx].PopContent(disValue, _Actions[idx].ActionParamExt);
+            }));
+        }
+
+        if(_SkillData._EmitNumTime.Length > 0)
+        {
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[0], delegate
+            {
+                if(idx < 0 || idx >= _Targets.Length)
+                    return;
+
+                if(_Targets[idx] == null)
+                    return;
+
+                if(_Actions[idx].ActionParam == 0)
+                    return;
+
+                _Targets[idx].UpdateValue(_Actions[idx].ActionParam, -1);
+            }));
+        }
+    }
+
+    public void EmitNum()
+    {
+        for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
+        {
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack)delegate
+            {
+                for (int j = 0; j < _Targets.Length; ++j)
+                {
+                    if(_Targets[j] == null)
+                        continue;
+
+                    if(_Actions[j].ActionParam == 0)
+                        continue;
+
+                    int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
+                    if(disValue == 0)
+                    {
+                        disValue = _Actions[j].ActionParam > 0? 1: -1;
+                    }
+                    _Targets[j].PopContent(disValue, _Actions[j].ActionParamExt);
+                }
+            }));
+        }
+
+        if(_SkillData._EmitNumTime.Length > 0)
+        {
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[0], delegate
+            {
+                for (int j = 0; j < _Targets.Length; ++j)
+                {
+                    if(_Targets[j] == null)
+                        continue;
+
+                    if(_Actions[j].ActionParam == 0)
+                        continue;
+
+                    _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                }
+            }));
+        }
+    }
+
+    public void HandleTrack(int idx)
+    {
+        if (idx < 0 || idx >= _Targets.Length)
+            return;
+        for (int i = 0; i < _SkillEff.Length; ++i)
+        {
+            _SkillEff[i].transform.LookAt(_Targets[idx]._ActorObj.transform, Vector3.up);
+            iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime[i], "position", _Targets[idx]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
+        }
+    }
+
+    public void HandleTrack()
+    {
+        for (int i = 0; i < _SkillEff.Length; ++i)
+        {
+            _SkillEff[i].transform.LookAt(_Targets[i]._ActorObj.transform, Vector3.up);
+            iTween.MoveTo(_SkillEff[i], iTween.Hash("time", _SkillData._BeattackTime[0], "position", _Targets[i]._ActorObj.transform.position, "easetype", iTween.EaseType.linear));
+        }
+    }
+
+    public void OnTimeDo(float delay, Timer.TimerCallBack callback)
+    {
+        new Timer().Start(delay, callback);
+    }
+
+    public void CheckBuffGoBackToOrigin()
+    {
+        HandleBuff();
+        if (_SkillData._IsMelee)
+        {
+            _Caster.MoveTo(_OriginPos, (Actor.CallBackHandler)delegate
+            {
+                Clear();
+                _Caster.Stop();
+                _Caster.Reset();
+            });
+        }
+        else
+        {
+            Clear();
+            _Caster.Stop();
+            _Caster.Reset();
+        }
+    }
+
+    public int GetMotionTypeInt
+    {
+        get
+        {
+            if (_SkillData == null)
+                return 0;
+            return (int)_SkillData._Motion;
+        }
+    }
+
+    public void Clear()
     {
         _IsCasting = false;
         _IsCasted = true;

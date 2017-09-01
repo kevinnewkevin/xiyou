@@ -230,9 +230,9 @@ public class Actor {
     }
 
     //Hud操作
-    public void PopContent(int value)
+    public void PopContent(int value, string special = "")
     {
-        _Headbar.PopContent(value);
+        _Headbar.PopContent(value, special);
     }
 
     public void AddBuff(int buffid)

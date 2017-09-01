@@ -28,8 +28,8 @@ public class EmitNumbersMain : MonoBehaviour
 	{
 		while (!_finished)
 		{
-			EmitManager.inst.Emit(_npc1, 0, UnityEngine.Random.Range(100, 100000), UnityEngine.Random.Range(0, 10) == 5);
-			EmitManager.inst.Emit(_npc2, 1, UnityEngine.Random.Range(100, 100000), UnityEngine.Random.Range(0, 10) == 5);
+//			EmitManager.inst.Emit(_npc1, 0, UnityEngine.Random.Range(100, 100000), UnityEngine.Random.Range(0, 10) == 5);
+//			EmitManager.inst.Emit(_npc2, 1, UnityEngine.Random.Range(100, 100000), UnityEngine.Random.Range(0, 10) == 5);
 			yield return new WaitForSeconds(0.3f);
 		}
 	}

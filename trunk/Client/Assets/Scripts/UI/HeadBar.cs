@@ -57,9 +57,9 @@ public class HeadBar {
         _IsDirty = true;
     }
 
-    public void PopContent(int value)
+    public void PopContent(int value, string special)
     {
-        EmitManager.inst.Emit(_Root._ActorObj.transform, 0, value, UnityEngine.Random.Range(0, 10) == 5);
+        EmitManager.inst.Emit(_Root._ActorObj.transform, value, special);
     }
 
     public void Update()

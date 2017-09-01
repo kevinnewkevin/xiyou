@@ -19,7 +19,8 @@ public class UIManager {
 
         Define.LaunchUIBundle("icon");
         Define.LaunchUIBundle("Card");
-		Define.LaunchUIBundle("guankatupian");
+        Define.LaunchUIBundle("guankatupian");
+        Define.LaunchUIBundle("zhandoushuzi");
     }
 
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();

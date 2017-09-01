@@ -15,9 +15,10 @@ public class EmitManager
 		}
 	}
 
-	public string hurtFont1;
-	public string hurtFont2;
-	public string criticalSign;
+	public string hurtFont;
+	public string recoverFont;
+    public string criticalFont;
+	public string specialSign;
 
 	public GComponent view { get; private set; }
 
@@ -25,22 +26,23 @@ public class EmitManager
 
 	public EmitManager()
 	{
-		hurtFont1 = "ui://EmitNumbers/number1";
-		hurtFont2 = "ui://EmitNumbers/number2";
-		criticalSign = "ui://EmitNumbers/critical";
+        hurtFont = "ui://zhandoushuzi/putong";
+        recoverFont = "ui://zhandoushuzi/jiaxue";
+        criticalFont = "ui://zhandoushuzi/baoji";
+        specialSign = "ui://zhandoushuzi/";
 
 		view = new GComponent();
 		GRoot.inst.AddChild(view);
 	}
 
-	public void Emit(Transform owner, int type, long hurt, bool critical)
+	public void Emit(Transform owner, int hurt, string special)
 	{
 		EmitComponent ec;
 		if (_componentPool.Count > 0)
 			ec = _componentPool.Pop();
 		else
 			ec = new EmitComponent();
-		ec.SetHurt(owner, type, hurt, critical);
+        ec.SetHurt(owner, hurt, special);
 	}
 
 	public void ReturnComponent(EmitComponent com)
