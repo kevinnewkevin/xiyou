@@ -1,0 +1,27 @@
+-- buff测试用脚本 加特殊效果 如百分比减伤 眩晕等特殊效果
+-- buff格式 buff_id_update, buff_id_delete
+-- 参数暂定为 battleid targetid data
+sys.log("buff1")
+
+function buff_111_add(battleid, unitid, buffinstid) 
+	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_BDJS")  --加必定溅射
+	
+	sys.log("buff_111_add "..","..battleid..","..buffinstid..","..unitid)
+end
+
+function buff_111_update(battleid, buffinstid, unitid)	
+	buff_id = 111 --配置表中的buffid
+	
+	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
+	
+	sys.log("buff_111_update "..","..battleid..","..buffinstid..","..unitid)
+	
+end
+
+function buff_106_delete(battleid, unitid, buffinstid)
+
+	Player.PopSpec(battleid, unitid, buffinstid,"BF_BDJS")   --减必定溅射
+	
+	sys.log("buff_111_delete "..","..battleid..","..buffinstid..","..unitid)
+
+end
