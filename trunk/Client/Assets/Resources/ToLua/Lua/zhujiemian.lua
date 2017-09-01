@@ -34,7 +34,8 @@ function zhujiemian:OnInit()
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 	local taskBtn = bottomBtnList:GetChildAt(4);
 	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
-
+	local qiecuoBtn = bottomBtnList:GetChildAt(6);
+	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
@@ -104,4 +105,6 @@ function zhujiemian_OnTaskBtn()
 	UIManager.Show("jiehun");
 end
 
-
+function zhujiemian_OnQieCuoBtn()
+	UIManager.Show("qiecuo");
+end
