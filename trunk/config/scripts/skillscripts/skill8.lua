@@ -26,17 +26,15 @@ function SK_107_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
+	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 	
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取被攻击攻击者属性  物理
 	
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid) --清空数据
-	
-		local defender_def = Player.GetCalcDef(battleid,v)  --防御
-	
-		local damage  = caster_attack*0.5-defender_def  --伤害 公式（50%的物理伤害 减 防御 ）
-	
+		
+		local  damage = Player.GetUnitDamage(battleid,casterid,v)  --获取被攻击攻击者属性  物理
+		
 		--判断伤害
 		if damage <= 0 then 
 		

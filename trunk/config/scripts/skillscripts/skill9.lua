@@ -24,11 +24,7 @@ function SK_108_Action(battleid, casterid)
 	
 	sys.log("目标"..t)
 	
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取被攻击者属性
-	
-	local defender_def = Player.GetCalcDef(battleid,t)
-
-	local  damage  = caster_attack*0.2*5-defender_def      --伤害 公式（20%的物理伤害   加减少10%的防御）
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)  --获取被攻击者属性
 		
 	--判断伤害
 	if damage <= 0 then 

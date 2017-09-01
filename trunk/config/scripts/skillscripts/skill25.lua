@@ -24,12 +24,13 @@ function SK_124_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
+	local  damage = Player.GetUnitDamage(battleid,t)  --获取攻击者属性
 	
 	for i,v in ipairs(t) do
 		
 		Battle.Attack(battleid, casterid, v, 0, 0)
-		Battle.AddBuff(battleid,casterid,v, 11,caster_attack*0.2)
+		
+		Battle.AddBuff(battleid,casterid,v, 11,damage*0.2)
 	
 		sys.log("skill25")
 	end

@@ -20,12 +20,8 @@ function SK_131_Action(battleid, casterid)
 	local skillid = 131	-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
-
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
-		
-	local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-	local  damage = caster_attack-defender_def
+	local  damage =Player.GetUnitDamage(battleid,casterid,t)
 		
 	
 	--判断伤害

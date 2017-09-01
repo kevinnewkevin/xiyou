@@ -23,16 +23,12 @@ function SK_125_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
-	
 	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
-		local defender_def = Player.GetCalcMagicDef(battleid, v)  --防御
-		
-		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
+		local  damage  = Player.GetMagicDamage(battleid,casterid,v)
 		
 		--判断伤害
 		if damage <= 0 then 

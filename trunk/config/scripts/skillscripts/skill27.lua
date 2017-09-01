@@ -25,12 +25,12 @@ function SK_126_Action(battleid, casterid)
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 	
+	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
-		local defender_def = Player.GetCalcMagicDef(battleid, v)  --防御
 		
 	
-		local  trueDamage  = caster_attack*0.5-defender_def  --伤害 公式（ ）
+		local  trueDamage  = caster_attack*0.5 --伤害 公式（ ）
 		
 		--判断伤害
 		if trueDamage <= 0 then 
