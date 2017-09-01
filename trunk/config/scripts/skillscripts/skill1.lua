@@ -23,6 +23,8 @@ function SK_100_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	local defender_def = Player.GetUnitProperty(battleid, t, "CPT_DEF")
+	
+	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
 		
 	--local damage = caster_attack * 1.3 - defender_def		-- 伤害公式
 	local damage = Player.GetUnitDamage(battleid, casterid, t)
@@ -34,7 +36,7 @@ function SK_100_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	sys.log("是否暴击"..crit)
 	Battle.Attack(battleid, casterid, t, damage, crit)
-	Battle.AddBuff(battleid, casterid, t, 10, 5)
+	Battle.AddBuff(battleid, casterid, t, 10, sudu*0.05)
 	Battle.TargetOver(battleid)
 	
 	sys.log("skill1 对id为"..t.."的目标造成"..damage.."点伤害")	

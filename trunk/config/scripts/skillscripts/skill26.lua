@@ -25,6 +25,8 @@ function SK_125_Action(battleid, casterid)
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
+	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
+	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
@@ -42,7 +44,7 @@ function SK_125_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		Battle.AddBuff(battleid,casterid,v,10,6)    -- 减少20%的速度
+		Battle.AddBuff(battleid,casterid,v,10,sudu*0.2)    -- 减少20%的速度
 		Battle.TargetOver(battleid)
 	
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")

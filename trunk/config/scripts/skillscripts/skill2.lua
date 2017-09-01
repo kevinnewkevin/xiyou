@@ -22,9 +22,15 @@ function SK_101_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
+	
+	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
-		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
+		
+		local defender_def = Player.GetCalcDef(battleid,v)
+		
+		local defender_mag = Player.GetCalcMagicDef(battleid,v)
+		
 		--local damage = caster_attack * 1.5 - defender_def		-- 伤害公式
 		local damage = Player.GetUnitDamage(battleid, casterid, v)
 	
@@ -35,7 +41,7 @@ function SK_101_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)    --是否暴击
 	
 		Battle.Attack(battleid, casterid, v, damage, crit)
-		Battle.AddBuff(battleid, casterid, v, 15, 5)
+		Battle.AddBuff(battleid, casterid, v, 15, (defender_def+defender_mag)*0.15)
 		Battle.TargetOver(battleid)
 		
 		sys.log("skill2 对id为"..v.."的目标造成"..damage.."点伤害")

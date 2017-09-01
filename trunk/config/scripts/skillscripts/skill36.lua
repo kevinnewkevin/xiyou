@@ -22,7 +22,8 @@ function SK_135_Action(battleid, casterid)
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
-		
+	
+	local cure = Player.GetUnitProperty(battleid, casterid, "CPT_HP")
 		
 	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
@@ -40,7 +41,7 @@ function SK_135_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,11,caster_attack*0.1)  --受到该伤害的目标每回合受到最大生命的10%
+	Battle.AddBuff(battleid,casterid,t,11,cure*0.1)  --受到该伤害的目标每回合受到最大生命的10%
 	Battle.TargetOver(battleid)
 		
 	sys.log("skil36对id为"..t.."的目标造成"..damage.."点伤害")

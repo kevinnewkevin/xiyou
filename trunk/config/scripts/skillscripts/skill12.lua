@@ -41,7 +41,7 @@ function SK_111_Action(battleid, casterid)
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	Battle.AddBuff(battleid,casterid,t, 5, 0)  -- casterid 单元id    t buff实例id
+	Battle.AddBuff(battleid,casterid,t, 5, 0)  -- casterid 单元id    t buff实例id 单体1回合无法行动
 	
 	Battle.TargetOver(battleid) --赋给下个目标
 	

@@ -26,6 +26,7 @@ function SK_136_Action(battleid, casterid)
 		
 	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
+	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
 	local  damage = caster_attack*0.3*9-defender_def
 		
 		
@@ -39,7 +40,7 @@ function SK_136_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,10,caster_attack*0.1)  --每次都到伤害降低10%速度
+	Battle.AddBuff(battleid,casterid,t,10,-sudu*0.1)  --每次都到伤害降低10%速度
 		
 	Battle.TargetOver(battleid)
 		
