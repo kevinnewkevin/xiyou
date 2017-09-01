@@ -38,7 +38,7 @@ function SK_125_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		Battle.Attack(battleid,casterid,v,damage*0.5,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
 		Battle.AddBuff(battleid,casterid,v,10,sudu*0.2)    -- 减少20%的速度
 		Battle.TargetOver(battleid)
