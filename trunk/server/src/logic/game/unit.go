@@ -318,7 +318,7 @@ func (this *GameUnit)SelectBuff (instid int32) *Buff {
 	return nil
 }
 
-func (this *GameUnit)CheckAllBuff (round int32){
+func (this *GameUnit)CheckAllBuff (round int32) []int32 {
 	fmt.Println(this.InstId, "checkallBuff round is ", round)			//檢測buff效果
 	needDelete := map[*Buff]int{}
 	this.DelBuff = []*Buff{}
@@ -334,16 +334,24 @@ func (this *GameUnit)CheckAllBuff (round int32){
 		}
 	}
 
-	fmt.Println(this.InstId, "checkallBuff over", len(needDelete))			//檢測buff效果
-	this.deletBuff(needDelete)
+	need := this.deletBuff(needDelete)
+
+	fmt.Println(this.InstId, "checkallBuff over 1", len(needDelete))			//檢測buff效果
+	fmt.Println(this.InstId, "checkallBuff over 2", need)			//檢測buff效果
+
+	return need
 }
 
-func (this *GameUnit) deletBuff (need map[*Buff]int){
+func (this *GameUnit) deletBuff (need map[*Buff]int) []int32 {
 	newList := []*Buff{}
+	delete_id := []int32{}
 	for _, buff := range this.Allbuff {
 		_, ok := need[buff]
 		if ok {
 			buff.DeleteProperty()
+			if buff.BuffKind == kKindNow {
+				delete_id = append(delete_id, buff.BuffId)
+			}
 			continue
 		}
 		newList = append(newList, buff)
@@ -351,6 +359,7 @@ func (this *GameUnit) deletBuff (need map[*Buff]int){
 
 	fmt.Println("deletBuff", need)
 	this.Allbuff = newList
+	return delete_id
 }
 
 func erase(arr []interface{} , idx int) []interface{}{

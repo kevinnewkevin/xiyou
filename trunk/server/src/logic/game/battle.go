@@ -326,8 +326,8 @@ func (this *BattleRoom) Update() {
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
 
-		u.CheckAllBuff(this.Round)
-		this.UpdateBuffState(u)
+		del_buf := u.CheckAllBuff(this.Round)
+		this.UpdateBuffState(del_buf)
 
 		u.CastSkill2(this)
 
@@ -450,14 +450,19 @@ func (this *BattleRoom) showReport()  {
 	}
 }
 
-func (this *BattleRoom) UpdateBuffState(unit *GameUnit) {
-	//for _, buff := range unit.DelBuff {
-	//	bf := prpc.COM_BattleBuff{}
-	//	bf.BuffId = buff.BuffId
-	//	bf.Change = false
-	//
-	//	this.AcctionList.BuffList.BuffChange = append(this.AcctionList.BuffList.BuffChange, bf)
-	//}
+func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
+	fmt.Println("UpdateBuffState", bufflist)
+	for _, buffid := range bufflist {
+		buffCOM := prpc.COM_BattleBuffAction{}
+		buffCOM.BuffChange.BuffId = buffid
+		buffCOM.BuffChange.Change = 0
+
+		buffCOM.BuffData = 0
+		buffCOM.Dead = false
+
+		this.AcctionList.BuffList = append(this.AcctionList.BuffList, buffCOM)
+	}
+
 	return
 }
 
@@ -925,11 +930,7 @@ func (this *BattleRoom) AddSkillBuff(casterid int64, target int64, buffid int32,
 
 	unit.Allbuff = append(unit.Allbuff, buff)
 
-	//fmt.Println("bufflen front", this.TargetCOM)
-	//this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
 	this.AcctionList.SkillBuff = append(this.AcctionList.SkillBuff, buffCOM)
-	//fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
-	//fmt.Println("bufflen back", this.TargetCOM)
 
 }
 func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data int32) {
