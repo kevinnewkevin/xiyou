@@ -82,7 +82,7 @@ extern void  (lua_pushnumber) (void *L, lua_Number n);
 extern void  (lua_pushinteger) (void *L, lua_Integer n);
 extern void  (lua_pushlstring) (void *L, const char *s, size_t l);
 extern void  (lua_pushstring) (void *L, const char *s);
-extern const char *(lua_pushvfstring) (void *L, const char *fmt,va_list argp);
+//extern const char *(lua_pushvfstring) (void *L, const char *fmt,va_list argp);
 extern const char *(lua_pushfstring) (void *L, const char *fmt, ...);
 extern void  (lua_pushcclosure) (void *L, lua_CFunction fn, int n);
 extern void  (lua_pushboolean) (void *L, int b);
