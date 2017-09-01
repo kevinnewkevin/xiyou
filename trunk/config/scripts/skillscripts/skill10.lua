@@ -28,7 +28,7 @@ function SK_109_Action(battleid, casterid)
 		
 	local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-	local  damage  = caster_attack-defender_def        --伤害 公式（50%法术强度的伤害  -   防御）
+	local  damage  = caster_attack-defender_def      --伤害 公式（50%法术强度的伤害  -   防御）
 	
 	
 	--判断伤害
@@ -43,7 +43,7 @@ function SK_109_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,4,-magic_attack*0.5)
+	Battle.AddBuff(battleid,casterid,t,1,-magic_attack*0.5)
 		
 	Battle.TargetOver(battleid) --赋给下个目标
 		

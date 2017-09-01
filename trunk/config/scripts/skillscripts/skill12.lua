@@ -24,7 +24,7 @@ function SK_111_Action(battleid, casterid)
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
-	Battle.AddBuff(battleid,casterid,t, 1, 5)  -- casterid 单元id    t buff实例id
+	Battle.AddBuff(battleid,casterid,t, 5, 0)  -- casterid 单元id    t buff实例id
 	
 	local defender_def = Player.GetCalcMagicDef(battleid, t)  -- 防御
 	

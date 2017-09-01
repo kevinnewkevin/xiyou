@@ -24,9 +24,9 @@ function SK_123_Action(battleid, casterid)
 	
 	Battle.Cure(battleid,casterid,0,0)
 	
-	--Battle.AddBuff(battleid,casterid,p,2,7)    -- 使下一次雷击必定溅射
+	Battle.AddBuff(battleid,casterid,p,9,7)    -- 使下一次雷击必定溅射
 	
-	--Battle.AddBuff(battleid,casterid,p,3,8)    -- 下一次落雷必定连击
+	--Battle.AddBuff(battleid,casterid,p,9,8)    -- 下一次落雷必定连击
 	
 	Battle.TargetOver(battleid)
 	

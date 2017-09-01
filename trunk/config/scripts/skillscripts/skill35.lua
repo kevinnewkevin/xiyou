@@ -40,7 +40,7 @@ function SK_134_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,1,0)  --受到该伤害的目标无法回复生命值
+	Battle.AddBuff(battleid,casterid,t,14,0)  --受到该伤害的目标无法回复生命值
 		
 	Battle.TargetOver(battleid)
 		

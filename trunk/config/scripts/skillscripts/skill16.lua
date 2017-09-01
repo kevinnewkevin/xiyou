@@ -30,7 +30,7 @@ function SK_115_Action(battleid, casterid)
 	
 	Battle.AddBuff(battleid,casterid, t,6, -caster_magic*0.4)     --降低目标40%法术强度
 	
-	Battle.AddBuff(battleid,casterid, t, 7,-caster_attack*0.4)     --降低目标40%物理强度
+	Battle.AddBuff(battleid,casterid, t, 3,-caster_attack*0.4)     --降低目标40%物理强度
 	
 	local  damage  = caster_magic-defender_def    --伤害 公式（）
 	

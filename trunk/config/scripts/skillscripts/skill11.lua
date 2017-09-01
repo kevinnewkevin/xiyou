@@ -55,7 +55,7 @@ function SK_110_Action(battleid, casterid)
 			
 			--Player.ChangeSpecial(battleid,casterid,1,"BF_CRIT")  -- casterid 单元id    v buff实例id
 			
-			crit = 0
+			crit = 1
 			
 		end
 		

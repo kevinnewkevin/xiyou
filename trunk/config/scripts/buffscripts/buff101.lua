@@ -13,7 +13,7 @@ function buff_101_update(battleid, buffinstid, unitid)
 	
 	Battle.BuffCureHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_1_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_101_update "..","..battleid..","..buffinstid..","..unitid)
 	
 	
 end

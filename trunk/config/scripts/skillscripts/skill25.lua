@@ -29,7 +29,7 @@ function SK_124_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		
 		Battle.Attack(battleid, casterid, v, 0, 0)
-		Battle.AddBuff(battleid,casterid,v, 3,caster_attack*0.2)
+		Battle.AddBuff(battleid,casterid,v, 11,caster_attack*0.2)
 	
 		sys.log("skill25")
 	end

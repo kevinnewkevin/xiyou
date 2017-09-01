@@ -4,7 +4,8 @@
 sys.log("buff1")
 
 function buff_104_add(battleid, unitid, buffinstid) 
-	-- Player.ChangeSpecial(battleid, unit, buffinstid)
+	Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_JUMP")  --加眩晕
+	
 	sys.log("buff_104_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
@@ -17,8 +18,10 @@ function buff_104_update(battleid, buffinstid, unitid)
 	
 end
 
-function buff_104_delete(battleid, unitid, buffinstid, data)
-	-- Player.ChangeSpecial(battleid, unit, buffinstid)
+function buff_104_delete(battleid, unitid, buffinstid)
+
+	Player.PopSpec(battleid, unitid, buffinstid,"BF_JUMP")   --减眩晕
+	
 	sys.log("buff_104_delete "..","..battleid..","..buffinstid..","..unitid)
 
 end

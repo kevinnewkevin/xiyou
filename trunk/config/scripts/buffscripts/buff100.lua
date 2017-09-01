@@ -10,7 +10,7 @@ end
 function buff_100_update(battleid, buffinstid, unitid)	
 	buff_id = 100 --配置表中的buffid
 	
-	--Battle.BuffMintsHp(battleid, unitid, buffinstid)
+	Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
 	sys.log("buff_100_add "..","..battleid..","..buffinstid..","..unitid)
 	
