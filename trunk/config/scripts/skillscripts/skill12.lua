@@ -24,7 +24,6 @@ function SK_111_Action(battleid, casterid)
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 	
-	Battle.AddBuff(battleid,casterid,t, 5, 0)  -- casterid 单元id    t buff实例id
 	
 	local defender_def = Player.GetCalcMagicDef(battleid, t)  -- 防御
 	
@@ -41,6 +40,8 @@ function SK_111_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
+	Battle.AddBuff(battleid,casterid,t, 5, 0)  -- casterid 单元id    t buff实例id
 	
 	Battle.TargetOver(battleid) --赋给下个目标
 	
