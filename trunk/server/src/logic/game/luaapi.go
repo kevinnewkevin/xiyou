@@ -12,6 +12,7 @@ extern int __ChangeUnitProperty(void*);
 extern int __AddSheld(void*);
 extern int __PopSheld(void*);
 extern int __ChangeSpecial(void*);
+extern int __PopSpec(void*);
 extern int __GetSpecial(void*);
 extern int __GetCheckSpec(void*);
 extern int __Attack(void*);
@@ -70,6 +71,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
 	_L.LoadApi(C.__PopSheld,"PopSheld","Player")
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
+	_L.LoadApi(C.__PopSpec,"PopSpec","Player")
 	_L.LoadApi(C.__GetSpecial,"GetSpecial","Player")
 	_L.LoadApi(C.__GetCheckSpec,"GetCheckSpec","Player")
 	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
@@ -324,7 +326,29 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 
 	return 1
 }
+//export __PopSpec
+func __PopSpec(p unsafe.Pointer) C.int {  //
 
+	fmt.Println("__ChangeSpecial")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+	idx ++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	unit.PopSpec(spec, int32(buffinstid))
+
+	return 1
+}
 //export __GetSpecial
 func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 
