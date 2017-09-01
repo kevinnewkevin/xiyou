@@ -335,9 +335,9 @@ public class Skill {
                 if (_Actions [i].Dead)
                 {
                     target.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
-//                    new Timer().Start(target.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, delegate {
-//                        Battle.DelActor(target._RealPosInScene);
-//                    });
+                    new Timer().Start(target.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, delegate {
+                        Battle.DelActor(target._RealPosInScene);
+                    });
                 }
             }
         }
