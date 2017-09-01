@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: circlewave06
+  m_Name: bloody_Test_2
   m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -18,14 +18,21 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0f7a174d89e036244b134acc9450408c, type: 3}
+        m_Texture: {fileID: 2800000, guid: deb0956a5c4a14a498f8cc7f13526527, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonShade:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _InvFade: 1
+    - _Outline: 0.01
     - _Shininess: 0.7
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Emission: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 0}
-    - _SpecColor: {r: 0.43382353, g: 0.43382353, b: 0.43382353, a: 0}
-    - _TintColor: {r: 0.9191176, g: 0.9191176, b: 0.9191176, a: 0.5019608}
+    - _EmisColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 1, g: 0.66977686, b: 0.45588237, a: 0.5019608}
