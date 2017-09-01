@@ -4,7 +4,7 @@ package lua
 #include <stddef.h>
 #include <stdlib.h>
 #cgo windows LDFLAGS: -L.  lua51.dll
-#cgo linux LDFLAGS: -L. liblua51
+#cgo linux LDFLAGS: -L. liblua51 -lm -ldl
 typedef int (*lua_CFunction) (void *L);
 //
 // functions that read/write blocks when loading/dumping Lua chunks
