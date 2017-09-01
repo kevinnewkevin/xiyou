@@ -320,7 +320,7 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	unit.ChangeSpec(spec, int32(buffinstid))
+	unit.AddSpec(spec, int32(buffinstid))
 
 	return 1
 }

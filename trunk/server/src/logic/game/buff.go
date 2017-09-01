@@ -6,16 +6,17 @@ import (
 )
 
 type Buff struct {
-	Owner       *GameUnit	//挂在谁身上
-	BuffId		int32		//基础id
-	CasterId	int64		//buff释放者id
-	InstId		int32		//buff实例ID
-	Round		int32		//哪个回合上的
-	BuffUntil	int32		//持续多久
-	BuffType	int32		//buff类型 增益还是减益
-	BuffKind	int32		//buff种类 有行动还是没行动 有行动就是类似每回合恢复血量或者每回合掉血 没行动就是增加个盾之类的
-	Data		int32 		//数值 加血 掉血 护盾 可以为0
-	Over 		bool		//是否中断
+	Owner       *GameUnit		//挂在谁身上
+	BuffId		int32			//基础id
+	CasterId	int64			//buff释放者id
+	InstId		int32			//buff实例ID
+	Round		int32			//哪个回合上的
+	BuffUntil	int32			//持续多久
+	BuffType	int32			//buff类型 增益还是减益
+	BuffKind	int32			//buff种类 有行动还是没行动 有行动就是类似每回合恢复血量或者每回合掉血 没行动就是增加个盾之类的
+	Data		int32 			//数值 加血 掉血 护盾 可以为0
+	Over 		bool			//是否中断
+	DataMap 	map[int]int32	//buff数值key是buff的idx,value是数值
 }
 
 const (

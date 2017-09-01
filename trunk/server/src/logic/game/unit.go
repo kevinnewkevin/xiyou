@@ -83,7 +83,7 @@ func (this *GameUnit) GetIProperty(id int32) int32 {
 	return this.IProperties[id]
 }
 
-func (this *GameUnit) ChangeSpec(spec string, buffinstid int32) {
+func (this *GameUnit) AddSpec(spec string, buffinstid int32) {
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
 	if !ok {
@@ -91,6 +91,27 @@ func (this *GameUnit) ChangeSpec(spec string, buffinstid int32) {
 	} else {
 		this.Special[int32(spe)] = append(bufflist, buffinstid)
 	}
+	return
+}
+
+func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
+	spe := prpc.ToId_BuffSpecial(spec)
+	bufflist, ok := this.Special[int32(spe)]
+	if ok {
+		if len(bufflist) > 0{
+			delete(this.Special, int32(spe))
+		} else {
+			tmpList := []int32{}
+			for _, buff := range bufflist {
+				if buff == buffinstid {
+					continue
+				}
+				tmpList = append(tmpList, buff)
+			}
+			this.Special[int32(spe)] = tmpList
+		}
+	}
+
 	return
 }
 
