@@ -1,4 +1,4 @@
-#include errorno.rpc
+﻿#include errorno.rpc
 #include proptype.rpc
 
 enum EquipmentSlot{
@@ -75,5 +75,10 @@ enum BuffSpecial{
 	BF_SHELD,		//减伤盾 百分比
 	BF_WEAK,		//增加受到的伤害
 	BF_STRONG,		//增加输出的伤害
+	BF_‌JINGJI,		//增加荆棘
+	BF_WFHFSM,		//无法恢复生命
+	BF_BDJS,		//必定溅射
+	BF_BDLJ,		//必定连击
+	BF_JIANSHANG,		//减伤
 	BF_MAX,
 };
