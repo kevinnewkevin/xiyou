@@ -54,7 +54,7 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 
 func (this *Buff) AddProperty() {
 
-	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId)}
+	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
 	buff_t := GetBuffRecordById(this.BuffId)
 	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId)
