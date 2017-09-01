@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="tpocxmnl" jpegQuality="80" compressPNG="true">
   <resources>
-    <image id="e0vz0" name="zhandou_shuzitiao.png" path="/"/>
-    <component id="xqay5" name="zhandoushuzi_com.xml" path="/"/>
-    <image id="kkk26" name="zhandou_baojitiao.png" path="/"/>
-    <component id="kkk27" name="baoji_com.xml" path="/"/>
-    <image id="kkk28" name="l_4.png" path="/"/>
-    <image id="kkk29" name="l_5.png" path="/"/>
-    <image id="kkk2a" name="l_6.png" path="/"/>
-    <image id="kkk2b" name="l_7.png" path="/"/>
-    <image id="kkk2c" name="l_8.png" path="/"/>
-    <image id="kkk2d" name="l_9.png" path="/"/>
-    <image id="kkk2e" name="b_0.png" path="/"/>
-    <image id="kkk2f" name="b_1.png" path="/"/>
-    <image id="kkk2g" name="b_2.png" path="/"/>
-    <image id="kkk2h" name="b_3.png" path="/"/>
-    <image id="kkk2i" name="b_4.png" path="/"/>
-    <image id="kkk2j" name="b_5.png" path="/"/>
-    <image id="kkk2k" name="b_6.png" path="/"/>
-    <image id="kkk2l" name="b_7.png" path="/"/>
-    <image id="kkk2m" name="b_8.png" path="/"/>
-    <image id="kkk2n" name="b_9.png" path="/"/>
-    <image id="kkk2o" name="g_0.png" path="/"/>
-    <image id="kkk2p" name="g_1.png" path="/"/>
-    <image id="kkk2q" name="g_2.png" path="/"/>
-    <image id="kkk2r" name="g_3.png" path="/"/>
-    <image id="kkk2s" name="g_4.png" path="/"/>
-    <image id="kkk2t" name="g_5.png" path="/"/>
-    <image id="kkk2u" name="g_6.png" path="/"/>
-    <image id="kkk2v" name="g_7.png" path="/"/>
-    <image id="kkk2w" name="g_8.png" path="/"/>
-    <image id="kkk2x" name="g_9.png" path="/"/>
-    <image id="kkk2y" name="l_0.png" path="/"/>
-    <image id="kkk2z" name="l_1.png" path="/"/>
-    <image id="kkk210" name="l_2.png" path="/"/>
-    <image id="kkk211" name="l_3.png" path="/"/>
+    <image id="e0vz0" name="zhandou_shuzitiao.png" path="/" exported="true"/>
+    <component id="xqay5" name="zhandoushuzi_com.xml" path="/" exported="true"/>
+    <image id="kkk26" name="zhandou_baojitiao.png" path="/" exported="true"/>
+    <component id="kkk27" name="baoji_com.xml" path="/" exported="true"/>
+    <image id="kkfi13" name="b_0.png" path="/" exported="true"/>
+    <image id="kkfi14" name="b_1.png" path="/" exported="true"/>
+    <image id="kkfi15" name="b_2.png" path="/" exported="true"/>
+    <image id="kkfi16" name="b_3.png" path="/" exported="true"/>
+    <image id="kkfi17" name="b_4.png" path="/" exported="true"/>
+    <image id="kkfi18" name="b_5.png" path="/" exported="true"/>
+    <image id="kkfi19" name="b_6.png" path="/" exported="true"/>
+    <image id="kkfi1a" name="b_7.png" path="/" exported="true"/>
+    <image id="kkfi1b" name="b_8.png" path="/" exported="true"/>
+    <image id="kkfi1c" name="b_9.png" path="/" exported="true"/>
+    <image id="kkfi1d" name="g_0.png" path="/" exported="true"/>
+    <image id="kkfi1e" name="g_1.png" path="/" exported="true"/>
+    <image id="kkfi1f" name="g_2.png" path="/" exported="true"/>
+    <image id="kkfi1g" name="g_3.png" path="/" exported="true"/>
+    <image id="kkfi1h" name="g_4.png" path="/" exported="true"/>
+    <image id="kkfi1i" name="g_5.png" path="/" exported="true"/>
+    <image id="kkfi1j" name="g_6.png" path="/" exported="true"/>
+    <image id="kkfi1k" name="g_7.png" path="/" exported="true"/>
+    <image id="kkfi1l" name="g_8.png" path="/" exported="true"/>
+    <image id="kkfi1m" name="g_9.png" path="/" exported="true"/>
+    <image id="kkfi1n" name="l_0.png" path="/" exported="true"/>
+    <image id="kkfi1o" name="l_1.png" path="/" exported="true"/>
+    <image id="kkfi1p" name="l_2.png" path="/" exported="true"/>
+    <image id="kkfi1q" name="l_3.png" path="/" exported="true"/>
+    <image id="kkfi1r" name="l_4.png" path="/" exported="true"/>
+    <image id="kkfi1s" name="l_5.png" path="/" exported="true"/>
+    <image id="kkfi1t" name="l_6.png" path="/" exported="true"/>
+    <image id="kkfi1u" name="l_7.png" path="/" exported="true"/>
+    <image id="kkfi1v" name="l_8.png" path="/" exported="true"/>
+    <image id="kkfi1w" name="l_9.png" path="/" exported="true"/>
+    <font id="kkfi1x" name="putong.fnt" path="/" exported="true"/>
+    <font id="kkfi21" name="jiaxue.fnt" path="/" exported="true"/>
+    <font id="kkfi22" name="baoji.fnt" path="/" exported="true"/>
+    <component id="kkfi24" name="jiaxue_com.xml" path="/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="zhandoushuzi" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>

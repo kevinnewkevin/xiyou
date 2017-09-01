@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="460,120">
+<component size="246,60">
   <displayList>
-    <image id="n0_kkk2" name="n0" src="kkk26" xy="0,12" size="442,99"/>
+    <image id="n2_kkfi" name="n2" src="kkk26" xy="0,2" size="214,58"/>
+    <text id="n3_kkfi" name="n3" xy="11,10" size="203,46" font="ui://tpocxmnlkkfi22" fontSize="12" autoSize="none" text="66666"/>
   </displayList>
   <transition name="t0">
-    <item time="0" type="Size" target="n0_kkk2" tween="true" startValue="73,99" endValue="442,99" duration="6"/>
+    <item time="0" type="Alpha" target="n2_kkfi" tween="true" startValue="0.4" endValue="1" duration="6" ease="Cubic.InOut"/>
+    <item time="0" type="Alpha" target="n3_kkfi" value="0"/>
+    <item time="0" type="Size" target="n3_kkfi" value="10,46"/>
+    <item time="0" type="Size" target="n2_kkfi" tween="true" startValue="44.5,58" endValue="214,58" duration="6" ease="Cubic.InOut"/>
+    <item time="3" type="Alpha" target="n3_kkfi" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="3" type="Size" target="n3_kkfi" tween="true" startValue="10,46" endValue="203,46" duration="6" ease="Cubic.InOut"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Alpha" target="n2_kkfi" tween="true" startValue="1" endValue="0" duration="8"/>
+    <item time="4" type="Alpha" target="n3_kkfi" tween="true" startValue="1" endValue="0" duration="8"/>
   </transition>
 </component>
