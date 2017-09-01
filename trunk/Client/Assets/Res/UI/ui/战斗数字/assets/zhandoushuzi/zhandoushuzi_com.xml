@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="202,43">
+<component size="219,73">
   <displayList>
-    <image id="n2_kkfi" name="n2" src="e0vz0" xy="102,22" pivot="0.5,0.5" anchor="true" size="160,31"/>
-    <text id="n3_kkfi" name="n3" xy="98,24" pivot="0.5,0.5" anchor="true" size="133,41" fontSize="34" align="center" autoSize="none" text="600"/>
+    <image id="n2_kkfi" name="n2" src="e0vz0" xy="114,38" pivot="0.5,0.5" anchor="true" size="201,59"/>
+    <text id="n3_kkfi" name="n3" xy="112,37" pivot="0.5,0.5" anchor="true" size="207,49" font="ui://tpocxmnlkkfi1x" fontSize="34" align="center" autoSize="none" text="60000"/>
   </displayList>
   <transition name="t3" autoPlay="true">
     <item time="0" type="Alpha" target="n2_kkfi" tween="true" startValue="0.4" endValue="1" duration="6" ease="Cubic.InOut"/>
