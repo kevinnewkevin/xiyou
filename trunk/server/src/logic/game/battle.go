@@ -911,6 +911,27 @@ func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
 	this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
 
+func (this *BattleRoom) AddSkillBuff(casterid int64, target int64, buffid int32, data int32) {
+// 上buff
+
+	buffCOM := prpc.COM_BattleBuff{}
+	buffCOM.BuffId = buffid
+	buffCOM.Change = 1
+
+	unit := this.SelectOneUnit(target)
+
+	buff := NewBuff(unit, casterid, buffid, data, this.Round)
+	buff.AddProperty()
+
+	unit.Allbuff = append(unit.Allbuff, buff)
+
+	//fmt.Println("bufflen front", this.TargetCOM)
+	//this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
+	this.AcctionList.SkillBuff = append(this.AcctionList.SkillBuff, buffCOM)
+	//fmt.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	//fmt.Println("bufflen back", this.TargetCOM)
+
+}
 func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data int32) {
 // 上buff
 

@@ -101,17 +101,6 @@ func (this *Skill) RefreshBattle() {
 	this.UseTime = 0
 } //戰鬥開始時刷新技能
 
-func (this *Skill) ActionByLua(u *GameUnit) {
-
-	//fmt.Println("11111", c, "2222222222", b)
-	//v := []interface{}{"123", 6, 8.9, unsafe.Pointer(u)}
-	//r := []interface{}{0, 0, 0, 0, 0, 0, 0, 0, 0}
-	//CallFuncEx(L, "Print_Ln2", v, &r)
-	//
-	//fmt.Println(r)
-
-}
-
 func InitSkillFromTable(SkillId int32) *Skill {
 	t := GetSkillRecordById(SkillId)
 	if t == nil {
