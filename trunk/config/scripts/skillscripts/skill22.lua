@@ -21,11 +21,11 @@ function SK_121_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
+	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 		
-	local defender_def = Player.GetCalcMagicDef(battleid,t)
+	--local defender_def = Player.GetCalcMagicDef(battleid,t)
 	
-	local  damage = caster_attack-defender_def
+	local  damage = Player.GetMagicDamage(battleid,casterid,v)
 		
 		
 	--判断伤害

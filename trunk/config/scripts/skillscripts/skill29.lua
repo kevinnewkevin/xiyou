@@ -22,11 +22,11 @@ function SK_128_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  wuli
+	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  wuli
 		
-	local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
+	--local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-	local  damage = caster_attack-defender_def
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)
 	
 	
 	--判断伤害

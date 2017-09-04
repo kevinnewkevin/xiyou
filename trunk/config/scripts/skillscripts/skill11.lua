@@ -27,16 +27,16 @@ function SK_110_Action(battleid, casterid)
 	
 	sys.log("前排人数")
 	
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
+	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性  物理
 
 	
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid) -- 清空数据
 	
-		local defender_def = Player.GetCalcDef(battleid, v)  -- 防御
+		--local defender_def = Player.GetCalcDef(battleid, v)  -- 防御
 	
-	    local  damage  = caster_attack-defender_def        --伤害 公式（）
+	    local  damage  = Playey.GetUnitDamage(battleid,casterid,v)       --伤害 公式（）
 	
 		--判断伤害
 		if damage <= 0 then 

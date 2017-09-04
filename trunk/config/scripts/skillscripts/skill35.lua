@@ -22,12 +22,11 @@ function SK_134_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
+	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 		
-		
-	local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
+	--local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
-	local  damage = caster_attack-defender_def
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)
 		
 	
 	--判断伤害
@@ -40,7 +39,7 @@ function SK_134_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,14,0)  --受到该伤害的目标无法回复生命值
+	Battle.AddBuff(battleid,casterid,t,113,0)  --受到该伤害的目标无法回复生命值
 		
 	Battle.TargetOver(battleid)
 		

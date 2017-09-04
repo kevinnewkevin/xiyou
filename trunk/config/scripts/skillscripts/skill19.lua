@@ -26,15 +26,15 @@ function SK_118_Action(battleid, casterid)
 
 	local  t = Player.LineTraget(battleid,p)  --获取目标
 	
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
+	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid)
 		
-		local defender_def = Player.GetCalcDef(battleid, v)
+		--local defender_def = Player.GetCalcDef(battleid, v)
 	
-		local  damage  = caster_attack-defender_def  --伤害 公式（物理伤害 减 防御 ）
+		local  damage  =Player.GetUnitDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）
 		
 		--判断伤害
 		if damage <= 0 then 

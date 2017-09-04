@@ -25,7 +25,7 @@ function SK_120_Action(battleid, casterid)
 	
 	Battle.Attack(battleid,casterid,t,0,0)
 	
-	Battle.AddBuff(battleid, casterid,t,11, caster_damage*0.2)    --造成的伤害增加20%，可叠加。
+	Battle.AddBuff(battleid, casterid,t,122, caster_damage*0.2)    --造成的伤害增加20%，可叠加。
 	
 	Battle.TargetOver(battleid)
 		

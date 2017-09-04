@@ -29,7 +29,7 @@ function SK_119_Action(battleid, casterid)
 	
 	Battle.Attack(battleid,casterid,t,0,0)
 
-	Battle.AddBuff(battleid,casterid,t,11,-caster_attack*0.4)    --下3次受到的伤害降低40%。
+	Battle.AddBuff(battleid,casterid,t,123,-caster_attack*0.4)    --下3次受到的伤害降低40%。
 	
 	Battle.TargetOver(battleid)
 	

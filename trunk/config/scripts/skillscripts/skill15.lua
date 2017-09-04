@@ -26,7 +26,7 @@ function SK_114_Action(battleid, casterid)
 	
 	Battle.Cure(battleid,t,0,0)
 	
-	Battle.AddBuff(battleid,casterid,t,7,1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
+	Battle.AddBuff(battleid,casterid,t,106,1)   --（暂时么有这个函数） 造物。使一个友方单位免疫一次会导致其死亡的伤害。
 	
 	Battle.TargetOver(battleid)
 	

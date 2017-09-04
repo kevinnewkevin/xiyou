@@ -26,7 +26,9 @@ function SK_116_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)
 
-	Battle.Cure(battleid, t, caster_attack*0.1, crit)    --每回合伤害回复法术强度10%的生命值
+	Battle.Cure(battleid, t, caster_attack, crit)    --为一个友方目标回复法术强度的生命值
+	
+	Battle.AddBuff(battleid,casterid,t,121,caster_attack*0.1) --每回合伤害回复法术强度10%的生命值
 	
 	Battle.TargetOver(battleid)
 	

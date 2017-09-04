@@ -26,10 +26,10 @@ function SK_115_Action(battleid, casterid)
 	
 	local  caster_magic = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性   法术
 	
-	local defender_def = Player.GetCalcMagicDef(battleid, t)  --获取防御属性
+	--local defender_def = Player.GetCalcMagicDef(battleid, t)  --获取防御属性
 	
 	
-	local  damage  = caster_magic-defender_def    --伤害 公式（）
+	local  damage  = Player.GetMagicDamage(battleid,casterid,t)    --伤害 公式（）
 	
 	--判断伤害
 	if damage <= 0 then 
@@ -42,9 +42,9 @@ function SK_115_Action(battleid, casterid)
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	Battle.AddBuff(battleid,casterid, t,6, -caster_magic*0.4)     --降低目标40%法术强度
+	Battle.AddBuff(battleid,casterid, t,116, -caster_magic*0.4)     --降低目标40%法术强度
 	
-	Battle.AddBuff(battleid,casterid, t, 3,-caster_attack*0.4)     --降低目标40%物理强度
+	Battle.AddBuff(battleid,casterid, t, 115,-caster_attack*0.4)     --降低目标40%物理强度
 	
 	Battle.TargetOver(battleid)
 	

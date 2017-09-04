@@ -40,7 +40,7 @@ function SK_125_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,v,damage*0.5,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-		Battle.AddBuff(battleid,casterid,v,10,sudu*0.2)    -- 减少20%的速度
+		Battle.AddBuff(battleid,casterid,v,117,sudu*0.2)    -- 减少20%的速度
 		Battle.TargetOver(battleid)
 	
 		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")

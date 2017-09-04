@@ -24,15 +24,17 @@ function SK_122_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
+	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
 	
 	for i,v in ipairs(t) do
 		
 		Battle.TargetOn(battleid)
 		
-		local defender_def = Player.GetCalcMagicDef(battleid, v)
+		--local defender_def = Player.GetCalcMagicDef(battleid, v)
+		
+		local  magic_damage = Player.GetMagicDamage(battleid,casterid,v)  --法术伤害
 	
-		local  damage  = caster_attack*0.5-defender_def  --伤害 公式（物理伤害 减 防御 ）
+		local  damage  = magic_damage*0.5  --伤害 公式（物理伤害 减 防御 ）
 		
 		
 		--判断伤害

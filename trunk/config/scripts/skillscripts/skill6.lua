@@ -27,11 +27,9 @@ function SK_105_Action(battleid, casterid)
 	
 	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者的法强
 	
-	sys.log(1)
 	
 	local HDnum =  Player.GetUnitSheld(battleid)   --护盾值
 	
-	sys.log(2)
 	
 	--Battle.AddBuff(battleid,casterid,t,2,5)   --吸收场上所有护盾
 	
@@ -39,9 +37,9 @@ function SK_105_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid) --清空数据
 	
-		local  defender_def = Player.GetCalcMagicDef(battleid,v)  --获取被攻击者的法强防御
+		--local  defender_def = Player.GetCalcMagicDef(battleid,v)  --获取被攻击者的法强防御
 		
-		local  damage  = caster_attack+HDnum*3-defender_def    --伤害 公式
+		local  damage  = caster_attack+HDnum*3    --伤害 公式
 		
 	
 		--判断伤害

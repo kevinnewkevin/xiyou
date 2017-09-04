@@ -38,9 +38,9 @@ function SK_127_Action(battleid, casterid)
 	sys.log(3)
 	Battle.Attack(battleid,casterid,t,caster_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	Battle.AddBuff(battleid, casterid,casterid,11, caster_damage*0.3)  --使自己受到伤害增加30%
+	Battle.AddBuff(battleid, casterid,casterid,110, caster_damage*0.3)  --使自己受到伤害增加30%
 	
-	Battle.AddBuff(battleid,casterid, t, 11,caster_damage*0.3)  --造成的伤害增加30%
+	Battle.AddBuff(battleid,casterid, t, 122,caster_damage*0.3)  --造成的伤害增加30%
 	
 	sys.log(4)
 	Battle.TargetOver(battleid)

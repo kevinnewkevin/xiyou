@@ -23,14 +23,15 @@ function SK_126_Action(battleid, casterid)
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
-	
+	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
+	sys.log(caster_attack)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
-	
-		local  trueDamage  = caster_attack*0.5 --伤害 公式（ ）
+		local  magic_damage = Player.GetMagicDamage(battleid,casterid,v)  --法术伤害
+		
+		local  trueDamage  = magic_damage*0.5 --伤害 公式（ ）
 		
 		--判断伤害
 		if trueDamage <= 0 then 
@@ -45,7 +46,7 @@ function SK_126_Action(battleid, casterid)
 	
 		if debuffnum >0 then 
 			
-			local demage = caster_attack*0.5  --额外造成50%法术强度的伤害
+			local demage = magic_damage*0.5  --额外造成50%法术强度的伤害
 			
 			for a=1,debuffnum,1 do
 			

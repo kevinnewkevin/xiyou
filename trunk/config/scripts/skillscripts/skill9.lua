@@ -26,7 +26,7 @@ function SK_108_Action(battleid, casterid)
 	
 	local  defender_def = Player.GetCalcMagicDef(battleid,t)  --获取被攻击者的法强防御
 	
-	local  damage = Player.GetUnitDamage(battleid,casterid,t)  --获取被攻击者属性
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)  --获取伤害
 		
 	--判断伤害
 	if damage <= 0 then 
@@ -38,7 +38,7 @@ function SK_108_Action(battleid, casterid)
 	
 	Battle.Attack(battleid,casterid,t,damage*0.2,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,13,-defender_def*0.1)
+	Battle.AddBuff(battleid,casterid,t,112,-defender_def*0.1)
 		
 		
 	Battle.TargetOver(battleid)  --赋给下个目标

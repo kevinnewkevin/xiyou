@@ -21,11 +21,11 @@ function SK_129_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 
-	local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
+	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
 		
-	local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
+	--local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-	local  trueDamage = caster_attack-defender_def
+	local  trueDamage = Player.GetUnitDamage(battleid,casterid,t)
 		
 	debuffnum = Player.PopAllBuffByDebuff(battleid,t)
 		

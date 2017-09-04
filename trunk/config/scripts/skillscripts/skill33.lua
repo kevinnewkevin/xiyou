@@ -23,6 +23,12 @@ function SK_132_Action(battleid, casterid)
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
 	local  damage = Player.GetUnitDamage(battleid,casterid,t)
+	
+	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
+		
+	--local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
+	
+	--local  damage = caster_attack
 		
 	--判断伤害
 	if damage <= 0 then 

@@ -33,7 +33,7 @@ function SK_104_Action(battleid, casterid)
 		
 		Battle.Cure(battleid, v,0, 0)
 		
-		Battle.AddBuff(battleid,casterid,v,4,damage*0.1)  --给友方分别提供一个盾牌
+		Battle.AddBuff(battleid,casterid,v,103,damage*0.1)  --给友方分别提供一个盾牌
 		
 		Battle.TargetOver(battleid)  --赋给下个目标
 	

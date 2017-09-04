@@ -20,7 +20,7 @@ function SK_101_Action(battleid, casterid)
 	
 	local t = Player.GetTargets(battleid, casterid, attackNum)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
-	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
+	--local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
 	
 	
@@ -40,8 +40,8 @@ function SK_101_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)    --是否暴击
 	
-		Battle.Attack(battleid, casterid, v, damage, crit)
-		Battle.AddBuff(battleid, casterid, v, 15, (defender_def+defender_mag)*0.15)
+		Battle.Attack(battleid, casterid, v, damage*1.5, crit)
+		Battle.AddBuff(battleid, casterid, v, 119, (defender_def+defender_mag)*0.15)
 		Battle.TargetOver(battleid)
 		
 		sys.log("skill2 对id为"..v.."的目标造成"..damage.."点伤害")
