@@ -81,8 +81,8 @@ func (this *Buff) Update(round int32) bool {
 
 	needDel := false
 
-	if this.Round == round {
-		fmt.Println("本回合上的buff本回合不生效", this.Round, round, needDel)
+	if this.Round == round && this.BuffKind == kKindUntil{
+		fmt.Println("本回合上的有结算的buff本回合不生效", this.Round, round, needDel)
 		return needDel
 	}
 
