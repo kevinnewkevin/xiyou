@@ -767,8 +767,10 @@ func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property st
 	p_d := prpc.ToId_CPropertyType(property)
 
 	unit := this.SelectOneUnit(instid)
+	fmt.Println("属性修改前", unit.CProperties[p_d], data)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
+	fmt.Println("属性修改后", unit.CProperties[p_d], data)
 
 	return
 }
@@ -943,9 +945,9 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 	unit := this.SelectOneUnit(target)
 
 	buff := NewBuff(unit, casterid, buffid, data, this.Round)
-	buff.AddProperty()
-
 	unit.Allbuff = append(unit.Allbuff, buff)
+
+	buff.AddProperty()
 
 	fmt.Println("bufflen front", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
