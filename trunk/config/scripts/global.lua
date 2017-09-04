@@ -25,4 +25,5 @@ function RegGlobalValue()
 	Define.Set("PointLight", "Effect/chushengdian");
 	Define.Set("DestLight", "Effect/chushengdian");
 	Define.Set("BornPos", "20,-14.3,4");
+	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
 end
