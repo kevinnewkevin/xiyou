@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: bloody_Test_1
-  m_Shader: {fileID: 4800000, guid: 10ed1a0400b434befb56f6cfd5bedbbe, type: 3}
+  m_Name: bloody_Test_3
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,7 +18,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 613eb37d8b1044d4aa1a7b9ac3cbc6e4, type: 3}
+        m_Texture: {fileID: 2800000, guid: deb0956a5c4a14a498f8cc7f13526527, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonShade:
@@ -35,4 +35,4 @@ Material:
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 0.7205882, g: 0.4571277, b: 0.1748486, a: 0.5019608}
+    - _TintColor: {r: 1, g: 0.684077, b: 0.3455882, a: 0.5019608}
