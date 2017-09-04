@@ -4,7 +4,7 @@
     <image id="n2_kkfi" name="n2" src="kkk26" xy="0,2" size="283,73"/>
     <text id="n3_kkfi" name="n3" xy="8,7" size="258,61" font="ui://tpocxmnlkkfi22" fontSize="12" autoSize="none" text="66666"/>
   </displayList>
-  <transition name="t0">
+  <transition name="t0" autoPlay="true">
     <item time="0" type="Alpha" target="n2_kkfi" tween="true" startValue="0.4" endValue="1" duration="6" ease="Cubic.InOut"/>
     <item time="0" type="Alpha" target="n3_kkfi" value="0"/>
     <item time="0" type="Size" target="n3_kkfi" value="10,46"/>

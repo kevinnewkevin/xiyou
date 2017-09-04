@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="kiw9e8v0" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="v6ah0" name="beibao_com.xml" path="/" exported="true"/>
+    <image id="v6ah1" name="zhuangshi.png" path="/" exported="true"/>
+    <image id="v6ah4" name="baoshi.png" path="/" exported="true"/>
+    <image id="v6ah5" name="bb_beibao.png" path="/" exported="true"/>
+    <image id="v6ah6" name="bb_diban.png" path="/" exported="true" scale="9grid" scale9grid="286,149,26,18"/>
+    <image id="v6ah7" name="bb_diban2.png" path="/" exported="true" scale="9grid" scale9grid="26,29,6,9"/>
+    <image id="v6ah8" name="bb_fanhui.png" path="/" exported="true"/>
+    <image id="v6ah9" name="bb_huaban.png" path="/" exported="true"/>
+    <image id="v6aha" name="bb_man.png" path="/" exported="true"/>
+    <image id="v6ahb" name="bb_quanbu.png" path="/" exported="true"/>
+    <image id="v6ahc" name="bb_quanbuheibai.png" path="/" exported="true"/>
+    <image id="v6ahd" name="bb_suipian.png" path="/" exported="true"/>
+    <image id="v6ahe" name="bb_suipianheibai.png" path="/" exported="true"/>
+    <image id="v6ahf" name="daojukuang_bai.png" path="/" exported="true"/>
+    <image id="v6ahg" name="ditiao.png" path="/" exported="true"/>
+    <image id="v6ahh" name="jinbi.png" path="/" exported="true"/>
+    <image id="v6ahi" name="tili.png" path="/" exported="true"/>
+    <image id="v6ahj" name="bb_hongxian.png" path="/" exported="true"/>
+    <component id="v6ahk" name="fanhui_Button.xml" path="/" exported="true"/>
+    <component id="v6ahl" name="quanbu_Button.xml" path="/" exported="true"/>
+    <component id="v6ahm" name="suipian_Button.xml" path="/" exported="true"/>
+    <component id="v6ahn" name="daoju_com.xml" path="/" exported="true"/>
+    <image id="v6aho" name="daojukuang_zi.png" path="/" exported="true"/>
+    <image id="v6ahp" name="shajiangjun_head_icon.png" path="/" exported="true"/>
+    <image id="v6ahq" name="jiahao.png" path="/" exported="true"/>
+    <component id="v6ahr" name="jiahao_button.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="beibao" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
+</packageDescription>
