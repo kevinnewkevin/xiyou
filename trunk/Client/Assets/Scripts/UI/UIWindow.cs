@@ -12,7 +12,7 @@ public class UIWindow {
     LuaFunction _TickFunc;
     object _ParamValue;
 
-    public UIWindow(string uiName, object parVal)
+    public UIWindow(string uiName, object parVal = null)
     {
         Init(uiName, parVal);
     }
