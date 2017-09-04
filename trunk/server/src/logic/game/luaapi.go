@@ -20,6 +20,7 @@ extern int __Cure(void*);
 extern int __GetTime(void*);
 extern int __GetCrit(void*);
 extern int __AddBuff(void*);
+extern int __AddSkillBuff(void*);
 extern int __HasBuff(void*);
 extern int __HasDebuff(void*);
 extern int __BuffMintsHp(void*);
@@ -91,6 +92,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__Cure,"Cure","Battle")
 	_L.LoadApi(C.__GetCrit,"GetCrit","Battle")
 	_L.LoadApi(C.__AddBuff,"AddBuff","Battle")
+	_L.LoadApi(C.__AddBuff,"AddSkillBuff","Battle")
 	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
@@ -720,6 +722,7 @@ func __HasDebuff(p unsafe.Pointer) C.int {
 	L := lua.GetLuaState(p)
 	idx := 1
 	battleid := L.ToInteger(idx)
+
 	idx ++
 	target := L.ToInteger(idx)
 
@@ -729,6 +732,30 @@ func __HasDebuff(p unsafe.Pointer) C.int {
 	has := battle.HasDebuff(int64(target))
 
 	L.PushBoolean(has)
+
+	return 1
+}
+
+//export __AddSkillBuff
+func __AddSkillBuff(p unsafe.Pointer) C.int {
+	//fmt.Println("__AddSkillBuff")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	casterid := L.ToInteger(idx)
+	idx ++
+	target := L.ToInteger(idx)
+	idx ++
+	buffid := L.ToInteger(idx)
+	idx ++
+	data := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.AddSkillBuff(int64(casterid),int64(target),int32(buffid),int32(data))
+
 
 	return 1
 }
@@ -824,13 +851,21 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 	idx ++
 	targetid := L.ToInteger(idx)
 
+	fmt.Println("battleid",battleid)
+	fmt.Println("targetid",targetid)
+
 	battle := FindBattle(int64(battleid))
+	fmt.Println("battle",battle)
 
 	caster := battle.SelectOneUnit(int64(casterid))
+	fmt.Println("caster",caster)
 
 	target := battle.SelectOneUnit(int64(targetid))
+	fmt.Println("target",target)
 
 	finaldamage := CalcDamage(caster, target)
+
+	fmt.Println(finaldamage)
 
 	L.PushNumber(float64(finaldamage))
 
@@ -841,7 +876,7 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 //export __GetMagicDamage
 func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 
-	fmt.Println("__GetUnitDamage")
+	fmt.Println("__GetMagicDamage")
 
 	L := lua.GetLuaState(p)
 	idx := 1
