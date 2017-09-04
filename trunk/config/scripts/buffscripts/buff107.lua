@@ -3,8 +3,8 @@
 -- 参数暂定为 battleid targetid data
 sys.log("buff1")
 
-function buff_107_add(battleid, unitid, buffinstid) 
-	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_‌JINGJI")  --加荆棘
+function buff_107_add(battleid, unitid, buffinstid,data) 
+	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_THORNS")  --加荆棘
 
 	
 	sys.log("buff_107_add "..","..battleid..","..buffinstid..","..unitid)
@@ -19,9 +19,9 @@ function buff_107_update(battleid, buffinstid, unitid)
 	
 end
 
-function buff_107_delete(battleid, unitid, buffinstid)
+function buff_107_delete(battleid, unitid, buffinstid,data)
 
-	Player.PopSpec(battleid, unitid, buffinstid,"BF_‌JINGJI")   --减荆棘
+	Player.PopSpec(battleid, unitid, buffinstid,"BF_THORNS")   --减荆棘
 	
 	sys.log("buff_106_delete "..","..battleid..","..buffinstid..","..unitid)
 

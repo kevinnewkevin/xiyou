@@ -3,7 +3,7 @@
 -- 参数暂定为 battleid targetid data
 sys.log("buff1")
 
-function buff_104_add(battleid, unitid, buffinstid) 
+function buff_104_add(battleid, unitid, buffinstid,data) 
 	Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_JUMP")  --加眩晕
 	
 	sys.log("buff_104_add "..","..battleid..","..buffinstid..","..unitid)
@@ -18,7 +18,7 @@ function buff_104_update(battleid, buffinstid, unitid)
 	
 end
 
-function buff_104_delete(battleid, unitid, buffinstid)
+function buff_104_delete(battleid, unitid, buffinstid,data)
 
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_JUMP")   --减眩晕
 	

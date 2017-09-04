@@ -35,8 +35,9 @@ function SK_110_Action(battleid, casterid)
 		Battle.TargetOn(battleid) -- 清空数据
 	
 		--local defender_def = Player.GetCalcDef(battleid, v)  -- 防御
-	
-	    local  damage  = Playey.GetUnitDamage(battleid,casterid,v)       --伤害 公式（）
+		sys.log("前排人数1100")
+	    local  damage  = Player.GetUnitDamage(battleid,casterid,v)       --伤害 公式（）
+	    sys.log("前排人数22"..damage)
 	
 		--判断伤害
 		if damage <= 0 then 

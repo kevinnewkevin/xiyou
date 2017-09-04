@@ -18,20 +18,23 @@ sys.log(" skill 37 start")
 function SK_136_Action(battleid, casterid)
 
 	Battle.TargetOn(battleid)
+	
 	local skillid = 136	-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
+	
+	sys.log("SK_136_Action"..t)
 
 	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性
 		
 	--local defender_def = Player.GetCalcMagicDef(battleid,t)   -- 防御
 	
 	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
-	
-	local magic_damamge=Player.GetMagicDamamge(battleid,casterid,t)
-	
-	local  damage = magic_damamge*0.3*9
-		
+	sys.log("SK_136_Action111"..sudu)
+	local magic_damage=Player.GetMagicDamage(battleid,casterid,t)
+	sys.log("SK_136_Action222"..magic_damage)
+	local  damage = magic_damage*0.3*9
+	sys.log("SK_136_Action333"..damage)
 		
 	--判断伤害
 	if damage <= 0 then 
@@ -43,7 +46,7 @@ function SK_136_Action(battleid, casterid)
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,117,-sudu*0.1)  --每次都到伤害降低10%速度
+	Battle.AddBuff(battleid,casterid,t,117,sudu*0.1)  --每次都到伤害降低10%速度
 		
 	Battle.TargetOver(battleid)
 		

@@ -4,7 +4,7 @@
 sys.log("buff1")
 
 function buff_103_add(battleid, unitid, buffinstid,data) 
-	Player.AddSheld(battleid, unit, buffinstid,data)  --加护盾
+	Player.AddSheld(battleid, unitid, buffinstid)  --加护盾
 	sys.log("buff_103_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
@@ -20,7 +20,7 @@ end
 
 function buff_103_delete(battleid, unitid, buffinstid,data)
 
-	Player.ChangeSheld(battleid, unit, buffinstid,-data)						 	-- 减去护盾
+	Player.PopSheld(battleid, unitid, buffinstid)						 	-- 减去护盾
 	sys.log("buff_103_delete "..","..battleid..","..buffinstid..","..unitid)
 	
 	

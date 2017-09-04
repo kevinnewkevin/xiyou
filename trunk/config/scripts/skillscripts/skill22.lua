@@ -25,7 +25,7 @@ function SK_121_Action(battleid, casterid)
 		
 	--local defender_def = Player.GetCalcMagicDef(battleid,t)
 	
-	local  damage = Player.GetMagicDamage(battleid,casterid,v)
+	local  damage = Player.GetMagicDamage(battleid,casterid,t)
 		
 		
 	--判断伤害

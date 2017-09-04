@@ -31,9 +31,6 @@ function SK_105_Action(battleid, casterid)
 	local HDnum =  Player.GetUnitSheld(battleid)   --护盾值
 	
 	
-	--Battle.AddBuff(battleid,casterid,t,2,5)   --吸收场上所有护盾
-	
-	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid) --清空数据
 	

@@ -1,6 +1,7 @@
 -- buff测试用脚本 加特殊效果 如百分比减伤 眩晕等特殊效果
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
+--增加双防
 sys.log("buff1")
 
 function buff_114_add(battleid, unitid, buffinstid,data) 

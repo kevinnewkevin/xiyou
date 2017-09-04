@@ -4,7 +4,7 @@
 sys.log("buff1")
 
 function buff_111_add(battleid, unitid, buffinstid) 
-	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_BDJS")  --加必定溅射
+	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_AOE")  --加必定溅射
 	
 	sys.log("buff_111_add "..","..battleid..","..buffinstid..","..unitid)
 end
@@ -20,7 +20,7 @@ end
 
 function buff_106_delete(battleid, unitid, buffinstid)
 
-	Player.PopSpec(battleid, unitid, buffinstid,"BF_BDJS")   --减必定溅射
+	Player.PopSpec(battleid, unitid, buffinstid,"BF_AOE")   --减必定溅射
 	
 	sys.log("buff_111_delete "..","..battleid..","..buffinstid..","..unitid)
 

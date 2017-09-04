@@ -5,7 +5,7 @@
 --受伤后回血
 sys.log("buff1")
 
-function buff_121_add(battleid, unitid, buffinstid) 
+function buff_121_add(battleid, unitid, buffinstid,data) 
 	sys.log("buff_121_add "..","..battleid..","..buffinstid..","..unitid)
 	 Player.ChangeSpecial(battleid, unitid,buffinstid, "BF_CURE")  --加 无法恢复生命
 end
@@ -15,7 +15,7 @@ function buff_121_update(battleid, buffinstid, unitid)
 	sys.log("buff_121_update "..","..battleid..","..buffinstid..","..unitid)
 end
 
-function buff_121_delete(battleid, unitid, buffinstid)
+function buff_121_delete(battleid, unitid, buffinstid,data)
 
 	 sys.log("buff_121_delete"..battleid..unitid)
 

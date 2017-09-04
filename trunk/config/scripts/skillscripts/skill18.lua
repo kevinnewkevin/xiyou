@@ -28,7 +28,7 @@ function SK_117_Action(battleid, casterid)
 		Player.PopAllBuffByDebuff(battleid,v)
 		local  attack_damage = Player.GetUnitDamage(battleid,casterid,v)  --获取伤害
 		Battle.Cure(battleid,v,0,0)
-		Battle.AddBuff(battleid,casterid,v,123, -attack_damage*0.2)      --公式(减少20%的伤害）
+		Battle.AddBuff(battleid,casterid,v,123, attack_damage*0.2)      --公式(减少20%的伤害）
 		Battle.TargetOver(battleid)
 	
 		sys.log("skill18")

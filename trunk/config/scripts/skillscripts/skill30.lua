@@ -28,8 +28,10 @@ function SK_129_Action(battleid, casterid)
 	local  trueDamage = Player.GetUnitDamage(battleid,casterid,t)
 		
 	debuffnum = Player.PopAllBuffByDebuff(battleid,t)
-		
-		--判断伤害
+	
+	sys.log("SK_129_Action"..debuffnum)
+	
+	--判断伤害
 	if trueDamage <= 0 then 
 		
 		trueDamage = 1
@@ -38,7 +40,7 @@ function SK_129_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
 	if debuffnum > 0 then 
-		damage = caster_attack*0.5 --额外造成50%物理强度的伤害
+		damage = trueDamage*0.5 --额外造成50%物理强度的伤害
 		
 		for a=1,debuffnum,1 do
 		

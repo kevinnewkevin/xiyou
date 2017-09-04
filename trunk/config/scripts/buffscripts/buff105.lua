@@ -1,6 +1,7 @@
 -- buff测试用脚本 修改属性 -- 最后一个参数是字符串格式的属性介绍
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
+----增加法术属性
 sys.log("buff1")
 
 function buff_105_add(battleid, unitid, buffinstid, data) 

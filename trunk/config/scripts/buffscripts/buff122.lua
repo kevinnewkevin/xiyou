@@ -4,7 +4,7 @@
 --加输出伤害
 sys.log("buff1")
 
-function buff_122_add(battleid, unitid, buffinstid) 
+function buff_122_add(battleid, unitid, buffinstid,data) 
 	 --Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_WEAK")  --加增伤
 	Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_STRONG")  --加输出伤害
 
@@ -21,7 +21,7 @@ function buff_122_update(battleid, buffinstid, unitid)
 	
 end
 
-function buff_122_delete(battleid, unitid, buffinstid)
+function buff_122_delete(battleid, unitid, buffinstid,data)
 
 	--Player.PopSpec(battleid, unitid, buffinstid,"BF_WEAK")   --减增伤
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_STRONG")   --减输出伤害
