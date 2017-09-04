@@ -11,6 +11,7 @@ extern int __GetUnitProperty(void*);
 extern int __ChangeUnitProperty(void*);
 extern int __AddSheld(void*);
 extern int __PopSheld(void*);
+extern int __DamageSheld(void*);
 extern int __ChangeSpecial(void*);
 extern int __PopSpec(void*);
 extern int __GetSpecial(void*);
@@ -48,6 +49,7 @@ import (
 
 	"fmt"
 	"time"
+	"logic/prpc"
 )
 
 var (
@@ -71,6 +73,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
 	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
 	_L.LoadApi(C.__PopSheld,"PopSheld","Player")
+	_L.LoadApi(C.__DamageSheld,"DownSheld","Player")
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
 	_L.LoadApi(C.__PopSpec,"PopSpec","Player")
 	_L.LoadApi(C.__GetSpecial,"GetSpecial","Player")
@@ -270,6 +273,8 @@ func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
+	unit.AddSpec("BF_SHELDNUM", int32(buffinstid))
+
 	buff := unit.SelectBuff(int32(buffinstid))
 
 	unit.VirtualHp += int32(buff.Data)
@@ -297,6 +302,51 @@ func __PopSheld(p unsafe.Pointer) C.int {   //减护盾
 	buff := unit.SelectBuff(int32(buffinstid))
 
 	unit.VirtualHp -= int32(buff.Data)
+
+	if unit.VirtualHp < 0 {
+		unit.VirtualHp = 0
+	}
+
+	return 1
+}
+
+//export __DamageSheld
+func __DamageSheld(p unsafe.Pointer) C.int {   //减護盾值
+
+	fmt.Println("__DamageSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	damage := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+	needdel := []int32{}
+
+	for _, buffid := range unit.Special[prpc.BF_SHELDNUM] {
+		buff := unit.SelectBuff(buffid)
+		if buff == nil {
+			needdel = append(needdel, buffid)
+			continue
+		}
+		if damage > int(buff.Data) {
+			damage -= int(buff.Data)
+			buff.Over = true
+			needdel = append(needdel, buffid)
+			unit.VirtualHp -= buff.Data
+			continue
+		}
+		unit.VirtualHp -= int32(damage)
+	}
+
+	for _, buffid := range needdel {
+		unit.PopSpec("BF_SHELDNUM", buffid)
+	}
 
 	if unit.VirtualHp < 0 {
 		unit.VirtualHp = 0
@@ -383,8 +433,6 @@ func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 
 	}
 
-
-
 	return 1
 
 }
@@ -413,8 +461,7 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 	L.PushBoolean(_bool)
 
 	return 1
-
-
+	
 }
 
 //export __GetTargets
@@ -917,6 +964,10 @@ func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取场上所有玩家护盾�
 			continue
 		}
 		sheld += u.VirtualHp
+		for _, buffid := range u.Special[prpc.BF_SHELDNUM] {
+			buff := u.SelectBuff(buffid)
+			buff.Over = true
+		}
 	}
 
 	L.PushInteger(int(sheld))
