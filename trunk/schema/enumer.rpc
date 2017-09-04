@@ -79,5 +79,6 @@ enum BuffSpecial{
 	BF_WFHFSM,		//无法恢复生命
 	BF_BDJS,		//必定溅射
 	BF_BDLJ,		//必定连击
+	BF_CURE,		//受伤后回血
 	BF_MAX,
 };
