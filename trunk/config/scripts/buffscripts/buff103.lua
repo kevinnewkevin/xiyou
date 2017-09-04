@@ -20,7 +20,7 @@ end
 
 function buff_103_delete(battleid, unitid, buffinstid,data)
 
-	Player.PopSheld(battleid, unitid, buffinstid)						 	-- 减去护盾
+	-- Player.PopSheld(battleid, unitid, buffinstid)						 	-- 减去护盾
 	sys.log("buff_103_delete "..","..battleid..","..buffinstid..","..unitid)
 	
 	
