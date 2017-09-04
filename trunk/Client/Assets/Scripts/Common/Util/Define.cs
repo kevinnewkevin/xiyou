@@ -33,6 +33,14 @@ public class Define {
         #endif
     }
 
+    public static void UnloadUIBundle(string uiName)
+    {
+        uiName = uiName.ToLower();
+        #if EDITOR_MODE
+        FairyGUI.UIPackage.RemovePackage(PathDefine.UI_ASSET_PATH + uiName, true);
+        #endif
+    }
+
     public static void Init()
     {
         globalValues = new Dictionary<string, object>();

@@ -74,6 +74,7 @@ public class SkillData {
             data._Motion = (MotionType)Enum.Parse(typeof(MotionType), parser.GetString(i, "MotionType"));
             data._Single = parser.GetInt(i, "SingleSkill") == 1;
             data._Icon = parser.GetString(i, "ICON");
+            data._Camera = parser.GetString(i, "Camera");
 
             if(metaData.ContainsKey(data._Id))
             {

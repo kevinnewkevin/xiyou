@@ -7,16 +7,6 @@ public class BattleCamera : MonoBehaviour {
     Camera _MainCamera;
 
     public GameObject _Target;
-
-    public bool _Melee;
-    public bool _Range;
-
-    public Vector3 _MeleeTargetPlus;
-    public float _MeleeTargetTime;
-
-    public Vector3 _RangeTargetPlus = new Vector3(-4.8f, 2.7f, 8f);
-    public float _RangeTargetTime = 1f;
-
     Vector3 _OriginPos;
     Quaternion _OriginQuat;
 
@@ -27,21 +17,25 @@ public class BattleCamera : MonoBehaviour {
         _OriginQuat = _MainCamera.transform.rotation;
 	}
 	
-    public void Melee(GameObject target)
+    public void Feature(GameObject target, string type)
     {
+        if (!type.Equals("1"))
+            return;
+        
         _Target = target;
-        iTween.MoveTo(_MainCamera.gameObject, iTween.Hash("time", _MeleeTargetTime, "position", target.transform.position + _MeleeTargetPlus, "looktarget", target.transform.position, "easetype", iTween.EaseType.linear));
-    }
-
-    public void Range(GameObject target)
-    {
-        _Target = target;
-        iTween.MoveTo(_MainCamera.gameObject, iTween.Hash("time", _RangeTargetTime, "position", target.transform.position + _RangeTargetPlus, "looktarget", target.transform.position, "easetype", iTween.EaseType.linear));
+        _MainCamera.transform.parent = target.transform;
+        string[] devPos = Define.GetStr("BattleCamera_plus").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
+        Vector3 plusPos = new Vector3(float.Parse(devPos[0]), float.Parse(devPos[1]), float.Parse(devPos[2]));
+        _MainCamera.transform.localPosition = plusPos;
+        _MainCamera.transform.LookAt(target.transform.position);
+        _MainCamera.transform.localScale = Vector3.one;
     }
 
     public void Reset()
     {
-        iTween.MoveTo(_MainCamera.gameObject, iTween.Hash("time", _RangeTargetTime, "position", _OriginPos, "looktarget", _Target.transform.position, "easetype", iTween.EaseType.linear));
+        _MainCamera.transform.parent = null;
+        _MainCamera.transform.position = _OriginPos;
         _MainCamera.transform.rotation = _OriginQuat;
+        _MainCamera.transform.localScale = Vector3.one;
     }
 }
