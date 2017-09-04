@@ -17,24 +17,25 @@ sys.log(" skill 25 start")
 
 function SK_124_Action(battleid, casterid)
 
-	Battle.TargetOn(battleid)
+	
 	local skillid = 124	-- 技能id
 
 	local  attackNum = 0  --攻击个数
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
-	local  damage = Player.GetUnitDamage(battleid,t)  --获取攻击者属性
 	
 	for i,v in ipairs(t) do
-		
+		Battle.TargetOn(battleid)
+		local  damage = Player.GetUnitDamage(battleid,casterid,v)  --获取攻击者属性
 		Battle.Attack(battleid, casterid, v, 0, 0)
 		
-		Battle.AddBuff(battleid,casterid,v, 11,damage*0.2)
+		Battle.AddBuff(battleid,casterid,v, 110,damage*0.2)
+		Battle.TargetOver(battleid)
 	
 		sys.log("skill25")
 	end
-	Battle.TargetOver(battleid)
+	
 	
 	return  true
 	 
