@@ -26,7 +26,7 @@ public class ItemData {
         for(int i=0; i < recordCounter; ++i)
         {
             data = new ItemData ();
-            data._Id = parser.GetInt (i, "ItemId");
+            data._Id = parser.GetInt (i, "ItemID");
             data._Type = parser.GetInt (i, "ItemType");
             data._Icon = parser.GetString (i, "ItemIcon");
 

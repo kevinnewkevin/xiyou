@@ -56,6 +56,7 @@ public class DataLoader {
 		RegistTables("HeroStroy", HeroStroyData.ParseData);
 		RegistTables("Checkpoint", CheckpointData.ParseData);
 		RegistTables("buff", BuffData.ParseData);
+        RegistTables("Item", ItemData.ParseData);
     }
 
     static public void BeginLoad()
