@@ -21,10 +21,10 @@ hbv511.xml|1223|<component size="982,84" extention="Label">
     </image>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
-</component>package.xml|691|<packageDescription id="s1sxt36u" name="jinbi">
+</component>package.xml|707|<packageDescription id="s1sxt36u" name="jinbi">
   <resources>
-    <component id="klpr1t" name="jiahao_button" path="/" size="75,67"/>
     <component id="hbv511" name="jinbi_com" path="/" size="982,84" exported="true"/>
+    <component id="klpr1t" name="jiahao_button" path="/" size="75,67" exported="true"/>
     <image id="hbv52" name="baoshi" path="/" size="84,65" exported="true"/>
     <image id="hbv53" name="ditiao" path="/" size="394,81" exported="true"/>
     <image id="hbv56" name="jiahao" path="/" size="75,67" exported="true"/>
