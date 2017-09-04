@@ -10,10 +10,11 @@ public class UIWindow {
     LuaFunction _InitFunc;
     LuaFunction _UpdateFunc;
     LuaFunction _TickFunc;
+    object _ParamValue;
 
-    public UIWindow(string uiName)
+    public UIWindow(string uiName, object parVal)
     {
-        Init(uiName);
+        Init(uiName, parVal);
     }
 
     public string UIName
@@ -21,9 +22,10 @@ public class UIWindow {
         get{ return _UiName; }
     }
 
-    void Init(string uiName)
+    void Init(string uiName, object paramVal)
     {
         _UiName = uiName;
+        _ParamValue = paramVal;
         Define.LaunchUIBundle(_UiName);
         _Lua = UIManager._Lua;
         _Lua.DoFile(_UiName + ".lua");
@@ -44,7 +46,7 @@ public class UIWindow {
         {
             Debug.LogWarning(" UI lua Script Named: " + UIName + ".lua has no Tick function.");
         }
-        _InitFunc.Call();
+        _InitFunc.Call(_ParamValue);
         _Lua.CheckTop();
     }
 

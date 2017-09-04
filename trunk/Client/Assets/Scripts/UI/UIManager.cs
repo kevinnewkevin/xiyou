@@ -27,13 +27,13 @@ public class UIManager {
     static Dictionary<string, bool> _DirtyPool = new Dictionary<string, bool>();
     static List<string> _WantClearDirty = new List<string>();
 
-    static public void Show(string uiName)
+    static public void Show(string uiName, object parVal = null)
     {
         if (IsShow(uiName))
             return;
 
         if (!_Windows.ContainsKey(uiName))
-            _Windows.Add(uiName, new UIWindow(uiName));
+            _Windows.Add(uiName, new UIWindow(uiName, parVal));
         else
             _Windows[uiName].GetWindow().Show();
         
@@ -83,6 +83,7 @@ public class UIManager {
         _Windows.Remove(uiName);
 
         AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+        Define.UnloadUIBundle(uiName);
 
         if (_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Remove(uiName);
@@ -94,6 +95,7 @@ public class UIManager {
         {
             window.Dispose();
             AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
+            Define.UnloadUIBundle(window.UIName);
 
             if (_DirtyPool.ContainsKey(window.UIName))
                 _DirtyPool.Remove(window.UIName);
