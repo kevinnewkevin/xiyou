@@ -8,9 +8,8 @@
     <image id="n8_zlcj" name="n8" src="rvp5h" xy="0,1"/>
     <component id="n9_f7of" name="n9" src="f7of2q" xy="703,760"/>
   </displayList>
-  <transition name="t0" options="4">
+  <transition name="t0" options="4" autoPlay="true">
     <item time="0" type="XY" target="n6_b9pp" tween="true" startValue="-402,5" endValue="14,5" duration="6"/>
     <item time="0" type="XY" target="n5_h8fp" tween="true" startValue="1388,0" endValue="924,0" duration="6"/>
   </transition>
-  <transition name="t1" options="1" autoPlay="true"/>
 </component>
