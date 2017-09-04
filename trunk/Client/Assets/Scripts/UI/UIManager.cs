@@ -27,7 +27,23 @@ public class UIManager {
     static Dictionary<string, bool> _DirtyPool = new Dictionary<string, bool>();
     static List<string> _WantClearDirty = new List<string>();
 
-    static public void Show(string uiName, object parVal = null)
+    static public void Show(string uiName)
+    {
+        if (IsShow(uiName))
+            return;
+
+        if (!_Windows.ContainsKey(uiName))
+            _Windows.Add(uiName, new UIWindow(uiName, null));
+        else
+            _Windows[uiName].GetWindow().Show();
+        
+        if (!_DirtyPool.ContainsKey(uiName))
+            _DirtyPool.Add(uiName, true);
+        else
+            _DirtyPool [uiName] = true;
+    }
+
+    static public void Show(string uiName, object parVal)
     {
         if (IsShow(uiName))
             return;
@@ -36,7 +52,7 @@ public class UIManager {
             _Windows.Add(uiName, new UIWindow(uiName, parVal));
         else
             _Windows[uiName].GetWindow().Show();
-        
+
         if (!_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Add(uiName, true);
         else
