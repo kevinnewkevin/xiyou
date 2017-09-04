@@ -287,7 +287,7 @@ public class Skill {
         {
             HandleTrack();
         }
-        OnTimeDo(_SkillData._BeattackTime[0], Range_EndCast);
+        OnTimeDo(_SkillData._TotalTime, Range_EndCast);
     }
 
     void Range_EndCast()
