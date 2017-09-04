@@ -75,10 +75,10 @@ enum BuffSpecial{
 	BF_SHELD,		//减伤盾 百分比
 	BF_WEAK,		//增加受到的伤害
 	BF_STRONG,		//增加输出的伤害
-	BF_JINGJI,		//增加荆棘
-	BF_WFHFSM,		//无法恢复生命
-	BF_BDJS,		//必定溅射
-	BF_BDLJ,		//必定连击
+	BF_THORNS,		//增加荆棘
+	BF_UNCURE,		//无法恢复生命
+	BF_AOE,		//必定溅射
+	BF_COMBO,		//必定连击
 	BF_CURE,		//受伤后回血
 	BF_MAX,
 };
