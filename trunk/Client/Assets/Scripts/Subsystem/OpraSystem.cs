@@ -30,7 +30,7 @@ public class OpraSystem : MonoBehaviour {
     Queue<OpraClip> _ClipQue;
     List<OpraActor> _ActorList;
 
-    OpraClip _CrtScreen;
+    public OpraClip _CrtScreen;
 
     public bool _IsPlaying;
 	// Use this for initialization
@@ -78,14 +78,7 @@ public class OpraSystem : MonoBehaviour {
 
         if (_ClipQue.Count <= 0)
         {
-            if (_CrtScreen._Data._Talks == null || _CrtScreen._Data._Talks.Length == 0)
-            {
-                ReturnToBattle();
-            }
-            else
-            {
-                // init talk and call play when talked.
-            }
+            ReturnToBattle();
             return;
         }
 
@@ -104,7 +97,10 @@ public class OpraSystem : MonoBehaviour {
             if(aData._Talks == null || aData._Talks.Length == 0)
             {
                 Play();
-                return;
+            }
+            else
+            {
+                UIManager.Show("duibaikuang");
             }
         });
     }

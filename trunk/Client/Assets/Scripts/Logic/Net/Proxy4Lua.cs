@@ -55,5 +55,32 @@ public class Proxy4Lua {
         return new FairyGUI.GoWrapper(go);
     }
 
+    static public int[] GetTalk()
+    {
+        OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();
+        if (os == null)
+            return null;
+        
+        return os._CrtScreen._Data._Talks;
+    }
+
+    static public int GetTalkNum()
+    {
+        OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();
+        if (os == null)
+            return 0;
+
+        return os._CrtScreen._Data._Talks.Length;
+    }
+
+    static public void ContinueOpra()
+    {
+        OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();
+        if (os == null)
+            return;
+
+        os.Play();
+    }
+
     #endregion
 }

@@ -60,6 +60,7 @@ public class DataLoader {
         RegistTables("animation", AnimationData.ParseData);
         RegistTables("animation_actor", ActorData.ParseData);
         RegistTables("Battle", BattleData.ParseData);
+        RegistTables("Talk", TalkData.ParseData);
     }
 
     static public void BeginLoad()
