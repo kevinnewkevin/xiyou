@@ -156,7 +156,7 @@ function paiku_FlushData()
 		cards = GamePlayer.CardsByFee(crtCardsFee).Count;
 	end
 	allCardList.numItems = cards;
-	cardGroupList:RemoveChildrenToPool();
+	cardGroupList:RemoveChildrenToPool(); 
 	local groupCards = GamePlayer.GetGroupCards(crtGroupIdx);
 	if groupCards == nil then
 		return;
@@ -170,7 +170,7 @@ function paiku_FlushData()
 		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 		local fee = itemBtn:GetChild("n7");
 		fee.text = entityData._Cost
-		itemBtn.onClick:Add(paiku_OnCardInGroup);
+		itemBtn.onClick:Add(paiku_OnCardInGroup); 
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
 		itemBtn.onDragEnd:Add(paiku_OnDropCard);
@@ -198,11 +198,15 @@ end
 
 function paiku_OnCardInGroup(context)
 	crtCardInstID = context.sender.data;
+	UIParamHolder.Set("qiecuo1", crtCardInstID);
+	UIParamHolder.Set("qiecuo2", false);
 	UIManager.Show("xiangxiziliao");
 end
 
 function paiku_OnCardItem(context)
 	crtCardInstID = context.sender.data;
+	UIParamHolder.Set("qiecuo1", crtCardInstID);
+	UIParamHolder.Set("qiecuo2", false);
 	UIManager.Show("xiangxiziliao");
 end
 

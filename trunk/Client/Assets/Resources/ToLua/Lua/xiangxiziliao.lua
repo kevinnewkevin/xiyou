@@ -36,7 +36,7 @@ local splitplus;
 local recplus;
 local reflectplus;
 local suckplus;
-
+local addGroupBtn;
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -54,7 +54,7 @@ function xiangxiziliao:OnInit()
 	self.closeButton = self.contentPane:GetChild("n4");
 	holder = self.contentPane:GetChild("n63").asGraph;
 
-	local addGroupBtn = self.contentPane:GetChild("n61").asButton;
+	addGroupBtn = self.contentPane:GetChild("n61").asButton;
 	addGroupBtn.onClick:Add(xiangxiziliao_OnAddGroup);
 	controller = addGroupBtn:GetController("huang");
 
@@ -152,16 +152,22 @@ function xiangxiziliao:OnHide()
 end
 
 function xiangxiziliao_FlushData()
-	local instId = UIManager.GetWindow("paiku").GetCrtCard();
+	local instId = UIParamHolder.Get("qiecuo1");
+	local hideBtn = UIParamHolder.Get("qiecuo2");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	local modelRes = displayData._AssetPath;
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
 
-	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
-	if isInGroup then
-		controller.selectedIndex = 1;
+	if hideBtn == false then
+		isInGroup = UIManager.GetWindow("paiku").IsInGroup();
+		if isInGroup then
+			controller.selectedIndex = 1;
+		else
+			controller.selectedIndex = 0;
+		end
+		addGroupBtn.visible = true;
 	else
-		controller.selectedIndex = 0;
+		addGroupBtn.visible = false;
 	end
 
 	local entityData = GamePlayer.GetEntityDataByInstID(instId);
