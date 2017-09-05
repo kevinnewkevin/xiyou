@@ -22,7 +22,7 @@ function RegGlobalValue()
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
 	Define.Set("MoveSpeed", 8);
-	Define.Set("PointLight", "Effect/chushengdian");
+	Define.Set("PointLight", "Effect/dianjiguangquan");
 	Define.Set("DestLight", "Effect/chushengdian");
 	Define.Set("BornPos", "20,-14.3,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
