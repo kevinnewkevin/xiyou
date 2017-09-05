@@ -51,6 +51,9 @@ public class AnimHolder : MonoBehaviour {
 
     void Play(string clipName)
     {
+        if (_Animation == null)
+            return;
+        
         _Animation.CrossFade(clipName);
     }
 }

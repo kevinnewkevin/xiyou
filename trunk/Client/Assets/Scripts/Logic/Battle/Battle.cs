@@ -7,6 +7,7 @@ public class Battle {
     public enum BattleState
     {
         BS_Init,
+        BS_Opra,
         BS_Oper,
         BS_Play,
         BS_Result,
@@ -92,8 +93,21 @@ public class Battle {
             case BattleState.BS_Init:
                 if (LoadAssets() && PlaceActor())
                 {
-                    CurrentState = BattleState.BS_Oper;
+                    // battle has anim
+                    if (false)
+                    {
+                        op.Begin(new int[]{ 1, 2 });
+                        op.Play();
+                        CurrentState = BattleState.BS_Opra;
+                    }
+                    else
+                    {
+                        CurrentState = BattleState.BS_Oper;
+                        UIManager.Show("BattlePanel");
+                    }
                 }
+                break;
+            case BattleState.BS_Opra:
                 break;
             case BattleState.BS_Oper:
                 if (GamePlayer._IsAuto)
@@ -143,8 +157,6 @@ public class Battle {
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
         _MaxFee = Define.GetInt("MaxFee");
-
-        UIManager.SetDirty("BattlePanel");
     }
 
     static public void RandHandCards(int count)
@@ -182,7 +194,7 @@ public class Battle {
         }
         BattleSetup();
     }
-
+    static OpraSystem op;
     static bool LoadAssets()
     {
         // 加载场景站位点信息
@@ -220,10 +232,13 @@ public class Battle {
         if(_BattleCamera == null)
             _BattleCamera = Camera.main.gameObject.AddComponent<BattleCamera>();
 
+        if(op == null)
+            op = GameObject.Find("OpraSystem").GetComponent<OpraSystem>();
+
         // 加载角色资源
         //TODO
 
-        return _IsStagePointInitSuc;
+        return _IsStagePointInitSuc && _BattleCamera != null && op != null;
     }
 
     static int ConvertedPos(int pos)

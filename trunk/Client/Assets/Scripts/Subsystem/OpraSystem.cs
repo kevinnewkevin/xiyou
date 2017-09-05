@@ -51,17 +51,17 @@ public class OpraSystem : MonoBehaviour {
     public void Begin(int[] ids)
     {
         AnimationData aData = null;
+        ActorData acData = null;
         for(int i=0; i < ids.Length; ++i)
         {
             aData = AnimationData.GetData(ids[i]);
             LaunchClip(aData);
-        }
 
-        ActorData acData = null;
-        for (int i = 0; i < aData._Actors.Length; ++i)
-        {
-            acData = ActorData.GetData(aData._Actors[i]);
-            LaunchAsset(acData);
+            for (int j = 0; j < aData._Actors.Length; ++j)
+            {
+                acData = ActorData.GetData(aData._Actors[j]);
+                LaunchAsset(acData);
+            }
         }
     }
 
@@ -132,12 +132,12 @@ public class OpraSystem : MonoBehaviour {
 
     void UnloadClip(AnimationData data)
     {
-        AssetLoader.UnloadAsset(data._ClipName);
+        AssetLoader.UnloadAsset(data._ClipName, true);
     }
 
     void UnloadAsset(ActorData data)
     {
-        AssetLoader.UnloadAsset(data._Asset);
+        AssetLoader.UnloadAsset(data._Asset, true);
     }
 
     void SetActorAction(int animationid)
@@ -179,8 +179,12 @@ public class OpraSystem : MonoBehaviour {
         for (int i = 0; i < _ActorList.Count; ++i)
         {
             UnloadAsset(_ActorList [i]._Data);
+            GameObject.Destroy(_ActorList[i]._Go);
         }
-        Battle.CurrentState = Battle.BattleState.BS_Oper;
-        UIManager.Show("BattlePanel");
+        CameraEffect.Fade(delegate {
+            Battle.CurrentState = Battle.BattleState.BS_Oper;
+            UIManager.Show("BattlePanel");
+            CameraEffect.Continue();
+        });
     }
 }

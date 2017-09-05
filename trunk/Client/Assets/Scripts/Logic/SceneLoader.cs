@@ -8,17 +8,17 @@ public class SceneLoader
     static AsyncOperation asyncOper;
     static public void LoadScene(string sceneName)
     {
-        UIManager.HideAll();
-        //UIManager.Show("LoadingPanel");
-        asyncOper = SceneManager.LoadSceneAsync(sceneName);
-        if (sceneName.Equals(Define.SCENE_BATTLE))
-        {
-            UIManager.Show("BattlePanel");
-        }
-        else
-        {
-            UIManager.Show("zhujiemian");
-        }
+        CameraEffect.Fade(delegate{
+            UIManager.DisposeAll();
+            //UIManager.HideAll();
+            //UIManager.Show("LoadingPanel");
+            asyncOper = SceneManager.LoadSceneAsync(sceneName);
+            if (!sceneName.Equals(Define.SCENE_BATTLE))
+            {
+                UIManager.Show("zhujiemian");
+            }
+            CameraEffect.Continue();
+        });
     }
 
     static public void Update()

@@ -9,6 +9,7 @@ public class PathDefine {
     public const string EFFECT_ASSET_PATH = "effect/";
     public const string ICON_ASSET_PATH = "icon/";
     public const string UI_ASSET_PATH = "ui/ui_fairy/export/";
+    public const string ANIM_ASSET_PATH = "anim/";
     public const string COMMON_ASSET_PATH = "common/";
     public const string TABLE_ASSET_PATH = "table/tables/";
     public const string LUA_ASSET_PATH = "ToLua/Lua/";

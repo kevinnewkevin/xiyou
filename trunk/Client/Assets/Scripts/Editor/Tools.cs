@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using SevenZip.Compression.LZMA;
 using SevenZip;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 public class Tools {
 
@@ -46,6 +47,7 @@ public class Tools {
         SetPlayer();
         SetEffect();
         SetUI();
+        SetAnim();
         SetTable();
         SetLua();
 
@@ -62,6 +64,7 @@ public class Tools {
         SetPlayer();
         SetEffect();
         SetUI();
+        SetAnim();
         SetTable();
         SetLua();
 
@@ -78,6 +81,7 @@ public class Tools {
         SetPlayer();
         SetEffect();
         SetUI();
+        SetAnim();
         SetTable();
         SetLua();
 
@@ -136,7 +140,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                UnityEngine.Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -177,7 +181,7 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                UnityEngine.Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -230,7 +234,48 @@ public class Tools {
                     continue;
 
                 _AllDependences.Add(deps[j]);
-                UnityEngine.Debug.Log(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
+            }
+        }
+        for(int i=0; i < _AllDependences.Count; ++i)
+        {
+            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
+            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.ASSET_EXT;
+        }
+        _AllFiles.Clear();
+        _AllDirectories.Clear();
+        _AllDependences.Clear();
+    }
+
+    static void SetAnim()
+    {
+        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.ANIM_ASSET_PATH));
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
+            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
+            aimport.assetBundleName = PathDefine.ANIM_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
+            string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
+            for(int j=0; j < deps.Length; ++j)
+            {
+                deps [j] = deps [j].ToLower();
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+
+                if (deps [j].Equals(_assetPath))
+                    continue;
+
+                if (_AllDependences.Contains(deps [j]))
+                    continue;
+
+                _AllDependences.Add(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
             }
         }
         for(int i=0; i < _AllDependences.Count; ++i)
@@ -558,5 +603,15 @@ public class Tools {
         {
             UnityEngine.Debug.Log("ERROR : " + e.Message);
         }
+    }
+
+    static public string GetMD5WithFilePath(string filePath)
+    {
+       FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+       MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+       byte[] hash_byte = md5.ComputeHash(file);
+       string str = System.BitConverter.ToString(hash_byte);
+       str = str.Replace("-", "");
+       return str;
     }
 }

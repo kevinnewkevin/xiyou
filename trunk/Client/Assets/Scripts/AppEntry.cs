@@ -20,7 +20,7 @@ public class AppEntry : MonoBehaviour {
         DataLoader.Init();
         UIManager.Init();
         Define.Init();
-
+        CameraEffect.Init();
 //
         //init network
         if (NetWoking.Open("127.0.0.1", 10999))
@@ -41,5 +41,6 @@ public class AppEntry : MonoBehaviour {
         World.Update();
         Battle.Update();
         SceneLoader.Update();
+        CameraEffect.Update();
 	}
 }
