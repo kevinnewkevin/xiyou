@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="mist3dck" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="hjqe0" name="daojutips_com.xml" path="/"/>
-    <image id="hjqe1" name="bb_diuqi.png" path="/"/>
-    <image id="hjqe2" name="bb_quanbushiyong.png" path="/"/>
-    <image id="hjqe3" name="bb_shiyong.png" path="/"/>
-    <image id="hjqe4" name="tanchukuang.png" path="/" scale="9grid" scale9grid="160,56,347,17"/>
-    <image id="hjqe5" name="tck_biaoti.png" path="/" scale="9grid" scale9grid="11,18,4,12"/>
-    <image id="hjqe6" name="xian.png" path="/"/>
-    <image id="hjqe7" name="yuncai.png" path="/"/>
-    <image id="hjqe8" name="zhuangshi2.png" path="/"/>
-    <image id="hjqe9" name="zhuangshi3.png" path="/"/>
-    <image id="hjqea" name="tck_fengexian.png" path="/" scale="9grid" scale9grid="76,1,7,2"/>
-    <component id="hjqeb" name="quanbushiyong_Button.xml" path="/"/>
+    <component id="hjqe0" name="daojutips_com.xml" path="/" exported="true"/>
+    <image id="hjqe1" name="bb_diuqi.png" path="/" exported="true"/>
+    <image id="hjqe2" name="bb_quanbushiyong.png" path="/" exported="true"/>
+    <image id="hjqe3" name="bb_shiyong.png" path="/" exported="true"/>
+    <image id="hjqe4" name="tanchukuang.png" path="/" exported="true" scale="9grid" scale9grid="160,95,347,17"/>
+    <image id="hjqe5" name="tck_biaoti.png" path="/" exported="true" scale="9grid" scale9grid="11,18,4,12"/>
+    <image id="hjqe6" name="xian.png" path="/" exported="true"/>
+    <image id="hjqe7" name="yuncai.png" path="/" exported="true"/>
+    <image id="hjqe8" name="zhuangshi2.png" path="/" exported="true"/>
+    <image id="hjqe9" name="zhuangshi3.png" path="/" exported="true"/>
+    <image id="hjqea" name="tck_fengexian.png" path="/" exported="true" scale="9grid" scale9grid="76,1,7,2"/>
+    <component id="hjqeb" name="quanbushiyong_Button.xml" path="/" exported="true"/>
     <component id="bo3uc" name="daoju_com.xml" path="/" exported="true"/>
+    <component id="tpyud" name="shiyong_Button.xml" path="/" exported="true"/>
+    <component id="tpyue" name="diuqi_Button.xml" path="/" exported="true"/>
+    <image id="tpyuf" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="36,35,26,9"/>
   </resources>
-  <publish name=""/>
+  <publish name="daojutips" maxAtlasSize="1024">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>
