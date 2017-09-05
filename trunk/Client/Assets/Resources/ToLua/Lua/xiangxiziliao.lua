@@ -148,6 +148,7 @@ function xiangxiziliao:OnDispose()
 end
 
 function xiangxiziliao:OnHide()
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 	Window:Hide();
 end
 
