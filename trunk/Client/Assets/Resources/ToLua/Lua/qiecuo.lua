@@ -139,7 +139,7 @@ end
 
 
 function qiecuo_OnStart(context)
-	Proxy4Lua.StartMatching(crtGroupIdx);
+	Proxy4Lua.StartMatching(crtGroupIdx+1);
 	qiecuo_FlushData();
 end
 
