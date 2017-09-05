@@ -72,21 +72,20 @@ public class OpraSystem : MonoBehaviour {
         
         if (_Animation == null)
         {
-            _IsPlaying = false;
-            Battle.CurrentState = Battle.BattleState.BS_Oper;
-            UIManager.Show("BattlePanel");
+            ReturnToBattle();
             return;
         }
 
         if (_ClipQue.Count <= 0)
         {
-            _IsPlaying = false;
-            for(int i=0; i < _ActorList.Count; ++i)
+            if (_CrtScreen._Data._Talks == null || _CrtScreen._Data._Talks.Length == 0)
             {
-                UnloadAsset(_ActorList[i]._Data);
+                ReturnToBattle();
             }
-            Battle.CurrentState = Battle.BattleState.BS_Oper;
-            UIManager.Show("BattlePanel");
+            else
+            {
+                // init talk and call play when talked.
+            }
             return;
         }
 
@@ -107,7 +106,6 @@ public class OpraSystem : MonoBehaviour {
                 Play();
                 return;
             }
-            //init talk
         });
     }
 
@@ -173,5 +171,16 @@ public class OpraSystem : MonoBehaviour {
                 return _ActorList [i];
         }
         return null;
+    }
+
+    void ReturnToBattle()
+    {
+        _IsPlaying = false;
+        for (int i = 0; i < _ActorList.Count; ++i)
+        {
+            UnloadAsset(_ActorList [i]._Data);
+        }
+        Battle.CurrentState = Battle.BattleState.BS_Oper;
+        UIManager.Show("BattlePanel");
     }
 }
