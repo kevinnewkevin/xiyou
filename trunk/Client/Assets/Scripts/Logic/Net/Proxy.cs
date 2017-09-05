@@ -60,4 +60,17 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
+	public bool InitBagItems(ref COM_ItemInst[] items)
+	{
+		return true;
+	}
+
+	public bool AddBagItem(ref COM_ItemInst inst)
+	{
+		return true;
+	}
+	public bool UpdateBagItem(ref COM_ItemInst inst)
+	{
+		return true;
+	}
 }
