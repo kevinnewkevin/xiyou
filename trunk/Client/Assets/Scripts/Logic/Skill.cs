@@ -494,7 +494,7 @@ public class Skill {
         
         for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
         {
-            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack)delegate
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack1)delegate
             {
                 if(idx < 0 || idx >= _Targets.Length)
                     return;
@@ -537,7 +537,7 @@ public class Skill {
     {
         for(int i=0; i < _SkillData._EmitNumTime.Length; ++i)
         {
-            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack)delegate
+            new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack1)delegate
             {
                 for (int j = 0; j < _Targets.Length; ++j)
                 {
@@ -595,7 +595,7 @@ public class Skill {
         }
     }
 
-    public void OnTimeDo(float delay, Timer.TimerCallBack callback)
+    public void OnTimeDo(float delay, Timer.TimerCallBack1 callback)
     {
         new Timer().Start(delay, callback);
     }

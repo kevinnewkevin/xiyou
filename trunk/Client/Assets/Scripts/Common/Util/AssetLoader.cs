@@ -62,6 +62,54 @@ public class AssetLoader {
 #endif
     }
 
+    static public AnimationClip LoadClip(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+            return null;
+        path = path.ToLower();
+        #if EDITOR_MODE
+        AnimationClip clip = Resources.Load<AnimationClip>(path);
+        if (clip == null)
+            return null;
+        return clip;
+        #else
+        if(_Manifest == null)
+        InitCommonList();
+
+        try
+        {
+        string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+        string assetPath;
+        for(int i=0; i < dep.Length; ++i)
+        {
+        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+        if(!AssetCounter.Excist(assetPath))
+        AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+        else
+        AssetCounter.GetBundle(assetPath);
+        }
+        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        AssetBundle ab = null;
+        if(!AssetCounter.Excist(assetPath))
+        {
+        ab = AssetBundle.LoadFromFile(assetPath);
+        AssetCounter.AddRef(assetPath, ab);
+        }
+        else
+        ab = AssetCounter.GetBundle(assetPath);
+
+        string assetName = path.Substring(path.LastIndexOf("/") + 1);
+        AnimationClip clip = ab.LoadAsset<AnimationClip>(assetName);
+        return clip;
+        }
+        catch(System.Exception e)
+        {
+        Debug.LogWarning("AssetPath: " + path + " is not excist!");
+        return null;
+        }
+        #endif
+    }
+
 #if EDITOR_MODE
     static public ResourceRequest LoadAssetAsync(string path)
     {
