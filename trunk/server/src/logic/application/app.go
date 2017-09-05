@@ -57,6 +57,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadItemTable("../../../config/tables/Item.csv")
+	if err != nil {
+		fmt.Println("LoadItemTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

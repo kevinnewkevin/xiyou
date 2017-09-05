@@ -28,6 +28,15 @@ type COM_ServerToClient_BattleExit struct{
 type COM_ServerToClient_SycnChapterData struct{
   data COM_Chapter  //0
 }
+type COM_ServerToClient_InitBagItems struct{
+  items []COM_ItemInst  //0
+}
+type COM_ServerToClient_AddBagItem struct{
+  item COM_ItemInst  //0
+}
+type COM_ServerToClient_UpdateBagItem struct{
+  item COM_ItemInst  //0
+}
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
 }
@@ -41,6 +50,9 @@ type COM_ServerToClientProxy interface{
   BattleReport(report COM_BattleReport ) error // 6
   BattleExit(result COM_BattleResult ) error // 7
   SycnChapterData(data COM_Chapter ) error // 8
+  InitBagItems(items []COM_ItemInst ) error // 9
+  AddBagItem(item COM_ItemInst ) error // 10
+  UpdateBagItem(item COM_ItemInst ) error // 11
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -320,6 +332,124 @@ func (this *COM_ServerToClient_SycnChapterData)Deserialize(buffer *bytes.Buffer)
   }
   return nil
 }
+func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(len(this.items) != 0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize items
+  if len(this.items) != 0{
+    {
+      err := prpc.Write(buffer,uint(len(this.items)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.items {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_InitBagItems)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize items
+  if mask.ReadBit() {
+    var size uint
+    err := prpc.Read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.items = make([]COM_ItemInst,size)
+    for i,_ := range this.items{
+      err := this.items[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_AddBagItem)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //item
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize item
+  {
+    err := this.item.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_AddBagItem)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize item
+  if mask.ReadBit() {
+    err := this.item.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateBagItem)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //item
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize item
+  {
+    err := this.item.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize item
+  if mask.ReadBit() {
+    err := this.item.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -467,6 +597,57 @@ func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)InitBagItems(items []COM_ItemInst ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(9))
+  if err != nil{
+    return err
+  }
+  _9 := COM_ServerToClient_InitBagItems{}
+  _9.items = items;
+  err = _9.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)AddBagItem(item COM_ItemInst ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(10))
+  if err != nil{
+    return err
+  }
+  _10 := COM_ServerToClient_AddBagItem{}
+  _10.item = item;
+  err = _10.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(11))
+  if err != nil{
+    return err
+  }
+  _11 := COM_ServerToClient_UpdateBagItem{}
+  _11.item = item;
+  err = _11.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -588,6 +769,48 @@ func Bridging_COM_ServerToClient_SycnChapterData(buffer *bytes.Buffer, p COM_Ser
   }
   return p.SycnChapterData(_8.data)
 }
+func Bridging_COM_ServerToClient_InitBagItems(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _9 := COM_ServerToClient_InitBagItems{}
+  err := _9.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.InitBagItems(_9.items)
+}
+func Bridging_COM_ServerToClient_AddBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _10 := COM_ServerToClient_AddBagItem{}
+  err := _10.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.AddBagItem(_10.item)
+}
+func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _11 := COM_ServerToClient_UpdateBagItem{}
+  err := _11.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.UpdateBagItem(_11.item)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -619,6 +842,12 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_BattleExit(buffer,p);
     case 8 :
       return Bridging_COM_ServerToClient_SycnChapterData(buffer,p);
+    case 9 :
+      return Bridging_COM_ServerToClient_InitBagItems(buffer,p);
+    case 10 :
+      return Bridging_COM_ServerToClient_AddBagItem(buffer,p);
+    case 11 :
+      return Bridging_COM_ServerToClient_UpdateBagItem(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

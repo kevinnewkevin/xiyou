@@ -3,6 +3,7 @@ package game
 import (
 	"time"
 	"fmt"
+	"logic/prpc"
 )
 
 const (
@@ -54,6 +55,11 @@ func CheckMatching(oncePlayer *OncePlayer, dt float64)  {
 		if oncePlayer.MatchingTime > 300{
 			player := FindPlayerByInstId(oncePlayer.PlayerInstId)
 			StopMatching(player)
+
+			if player.session != nil {
+				player.session.ErrorMessage(prpc.EN_TIANTI_MATCHING_TIMEOUT)
+			}
+			
 			fmt.Println("Matching TimeOut ----> RemoveMatching",oncePlayer.PlayerInstId)
 			return
 		}

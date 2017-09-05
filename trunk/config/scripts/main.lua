@@ -1,5 +1,6 @@
 sys.loadfile("common.lua")
 sys.loadfile("test.lua")
+sys.loadfile("item.lua")
 sys.loadfile("skillscripts/skill1.lua")
 sys.loadfile("skillscripts/skill2.lua")
 sys.loadfile("skillscripts/skill3.lua")

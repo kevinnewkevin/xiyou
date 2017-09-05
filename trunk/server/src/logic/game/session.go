@@ -125,6 +125,14 @@ func  (this *Session)StartMatching(groupId int32 ) error  {
 	return nil
 }
 
+func (this *Session)StopMatching() error {
+	if this.player == nil {
+		return nil
+	}
+	StopMatching(this.player)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

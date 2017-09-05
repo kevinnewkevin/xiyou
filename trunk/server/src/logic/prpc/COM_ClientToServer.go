@@ -54,6 +54,7 @@ type COM_ClientToServerProxy interface{
   RequestChapterData(chapterId int32 ) error // 8
   ChallengeSmallChapter(smallChapterId int32 ) error // 9
   StartMatching(groupId int32 ) error // 10
+  StopMatching() error // 11
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -685,6 +686,17 @@ func(this* COM_ClientToServerStub)StartMatching(groupId int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)StopMatching() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(11))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -834,6 +846,15 @@ func Bridging_COM_ClientToServer_StartMatching(buffer *bytes.Buffer, p COM_Clien
   }
   return p.StartMatching(_10.groupId)
 }
+func Bridging_COM_ClientToServer_StopMatching(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.StopMatching()
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -869,6 +890,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer,p);
     case 10 :
       return Bridging_COM_ClientToServer_StartMatching(buffer,p);
+    case 11 :
+      return Bridging_COM_ClientToServer_StopMatching(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

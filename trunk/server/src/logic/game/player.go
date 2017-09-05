@@ -10,6 +10,7 @@ import (
 const (
 	unitGroupMax		= 5			//卡组上限
 	onceUnitGroupMax 	= 10		//每组卡片上限
+	bagMaxGrid			= 200
 )
 
 type GamePlayer struct {
@@ -22,18 +23,21 @@ type GamePlayer struct {
 	BattleUnitGroup			int32		//战斗卡片组
 	UnitGroup				[]*prpc.COM_UnitGroup
 	//战斗相关辅助信息
-	BattleId   		int64 		//所在房间编号
-	BattleCamp 		int   		//阵营 //prpc.CompType
-	IsActive   		bool  		//是否激活
-	KillUnits 	 	[]int32 	//杀掉的怪物
-	MyDeathNum		int32		//战斗中自身死亡数量
-	BattlePoint		int32		//战斗點數
+	BattleId   				int64 		//所在房间编号
+	BattleCamp 				int   		//阵营 //prpc.CompType
+	IsActive   				bool  		//是否激活
+	KillUnits 	 			[]int32 	//杀掉的怪物
+	MyDeathNum				int32		//战斗中自身死亡数量
+	BattlePoint				int32		//战斗點數
 
 	//story chapter
-	ChapterID		int32		//正在进行的关卡
-	Chapters		[]*prpc.COM_Chapter
+	ChapterID				int32		//正在进行的关卡
+	Chapters				[]*prpc.COM_Chapter
 
-	TianTiVal		int32
+	TianTiVal				int32
+
+	//Bag
+	BagItems				[]*prpc.COM_ItemInst
 }
 
 var (
@@ -125,6 +129,10 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 		p.UnitGroup = append(p.UnitGroup,*ug)
 	}
 	p.TianTiVal = this.TianTiVal
+
+	//
+	this.SyncBag()
+
 	return p
 }
 
@@ -383,14 +391,151 @@ func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer)SyncBag()  {
+	items := []prpc.COM_ItemInst{}
+
+	for _,itemInst := range this.BagItems {
+		items = append(items,*itemInst)
+	}
+	if this.session != nil {
+		this.session.InitBagItems(items)
+	}
+}
+
+func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
+	itemData := GetItemTableDataById(itemId)
+	if itemData==nil {
+		fmt.Println("ItemTable Not Find This ItemId=",itemId)
+		return
+	}
+	for _,itemInst := range this.BagItems{
+		if itemInst.ItemId == itemId {
+			itemInst.Stack_ += itemCount
+			if itemInst.Stack_ > itemData.MaxCount {
+				itemCount = itemInst.Stack_ - itemData.MaxCount
+				itemInst.Stack_ = itemData.MaxCount
+			}
+			//updata bag itemInst
+			if this.session != nil {
+				this.session.UpdateBagItem(*itemInst)
+			}
+			break;
+		}
+	}
+	if itemCount > 0 {
+		newItems := GenItemInst(itemId,itemCount)
+		if len(newItems) == 0 {
+			return
+		}
+		if len(this.BagItems) + len(newItems) >= bagMaxGrid {
+			//newItems To Mall
+			return
+		}
+
+		for _,newItem := range newItems{
+			if newItem == nil {
+				continue
+			}
+			this.BagItems = append(this.BagItems,newItem)
+			//add newItem
+			if this.session != nil {
+				this.session.AddBagItem(*newItem)
+			}
+		}
+	}
+}
+
+func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
+	itemInst := this.GetBagItemByInstId(instid)
+	if itemInst == nil {
+		fmt.Println("Not Find Item In The Bag",instid)
+		return
+	}
+	for i:=0;i<len(this.BagItems) ;i++  {
+		if this.BagItems[i] == nil{
+			continue
+		}
+		if this.BagItems[i].InstId == instid {
+			if this.BagItems[i].Stack_ > stack {
+				this.BagItems[i].Stack_ -= stack
+				//updata item
+			}else {
+				this.BagItems = append(this.BagItems[:i], this.BagItems[i+1:]...)
+				//del item
+			}
+		}
+	}
+}
+
+func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
+	
+}
+
+func (this *GamePlayer)GetBagItemByInstId(instId int64) *prpc.COM_ItemInst {
+	for _,itemInst := range this.BagItems{
+		if itemInst == nil {
+			continue
+		}
+		if itemInst.InstId == instId {
+			return itemInst
+		}
+	}
+	return nil
+}
+
+func (this *GamePlayer)GetBagItemByTableId(itemid int32) []*prpc.COM_ItemInst {
+	items := []*prpc.COM_ItemInst{}
+	for _,itemInst := range this.BagItems{
+		if itemInst == nil {
+			continue
+		}
+		if itemInst.ItemId == itemid {
+			items = append(items,itemInst)
+		}
+	}
+	return items
+}
+
+func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
+	itemInst := this.GetBagItemByInstId(instId)
+	if itemInst==nil {
+		return
+	}
+
+	itemData := GetItemTableDataById(itemInst.ItemId)
+	if itemData==nil {
+		return
+	}
+
+	v := []interface{}{0}
+	r := []interface{}{0}
+
+
+	_L.CallFuncEx(itemData.GloAction, v, &r)
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-	P2 := CreatePlayer(1, "testPlayer2")
-	StartMatching(P1,1)
-	StartMatching(P2,1)
+	fmt.Println(len(ItemTableData))
+	for i:=0;i<len(ItemTableData) ;i++  {
+		if i==1 {
+			P1.AddBagItemByItemId(int32(i+1),1050)
+		}else {
+			P1.AddBagItemByItemId(int32(i+1),10)
+		}
+	}
+	for _,item := range P1.BagItems{
+		if item.ItemId== 2 {
+			P1.DelItemByTableId(2,1000)
+		}
+		
+		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
+	}
 	//CreatePvE(P, 1)
 }

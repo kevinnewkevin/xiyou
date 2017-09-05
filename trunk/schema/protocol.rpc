@@ -12,6 +12,7 @@ service COM_ClientToServer{
 	RequestChapterData(int32 chapterId);
 	ChallengeSmallChapter(int32 smallChapterId);
 	StartMatching(int32 groupId);
+	StopMatching();
 };
 
 service COM_ServerToClient{
@@ -24,4 +25,7 @@ service COM_ServerToClient{
 	BattleReport(COM_BattleReport report); 	//战报
 	BattleExit(COM_BattleResult result); 	//战斗结果
 	SycnChapterData(COM_Chapter data);
+	InitBagItems(COM_ItemInst[] items);
+	AddBagItem(COM_ItemInst item);
+	UpdateBagItem(COM_ItemInst item);
 };
