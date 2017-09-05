@@ -27,10 +27,12 @@ function qiecuo:OnInit()
 	local rightPart = self.contentPane:GetChild("n5").asCom;
 	local bg = rightPart:GetChild("n3");
 	allCardGroupList = bg:GetChild("n5").asList;
+
 	local cardGroup = rightPart:GetChild("n6");
 	crtCardName = cardGroup:GetChild("n23");
 	cardGroupList = cardGroup:GetChild("n27").asList;
-
+	local setBattleBtn = cardGroup:GetChild("n29").asButton;
+	setBattleBtn.visible = false;
 	for i=1, 5 do
 		local groupItem = allCardGroupList:AddItemFromPool(cardGroupUrl);
 		groupItem.onClick:Add(qiecuo_OnSelectGroup);
@@ -72,7 +74,7 @@ function qiecuo:OnUpdate()
 end
 
 function qiecuo:OnTick()
-	
+	 
 end
 
 function qiecuo:isShow()
