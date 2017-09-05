@@ -22,9 +22,15 @@ public class Proxy4Lua {
 	static public void ChallengeSmallChapter(int id)
 	{
 		NetWoking.S.ChallengeSmallChapter(id);
+		UnityEngine.Debug.Log("ChallengeSmallChapter0000");
 	}
 
-    static public void CreatePlayer(int templateId, string nickName)
+	static public void StartMatching(int teamId)
+	{
+		NetWoking.S.StartMatching(teamId);
+	}
+
+    static public void CreatePlayer(int templateId, string nickName)  
     {
         NetWoking.S.CreatePlayer(templateId, nickName);
     }
