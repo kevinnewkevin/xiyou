@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraEffect {
 
@@ -15,11 +16,13 @@ public class CameraEffect {
     public static void Init()
     {
         _Mat = Resources.Load<Material>("Material/Fade");
+        SceneManager.sceneLoaded += (arg0, arg1) => {
+            SearchAllCamera();
+        };
     }
 
-    public static void Fade(FadeingCallback callback)
+    static void SearchAllCamera()
     {
-        fadeCallback = callback;
         Camera[] cameras = GameObject.FindObjectsOfType<Camera>();
         CameraFade cf;
         for(int i=0; i < cameras.Length; ++i)
@@ -28,6 +31,12 @@ public class CameraEffect {
             if(cf == null)
                 cf = cameras [i].gameObject.AddComponent<CameraFade>();
         }
+    }
+
+    public static void Fade(FadeingCallback callback)
+    {
+        fadeCallback = callback;
+        SearchAllCamera();
         _IsPlaying = true;
         _FadeIn = true;
     }
@@ -36,7 +45,7 @@ public class CameraEffect {
     {
         if (!_IsPlaying)
             return;
-
+        
         if (_FadeIn)
         {
             _V -= Time.deltaTime;

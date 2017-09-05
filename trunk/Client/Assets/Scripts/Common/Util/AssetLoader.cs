@@ -143,7 +143,7 @@ public class AssetLoader {
         
     }
 
-    static public void UnloadAsset(string path)
+    static public void UnloadAsset(string path, bool destroyObj = false)
     {
         path = path.ToLower();
 #if EDITOR_MODE
@@ -160,7 +160,10 @@ public class AssetLoader {
         AssetCounter.DelRef(assetPath);
         }
         assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
-        AssetCounter.DelRef(assetPath);
+        if (destroyObj)
+            AssetCounter.Dispose(assetPath);
+        else
+            AssetCounter.DelRef(assetPath);
 #endif
     }
 }

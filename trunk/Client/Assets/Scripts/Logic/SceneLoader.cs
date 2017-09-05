@@ -13,10 +13,6 @@ public class SceneLoader
             //UIManager.HideAll();
             //UIManager.Show("LoadingPanel");
             asyncOper = SceneManager.LoadSceneAsync(sceneName);
-            if (!sceneName.Equals(Define.SCENE_BATTLE))
-            {
-                UIManager.Show("zhujiemian");
-            }
             CameraEffect.Continue();
         });
     }

@@ -472,6 +472,9 @@ public class Skill {
                 {
                     if(_Actions[j].ActionParam < 0)
                     {
+                        if(_Targets[j] == null)
+                            continue;
+                        
                         _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
                         _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
                     }

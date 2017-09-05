@@ -43,6 +43,16 @@ public class AssetCounter {
             }
         }
     }
+
+    static public void Dispose(string name)
+    {
+        if (_AssetCounters.ContainsKey(name))
+        {
+            _AssetCounters [name].Dispose();
+            _AssetCounters.Remove(name);
+            Debug.Log(" Force Delete unused asset: " + name);
+        }
+    }
 }
 
 class AssetInfo

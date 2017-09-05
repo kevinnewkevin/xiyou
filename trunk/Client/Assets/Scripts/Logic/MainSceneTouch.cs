@@ -21,6 +21,8 @@ public class MainSceneTouch : MonoBehaviour {
         Stage.inst.onTouchBegin.Add(OnTouchBegin);
         Stage.inst.onTouchEnd.Add(OnTouchEnd);
         Stage.inst.onTouchMove.Add(OnTouchMove);
+
+        UIManager.Show("zhujiemian");
 	}
 
     void OnTouchBegin(EventContext context)
