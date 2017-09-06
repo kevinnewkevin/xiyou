@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="mist3dck" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="hjqe0" name="daojutips_com.xml" path="/" exported="true"/>
+    <component id="hjqe0" name="bagtips_com.xml" path="/" exported="true"/>
     <image id="hjqe1" name="bb_diuqi.png" path="/" exported="true"/>
     <image id="hjqe2" name="bb_quanbushiyong.png" path="/" exported="true"/>
     <image id="hjqe3" name="bb_shiyong.png" path="/" exported="true"/>
@@ -18,7 +18,7 @@
     <component id="tpyue" name="diuqi_Button.xml" path="/" exported="true"/>
     <image id="tpyuf" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="36,35,26,9"/>
   </resources>
-  <publish name="daojutips" maxAtlasSize="1024">
+  <publish name="bagtips" maxAtlasSize="1024">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>
