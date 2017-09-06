@@ -91,16 +91,16 @@ function duibaikuang_FlushData()
 			if dData ~= nil then
 				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
 			else
-				leftDisplay:SetNativeObject(GObject.New());
+				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 			end
-			rightDisplay:SetNativeObject(GObject.New());
+			rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 		else
 			if dData ~= nil then
 				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
 			else
-				rightDisplay:SetNativeObject(GObject.New());
+				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 			end
-			leftDisplay:SetNativeObject(GObject.New());
+			leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 		end
 		name.text = tData._Name;
 		content.text = tData._Content;
