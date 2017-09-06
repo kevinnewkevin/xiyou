@@ -7,6 +7,9 @@ public class TalkData {
     public int _Id;
     public string _Name;
     public string _Content;
+    public int _Side;
+    public int _DisplayId;
+    public float _Scale;
 
     static Dictionary<int, TalkData> metaData;
 
@@ -29,6 +32,9 @@ public class TalkData {
             data._Id = parser.GetInt (i, "id");
             data._Name = parser.GetString(i, "name");
             data._Content = parser.GetString(i, "content");
+            data._DisplayId = parser.GetInt(i, "DisplayId");
+            data._Side = parser.GetInt(i, "Side");
+            data._Scale = parser.GetFloat(i, "Scale");
 
             if(metaData.ContainsKey(data._Id))
             {
