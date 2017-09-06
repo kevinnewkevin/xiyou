@@ -941,7 +941,7 @@ Animator:
   m_GameObject: {fileID: 100014}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 376c02964de98794a872a3365f37ffce, type: 2}
+  m_Controller: {fileID: 9100000, guid: 650866fe3ef00054591cdd9a647ae6f6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -958,7 +958,7 @@ Animator:
   m_GameObject: {fileID: 100024}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 376c02964de98794a872a3365f37ffce, type: 2}
+  m_Controller: {fileID: 9100000, guid: 650866fe3ef00054591cdd9a647ae6f6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1009,7 +1009,7 @@ Animator:
   m_GameObject: {fileID: 100030}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 376c02964de98794a872a3365f37ffce, type: 2}
+  m_Controller: {fileID: 9100000, guid: 650866fe3ef00054591cdd9a647ae6f6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1026,7 +1026,7 @@ Animator:
   m_GameObject: {fileID: 100038}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 376c02964de98794a872a3365f37ffce, type: 2}
+  m_Controller: {fileID: 9100000, guid: 650866fe3ef00054591cdd9a647ae6f6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1619,7 +1619,7 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       minMaxState: 0
-      scalar: 10
+      scalar: 9
       maxCurve:
         serializedVersion: 2
         m_Curve:
