@@ -216,17 +216,9 @@ public class Battle {
                     else
                     {
                         int toIdx = int.Parse(point.name) - 1;
-                        if (_Side == 0)
-                        {
-                            _PosInScene [toIdx] = point;
-                            _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
-                            _PosInScene [toIdx].gameObject.SetActive(false);
-                        } else
-                        {
-                            _PosInScene [toIdx] = point;
-                            _PosInScene [toIdx].GetComponent<PointHandle>().Init(ConvertedPos(toIdx));
-                            _PosInScene [toIdx].gameObject.SetActive(false);
-                        }
+                        _PosInScene [toIdx] = point;
+                        _PosInScene [toIdx].GetComponent<PointHandle>().Init(toIdx);
+                        _PosInScene [toIdx].gameObject.SetActive(false);
                     }
                 }
                 _IsStagePointInitSuc = true;
@@ -380,10 +372,9 @@ public class Battle {
     //场上删除一个角色
     static public void DelActor(int pos)
     {
-        int tpos = _Side == 0? pos: ConvertedPos(pos);
-        if (_ActorInScene [tpos] != null)
-            _ActorInScene [tpos].Fini();
-        _ActorInScene [tpos] = null;
+        if (_ActorInScene [pos] != null)
+            _ActorInScene [pos].Fini();
+        _ActorInScene [pos] = null;
     }
 
     //场上找到一个角色
@@ -402,8 +393,7 @@ public class Battle {
 
     static public bool IsEmptyPos(int pos)
     {
-        int tpos = _Side == 0? pos: ConvertedPos(pos);
-        return _ActorInScene [tpos] == null;
+        return _ActorInScene [pos] == null;
     }
 
     static public int FindEmptyPos()
