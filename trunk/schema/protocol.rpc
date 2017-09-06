@@ -13,6 +13,7 @@ service COM_ClientToServer{
 	ChallengeSmallChapter(int32 smallChapterId);
 	StartMatching(int32 groupId);
 	StopMatching();
+	DeleteItem(int64 instId);
 };
 
 service COM_ServerToClient{
@@ -28,5 +29,6 @@ service COM_ServerToClient{
 	InitBagItems(COM_ItemInst[] items);
 	AddBagItem(COM_ItemInst item);
 	UpdateBagItem(COM_ItemInst item);
+	DeleteItemOK(int64 instId);
 	UpdateTiantiVal(int32 curVal);
 };
