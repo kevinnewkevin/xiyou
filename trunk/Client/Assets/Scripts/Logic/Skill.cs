@@ -222,6 +222,8 @@ public class Skill {
 
     void Melee_Moved()
     {
+        _Caster._ActorObj.transform.LookAt(_Targets[crtTargetIdx]._ActorObj.transform);
+
         Stop(_Caster);
 
         Play(_Caster, _SkillData._AttackAnim);
