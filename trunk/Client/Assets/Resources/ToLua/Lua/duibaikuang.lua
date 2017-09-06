@@ -11,6 +11,8 @@ local talks = {};
 local crtIdx = 0;
 local talkNums;
 local typeWriter;
+local leftDisplay;
+local rightDisplay;
 
 function duibaikuang:OnEntry()
 	Window = duibaikuang.New();
@@ -33,6 +35,9 @@ function duibaikuang:OnInit()
 	name = self.contentPane:GetChild("n8").asTextField;
 	content = self.contentPane:GetChild("n6").asTextField;
 	typeWriter = TypingEffect.New(content);
+
+	leftDisplay = self.contentPane:GetChild("n12").asGraph;
+	rightDisplay = self.contentPane:GetChild("n11").asGraph;
 
 	duibaikuang_FlushData();
 end
@@ -81,6 +86,22 @@ function duibaikuang_FlushData()
 		crtIdx = 0;
 	else
 		local tData = TalkData.GetData(talks[crtIdx]);
+		local dData = DisplayData.GetData(tData._DisplayId);
+		if tData._Side == 0 then
+			if dData ~= nil then
+				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
+			else
+				leftDisplay:SetNativeObject(GObject.New());
+			end
+			rightDisplay:SetNativeObject(GObject.New());
+		else
+			if dData ~= nil then
+				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
+			else
+				rightDisplay:SetNativeObject(GObject.New());
+			end
+			leftDisplay:SetNativeObject(GObject.New());
+		end
 		name.text = tData._Name;
 		content.text = tData._Content;
 		typeWriter:Start();
