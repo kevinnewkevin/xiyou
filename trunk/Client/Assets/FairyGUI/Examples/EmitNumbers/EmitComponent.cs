@@ -9,7 +9,7 @@ public class EmitComponent : GComponent
 	GTextField _numberText_norm;
 	Transform _owner;
 
-	const float OFFSET_ADDITION = 2.2f;
+	const float OFFSET_ADDITION = 2.5f;
 	static Vector2 JITTER_FACTOR = new Vector2(80, 80);
 
     GComponent gcom;
@@ -34,7 +34,7 @@ public class EmitComponent : GComponent
 	{
 		_owner = owner;
 
-        bool isCritical = special.Equals("baoji");
+        bool isCritical = special.Equals("BE_Crit");
 
         crtTextfield = isCritical ? _numberText_cri : _numberText_norm;
         TextFormat tf = crtTextfield.textFormat;
