@@ -103,15 +103,11 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	-- 取得目标的所有减伤数字
 	-- 然后计算
 	
-	
-	
 	local sheld = 0			-- 获取到的护盾数值
 	local max_per = 75		-- 最大减伤百分比 
 	local per = 0			-- 获取到的减伤百分比
 	
 	--判断释放者是否有增加输出伤   buff  百分比
-
-	
 	local  _BoolStrongBuff = Player.GetCheckSpec(battleid,casterid,"BF_STRONG")
 	
 	if _BoolStrongBuff then 
@@ -122,13 +118,10 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	
 	damage =damage + damage* _strongPer
 	
-	
-	
 	--------------------------------------------------------------------------
 	--------------------------------------------------------------------------
 	
 	--判断承受者有无增加伤害的buff  百分比
-	
 	local _BoolWeakBuff = Player.GetCheckSpec(battleid,targetid,"BF_WEAK")
 	
 	
@@ -136,13 +129,11 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	
 		_weakPer = Player.ClacWeakPer(battleid,targetid)
 		
-	
 	end
 	
 	damage = damage + damage * _weakPer
 	
 	--判断承受者有无减伤害的buff   百分比
-	
 	local _boolSheldBuff = Player.GetCheckSpec(battleid,targetid,"BF_SHELD")
 
 	
@@ -160,14 +151,13 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	------------------------------------------------------------------------------
 	
 	--取得目标的护盾值
-	
 	sheld = Player.GetOneSheld(battleid,targetid)
 	
 	Player.DownSheld(battleid,targetid,damage)  --减護盾值
 	
 	if sheld >= damage then 
 	
-		damage = 0
+		return 0
 	
 	end
 	
