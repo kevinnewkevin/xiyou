@@ -62,13 +62,13 @@ public class BuffChecker {
             {
                 float deadTime = _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD);
                 _Actor.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
-                new Timer().Start(deadTime, delegate
+                new Timer().Start(deadTime, (object actor) =>
                 {
                     Clear();
-                    new Timer().Start(_Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, delegate {
-                        Battle.DelActor(_Actor._RealPosInScene);
-                    });
-                });
+                    new Timer().Start(((Actor)actor).ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, (object ac) => {
+                        Battle.DelActor(((Actor)ac)._RealPosInScene);
+                    }, actor);
+                }, _Actor);
             }
             else
             {
