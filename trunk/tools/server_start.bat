@@ -8,7 +8,7 @@ call rpc.bat
 
 cd ..\server\src\logic
 
-
+del logic.exe
 
 go build
 
