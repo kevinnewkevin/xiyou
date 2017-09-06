@@ -133,6 +133,14 @@ func (this *Session)StopMatching() error {
 	return nil
 }
 
+func (this *Session)DeleteItem(instId int64, stack int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.DelItemByInstId(instId,stack)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

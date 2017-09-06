@@ -141,4 +141,10 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int)  {
 	if player1.session != nil {
 		player1.session.UpdateTiantiVal(player1.TianTiVal)
 	}
+
+	if player1.BattleCamp == winCamp {
+		fmt.Println("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]")
+	}else {
+		fmt.Println("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]")
+	}
 }

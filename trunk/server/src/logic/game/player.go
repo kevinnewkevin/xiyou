@@ -482,9 +482,15 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 			if this.BagItems[i].Stack_ > stack {
 				this.BagItems[i].Stack_ -= stack
 				//updata item
+				if this.session != nil {
+					this.session.UpdateBagItem(*itemInst)
+				}
 			}else {
 				this.BagItems = append(this.BagItems[:i], this.BagItems[i+1:]...)
 				//del item
+				if this.session != nil {
+					this.session.DeleteItemOK(instid)
+				}
 			}
 		}
 	}
@@ -558,7 +564,5 @@ func TestPlayer() {
 		
 		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
 	}
-
-	//P1.SyncBag()
 	//CreatePvE(P, 1)
 }

@@ -38,6 +38,9 @@ type COM_ServerToClient_AddBagItem struct{
 type COM_ServerToClient_UpdateBagItem struct{
   item COM_ItemInst  //0
 }
+type COM_ServerToClient_DeleteItemOK struct{
+  instId int64  //0
+}
 type COM_ServerToClient_UpdateTiantiVal struct{
   curVal int32  //0
 }
@@ -57,7 +60,8 @@ type COM_ServerToClientProxy interface{
   InitBagItems(items []COM_ItemInst ) error // 9
   AddBagItem(item COM_ItemInst ) error // 10
   UpdateBagItem(item COM_ItemInst ) error // 11
-  UpdateTiantiVal(curVal int32 ) error // 12
+  DeleteItemOK(instId int64 ) error // 12
+  UpdateTiantiVal(curVal int32 ) error // 13
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -472,6 +476,42 @@ func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) e
   }
   return nil
 }
+func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.instId!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instId
+  {
+    if(this.instId!=0){
+      err := prpc.Write(buffer,this.instId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_DeleteItemOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.instId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
@@ -707,7 +747,7 @@ func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
+func(this* COM_ServerToClientStub)DeleteItemOK(instId int64 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -716,9 +756,26 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   if err != nil{
     return err
   }
-  _12 := COM_ServerToClient_UpdateTiantiVal{}
-  _12.curVal = curVal;
+  _12 := COM_ServerToClient_DeleteItemOK{}
+  _12.instId = instId;
   err = _12.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(13))
+  if err != nil{
+    return err
+  }
+  _13 := COM_ServerToClient_UpdateTiantiVal{}
+  _13.curVal = curVal;
+  err = _13.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -887,6 +944,20 @@ func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_Serve
   }
   return p.UpdateBagItem(_11.item)
 }
+func Bridging_COM_ServerToClient_DeleteItemOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _12 := COM_ServerToClient_DeleteItemOK{}
+  err := _12.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.DeleteItemOK(_12.instId)
+}
 func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -894,12 +965,12 @@ func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_Ser
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _12 := COM_ServerToClient_UpdateTiantiVal{}
-  err := _12.Deserialize(buffer)
+  _13 := COM_ServerToClient_UpdateTiantiVal{}
+  err := _13.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.UpdateTiantiVal(_12.curVal)
+  return p.UpdateTiantiVal(_13.curVal)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -939,6 +1010,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 11 :
       return Bridging_COM_ServerToClient_UpdateBagItem(buffer,p);
     case 12 :
+      return Bridging_COM_ServerToClient_DeleteItemOK(buffer,p);
+    case 13 :
       return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)

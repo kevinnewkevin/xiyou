@@ -13,7 +13,7 @@ service COM_ClientToServer{
 	ChallengeSmallChapter(int32 smallChapterId);
 	StartMatching(int32 groupId);
 	StopMatching();
-	DeleteItem(int64 instId);
+	DeleteItem(int64 instId,int32 stack);
 };
 
 service COM_ServerToClient{
