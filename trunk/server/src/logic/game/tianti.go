@@ -138,4 +138,7 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int)  {
 			player1.TianTiVal = player1.TianTiVal - (30-coef*2)
 		}
 	}
+	if player1.session != nil {
+		player1.session.UpdateTiantiVal(player1.TianTiVal)
+	}
 }

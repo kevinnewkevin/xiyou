@@ -28,4 +28,5 @@ service COM_ServerToClient{
 	InitBagItems(COM_ItemInst[] items);
 	AddBagItem(COM_ItemInst item);
 	UpdateBagItem(COM_ItemInst item);
+	UpdateTiantiVal(int32 curVal);
 };
