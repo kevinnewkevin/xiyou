@@ -11,3 +11,6 @@ SkillId,Name,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,Cas
 131,铁钳,icon/icon_skill_qianzi,10,,,,,,1,,,,Effect/xiejiang_attack,attack,Effect/shouji,0.5,0.5,1.06,MT_Self,,,SK_131_Action
 130,突刺,icon/icon_skill_pingci,10,,,,,,1,,,,Effect/xiabing_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,,SK_130_Action
 132,十字斩击,icon/icon_skill_shuangdao,10,,,,,,1,,,,Effect/shajiangjun_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,,SK_132_Action
+1000,乾坤圈,icon/icon_skill_qiankunquan,10,,,,,,0,magic,Effect/neza_skill01_2,1,Effect/neza_skill01,,Effect/shouji,0.25,0.25,1.2,MT_Fly,1,,SK_107_Action
+1001,龙雨击,icon/icon_skill_chuanci,10,,,,,,0,magic,Effect/longtaizi_skill01_1,0.85,Effect/longtaizi_skill01_2,,,1.5,1.5,2,MT_Target,1,,SK_101_Action
+1002,混天绫,icon/icon_skill_huntianling,10,,,,,,0,magic,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,1,SK_106_Action
