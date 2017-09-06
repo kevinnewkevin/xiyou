@@ -16,6 +16,7 @@ extern int __DamageSheld(void*);
 extern int __ChangeSpecial(void*);
 extern int __PopSpec(void*);
 extern int __GetSpecial(void*);
+extern int __GetOneSpecial(void*);
 extern int __GetCheckSpec(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
@@ -45,6 +46,8 @@ extern int __GetSpecialData(void*);
 extern int __GetOneSheld(void*);
 extern int __ClacStrongPer(void*);
 extern int __ClacWeakPer(void*);
+extern int __ChangeBuffTimes(void*);
+
 
 
 */
@@ -84,6 +87,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__ChangeSpecial,"ChangeSpecial","Player")
 	_L.LoadApi(C.__PopSpec,"PopSpec","Player")
 	_L.LoadApi(C.__GetSpecial,"GetSpecial","Player")
+	_L.LoadApi(C.__GetOneSpecial,"GetOneSpecial","Player")
 	_L.LoadApi(C.__GetCheckSpec,"GetCheckSpec","Player")
 	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
 	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
@@ -101,6 +105,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetSpecialData,"GetSpecialData","Player")
 	_L.LoadApi(C.__ClacWeakPer,"ClacWeakPer","Player")
 	_L.LoadApi(C.__ClacStrongPer,"ClacStrongPer","Player")
+	_L.LoadApi(C.__ChangeBuffTimes,"ChangeBuffTimes","Player")
 
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
@@ -467,7 +472,7 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 //export __PopSpec
 func __PopSpec(p unsafe.Pointer) C.int {  //
 
-	fmt.Println("__ChangeSpecial")
+	fmt.Println("__PopSpec")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -522,6 +527,33 @@ func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 	return 1
 
 }
+//export __GetOneSpecial
+func  __GetOneSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid  实例id
+
+	fmt.Println("__GetOneSpecial")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx++
+	unitid := L.ToInteger(idx)
+	idx++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buffid := unit.GetOneSpecial(spec)
+
+
+	L.PushInteger(int(buffid))
+
+	return 1
+
+}
+
 
 //export __GetSpecialData
 func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid s数值
@@ -1189,7 +1221,7 @@ func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理强�
 //export __GetCalcDef
 func __GetCalcDef(p unsafe.Pointer) C.int {		//获取减伤百分比  物理防御
 
-	fmt.Println("__GetUnitAtk")
+	fmt.Println("__GetCalcDef")
 
 	L := lua.GetLuaState(p)
 
@@ -1233,7 +1265,7 @@ func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术强
 //export __GetCalcMagicDef
 func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
 
-	fmt.Println("__GetUnitMtk")
+	fmt.Println("__GetCalcMagicDef")
 
 	L := lua.GetLuaState(p)
 

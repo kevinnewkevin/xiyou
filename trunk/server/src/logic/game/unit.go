@@ -130,6 +130,21 @@ func (this *GameUnit) GetSpecial(spec string) []int32 {		//获取对应sepce枚�
 	return tmp
 }
 
+func (this *GameUnit) GetOneSpecial(spec string) int32 {		//获取对应sepce枚举对应的实力id 可能为空
+	tmp := 0
+	spe := prpc.ToId_BuffSpecial(spec)
+	bufflist, ok := this.Special[int32(spe)]
+	if !ok {
+		return int32(tmp)
+	} else if len(bufflist) == 0 {
+		return int32(tmp)
+	}
+
+	tmp = int(bufflist[0])
+
+	return int32(tmp)
+}
+
 func (this *GameUnit) CheckSpec(spec string) bool { //unit.checkspec(是否有免死)
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
