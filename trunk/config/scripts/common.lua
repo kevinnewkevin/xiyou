@@ -87,10 +87,10 @@ function min_property_one(battleid,unitid,property)
 	
 	for i=1,#arr_property,1 do
 	
-		if arr_property[i] == minOfT then
+		if arr_property[i] == minOfT then         
 			idx = i
 		end
-		
+		   
 	end
 	
 	return arr_pro[idx]   --返回最大血的人物  单个
@@ -98,16 +98,90 @@ function min_property_one(battleid,unitid,property)
 end
 
 -- 计算最终伤害数值 战斗id ,释放者ID, 目标ID
-function ClacDamageByAllBuff(battleid, casterid, targetid) 
+function ClacDamageByAllBuff(battleid, casterid, targetid,damage) 
 	-- 取得释放者的所有伤害增加数字
 	-- 取得目标的所有减伤数字
 	-- 然后计算
+	
+	sys.log("ClacDamageByAllBuff 函数"..ClacDamageByAllBuff)
 	
 	local sheld = 0			-- 获取到的护盾数值
 	local max_per = 75		-- 最大减伤百分比 
 	local per = 0			-- 获取到的减伤百分比
 	
+	--判断释放者是否有增加输出伤   buff
 	
+	sys.log("ClacDamageByAllBuff00000"..ClacDamageByAllBuff00000)
 	
+	local  _BoolStrongBuff = Player.GetCheckSpec(battleid,casterid,"BF_STRONG")
+	
+	sys.log("ClacDamageByAllBuff".._BoolStrongBuff)
+	
+	if _BoolBuff then 
+	
+		 _strongPer = Player.ClacStrongPer(battleid,casterid)
+		 
+		 sys.log("ClacDamageByAllBuff1111".._strongPer)
+		
+	end
+	
+	damage =damage + damage* _strongPer
+	
+	sys.log("ClacDamageByAllBuff2222"..damage)
+	
+	--------------------------------------------------------------------------
+	--------------------------------------------------------------------------
+	
+	--判断承受者有无增加伤害的buff
+	
+	local _BoolWeakBuff = Player.GetCheckSpec(battleid,targetid,"BF_WEAK")
+	sys.log("ClacDamageByAllBuff3333".._BoolWeakBuff)
+	
+	if  _BoolWeakBuff then
+	
+		_weakPer = Player.ClacWeakPer(battleid,targetid)
+		sys.log("ClacDamageByAllBuff4444".._weakPer)
+	
+	end
+	
+	damage = damage + damage * _weakPer
+	sys.log("ClacDamageByAllBuff555"..damage)
+	
+	--判断承受者有无减伤害的buff
+	
+	local _boolSheldBuff = Player.GetCheckSpec(battleid,targetid,"BF_SHELD")
+	sys.log("ClacDamageByAllBuff6666".._boolSheldBuff)
+	
+	if _boolSheldBuff then 
+		
+		_sheldPer = Player.ClacSheld(battleid,targetid)
+		sys.log("ClacDamageByAllBuff77777".._sheldPer)
+		
+	end
+	
+	damage = damage - damage * _sheldPer
+	sys.log("ClacDamageByAllBuff8888"..damage)
+	
+	------------------------------------------------------------------------------
+	------------------------------------------------------------------------------
+	
+	--取得目标的护盾值
+	
+	sheld = Player.GetOneSheld(battleid,targetid)
+	sys.log("ClacDamageByAllBuff888888"..sheld)
+	
+	DownSheld(battleid,targetid,damage)
+	
+	if sheld >= damage then 
+	
+		damage = 0
+	
+	end
+	
+	--最终伤害
+	
+	damage = damage - sheld
+	
+	return damage
 	
 end
