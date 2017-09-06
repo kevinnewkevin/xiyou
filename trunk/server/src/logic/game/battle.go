@@ -171,7 +171,7 @@ func (this *BattleRoom) BattleStart() {
 		if p == nil || p.session == nil {
 			continue
 		}
-		p.session.JoinBattleOk(int32(p.BattleCamp))
+		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID)
 	}
 }
 
