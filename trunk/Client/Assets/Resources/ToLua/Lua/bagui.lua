@@ -5,6 +5,7 @@ local Window;
 
 local crtTab = 0;
 local crtClickItemIdx = 0;
+local fullImg;
 
 function bagui:OnEntry()
 	Window = bagui.New();
@@ -25,7 +26,8 @@ function bagui:OnInit()
 	bagList = self.contentPane:GetChild("n10").asList;
 	bagList:SetVirtual();
 	bagList.itemRenderer = bagui_RenderListItem;
-
+	fullImg = self.contentPane:GetChild("n23");
+	fullImg.visible = false;
 	crtTab = 0;
 
 	bagui_FlushData();
@@ -83,7 +85,7 @@ function bagui:OnHide()
 end
 
 function bagui_FlushData()
-	bagList.numItems = BagSystem.BagItems.Length;
+	bagList.numItems = BagSystem.GetItemCount(crtTab);
 end
 
 function bagui:GetClickItemIdx()

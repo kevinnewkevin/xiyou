@@ -36,6 +36,8 @@ function zhujiemian:OnInit()
 	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
 	local qiecuoBtn = bottomBtnList:GetChildAt(6);
 	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
+	local bagBtn = bottomBtnList:GetChildAt(0);
+	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
@@ -107,4 +109,8 @@ end
 
 function zhujiemian_OnQieCuoBtn()
 	UIManager.Show("qiecuo");
+end
+
+function zhujiemian_OnBagBtn()
+	UIManager.Show("bagui");
 end
