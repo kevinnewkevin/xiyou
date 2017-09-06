@@ -73,4 +73,10 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		return true;
 	}
+	
+	public bool UpdateTiantiVal(int value)
+	{
+		GamePlayer._TianTiVal = value;
+		return true;
+	}
 }
