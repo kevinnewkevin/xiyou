@@ -214,7 +214,8 @@ public static class CustomSettings
         _GT(typeof(List<COM_Unit>)),
         _GT(typeof(List<CheckpointData>)),
         _GT(typeof(Dictionary<int, HeroStroyData>)),
-        _GT(typeof(Dictionary<int, List<COM_Item>>)),
+		_GT(typeof(COM_ItemInst)),
+		_GT(typeof(Dictionary<int, List<COM_ItemInst>>)),
 
         _GT(typeof(LuaWindow)),
 
