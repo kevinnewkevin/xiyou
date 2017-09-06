@@ -62,21 +62,29 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool InitBagItems(ref COM_ItemInst[] items)
 	{
+		BagSystem.Init (items);
 		return true;
 	}
 
 	public bool AddBagItem(ref COM_ItemInst inst)
 	{
+	//	BagSystem.AddItem(inst);
 		return true;
 	}
 	public bool UpdateBagItem(ref COM_ItemInst inst)
 	{
+		BagSystem.UpdateItem(inst);
 		return true;
 	}
 	
 	public bool UpdateTiantiVal(int value)
 	{
 		GamePlayer._TianTiVal = value;
+		return true;
+	}
+
+	public bool DeleteItemOK(long value)
+	{
 		return true;
 	}
 }
