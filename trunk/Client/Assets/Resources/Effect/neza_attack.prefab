@@ -1249,7 +1249,7 @@ Transform:
   m_GameObject: {fileID: 1302268495082814}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.1, y: 0.34, z: -0.14}
-  m_LocalScale: {x: 1.9183203, y: 0.47018117, z: 1.9183202}
+  m_LocalScale: {x: 1.4069564, y: 0.34484565, z: 1.4069563}
   m_Children:
   - {fileID: 4254503155530522}
   m_Father: {fileID: 4544480763803532}
@@ -2016,9 +2016,9 @@ Animation:
   m_GameObject: {fileID: 1376594724099562}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 09300e6850c6827468c091bd0f2b726e, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: 09300e6850c6827468c091bd0f2b726e, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -8001,7 +8001,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1456546056
+  randomSeed: -1583875130
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8148,7 +8148,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.6, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 3.5
+      scalar: 2.9
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14166,7 +14166,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0, b: 0, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 4
+      scalar: 3.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
