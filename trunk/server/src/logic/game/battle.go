@@ -333,10 +333,6 @@ func (this *BattleRoom) Update() {
 		del_buf := u.CheckAllBuff(this.Round)
 		this.UpdateBuffState(del_buf)
 
-		if u.IsDead() { // 非主角死亡跳過
-			continue
-		}
-
 		if u.IsJump() {
 			continue
 		}
