@@ -484,3 +484,19 @@ func (this *GameUnit) PopAllBuffByBuff() {
 	fmt.Println("PopAllBuffByBuff")
 	this.Allbuff = newBufflist
 }
+
+func (this *GameUnit) ChangeBuffTimes(round int32) {
+
+	for _, buff := range this.Allbuff {
+		if buff == nil {
+			continue
+		}
+		if buff.IsOver(round) {
+			continue
+		}
+		if buff.Times == 0 {
+			continue
+		}
+		buff.ChangeTimes()
+	}
+}

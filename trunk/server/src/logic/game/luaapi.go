@@ -1256,7 +1256,7 @@ func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 //export __ChangeBuffTimes
 func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 
-	fmt.Println("__TargetOn")
+	fmt.Println("__ChangeBuffTimes")
 
 	L := lua.GetLuaState(p)
 
@@ -1264,17 +1264,11 @@ func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 	battleid := L.ToInteger(idx)
 	idx ++
 	unitid := L.ToInteger(idx)
-	idx ++
-	buffinstid := L.ToInteger(idx)
 
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	buff := unit.SelectBuff(int32(buffinstid))
-
-	buff.ChangeTimes()
-
-	battle.TargetOn()
+	unit.ChangeBuffTimes(battle.Round)
 
 	return 1
 }
