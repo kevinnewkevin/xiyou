@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"suzuki/conf"
 	"strings"
+	"fmt"
 )
 
 type (
@@ -37,6 +38,7 @@ type (
 		Until		int32
 		Type 		int32
 		Kind 		int32
+		Times 		int32
 		AddLua 		string
 		UpdateLua 	string
 		PopLua 		string
@@ -174,6 +176,7 @@ func GetSkillLuaRecordById(id int32) *SkillLuaRecord {
 func LoadBuffTable(filename string) error {
 	csv, err := conf.NewCSVFile(filename)
 	if err != nil {
+		fmt.Println("1111")
 		return err
 	}
 
@@ -181,6 +184,7 @@ func LoadBuffTable(filename string) error {
 		b := BuffRecord{}
 		b.BuffId = int32(csv.GetInt(r, "BuffId"))
 		b.Until = int32(csv.GetInt(r, "Until"))
+		b.Times = int32(csv.GetInt(r, "Times"))
 		b.Type = int32(csv.GetInt(r, "Type"))
 		b.Kind = int32(csv.GetInt(r, "Kind"))
 		b.AddLua = csv.GetString(r, "AddScript")

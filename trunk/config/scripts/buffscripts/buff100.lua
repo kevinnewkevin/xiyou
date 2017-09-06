@@ -12,7 +12,7 @@ function buff_100_update(battleid, buffinstid, unitid)
 	
 	Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_100_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_100_update"..","..battleid..","..buffinstid..","..unitid)
 	
 end
 

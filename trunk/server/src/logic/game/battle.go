@@ -49,6 +49,7 @@ type BattleRoom struct {
 	sync.Mutex
 	Type 	   	int32		 				//战斗类型 1是pvp 2是pve
 	InstId     	int64         				//房间ID
+	BattleID    int32         				//戰鬥ID
 	Status     	int32         				//战斗房间状态
 	Round      	int32         				//回合计数
 	Point      	int32         				//本场战斗的能量点
@@ -81,6 +82,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.PlayerList = append(room.PlayerList, p)
 	room.Type = 2
 	room.Point = 1
+	room.BattleID = battleid
 
 	room.Monster = CreateMonster(battleid, room.InstId)
 
@@ -135,6 +137,7 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.PlayerList = append(room.PlayerList, p0, p1)
 	room.Type = 1
 	room.Point = 1
+	room.BattleID = 0
 
 	//p0.BattleId = room.InstId
 	//p1.BattleId = room.InstId
@@ -298,6 +301,7 @@ func (this *BattleRoom) Update() {
 
 	this.ReportOne = prpc.COM_BattleReport{}
 	this.Dead = []*GameUnit{}
+	this.ReportOne.BattleID = this.BattleID
 
 	unitllist := this.SortUnits()
 
@@ -329,6 +333,10 @@ func (this *BattleRoom) Update() {
 		del_buf := u.CheckAllBuff(this.Round)
 		this.UpdateBuffState(del_buf)
 
+		if u.IsDead() { // 非主角死亡跳過
+			continue
+		}
+
 		u.CastSkill2(this)
 
 		//this.TargetOver()
@@ -356,6 +364,7 @@ func (this *BattleRoom) Update() {
 
 		}
 	}
+	fmt.Println("Battle report battleid is ", this.ReportOne.BattleID)
 	fmt.Println("Battle report unitlist is ", this.ReportOne.UnitList)
 	fmt.Println("Battle report acctionlist is ", this.ReportOne.ActionList)
 
@@ -829,6 +838,8 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	if crit == 0 {
 		crit = prpc.BE_MAX
+	} else {
+		crit = prpc.BE_Crit
 	}
 
 	this.TargetCOM.InstId = target

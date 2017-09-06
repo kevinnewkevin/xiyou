@@ -15,6 +15,7 @@ type Buff struct {
 	BuffType	int32			//buff类型 增益还是减益
 	BuffKind	int32			//buff种类 有行动还是没行动 有行动就是类似每回合恢复血量或者每回合掉血 没行动就是增加个盾之类的
 	Data		int32 			//数值 加血 掉血 护盾 可以为0
+	Times		int32 			//buff生效的次数
 	Over 		bool			//是否中断
 	DataMap 	map[int]int32	//buff数值key是buff的idx,value是数值
 }
@@ -48,6 +49,7 @@ func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round in
 	NewBuff.BuffType = b.Type
 	NewBuff.BuffKind = b.Kind
 	NewBuff.Over = false
+	NewBuff.Times = b.Times
 
 	return &NewBuff
 }
@@ -124,6 +126,25 @@ func (this *Buff) IsOver(round int32) bool {
 
 func (this *Buff) Special(data int32) int {
 	// 处理特殊属性
+
+	return 1
+}
+
+func (this *Buff) ChangeTimes() int {
+	bf_table := GetBuffRecordById(this.BuffId)
+	if bf_table == nil {
+		return 1
+	}
+
+	if bf_table.Times == 0 {
+		return 1
+	}
+
+	this.Times -= 1
+
+	if this.Times <= 0 {
+		this.Over = true
+	}
 
 	return 1
 }

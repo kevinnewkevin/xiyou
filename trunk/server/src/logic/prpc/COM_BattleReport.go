@@ -4,18 +4,29 @@ import(
   "suzuki/prpc"
 )
 type COM_BattleReport struct{
-  UnitList []COM_BattleUnit  //0
-  ActionList []COM_BattleAction  //1
+  BattleID int32  //0
+  UnitList []COM_BattleUnit  //1
+  ActionList []COM_BattleAction  //2
 }
 func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
+  mask.WriteBit(this.BattleID!=0)
   mask.WriteBit(len(this.UnitList) != 0)
   mask.WriteBit(len(this.ActionList) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
       return err
+    }
+  }
+  // serialize BattleID
+  {
+    if(this.BattleID!=0){
+      err := prpc.Write(buffer,this.BattleID)
+      if err != nil{
+        return err
+      }
     }
   }
   // serialize UnitList
@@ -55,6 +66,13 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
     return err
+  }
+  // deserialize BattleID
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.BattleID)
+    if err != nil{
+      return err
+    }
   }
   // deserialize UnitList
   if mask.ReadBit() {
