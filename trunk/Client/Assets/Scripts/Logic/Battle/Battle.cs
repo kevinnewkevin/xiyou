@@ -51,6 +51,8 @@ public class Battle {
 
     static public int _Side;
 
+    static public int _BattleId;
+
     static public Vector3 _Center;
 
     static public List<long> _MyGroupCards;
@@ -93,10 +95,11 @@ public class Battle {
             case BattleState.BS_Init:
                 if (LoadAssets() && PlaceActor())
                 {
+                    BattleData bData = BattleData.GetData(_BattleId);
                     // battle has anim
-                    if (false)
+                    if (bData != null && bData._Animations != null && bData._Animations.Length > 0)
                     {
-                        op.Begin(new int[]{ 1, 2 });
+                        op.Begin(bData._Animations);
                         op.Play();
                         CurrentState = BattleState.BS_Opra;
                     }
@@ -142,13 +145,14 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init(int side)
+    static public void Init(int side, int battleid = 0)
     {
         _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
         _Turn = 1;
         _Side = side;
+        _BattleId = battleid;
         CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
         _HandCards.Clear();
@@ -451,7 +455,7 @@ public class Battle {
             RandHandCards(3);
         if(_Turn > 2)
             RandHandCards(1);
-    }
+        }
 
     static public void SwitchPoint(bool on)
     {
