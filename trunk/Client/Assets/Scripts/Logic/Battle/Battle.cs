@@ -371,7 +371,7 @@ public class Battle {
             actor.MoveTo(_PosInScene [tpos].position, null);
             return;
         }
-        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, pos, crtHp, maxHp, displayId);
+        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, tpos, crtHp, maxHp, displayId);
         _ActorInScene[tpos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [tpos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
@@ -425,8 +425,8 @@ public class Battle {
                 }
             }
             if (emptyPos != -1)
-                return (_Side == 0? emptyPos: ConvertedPos(emptyPos));
-        }
+                return (_Side == 0 ? emptyPos : ConvertedPos(emptyPos));
+            }
         return (_Side == 0? emptyPos: ConvertedPos(emptyPos));
     }
 
