@@ -55,6 +55,12 @@ public class Skill {
             return;
         }
 
+        if (caster == null)
+        {
+            Clear();
+            return;
+        }
+
         // 根据技能类型初始化特效
         if (!string.IsNullOrEmpty(_SkillData._CastEffect))
         {

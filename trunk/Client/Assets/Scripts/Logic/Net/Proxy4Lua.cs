@@ -62,6 +62,12 @@ public class Proxy4Lua {
         OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();
         if (os == null)
             return null;
+
+        if (os._CrtScreen == null)
+            return null;
+
+        if (os._CrtScreen._Data == null)
+            return null;
         
         return os._CrtScreen._Data._Talks;
     }
@@ -70,6 +76,15 @@ public class Proxy4Lua {
     {
         OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();
         if (os == null)
+            return 0;
+
+        if (os._CrtScreen == null)
+            return 0;
+
+        if (os._CrtScreen._Data == null)
+            return 0;
+
+        if (os._CrtScreen._Data._Talks == null)
             return 0;
 
         return os._CrtScreen._Data._Talks.Length;
