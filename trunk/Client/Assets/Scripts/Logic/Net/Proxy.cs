@@ -83,8 +83,9 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
-	public bool DeleteItemOK(long value)
+	public bool DeleteItemOK(long instId)
 	{
+		BagSystem.DelItem (instId);			
 		return true;
 	}
 }

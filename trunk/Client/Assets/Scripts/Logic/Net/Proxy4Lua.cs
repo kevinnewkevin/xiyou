@@ -39,6 +39,11 @@ public class Proxy4Lua {
     {
         NetWoking.S.CreatePlayer(templateId, nickName);
     }
+
+	static public void DeleteItem(long instId,int stack)
+	{
+		NetWoking.S.DeleteItem(instId,stack);
+	}
     #endregion
 
     #region 内部接口

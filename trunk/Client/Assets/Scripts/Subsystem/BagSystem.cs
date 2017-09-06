@@ -5,11 +5,9 @@ using UnityEngine;
 public class BagSystem {
 
     public static Dictionary<int, List<COM_ItemInst>> _ItemsByType;
-	public static COM_ItemInst[] BagItems;
 
 	public static void Init(COM_ItemInst[] items)
     {
-		BagItems = items;
 		_ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 		List<COM_ItemInst> itemList = new List<COM_ItemInst> ();
 		
@@ -23,7 +21,7 @@ public class BagSystem {
        // _ItemsByType [0].Sort(Sort);
         ItemData iData = null;
 		
-		for(int i=0; i < items.Length; ++i)
+	/*	for(int i=0; i < items.Length; ++i)
         {
 			iData = ItemData.GetData(items[i].ItemId);
             if (iData == null)
@@ -32,6 +30,7 @@ public class BagSystem {
 					_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
 			_ItemsByType [iData._Type].Add(items[i]);
         }
+        */
         
         UIManager.SetDirty("bagui");
     }
@@ -59,7 +58,7 @@ public class BagSystem {
         UIManager.SetDirty("bagui");
     }
 
-    public static void DelItem(int instid)
+    public static void DelItem(long instid)
     {
         int type = 0;
         for(int i=0; i < _ItemsByType [0].Count; ++i)
