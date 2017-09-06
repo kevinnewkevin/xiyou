@@ -1160,6 +1160,7 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 			if pos.InstId == p.MyUnit.InstId {
 				goto setup_check_success
 			}
+			fmt.Println("SetupPosition.error no main")
 			return //没有主角卡
 		}
 	}
@@ -1168,9 +1169,11 @@ setup_check_success:
 	for i := 0; i < len(posList)-1; i++ {
 		for j := i + 1; j < len(posList); j++ {
 			if posList[i].InstId == posList[j].InstId {
+				fmt.Println("SetupPosition.error card same")
 				return //有重复卡牌设置
 			}
 			if posList[i].Position == posList[j].Position {
+				fmt.Println("SetupPosition.error pos same")
 				return //有重复位置设置
 			}
 			unit := p.GetUnit(posList[i].InstId)
@@ -1179,6 +1182,7 @@ setup_check_success:
 	}
 
 	if needPoint > p.BattlePoint {
+		fmt.Println("SetupPosition.error point less", needPoint, p.BattlePoint)
 		return //能量点不足
 	}
 
@@ -1188,11 +1192,13 @@ setup_check_success:
 				continue
 			}
 			if u.InstId == pos.InstId {
+				fmt.Println("SetupPosition.error pos same 2")
 				return //已经上场
 			}
 		}
 
 		if this.Units[pos.Position] != nil {
+			fmt.Println("SetupPosition.error pos same 3")
 			return //这个位置上有人
 		}
 	}

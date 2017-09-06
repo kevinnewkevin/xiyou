@@ -215,6 +215,7 @@ func (this *GameUnit) ClacStrongPer(round int32) float32 {			//计算百分比�
 
 	return per
 }
+
 func (this *GameUnit) ClacWeakPer(round int32) float32 {			//计算百分比增加承受伤 所有buff的百分比减伤加起来 有个最大值
 	maxPer := 75
 
