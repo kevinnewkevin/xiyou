@@ -316,6 +316,17 @@ func (this *GameUnit) IsDead() bool {
 	return this.GetCProperty(prpc.CPT_CHP) <= 0
 }
 
+func (this *GameUnit) IsJump() bool {
+	buff_lis, ok := this.Special[prpc.BF_JUMP]
+	if !ok {
+		return false
+	}
+	if len(buff_lis) == 0 {
+		return false
+	}
+	return true
+}
+
 func (this *GameUnit) isFront() bool {
 	li := this.GetFrontList()
 

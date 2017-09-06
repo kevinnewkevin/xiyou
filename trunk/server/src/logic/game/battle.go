@@ -337,6 +337,10 @@ func (this *BattleRoom) Update() {
 			continue
 		}
 
+		if u.IsJump() {
+			continue
+		}
+
 		u.CastSkill2(this)
 
 		//this.TargetOver()
@@ -643,23 +647,53 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 
 	fmt.Println("targets length1 = ", len(targets))
 
-	//if num > 0 && int(num) < int(len(targets)){
-	//	rand.Seed(time.Now().UnixNano())
-	//	l := make([]int64, len(targets))
-	//	tmp := map[int64]int{}
-	//	var uid int64 = 0
-	//	for len(tmp) < num {
-	//		_, ok := tmp[uid]
-	//		for !ok {
-	//			//这里从targets里面随机选择
-	//			idx := rand.Intn(num - 1)
-	//			l = append(l, targets[idx])
-	//			tmp[targets[idx]] = 1
-	//		}
-	//	}
-	//}
-	//fmt.Println("targets length2 = ", len(targets))
+	if num > 0 && int(num) < int(len(targets)){
+		rand.Seed(time.Now().UnixNano())
+		l := make([]int64, len(targets))
+		tmp := map[int64]int{}
+		var uid int64 = 0
+		for len(tmp) < num {
+			fmt.Println("len(tmp)", len(tmp), num)
+			_, ok := tmp[uid]
+			for !ok {
+				//这里从targets里面随机选择
+				idx := rand.Intn(num - 1)
+				l = append(l, targets[idx])
+				tmp[targets[idx]] = 1
+			}
+		}
+	}
+	fmt.Println("targets length2 = ", len(targets))
 	return targets
+}
+
+//取得全部目标
+func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
+	rand.Seed(time.Now().UnixNano())
+	unit := this.SelectOneUnit(instid)
+	u_list := []int64{}
+
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead() {
+			continue
+		}
+		if u.Camp == unit.Camp {
+			continue
+		}
+
+		u_list = append(u_list, u.InstId)
+	}
+
+	if len(u_list) == 1 {
+		return u_list[0]
+	}
+
+	idx := rand.Intn(len(u_list) - 1)
+
+	return u_list[idx]
 }
 
 
@@ -834,22 +868,22 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		fmt.Println("debuff", debuff)
 	}
 
-	////////////////////////////////////////////////////////////////////////
-	if unit.VirtualHp >= damage {			//计算护盾减伤之后的伤害
-		damage = 0
-		unit.VirtualHp = unit.VirtualHp - damage
-	} else {
-		damage = damage - unit.VirtualHp
-	}
-	////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+	//if unit.VirtualHp >= damage {			//计算护盾减伤之后的伤害
+	//	damage = 0
+	//	unit.VirtualHp = unit.VirtualHp - damage
+	//} else {
+	//	damage = damage - unit.VirtualHp
+	//}
+	//////////////////////////////////////////////////////////////////////////
 
-	////////////////////////////////////////////////////////////////////////
-	per := unit.ClacSheldPer(this.Round)		//百分比减伤 结果是最终减伤多少
-	if per > 0 {
-		persent := 1.0 - per					//实际受到的伤害百分比
-		damage = int32(float32(damage) * persent)
-	}
-	////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+	//per := unit.ClacSheldPer(this.Round)		//百分比减伤 结果是最终减伤多少
+	//if per > 0 {
+	//	persent := 1.0 - per					//实际受到的伤害百分比
+	//	damage = int32(float32(damage) * persent)
+	//}
+	//////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////////////////
 	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
