@@ -7,8 +7,10 @@ public class ItemData {
     public int _Id;
     public int _Type;
     public string _Icon;
-
-    static Dictionary<int, ItemData> metaData;
+	public string _IconBack;
+	public string _Name;
+	public string _Desc;
+    public static Dictionary<int, ItemData> metaData;
 
     static public void ParseData(string content, string fileName)
     {
@@ -29,8 +31,11 @@ public class ItemData {
             data._Id = parser.GetInt (i, "ItemID");
             data._Type = parser.GetInt (i, "ItemType");
             data._Icon = parser.GetString (i, "ItemIcon");
-
-            if(metaData.ContainsKey(data._Id))
+			data._IconBack = parser.GetString (i, "Quality");
+			data._Name = parser.GetString (i, "Name");
+			data._Desc = parser.GetString (i, "Desc");
+            
+			if(metaData.ContainsKey(data._Id))
             {
                 Debug.LogError("ItemData ID重复");
                 return;
@@ -41,7 +46,7 @@ public class ItemData {
         parser = null;
     }
 
-    static public ItemData GetData(int id)
+	public static ItemData GetData(int id)
     {
         if (!metaData.ContainsKey(id))
             return null;
