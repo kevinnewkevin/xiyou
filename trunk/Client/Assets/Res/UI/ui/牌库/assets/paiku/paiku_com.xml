@@ -2,14 +2,13 @@
 <component size="1920,1080">
   <displayList>
     <image id="n4_h8fp" name="n4" src="rvp54" xy="0,0" size="1920,1080"/>
-    <component id="n5_h8fp" name="n5" src="h8fpq" xy="924,0"/>
+    <component id="n5_h8fp" name="n5" src="h8fpq" xy="924,21"/>
     <component id="n6_b9pp" name="n6" src="h8fpr" xy="14,5"/>
     <component id="n7_zlcj" name="n7" src="zlcj1f" xy="1788,3"/>
     <image id="n8_zlcj" name="n8" src="rvp5h" xy="0,1"/>
   </displayList>
-  <transition name="t0" options="4">
+  <transition name="t0" options="4" autoPlay="true">
     <item time="0" type="XY" target="n6_b9pp" tween="true" startValue="-402,5" endValue="14,5" duration="6"/>
-    <item time="0" type="XY" target="n5_h8fp" tween="true" startValue="1388,0" endValue="924,0" duration="6"/>
+    <item time="0" type="XY" target="n5_h8fp" tween="true" startValue="1388,22" endValue="924,21" duration="6"/>
   </transition>
-  <transition name="t1" options="1" autoPlay="true"/>
 </component>

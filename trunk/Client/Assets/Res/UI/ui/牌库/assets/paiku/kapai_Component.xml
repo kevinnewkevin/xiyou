@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="906,1074">
   <displayList>
-    <image id="n0_b9pp" name="n0" src="rvp53" xy="91,47" size="798,1024"/>
-    <image id="n2_o31m" name="n2" src="rvp57" xy="425,2">
+    <image id="n0_b9pp" name="n0" src="rvp53" xy="91,42" size="798,999"/>
+    <image id="n2_o31m" name="n2" src="rvp57" xy="425,0">
       <relation target="n0_b9pp" sidePair="left-left,top-top"/>
     </image>
-    <image id="n3_o31m" name="n3" src="rvp5a" xy="869,53">
+    <image id="n3_o31m" name="n3" src="rvp5a" xy="869,48">
       <relation target="n0_b9pp" sidePair="left-left,top-top"/>
     </image>
     <image id="n10_o31m" name="n10" src="o31my" xy="156,159" size="670,71"/>
@@ -17,9 +17,9 @@
     <text id="n19_qu1s" name="n19" xy="419,95" size="154,46" font="方正粗楷简体" fontSize="34" color="#f8edbd" align="center" vAlign="middle" autoSize="none" text="我的卡牌">
       <relation target="n18_qu1s" sidePair="center-center,middle-middle"/>
     </text>
-    <list id="n27_qu1s" name="n27" xy="166,244" size="654,757" layout="flow_hz" overflow="scroll" margin="6,0,6,6" lineGap="-1" colGap="14" defaultItem="ui://y2r47n1iqu1s17"/>
-    <text id="n33_qu1s" name="n33" xy="654,1001" size="206,44" font="方正粗楷简体" fontSize="30" color="#511d1a" align="center" vAlign="middle" text="（数量：300）&#xA;"/>
-    <list id="n34_k57y" name="n34" xy="3,151" size="126,738">
+    <list id="n27_qu1s" name="n27" xy="166,244" size="654,728" layout="flow_hz" overflow="scroll" margin="6,0,6,6" lineGap="-1" colGap="14" defaultItem="ui://y2r47n1iqu1s17"/>
+    <text id="n33_qu1s" name="n33" xy="617,101" size="206,44" font="方正粗楷简体" fontSize="30" color="#511d1a" align="center" vAlign="middle" text="（数量：300）&#xA;"/>
+    <list id="n34_k57y" name="n34" xy="7,151" size="126,738">
       <item url="ui://y2r47n1iok6e1m"/>
       <item url="ui://y2r47n1irvp5m"/>
       <item url="ui://y2r47n1io31mu"/>
