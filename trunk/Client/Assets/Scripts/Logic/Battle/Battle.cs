@@ -364,16 +364,15 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
     {
-        int tpos = _Side == 0? pos: ConvertedPos(pos);
         Actor actor = GetActor(instid);
         if (actor != null)
         {
-            actor.MoveTo(_PosInScene [tpos].position, null);
+            actor.MoveTo(_PosInScene [pos].position, null);
             return;
         }
-        _ActorInScene[tpos] = new Actor(go, _PosInScene[tpos], instid, tpos, crtHp, maxHp, displayId);
-        _ActorInScene[tpos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
-        _ActorInScene [tpos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+        _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId);
+        _ActorInScene[pos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
+        _ActorInScene [pos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
         UIManager.SetDirty("BattlePanel");
     }
