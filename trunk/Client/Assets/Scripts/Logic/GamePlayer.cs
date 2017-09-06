@@ -16,18 +16,20 @@ public class GamePlayer {
     static public Dictionary<string, List<COM_Unit>> _CardsByType = new Dictionary<string, List<COM_Unit>>();
 
     static public List<List<long>> _CardGroup = new List<List<long>>();
-
     static public List<string> _CardGroupName = new List<string>();
 
+	static public int _TianTiVal;
+	
     static public int _CrtBattleGroupIdx;
 
     static public void Init(COM_Player player)
     {
         Clear();
         string name = "";
-        for(int i=0; i < player.UnitGroup.Length; ++i)
-            _CardGroup.Add(new List<long>());
-        
+		for (int i = 0; i < player.UnitGroup.Length; ++i) 
+		{
+			_CardGroup.Add (new List<long> ());
+		}
         for(int i=0; i < _CardGroup.Count; ++i)
         {
             if (player.UnitGroup [i].UnitList != null)
@@ -43,6 +45,7 @@ public class GamePlayer {
         _InstID = player.InstId;
         _Name = player.Name;
         _Data = player.Unit;
+		_TianTiVal = player.TianTiVal;
         EntityData eData = null;
         for(int i=0; i < player.Employees.Length; ++i)
         {
@@ -346,7 +349,7 @@ public class GamePlayer {
     }
 
     static public void DeleteGroup(int groupidx)
-    {
+	{
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
             return;
 
@@ -365,6 +368,33 @@ public class GamePlayer {
             return null;
         return _CardsByFee[fee];
     }
+
+	static public int GetTianTiLevel()
+	{
+				if (_TianTiVal < 400)
+						return 1;
+				else if (_TianTiVal > 400 && _TianTiVal <= 700)
+						return 2;
+				else if (_TianTiVal > 700 && _TianTiVal <= 1000)
+						return 3;
+				else if (_TianTiVal > 1000 && _TianTiVal <= 1400)
+						return 4;
+				else if (_TianTiVal > 1400 && _TianTiVal <= 1700)
+						return 5;
+				else if (_TianTiVal > 1700 && _TianTiVal <= 2000)
+						return 6;
+				else if (_TianTiVal > 2000 && _TianTiVal <= 2500)
+						return 7;
+				else if (_TianTiVal > 2500 && _TianTiVal <= 3000)
+						return 8;
+				else if (_TianTiVal > 3000 && _TianTiVal <= 4000)
+						return 9;
+				else if (_TianTiVal > 4000)
+						return 10;
+				else
+					return 1;
+			
+	}
 
     static public void Clear()
     {

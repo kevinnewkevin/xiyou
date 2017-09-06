@@ -30,6 +30,11 @@ public class Proxy4Lua {
 		NetWoking.S.StartMatching(teamId);
 	}
 
+	static public void StopMatching()
+	{
+		NetWoking.S.StopMatching();
+	}
+
     static public void CreatePlayer(int templateId, string nickName)  
     {
         NetWoking.S.CreatePlayer(templateId, nickName);
