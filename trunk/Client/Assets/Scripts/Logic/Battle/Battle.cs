@@ -425,9 +425,9 @@ public class Battle {
                 }
             }
             if (emptyPos != -1)
-                return (_Side == 0 ? emptyPos : ConvertedPos(emptyPos));
+                return emptyPos;//(_Side == 0 ? emptyPos : ConvertedPos(emptyPos));
             }
-        return (_Side == 0? emptyPos: ConvertedPos(emptyPos));
+        return emptyPos;//(_Side == 0? emptyPos: ConvertedPos(emptyPos));
     }
 
     static public void BattleSetup()
@@ -492,7 +492,7 @@ public class Battle {
         {
             COM_BattlePosition bp = new COM_BattlePosition();
             bp.InstId = _SelectedHandCardInstID;
-            bp.Position = pos;
+            bp.Position = (_Side == 0 ? pos : ConvertedPos(pos));
             _OperatList.Add(bp);
 
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
