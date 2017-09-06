@@ -15,6 +15,7 @@ local cardGroupList;
 local tiantiFen0;
 local tiantiFen1;
 local levelImg;
+local battleTeamId = 0;
 function qiecuo:OnEntry()
 	Window = qiecuo.New();
 	Window:Show();
@@ -37,7 +38,7 @@ function qiecuo:OnInit()
 	crtCardName = cardGroup:GetChild("n23");
 	cardGroupList = cardGroup:GetChild("n27").asList;
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
-	setBattleBtn.visible = false;
+	setBattleBtn.onClick:Add(paiku_OnSetBattle);
 	local delBtn = cardGroup:GetChild("n24").asButton;
 	delBtn.visible = false;
 	starting = self.contentPane:GetChild("n9").asCom;
@@ -164,13 +165,8 @@ function qiecuo_OnStart(context)
 	if groupCards == nil then
 		return;
 	end
-	if groupCards.Count == 0 then
-	local MessageBox = UIManager.ShowMessageBox();
-		MessageBox:SetData("提示", "请先上阵卡牌", true);
-		return;
-	end
 
-	Proxy4Lua.StartMatching(crtGroupIdx+1);
+	Proxy4Lua.StartMatching(GamePlayer._CrtBattleGroupIdx+1);
 	starting.visible = true;
 	qiecuo_FlushData();
 end
@@ -187,3 +183,14 @@ function qiecuo_OnCancel(context)
 	starting.visible = false;
 end
 
+function paiku_OnSetBattle(context)
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否设置当前卡组为出战卡组？", false, paiku_OnSet);
+end
+
+function paiku_OnSet(context)
+	GamePlayer._CrtBattleGroupIdx = crtGroupIdx;
+	battleTeamId = crtGroupIdx;
+	UIManager.HideMessageBox();
+	UIManager.SetDirty("qiecuo");
+end
