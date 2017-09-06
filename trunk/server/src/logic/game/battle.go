@@ -884,15 +884,31 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	////////////////////////////////////////////////////////////////////////
 	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
 		bf, ok := unit.Special[prpc.BF_UNDEAD]
-		if ok && len(bf) > 0 {
+		true_list := []int32{}
+		if ok {
+			if len(bf) > 0 {
+				for  _, bid := range bf {
+					buff := unit.SelectBuff(bid)
+					if buff == nil {
+						continue
+					}
+					if buff.IsOver(this.Round) {
+						continue
+					}
+					true_list = append(true_list, bid)
+				}
+			}
+		}
+
+		if len(true_list) > 0 {
 			fmt.Println("免死触发")
 			damage = 0
-			if len(bf) == 1 {			// 只有一个就删除掉这个效果
+			if len(true_list) == 1 {			// 只有一个就删除掉这个效果
 				delete(unit.Special, prpc.BF_UNDEAD)
 			} else {
-				unit.Special[prpc.BF_UNDEAD] = bf[:1]
+				unit.Special[prpc.BF_UNDEAD] = true_list[:1]
 			}
-			buff := unit.SelectBuff(bf[0])
+			buff := unit.SelectBuff(true_list[0])
 			buff.Over = true
 		}
 	}
