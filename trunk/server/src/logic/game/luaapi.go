@@ -32,6 +32,7 @@ extern int __GetUnitAtk(void*);
 extern int __GetCalcDef(void*);
 extern int __GetUnitDamage(void*);
 extern int __GetMagicDamage(void*);
+extern int __ClacSheld(void*);
 extern int __TargetOver(void*);
 extern int __TargetOn(void*);
 extern int __PopAllBuffByDebuff(void*);
@@ -39,6 +40,10 @@ extern int __GetUnitSheld(void*);
 extern int __FrontTarget(void*);
 extern int __LineTraget(void*);
 extern int __BackTarget(void*);
+extern int __GetSpecialData(void*);
+extern int __GetOneSheld(void*);
+extern int __ClacStrongPer(void*);
+extern int __ClacWeakPer(void*);
 
 
 */
@@ -84,11 +89,16 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetCalcDef,"GetCalcDef","Player")
 	_L.LoadApi(C.__GetUnitDamage,"GetUnitDamage","Player")
 	_L.LoadApi(C.__GetMagicDamage,"GetMagicDamage","Player")
+	_L.LoadApi(C.__ClacSheld,"ClacSheld","Player")
 	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
 	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
 	_L.LoadApi(C.__FrontTarget,"FrontTarget","Player")
 	_L.LoadApi(C.__LineTraget,"LineTraget","Player")
 	_L.LoadApi(C.__BackTarget,"BackTarget","Player")
+	_L.LoadApi(C.__GetOneSheld,"GetOneSheld","Player")
+	_L.LoadApi(C.__GetSpecialData,"GetSpecialData","Player")
+	_L.LoadApi(C.__ClacWeakPer,"ClacWeakPer","Player")
+	_L.LoadApi(C.__ClacStrongPer,"ClacStrongPer","Player")
 
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
@@ -355,6 +365,80 @@ func __DamageSheld(p unsafe.Pointer) C.int {   //减護盾值
 	return 1
 }
 
+//export __ClacSheld
+func __ClacSheld(p unsafe.Pointer) C.int {   //减伤
+
+	fmt.Println("__ClacSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	fmt.Println("__ClacSheld",battleid,unitid)
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	ClacSheld := unit.ClacSheldPer(int32(battle.Round))
+
+	fmt.Println("__ClacSheld1111",unit,ClacSheld)
+
+	L.PushNumber(float64(ClacSheld))
+
+	return 1
+}
+
+//export __ClacStrongPer
+func __ClacStrongPer(p unsafe.Pointer) C.int {   //增输出伤比
+
+	fmt.Println("__ClacStrongPer")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	fmt.Println("__ClacStrongPer",battleid,unitid)
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	ClacSheld := unit.ClacStrongPer(int32(battle.Round))
+
+	fmt.Println("__ClacStrongPer",unit,ClacSheld)
+
+	L.PushNumber(float64(ClacSheld))
+
+	return 1
+}
+//export __ClacWeakPer
+func __ClacWeakPer(p unsafe.Pointer) C.int {   //增承受伤比
+
+	fmt.Println("__ClacStrongPer")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	fmt.Println("__ClacWeakPer",battleid,unitid)
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	ClacSheld := unit.ClacWeakPer(int32(battle.Round))
+
+	fmt.Println("__ClacWeakPer",unit,ClacSheld)
+
+	L.PushNumber(float64(ClacSheld))
+
+	return 1
+}
+
 //export __ChangeSpecial
 func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有替换，么加上
 
@@ -432,6 +516,44 @@ func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 		L.SetTable(-3)
 
 	}
+
+	return 1
+
+}
+
+//export __GetSpecialData
+func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid s数值
+
+	fmt.Println("__GetSpecialData")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx++
+	unitid := L.ToInteger(idx)
+	idx++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buffid := unit.GetSpecial(spec)
+
+	var data int32
+
+	for _,buffid := range buffid {
+
+		buff := unit.SelectBuff(buffid)
+
+		data += buff.Data
+
+	}
+
+	L.PushInteger(int(data))
+
+
 
 	return 1
 
@@ -969,6 +1091,28 @@ func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取场上所有玩家护盾�
 			buff.Over = true
 		}
 	}
+
+	L.PushInteger(int(sheld))
+
+	return 1
+}
+
+//export __GetOneSheld
+func __GetOneSheld(p unsafe.Pointer) C.int {	// 获取场上单个玩家护盾数值
+
+	fmt.Println("__GetOneSheld")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	sheld := unit.VirtualHp
 
 	L.PushInteger(int(sheld))
 

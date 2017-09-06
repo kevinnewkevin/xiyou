@@ -173,6 +173,60 @@ func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减
 	return per
 }
 
+func (this *GameUnit) ClacStrongPer(round int32) float32 {			//计算百分比增加输出伤 所有buff的百分比减伤加起来 有个最大值
+	maxPer := 75
+
+	bl, ok := this.Special[prpc.BF_STRONG]
+
+	if !ok || len(bl) == 0 {
+		return 0
+	}
+
+	sheld := 0
+
+	for _, instid := range bl {
+		buff := this.SelectBuff(instid)
+		if buff == nil || buff.IsOver(round) {
+			continue
+		}
+		sheld += int(buff.Data)
+	}
+
+	if sheld > maxPer {
+		sheld = maxPer
+	}
+
+	per := float32(sheld) / 100.0
+
+	return per
+}
+func (this *GameUnit) ClacWeakPer(round int32) float32 {			//计算百分比增加承受伤 所有buff的百分比减伤加起来 有个最大值
+	maxPer := 75
+
+	bl, ok := this.Special[prpc.BF_WEAK]
+
+	if !ok || len(bl) == 0 {
+		return 0
+	}
+
+	sheld := 0
+
+	for _, instid := range bl {
+		buff := this.SelectBuff(instid)
+		if buff == nil || buff.IsOver(round) {
+			continue
+		}
+		sheld += int(buff.Data)
+	}
+
+	if sheld > maxPer {
+		sheld = maxPer
+	}
+
+	per := float32(sheld) / 100.0
+
+	return per
+}
 func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 	u := prpc.COM_Unit{}
 	u.UnitId = this.UnitId
