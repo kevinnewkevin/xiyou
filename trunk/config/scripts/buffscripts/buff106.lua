@@ -3,7 +3,7 @@
 -- 参数暂定为 battleid targetid data
 
 --免死
-sys.log("buff1")
+sys.log("buff106")
 
 function buff_106_add(battleid, unitid, buffinstid,data) 
 	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_UNDEAD")  --加眩晕免除一次造成死亡的伤害

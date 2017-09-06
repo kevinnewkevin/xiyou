@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --减法术防御
-sys.log("buff1")
+sys.log("buff119")
 
 function buff_119_add(battleid, unitid, buffinstid,data)
 	-- Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_DEF")  --物理防御

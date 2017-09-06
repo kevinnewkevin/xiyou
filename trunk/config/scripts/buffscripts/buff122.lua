@@ -2,10 +2,10 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --加输出伤害
-sys.log("buff1")
+sys.log("buff122")
 
 function buff_122_add(battleid, unitid, buffinstid,data) 
-	 --Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_WEAK")  --加增伤
+	--Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_WEAK")  --加增伤
 	Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_STRONG")  --加输出伤害
 
 	

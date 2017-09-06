@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 ----增加法术属性
-sys.log("buff1")
+sys.log("buff105")
 
 function buff_105_add(battleid, unitid, buffinstid, data) 
 	sys.log("buff_105_add "..","..battleid..","..buffinstid..","..unitid)

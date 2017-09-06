@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --减速
-sys.log("buff1")
+sys.log("buff117")
 
 function buff_117_add(battleid, unitid, buffinstid,data) 
 	 --Player.ChangeSpecial(battleid, unitid, buffinstid,data,"CPT_AGILE") 

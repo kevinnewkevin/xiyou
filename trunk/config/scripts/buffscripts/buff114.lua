@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --增加双防
-sys.log("buff1")
+sys.log("buff114")
 
 function buff_114_add(battleid, unitid, buffinstid,data) 
 	 Player.ChangeUnitProperty(battleid, unitid,data,"CPT_DEF")  --加物理防御

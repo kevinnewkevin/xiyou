@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --减 物理防御
-sys.log("buff1")
+sys.log("buff112")
 
 function buff_112_add(battleid, unitid, buffinstid, data) 
 	sys.log("buff_112_add "..","..battleid..","..buffinstid..","..unitid)

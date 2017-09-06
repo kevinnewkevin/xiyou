@@ -1,7 +1,7 @@
 -- buff测试用脚本 加特殊效果 如百分比减伤 眩晕等特殊效果
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
-sys.log("buff1")
+sys.log("buff107")
 
 function buff_107_add(battleid, unitid, buffinstid,data) 
 	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_THORNS")  --加荆棘

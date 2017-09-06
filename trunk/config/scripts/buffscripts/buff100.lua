@@ -1,7 +1,7 @@
 -- buff测试用脚本 掉血
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
-sys.log("buff1")
+sys.log("buff100")
 
 function buff_100_add(battleid, unitid, buffinstid) 
 	sys.log("buff_100_add "..","..battleid..","..buffinstid..","..unitid)

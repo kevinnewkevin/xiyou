@@ -2,7 +2,7 @@
 -- buff格式 buff_id_update, buff_id_delete
 -- 参数暂定为 battleid targetid data
 --减护盾值
-sys.log("buff1")
+sys.log("buff120")
 
 function buff_120_add(battleid, unitid, buffinstid,data) 
 	Player.AddSheld(battleid, unit, buffinstid)  --减护盾

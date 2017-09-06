@@ -3,7 +3,7 @@
 -- 参数暂定为 battleid targetid data
 
 --加物理防御
-sys.log("buff1")
+sys.log("buff118")
 
 function buff_118_add(battleid, unitid, buffinstid, data) 
 	sys.log("buff_118_add "..","..battleid..","..buffinstid..","..unitid)

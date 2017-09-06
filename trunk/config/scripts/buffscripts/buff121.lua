@@ -3,7 +3,7 @@
 -- 参数暂定为 battleid targetid data
 
 --受伤后回血
-sys.log("buff1")
+sys.log("buff121")
 
 function buff_121_add(battleid, unitid, buffinstid,data) 
 	sys.log("buff_121_add "..","..battleid..","..buffinstid..","..unitid)
