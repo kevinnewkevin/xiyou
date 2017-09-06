@@ -128,6 +128,7 @@ struct COM_BattleAction{
 
 //战报
 struct COM_BattleReport{
+	int32				BattleID;		//战斗ID pvp为0
 	COM_BattleUnit[] 	UnitList;		//战斗元素列表
 	COM_BattleAction[]	ActionList;		//战斗操作列表
 };
