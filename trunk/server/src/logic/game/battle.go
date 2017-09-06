@@ -583,6 +583,40 @@ func (this *BattleRoom) SelectLineTraget(unitid int64) []int64 {
 	return targetList
 }
 
+//周围敌人,传递第一个选中的敌人,就是先调用getTarget
+func (this *BattleRoom) SelectAroundTraget(unitid int64) []int64 {
+	unit := this.SelectOneUnit(unitid)
+
+	targetList := []int64{}
+
+	pos_list := GetCampPos(unit.Camp)
+	pos_front := unit.Position - 3
+	pos_back := unit.Position + 3
+	pos_left := unit.Position - 1
+	pos_right := unit.Position + 1
+
+	for _, pos := range pos_list {
+		if this.Units[pos] == nil {
+			continue
+		}
+		if pos == int(pos_front) {
+			targetList = append(targetList, this.Units[pos].InstId)
+			continue
+		} else if pos == int(pos_back) {
+			targetList = append(targetList, this.Units[pos].InstId)
+			continue
+		}else if pos == int(pos_left) {
+			targetList = append(targetList, this.Units[pos].InstId)
+			continue
+		}else if pos == int(pos_right) {
+			targetList = append(targetList, this.Units[pos].InstId)
+			continue
+		}
+	}
+
+	return targetList
+}
+
 //取得全部目标
 func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	fmt.Println("targets start = ", num)

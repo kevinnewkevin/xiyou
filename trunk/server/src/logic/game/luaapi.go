@@ -7,6 +7,7 @@ extern int __GetFriend(void*);
 extern int __GetFriends(void*);
 extern int __GetTarget(void*);
 extern int __GetTargets(void*);
+extern int __GetTargetsAround(void*);
 extern int __GetUnitProperty(void*);
 extern int __ChangeUnitProperty(void*);
 extern int __AddSheld(void*);
@@ -74,6 +75,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
+	_L.LoadApi(C.__GetTargetsAround,"GetTargetsAround","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
 	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
 	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
@@ -604,6 +606,36 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	battle := FindBattle(int64(battleid))
 
 	ls := battle.SelectMoreTarget(int64(unitid), num)
+
+	L.NewTable()
+	//L.PushInteger(-1)
+	//L.RawSetI(-2, 0)
+
+	for i :=0; i < len(ls); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(int(ls[i]))
+		L.SetTable(-3)
+	}
+
+	return 1
+}
+//export __GetTargetsAround
+func __GetTargetsAround(p unsafe.Pointer) C.int {
+
+	//fmt.Println("__GetTargetsAround")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+
+	////fmt.Println("4444444444", battleid, unitid, num)
+
+	battle := FindBattle(int64(battleid))
+
+	ls := battle.SelectAroundTraget(int64(unitid))
 
 	L.NewTable()
 	//L.PushInteger(-1)
