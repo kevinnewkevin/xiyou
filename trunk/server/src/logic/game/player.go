@@ -394,11 +394,32 @@ func (this *GamePlayer) SetProprty(battleid int64, camp int) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer)SyncBag()  {
+//////给客户端测试的东西
+	for i:=0;i<len(ItemTableData) ;i++  {
+		if i==1 {
+			this.AddBagItemByItemId(int32(i+1),1050)
+		}else {
+			this.AddBagItemByItemId(int32(i+1),10)
+		}
+	}
+	for _,item := range this.BagItems{
+		if item.ItemId== 2 {
+			this.DelItemByTableId(2,1000)
+		}
+
+		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(this.BagItems))
+	}
+/////
 	items := []prpc.COM_ItemInst{}
 
 	for _,itemInst := range this.BagItems {
 		items = append(items,*itemInst)
 	}
+
+	for _,item := range items{
+		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack_,"InstId=",item.InstId)
+	}
+
 	if this.session != nil {
 		this.session.InitBagItems(items)
 	}
@@ -537,5 +558,7 @@ func TestPlayer() {
 		
 		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
 	}
+
+	//P1.SyncBag()
 	//CreatePvE(P, 1)
 }

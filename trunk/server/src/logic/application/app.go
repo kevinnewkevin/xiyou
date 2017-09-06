@@ -67,7 +67,7 @@ func (this *App) Run() {
 
 	//game.InitGlobalLuaState()
 	game.InitTianTi()
-	game.TestPlayer()
+	//game.TestPlayer()
 	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
 	if err != nil {
 		fmt.Println(err.Error())
