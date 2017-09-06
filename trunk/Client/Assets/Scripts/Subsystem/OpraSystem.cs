@@ -177,6 +177,7 @@ public class OpraSystem : MonoBehaviour {
             UnloadAsset(_ActorList [i]._Data);
             GameObject.Destroy(_ActorList[i]._Go);
         }
+        _ActorList.Clear();
         CameraEffect.Fade(delegate {
             Battle.CurrentState = Battle.BattleState.BS_Oper;
             UIManager.Show("BattlePanel");
