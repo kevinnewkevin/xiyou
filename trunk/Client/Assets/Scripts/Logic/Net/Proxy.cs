@@ -20,10 +20,10 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-    public bool JoinBattleOk(int side)
+    public bool JoinBattleOk(int side, int battleid)
     {
         SceneLoader.LoadScene(Define.SCENE_BATTLE);
-        Battle.Init(side);
+        Battle.Init(side, battleid);
         return true;
     }
 
