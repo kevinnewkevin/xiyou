@@ -43,6 +43,12 @@ public class CameraEffect {
 
     public static void Update()
     {
+        if (_Mat == null)
+        {
+            Fini();
+            Init();
+            return;
+        }
         if (!_IsPlaying)
             return;
         
@@ -78,5 +84,10 @@ public class CameraEffect {
             return;
         
         _FadeIn = false;
+    }
+
+    public static void Fini()
+    {
+        SceneManager.sceneLoaded = null;
     }
 }
