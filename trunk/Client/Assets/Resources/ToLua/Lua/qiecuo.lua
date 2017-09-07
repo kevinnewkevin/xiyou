@@ -58,6 +58,8 @@ function qiecuo:OnInit()
 	local startBtn = liftPanel:GetChild("n35");
 	startBtn.onClick:Add(qiecuo_OnStart);
 	levelImg = liftPanel:GetChild("n34");
+	local descLab = liftPanel:GetChild("n33");
+	descLab.text = "天梯会匹配实力相近的对手，战斗胜利将获得各种英雄碎片，段位越高奖励越好！";
 	tiantiFen0 = liftPanel:GetChild("n41");
 	tiantiFen1 = liftPanel:GetChild("n42");
 	qiecuo_FlushData();
