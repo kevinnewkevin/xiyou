@@ -99,6 +99,7 @@ public class Battle {
                     // battle has anim
                     if (bData != null && bData._Animations != null && bData._Animations.Length > 0)
                     {
+                        GRoot.inst.modalLayer.visible = false;
                         op.Begin(bData._Animations);
                         op.Play();
                         CurrentState = BattleState.BS_Opra;

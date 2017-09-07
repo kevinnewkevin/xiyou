@@ -45,8 +45,6 @@ public class Actor {
 
     public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes)
     {
-        Debug.Log(name);
-
         if (go == null)
         {
             Debug.LogWarning("Actor obj is null.");
@@ -113,6 +111,17 @@ public class Actor {
     {
         if (_Headbar != null)
             _Headbar.Update();
+
+        if (_IsRunning == false)
+        {
+            if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_IDLE))
+                Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
+        }
+        else
+        {
+            if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_RUN))
+                Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+        }
     }
 
     //移动到场上某位置
@@ -205,6 +214,14 @@ public class Actor {
             return 0f;
 
         return clip.length;
+    }
+
+    public bool IsPlay(string clipName)
+    {
+        if (_Animation == null)
+            return false;
+
+        return _Animation.IsPlaying(clipName);
     }
 
     public void PlayQueue(string action)
