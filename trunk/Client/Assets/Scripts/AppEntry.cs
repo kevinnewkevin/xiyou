@@ -12,7 +12,6 @@ public class AppEntry : MonoBehaviour {
         DontDestroyOnLoad(this);
         GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
         UIConfig.defaultFont = "方正楷体_GBK";
-
         Application.logMessageReceived += (condition, stackTrace, type) => {
             context += condition + "\n" + stackTrace + "\n" + type;
         };
@@ -23,7 +22,9 @@ public class AppEntry : MonoBehaviour {
         CameraEffect.Init();
 //
         //init network
-        if (NetWoking.Open("127.0.0.1", 10999))
+        string ipadd = Define.GetStr("DebugServerAddress");
+        int port = Define.GetInt("DebugServerPort");
+        if (NetWoking.Open(ipadd, port))
         {
             UIManager.Show("denglu");
             DataLoader.BeginLoad();
@@ -42,5 +43,6 @@ public class AppEntry : MonoBehaviour {
         Battle.Update();
         SceneLoader.Update();
         CameraEffect.Update();
+        ExceptionHandle.Update();
 	}
 }

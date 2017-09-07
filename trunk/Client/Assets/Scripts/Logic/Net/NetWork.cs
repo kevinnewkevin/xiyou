@@ -102,4 +102,10 @@ public class NetWoking
         DoDispatch();
     }
 
+    public static void ReConnect()
+    {
+        string ipadd = Define.GetStr("DebugServerAddress");
+        int port = Define.GetInt("DebugServerPort");
+        Open(ipadd, port);
+    }
 }

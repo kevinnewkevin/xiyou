@@ -47,6 +47,12 @@ public class Proxy4Lua {
     #endregion
 
     #region 内部接口
+
+    static public void ReconnectServer()
+    {
+        NetWoking.ReConnect();
+    }
+
     static public void SelectCard4Ready(int idx)
     {
         if (idx >= Battle._HandCards.Count || idx < 0)
