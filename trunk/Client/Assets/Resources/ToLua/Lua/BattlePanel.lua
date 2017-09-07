@@ -170,6 +170,12 @@ function BattlePanel_FlushData()
 		cardsInGroupNum.visible = true;
 	end
 
+	if GamePlayer._IsAuto then
+		autoBtn:GetController("icon").selectedIndex = 1;
+	else
+		autoBtn:GetController("icon").selectedIndex = 0;
+	end
+
 	battleTurn.text = "第" .. Battle._Turn .. "回合";
 	BattlePanel_SetFeeCount(Battle._Fee);
 end
@@ -215,7 +221,6 @@ function BattlePanel_OnReturnBtn()
 end
 
 function BattlePanel_OnTurnOver()
-	print("OnTurnOver");
 	Proxy4Lua.BattleSetup();
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
@@ -223,16 +228,10 @@ function BattlePanel_OnTurnOver()
 end
 
 function BattlePanel_OnAutoBtn()
-	print("OnAutoBtn");
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
-	if GamePlayer._IsAuto then
-		autoBtn:GetController("icon").selectedIndex = 1;
-	else
-		autoBtn:GetController("icon").selectedIndex = 0;
-	end
+	UIManager.SetDirty("BattlePanel")
 end
 
 function BattlePanel_OnHiddenBattleStart()
-	print("BattlePanel_OnHiddenBattleStart");
 	battStartIcon.visible = false;
 end
