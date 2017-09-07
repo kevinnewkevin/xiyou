@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e88b824c0b3ec3247900d41770486371
-timeCreated: 1504776985
+guid: 36d7179d8c8b4fc4facda0ce96efa52a
+timeCreated: 1504776858
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -69,8 +69,7 @@ ModelImporter:
     100122: Bone068
     100124: Bone069
     100126: Bone070
-    100128: Root
-    100130: //RootNode
+    100128: //RootNode
     400000: Bip001
     400002: Bip001 Head
     400004: Bip001 L Calf
@@ -135,9 +134,8 @@ ModelImporter:
     400122: Bone068
     400124: Bone069
     400126: Bone070
-    400128: Root
-    400130: //RootNode
-    7400000: walk
+    400128: //RootNode
+    7400000: stand
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -164,10 +162,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: walk
+      name: stand
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 60
       wrapMode: 2
       orientationOffsetY: 0
       level: 0
