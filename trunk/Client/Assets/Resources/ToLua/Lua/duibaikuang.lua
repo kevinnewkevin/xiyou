@@ -28,7 +28,7 @@ function duibaikuang:OnInit()
 	self:Center();
 
 	local skipBtn = self.contentPane:GetChild("n9").asButton;
-	skipBtn.onClick:Add(duibaikuang_OnNext);
+	skipBtn.onClick:Add(duibaikuang_OnSkip);
 
 	self.contentPane.onClick:Add(duibaikuang_OnNext);
 
