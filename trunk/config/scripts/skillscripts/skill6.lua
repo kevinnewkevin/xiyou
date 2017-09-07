@@ -36,7 +36,11 @@ function SK_105_Action(battleid, casterid)
 	
 		--local  defender_def = Player.GetCalcMagicDef(battleid,v)  --获取被攻击者的法强防御
 		
-		local  damage  = caster_attack+HDnum*3    --伤害 公式
+		local  truedamage  = caster_attack+HDnum*3    --伤害 公式
+		
+		sys.log("SK_105_Action的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 	
 		--判断伤害

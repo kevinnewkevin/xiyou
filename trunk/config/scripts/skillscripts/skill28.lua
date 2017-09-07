@@ -23,7 +23,11 @@ function SK_127_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
-	local caster_damage = Player.GetUnitDamage(battleid,casterid,t)  -- 获取伤害
+	local damage = Player.GetUnitDamage(battleid,casterid,t)  -- 获取伤害
+	
+	sys.log("SK_127_Action 的伤害"..damage)
+	
+	local caster_damage = ClacDamageByAllBuff(battleid,casterid,t,damage)
 
 	sys.log(1)
 	
@@ -38,9 +42,9 @@ function SK_127_Action(battleid, casterid)
 	sys.log(3)
 	Battle.Attack(battleid,casterid,t,caster_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	Battle.AddBuff(battleid, casterid,casterid,110, caster_damage*0.3)  --使自己受到伤害增加30%
+	--Battle.AddBuff(battleid, casterid,casterid,110, caster_damage*0.3)  --使自己受到伤害增加30%
 	
-	Battle.AddBuff(battleid,casterid, t, 122,caster_damage*0.3)  --造成的伤害增加30%
+	Battle.AddBuff(battleid,casterid, casterid, 125,30)  --使自己受到伤害增加30% 造成的伤害增加30%
 	
 	sys.log(4)
 	Battle.TargetOver(battleid)

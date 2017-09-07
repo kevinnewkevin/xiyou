@@ -27,7 +27,11 @@ function SK_109_Action(battleid, casterid)
 	local  magic_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  法术
 		
 	
-	local  damage  = Player.GetUnitDamage(battleid,casterid,t)     --伤害 
+	local  truedamage  = Player.GetUnitDamage(battleid,casterid,t)     --伤害 
+	
+	sys.log("SK_109_Action 的伤害"..truedamage)
+	
+	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 	
 	
 	--判断伤害

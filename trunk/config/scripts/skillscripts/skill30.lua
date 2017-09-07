@@ -25,7 +25,11 @@ function SK_129_Action(battleid, casterid)
 		
 	--local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
 	
-	local  trueDamage = Player.GetUnitDamage(battleid,casterid,t)
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)
+	
+	sys.log("SK_129_Action 的伤害"..damage)
+	
+	local trueDamage = ClacDamageByAllBuff(battleid,casterid,t,damage)
 		
 	debuffnum = Player.PopAllBuffByDebuff(battleid,t)
 	

@@ -22,14 +22,9 @@ function SK_119_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
-	sys.log(1)
-	
-	local  caster_attack = Player.GetUnitDamage(battleid,casterid,t)  --获取攻击者伤害
-	sys.log(2)
-	
-	Battle.Attack(battleid,casterid,t,0,0)
+	Battle.Cure(battleid,casterid,0,0)
 
-	Battle.AddBuff(battleid,casterid,t,123,caster_attack*0.4)    --下3次受到的伤害降低40%。
+	Battle.AddBuff(battleid,casterid,casterid,123,40)    --下3次受到的伤害降低40%。
 	
 	Battle.TargetOver(battleid)
 	

@@ -34,7 +34,9 @@ function SK_122_Action(battleid, casterid)
 		
 		local  magic_damage = Player.GetMagicDamage(battleid,casterid,v)  --法术伤害
 	
-		local  damage  = magic_damage*0.5  --伤害 公式（物理伤害 减 防御 ）
+		local  truedamage  = magic_damage  --伤害 公式（物理伤害 减 防御 ）
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 		
 		--判断伤害
@@ -45,7 +47,18 @@ function SK_122_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		Battle.Attack(battleid,casterid,v,damage*0.5,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		local  _BoolCombo = Player.GetCheckSpec(battleid,casterid,"BF_COMBO")
+	
+		if _BoolCombo == 1 then 
+			
+			Battle.Attack(battleid,casterid,v,damage*0.75,crit)
+			
+			local  buffid = Player.GetOneSpecial(battleid,casterid)
+			
+			Player.PopSpec(battleid,casterid,buffid,"BF_COMBO")
+		end
 		Battle.TargetOver(battleid)
 	
 		sys.log("skill23 对id为"..v.."的目标减少"..damage.."点伤害")

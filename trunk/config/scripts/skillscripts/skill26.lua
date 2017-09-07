@@ -28,7 +28,11 @@ function SK_125_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
-		local  damage  = Player.GetMagicDamage(battleid,casterid,v)
+		local  truedamage  = Player.GetMagicDamage(battleid,casterid,v)
+		
+		sys.log("SK_125_Action 的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 		--判断伤害
 		if damage <= 0 then 

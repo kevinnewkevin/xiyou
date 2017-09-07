@@ -32,7 +32,11 @@ function SK_101_Action(battleid, casterid)
 		local defender_mag = Player.GetCalcMagicDef(battleid,v)
 		
 		--local damage = caster_attack * 1.5 - defender_def		-- 伤害公式
-		local damage = Player.GetUnitDamage(battleid, casterid, v)
+		local truedamage = Player.GetUnitDamage(battleid, casterid, v)
+		
+		sys.log("SK_101_Action的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 	
 		if damage <= 0 then 
 			damage = 1

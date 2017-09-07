@@ -34,7 +34,11 @@ function SK_118_Action(battleid, casterid)
 		
 		--local defender_def = Player.GetCalcDef(battleid, v)
 	
-		local  damage  =Player.GetUnitDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）
+		local  truedamage  =Player.GetUnitDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）
+		
+		sys.log("SK_118_Action 的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 		--判断伤害
 		if damage <= 0 then 

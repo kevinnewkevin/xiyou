@@ -27,10 +27,10 @@ function SK_124_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
-		local  damage = Player.GetUnitDamage(battleid,casterid,v)  --获取攻击者属性
+		--local  damage = Player.GetUnitDamage(battleid,casterid,v)  --获取攻击者属性
 		Battle.Attack(battleid, casterid, v, 0, 0)
 		
-		Battle.AddBuff(battleid,casterid,v, 110,damage*0.2)
+		Battle.AddBuff(battleid,casterid,v, 110,20)
 		Battle.TargetOver(battleid)
 	
 		sys.log("skill25")

@@ -33,7 +33,11 @@ function SK_107_Action(battleid, casterid)
 	
 		Battle.TargetOn(battleid) --清空数据
 		
-		local  damage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
+		local  truedamage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
+		
+		sys.log("SK_107_Action 的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 		--判断伤害
 		if damage <= 0 then 
@@ -43,8 +47,6 @@ function SK_107_Action(battleid, casterid)
 		end
 	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
-		
-	
 		
 		Battle.Attack(battleid,casterid,v,damage*0.5,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		

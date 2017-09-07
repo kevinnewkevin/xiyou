@@ -110,41 +110,51 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	--判断释放者是否有增加输出伤   buff  百分比
 	local  _BoolStrongBuff = Player.GetCheckSpec(battleid,casterid,"BF_STRONG")
 	
-	if _BoolStrongBuff then 
+	if _BoolStrongBuff == 1 then 
 	
 		 _strongPer = Player.ClacStrongPer(battleid,casterid)
 		 
+		 damage =damage + damage* _strongPer
+	
+		sys.log("ClacDamageByAllBuff 增加输出伤" .. damage)
+		 
 	end
 	
-	damage =damage + damage* _strongPer
+	
 	
 	--------------------------------------------------------------------------
 	--------------------------------------------------------------------------
 	
-	--判断承受者有无增加伤害的buff  百分比
+	--判断承受者有无增加受到伤害的buff  百分比
 	local _BoolWeakBuff = Player.GetCheckSpec(battleid,targetid,"BF_WEAK")
 	
 	
-	if  _BoolWeakBuff then
+	if  _BoolWeakBuff == 1 then
 	
 		_weakPer = Player.ClacWeakPer(battleid,targetid)
 		
+		damage = damage + damage * _weakPer
+	
+		sys.log("ClacDamageByAllBuff 增加受到伤害" .. damage)
+		
 	end
 	
-	damage = damage + damage * _weakPer
+	
 	
 	--判断承受者有无减伤害的buff   百分比
 	local _boolSheldBuff = Player.GetCheckSpec(battleid,targetid,"BF_SHELD")
 
 	
-	if _boolSheldBuff then 
+	if _boolSheldBuff == 1 then 
 		
 		_sheldPer = Player.ClacSheld(battleid,targetid)
 		
+		damage = damage - damage * _sheldPer
+	
+		sys.log("ClacDamageByAllBuff 减伤伤害" .. damage)
+		
 		Player.ChangeBuffTimes(battleid,targetid)   --开始前清理数据
 	end
-	
-	damage = damage - damage * _sheldPer
 	
 	
 	------------------------------------------------------------------------------
@@ -165,6 +175,7 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	
 	damage = damage - sheld
 	
+	sys.log("ClacDamageByAllBuff 最终" .. damage)
 	
 	return damage
 	

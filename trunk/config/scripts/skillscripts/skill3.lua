@@ -30,7 +30,11 @@ function SK_102_Action(battleid, casterid)
 		Battle.TargetOn(battleid)
 		local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
 		--local damage = caster_attack * 2.3 - defender_def		-- 伤害公式
-		local damage = Player.GetUnitDamage(battleid, casterid, v)
+		local truedamage = Player.GetUnitDamage(battleid, casterid, v)
+		
+		sys.log("SK_102_Action 的伤害"..truedamage)
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
 		if percent() <= 20 then 						-- 低于20%就会触发双倍伤害
 			damage = damage * 2

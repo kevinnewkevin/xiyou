@@ -28,7 +28,11 @@ function SK_111_Action(battleid, casterid)
 	--local defender_def = Player.GetCalcMagicDef(battleid, t)  -- 防御
 	
 	
-	local  damage  = Player.GetMagicDamage(battleid,casterid,t)        --伤害 公式(法术的伤害）
+	local  truedamage  = Player.GetMagicDamage(battleid,casterid,t)        --伤害 公式(法术的伤害）
+	
+	sys.log("SK_111_Action 的伤害"..truedamage)
+	
+	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 	
 	--判断伤害
 	if damage <= 0 then 

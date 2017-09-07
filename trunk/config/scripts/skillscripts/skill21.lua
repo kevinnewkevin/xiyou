@@ -21,11 +21,11 @@ function SK_120_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
-	local  caster_damage = Player.GetUnitDamage(battleid,casterid,t)  --获取攻击者属性  物理
+	--local  caster_damage = Player.GetUnitDamage(battleid,casterid,t)  --获取攻击者属性  物理
 	
 	Battle.Attack(battleid,casterid,t,0,0)
 	
-	Battle.AddBuff(battleid, casterid,t,122, caster_damage*0.2)    --造成的伤害增加20%，可叠加。
+	Battle.AddBuff(battleid, casterid,t,122, 20)    --造成的伤害增加20%，可叠加。
 	
 	Battle.TargetOver(battleid)
 		

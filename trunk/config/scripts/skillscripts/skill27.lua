@@ -24,14 +24,18 @@ function SK_126_Action(battleid, casterid)
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	--local  caster_attack = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性  fashu 
-	sys.log(caster_attack)
+	
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
 		local  magic_damage = Player.GetMagicDamage(battleid,casterid,v)  --法术伤害
 		
-		local  trueDamage  = magic_damage*0.5 --伤害 公式（ ）
+		local  damage  = magic_damage --伤害 公式（ ）
+		
+		sys.log("SK_126_Action 的伤害"..damage)
+		
+		local trueDamage =  ClacDamageByAllBuff(battleid,casterid,v,damage)
 		
 		--判断伤害
 		if trueDamage <= 0 then 
@@ -50,16 +54,18 @@ function SK_126_Action(battleid, casterid)
 			
 			for a=1,debuffnum,1 do
 			
-				trueDamage = trueDamage + demage
+				trueDamage = trueDamage*0.5 + demage
 	
 			end
 		end
 		
 		Battle.Attack(battleid,casterid,v,trueDamage,crit)
 		
+		Battle.TargetOver(battleid)
+		
 		sys.log("skill26 对id为"..v.."的目标减少"..trueDamage.."点伤害")
 		
-		Battle.TargetOver(battleid)
+		
 	end
 	
 	return  true

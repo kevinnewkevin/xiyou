@@ -25,7 +25,11 @@ function SK_103_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
 	
-	local damage=Player.GetUnitDamage(battleid,casterid,t)   --获取物理伤害
+	local truedamage=Player.GetUnitDamage(battleid,casterid,t)   --获取物理伤害
+	
+	sys.log("SK_103_Action的伤害"..truedamage)
+	
+	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 
 	
 	--判断伤害
