@@ -288,6 +288,7 @@ public class Actor {
     public long InstID
     {
         get{ return _InstID; }
+        set{ _InstID = value;}
     }
 
     public void Fini()
