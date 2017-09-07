@@ -16,7 +16,7 @@ public class MainSceneTouch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        World.InitPlayerActor();
+        World.InitPlayerActor(GamePlayer._Data);
         World.InitNpcActor();
         Stage.inst.onTouchBegin.Add(OnTouchBegin);
         Stage.inst.onTouchEnd.Add(OnTouchEnd);

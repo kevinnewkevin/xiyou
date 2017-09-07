@@ -354,7 +354,6 @@ public class Battle {
             return;
         }
 
-        Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
         UIManager.Show("jiesuanjiemian");
     }
 

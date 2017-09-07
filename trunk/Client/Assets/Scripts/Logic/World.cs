@@ -13,10 +13,11 @@ public class World {
 
     static public float _GroudHeight;
 
-    static public void InitPlayerActor(/* player struct */)
+    static public void InitPlayerActor(COM_Unit player)
     {
         // load player Asset for gameobject
-        DisplayData display = DisplayData.GetData(1);
+        EntityData eData = EntityData.GetData(player.UnitId);
+        DisplayData display = DisplayData.GetData(eData._DisplayId);
         GameObject go = AssetLoader.LoadAsset(display._AssetPath);
         string[] bornPos = Define.GetStr("BornPos").Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
         _GroudHeight = float.Parse(bornPos [1]);
