@@ -44,3 +44,5 @@ function RegGlobalValue()
 	Define.Set("BornPos", "20,-14.3,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
 end
+
+Server.DefineCards("1,2,3,4,5,6,7,8,9,10")

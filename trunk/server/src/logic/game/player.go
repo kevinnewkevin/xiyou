@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"logic/prpc"
 	"sync"
+	"strings"
+	"strconv"
 )
 
 const (
@@ -42,6 +44,7 @@ type GamePlayer struct {
 
 var (
 	PlayerStore		[]*GamePlayer
+	DefaultUnits	[]int32
 )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +76,14 @@ func FindPlayerByInstName(instName string) *GamePlayer {
 	return nil
 }
 
+func SetDefaultUnits(cards string) {
+	s1 := strings.Split(cards, ",")
+	for _, c := range s1{
+		e_id, _ := strconv.Atoi(c)
+		DefaultUnits = append(DefaultUnits, int32(e_id))
+	}
+}
+
 func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
 }
@@ -82,13 +93,16 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
 	//来两个默认的小兵
-	p.UnitList = append(p.UnitList, p.NewGameUnit(4))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(5))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(6))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(7))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(8))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(9))
-	p.UnitList = append(p.UnitList, p.NewGameUnit(10))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(4))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(5))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(6))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(7))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(8))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(9))
+	//p.UnitList = append(p.UnitList, p.NewGameUnit(10))
+	for _, e_id := range DefaultUnits {
+		p.UnitList = append(p.UnitList, p.NewGameUnit(e_id))
+	}
 	p.DefaultUnitGroup = 1
 	p.TianTiVal	= 0
 	PlayerStore = append(PlayerStore, &p)

@@ -2,6 +2,7 @@ package game
 
 /*
 extern int __loadfile(void*);
+extern int __DefineCards(void*);
 extern int __GetStrings(void*);
 extern int __GetFriend(void*);
 extern int __GetFriends(void*);
@@ -73,6 +74,7 @@ func InitLua(r string){
 	_L.OpenLibs()
 	_L.OpenSys()
 	_L.LoadApi(C.__loadfile,"loadfile","sys")
+	_L.LoadApi(C.__DefineCards,"DefineCards","Server")
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
 	_L.LoadApi(C.__GetFriend,"GetFriend","Player")
 	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
@@ -146,6 +148,20 @@ func __GetStrings(p unsafe.Pointer) C.int {
 	i := L.ToInteger(idx)
 
 	fmt.Println("__GetStrings", int32(i))
+
+	//fmt.Println("__GetStrings")
+
+	return 0
+}
+
+//export __DefineCards
+func __DefineCards(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+	idx:= 1
+
+	cards := L.ToString(idx)
+	SetDefaultUnits(cards)
 
 	//fmt.Println("__GetStrings")
 
