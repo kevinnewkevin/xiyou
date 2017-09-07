@@ -275,6 +275,7 @@ public class Battle {
             int localPos;
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
+                localPos = _Side ? _BattleReport.UnitList [i].Position : ConvertedPos(_BattleReport.UnitList [i].Position);
                 actor = GetActorByPos(_BattleReport.UnitList [i].Position);
                 if (actor != null)
                 {
@@ -285,7 +286,7 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList [i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
             }
             _BattleReport.UnitList = null;
             return;
