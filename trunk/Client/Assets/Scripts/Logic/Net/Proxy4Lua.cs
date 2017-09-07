@@ -48,9 +48,9 @@ public class Proxy4Lua {
 
     #region 内部接口
 
-    static public void ReconnectServer()
+    static public bool ReconnectServer()
     {
-        NetWoking.ReConnect();
+        return NetWoking.ReConnect();
     }
 
     static public void SelectCard4Ready(int idx)

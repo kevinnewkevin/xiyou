@@ -23,7 +23,7 @@ function NetWorkException(errCode)
 	if errCode == 10061 then
 		MessageBox:SetData("提示", "服务器连接不上，请检查网络或服务器状态", true);
 	else
-		MessageBox:SetData("提示", "网络连接已断开，点击确定重试", true, NetWorkReconnect);
+		MessageBox:SetData("提示", "网络连接已断开", true);
 	end
 end
 

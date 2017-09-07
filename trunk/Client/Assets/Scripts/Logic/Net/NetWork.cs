@@ -4,7 +4,7 @@ public class NetWoking
 {
     static Stub stub_ = new Stub();
     static Proxy proxy_ = new Proxy();
-    static System.Net.Sockets.Socket socket_ = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
+    static System.Net.Sockets.Socket socket_;
     static Bufferd incoming_buffer_ = new Bufferd(65536);
     static Bufferd outgoing_buffer_ = new Bufferd(65536);
 
@@ -21,6 +21,7 @@ public class NetWoking
         try
 		{
             _LastErrorCode = 0;
+            socket_ = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
 			socket_.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Tcp, System.Net.Sockets.SocketOptionName.NoDelay, true);
             socket_.Connect(host, port);
             return true;
@@ -35,8 +36,13 @@ public class NetWoking
 
     public static void Close()
     {
-        socket_.Close();
-        socket_.Shutdown(System.Net.Sockets.SocketShutdown.Both);
+        if (socket_ != null)
+        {
+            //socket_.Shutdown(System.Net.Sockets.SocketShutdown.Both);
+            socket_.Close();
+        }
+        incoming_buffer_ = new Bufferd(65536);
+        outgoing_buffer_ = new Bufferd(65536);
     }
 
 
@@ -95,17 +101,21 @@ public class NetWoking
 
     public static void SetupNetFPS()
     {
+        if (socket_ == null)
+            return;
 		if (!socket_.Connected)
-				return;		
+            return;		
         DoWrite();
         DoRead();
         DoDispatch();
     }
 
-    public static void ReConnect()
+    public static bool ReConnect()
     {
+        if (socket_ != null && socket_.RemoteEndPoint != null)
+            Close();
         string ipadd = Define.GetStr("DebugServerAddress");
         int port = Define.GetInt("DebugServerPort");
-        Open(ipadd, port);
+        return Open(ipadd, port);
     }
 }

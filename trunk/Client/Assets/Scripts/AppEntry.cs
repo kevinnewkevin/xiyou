@@ -20,15 +20,9 @@ public class AppEntry : MonoBehaviour {
         UIManager.Init();
         Define.Init();
         CameraEffect.Init();
-//
-        //init network
-        string ipadd = Define.GetStr("DebugServerAddress");
-        int port = Define.GetInt("DebugServerPort");
-        if (NetWoking.Open(ipadd, port))
-        {
-            UIManager.Show("denglu");
-            DataLoader.BeginLoad();
-        }
+
+        UIManager.Show("denglu");
+        DataLoader.BeginLoad();
 
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}
