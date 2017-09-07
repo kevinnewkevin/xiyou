@@ -89,14 +89,14 @@ function duibaikuang_FlushData()
 		local dData = DisplayData.GetData(tData._DisplayId);
 		if tData._Side == 0 then
 			if dData ~= nil then
-				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
+				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale));
 			else
 				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 			end
 			rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 		else
 			if dData ~= nil then
-				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath));
+				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale));
 			else
 				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 			end
