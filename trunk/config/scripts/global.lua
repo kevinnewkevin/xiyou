@@ -32,13 +32,17 @@ function NetWorkReconnect()
 	UIManager.HideMessageBox();
 end
 
+function ErrorMessage(errCode)
+	
+end
+
 function RegGlobalValue()
 	Define.Set("DebugServerAddress", "127.0.0.1");
 	Define.Set("DebugServerPort", 10999);
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
 	Define.Set("MoveSpeed_InBattle", 8);
-	Define.Set("MoveSpeed_InWorld", 4);
+	Define.Set("MoveSpeed_InWorld", 2.5);
 	Define.Set("PointLight", "Effect/chushengdian");
 	Define.Set("DestLight", "Effect/dianjiguangquan");
 	Define.Set("BornPos", "20,-14.3,4");

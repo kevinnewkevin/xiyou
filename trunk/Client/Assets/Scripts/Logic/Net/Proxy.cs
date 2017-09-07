@@ -3,6 +3,7 @@ class Proxy : ICOM_ServerToClientProxy
 {
     public bool ErrorMessage(int err)
     {
+        LuaManager.Call("global.lua", "ErrorMessage", err);
         return true;
     }
 
