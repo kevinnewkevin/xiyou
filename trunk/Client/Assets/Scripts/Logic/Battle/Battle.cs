@@ -241,7 +241,7 @@ public class Battle {
 
     static int ConvertedPos(int pos)
     {
-        return pos + 6;
+        return (pos + 6) % 12;
     }
 
     static bool PlaceActor()
@@ -360,7 +360,6 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
     {
-        Debug.LogError(" Add actor pos : " + pos);
         Actor actor = GetActor(instid);
         if (actor != null)
         {
@@ -482,7 +481,6 @@ public class Battle {
 
     static public void OperateSetActor(int pos)
     {
-        Debug.LogError(" Find empty pos : " + pos);
         if (pos == -1)
             return;
         
