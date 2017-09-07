@@ -183,15 +183,17 @@ public class Battle {
         _MyGroupCards.RemoveAt(idx);
         RandHandCards(--count);
     }
-
+    static int num;
     static public void PutCardInBattle()
     {
+        num = 0;
         EntityData entity = null;
         for(int i=0; i < _HandCards.Count; ++i)
         {
             entity = EntityData.GetData(_HandCards [i].UnitId);
             if (entity != null && entity._Cost <= _Fee)
             {
+                num++;
                 _SelectedHandCardInstID = _HandCards [i].InstId;
                 OperateSetActor(FindEmptyPos());
             }
@@ -239,7 +241,7 @@ public class Battle {
 
     static int ConvertedPos(int pos)
     {
-        return (pos + 6) % 12;
+        return pos + 6;
     }
 
     static bool PlaceActor()
@@ -270,18 +272,20 @@ public class Battle {
             EntityData entity;
             DisplayData display;
             Actor actor;
+            int localPos;
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
-                actor = GetActor(_BattleReport.UnitList[i].InstId);
+                actor = GetActorByPos(_BattleReport.UnitList [i].Position);
                 if (actor != null)
                 {
                     actor.SetValue(_BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP);
+                    actor.InstID = _BattleReport.UnitList [i].InstId;
                     continue;
                 }
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList[i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
+                AddActor(AssetLoader.LoadAsset(display._AssetPath), _BattleReport.UnitList [i].Position, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
             }
             _BattleReport.UnitList = null;
             return;
@@ -356,6 +360,7 @@ public class Battle {
     //场上添加一个角色
     static void AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
     {
+        Debug.LogError(" Add actor pos : " + pos);
         Actor actor = GetActor(instid);
         if (actor != null)
         {
@@ -386,6 +391,20 @@ public class Battle {
                 continue;
 
             if (_ActorInScene [i].InstID == instid)
+                return _ActorInScene [i];
+        }
+        return null;
+    }
+
+    //场上找到一个角色
+    static public Actor GetActorByPos(int pos)
+    {
+        for (int i = 0; i < _ActorInScene.Length; ++i)
+        {
+            if (_ActorInScene [i] == null)
+                continue;
+
+            if (_ActorInScene [i]._RealPosInScene == pos)
                 return _ActorInScene [i];
         }
         return null;
@@ -463,6 +482,7 @@ public class Battle {
 
     static public void OperateSetActor(int pos)
     {
+        Debug.LogError(" Find empty pos : " + pos);
         if (pos == -1)
             return;
         
@@ -595,6 +615,7 @@ public class Battle {
         _Result = BattleResult.BR_None;
         _ReportIsPlaying = false;
         _Fee = 0;
+        _BattleId = 0;
         UnLoadAssets();
     }
 }
