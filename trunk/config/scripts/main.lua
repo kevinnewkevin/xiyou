@@ -1,7 +1,9 @@
+
+Server.DefineCards("1,2,3,4,5,6,7,8,9,10")
+
 sys.loadfile("common.lua")
 sys.loadfile("test.lua")
 sys.loadfile("item.lua")
-sys.loadfile("global.lua")
 sys.loadfile("skillscripts/skill1.lua")
 sys.loadfile("skillscripts/skill2.lua")
 sys.loadfile("skillscripts/skill3.lua")
