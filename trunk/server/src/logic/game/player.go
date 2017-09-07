@@ -566,3 +566,13 @@ func TestPlayer() {
 	}
 	//CreatePvE(P, 1)
 }
+
+
+func (this *GamePlayer) ClearAllBuff ()  {
+	fmt.Println("ClearAllBuff")
+	this.MyUnit.ClearAllbuff()
+
+	for _, unit := range this.UnitList {
+		unit.ClearAllbuff()
+	}
+}

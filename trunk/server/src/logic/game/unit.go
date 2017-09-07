@@ -366,6 +366,15 @@ func (this *GameUnit) isBack() bool {
 	return false
 }
 
+func (this *GameUnit) ClearAllbuff()  {
+
+	for _, buff := range this.Allbuff {
+		buff.DeleteProperty()
+	}
+
+	return
+}
+
 func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
 	this.CProperties[prpc.CPT_CHP] = float32(this.IProperties[prpc.IPT_HP])

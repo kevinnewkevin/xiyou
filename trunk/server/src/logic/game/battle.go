@@ -171,6 +171,7 @@ func (this *BattleRoom) BattleStart() {
 		if p == nil || p.session == nil {
 			continue
 		}
+		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp))
 		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID)
 	}
 }
@@ -269,6 +270,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		}
 		p.BattleId = 0
 		p.BattleCamp = prpc.CT_MAX
+		p.ClearAllBuff()
 
 		p.session.BattleExit(result)
 		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
@@ -1169,7 +1171,7 @@ func IsCrit(skillid int32) int {
 
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition) {
 
-	fmt.Println("SetupPosition.start", posList)
+	fmt.Println("SetupPosition.start", posList, p.BattleCamp)
 	if this.Round == 0 { //第一回合 必须设置主角卡
 		for _, pos := range posList {
 			//fmt.Println("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
