@@ -230,14 +230,16 @@ public class Skill {
 
         if (IsSec)
         {
-            Battle._BattleCamera.Feature(_Targets[crtTargetIdx]._ActorObj, _SkillData._Camera);
+            if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+                Battle._BattleCamera.Feature(_Targets[crtTargetIdx]._ActorObj, _SkillData._Camera);
             SkillEffect(crtTargetIdx);
             BeattackEffect(crtTargetIdx);
             EmitNum(crtTargetIdx);
         }
         else
         {
-            Battle._BattleCamera.Feature(_Targets[0]._ActorObj, _SkillData._Camera);
+            if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+                Battle._BattleCamera.Feature(_Targets[0]._ActorObj, _SkillData._Camera);
             SkillEffect();
             BeattackEffect();
             EmitNum();
@@ -260,14 +262,16 @@ public class Skill {
 
     void Melee_End()
     {
-        Battle._BattleCamera.Reset();
+        if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+            Battle._BattleCamera.Reset();
         Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
         CheckBuffGoBackToOrigin();
     }
 
     void Range()
     {
-        Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
+        if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+            Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
         Play(_Caster, _SkillData._CastAnim);
         PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
         CastEffect();
@@ -300,7 +304,8 @@ public class Skill {
             HandleTrack();
         }
         OnTimeDo(_SkillData._TotalTime, Range_EndCast);
-        Battle._BattleCamera.Reset();
+        if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+            Battle._BattleCamera.Reset();
     }
 
     void Range_EndCast()
