@@ -18,6 +18,13 @@ function ExcuteNpc(id)
 	end
 end
 
+function NetWorkException(errCode)
+	local MessageBox = UIManager.ShowMessageBox();
+	if errCode == 10061 then
+		MessageBox:SetData("提示", "服务器连接不上，请检查网络或服务器状态", true);
+	end
+end
+
 function RegGlobalValue()
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);

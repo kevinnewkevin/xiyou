@@ -8,6 +8,8 @@ public class NetWoking
     static Bufferd incoming_buffer_ = new Bufferd(65536);
     static Bufferd outgoing_buffer_ = new Bufferd(65536);
 
+    static public int _LastErrorCode;
+
     public static Stub S
     {
         get
@@ -17,13 +19,15 @@ public class NetWoking
     }
     public static bool Open(string host, int port) {
         try
-		{ 
+		{
+            _LastErrorCode = 0;
 			socket_.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Tcp, System.Net.Sockets.SocketOptionName.NoDelay, true);
             socket_.Connect(host, port);
             return true;
         }
         catch (System.Net.Sockets.SocketException ex)
         {
+            _LastErrorCode = ex.ErrorCode;
             UnityEngine.Debug.LogError(ex.Message + "1:" + ex.ErrorCode);
             return false;
         }
@@ -57,6 +61,7 @@ public class NetWoking
             }
             catch (System.Net.Sockets.SocketException ex)
             {
+                _LastErrorCode = ex.ErrorCode;
                 UnityEngine.Debug.LogError(ex.Message + "2:" + ex.ErrorCode);
             }
         }
@@ -73,6 +78,7 @@ public class NetWoking
             }
             catch (System.Net.Sockets.SocketException ex)
             {
+                _LastErrorCode = ex.ErrorCode;
                 UnityEngine.Debug.LogError(ex.Message + "3:" + ex.ErrorCode);
             }
         }
