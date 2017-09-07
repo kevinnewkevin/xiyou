@@ -6,6 +6,9 @@ local Window;
 local crtTab = 0;
 local crtClickItemIdx = 0;
 local fullImg;
+local gold;
+local chopper;
+local stamaPoint;
 
 function bagui:OnEntry()
 	Window = bagui.New();
@@ -29,7 +32,19 @@ function bagui:OnInit()
 	fullImg = self.contentPane:GetChild("n23");
 	fullImg.visible = false;
 	crtTab = 0;
-
+	local moneyGroup = self.contentPane:GetChild("n27").asCom;
+	gold = moneyGroup:GetChild("n5");
+	chopper = moneyGroup:GetChild("n7");
+	stamaPoint = moneyGroup:GetChild("n12");
+	local feeList = self.contentPane:GetChild("n9").asList;
+	local feeMax = feeList.numItems;
+	local feeItem;
+	for i=1, feeMax do
+		feeItem = feeList:GetChildAt(i-1);
+		feeItem.data = i-1;
+		feeItem.onClick:Add(bagui_OnFeeItemClick);
+	end
+	feeList.selectedIndex = crtTab;
 	bagui_FlushData();
 end
 
@@ -86,6 +101,9 @@ end
 
 function bagui_FlushData()
 	bagList.numItems = BagSystem.GetItemCount(crtTab);
+	gold.text = GamePlayer._Data.IProperties[8];
+	chopper.text = GamePlayer._Data.IProperties[6];
+	stamaPoint.text = GamePlayer._Data.IProperties[2];
 end
 
 function bagui:GetClickItemIdx()
@@ -94,4 +112,8 @@ end
 
 function bagui:GetCrtTab()
 	return crtTab;
+end
+
+function bagui_OnFeeItemClick(context)
+
 end
