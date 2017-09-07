@@ -16,9 +16,7 @@ public class CameraEffect {
     public static void Init()
     {
         _Mat = Resources.Load<Material>("Material/Fade");
-        SceneManager.sceneLoaded += (arg0, arg1) => {
-            SearchAllCamera();
-        };
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     static void SearchAllCamera()
@@ -78,6 +76,11 @@ public class CameraEffect {
         _Mat.SetFloat("_Float1", _V);
     }
 
+    public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        SearchAllCamera();
+    }
+
     public static void Continue()
     {
         if (!_IsPlaying)
@@ -88,6 +91,6 @@ public class CameraEffect {
 
     public static void Fini()
     {
-        SceneManager.sceneLoaded = null;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
