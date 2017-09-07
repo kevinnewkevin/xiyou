@@ -352,7 +352,7 @@ func (this *BattleRoom) Update() {
 					continue
 				}
 				//fmt.Println("append", unit)
-				this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+				//this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 			}
 			//fmt.Println("this.Winner", this.Winner)
 
