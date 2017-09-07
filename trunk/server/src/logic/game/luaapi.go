@@ -608,11 +608,17 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 	idx++
 	spec := L.ToString(idx)
 
+	fmt.Println("__GetCheckSpec ",battleid,unitid)
+
 	battle := FindBattle(int64(battleid))
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
+	fmt.Println("__GetCheckSpec 1111",battleid,unitid)
+
 	_bool := unit.CheckSpec(spec)
+
+	fmt.Println("__GetCheckSpec 22222",_bool)
 
 	L.PushBoolean(_bool)
 

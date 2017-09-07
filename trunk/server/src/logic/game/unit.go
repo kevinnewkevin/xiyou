@@ -91,6 +91,7 @@ func (this *GameUnit) AddSpec(spec string, buffinstid int32) {
 	} else {
 		this.Special[int32(spe)] = append(bufflist, buffinstid)
 	}
+	fmt.Println("AddSpec", spe, "speeee", this.Special[int32(spe)])
 	return
 }
 
