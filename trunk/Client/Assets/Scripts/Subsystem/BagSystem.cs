@@ -35,11 +35,11 @@ public class BagSystem {
         UIManager.SetDirty("bagui");
     }
 
-		static int Sort(COM_ItemInst i1, COM_ItemInst i2)
+	static int Sort(COM_ItemInst i1, COM_ItemInst i2)
     {
-				if (i1.ItemId > i2.ItemId)
+        if (i1.ItemId > i2.ItemId)
             return -1;
-				if (i1.ItemId < i2.ItemId)
+        if (i1.ItemId < i2.ItemId)
             return 1;
         else
             return 0;
@@ -81,7 +81,7 @@ public class BagSystem {
         UIManager.SetDirty("bagui");
     }
 
-		public static void UpdateItem(COM_ItemInst inst)
+	public static void UpdateItem(COM_ItemInst inst)
     {
         int type = 0;
         for(int i=0; i < _ItemsByType [0].Count; ++i)
