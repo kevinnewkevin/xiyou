@@ -55,7 +55,6 @@ public class CameraEffect {
             _V -= Time.deltaTime;
             if (_V < -1f)
             {
-                Debug.Log("Do something");
                 if (fadeCallback != null)
                 {
                     fadeCallback();
@@ -68,7 +67,6 @@ public class CameraEffect {
             _V += Time.deltaTime;
             if (_V > 0f)
             {
-                Debug.Log("over");
                 _V = 0f;
                 _IsPlaying = false;
             }

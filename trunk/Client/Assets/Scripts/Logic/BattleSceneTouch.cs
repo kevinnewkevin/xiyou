@@ -20,6 +20,9 @@ public class BattleSceneTouch : MonoBehaviour {
     {
         if (Stage.isTouchOnUI)
             return;
+
+        if (Battle._BattleCamera._IsPlaying)
+            return;
         
         _IsPress = true;
         RaycastHit hit;
@@ -38,7 +41,7 @@ public class BattleSceneTouch : MonoBehaviour {
 
     void OnTouchMove(EventContext context)
     {
-        if (!Stage.isTouchOnUI)
+        if (!Stage.isTouchOnUI && !Battle._BattleCamera._IsPlaying)
         {
             if (_IsPress)
             {

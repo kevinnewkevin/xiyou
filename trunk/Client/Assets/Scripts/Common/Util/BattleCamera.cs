@@ -10,18 +10,20 @@ public class BattleCamera : MonoBehaviour {
     Vector3 _OriginPos;
     Quaternion _OriginQuat;
 
+    public bool _IsPlaying;
+
 	// Use this for initialization
 	void Start () {
         _MainCamera = Camera.main;
-        _OriginPos = _MainCamera.transform.position;
-        _OriginQuat = _MainCamera.transform.rotation;
 	}
-	
+
     public void Feature(GameObject target, string type)
     {
         if (!type.Equals("1"))
             return;
-        
+
+        _IsPlaying = true;
+
         _Target = target;
         _MainCamera.transform.parent = target.transform;
         string[] devPos = Define.GetStr("BattleCamera_plus").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
@@ -31,11 +33,21 @@ public class BattleCamera : MonoBehaviour {
         _MainCamera.transform.localScale = Vector3.one;
     }
 
+    void Update()
+    {
+        if (_IsPlaying)
+            return;
+        
+        _OriginPos = _MainCamera.transform.position;
+        _OriginQuat = _MainCamera.transform.rotation;
+    }
+
     public void Reset()
     {
         _MainCamera.transform.parent = null;
         _MainCamera.transform.position = _OriginPos;
         _MainCamera.transform.rotation = _OriginQuat;
         _MainCamera.transform.localScale = Vector3.one;
+        _IsPlaying = false;
     }
 }

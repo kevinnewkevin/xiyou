@@ -27,7 +27,8 @@ public class Actor {
     //Animator _Animator;
     Animation _Animation;
 
-    float MOVE_SPEED = 4f;
+    float MOVE_SPEED_BATTLE = 4f;
+    float MOVE_SPEED_WORLD = 4f;
 
     bool _IsRunning;
 
@@ -87,7 +88,8 @@ public class Actor {
 
         _Headbar = new HeadBar(this, normal? 0: 1);
 
-        MOVE_SPEED = Define.GetFloat("MoveSpeed");
+        MOVE_SPEED_BATTLE = Define.GetFloat("MoveSpeed_InBattle");
+        MOVE_SPEED_WORLD = Define.GetFloat("MoveSpeed_InWorld");
     }
 
     public void UpdateValue(int value, int maxValue)
@@ -112,15 +114,18 @@ public class Actor {
         if (_Headbar != null)
             _Headbar.Update();
 
-        if (_IsRunning == false)
+        if (!Battle.InBattle)
         {
-            if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_IDLE))
-                Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
-        }
-        else
-        {
-            if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_RUN))
-                Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+            if (_IsRunning == false)
+            {
+                if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_IDLE))
+                    Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
+            }
+            else
+            {
+                if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_RUN))
+                    Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+            }
         }
     }
 
@@ -138,7 +143,8 @@ public class Actor {
         int param = LaunchHandler(moveToCallback);
 
         //Tween position
-        iTween.MoveTo(_ActorObj, iTween.Hash("speed", MOVE_SPEED, "position", position, "oncomplete", "HandlerFunction", "oncompleteparams", param.ToString(), "easetype", iTween.EaseType.linear));
+        float speed = Battle.InBattle? MOVE_SPEED_BATTLE: MOVE_SPEED_WORLD;
+        iTween.MoveTo(_ActorObj, iTween.Hash("speed", speed, "position", position, "oncomplete", "HandlerFunction", "oncompleteparams", param.ToString(), "easetype", iTween.EaseType.linear));
 
 //        _ActorObj.transform.position = _DestPosition;
 //        if (_MoveCallBack != null)

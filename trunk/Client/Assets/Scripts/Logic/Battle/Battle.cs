@@ -356,7 +356,6 @@ public class Battle {
 
         Debug.Log(" You" + (_Result == BattleResult.BR_Win? " Win ": " Lose"));
         UIManager.Show("jiesuanjiemian");
-        Fini();
     }
 
     //场上添加一个角色
@@ -608,6 +607,11 @@ public class Battle {
         return true;
     }
 
+    static public bool InBattle
+    {
+        get{ return CurrentState != BattleState.BS_Max; } 
+    }
+
     //销毁场景 角色 UI
     static public void Fini()
     {
@@ -617,5 +621,6 @@ public class Battle {
         _Fee = 0;
         _BattleId = 0;
         UnLoadAssets();
+        _BattleCamera.Reset();
     }
 }

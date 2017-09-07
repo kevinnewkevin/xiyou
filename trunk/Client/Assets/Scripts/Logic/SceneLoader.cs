@@ -14,6 +14,8 @@ public class SceneLoader
             //UIManager.Show("LoadingPanel");
             asyncOper = SceneManager.LoadSceneAsync(sceneName);
             CameraEffect.Continue();
+            if(Battle.InBattle && Battle.CurrentState != Battle.BattleState.BS_Init)
+                Battle.Fini();
         });
     }
 

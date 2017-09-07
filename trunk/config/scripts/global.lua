@@ -21,7 +21,8 @@ end
 function RegGlobalValue()
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
-	Define.Set("MoveSpeed", 8);
+	Define.Set("MoveSpeed_InBattle", 8);
+	Define.Set("MoveSpeed_InWorld", 4);
 	Define.Set("PointLight", "Effect/chushengdian");
 	Define.Set("DestLight", "Effect/dianjiguangquan");
 	Define.Set("BornPos", "20,-14.3,4");
