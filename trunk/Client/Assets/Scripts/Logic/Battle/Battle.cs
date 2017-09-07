@@ -276,7 +276,7 @@ public class Battle {
             for (int i = 0; i < _BattleReport.UnitList.Length; ++i)
             {
                 localPos = (_Side == 0? _BattleReport.UnitList [i].Position : ConvertedPos(_BattleReport.UnitList [i].Position));
-                actor = GetActorByPos(_BattleReport.UnitList [i].Position);
+                actor = GetActorByPos(localPos);
                 if (actor != null)
                 {
                     actor.SetValue(_BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP);
