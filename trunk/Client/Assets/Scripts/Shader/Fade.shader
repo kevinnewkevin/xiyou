@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/Test3" {  
+Shader "Custom/Fade" {  
     Properties {  
         _MainTex ("Base (RGB)", 2D) = "white" {}  
         _Float1("Float1",Float) = 0.0  

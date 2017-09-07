@@ -123,8 +123,8 @@ public class Actor {
             }
             else
             {
-                if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_RUN))
-                    Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+                if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_WALK))
+                    Play(Define.ANIMATION_PLAYER_ACTION_WALK);
             }
         }
     }
@@ -142,8 +142,20 @@ public class Actor {
         //为角色obj添加回调脚本和事件
         int param = LaunchHandler(moveToCallback);
 
+        string moveAnim;
+        float speed;
+        if (Battle.InBattle)
+        {
+            moveAnim = Define.ANIMATION_PLAYER_ACTION_RUN;
+            speed = MOVE_SPEED_BATTLE;
+        }
+        else
+        {
+            moveAnim = Define.ANIMATION_PLAYER_ACTION_WALK;
+            speed = MOVE_SPEED_WORLD;
+        }
+
         //Tween position
-        float speed = Battle.InBattle? MOVE_SPEED_BATTLE: MOVE_SPEED_WORLD;
         iTween.MoveTo(_ActorObj, iTween.Hash("speed", speed, "position", position, "oncomplete", "HandlerFunction", "oncompleteparams", param.ToString(), "easetype", iTween.EaseType.linear));
 
 //        _ActorObj.transform.position = _DestPosition;
@@ -151,7 +163,7 @@ public class Actor {
 //            _MoveCallBack();
 
         if (!_IsRunning)
-            Play(Define.ANIMATION_PLAYER_ACTION_RUN);
+            Play(moveAnim);
 
         _IsRunning = true;
     }
