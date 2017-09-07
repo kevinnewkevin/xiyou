@@ -99,6 +99,9 @@ public class MainSceneTouch : MonoBehaviour {
             if (_IsPress)
             {
                 float crtmag = ((InputEvent)context.data).position.magnitude;
+                if (Mathf.Abs(_Premag - crtmag) < 20)//消除抖动
+                    return;
+                
                 Camera.main.transform.Translate(new Vector3(_Premag - crtmag, 0f, 0f) * Time.deltaTime * 0.5f);
                 _Premag = crtmag;
                 _IsMoved = true;
