@@ -186,11 +186,8 @@ func (this *LuaState) LoadFile(fileName string) int {
 		fmt.Println(lua_tolstring(this.luaState, -1, nil))
 	}
 
-	r = lua_pcall(this.luaState, 0, 0, 0)
+	this.Call(0,0)
 
-	if r != 0 {
-		fmt.Println(lua_tolstring(this.luaState, -1, nil))
-	}
 
 	return 0
 }
