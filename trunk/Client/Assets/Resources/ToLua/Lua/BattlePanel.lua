@@ -186,10 +186,8 @@ function BattlePanel_FlushData()
 end
 
 function BattlePanel_SetFeeCount(count)
-	print(count .. " fee");
 	for i=1, 5 do
 		if i <= count then
-			print("visible = true");
 			fees[i]["com"].visible = true;
 		else
 			fees[i]["com"].visible = false;
