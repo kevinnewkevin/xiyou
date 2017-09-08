@@ -36,7 +36,10 @@ function jiesuanjiemian_FlushData()
 end
 
 function jiesuanjiemian:OnUpdate()
-	
+	if UIManager.IsDirty("jiesuanjiemian") then
+		jiesuanjiemian_FlushData();
+		UIManager.ClearDirty("jiesuanjiemian");
+	end
 end
 
 function jiesuanjiemian:OnTick()
