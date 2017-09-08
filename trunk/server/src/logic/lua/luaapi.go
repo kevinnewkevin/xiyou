@@ -450,7 +450,7 @@ func lua_call(L uintptr, nargs int, nresults int) {
 	C.lua_call(unsafe.Pointer(L), C.int(nargs), C.int(nresults))
 }
 func lua_pcall(L uintptr, nargs int, nresults int, errfunc int) int {
-	return int(C.lua_pcall(unsafe.Pointer(L), C.int(nargs), C.int(nresults), C.int(uintptr(errfunc)))
+	return int(C.lua_pcall(unsafe.Pointer(L), C.int(nargs), C.int(nresults), C.int(uintptr(errfunc))))
 }
 
 //func lua_cpcall (L uintptr,  fun uintptr,  ud uintptr){
