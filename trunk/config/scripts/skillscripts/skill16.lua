@@ -44,9 +44,11 @@ function SK_115_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	local mag_pro = caster_magic*0.4
+	local pvalue = 0.4
 	
-	local atk_pro = caster_attack*0.4
+	local mag_pro = caster_magic*pvalue
+	
+	local atk_pro = caster_attack*pvalue
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
