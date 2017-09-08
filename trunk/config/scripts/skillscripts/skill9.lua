@@ -42,7 +42,7 @@ function SK_108_Action(battleid, casterid)
 	
 	local atk_damage = damage*0.2
 	
-	lcoal atk_def = defender_def*0.1
+	local atk_def = defender_def*0.1
 	
 	Battle.Attack(battleid,casterid,t,atk_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
