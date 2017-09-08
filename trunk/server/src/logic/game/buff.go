@@ -112,6 +112,16 @@ func (this *Buff) Update(round int32) bool {
 	}
 }
 
+func (this *Buff) MustUpdate()  {
+	v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
+	r := []interface{}{0}
+
+	buff_t := GetBuffRecordById(this.BuffId)
+
+	fmt.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "unitID为:", this.Owner.InstId)
+	_L.CallFuncEx(buff_t.UpdateLua, v, &r)
+}
+
 func (this *Buff) IsOver(round int32) bool {
 	o := false
 

@@ -29,6 +29,7 @@ extern int __HasBuff(void*);
 extern int __HasDebuff(void*);
 extern int __BuffMintsHp(void*);
 extern int __BuffCureHp(void*);
+extern int __BuffUpdate(void*);
 extern int __GetCalcMagicDef(void*);
 extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
@@ -119,6 +120,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
 	_L.LoadApi(C.__BuffCureHp,"BuffCureHp","Battle")
+	_L.LoadApi(C.__BuffUpdate,"BuffUpdate","Battle")
 	_L.LoadApi(C.__TargetOver,"TargetOver","Battle")
 	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
@@ -163,7 +165,7 @@ func __DefineCards(p unsafe.Pointer) C.int {
 	cards := L.ToString(idx)
 	SetDefaultUnits(cards)
 
-	//fmt.Println("__GetStrings")
+	//fmt.Println("__GetStrings")`
 
 	return 0
 }
@@ -561,8 +563,7 @@ func  __GetOneSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid  
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	buffid := unit.GetOneSpecial(spec)
-
+	buffid := unit.GetOneSpecial(spec, battle.Round)
 
 	L.PushInteger(int(buffid))
 
@@ -602,8 +603,6 @@ func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid 
 	}
 
 	L.PushInteger(int(data))
-
-
 
 	return 1
 
@@ -1357,6 +1356,29 @@ func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 	unit.ChangeBuffTimes(battle.Round)
 
 	return 1
+}
+
+//export __BuffUpdate
+func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
+
+	fmt.Println("__ChangeBuffTimes")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	buffinstid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buff := unit.SelectBuff(int32(buffinstid))
+	buff.MustUpdate()
+
+	return 0
 }
 
 
