@@ -287,7 +287,7 @@ func __ChangeUnitProperty(p unsafe.Pointer) C.int {   //加减属性值
 
 	battle.ChangeUnitProperty(int64(unitid), int32(data), property)
 
-	return 1
+	return 0
 }
 
 //export __AddSheld
@@ -313,7 +313,7 @@ func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 
 	unit.VirtualHp += int32(buff.Data)
 
-	return 1
+	return 0
 }
 
 //export __PopSheld
@@ -341,7 +341,7 @@ func __PopSheld(p unsafe.Pointer) C.int {   //减护盾
 		unit.VirtualHp = 0
 	}
 
-	return 1
+	return 0
 }
 
 //export __DamageSheld
@@ -386,7 +386,7 @@ func __DamageSheld(p unsafe.Pointer) C.int {   //减護盾值
 		unit.VirtualHp = 0
 	}
 
-	return 1
+	return 0
 }
 
 //export __ClacSheld
@@ -484,7 +484,7 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 
 	unit.AddSpec(spec, int32(buffinstid))
 
-	return 1
+	return 0
 }
 //export __PopSpec
 func __PopSpec(p unsafe.Pointer) C.int {  //
@@ -507,7 +507,7 @@ func __PopSpec(p unsafe.Pointer) C.int {  //
 
 	unit.PopSpec(spec, int32(buffinstid))
 
-	return 1
+	return 0
 }
 //export __GetSpecial
 func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
@@ -534,9 +534,7 @@ func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 	for i:=1;i<len(buffid);i++{
 
 		L.PushInteger(i+1)
-
 		L.PushInteger(int(buffid[i]))
-
 		L.SetTable(-3)
 
 	}
@@ -569,7 +567,6 @@ func  __GetOneSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid  
 	return 1
 
 }
-
 
 //export __GetSpecialData
 func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid s数值
@@ -767,7 +764,6 @@ func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 		L.SetTable(-3)
 	}
 
-
 	return 1
 }
 
@@ -800,7 +796,6 @@ func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 		L.PushInteger(int(LineTraget[i]))
 		L.SetTable(-3)
 	}
-
 
 	return 1
 }
@@ -864,7 +859,7 @@ func __Attack(p unsafe.Pointer) C.int {
 
 	//fmt.Println("55555555555555", battleid, caster, target, crit, damage)
 
-	return 1
+	return 0
 }
 
 //export __Cure
@@ -888,7 +883,7 @@ func __Cure(p unsafe.Pointer) C.int {
 
 	//fmt.Println("6666666666666", battleid, target, crit, damage)
 
-	return 1
+	return 0
 }
 
 //export __GetCrit
@@ -1009,8 +1004,7 @@ func __AddSkillBuff(p unsafe.Pointer) C.int {
 
 	battle.AddSkillBuff(int64(casterid),int64(target),int32(buffid),int32(data))
 
-
-	return 1
+	return 0
 }
 
 //export __BuffMintsHp
@@ -1035,7 +1029,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 
 	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
-	return 1
+	return 0
 }
 
 //export __BuffCureHp
@@ -1060,7 +1054,7 @@ func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 
 	battle.BuffAddHp(buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
-	return 1
+	return 0
 }
 
 //export __PopAllBuffByDebuff
@@ -1085,9 +1079,6 @@ func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果 
 
 	return 1
 }
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1122,7 +1113,6 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 
 	L.PushNumber(float64(finaldamage))
 
-
 	return 1
 }
 
@@ -1148,7 +1138,6 @@ func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 	finaldamage := CalcMagicDamage(caster, target)
 
 	L.PushNumber(float64(finaldamage))
-
 
 	return 1
 }
@@ -1318,7 +1307,7 @@ func __TargetOver(p unsafe.Pointer) C.int {		//结束后
 
 	battle.TargetOver()
 
-	return 1
+	return 0
 }
 //export __TargetOn
 func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
@@ -1334,7 +1323,7 @@ func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 
 	battle.TargetOn()
 
-	return 1
+	return 0
 }
 
 //export __ChangeBuffTimes
@@ -1354,7 +1343,7 @@ func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 
 	unit.ChangeBuffTimes(battle.Round)
 
-	return 1
+	return 0
 }
 
 //export __BuffUpdate
