@@ -171,6 +171,7 @@ public class OpraSystem : MonoBehaviour {
 
     void ReturnToBattle()
     {
+        _CrtScreen = null;
         _IsPlaying = false;
         for (int i = 0; i < _ActorList.Count; ++i)
         {
