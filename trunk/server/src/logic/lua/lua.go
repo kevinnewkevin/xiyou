@@ -183,13 +183,13 @@ func (this *LuaState) LoadFile(fileName string) int {
 	r := luaL_loadfile(this.luaState, fileName)
 
 	if r != 0 {
-		panic(lua_tolstring(this.luaState, -1, nil))
+		fmt.Println(lua_tolstring(this.luaState, -1, nil))
 	}
 
 	r = lua_pcall(this.luaState, 0, 0, 0)
 
 	if r != 0 {
-		panic(lua_tolstring(this.luaState, -1, nil))
+		fmt.Println(lua_tolstring(this.luaState, -1, nil))
 	}
 
 	return 0
