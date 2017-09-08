@@ -232,7 +232,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859085093110796}
   serializedVersion: 5
-  lengthInSec: 0.8
+  lengthInSec: 0.7
   simulationSpeed: 1
   looping: 0
   prewarm: 0
@@ -286,7 +286,7 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 0.8
+      scalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -852,14 +852,20 @@ ParticleSystem:
           outSlope: 1.2244898
           tangentMode: 0
         - serializedVersion: 2
-          time: 1
+          time: 0.58382237
           value: 1
-          inSlope: 0.39215672
-          outSlope: 0.39215672
+          inSlope: 0.9009242
+          outSlope: 0.9009242
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 1
+          value: 0.4334736
+          inSlope: -1.5396929
+          outSlope: -1.5396929
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
