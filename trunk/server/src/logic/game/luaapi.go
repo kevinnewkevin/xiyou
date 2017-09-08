@@ -943,7 +943,7 @@ func __AddBuff(p unsafe.Pointer) C.int {
 
 	battle.AddBuff(int64(casterid), int64(target), int32(buffid), int32(data))
 
-	return 1
+	return 0
 }
 
 //export __HasBuff
