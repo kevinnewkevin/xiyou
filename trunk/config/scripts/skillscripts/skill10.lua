@@ -43,10 +43,12 @@ function SK_109_Action(battleid, casterid)
 	end
 		
 	local crit = Battle.GetCrit(skillid)  --是否暴击
+	
+	local mag_damage = magic_attack*0.5
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,100,magic_attack*0.5)
+	Battle.AddBuff(battleid,casterid,t,100,mag_damage)
 		
 	Battle.TargetOver(battleid) --赋给下个目标
 		

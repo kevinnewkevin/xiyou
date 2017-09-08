@@ -26,7 +26,9 @@ function SK_113_Action(battleid, casterid)
 	
 	Battle.Cure(battleid,t,0,0)
 	
-	Battle.AddBuff(battleid,casterid, t,107, caster_attack*0.3)  --给一个友方单位增加一个荆棘（暂时么有这个函数）   持续三回合
+	local mag_damage = caster_attack*0.3
+	
+	Battle.AddBuff(battleid,casterid, t,107, mag_damage)  --给一个友方单位增加一个荆棘（暂时么有这个函数）   持续三回合
 	
 	Battle.TargetOver(battleid) -- 赋给下个目标
 	

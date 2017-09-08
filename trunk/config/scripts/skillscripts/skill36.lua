@@ -40,10 +40,12 @@ function SK_135_Action(battleid, casterid)
 		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
+	
+	local hp_cure = cure*0.1
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,100,cure*0.1)  --受到该伤害的目标每回合受到最大生命的10%
+	Battle.AddBuff(battleid,casterid,t,100,hp_cure)  --受到该伤害的目标每回合受到最大生命的10%
 	
 	Battle.TargetOver(battleid)
 		

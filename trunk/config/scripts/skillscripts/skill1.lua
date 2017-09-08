@@ -39,8 +39,11 @@ function SK_100_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	sys.log("是否暴击"..crit)
-	Battle.Attack(battleid, casterid, t, damage*1.3, crit)
-	Battle.AddSkillBuff(battleid,casterid,casterid, 109, sudu*0.05)
+	local atk_damage = damage*1.3
+	local add_sudu = sudu*0.05
+	Battle.Attack(battleid, casterid, t, atk_damage, crit)
+	
+	Battle.AddSkillBuff(battleid,casterid,casterid, 109, add_sudu)
 	Battle.TargetOver(battleid)
 	
 	sys.log("skill1 对id为"..t.."的目标造成"..damage.."点伤害")	

@@ -33,7 +33,9 @@ function SK_104_Action(battleid, casterid)
 		
 		Battle.Cure(battleid, v,0, 0)
 		
-		Battle.AddBuff(battleid,casterid,v,103,damage*0.1)  --给友方分别提供一个盾牌
+		local mtk_damage = damage*0.1
+		
+		Battle.AddBuff(battleid,casterid,v,103,mtk_damage)  --给友方分别提供一个盾牌
 		
 		Battle.TargetOver(battleid)  --赋给下个目标
 	

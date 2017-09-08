@@ -41,9 +41,11 @@ function SK_128_Action(battleid, casterid)
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
+	local mag_cure = damage*0.5
+	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
-	Battle.Cure(battleid,casterid,damage*0.5,crit)      --回血 公式(法术强度的50%）
+	Battle.Cure(battleid,casterid,mag_cure,crit)      --回血 公式(法术强度的50%）
 	
 	Battle.TargetOver(battleid)
 	

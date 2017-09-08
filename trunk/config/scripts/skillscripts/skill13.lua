@@ -31,8 +31,10 @@ function SK_112_Action(battleid, casterid)
 		Battle.TargetOn(battleid) --清空数据
 	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
+		
+		local mtk_cure = caster_attack*0.5
 	
-		Battle.Cure(battleid,v,caster_attack*0.5,crit)      --回血 公式(法术强度的50%）
+		Battle.Cure(battleid,v,mtk_cure,crit)      --回血 公式(法术强度的50%）
 		
 		Battle.TargetOver(battleid) --赋给下一个目标
 		

@@ -48,9 +48,13 @@ function SK_107_Action(battleid, casterid)
 	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,v,damage*0.5,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		local atk_damage = damage*0.5
 		
-		Battle.AddBuff(battleid,casterid,casterid,110,caster_attack*0.1) --每击中一个敌人增加自己10%的物理强度
+		local strong_damage = caster_attack*0.1
+		
+		Battle.Attack(battleid,casterid,v,atk_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		Battle.AddBuff(battleid,casterid,casterid,110,strong_damage) --每击中一个敌人增加自己10%的物理强度
 		
 		Battle.TargetOver(battleid)  --赋给下个目标
 		

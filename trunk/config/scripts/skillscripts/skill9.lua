@@ -40,9 +40,13 @@ function SK_108_Action(battleid, casterid)
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	Battle.Attack(battleid,casterid,t,damage*0.2,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	local atk_damage = damage*0.2
+	
+	lcoal atk_def = defender_def*0.1
+	
+	Battle.Attack(battleid,casterid,t,atk_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
-	Battle.AddBuff(battleid,casterid,t,112,defender_def*0.1)
+	Battle.AddBuff(battleid,casterid,t,112,atk_def)
 		
 		
 	Battle.TargetOver(battleid)  --赋给下个目标

@@ -31,7 +31,8 @@ function SK_106_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		Battle.Cure(battleid, v, 0, 0)
-		Battle.AddBuff(battleid,casterid,v,102,caster_attack*0.2)
+		local atk_attack = caster_attack*0.2
+		Battle.AddBuff(battleid,casterid,v,102,atk_attack)
 		Battle.TargetOver(battleid)  --赋给下个目标
 		
 		sys.log("skill7, "..v)

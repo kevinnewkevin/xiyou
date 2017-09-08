@@ -45,7 +45,9 @@ function SK_102_Action(battleid, casterid)
 		end
 		sys.log(1)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
-		Battle.Attack(battleid, casterid, v, damage*2.3, crit)
+		
+		local atk_damage = damage*2.3
+		Battle.Attack(battleid, casterid, v, atk_damage, crit)
 		Battle.AddBuff(battleid, casterid, v, 104, 0)
 		Battle.TargetOver(battleid)
 		
