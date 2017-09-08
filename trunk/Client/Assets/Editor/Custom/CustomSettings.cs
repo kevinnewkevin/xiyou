@@ -210,6 +210,7 @@ public static class CustomSettings
 		_GT(typeof(HeroStroyData)),
         _GT(typeof(CheckpointData)),
         _GT(typeof(TalkData)),
+        _GT(typeof(DragDrop)),
         _GT(typeof(List<long>)),
         _GT(typeof(List<COM_Unit>)),
         _GT(typeof(List<CheckpointData>)),
