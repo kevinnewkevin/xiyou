@@ -631,7 +631,7 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 
 	fmt.Println("__GetCheckSpec 1111",battleid,unitid)
 
-	_bool := unit.CheckSpec(spec)
+	_bool := unit.CheckSpec(spec, battle.Round)
 
 	fmt.Println("__GetCheckSpec 22222",_bool)
 
@@ -1361,7 +1361,7 @@ func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 //export __BuffUpdate
 func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
 
-	fmt.Println("__ChangeBuffTimes")
+	fmt.Println("__BuffUpdate")
 
 	L := lua.GetLuaState(p)
 
@@ -1370,13 +1370,15 @@ func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
 	idx ++
 	unitid := L.ToInteger(idx)
 	idx ++
-	buffinstid := L.ToInteger(idx)
+	spe := L.ToString(idx)
 
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	buff := unit.SelectBuff(int32(buffinstid))
-	buff.MustUpdate()
+	unit.MustUpdateBuff(spe, battle.Round)
+
+	//buff := unit.SelectBuff(int32(buffinstid))
+	//buff.MustUpdate()
 
 	return 0
 }

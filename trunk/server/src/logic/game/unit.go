@@ -153,7 +153,7 @@ func (this *GameUnit) GetOneSpecial(spec string, round int32) int32 {		//获取�
 	return tmp
 }
 
-func (this *GameUnit) CheckSpec(spec string) bool { //unit.checkspec(是否有免死)
+func (this *GameUnit) CheckSpec(spec string, round int32) bool { //unit.checkspec(是否有免死)
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
 
@@ -165,7 +165,15 @@ func (this *GameUnit) CheckSpec(spec string) bool { //unit.checkspec(是否有�
 		return false
 	}
 
-	return true
+	for _, bfid := range bufflist {
+		buff := this.SelectBuff(bfid)
+		if buff.IsOver(round) {
+			continue
+		}
+		return true
+	}
+
+	return false
 }
 
 func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
@@ -403,6 +411,19 @@ func (this *GameUnit)CheckBuff (round int32){
 
 func (this *GameUnit)CheckDebuff (round int32){
 	//检测那些有行为的debuff 比如定时损血
+
+}
+func (this *GameUnit) MustUpdateBuff (spe string, round int32){
+	special := prpc.ToId_BuffSpecial(spe)
+	bufflist, _ := this.Special[int32(special)]
+
+	for _, buffid := range bufflist {
+		buff := this.SelectBuff(buffid)
+		if buff.IsOver(round) {
+			continue
+		}
+		buff.MustUpdate()
+	}
 
 }
 
