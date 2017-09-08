@@ -366,6 +366,7 @@ public class Battle {
         {
             if(actor._RealPosInScene != pos)
                 actor.MoveTo(_PosInScene [pos].position, null);
+            GameObject.Destroy(go);
             return;
         }
         _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId);
