@@ -78,8 +78,8 @@ enum BuffSpecial{
 	BF_STRONG,		//增加输出的伤害
 	BF_THORNS,		//增加荆棘
 	BF_UNCURE,		//无法恢复生命
-	BF_AOE,		//必定溅射
+	BF_AOE,			//必定溅射
 	BF_COMBO,		//必定连击
-	BF_CURE,		//受伤后回血
+	BF_ATKCURE		//受伤后回血
 	BF_MAX,
 };
