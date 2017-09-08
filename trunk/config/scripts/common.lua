@@ -156,7 +156,6 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 		Player.ChangeBuffTimes(battleid,targetid)   --开始前清理数据
 	end
 	
-	
 	------------------------------------------------------------------------------
 	------------------------------------------------------------------------------
 	
@@ -177,6 +176,22 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	
 	sys.log("ClacDamageByAllBuff 最终" .. damage)
 	
+	CheckAttackCure(battleid, targetid)
+	
 	return damage
+	
+end
+
+
+--针对于特殊受伤后回血用的
+function CheckAttackCure(battleid, unitid)
+	--获取到有没有121 受击回血
+	local  buffid = Player.GetCheckSpec(battleid,unitid,"BF_ATKCURE")
+	
+	if buffid == 1 then
+	
+		Battle.BuffUpdate(battleid, unitid, buffid)
+		
+	end
 	
 end
