@@ -33,10 +33,13 @@ function paiku:OnInit()
 
 	self.closeButton = self.contentPane:GetChild("n7").asButton;
 
+
 	local leftPart = self.contentPane:GetChild("n6").asCom;
 	allCardList = leftPart:GetChild("n27").asList;
 	allCardList:SetVirtual();
 	allCardList.itemRenderer = paiku_RenderListItem;
+	allCardList.onDrop:Add(paiku_OnDropCard);
+	allCardList.data = 0;
 
 	local feeList = leftPart:GetChild("n34").asList;
 	local feeMax = feeList.numItems;
@@ -57,8 +60,11 @@ function paiku:OnInit()
 	crtCardName = cardGroup:GetChild("n23");
 	deleteBtn.onClick:Add(paiku_OnDeleteGroup);
 	cardGroupList = cardGroup:GetChild("n27").asList;
+	cardGroupList.onDrop:Add(paiku_OnDropCard);
+	cardGroupList.data = 1;
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
 	setBattleBtn.onClick:Add(paiku_OnSetBattle);
+
 	local changeNameBtn = cardGroup:GetChild("n25").asButton;
 	changeNameBtn.onClick:Add(paiku_OnChangeGroupName);
 
@@ -88,7 +94,7 @@ function paiku_RenderListItem(index, obj)
 	obj.onClick:Add(paiku_OnCardItem);
 	local instId = GamePlayer.GetInstID(crtCardsFee, index);
 	obj.data = instId;
-	obj.onDragEnd:Add(paiku_OnDropCard);
+	obj.onDragStart:Add(paiku_OnDragCard);
 	local fee = obj:GetChild("n7");
 	local inGroup = obj:GetChild("n9");
 	fee.text = entityData._Cost;
@@ -173,7 +179,7 @@ function paiku_FlushData()
 		itemBtn.onClick:Add(paiku_OnCardInGroup); 
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
-		itemBtn.onDragEnd:Add(paiku_OnDropCard);
+		itemBtn.onDragStart:Add(paiku_OnDragCard);
 	end
 
 	local groupItem;
@@ -215,9 +221,27 @@ function paiku_OnChangeGroupName(context)
 	UIManager.SetDirty("paiku");
 end
 
+function paiku_OnDragCard(context)
+	context:PreventDefault();
+	DragDrop.inst:StartDrag(context.sender, context.sender:GetChild("n5").asLoader.url, context.sender, context.data);
+end
+
 function paiku_OnDropCard(context)
-	crtCardInstID = context.sender.data;
+	local onGroupArea = context.sender.data == 1;
+	crtCardInstID = context.data.data;
 	isInGroup = GamePlayer.IsInGroup(crtCardInstID, crtGroupIdx);
+	if onGroupArea and isInGroup then
+		DragDrop.inst:Cancel();
+		UIManager.SetDirty("paiku");
+		return;
+	end
+
+	if onGroupArea == false and isInGroup == false then
+		DragDrop.inst:Cancel();
+		UIManager.SetDirty("paiku");
+		return;
+	end
+
 	paiku_OnMessageConfirm();
 	--[[local MessageBox = UIManager.ShowMessageBox();
 	if isInGroup then
