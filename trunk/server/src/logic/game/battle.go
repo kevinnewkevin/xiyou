@@ -269,11 +269,11 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			}
 		}
 		p.BattleId = 0
-		p.BattleCamp = prpc.CT_MAX
 		p.ClearAllBuff()
 
 		p.session.BattleExit(result)
-		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, win)
+		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "wincampis ", camp, "winis", win)
+		p.BattleCamp = prpc.CT_MAX
 	}
 
 	fmt.Println("BattleRoomOver, winner is ", camp)
