@@ -103,6 +103,7 @@ function qiecuo:OnDispose()
 end
 
 function qiecuo:OnHide()
+	starting.visible = false;
 	Window:Hide();
 end
 
