@@ -228,6 +228,9 @@ func __GetFriend(p unsafe.Pointer) C.int {
 		if u == nil {
 			continue
 		}
+		if u.IsDead() {
+			continue
+		}
 		if u.Camp != unit.Camp {
 			continue
 		}
