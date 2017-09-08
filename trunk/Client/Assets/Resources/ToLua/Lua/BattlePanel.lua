@@ -111,7 +111,8 @@ function BattlePanel:OnHide()
 end
 
 function BattlePanel_FlushData()
-	if Battle._CurrentState == Battle.BattleState.BS_Oper then
+	local operating = Battle._CurrentState == Battle.BattleState.BS_Oper;
+	if operating then
 		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_jieshuhuihe");
 		stateIcon.touchable = true;
 	else
@@ -138,7 +139,7 @@ function BattlePanel_FlushData()
 				if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
 					cards[i]["card"].enabled = true;
 				else
-					if Battle._Fee < eData._Cost then
+					if Battle._Fee < eData._Cost or operating == false then
 						cards[i]["card"].enabled = false;
 					else
 						cards[i]["card"].enabled = true;
