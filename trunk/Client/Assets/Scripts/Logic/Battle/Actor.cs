@@ -87,6 +87,7 @@ public class Actor {
         _Animation = _ActorObj.GetComponent<Animation>();
 
         _Headbar = new HeadBar(this, normal? 0: 1);
+        _Headbar.Visible = InstID != 0;
 
         MOVE_SPEED_BATTLE = Define.GetFloat("MoveSpeed_InBattle");
         MOVE_SPEED_WORLD = Define.GetFloat("MoveSpeed_InWorld");

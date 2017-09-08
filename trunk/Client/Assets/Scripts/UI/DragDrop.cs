@@ -4,6 +4,7 @@ using UnityEngine;
 public class DragDrop {
 
     GLoader _AgentLoader;
+    GGraph _AgentGraph;
     object _SourceData;
 
     static DragDrop _Inst;
@@ -31,28 +32,57 @@ public class DragDrop {
         _AgentLoader.sortingOrder = int.MaxValue;
         _AgentLoader.onDragEnd.Add(OnDragEnd);
         _AgentLoader.alpha = 0.7f;
+
+        _AgentGraph = (GGraph)UIObjectFactory.NewObject("graph");
+        _AgentGraph.gameObjectName = "DragDropAgent";
+        _AgentGraph.SetHome(GRoot.inst);
+        _AgentGraph.touchable = false;
+        _AgentGraph.draggable = true;
+        _AgentGraph.SetSize(100, 100);
+        _AgentGraph.SetPivot(0.5f, 1f, true);
+        _AgentGraph.sortingOrder = int.MinValue;
+        _AgentGraph.onDragEnd.Add(OnDragEnd);
     }
 
-    public GLoader dragAgent
+    public GLoader dragAgentLoader
     {
         get { return _AgentLoader; }
     }
 
-    public bool dragging
+    public GGraph dragAgentGraph
     {
-        get { return _AgentLoader.parent != null; }
+        get { return _AgentGraph; }
     }
 
-    public void StartDrag(GObject source, string icon, object sourceData, int touchPointID = -1)
+    public bool dragging
     {
-        if (_AgentLoader.parent != null)
-            return;
+        get { return _AgentLoader.parent != null || _AgentGraph.parent != null; }
+    }
 
-        _SourceData = sourceData;
-        _AgentLoader.url = icon;
-        GRoot.inst.AddChild(_AgentLoader);
-        _AgentLoader.xy = GRoot.inst.GlobalToLocal(Stage.inst.GetTouchPosition(touchPointID));
-        _AgentLoader.StartDrag(touchPointID);
+    public void StartDrag(GObject source, string path, object sourceData, int touchPointID = -1)
+    {
+        if (path.Contains("ui://"))
+        {
+            if (_AgentLoader.parent == null)
+            {
+                _SourceData = sourceData;
+                _AgentLoader.url = path;
+                GRoot.inst.AddChild(_AgentLoader);
+                _AgentLoader.xy = GRoot.inst.GlobalToLocal(Stage.inst.GetTouchPosition(touchPointID));
+                _AgentLoader.StartDrag(touchPointID);
+            }
+        }
+        else
+        {
+            if (_AgentGraph.parent == null)
+            {
+                _SourceData = sourceData;
+                _AgentGraph.SetNativeObject(Proxy4Lua.GetAssetGameObject(path));
+                GRoot.inst.AddChild(_AgentGraph);
+                _AgentGraph.xy = GRoot.inst.GlobalToLocal(Stage.inst.GetTouchPosition(touchPointID));
+                _AgentGraph.StartDrag(touchPointID);
+            }
+        }
     }
 
     public void Cancel()
@@ -63,31 +93,63 @@ public class DragDrop {
             GRoot.inst.RemoveChild(_AgentLoader);
             _SourceData = null;
         }
+
+        if (_AgentGraph.parent != null)
+        {
+            _AgentGraph.visible = true;
+            _AgentGraph.StopDrag();
+            GRoot.inst.RemoveChild(_AgentGraph);
+            _SourceData = null;
+        }
     }
 
     void OnDragEnd(EventContext context)
     {
-        if (_AgentLoader.parent == null)
-            return;
-
-        GRoot.inst.RemoveChild(_AgentLoader);
-
-        object sourcedata = _SourceData;
-        _SourceData = null;
-
-        GObject obj = GRoot.inst.touchTarget;
-        while(obj != null)
+        if (_AgentLoader.parent != null)
         {
-            if (obj is GComponent)
+            GRoot.inst.RemoveChild(_AgentLoader);
+
+            object sourcedata = _SourceData;
+            _SourceData = null;
+
+            GObject obj = GRoot.inst.touchTarget;
+            while(obj != null)
             {
-                if (!((GComponent)obj).onDrop.isEmpty)
+                if (obj is GComponent)
                 {
-                    obj.RequestFocus();
-                    ((GComponent)obj).onDrop.Call(sourcedata);
-                    return;
+                    if (!((GComponent)obj).onDrop.isEmpty)
+                    {
+                        obj.RequestFocus();
+                        ((GComponent)obj).onDrop.Call(sourcedata);
+                        return;
+                    }
                 }
+                obj = obj.parent;
             }
-            obj = obj.parent;
+        }
+
+        if (_AgentGraph.parent != null)
+        {
+            _AgentGraph.visible = true;
+            GRoot.inst.RemoveChild(_AgentGraph);
+
+            object sourcedata = _SourceData;
+            _SourceData = null;
+
+            GObject obj = GRoot.inst.touchTarget;
+            while(obj != null)
+            {
+                if (obj is GComponent)
+                {
+                    if (!((GComponent)obj).onDrop.isEmpty)
+                    {
+                        obj.RequestFocus();
+                        ((GComponent)obj).onDrop.Call(sourcedata);
+                        return;
+                    }
+                }
+                obj = obj.parent;
+            }
         }
     }
 }

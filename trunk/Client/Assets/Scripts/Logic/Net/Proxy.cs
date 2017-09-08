@@ -17,14 +17,13 @@ class Proxy : ICOM_ServerToClientProxy
     {
         GamePlayer.Init(player);
         SceneLoader.LoadScene(Define.SCENE_MAIN);
-        UnityEngine.Debug.Log("createplayerok");
         return true;
     }
 
     public bool JoinBattleOk(int side, int battleid)
     {
-        SceneLoader.LoadScene(Define.SCENE_BATTLE);
         Battle.Init(side, battleid);
+        SceneLoader.LoadScene(Define.SCENE_BATTLE);
         return true;
     }
 

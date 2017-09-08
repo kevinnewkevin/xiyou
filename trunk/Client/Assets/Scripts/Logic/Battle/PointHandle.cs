@@ -5,7 +5,7 @@ using UnityEngine;
 public class PointHandle : MonoBehaviour {
 
     GameObject _Light;
-    int _Pos;
+    public int _Pos;
     public void Init(int pos)
     {
         _Pos = pos;

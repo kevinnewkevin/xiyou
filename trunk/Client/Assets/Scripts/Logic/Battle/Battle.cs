@@ -364,7 +364,8 @@ public class Battle {
         Actor actor = GetActor(instid);
         if (actor != null)
         {
-            actor.MoveTo(_PosInScene [pos].position, null);
+            if(actor._RealPosInScene != pos)
+                actor.MoveTo(_PosInScene [pos].position, null);
             return;
         }
         _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId);
@@ -484,7 +485,9 @@ public class Battle {
     {
         if (pos == -1)
             return;
-        
+
+        Battle.ClearSimActor();
+
         bool contains = false;
         for(int i=0; i < _OperatList.Count; ++i)
         {
@@ -512,6 +515,29 @@ public class Battle {
         }
 
         SwitchPoint(false);
+    }
+
+    static public void SimSetActor(int pos)
+    {
+        if (pos < 0 || pos > 5)
+            return;
+
+        COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
+        EntityData eData = EntityData.GetData(entity.UnitId);
+        DisplayData displayData = DisplayData.GetData(eData._DisplayId);
+        AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, 0, 100, 100, eData._DisplayId);
+    }
+
+    static public void ClearSimActor()
+    {
+        for(int i=0; i < 6; ++i)
+        {
+            if (_ActorInScene [i] == null)
+                continue;
+
+            if (_ActorInScene [i].InstID == 0)
+                DelActor(_ActorInScene[i]._RealPosInScene);
+        }
     }
 
     static public EntityData GetHandCard(int idx)

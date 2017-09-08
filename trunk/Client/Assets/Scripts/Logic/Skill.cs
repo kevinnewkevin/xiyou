@@ -313,7 +313,7 @@ public class Skill {
         if (IsSec)
         {
             crtTargetIdx = crtTargetIdx + 1;
-            Range_BeforeCast();
+            OnTimeDo(_SkillData._CastTime, Range_BeforeCast);
         }
         else
         {

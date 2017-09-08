@@ -25,18 +25,6 @@ public class BattleSceneTouch : MonoBehaviour {
             return;
         
         _IsPress = true;
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.CompareTag("Point"))
-            {
-                PointHandle handler = hit.transform.GetComponent<PointHandle>();
-                if (handler != null)
-                    handler.Excute();
-                _IsPress = false;
-            }
-        }
     }
 
     void OnTouchMove(EventContext context)
@@ -78,15 +66,45 @@ public class BattleSceneTouch : MonoBehaviour {
                 _PreVmag = crtVmag;
             }
         }
+
+        if (DragDrop.inst.dragging)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.CompareTag("Point"))
+                {
+                    PointHandle handler = hit.transform.GetComponent<PointHandle>();
+                    if (handler != null)
+                    {
+                        DragDrop.inst.dragAgentGraph.visible = false;
+                        Battle.SimSetActor(handler._Pos);
+                    }
+                }
+            }
+            else
+            {
+                DragDrop.inst.dragAgentGraph.visible = true;
+                Battle.ClearSimActor();
+            }
+        }
     }
 
     void OnTouchEnd()
     {
-        _IsPress = false;
-        if (!Stage.isTouchOnUI)
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
+        if (Physics.Raycast(ray, out hit))
         {
-
+            if (hit.transform.CompareTag("Point"))
+            {
+                PointHandle handler = hit.transform.GetComponent<PointHandle>();
+                if (handler != null)
+                    handler.Excute();
+            }
         }
+        _IsPress = false;
     }
 
     void OnDestroy()

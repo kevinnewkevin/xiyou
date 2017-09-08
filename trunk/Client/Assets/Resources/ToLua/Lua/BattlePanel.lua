@@ -67,7 +67,11 @@ function BattlePanel:OnInit()
 end
 
 function BattlePanel_OnDragStart(context)
+	BattlePanel_OnCardClick(context);
 	context:PreventDefault();
+	local eData = Battle.GetHandCard(context.sender.data - 1);
+	local dData = DisplayData.GetData(eData._DisplayId);
+	DragDrop.inst:StartDrag(context.sender, dData._AssetPath, context.sender, context.data);
 end
 
 function BattlePanel:GetWindow()
@@ -204,7 +208,6 @@ function BattlePanel_SetFeeCostCount(count)
 end
 
 function BattlePanel_OnCardClick(context)
-	print(context.sender.data);
 	Proxy4Lua.SelectCard4Ready(context.sender.data - 1);
 	local eData = Battle.GetHandCard(context.sender.data - 1);
 	if eData ~= nil then

@@ -92,4 +92,13 @@ public class HeadBar {
 
         _IsDirty = false;
     }
+
+    public bool Visible
+    {
+        set
+        {
+            if(_Headbar != null)
+                _Headbar.SetActive(value);
+        }
+    }
 }
