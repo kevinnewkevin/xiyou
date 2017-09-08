@@ -51,7 +51,7 @@ function SK_136_Action(battleid, casterid)
 	
 	local mag_damage = damage*0.3
 	
-	lcoal sudu_del = sudu*0.1
+	local  sudu_del = sudu*0.1
 		
 	Battle.Attack(battleid,casterid,t,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
