@@ -46,15 +46,16 @@ function SK_126_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
-		
+			
+		local pvalue = 0.5
 	
 		if debuffnum >0 then 
 			
-			local demage = magic_damage*0.5  --额外造成50%法术强度的伤害
+			local demage = magic_damage*pvalue  --额外造成50%法术强度的伤害
 			
 			for a=1,debuffnum,1 do
 			
-				trueDamage = trueDamage*0.5 + demage
+				trueDamage = trueDamage*pvalue + demage
 	
 			end
 		end
