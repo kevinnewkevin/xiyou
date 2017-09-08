@@ -134,7 +134,6 @@ func InitLua(r string){
 //export __loadfile
 func __loadfile(p unsafe.Pointer) C.int {
 
-	fmt.Println("ppppppppp",p)
 	L := lua.GetLuaState(p)
 	fileName := L.ToString(-1)
 	L.LoadFile(_R + fileName)
