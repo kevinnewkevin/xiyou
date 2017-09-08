@@ -50,9 +50,9 @@ function SK_115_Action(battleid, casterid)
 	
 	Battle.AddBuff(battleid,casterid, t,115, caster_attack*0.4)     --降低目标40%物理强度
 	
-	Battle.AddBuff(battleid,casterid, casterid,116, caster_magic*0.4)
+	Battle.AddBuff(battleid,casterid, casterid,105, caster_magic*0.4)
 	
-	Battle.AddBuff(battleid,casterid, casterid,115, caster_attack*0.4)
+	Battle.AddBuff(battleid,casterid, casterid,102, caster_attack*0.4)
 	
 	--Battle.AddBuff(battleid,casterid, t, 115,caster_attack*0.4)     --降低目标40%物理强度
 	

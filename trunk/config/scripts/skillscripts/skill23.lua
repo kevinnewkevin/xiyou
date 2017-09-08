@@ -55,9 +55,18 @@ function SK_122_Action(battleid, casterid)
 			
 			Battle.Attack(battleid,casterid,v,damage*0.75,crit)
 			
-			local  buffid = Player.GetOneSpecial(battleid,casterid)
+			local  buffid = Player.GetOneSpecial(battleid,casterid,"BF_COMBO")
 			
-			Player.PopSpec(battleid,casterid,buffid,"BF_COMBO")
+			if buffid == 0 then
+				
+				sys.log("SK_122_Action 111"..buffid)
+				return false
+				
+			else
+				sys.log("SK_122_Action 清除"..buffid)
+				Player.PopSpec(battleid,casterid,buffid,"BF_COMBO")
+			
+			end
 		end
 		Battle.TargetOver(battleid)
 	

@@ -59,9 +59,19 @@ function SK_121_Action(battleid, casterid)
 			
 		end
 		
-		local  buffid = Player.GetOneSpecial(battleid,casterid)
+		local  buffid = Player.GetOneSpecial(battleid,casterid,"BF_AOE")
+		
+		if buffid == 0 then
+		
+			sys.log("SK_121_Action 4444"..buffid)
+		
+			return false
 			
-		Player.PopSpec(battleid,casterid,buffid,"BF_AOE")
+		else 
+			sys.log("SK_121_Action 555 消除"..buffid)
+			Player.PopSpec(battleid,casterid,buffid)
+		
+		end
 		
 	end
 		

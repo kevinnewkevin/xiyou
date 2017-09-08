@@ -24,7 +24,7 @@ function SK_101_Action(battleid, casterid)
 	
 	
 	
-	for i,v in ipairs(t)	do
+	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
 		local defender_def = Player.GetCalcDef(battleid,v)
