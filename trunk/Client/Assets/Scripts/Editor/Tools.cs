@@ -14,8 +14,7 @@ public class Tools {
     [MenuItem("Tools/每次更新后执行", false, 1)]
     static void AfterUpdate()
     {
-        ToLuaMenu.ClearLuaFiles();
-        ToLuaMenu.GenLuaAll();
+        ToLuaMenu.ClearLuaWraps();
         CopyTableAndScripts();
         GenRPC();
     }
