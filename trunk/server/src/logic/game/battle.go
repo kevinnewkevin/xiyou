@@ -31,7 +31,7 @@ const (
 	kMaxMove = 2 		//行动结束
 
 	kTimeSleep = 5   	//檢測間隔
-	kTimeMax   = 50000	//戰鬥持續時間
+	kTimeMax   = 600	//戰鬥持續時間
 )
 
 var roomInstId int64 = 1
@@ -273,7 +273,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		p.ClearAllBuff()
 
 		p.session.BattleExit(result)
-		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId)
+		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, win)
 	}
 
 	fmt.Println("BattleRoomOver, winner is ", camp)
@@ -742,6 +742,10 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 		}
 	}
 
+	if this.Status == kIdle {
+
+	}
+
 	return nil
 }
 
@@ -842,6 +846,20 @@ func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property st
 	p_d := prpc.ToId_CPropertyType(property)
 
 	unit := this.SelectOneUnit(instid)
+	if unit == nil {
+		for _, p := range this.PlayerList {
+			if instid == p.MyUnit.InstId {
+				unit = p.MyUnit
+				break
+			}
+			for _, u := range p.UnitList {
+				if u.InstId == instid{
+					unit = u
+					break
+				}
+			}
+		}
+	}
 	fmt.Println("属性修改前", unit.CProperties[p_d], data)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)

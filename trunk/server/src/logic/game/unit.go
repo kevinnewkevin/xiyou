@@ -97,6 +97,7 @@ func (this *GameUnit) AddSpec(spec string, buffinstid int32) {
 
 func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
 	spe := prpc.ToId_BuffSpecial(spec)
+	fmt.Println("PopSpec 11111,", spe)
 	bufflist, ok := this.Special[int32(spe)]
 	if ok {
 		if len(bufflist) > 0{
@@ -383,6 +384,7 @@ func (this *GameUnit) isBack() bool {
 
 func (this *GameUnit) ClearAllbuff()  {
 
+	fmt.Println("ClearAllbuff, unitid:", this.InstId)
 	for _, buff := range this.Allbuff {
 		buff.DeleteProperty()
 	}
