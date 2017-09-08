@@ -18,8 +18,11 @@ BuffId,Until,Times,Type,Kind,Icon,AnimTime,EffectName,EmitTime,AddScript,UpdateS
 116,3,0,2,2,icon/gongji_buff,,,,buff_116_add,buff_116_update,buff_116_delete,测试用属性修改 减法术属性buff
 117,2,0,2,2,icon/gongji_buff,,,,buff_117_add,buff_117_update,buff_117_delete,测试用属性修改 减速度属性buff
 118,2,0,1,2,icon/gongji_buff,,,,buff_118_add,buff_118_update,buff_118_delete,测试用属性修改  加物理防御buff
-119,3,0,2,2,icon/gongji_buff,,,,buff_119_add,buff_119_update,buff_119_delete,测试用属性修改 减双防属性buff
+119,3,0,2,2,icon/gongji_buff,,,,buff_119_add,buff_119_update,buff_119_delete,测试用属性修改 减法术防御buff
 120,2,0,2,2,icon/gongji_buff,,,,buff_120_add,buff_120_update,buff_120_delete,测试用减护盾值buff
 121,2,0,1,2,icon/gongji_buff,,,,buff_121_add,buff_121_update,buff_121_delete,测试用特殊效果  受伤后回血buff
 122,3,0,1,2,icon/gongji_buff,,,,buff_122_add,buff_122_update,buff_122_delete,测试用特殊效果  输出伤害buff
-123,2,0,1,2,icon/gongji_buff,,,,buff_123_add,buff_123_update,buff_123_delete,测试用特殊效果  减伤盾buff
+123,2,3,1,2,icon/gongji_buff,,,,buff_123_add,buff_123_update,buff_123_delete,测试用特殊效果  有次数的减伤盾buff
+124,3,0,1,2,icon/gongji_buff,,,,buff_124_add,buff_124_update,buff_124_delete,测试用特殊效果  减伤盾buff
+125,2,0,1,2,icon/gongji_buff,,,,buff_125_add,buff_125_update,buff_125_delete,测试用特殊效果  加输出伤害和造成伤害buff
+126,3,1,2,1,icon/gongji_buff,,,,buff_126_add,buff_126_update,buff_126_delete,测试用特殊效果  减双防buff
