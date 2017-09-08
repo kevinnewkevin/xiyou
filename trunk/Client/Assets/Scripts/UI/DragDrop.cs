@@ -30,6 +30,7 @@ public class DragDrop {
         _AgentLoader.verticalAlign = VertAlignType.Middle;
         _AgentLoader.sortingOrder = int.MaxValue;
         _AgentLoader.onDragEnd.Add(OnDragEnd);
+        _AgentLoader.alpha = 0.7f;
     }
 
     public GLoader dragAgent
