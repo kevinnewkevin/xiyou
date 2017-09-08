@@ -43,14 +43,16 @@ function SK_101_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)    --是否暴击
 		
-		local atk_def = defender_def*0.15
+		local pvalue = 0.15
 		
-		local mag_def = defender_mag*0.15
+		defender_def = defender_def * pvalue
+		
+		defender_mag = defender_mag * pvalue
 		
 		local atk_damage = damage*1.5
 		Battle.Attack(battleid, casterid, v,atk_damage , crit)
-		Battle.AddBuff(battleid, casterid, v, 112,atk_def )
-		Battle.AddBuff(battleid, casterid, v, 119,mag_def )
+		Battle.AddBuff(battleid, casterid, v, 112,defender_def )
+		Battle.AddBuff(battleid, casterid, v, 119,defender_mag )
 		Battle.TargetOver(battleid)
 		
 		sys.log("skill2 对id为"..v.."的目标造成"..damage.."点伤害")
