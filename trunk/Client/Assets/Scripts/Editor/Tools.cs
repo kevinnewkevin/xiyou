@@ -195,14 +195,14 @@ public class Tools {
 
     static void SetUI()
     {
-        
-
         CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.UI_ASSET_PATH));
         for(int i=0; i < _AllFiles.Count; ++i)
         {
             string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
             _assetPath = _assetPath.Replace("\\", "/");
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+
+            #if (UNITY_EDITOR && UNITY_IOS) || (UNITY_EDITOR && UNITY_ANDROID)
             TextureImporter timport;
             if (aimport is UnityEditor.TextureImporter)
             {
@@ -222,6 +222,7 @@ public class Tools {
                     timport.SetPlatformTextureSettings(tips);
                 }
             }
+            #endif
 
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             int idx = shortPath.IndexOf("@");
