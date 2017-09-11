@@ -8,7 +8,7 @@ local cardGroupList;
 local guankaId = 0;
 local stamaPoint;
 function jiehun:OnEntry()
-	Define.LaunchUIBundle("Card");
+	Define.LaunchUIBundle("guankatupian");
 	Window = jiehun.New();
 	Window:Show();
 end
