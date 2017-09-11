@@ -405,12 +405,12 @@ func __ClacSheld(p unsafe.Pointer) C.int {   //减伤
 
 	battle := FindBattle(int64(battleid))
 
-	fmt.Println("__ClacSheld",battleid,unitid)
+	//fmt.Println("__ClacSheld",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacSheldPer(int32(battle.Round))
 
-	fmt.Println("__ClacSheld1111",unit,ClacSheld)
+	//fmt.Println("__ClacSheld1111",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -430,12 +430,12 @@ func __ClacStrongPer(p unsafe.Pointer) C.int {   //增输出伤比
 
 	battle := FindBattle(int64(battleid))
 
-	fmt.Println("__ClacStrongPer",battleid,unitid)
+	//fmt.Println("__ClacStrongPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacStrongPer(int32(battle.Round))
 
-	fmt.Println("__ClacStrongPer",unit,ClacSheld)
+	//fmt.Println("__ClacStrongPer",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -454,12 +454,12 @@ func __ClacWeakPer(p unsafe.Pointer) C.int {   //增承受伤比
 
 	battle := FindBattle(int64(battleid))
 
-	fmt.Println("__ClacWeakPer",battleid,unitid)
+	//fmt.Println("__ClacWeakPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacWeakPer(int32(battle.Round))
 
-	fmt.Println("__ClacWeakPer",unit,ClacSheld)
+	//fmt.Println("__ClacWeakPer",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -626,17 +626,17 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 	idx++
 	spec := L.ToString(idx)
 
-	fmt.Println("__GetCheckSpec ",battleid,unitid)
+	//fmt.Println("__GetCheckSpec ",battleid,unitid)
 
 	battle := FindBattle(int64(battleid))
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	fmt.Println("__GetCheckSpec 1111",battleid,unitid)
+	//fmt.Println("__GetCheckSpec 1111",battleid,unitid)
 
 	_bool := unit.CheckSpec(spec, battle.Round)
 
-	fmt.Println("__GetCheckSpec 22222",_bool)
+	//fmt.Println("__GetCheckSpec 22222",_bool)
 
 	L.PushBoolean(_bool)
 
@@ -1032,7 +1032,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	fmt.Println("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//fmt.Println("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
@@ -1057,7 +1057,7 @@ func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	fmt.Println("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//fmt.Println("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffAddHp(buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 

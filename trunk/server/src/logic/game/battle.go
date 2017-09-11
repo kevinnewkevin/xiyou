@@ -63,6 +63,7 @@ type BattleRoom struct {
 	ReportOne  	prpc.COM_BattleReport		//每回合的战报
 	AcctionList prpc.COM_BattleAction		//行动单元
 	TargetCOM	prpc.COM_BattleActionTarget	//行动单元中的每个子元素
+	NewAction	bool						//是否行动过
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -940,6 +941,11 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(damage)
 
+	if this.NewAction == false {
+		this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
+		this.TargetCOM = prpc.COM_BattleActionTarget{}
+	}
+
 	if crit == 0 {
 		crit = prpc.BE_MAX
 	} else {
@@ -952,6 +958,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
 	this.TargetCOM.Dead = unit.IsDead()
 	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
+	this.NewAction = false
 
 	//fmt.Println("MintsHp", target, damage, t)
 
@@ -978,13 +985,23 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 		return
 	}
 
+	if this.NewAction == false {
+		this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
+		this.TargetCOM = prpc.COM_BattleActionTarget{}
+	}
+
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(damage)
 
-	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
 	this.TargetCOM.ActionParam = damage
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(int(crit))
+	this.TargetCOM.Dead = unit.IsDead()
+	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
+	this.NewAction = false
+
+	fmt.Println("加血  catserid ", target, this.AcctionList.TargetList)
+	fmt.Println("AddHp 1  ", this.TargetCOM)
 
 	//this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
@@ -1144,6 +1161,7 @@ func (this *BattleRoom) BuffAddHp(target int64, buffid int32, data int32, over b
 
 func (this *BattleRoom) TargetOn() {
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.NewAction = true
 }
 
 
