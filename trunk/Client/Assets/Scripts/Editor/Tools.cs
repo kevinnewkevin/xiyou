@@ -434,7 +434,7 @@ public class Tools {
     static void CompressFile () 
     {
         //压缩文件
-        Compress7zZip(Application.streamingAssetsPath + "/1_0_0/", Application.streamingAssetsPath + "/1_0_0.7z", "");
+//        Compress7zZip(Application.streamingAssetsPath + "/1_0_0/", Application.streamingAssetsPath + "/1_0_0.7z", "");
         AssetDatabase.Refresh();
 
     }
@@ -466,7 +466,7 @@ public class Tools {
         UnKnown
     }
 
-    #region 7zZip压缩、解压方法
+//    #region 7zZip压缩、解压方法
     /// <summary>
     /// 压缩文件 
     /// </summary>
@@ -475,68 +475,68 @@ public class Tools {
     /// <param name="strPassword">加密码</param>
     /// 测试压缩文件夹：压缩文件（objectZipPathName）不能放在被压缩文件（objectPathName）内，否则报“文件夹被另一进程使用中”错误。
     /// <returns></returns>
-    static CompressResults Compress7zZip(String objectPathName, String objectZipPathName, String strPassword)
-    {
-        try
-        {
-            //http://sevenzipsharp.codeplex.com/releases/view/51254 下载sevenzipsharp.dll
-            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”
-            string libPath = Application.dataPath + "/Plugins/7z.dll";
-            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
-            SevenZip.SevenZipCompressor sevenZipCompressor = new SevenZip.SevenZipCompressor();
-            sevenZipCompressor.CompressionLevel = SevenZip.CompressionLevel.Fast;
-            sevenZipCompressor.ArchiveFormat = SevenZip.OutArchiveFormat.Zip;
-
-            //被压缩对象是否存在
-            int beforeObjectNameIndex = objectPathName.LastIndexOf('\\');
-            if(beforeObjectNameIndex == -1)
-                beforeObjectNameIndex = objectPathName.LastIndexOf('/');
-            string objectPath = objectPathName.Substring(0, beforeObjectNameIndex);
-            //System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(objectPathName);
-            if (Directory.Exists(objectPathName)/*directoryInfo.Exists*/ == false && System.IO.File.Exists(objectPathName) == false)
-            {
-                return CompressResults.SourceObjectNotExist;
-            }
-            int beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('\\');
-            if(beforeObjectRarNameIndex == -1)
-                beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('/');
-            int objectRarNameIndex = beforeObjectRarNameIndex + 1;
-            //string objectZipName = objectZipPathName.Substring(objectRarNameIndex);
-            string objectZipPath = objectZipPathName.Substring(0, beforeObjectRarNameIndex);
-            //目标目录、文件是否存在
-            if (System.IO.Directory.Exists(objectZipPath) == false)
-            {
-                System.IO.Directory.CreateDirectory(objectZipPath);
-            }
-            else if (System.IO.File.Exists(objectZipPathName) == true)
-            {
-                System.IO.File.Delete(objectZipPathName);
-            }
-
-            if (Directory.Exists(objectPathName))       //压缩对象是文件夹
-            {
-                if (String.IsNullOrEmpty(strPassword))
-                {
-                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName);
-                }
-                else
-                {
-                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName, strPassword);
-                }
-            }
-            else        //压缩对象是文件 无加密方式
-            {
-                sevenZipCompressor.CompressFiles(objectZipPathName, objectPathName);
-            }
-
-            return CompressResults.Success;
-        }
-        catch(Exception ex)
-        {
-            UnityEngine.Debug.Log("压缩文件失败！" + ex.Message);
-            return CompressResults.UnKnown;
-        }
-    }
+//    static CompressResults Compress7zZip(String objectPathName, String objectZipPathName, String strPassword)
+//    {
+//        try
+//        {
+//            //http://sevenzipsharp.codeplex.com/releases/view/51254 下载sevenzipsharp.dll
+//            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”
+//            string libPath = Application.dataPath + "/Plugins/7z.dll";
+//            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
+//            SevenZip.SevenZipCompressor sevenZipCompressor = new SevenZip.SevenZipCompressor();
+//            sevenZipCompressor.CompressionLevel = SevenZip.CompressionLevel.Fast;
+//            sevenZipCompressor.ArchiveFormat = SevenZip.OutArchiveFormat.Zip;
+//
+//            //被压缩对象是否存在
+//            int beforeObjectNameIndex = objectPathName.LastIndexOf('\\');
+//            if(beforeObjectNameIndex == -1)
+//                beforeObjectNameIndex = objectPathName.LastIndexOf('/');
+//            string objectPath = objectPathName.Substring(0, beforeObjectNameIndex);
+//            //System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(objectPathName);
+//            if (Directory.Exists(objectPathName)/*directoryInfo.Exists*/ == false && System.IO.File.Exists(objectPathName) == false)
+//            {
+//                return CompressResults.SourceObjectNotExist;
+//            }
+//            int beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('\\');
+//            if(beforeObjectRarNameIndex == -1)
+//                beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('/');
+//            int objectRarNameIndex = beforeObjectRarNameIndex + 1;
+//            //string objectZipName = objectZipPathName.Substring(objectRarNameIndex);
+//            string objectZipPath = objectZipPathName.Substring(0, beforeObjectRarNameIndex);
+//            //目标目录、文件是否存在
+//            if (System.IO.Directory.Exists(objectZipPath) == false)
+//            {
+//                System.IO.Directory.CreateDirectory(objectZipPath);
+//            }
+//            else if (System.IO.File.Exists(objectZipPathName) == true)
+//            {
+//                System.IO.File.Delete(objectZipPathName);
+//            }
+//
+//            if (Directory.Exists(objectPathName))       //压缩对象是文件夹
+//            {
+//                if (String.IsNullOrEmpty(strPassword))
+//                {
+//                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName);
+//                }
+//                else
+//                {
+//                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName, strPassword);
+//                }
+//            }
+//            else        //压缩对象是文件 无加密方式
+//            {
+//                sevenZipCompressor.CompressFiles(objectZipPathName, objectPathName);
+//            }
+//
+//            return CompressResults.Success;
+//        }
+//        catch(Exception ex)
+//        {
+//            UnityEngine.Debug.Log("压缩文件失败！" + ex.Message);
+//            return CompressResults.UnKnown;
+//        }
+//    }
 
     /// <summary>
     /// 解压缩文件
@@ -545,48 +545,48 @@ public class Tools {
     /// <param name="unCompressDir">解压路径</param>
     /// <param name="strPassword">解密码</param>
     /// <returns></returns>
-    static UnCompressResults UnCompress7zZip(String zipFilePathName, String unCompressDir, String strPassword)
-    {
-        try
-        {
-            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”而项目引用时，只引用SevenZipSharp.dll就可以了
-            string libPath = System.AppDomain.CurrentDomain.BaseDirectory + @"..\..\dll\7z.dll";
-            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
-
-            bool isFileExist = File.Exists(zipFilePathName);
-            if (false == isFileExist)
-            {
-                UnityEngine.Debug.Log("解压文件不存在！" + zipFilePathName);
-                return UnCompressResults.SourceObjectNotExist;
-            }
-            File.SetAttributes(zipFilePathName, FileAttributes.Normal);     //去掉只读属性
-
-            if (Directory.Exists(unCompressDir) == false)
-            {
-                Directory.CreateDirectory(unCompressDir);
-            }
-
-            SevenZip.SevenZipExtractor sevenZipExtractor;
-            if (String.IsNullOrEmpty(strPassword))
-            {
-                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName);
-            }
-            else
-            {
-                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName, strPassword);
-            }
-
-            sevenZipExtractor.ExtractArchive(unCompressDir);
-            sevenZipExtractor.Dispose();
-            return UnCompressResults.Success;
-        }
-        catch(Exception ex)
-        {
-            UnityEngine.Debug.Log("解压缩文件失败！" + ex.Message);
-            return UnCompressResults.UnKnown;
-        }
-    }
-    #endregion
+//    static UnCompressResults UnCompress7zZip(String zipFilePathName, String unCompressDir, String strPassword)
+//    {
+//        try
+//        {
+//            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”而项目引用时，只引用SevenZipSharp.dll就可以了
+//            string libPath = System.AppDomain.CurrentDomain.BaseDirectory + @"..\..\dll\7z.dll";
+//            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
+//
+//            bool isFileExist = File.Exists(zipFilePathName);
+//            if (false == isFileExist)
+//            {
+//                UnityEngine.Debug.Log("解压文件不存在！" + zipFilePathName);
+//                return UnCompressResults.SourceObjectNotExist;
+//            }
+//            File.SetAttributes(zipFilePathName, FileAttributes.Normal);     //去掉只读属性
+//
+//            if (Directory.Exists(unCompressDir) == false)
+//            {
+//                Directory.CreateDirectory(unCompressDir);
+//            }
+//
+//            SevenZip.SevenZipExtractor sevenZipExtractor;
+//            if (String.IsNullOrEmpty(strPassword))
+//            {
+//                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName);
+//            }
+//            else
+//            {
+//                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName, strPassword);
+//            }
+//
+//            sevenZipExtractor.ExtractArchive(unCompressDir);
+//            sevenZipExtractor.Dispose();
+//            return UnCompressResults.Success;
+//        }
+//        catch(Exception ex)
+//        {
+//            UnityEngine.Debug.Log("解压缩文件失败！" + ex.Message);
+//            return UnCompressResults.UnKnown;
+//        }
+//    }
+//    #endregion
 
     static public string GetMD5WithFilePath(string filePath)
     {
