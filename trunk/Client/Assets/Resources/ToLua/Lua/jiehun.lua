@@ -7,7 +7,8 @@ local cardGroupUrl = "ui://jiehun/guanka_Button";
 local cardGroupList;
 local guankaId = 0;
 local stamaPoint;
-function jiehun:OnEntry()      
+function jiehun:OnEntry()
+	Define.LaunchUIBundle("Card");
 	Window = jiehun.New();
 	Window:Show();
 end

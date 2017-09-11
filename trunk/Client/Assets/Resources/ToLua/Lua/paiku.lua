@@ -18,6 +18,7 @@ local crtCardName;
 local isInGroup;
 
 function paiku:OnEntry()
+	Define.LaunchUIBundle("icon");
 	Window = paiku.New();
 	Window:Show();
 end

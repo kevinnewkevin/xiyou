@@ -44,6 +44,15 @@ public class AssetCounter {
         }
     }
 
+    static public int GetRef(string name)
+    {
+        if (_AssetCounters.ContainsKey(name))
+        {
+            return _AssetCounters [name]._Refcount;
+        }
+        return 0;
+    }
+
     static public void Dispose(string name)
     {
         if (_AssetCounters.ContainsKey(name))

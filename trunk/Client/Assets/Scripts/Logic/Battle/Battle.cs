@@ -24,6 +24,7 @@ public class Battle {
     static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
     static Transform[] _PosInScene = new Transform[12/*BP_Max*/];
     static GameObject _SceneConfig;
+    static Dictionary<int, SkillData> skillAssets;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
     static public BattleResult _Result = BattleResult.BR_None;
@@ -260,6 +261,8 @@ public class Battle {
         }
         _PosInScene = new Transform[12];
         _ActorInScene = new Actor[12];
+
+        DisposeSkillAssets();
     }
 
     //播放一回合战报 处理快照
@@ -632,6 +635,30 @@ public class Battle {
         _Fee -= count;
         UIManager.SetDirty("BattlePanel");
         return true;
+    }
+
+    static public void AddSkill(SkillData sdata)
+    {
+        if (skillAssets == null)
+            skillAssets = new Dictionary<int, SkillData>();
+
+        if (skillAssets.ContainsKey(sdata._Id))
+            skillAssets [sdata._Id] = sdata;
+        else
+            skillAssets.Add(sdata._Id, sdata);
+    }
+
+    static void DisposeSkillAssets()
+    {
+        if (skillAssets == null)
+            return;
+
+        foreach(SkillData sdata in skillAssets.Values)
+        {
+            AssetLoader.UnloadAsset(sdata._CastEffect, true);
+            AssetLoader.UnloadAsset(sdata._SkillEffect, true);
+            AssetLoader.UnloadAsset(sdata._BeattackEffect, true);
+        }
     }
 
     static public bool InBattle

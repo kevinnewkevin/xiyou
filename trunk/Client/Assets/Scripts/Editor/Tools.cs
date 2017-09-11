@@ -53,7 +53,7 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.StandaloneWindows64);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows64);
         AssetDatabase.Refresh();
     }
 
@@ -70,7 +70,7 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.Android);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
         AssetDatabase.Refresh();
     }
 
@@ -87,7 +87,7 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.iOS);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.iOS);
         AssetDatabase.Refresh();
     }
 
@@ -434,7 +434,7 @@ public class Tools {
     static void CompressFile () 
     {
         //压缩文件
-        CompressFolder(Application.dataPath+"/Resources/Player/Prefabs/",Application.dataPath+"/Resources/Player/Prefabs/longtaizi.prefab");
+        Compress7zZip(Application.streamingAssetsPath + "/1_0_0/", Application.streamingAssetsPath + "/1_0_0.7z", "");
         AssetDatabase.Refresh();
 
     }
@@ -442,189 +442,151 @@ public class Tools {
     static void DecompressFile () 
     {
         //解压文件
-        //DecompressFileLZMA(Application.streamingAssetsPath+"/Player.zip",Application.streamingAssetsPath+"/longtaizi.prefab");
         AssetDatabase.Refresh();
     }
-//
-//
-//    private static void CompressFileLZMA(string inFile, string outFile)
-//    {
-//        Encoder coder = new Encoder();
-//        FileStream input_sum = new FileStream(inFile + "/Temp.tmp", FileMode.Create);
-//        FileStream output = new FileStream(outFile, FileMode.Create);
-//        // Write the encoder properties
-//        coder.WriteCoderProperties(output);
-//        if (inFile.Contains("."))
-//        {
-//            input_sum.Close();
-//            input_sum = new FileStream(inFile, FileMode.Open);
-//            // Write the decompressed file size.
-//            output.Write(BitConverter.GetBytes(input_sum.Length), 0, 8);
-//            // Encode the file.
-//            coder.Code(input_sum, output, input_sum.Length, -1, null);
-//            output.Write(new byte[]{0}, 0, 1);
-//        }
-//        else
-//        {
-//            FileStream header = new FileStream(inFile + "/header.tmp", FileMode.Create);
-//            output.Write(new byte[]{1}, 0, 1);
-//            CollectAllFiles(inFile);
-//            byte[] buffer;
-//            int fileIndex = 0;
-//            for(int i = 0; i < _AllFiles.Count; ++i)
-//            {
-//                FileStream fs = new FileStream(_AllFiles[i], FileMode.Open);
-//                buffer = new byte[fs.Length];
-//                fs.Read(buffer, 0, fs.Length);
-//                input_sum.Write(buffer, fileIndex, buffer.Length);
-//                fileIndex += buffer.Length - 1;
-//
-//                output.Write(BitConverter.GetBytes(buffer.Length), 0, 8);
-//                output.Write(System.Text.Encoding.Default.GetBytes(_AllFiles[i]), 0, 128);
-//
-//            }
-//
-//            // Encode the file.
-//            coder.Code(input_sum, output, input_sum.Length, -1, null);
-//        }
-//        output.Flush();
-//        output.Close();
-//        input_sum.Close();
-//    }
 
-//    private static void DecompressFileLZMA(string inFile, string outFile)
-//    {
-//        Decoder coder = new Decoder();
-//        FileStream input = new FileStream(inFile, FileMode.Open);
-//        FileStream output = new FileStream(outFile, FileMode.Create);
-//
-//        // Read the decoder properties
-//        byte[] properties = new byte[5];
-//        input.Read(properties, 0, 5);
-//
-//        byte[] isDir = new byte[1];
-//        input.Read(isDir, 0, 1);
-//
-//        //文件
-//        if (isDir [0] == 0)
-//        {
-//            
-//        }
-//        else
-//        {
-//            
-//        }
-//
-//        // Read in the decompress file size.
-//        byte [] fileLengthBytes = new byte[8];
-//        input.Read(fileLengthBytes, 0, 8);
-//        long fileLength = BitConverter.ToInt64(fileLengthBytes, 0);
-//
-//        // Decompress the file.
-//        coder.SetDecoderProperties(properties);
-//        coder.Code(input, output, input.Length, fileLength, null);
-//        output.Flush();
-//        output.Close();
-//        input.Close();
-//    }
-
-    static public void CompressFolder(string FolderToCompress, string destination)
+    /// <summary>
+    /// 执行压缩命令结果
+    /// </summary>
+    public enum CompressResults
     {
-        List<string> subfiles = new List<string>(Directory.GetFiles(FolderToCompress));
-        FileInfo fi = new FileInfo(FolderToCompress);
-        System.Text.StringBuilder output_7zip_File = new System.Text.StringBuilder(FolderToCompress + Path.DirectorySeparatorChar + fi.Name + @".7z");
-        string output_stringBuilder = output_7zip_File.ToString();
-
-        UnityEngine.Debug.Log("Output destination : " + output_stringBuilder);
-
-
-
-        foreach (string file in subfiles)
-        {
-            UnityEngine.Debug.Log("Files to Compress : " + file);
-            // compressor.BeginCompressFiles(output_stringBuilder, file);
-            CompressFileLZMA(file, output_stringBuilder);
-            //AddToArchive(file);
-        }
-
-
-
+        Success,
+        SourceObjectNotExist,
+        UnKnown
     }
 
-
-    //___________________________________________________________
-    ////////////////////////////////////////////////////////////|
-    //         C O M P R E S S  F I L E                         |                                           
-    //_________using LZMA algo__________________________________|
-    ////////////////////////////////////////////////////////////|
-    static public void CompressFileLZMA(string inFile, string outFile)
+    /// <summary>
+    /// 执行解压缩命令结果
+    /// </summary>
+    public enum UnCompressResults
     {
-        Int32 dictionary = 1 << 23;
-        Int32 posStateBits = 2;
-        Int32 litContextBits = 3; // for normal files
-        // UInt32 litContextBits = 0; // for 32-bit data
-        Int32 litPosBits = 0;
-        // UInt32 litPosBits = 2; // for 32-bit data
-        Int32 algorithm = 2;
-        Int32 numFastBytes = 128;
+        Success,
+        SourceObjectNotExist,
+        PasswordError,
+        UnKnown
+    }
 
-        string mf = "bt4";
-        bool eos = true;
-        bool stdInMode = false;
-
-
-        CoderPropID[] propIDs = {
-            CoderPropID.DictionarySize,
-            CoderPropID.PosStateBits,
-            CoderPropID.LitContextBits,
-            CoderPropID.LitPosBits,
-            CoderPropID.Algorithm,
-            CoderPropID.NumFastBytes,
-            CoderPropID.MatchFinder,
-            CoderPropID.EndMarker
-        };
-
-        object[] properties = {
-            (Int32)(dictionary),
-            (Int32)(posStateBits),
-            (Int32)(litContextBits),
-            (Int32)(litPosBits),
-            (Int32)(algorithm),
-            (Int32)(numFastBytes),
-            mf,
-            eos
-        };
-
-
+    #region 7zZip压缩、解压方法
+    /// <summary>
+    /// 压缩文件 
+    /// </summary>
+    /// <param name="objectPathName">压缩对象（即可以是文件夹|也可以是文件）</param>
+    /// <param name="objectZipPathName">保存压缩文件的路径</param>
+    /// <param name="strPassword">加密码</param>
+    /// 测试压缩文件夹：压缩文件（objectZipPathName）不能放在被压缩文件（objectPathName）内，否则报“文件夹被另一进程使用中”错误。
+    /// <returns></returns>
+    static CompressResults Compress7zZip(String objectPathName, String objectZipPathName, String strPassword)
+    {
         try
         {
-            using (FileStream inStream = new FileStream(inFile, FileMode.Open))
+            //http://sevenzipsharp.codeplex.com/releases/view/51254 下载sevenzipsharp.dll
+            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”
+            string libPath = Application.dataPath + "/Plugins/7z.dll";
+            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
+            SevenZip.SevenZipCompressor sevenZipCompressor = new SevenZip.SevenZipCompressor();
+            sevenZipCompressor.CompressionLevel = SevenZip.CompressionLevel.Fast;
+            sevenZipCompressor.ArchiveFormat = SevenZip.OutArchiveFormat.Zip;
+
+            //被压缩对象是否存在
+            int beforeObjectNameIndex = objectPathName.LastIndexOf('\\');
+            if(beforeObjectNameIndex == -1)
+                beforeObjectNameIndex = objectPathName.LastIndexOf('/');
+            string objectPath = objectPathName.Substring(0, beforeObjectNameIndex);
+            //System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(objectPathName);
+            if (Directory.Exists(objectPathName)/*directoryInfo.Exists*/ == false && System.IO.File.Exists(objectPathName) == false)
             {
-                using (FileStream outStream = new FileStream(outFile, FileMode.Create))
+                return CompressResults.SourceObjectNotExist;
+            }
+            int beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('\\');
+            if(beforeObjectRarNameIndex == -1)
+                beforeObjectRarNameIndex = objectZipPathName.LastIndexOf('/');
+            int objectRarNameIndex = beforeObjectRarNameIndex + 1;
+            //string objectZipName = objectZipPathName.Substring(objectRarNameIndex);
+            string objectZipPath = objectZipPathName.Substring(0, beforeObjectRarNameIndex);
+            //目标目录、文件是否存在
+            if (System.IO.Directory.Exists(objectZipPath) == false)
+            {
+                System.IO.Directory.CreateDirectory(objectZipPath);
+            }
+            else if (System.IO.File.Exists(objectZipPathName) == true)
+            {
+                System.IO.File.Delete(objectZipPathName);
+            }
+
+            if (Directory.Exists(objectPathName))       //压缩对象是文件夹
+            {
+                if (String.IsNullOrEmpty(strPassword))
                 {
-                    SevenZip.Compression.LZMA.Encoder encoder = new SevenZip.Compression.LZMA.Encoder();
-                    encoder.SetCoderProperties(propIDs, properties);
-                    encoder.WriteCoderProperties(outStream);
-                    Int64 fileSize;
-                    if (eos || stdInMode)
-                        fileSize = -1;
-                    else
-                        fileSize = inStream.Length;
-                    for (int i = 0; i < 8; i++)
-                    {
-                        outStream.WriteByte((Byte)(fileSize >> (8 * i)));
-
-
-                    }
-                    encoder.Code(inStream, outStream, -1, -1, null);
+                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName);
+                }
+                else
+                {
+                    sevenZipCompressor.CompressDirectory(objectPathName, objectZipPathName, strPassword);
                 }
             }
+            else        //压缩对象是文件 无加密方式
+            {
+                sevenZipCompressor.CompressFiles(objectZipPathName, objectPathName);
+            }
+
+            return CompressResults.Success;
         }
-        catch (Exception e)
+        catch(Exception ex)
         {
-            UnityEngine.Debug.Log("ERROR : " + e.Message);
+            UnityEngine.Debug.Log("压缩文件失败！" + ex.Message);
+            return CompressResults.UnKnown;
         }
     }
+
+    /// <summary>
+    /// 解压缩文件
+    /// </summary>
+    /// <param name="zipFilePathName">zip文件具体路径+名</param>
+    /// <param name="unCompressDir">解压路径</param>
+    /// <param name="strPassword">解密码</param>
+    /// <returns></returns>
+    static UnCompressResults UnCompress7zZip(String zipFilePathName, String unCompressDir, String strPassword)
+    {
+        try
+        {
+            //SevenZipSharp.dll、zLib1.dll、7z.dll必须同时存在，否则常报“加载7z.dll错误”而项目引用时，只引用SevenZipSharp.dll就可以了
+            string libPath = System.AppDomain.CurrentDomain.BaseDirectory + @"..\..\dll\7z.dll";
+            SevenZip.SevenZipCompressor.SetLibraryPath(libPath);
+
+            bool isFileExist = File.Exists(zipFilePathName);
+            if (false == isFileExist)
+            {
+                UnityEngine.Debug.Log("解压文件不存在！" + zipFilePathName);
+                return UnCompressResults.SourceObjectNotExist;
+            }
+            File.SetAttributes(zipFilePathName, FileAttributes.Normal);     //去掉只读属性
+
+            if (Directory.Exists(unCompressDir) == false)
+            {
+                Directory.CreateDirectory(unCompressDir);
+            }
+
+            SevenZip.SevenZipExtractor sevenZipExtractor;
+            if (String.IsNullOrEmpty(strPassword))
+            {
+                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName);
+            }
+            else
+            {
+                sevenZipExtractor = new SevenZip.SevenZipExtractor(zipFilePathName, strPassword);
+            }
+
+            sevenZipExtractor.ExtractArchive(unCompressDir);
+            sevenZipExtractor.Dispose();
+            return UnCompressResults.Success;
+        }
+        catch(Exception ex)
+        {
+            UnityEngine.Debug.Log("解压缩文件失败！" + ex.Message);
+            return UnCompressResults.UnKnown;
+        }
+    }
+    #endregion
 
     static public string GetMD5WithFilePath(string filePath)
     {

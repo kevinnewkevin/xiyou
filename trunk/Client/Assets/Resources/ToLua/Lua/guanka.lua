@@ -10,7 +10,8 @@ local stamaPoint;
 local img;
 local guankaID;
 local needPower;
-function guanka:OnEntry()      
+function guanka:OnEntry()
+	Define.LaunchUIBundle("guankatupian");
 	Window = guanka.New();
 	Window:Show();
 end

@@ -16,11 +16,6 @@ public class UIManager {
         _Lua = new LuaState();
         LuaBinder.Bind(_Lua);
         _Lua.Start();
-
-        Define.LaunchUIBundle("icon");
-        Define.LaunchUIBundle("Card");
-        Define.LaunchUIBundle("guankatupian");
-        Define.LaunchUIBundle("zhandoushuzi");
     }
 
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();
@@ -95,6 +90,7 @@ public class UIManager {
         if (!IsShow(uiName))
             return;
 
+        _Windows [uiName].GetWindow().Dispose();
         _Windows [uiName].Dispose();
         _Windows.Remove(uiName);
 
@@ -109,6 +105,7 @@ public class UIManager {
     {
         foreach(UIWindow window in _Windows.Values)
         {
+            window.GetWindow().Dispose();
             window.Dispose();
             AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + window.UIName);
             Define.UnloadUIBundle(window.UIName);

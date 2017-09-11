@@ -147,6 +147,7 @@ public class AssetLoader {
     {
         path = path.ToLower();
 #if EDITOR_MODE
+
         Resources.UnloadUnusedAssets();
 #else
         if(_Manifest == null)
@@ -154,11 +155,19 @@ public class AssetLoader {
 
         string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
         string assetPath;
-        for(int i=0; i < dep.Length; ++i)
+
+        int refCount = 1;
+        if(destroyObj)
+            refCount = AssetCounter.GetRef(path);
+        for(int j = 0; j < refCount; ++j)
         {
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-        AssetCounter.DelRef(assetPath);
+            for(int i=0; i < dep.Length; ++i)
+            {
+                assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+                AssetCounter.DelRef(assetPath);
+            }
         }
+
         assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
         if (destroyObj)
             AssetCounter.Dispose(assetPath);

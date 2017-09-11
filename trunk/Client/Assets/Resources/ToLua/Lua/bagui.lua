@@ -11,6 +11,7 @@ local chopper;
 local stamaPoint;
 
 function bagui:OnEntry()
+	Define.LaunchUIBundle("icon");
 	Window = bagui.New();
 	Window:Show();
 end

@@ -49,6 +49,7 @@ public class Skill {
         // get skilldata by id
 
         _SkillData = SkillData.GetData(skillId);
+        Battle.AddSkill(_SkillData);
         if (_SkillData == null)
         {
             Clear();
@@ -654,7 +655,7 @@ public class Skill {
         if (_CastEff != null)
         {
             GameObject.Destroy(_CastEff);
-            AssetLoader.UnloadAsset(_SkillData._CastEffect);
+            //AssetLoader.UnloadAsset(_SkillData._CastEffect);
         }
 
         if (_SkillEff != null)
@@ -662,7 +663,7 @@ public class Skill {
             for(int i=0; i < _SkillEff.Length; ++i)
             {
                 GameObject.Destroy(_SkillEff[i]);
-                AssetLoader.UnloadAsset(_SkillData._SkillEffect);
+                //AssetLoader.UnloadAsset(_SkillData._SkillEffect);
             }
         }
 
@@ -671,7 +672,7 @@ public class Skill {
             for(int i=0; i < _BeattackEff.Length; ++i)
             {
                 GameObject.Destroy(_BeattackEff[i]);
-                AssetLoader.UnloadAsset(_SkillData._BeattackEffect);
+                //AssetLoader.UnloadAsset(_SkillData._BeattackEffect);
             }
         }
     }

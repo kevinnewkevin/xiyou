@@ -38,7 +38,7 @@ public class Define {
     {
         uiName = uiName.ToLower();
         #if EDITOR_MODE
-        FairyGUI.UIPackage.RemovePackage(PathDefine.UI_ASSET_PATH + uiName, true);
+        FairyGUI.UIPackage.RemovePackage(uiName, true);
         #endif
     }
 

@@ -18,6 +18,8 @@ local cardsInGroupNum;
 local fees = {};
 
 function BattlePanel:OnEntry()
+	Define.LaunchUIBundle("Card");
+	Define.LaunchUIBundle("zhandoushuzi");
 	Window = BattlePanel.New();
 	Window:Show();
 end

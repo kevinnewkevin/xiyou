@@ -9,8 +9,8 @@ public class SceneLoader
     static public void LoadScene(string sceneName)
     {
         CameraEffect.Fade(delegate{
+//            UIManager.DisposeAll();
             UIManager.HideAll();
-            //UIManager.HideAll();
             //UIManager.Show("LoadingPanel");
             asyncOper = SceneManager.LoadSceneAsync(sceneName);
             CameraEffect.Continue();
