@@ -8,7 +8,7 @@
     <image id="vx326" name="icon_Checkpoint1_nezha.png" path="/" exported="true"/>
     <image id="vx327" name="icon_Checkpoint1_pangxie.png" path="/" exported="true"/>
   </resources>
-  <publish name="guankatupian" maxAtlasSize="1024">
+  <publish name="guankatupian" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

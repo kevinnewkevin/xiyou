@@ -41,7 +41,7 @@
     <image id="qb272y" name="g_4.png" path="/" exported="true"/>
     <image id="qb272z" name="g_5.png" path="/" exported="true"/>
   </resources>
-  <publish name="zhandoushuzi" maxAtlasSize="1024">
+  <publish name="zhandoushuzi" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

@@ -10,7 +10,7 @@
     <image id="8rwx8" name="nvzhujue_card.png" path="/" exported="true"/>
     <image id="8rwx9" name="nanzhujue_card.png" path="/" exported="true"/>
   </resources>
-  <publish name="Card" maxAtlasSize="1024">
+  <publish name="Card" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

@@ -3,5 +3,7 @@
   <resources>
     <component id="bg4q0" name="kapai_Component.xml" path="/"/>
   </resources>
-  <publish name=""/>
+  <publish name="Package1" extractAlpha="true">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>

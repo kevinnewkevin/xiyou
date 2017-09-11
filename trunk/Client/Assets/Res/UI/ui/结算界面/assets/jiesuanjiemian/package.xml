@@ -21,7 +21,7 @@
     <component id="ixmqh" name="shibai_Component.xml" path="/" exported="true"/>
     <component id="rw87i" name="jixu_Button.xml" path="/" exported="true"/>
   </resources>
-  <publish name="jiesuanjiemian" maxAtlasSize="1024">
+  <publish name="jiesuanjiemian" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

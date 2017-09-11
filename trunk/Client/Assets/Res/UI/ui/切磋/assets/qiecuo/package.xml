@@ -66,7 +66,7 @@
     <component id="k4t12e" name="fangqi_Button.xml" path="/" exported="true"/>
     <image id="xivh2f" name="bb_huaban.png" path="/" exported="true"/>
   </resources>
-  <publish name="qiecuo" maxAtlasSize="1024">
+  <publish name="qiecuo" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

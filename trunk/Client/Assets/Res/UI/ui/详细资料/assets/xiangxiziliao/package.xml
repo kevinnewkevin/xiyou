@@ -36,7 +36,7 @@
     <image id="xdt5y" name="huifu.png" path="/" exported="true"/>
     <image id="ihygz" name="jinengkuangxuanzhong.png" path="/" exported="true"/>
   </resources>
-  <publish name="xiangxiziliao" maxAtlasSize="1024">
+  <publish name="xiangxiziliao" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

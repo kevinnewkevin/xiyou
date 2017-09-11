@@ -18,7 +18,7 @@
     <component id="tpyue" name="diuqi_Button.xml" path="/" exported="true"/>
     <image id="tpyuf" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="36,35,26,9"/>
   </resources>
-  <publish name="bagtips" maxAtlasSize="1024">
+  <publish name="bagtips" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

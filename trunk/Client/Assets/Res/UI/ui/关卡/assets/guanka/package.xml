@@ -28,7 +28,7 @@
     <image id="if0ur" name="jiahao.png" path="/" exported="true"/>
     <image id="n0c9s" name="jh_02_2.png" path="/" exported="true"/>
   </resources>
-  <publish name="guanka" maxAtlasSize="1024">
+  <publish name="guanka" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

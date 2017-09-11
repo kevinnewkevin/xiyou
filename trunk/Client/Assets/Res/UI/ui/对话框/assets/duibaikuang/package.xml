@@ -9,7 +9,7 @@
     <image id="uqic5" name="dhk_tiaoguo.png" path="/" exported="true"/>
     <component id="uqic6" name="tiaoguo_Button.xml" path="/" exported="true"/>
   </resources>
-  <publish name="duibaikuang" maxAtlasSize="1024">
+  <publish name="duibaikuang" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

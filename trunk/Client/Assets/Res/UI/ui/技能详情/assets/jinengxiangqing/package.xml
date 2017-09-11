@@ -11,7 +11,7 @@
     <image id="nmle7" name="guanbi.png" path="/" exported="true"/>
     <component id="nmle8" name="guanbi_Button.xml" path="/" exported="true"/>
   </resources>
-  <publish name="jinengxiangqing" maxAtlasSize="1024">
+  <publish name="jinengxiangqing" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

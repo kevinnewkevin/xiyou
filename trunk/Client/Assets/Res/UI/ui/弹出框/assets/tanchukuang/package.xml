@@ -13,7 +13,7 @@
     <component id="nit4e" name="lan_Button.xml" path="/" exported="true"/>
     <component id="nit4f" name="hong_Button.xml" path="/" exported="true"/>
   </resources>
-  <publish name="tanchukuang" maxAtlasSize="1024">
+  <publish name="tanchukuang" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>
