@@ -171,8 +171,11 @@ public class OpraSystem : MonoBehaviour {
 
     void ReturnToBattle()
     {
-        _CrtScreen = null;
         _IsPlaying = false;
+
+        if (_CrtScreen != null)
+            UnloadClip(_CrtScreen._Data);
+        _CrtScreen = null;
         for (int i = 0; i < _ActorList.Count; ++i)
         {
             UnloadAsset(_ActorList [i]._Data);
