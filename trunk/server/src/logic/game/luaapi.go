@@ -508,6 +508,10 @@ func __PopSpec(p unsafe.Pointer) C.int {  //
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
+	fmt.Println("__PopSpec , unit:", unit)
+	if unit == nil {
+		return 0
+	}
 	unit.PopSpec(spec, int32(buffinstid))
 
 	return 0

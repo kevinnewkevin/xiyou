@@ -134,12 +134,6 @@ func (this *Buff) IsOver(round int32) bool {
 	return o
 }
 
-func (this *Buff) Special(data int32) int {
-	// 处理特殊属性
-
-	return 1
-}
-
 func (this *Buff) ChangeTimes() int {
 	bf_table := GetBuffRecordById(this.BuffId)
 	if bf_table == nil {

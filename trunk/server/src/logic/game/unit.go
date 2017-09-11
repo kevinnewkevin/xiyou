@@ -97,7 +97,9 @@ func (this *GameUnit) AddSpec(spec string, buffinstid int32) {
 
 func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
 	spe := prpc.ToId_BuffSpecial(spec)
+	fmt.Println("PopSpec 11111,", buffinstid)
 	fmt.Println("PopSpec 11111,", spe)
+	fmt.Println("PopSpec 11111,", this.Special)
 	bufflist, ok := this.Special[int32(spe)]
 	if ok {
 		if len(bufflist) > 0{

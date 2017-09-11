@@ -742,8 +742,12 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 		}
 	}
 
-	if this.Status == kIdle {
-
+	for _, p := range this.PlayerList {
+		for _, u := range p.UnitList {
+			if u.InstId == instid{
+				return u
+			}
+		}
 	}
 
 	return nil
