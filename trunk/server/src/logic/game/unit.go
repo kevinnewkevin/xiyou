@@ -575,7 +575,7 @@ func (this *GameUnit) ChangeBuffTimes(round int32) {
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (this *GameUnit) SetIProperty(iType int32, value int32) error {
+func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 
 	if iType <=prpc.IPT_MIN || iType >= prpc.IPT_MAX {
 		return errors.New("error iType")
@@ -586,13 +586,34 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 	return nil
 }
 
-func (this *GameUnit) SetCProperty(cType int32, value int32) error {
+func (this *GameUnit) UpdateCProperty(cType int32, value int32) error {
 
 	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
 		return errors.New("error cType")
 	}
 
 	this.IProperties[cType] += value
+
+	return nil
+}
+func (this *GameUnit) SetIProperty(iType int32, value int32) error {
+
+	if iType <=prpc.IPT_MIN || iType >= prpc.IPT_MAX {
+		return errors.New("error iType")
+	}
+
+	this.IProperties[iType] = value
+
+	return nil
+}
+
+func (this *GameUnit) SetCProperty(cType int32, value int32) error {
+
+	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
+		return errors.New("error cType")
+	}
+
+	this.IProperties[cType] = value
 
 	return nil
 }
