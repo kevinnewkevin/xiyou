@@ -226,6 +226,9 @@ public class AssetLoader {
 
     static public void UnloadAsset(string path, bool destroyObj = false)
     {
+        if (string.IsNullOrEmpty(path))
+            return;
+        
         path = path.ToLower();
 #if EDITOR_MODE
 
