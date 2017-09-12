@@ -93,6 +93,16 @@ public class Skill {
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
                 _SkillEff [0].SetActive(false);
             }
+
+            _BeattackEff = new GameObject[1];
+            _BeattackEff[0] = AssetLoader.LoadAsset(_SkillData._BeattackEffect);
+            if (_BeattackEff [0] != null)
+            {
+                _BeattackEff[0].transform.parent = targets[0]._ActorObj.transform;
+                _BeattackEff[0].transform.localPosition = Vector3.zero;
+                _BeattackEff[0].transform.localScale = Vector3.one;
+                _BeattackEff[0].SetActive(false);
+            }
         }
         else
         {
@@ -133,23 +143,24 @@ public class Skill {
                     }
                 }
             }
-        }
 
-        _BeattackEff = new GameObject[targets.Length];
-        for (int i = 0; i < targets.Length; ++i)
-        {
-            _BeattackEff[i] = AssetLoader.LoadAsset(_SkillData._BeattackEffect);
-            if (_BeattackEff [i] != null)
+            _BeattackEff = new GameObject[targets.Length];
+            for (int i = 0; i < targets.Length; ++i)
             {
-                if (targets [i] == null)
-                    continue;
-                
-                _BeattackEff[i].transform.parent = targets[i]._ActorObj.transform;
-                _BeattackEff[i].transform.localPosition = Vector3.zero;
-                _BeattackEff[i].transform.localScale = Vector3.one;
-                _BeattackEff[i].SetActive(false);
+                _BeattackEff[i] = AssetLoader.LoadAsset(_SkillData._BeattackEffect);
+                if (_BeattackEff [i] != null)
+                {
+                    if (targets [i] == null)
+                        continue;
+
+                    _BeattackEff[i].transform.parent = targets[i]._ActorObj.transform;
+                    _BeattackEff[i].transform.localPosition = Vector3.zero;
+                    _BeattackEff[i].transform.localScale = Vector3.one;
+                    _BeattackEff[i].SetActive(false);
+                }
             }
         }
+
         _OriginPos = caster._ActorObj.transform.position;
         _Caster = caster;
         _Targets = targets;
