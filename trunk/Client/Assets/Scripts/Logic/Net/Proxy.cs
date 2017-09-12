@@ -93,4 +93,9 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		return true;
 	}
+
+	public bool RequestChapterStarRewardOK()
+	{
+		return true;
+	}
 }
