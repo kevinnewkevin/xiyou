@@ -81,7 +81,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p)
-	room.Type = 2
+	room.Type = prpc.BT_PVE
 	room.Point = 1
 	room.BattleID = battleid
 
@@ -136,7 +136,7 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*GameUnit, prpc.BP_MAX)
 	room.PlayerList = append(room.PlayerList, p0, p1)
-	room.Type = 1
+	room.Type = prpc.BT_PVP
 	room.Point = 1
 	room.BattleID = 0
 
@@ -252,7 +252,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		result.KillMonsters = killmonster
 		result.MySelfDeathNum = deathnum
 
+		fmt.Println("roomover 11111", this.Type)
 		if this.Type == prpc.BT_PVE {
+			fmt.Println("roomover type == pve")
 			p.CalcSmallChapterStar(result)
 		}
 		if this.Type == prpc.BT_PVP {
