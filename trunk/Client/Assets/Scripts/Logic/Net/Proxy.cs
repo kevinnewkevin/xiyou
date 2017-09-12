@@ -89,7 +89,7 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
-	public bool PromoteUnitOK()
+    public bool PromoteUnitOK(ref COM_UnitInfo inst)
 	{
 		return true;
 	}
