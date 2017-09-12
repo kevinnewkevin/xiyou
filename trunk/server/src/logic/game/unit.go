@@ -586,7 +586,7 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 	return nil
 }
 
-func (this *GameUnit) UpdateCProperty(cType int32, value int32) error {
+func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 
 	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
 		return errors.New("error cType")
@@ -607,7 +607,7 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 	return nil
 }
 
-func (this *GameUnit) SetCProperty(cType int32, value int32) error {
+func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 
 	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
 		return errors.New("error cType")
