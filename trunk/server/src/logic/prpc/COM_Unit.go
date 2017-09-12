@@ -6,15 +6,17 @@ import(
 type COM_Unit struct{
   UnitId int32  //0
   InstId int64  //1
-  IProperties []int32  //2
-  CProperties []float32  //3
-  Equipments []COM_ItemInst  //4
+  Level int32  //2
+  IProperties []int32  //3
+  CProperties []float32  //4
+  Equipments []COM_ItemInst  //5
 }
 func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.UnitId!=0)
   mask.WriteBit(this.InstId!=0)
+  mask.WriteBit(this.Level!=0)
   mask.WriteBit(len(this.IProperties) != 0)
   mask.WriteBit(len(this.CProperties) != 0)
   mask.WriteBit(len(this.Equipments) != 0)
@@ -37,6 +39,15 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.InstId!=0){
       err := prpc.Write(buffer,this.InstId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize Level
+  {
+    if(this.Level!=0){
+      err := prpc.Write(buffer,this.Level)
       if err != nil{
         return err
       }
@@ -105,6 +116,13 @@ func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
   // deserialize InstId
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.InstId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize Level
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.Level)
     if err != nil{
       return err
     }
