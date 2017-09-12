@@ -141,6 +141,14 @@ func (this *Session)DeleteItem(instId int64, stack int32 ) error  {
 	return nil
 }
 
+func (this *Session)PromoteUnit(instId int64) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.PromoteUnit(instId)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
