@@ -44,7 +44,7 @@ public class Actor {
 
     public delegate void CallBackHandler();
 
-    public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes)
+    public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes, int displayid)
     {
         if (go == null)
         {
@@ -56,6 +56,7 @@ public class Actor {
         _ActorObj.transform.position = pos;
         _Name = name;
         _Title = title;
+        _DisplayID = displayid;
         if (questes != null)
         {
             _QuestList = new List<int>(questes);
@@ -63,7 +64,7 @@ public class Actor {
         Init(false);
     }
 
-    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayId)
+    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayid)
     {
         if (go == null)
         {
@@ -76,7 +77,7 @@ public class Actor {
         _RealPosInScene = realPos;
         _CrtValue = crtHp;
         _MaxValue = maxHp;
-        _DisplayID = displayId;
+        _DisplayID = displayid;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
         Init();
@@ -327,13 +328,13 @@ public class Actor {
         set{ _InstID = value;}
     }
 
-    public void Fini()
+    public void Fini(bool clear = false)
     {
         DisplayData dData = DisplayData.GetData(_DisplayID);
         if (dData == null)
             Debug.LogWarning("There is MEMORY WASTED! " + _DisplayID);
         else
-            AssetLoader.UnloadAsset(dData._AssetPath);
+            AssetLoader.UnloadAsset(dData._AssetPath, clear);
         GameObject.Destroy(_ActorObj);
     }
 }

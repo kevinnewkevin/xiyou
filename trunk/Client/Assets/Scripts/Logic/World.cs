@@ -21,7 +21,7 @@ public class World {
         GameObject go = AssetLoader.LoadAsset(display._AssetPath);
         string[] bornPos = Define.GetStr("BornPos").Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
         _GroudHeight = float.Parse(bornPos [1]);
-        _PlayerActor = new Actor(go, new Vector3(float.Parse(bornPos[0]), _GroudHeight, float.Parse(bornPos[2])), GamePlayer._InstID, GamePlayer._Name, "", null);
+        _PlayerActor = new Actor(go, new Vector3(float.Parse(bornPos[0]), _GroudHeight, float.Parse(bornPos[2])), GamePlayer._InstID, GamePlayer._Name, "", null, display._Id);
         Camera.main.GetComponent<CameraTracker>().MoveToLookAt = go.transform.position.x;
     }
 
@@ -36,7 +36,7 @@ public class World {
             string assetPath = DisplayData.GetData(npc._Display)._AssetPath;
             // load player Asset for gameobject
             GameObject go = AssetLoader.LoadAsset(assetPath);
-            _NpcActors[i] = new Actor(go, npc._Position, npc._Id, npc._Name, "", npc._QuestID);
+            _NpcActors[i] = new Actor(go, npc._Position, npc._Id, npc._Name, "", npc._QuestID, npc._Display);
             NpcHandle npcHandler = go.AddComponent<NpcHandle>();
             npcHandler.ID = npc._Id;
         }

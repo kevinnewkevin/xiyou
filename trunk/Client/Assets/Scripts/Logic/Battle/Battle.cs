@@ -257,12 +257,12 @@ public class Battle {
         for (int i = 0; i < _PosInScene.Length; ++i)
         {
             if (_ActorInScene[i] != null)
-                _ActorInScene[i].Fini();
+                _ActorInScene[i].Fini(true);
         }
         _PosInScene = new Transform[12];
         _ActorInScene = new Actor[12];
 
-        DisposeSkillAssets();
+        DisposeAssets();
     }
 
     //播放一回合战报 处理快照
@@ -640,15 +640,13 @@ public class Battle {
     static public void LaunchSkillBundle()
     {
         EntityData eData = null;
-        DisplayData dData = null;
-        SkillData sData = null;
         //AI
         if(Battle._BattleId != 0)
         {
             BattleData bData = BattleData.GetData(Battle._BattleId);
             for(int i=0; i < bData._Monsters.Length; ++i)
             {
-                AssetLoader.LaunchSkillBundle(bData._Monsters[i]);
+                AssetLoader.LaunchBundle(bData._Monsters[i]);
             }
         }
 
@@ -657,24 +655,22 @@ public class Battle {
         {
             eData = GamePlayer.GetEntityDataByInstID(Battle._MyGroupCards[i]);
             if(eData != null)
-                AssetLoader.LaunchSkillBundle(eData._UnitId);
+                AssetLoader.LaunchBundle(eData._UnitId);
         }
 
         //Component
     }
 
-    static void DisposeSkillAssets()
+    static void DisposeAssets()
     {
         EntityData eData = null;
-        DisplayData dData = null;
-        SkillData sData = null;
         //AI
         if(Battle._BattleId != 0)
         {
             BattleData bData = BattleData.GetData(Battle._BattleId);
             for(int i=0; i < bData._Monsters.Length; ++i)
             {
-                AssetLoader.DisposeSkillBundle(bData._Monsters[i]);
+                AssetLoader.DisposeBundle(bData._Monsters[i]);
             }
         }
 
@@ -683,7 +679,7 @@ public class Battle {
         {
             eData = GamePlayer.GetEntityDataByInstID(Battle._MyGroupCards[i]);
             if(eData != null)
-                AssetLoader.DisposeSkillBundle(eData._UnitId);
+                AssetLoader.DisposeBundle(eData._UnitId);
         }
 
         //Component

@@ -62,12 +62,16 @@ public class AssetLoader {
 #endif
     }
 
-    static public void LaunchSkillBundle(int entityid)
+    static public void LaunchBundle(int entityid)
     {
         EntityData eData = EntityData.GetData(entityid);
+        DisplayData dData = null;
         SkillData sData = null;
         if(eData != null)
         {
+            dData = DisplayData.GetData(eData._DisplayId);
+            if(dData != null)
+                AssetLoader.LaunchBundle(dData._AssetPath);
             for(int j=0; j < eData._Skills.Length; ++j)
             {
                 sData = SkillData.GetData(eData._Skills[j]);
@@ -76,24 +80,21 @@ public class AssetLoader {
                     AssetLoader.LaunchBundle(sData._CastEffect);
                     AssetLoader.LaunchBundle(sData._BeattackEffect);
                     AssetLoader.LaunchBundle(sData._SkillEffect);
-
-                    if(!string.IsNullOrEmpty(sData._CastEffect))
-                        Debug.Log("LaunchBundle : " + sData._CastEffect);
-                    if(!string.IsNullOrEmpty(sData._BeattackEffect))
-                        Debug.Log("LaunchBundle : " + sData._BeattackEffect);
-                    if(!string.IsNullOrEmpty(sData._SkillEffect))
-                        Debug.Log("LaunchBundle : " + sData._SkillEffect);
                 }
             }
         }
     }
 
-    static public void DisposeSkillBundle(int entityid)
+    static public void DisposeBundle(int entityid)
     {
         EntityData eData = EntityData.GetData(entityid);
+        DisplayData dData = null;
         SkillData sData = null;
         if(eData != null)
         {
+            dData = DisplayData.GetData(eData._DisplayId);
+            if(dData != null)
+                AssetLoader.UnloadAsset(dData._AssetPath, true);
             for(int j=0; j < eData._Skills.Length; ++j)
             {
                 sData = SkillData.GetData(eData._Skills[j]);
