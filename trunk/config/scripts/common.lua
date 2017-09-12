@@ -113,12 +113,16 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	
 	if _BoolStrongBuff == 1 then 
 	
-		 _strongPer = Player.ClacStrongPer(battleid,casterid)
-		 
-		 damage =damage + damage* _strongPer
-		 
+		_strongPer = Player.ClacStrongPer(battleid,casterid)
+		
 		sys.log("ClacDamageByAllBuff 增加输出伤害的百分比" .. _strongPer)
+		
+		sys.log("ClacDamageByAllBuff 这是传参 damage" ..",".. damage)
+		 
 		sys.log("ClacDamageByAllBuff 增加输出伤伤害" .. damage* _strongPer)
+		
+		damage =damage + damage* _strongPer
+		 
 		sys.log("ClacDamageByAllBuff 增加输出伤后得到的伤害值" .. damage)
 		 
 	end
@@ -131,16 +135,18 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	--判断承受者有无增加受到伤害的buff  百分比
 	local _BoolWeakBuff = Player.GetCheckSpec(battleid,targetid,"BF_WEAK")
 	
-	
 	if  _BoolWeakBuff == 1 then
 	
 		_weakPer = Player.ClacWeakPer(battleid,targetid)
 		
+		sys.log("ClacDamageByAllBuff 增加受到伤害的百分比" .. _weakPer)
+		
+		sys.log("ClacDamageByAllBuff 这是传参 damage"..",".. damage)
+		
+		sys.log("ClacDamageByAllBuff 增加受到伤害" .. damage * _weakPer)
+		
 		damage = damage + damage * _weakPer
 		
-		sys.log("ClacDamageByAllBuff 增加受到伤害的百分比" .. _weakPer)
-		sys.log("ClacDamageByAllBuff 增加受到伤害" .. damage * _weakPer)
-	
 		sys.log("ClacDamageByAllBuff 增加受到伤害后得到的伤害值" .. damage)
 		
 	end
@@ -155,10 +161,14 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 		
 		_sheldPer = Player.ClacSheld(battleid,targetid)
 		
+		sys.log("ClacDamageByAllBuff 减伤伤害的百分比" .. _sheldPer)
+		
+		sys.log("ClacDamageByAllBuff 这是传参 damage"..",".. damage)
+		
+		sys.log("ClacDamageByAllBuff 减伤伤害" .. damage * _sheldPer)
+		
 		damage = damage - damage * _sheldPer
 		
-		sys.log("ClacDamageByAllBuff 减伤伤害的百分比" .. _sheldPer)
-		sys.log("ClacDamageByAllBuff 减伤伤害" .. damage * _sheldPer)
 		sys.log("ClacDamageByAllBuff 减伤伤害得到的值" .. damage)
 		
 		Player.ChangeBuffTimes(battleid,targetid)   --开始前清理数据
