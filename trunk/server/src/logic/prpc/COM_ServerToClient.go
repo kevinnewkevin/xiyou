@@ -62,6 +62,7 @@ type COM_ServerToClientProxy interface{
   UpdateBagItem(item COM_ItemInst ) error // 11
   DeleteItemOK(instId int64 ) error // 12
   UpdateTiantiVal(curVal int32 ) error // 13
+  PromoteUnitOK() error // 14
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -781,6 +782,17 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)PromoteUnitOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(14))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -972,6 +984,15 @@ func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_Ser
   }
   return p.UpdateTiantiVal(_13.curVal)
 }
+func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.PromoteUnitOK()
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1013,6 +1034,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_DeleteItemOK(buffer,p);
     case 13 :
       return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
+    case 14 :
+      return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

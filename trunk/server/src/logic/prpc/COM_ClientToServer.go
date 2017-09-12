@@ -43,6 +43,9 @@ type COM_ClientToServer_DeleteItem struct{
   instId int64  //0
   stack int32  //1
 }
+type COM_ClientToServer_PromoteUnit struct{
+  instId int64  //0
+}
 type COM_ClientToServerStub struct{
   Sender prpc.StubSender
 }
@@ -60,6 +63,7 @@ type COM_ClientToServerProxy interface{
   StartMatching(groupId int32 ) error // 10
   StopMatching() error // 11
   DeleteItem(instId int64, stack int32 ) error // 12
+  PromoteUnit(instId int64 ) error // 13
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -558,6 +562,42 @@ func (this *COM_ClientToServer_DeleteItem)Deserialize(buffer *bytes.Buffer) erro
   }
   return nil
 }
+func (this *COM_ClientToServer_PromoteUnit)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.instId!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instId
+  {
+    if(this.instId!=0){
+      err := prpc.Write(buffer,this.instId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_PromoteUnit)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.instId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -773,6 +813,23 @@ func(this* COM_ClientToServerStub)DeleteItem(instId int64, stack int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)PromoteUnit(instId int64 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(13))
+  if err != nil{
+    return err
+  }
+  _13 := COM_ClientToServer_PromoteUnit{}
+  _13.instId = instId;
+  err = _13.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -945,6 +1002,20 @@ func Bridging_COM_ClientToServer_DeleteItem(buffer *bytes.Buffer, p COM_ClientTo
   }
   return p.DeleteItem(_12.instId,_12.stack)
 }
+func Bridging_COM_ClientToServer_PromoteUnit(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _13 := COM_ClientToServer_PromoteUnit{}
+  err := _13.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.PromoteUnit(_13.instId)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -984,6 +1055,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_StopMatching(buffer,p);
     case 12 :
       return Bridging_COM_ClientToServer_DeleteItem(buffer,p);
+    case 13 :
+      return Bridging_COM_ClientToServer_PromoteUnit(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

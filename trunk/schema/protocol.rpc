@@ -14,6 +14,7 @@ service COM_ClientToServer{
 	StartMatching(int32 groupId);
 	StopMatching();
 	DeleteItem(int64 instId,int32 stack);
+	PromoteUnit(int64 instId);					//晋升卡牌
 };
 
 service COM_ServerToClient{
@@ -31,4 +32,5 @@ service COM_ServerToClient{
 	UpdateBagItem(COM_ItemInst item);
 	DeleteItemOK(int64 instId);
 	UpdateTiantiVal(int32 curVal);
+	PromoteUnitOK();			//晋升完成
 };
