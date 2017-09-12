@@ -125,6 +125,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 		return
 	}
 	if player.ChapterID == 0 {
+		fmt.Println("CalcSmallChapterStar player.ChapterID == 0")
 		return
 	}
 	if battledata.Win==0 {
@@ -132,10 +133,12 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 	}
 	small := player.GetMySmallChapterDataById(player.ChapterID)
 	if small == nil {
+		fmt.Println("CalcSmallChapterStar small == nil")
 		return
 	}
 	smallData := GetSmallChapterById(player.ChapterID)
 	if smallData == nil {
+		fmt.Println("CalcSmallChapterStar smallData == nil")
 		return
 	}
 
@@ -158,7 +161,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 			small.Star3 = true
 		}
 	}
-
+	fmt.Println("CalcSmallChapterStar DropId = ",smallData.DropID)
 	player.GiveDrop(smallData.DropID)
 	player.SycnMyChapterDataById(smallData.SmallChapterType)
 }
