@@ -461,57 +461,119 @@ public class Skill {
 
     public void BeattackEffect(int idx)
     {
-        if (idx < 0 || idx >= _BeattackEff.Length)
-            return;
-        
-        for (int i = 0; i < _SkillData._BeattackTime.Length; ++i)
+        if (_SkillData._Single)
         {
-            new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
+            for (int i = 0; i < _SkillData._BeattackTime.Length; ++i)
             {
-                if(idx < 0 || idx >= _Targets.Length)
-                    return;
-
-                if(_Actions[idx].ActionParam < 0)
+                new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                 {
-                    _Targets[idx].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                    _Targets[idx].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-                }
+                    if(idx < 0 || idx >= _Targets.Length)
+                        return;
 
-                //beattack effect
-                if (_BeattackEff[idx] != null)
+                    if(_Actions[idx].ActionParam < 0)
+                    {
+                        _Targets[idx].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                        _Targets[idx].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                    }
+
+                    //beattack effect
+                    if (_BeattackEff[0] != null)
+                    {
+                        _BeattackEff[0].SetActive(false);
+                        _BeattackEff[0].SetActive(true);
+                    }
+                }));
+            }
+        }
+        else
+        {
+            if (idx < 0 || idx >= _BeattackEff.Length)
+                return;
+
+            for (int i = 0; i < _SkillData._BeattackTime.Length; ++i)
+            {
+                new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                 {
-                    _BeattackEff[idx].SetActive(false);
-                    _BeattackEff[idx].SetActive(true);
-                }
-            }));
+                    if(idx < 0 || idx >= _Targets.Length)
+                        return;
+
+                    if(_Actions[idx].ActionParam < 0)
+                    {
+                        _Targets[idx].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                        _Targets[idx].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                    }
+
+                    if(_BeattackEff != null && _BeattackEff.Length > 0)
+                    {
+                        //beattack effect
+                        if (_BeattackEff[idx] != null)
+                        {
+                            _BeattackEff[idx].SetActive(false);
+                            _BeattackEff[idx].SetActive(true);
+                        }
+                    }
+                }));
+            }
         }
     }
 
     public void BeattackEffect()
     {
-        for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
+        if (_SkillData._Single)
         {
-            new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
+            for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
             {
-                for (int j = 0; j < _Targets.Length; ++j)
+                new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                 {
-                    if(_Actions[j].ActionParam < 0)
+                    for (int j = 0; j < _Targets.Length; ++j)
                     {
-                        if(_Targets[j] == null)
-                            continue;
-                        
-                        _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                        _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-                    }
+                        if(_Actions[j].ActionParam < 0)
+                        {
+                            if(_Targets[j] == null)
+                                continue;
 
-                    //beattack effect
-                    if (_BeattackEff[j] != null)
-                    {
-                        _BeattackEff[j].SetActive(false);
-                        _BeattackEff[j].SetActive(true);
+                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                        }
                     }
-                }
-            }));
+                    if(_BeattackEff != null && _BeattackEff.Length > 0)
+                    {
+                        //beattack effect
+                        if (_BeattackEff[0] != null)
+                        {
+                            _BeattackEff[0].SetActive(false);
+                            _BeattackEff[0].SetActive(true);
+                        }
+                    }
+                }));
+            }
+        }
+        else
+        {
+            for(int i=0; i < _SkillData._BeattackTime.Length; ++i)
+            {
+                new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
+                {
+                    for (int j = 0; j < _Targets.Length; ++j)
+                    {
+                        if(_Actions[j].ActionParam < 0)
+                        {
+                            if(_Targets[j] == null)
+                                continue;
+
+                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                        }
+
+                        //beattack effect
+                        if (_BeattackEff[j] != null)
+                        {
+                            _BeattackEff[j].SetActive(false);
+                            _BeattackEff[j].SetActive(true);
+                        }
+                    }
+                }));
+            }
         }
     }
 
