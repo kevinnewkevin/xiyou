@@ -90,6 +90,7 @@ public class Skill {
                 }
                 _SkillEff [0].transform.localPosition = Vector3.zero;
                 _SkillEff [0].transform.localScale = Vector3.one;
+                _SkillEff [0].transform.localRotation = Quaternion.identity;
                 _SkillEff [0].SetActive(false);
             }
         }
