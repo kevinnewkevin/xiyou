@@ -117,7 +117,7 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 		 
 		 damage =damage + damage* _strongPer
 		 
-		 
+		sys.log("ClacDamageByAllBuff 增加输出伤害的百分比" .. _strongPer)
 		sys.log("ClacDamageByAllBuff 增加输出伤伤害" .. damage* _strongPer)
 		sys.log("ClacDamageByAllBuff 增加输出伤后得到的伤害值" .. damage)
 		 
@@ -138,6 +138,7 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 		
 		damage = damage + damage * _weakPer
 		
+		sys.log("ClacDamageByAllBuff 增加受到伤害的百分比" .. _weakPer)
 		sys.log("ClacDamageByAllBuff 增加受到伤害" .. damage * _weakPer)
 	
 		sys.log("ClacDamageByAllBuff 增加受到伤害后得到的伤害值" .. damage)
@@ -155,7 +156,8 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 		_sheldPer = Player.ClacSheld(battleid,targetid)
 		
 		damage = damage - damage * _sheldPer
-	
+		
+		sys.log("ClacDamageByAllBuff 减伤伤害的百分比" .. _sheldPer)
 		sys.log("ClacDamageByAllBuff 减伤伤害" .. damage * _sheldPer)
 		sys.log("ClacDamageByAllBuff 减伤伤害得到的值" .. damage)
 		
@@ -183,6 +185,8 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	sys.log("ClacDamageByAllBuff 最终" .. damage)
 	
 	CheckAttackCure(battleid, targetid)
+	
+	-- 注   例如：造成150%伤害 这150% 会在技能skill的attack 里乘以0.15
 	
 	return damage
 	
