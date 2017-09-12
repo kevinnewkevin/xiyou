@@ -6,7 +6,7 @@ SkillId,Name,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,Cas
 125,布雨,icon/icon_skill_buyu,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,0.6,Effect/xihailongwang_skill01_fx1,,,0.5,0.5,2,MT_Target,1,,SK_125_Action
 126,消灾,icon/icon_skill_xiaozai,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill02_fx1,,,0.5,0.5,2,MT_Target,1,1,SK_126_Action
 127,龙摆尾,icon/icon_skill_shenli,10,,,,,,1,,,1.1,Effect/longtaizi_attack,attack,Effect/shouji,0.5;1;1.5,0.5;1;1.5,,MT_Self,,,SK_100_Action
-128,龙雨击,icon/icon_skill_chuanci,10,,,,,,0,magic1,Effect/longtaizi_skill01_1,2,Effect/longtaizi_skill01_2,,,0.5,0.5,2,MT_Target,1,,SK_101_Action
+128,龙雨击,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,Effect/longtaizi_skill04_2,3.7,3.7,10,MT_Self,1,,SK_101_Action
 129,龙刀,icon/icon_skill_zhongji,10,,,,,,0,magic2,Effect/longtaizi_skill02_1,1.2,Effect/longtaizi_skill02_2,,Effect/shouji,0.8,0.8,1.2,MT_Fly,1,1,SK_102_Action
 131,铁钳,icon/icon_skill_qianzi,10,,,,,,1,,,,Effect/xiejiang_attack,attack,Effect/shouji,0.5,0.5,1.06,MT_Self,,,SK_131_Action
 130,突刺,icon/icon_skill_pingci,10,,,,,,1,,,,Effect/xiabing_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,,SK_130_Action
