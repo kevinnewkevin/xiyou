@@ -592,7 +592,7 @@ func (this *GameUnit) UpdateCProperty(cType int32, value int32) error {
 		return errors.New("error cType")
 	}
 
-	this.IProperties[cType] += value
+	this.CProperties[cType] += value
 
 	return nil
 }
@@ -613,7 +613,7 @@ func (this *GameUnit) SetCProperty(cType int32, value int32) error {
 		return errors.New("error cType")
 	}
 
-	this.IProperties[cType] = value
+	this.CProperties[cType] = value
 
 	return nil
 }
