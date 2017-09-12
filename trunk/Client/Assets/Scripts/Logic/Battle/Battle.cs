@@ -41,6 +41,9 @@ public class Battle {
     static Actor _CrtActor;
     static List<Actor> _CrtTargets;
 
+    static float _LongestShowTime;
+    static bool _ShowTimeDoing;
+
     static public long _SelectedHandCardInstID;
     static public List<COM_Unit> _HandCards = new List<COM_Unit>();
 
@@ -271,9 +274,13 @@ public class Battle {
         if (_ReportAction == null || _ReportAction.Count == 0)
             return;
 
+        if (_ShowTimeDoing)
+            return;
+
         // 处理每回合新上场角色
         if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
         {
+            _ShowTimeDoing = true;
             EntityData entity;
             DisplayData display;
             Actor actor;
@@ -291,9 +298,16 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
+                float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
+                if (_LongestShowTime < clipLen)
+                    _LongestShowTime = clipLen;
             }
             _BattleReport.UnitList = null;
+            new Timer().Start(_LongestShowTime, delegate {
+                _ShowTimeDoing = false;
+                _LongestShowTime = 0f;
+            });
             return;
         }
 
@@ -362,7 +376,7 @@ public class Battle {
     }
 
     //场上添加一个角色
-    static void AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
+    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
     {
         Actor actor = GetActor(instid);
         if (actor != null)
@@ -370,13 +384,15 @@ public class Battle {
             if(actor._RealPosInScene != pos)
                 actor.MoveTo(_PosInScene [pos].position, null);
             GameObject.Destroy(go);
-            return;
+            return actor;
         }
         _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId);
         _ActorInScene[pos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [pos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
         UIManager.SetDirty("BattlePanel");
+
+        return _ActorInScene[pos];
     }
 
     //场上删除一个角色
@@ -697,6 +713,8 @@ public class Battle {
         CurrentState = BattleState.BS_Max;
         _Result = BattleResult.BR_None;
         _ReportIsPlaying = false;
+        _ShowTimeDoing = false;
+        _LongestShowTime = 0f;
         _Fee = 0;
         _BattleId = 0;
         _BattleCamera.Reset();
