@@ -49,7 +49,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId
 	u.Skill = map[int32]*Skill{}
-	u.Level = 1
+	u.Level = 0
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
 	for i := 0; i < len(t.Skills); i++ {
@@ -619,7 +619,16 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 }
 
 
-func (this *GameUnit) Promote() error {
+func (this *GameUnit) Promote(info *PromoteInfo) error {
+
+	this.Level = info.Level
+	this.IProperties[prpc.IPT_HP] += info.Hp
+	this.CProperties[prpc.CPT_HP] += float32(info.Hp)
+	this.CProperties[prpc.CPT_ATK] += float32(info.ATK)
+	this.CProperties[prpc.CPT_DEF] += float32(info.DEF)
+	this.CProperties[prpc.CPT_MAGIC_ATK] += float32(info.MATK)
+	this.CProperties[prpc.CPT_MAGIC_DEF] += float32(info.MDEF)
+	this.CProperties[prpc.CPT_AGILE] += float32(info.AGILE)
 
 	return nil
 }

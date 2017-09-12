@@ -69,6 +69,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadPromoteTable("../../../config/tables/Strengthen.csv")
+	if err != nil {
+		fmt.Println("LoadPromoteTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

@@ -48,6 +48,17 @@ type (
 		MainId		int32
 		SmallId		[]int32
 	}
+	PromoteInfo struct {
+		Level		int32
+		Hp			int32
+		ATK			float32
+		DEF			float32
+		MATK		float32
+		MDEF		float32
+		AGILE		float32
+		ItemId		int32
+		ItemNum		int32
+	}
 )
 
 var (
@@ -56,6 +67,7 @@ var (
 	SkillLuaTable = map[int32]*SkillLuaRecord{}
 	BuffTable = map[int32]*BuffRecord{}
 	BattleTable = map[int32]*BattleRecord{}
+	PromoteTable = map[int32][]*PromoteInfo{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -221,4 +233,40 @@ func LoadBattleTable(filename string) error {
 
 func GetBattleRecordById(id int32) *BattleRecord {
 	return BattleTable[id]
+}
+
+func LoadPromoteTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+
+		e_id := csv.GetInt32(r, "ID")
+
+		p_info := PromoteInfo{}
+		p_info.Level = csv.GetInt32(r, "Level")
+		p_info.Hp = csv.GetInt32(r, "Hp")
+		p_info.ATK = csv.GetFloat32(r, "ATK")
+		p_info.DEF = csv.GetFloat32(r, "DEF")
+		p_info.MATK = csv.GetFloat32(r, "MATK")
+		p_info.MDEF = csv.GetFloat32(r, "MDEF")
+		p_info.AGILE = csv.GetFloat32(r, "AGILE")
+
+
+		_, ok := PromoteTable[e_id]
+		if !ok {
+			PromoteTable[e_id] = []*PromoteInfo{}
+		}
+
+		PromoteTable[e_id] = append(PromoteTable[e_id], &p_info)
+
+	}
+	fmt.Println("PromoteTable", PromoteTable)
+	return nil
+}
+
+func GetPromoteRecordById(id int32) []*PromoteInfo {
+	return PromoteTable[id]
 }

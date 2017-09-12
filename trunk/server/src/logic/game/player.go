@@ -645,7 +645,19 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 		return
 	}
 
-	unit.Promote()
+	promote_info := GetPromoteRecordById(unit.UnitId)
+
+	if promote_info == nil {
+		return
+	}
+
+	if unit.Level >= int32(len(promote_info)) {
+		return
+	}
+
+	level_info := promote_info[unit.Level]
+
+	unit.Promote(level_info)
 
 	this.session.PromoteUnitOK(unit.GetUnitInfo())
 }
