@@ -62,6 +62,41 @@ public class AssetLoader {
 #endif
     }
 
+    static public void LaunchBundle(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+            return;
+        path = path.ToLower();
+        #if !EDITOR_MODE
+        if(_Manifest == null)
+            InitCommonList();
+
+        try
+        {
+            string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+            string assetPath;
+            for(int i=0; i < dep.Length; ++i)
+            {
+                assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+                if(!AssetCounter.Excist(assetPath))
+                    AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+                else
+                    AssetCounter.GetBundle(assetPath);
+            }
+            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            if(!AssetCounter.Excist(assetPath))
+                AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+            else
+                AssetCounter.GetBundle(assetPath);
+        }
+        catch(System.Exception e)
+        {
+            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+        }
+
+        #endif
+    }
+
     static public AnimationClip LoadClip(string path)
     {
         if (string.IsNullOrEmpty(path))

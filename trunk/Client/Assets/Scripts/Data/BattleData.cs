@@ -6,6 +6,7 @@ public class BattleData {
 
     public int _Id;
     public int[] _Animations;
+    public int[] _Monsters;
 
     static Dictionary<int, BattleData> metaData;
 
@@ -32,6 +33,15 @@ public class BattleData {
             {
                 data._Animations [j] = int.Parse(animstr[j]);
             }
+            int mainMonster = parser.GetInt (i, "MainID");
+            string[] smallMonster = parser.GetString (i, "SmallID").Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+            data._Monsters = new int[smallMonster.Length + 1];
+            data._Monsters [0] = mainMonster;
+            for(int j=1; j < data._Monsters.Length; ++j)
+            {
+                data._Monsters [j] = int.Parse(smallMonster [j - 1]);
+            }
+
             if(metaData.ContainsKey(data._Id))
             {
                 Debug.LogError("BattleData ID重复");
