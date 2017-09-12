@@ -467,13 +467,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1207914796136584}
-  m_LocalRotation: {x: 0.6362709, y: 0.2895268, z: 0.6700877, w: -0.2496322}
-  m_LocalPosition: {x: -2.95, y: 1.26, z: -0.6}
+  m_LocalRotation: {x: -0.26994237, y: 0.6535527, z: 0.26994237, w: 0.6535527}
+  m_LocalPosition: {x: -2.9499948, y: 1.2599982, z: -0.5999973}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 4207792127933442}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -135.11499, y: -90, z: 180}
 --- !u!23 &23725785277678418
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -9584,7 +9584,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1340765576
+  randomSeed: -682700502
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -18431,7 +18431,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 2047824948
+  randomSeed: 166077339
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -33689,7 +33689,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 2
+  m_RenderMode: 4
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 10
@@ -33702,7 +33702,7 @@ ParticleSystemRenderer:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_VertexStreams: 0001030405
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
