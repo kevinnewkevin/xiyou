@@ -36,6 +36,10 @@ type COM_ClientToServer_RequestChapterData struct{
 type COM_ClientToServer_ChallengeSmallChapter struct{
   smallChapterId int32  //0
 }
+type COM_ClientToServer_RequestChapterStarReward struct{
+  chapterId int32  //0
+  star int32  //1
+}
 type COM_ClientToServer_StartMatching struct{
   groupId int32  //0
 }
@@ -60,10 +64,11 @@ type COM_ClientToServerProxy interface{
   SetupBattle(positionList []COM_BattlePosition ) error // 7
   RequestChapterData(chapterId int32 ) error // 8
   ChallengeSmallChapter(smallChapterId int32 ) error // 9
-  StartMatching(groupId int32 ) error // 10
-  StopMatching() error // 11
-  DeleteItem(instId int64, stack int32 ) error // 12
-  PromoteUnit(instId int64 ) error // 13
+  RequestChapterStarReward(chapterId int32, star int32 ) error // 10
+  StartMatching(groupId int32 ) error // 11
+  StopMatching() error // 12
+  DeleteItem(instId int64, stack int32 ) error // 13
+  PromoteUnit(instId int64 ) error // 14
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -473,6 +478,59 @@ func (this *COM_ClientToServer_ChallengeSmallChapter)Deserialize(buffer *bytes.B
   }
   return nil
 }
+func (this *COM_ClientToServer_RequestChapterStarReward)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.chapterId!=0)
+  mask.WriteBit(this.star!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize chapterId
+  {
+    if(this.chapterId!=0){
+      err := prpc.Write(buffer,this.chapterId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize star
+  {
+    if(this.star!=0){
+      err := prpc.Write(buffer,this.star)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_RequestChapterStarReward)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize chapterId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.chapterId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize star
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.star)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func (this *COM_ClientToServer_StartMatching)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
@@ -767,7 +825,7 @@ func(this* COM_ClientToServerStub)ChallengeSmallChapter(smallChapterId int32 ) e
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ClientToServerStub)StartMatching(groupId int32 ) error {
+func(this* COM_ClientToServerStub)RequestChapterStarReward(chapterId int32, star int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -776,9 +834,27 @@ func(this* COM_ClientToServerStub)StartMatching(groupId int32 ) error {
   if err != nil{
     return err
   }
-  _10 := COM_ClientToServer_StartMatching{}
-  _10.groupId = groupId;
+  _10 := COM_ClientToServer_RequestChapterStarReward{}
+  _10.chapterId = chapterId;
+  _10.star = star;
   err = _10.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)StartMatching(groupId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(11))
+  if err != nil{
+    return err
+  }
+  _11 := COM_ClientToServer_StartMatching{}
+  _11.groupId = groupId;
+  err = _11.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -789,7 +865,7 @@ func(this* COM_ClientToServerStub)StopMatching() error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(11))
+  err := prpc.Write(buffer,uint16(12))
   if err != nil{
     return err
   }
@@ -800,14 +876,14 @@ func(this* COM_ClientToServerStub)DeleteItem(instId int64, stack int32 ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(12))
+  err := prpc.Write(buffer,uint16(13))
   if err != nil{
     return err
   }
-  _12 := COM_ClientToServer_DeleteItem{}
-  _12.instId = instId;
-  _12.stack = stack;
-  err = _12.Serialize(buffer)
+  _13 := COM_ClientToServer_DeleteItem{}
+  _13.instId = instId;
+  _13.stack = stack;
+  err = _13.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -818,13 +894,13 @@ func(this* COM_ClientToServerStub)PromoteUnit(instId int64 ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(13))
+  err := prpc.Write(buffer,uint16(14))
   if err != nil{
     return err
   }
-  _13 := COM_ClientToServer_PromoteUnit{}
-  _13.instId = instId;
-  err = _13.Serialize(buffer)
+  _14 := COM_ClientToServer_PromoteUnit{}
+  _14.instId = instId;
+  err = _14.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -965,6 +1041,20 @@ func Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer *bytes.Buffer, p C
   }
   return p.ChallengeSmallChapter(_9.smallChapterId)
 }
+func Bridging_COM_ClientToServer_RequestChapterStarReward(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _10 := COM_ClientToServer_RequestChapterStarReward{}
+  err := _10.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.RequestChapterStarReward(_10.chapterId,_10.star)
+}
 func Bridging_COM_ClientToServer_StartMatching(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -972,12 +1062,12 @@ func Bridging_COM_ClientToServer_StartMatching(buffer *bytes.Buffer, p COM_Clien
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _10 := COM_ClientToServer_StartMatching{}
-  err := _10.Deserialize(buffer)
+  _11 := COM_ClientToServer_StartMatching{}
+  err := _11.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.StartMatching(_10.groupId)
+  return p.StartMatching(_11.groupId)
 }
 func Bridging_COM_ClientToServer_StopMatching(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
@@ -995,12 +1085,12 @@ func Bridging_COM_ClientToServer_DeleteItem(buffer *bytes.Buffer, p COM_ClientTo
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _12 := COM_ClientToServer_DeleteItem{}
-  err := _12.Deserialize(buffer)
+  _13 := COM_ClientToServer_DeleteItem{}
+  err := _13.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.DeleteItem(_12.instId,_12.stack)
+  return p.DeleteItem(_13.instId,_13.stack)
 }
 func Bridging_COM_ClientToServer_PromoteUnit(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
@@ -1009,12 +1099,12 @@ func Bridging_COM_ClientToServer_PromoteUnit(buffer *bytes.Buffer, p COM_ClientT
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _13 := COM_ClientToServer_PromoteUnit{}
-  err := _13.Deserialize(buffer)
+  _14 := COM_ClientToServer_PromoteUnit{}
+  err := _14.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.PromoteUnit(_13.instId)
+  return p.PromoteUnit(_14.instId)
 }
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
@@ -1050,12 +1140,14 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
     case 9 :
       return Bridging_COM_ClientToServer_ChallengeSmallChapter(buffer,p);
     case 10 :
-      return Bridging_COM_ClientToServer_StartMatching(buffer,p);
+      return Bridging_COM_ClientToServer_RequestChapterStarReward(buffer,p);
     case 11 :
-      return Bridging_COM_ClientToServer_StopMatching(buffer,p);
+      return Bridging_COM_ClientToServer_StartMatching(buffer,p);
     case 12 :
-      return Bridging_COM_ClientToServer_DeleteItem(buffer,p);
+      return Bridging_COM_ClientToServer_StopMatching(buffer,p);
     case 13 :
+      return Bridging_COM_ClientToServer_DeleteItem(buffer,p);
+    case 14 :
       return Bridging_COM_ClientToServer_PromoteUnit(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)

@@ -63,6 +63,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadDropTable("../../../config/tables/Drop.csv")
+	if err != nil {
+		fmt.Println("LoadDropTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

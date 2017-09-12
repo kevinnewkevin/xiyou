@@ -11,6 +11,7 @@ service COM_ClientToServer{
 	SetupBattle(COM_BattlePosition[] positionList); //设置位置
 	RequestChapterData(int32 chapterId);
 	ChallengeSmallChapter(int32 smallChapterId);
+	RequestChapterStarReward(int32 chapterId,int32 star);
 	StartMatching(int32 groupId);
 	StopMatching();
 	DeleteItem(int64 instId,int32 stack);
@@ -33,4 +34,5 @@ service COM_ServerToClient{
 	DeleteItemOK(int64 instId);
 	UpdateTiantiVal(int32 curVal);
 	PromoteUnitOK(COM_UnitInfo unit);			//晋升完成
+	RequestChapterStarRewardOK();
 };

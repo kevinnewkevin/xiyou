@@ -557,28 +557,72 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 	_L.CallFuncEx(itemData.GloAction, v, &r)
 }
 
+func (this *GamePlayer)GiveDrop(dropId int32)  {
+	drop := GetDropById(dropId)
+	if drop==nil {
+		fmt.Println("Can Not Find Drop By DropId=",dropId)
+		return
+	}
+	if drop.Exp != 0 {
+		this.AddExp(drop.Exp)
+	}
+	if drop.Money != 0 {
+		this.AddCopper(drop.Money)
+	}
+	if len(drop.Items) != 0 {
+		for _,item := range drop.Items{
+			this.AddBagItemByItemId(item.ItemId,item.ItemNum)
+			fmt.Println("GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+		}
+	}
+}
+
+func (this *GamePlayer)AddExp(val int32)  {
+	curExp := this.MyUnit.GetIProperty(prpc.IPT_EXPERIENCE)
+	curExp += val
+	if curExp<0 {
+		curExp = 0
+	}
+	this.MyUnit.SetIProperty(prpc.IPT_EXPERIENCE,curExp)
+
+	fmt.Println("append EXP",val,"all EXP",curExp)
+}
+
+func (this *GamePlayer)AddCopper(val int32)  {
+	curCopper := this.MyUnit.GetIProperty(prpc.IPT_COPPER)
+	curCopper += val
+	if curCopper < 0  {
+		curCopper=0
+	}
+	this.MyUnit.SetIProperty(prpc.IPT_COPPER,curCopper)
+
+	fmt.Println("append copper",val,"all copper",curCopper)
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-	fmt.Println(len(ItemTableData))
-	for i:=0;i<len(ItemTableData) ;i++  {
-		if i==1 {
-			P1.AddBagItemByItemId(int32(i+1),1050)
-		}else {
-			P1.AddBagItemByItemId(int32(i+1),10)
-		}
-	}
-	for _,item := range P1.BagItems{
-		if item.ItemId== 2 {
-			P1.DelItemByTableId(2,1000)
-		}
-		
-		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
-	}
-	//CreatePvE(P, 1)
+	//fmt.Println(len(ItemTableData))
+	//for i:=0;i<len(ItemTableData) ;i++  {
+	//	if i==1 {
+	//		P1.AddBagItemByItemId(int32(i+1),1050)
+	//	}else {
+	//		P1.AddBagItemByItemId(int32(i+1),10)
+	//	}
+	//}
+	//for _,item := range P1.BagItems{
+	//	if item.ItemId== 2 {
+	//		P1.DelItemByTableId(2,1000)
+	//	}
+	//
+	//	fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
+	//}
+	P1.GetChapterStarReward(1,10)
+	P1.GetChapterStarReward(1,20)
+	P1.GetChapterStarReward(1,30)
 }
 
 

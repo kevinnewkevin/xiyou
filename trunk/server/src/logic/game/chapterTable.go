@@ -4,6 +4,7 @@ import (
 	"suzuki/conf"
 	"strconv"
 	"strings"
+	"errors"
 )
 
 type (
@@ -63,6 +64,10 @@ func LoadStoryChapterTable(filename string) error {
 			c.SmallChapter = append(c.SmallChapter,int32(id))
 		}
 
+		if len(c.ChapterStar) != len(c.ChapterReward) {
+			return errors.New("Chapter Star Reward Unequal")
+		}
+		
 		ChapterTable[c.ChapterId] = &c
 	}
 	return nil

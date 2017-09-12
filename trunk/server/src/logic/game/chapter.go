@@ -39,9 +39,9 @@ func IsOpenChapter(player *GamePlayer, cid int32) bool {
 	return false
 }
 
-func (player *GamePlayer)GetMyChapterDataById(chapterId int32)  {
+func (player *GamePlayer)GetMyChapterDataById(chapterId int32) *prpc.COM_Chapter {
 	if player==nil {
-		return
+		return nil
 	}
 	onceChapter := prpc.COM_Chapter{}
 	for _, chapter := range player.Chapters {
@@ -49,9 +49,22 @@ func (player *GamePlayer)GetMyChapterDataById(chapterId int32)  {
 			onceChapter.ChapterId = chapter.ChapterId
 			for _,smallchapter := range chapter.SmallChapters{
 				onceChapter.SmallChapters = append(onceChapter.SmallChapters,smallchapter)
-				fmt.Println(onceChapter)
 			}
 		}
+	}
+	if onceChapter.ChapterId == 0 {
+		return nil
+	}
+	return &onceChapter
+}
+
+func (player *GamePlayer)SycnMyChapterDataById(chapterId int32)  {
+	if player==nil {
+		return
+	}
+	onceChapter := player.GetMyChapterDataById(chapterId)
+	if onceChapter == nil {
+		return
 	}
 	if onceChapter.ChapterId == 0 {
 		return
@@ -59,7 +72,7 @@ func (player *GamePlayer)GetMyChapterDataById(chapterId int32)  {
 	if player.session==nil {
 		return
 	}
-	player.session.SycnChapterData(onceChapter)
+	player.session.SycnChapterData(*onceChapter)
 }
 
 func (player *GamePlayer)GetMySmallChapterDataById(smallid int32) *prpc.COM_SmallChapter {
@@ -146,6 +159,73 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 		}
 	}
 
-	//player.GiveDrop(smallData.DropID)
-	player.GetMyChapterDataById(smallData.SmallChapterType)
+	player.GiveDrop(smallData.DropID)
+	player.SycnMyChapterDataById(smallData.SmallChapterType)
+}
+
+func (player *GamePlayer)GetChapterStarReward(chapterId int32,star int32)  {
+	myChapter := player.GetMyChapterDataById(chapterId)
+	if myChapter==nil {
+		return
+	}
+	chapterData := GetChapterById(chapterId)
+	if chapterData == nil {
+		return
+	}
+
+	var myStar int32 = player.GetChapterStarById(chapterId)
+	fmt.Println("chapter ",chapterId," Star ",myStar)
+
+	if myStar < star {
+		fmt.Println("Lacking Star",chapterId,star)
+		return
+	}
+
+	var index int = -1
+
+	for i:=0;i<len(chapterData.ChapterStar) ;i++  {
+		if chapterData.ChapterStar[i] == star {
+			index = i
+		}
+	}
+	if index == -1 {
+		fmt.Println("chapter Without this reward star=",star)
+		return
+	}
+	for _,s := range myChapter.StarReward{
+		if s == star {
+			fmt.Println("chapter reward have been received star",star)
+			return
+		}
+	}
+	if index >= len(chapterData.ChapterReward) {
+		return
+	}
+	player.GiveDrop(chapterData.ChapterReward[index])
+	myChapter.StarReward = append(myChapter.StarReward,star)
+	if player.session != nil {
+		player.session.RequestChapterStarRewardOK()
+	}
+}
+
+func (player *GamePlayer)GetChapterStarById(chapterId int32) int32 {
+	myChapter := player.GetMyChapterDataById(chapterId)
+	if myChapter==nil {
+		return 0
+	}
+	var allStar int32 = 0
+
+	for _,small := range myChapter.SmallChapters{
+		if small.Star1 {
+			allStar += 1
+		}
+		if small.Star2 {
+			allStar += 1
+		}
+		if small.Star3 {
+			allStar += 1
+		}
+	}
+
+	return allStar
 }

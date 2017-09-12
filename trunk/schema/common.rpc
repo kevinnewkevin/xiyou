@@ -39,6 +39,7 @@ struct COM_SmallChapter{
 struct COM_Chapter{
 	int32				ChapterId;
 	COM_SmallChapter[]	SmallChapters;
+	int32[]				StarReward;				//标记已领奖
 };
 
 //卡组

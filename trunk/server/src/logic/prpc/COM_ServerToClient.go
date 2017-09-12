@@ -66,6 +66,7 @@ type COM_ServerToClientProxy interface{
   DeleteItemOK(instId int64 ) error // 12
   UpdateTiantiVal(curVal int32 ) error // 13
   PromoteUnitOK(unit COM_UnitInfo ) error // 14
+  RequestChapterStarRewardOK() error // 15
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -836,6 +837,17 @@ func(this* COM_ServerToClientStub)PromoteUnitOK(unit COM_UnitInfo ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(15))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1041,6 +1053,15 @@ func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_Serve
   }
   return p.PromoteUnitOK(_14.unit)
 }
+func Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.RequestChapterStarRewardOK()
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1084,6 +1105,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
     case 14 :
       return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
+    case 15 :
+      return Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

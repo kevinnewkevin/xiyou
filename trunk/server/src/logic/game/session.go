@@ -149,6 +149,14 @@ func (this *Session)PromoteUnit(instId int64) error  {
 	return nil
 }
 
+func (this *Session)RequestChapterStarReward(chapterId int32, star int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.GetChapterStarReward(chapterId,star)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
