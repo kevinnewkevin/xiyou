@@ -171,16 +171,41 @@ namespace LuaInterface
         {
             if (!beZip)
             {
-                string path = FindFile(fileName);
+				string path = "";
+				#if UNITY_ANDROID && !UNITY_EDITOR
+					if(!fileName.EndsWith(".lua"))
+							fileName += ".lua";
+					path = LuaConst.luaResDir + fileName;
+				#else
+					path = FindFile(fileName);
+				#endif
+
                 byte[] str = null;
-                if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                {
-#if !UNITY_WEBPLAYER
-                    str = File.ReadAllBytes(path);
+#if UNITY_ANDROID && !UNITY_EDITOR
+				WWW www = new WWW(path);
+				while(true)
+				{
+						if(www.isDone)
+						{
+							if(string.IsNullOrEmpty(www.error))
+								str = www.bytes;
+							else
+								Debug.Log(" Load lua got error: " + www.error);
+							www.Dispose();
+							break;
+						}
+						
+				}
 #else
-                    throw new LuaException("can't run in web platform, please switch to other platform");
+				if (!string.IsNullOrEmpty(path) && File.Exists(path))
+				{
+				#if !UNITY_WEBPLAYER 
+					str = File.ReadAllBytes(path);
+				#else
+					throw new LuaException("can't run in web platform, please switch to other platform");
+				#endif
+				}
 #endif
-                }
                 return str;
             }
             else

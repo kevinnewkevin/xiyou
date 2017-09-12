@@ -170,7 +170,9 @@ namespace LuaInterface
         void InitLuaPath()
         {
             InitPackagePath();
-
+#if UNITY_ANDROID && !UNITY_EDITOR
+			return;
+#endif
             if (!LuaFileUtils.Instance.beZip)
             {
 #if UNITY_EDITOR
