@@ -637,28 +637,56 @@ public class Battle {
         return true;
     }
 
-    static public void AddSkill(SkillData sdata)
+    static public void LaunchSkillBundle()
     {
-        if (skillAssets == null)
-            skillAssets = new Dictionary<int, SkillData>();
+        EntityData eData = null;
+        DisplayData dData = null;
+        SkillData sData = null;
+        //AI
+        if(Battle._BattleId != 0)
+        {
+            BattleData bData = BattleData.GetData(Battle._BattleId);
+            for(int i=0; i < bData._Monsters.Length; ++i)
+            {
+                AssetLoader.LaunchSkillBundle(bData._Monsters[i]);
+            }
+        }
 
-        if (skillAssets.ContainsKey(sdata._Id))
-            skillAssets [sdata._Id] = sdata;
-        else
-            skillAssets.Add(sdata._Id, sdata);
+        //Self
+        for(int i=0; i < Battle._MyGroupCards.Count; ++i)
+        {
+            eData = GamePlayer.GetEntityDataByInstID(Battle._MyGroupCards[i]);
+            if(eData != null)
+                AssetLoader.LaunchSkillBundle(eData._UnitId);
+        }
+
+        //Component
     }
 
     static void DisposeSkillAssets()
     {
-        if (skillAssets == null)
-            return;
-
-        foreach(SkillData sdata in skillAssets.Values)
+        EntityData eData = null;
+        DisplayData dData = null;
+        SkillData sData = null;
+        //AI
+        if(Battle._BattleId != 0)
         {
-            AssetLoader.UnloadAsset(sdata._CastEffect, true);
-            AssetLoader.UnloadAsset(sdata._SkillEffect, true);
-            AssetLoader.UnloadAsset(sdata._BeattackEffect, true);
+            BattleData bData = BattleData.GetData(Battle._BattleId);
+            for(int i=0; i < bData._Monsters.Length; ++i)
+            {
+                AssetLoader.DisposeSkillBundle(bData._Monsters[i]);
+            }
         }
+
+        //Self
+        for(int i=0; i < Battle._MyGroupCards.Count; ++i)
+        {
+            eData = GamePlayer.GetEntityDataByInstID(Battle._MyGroupCards[i]);
+            if(eData != null)
+                AssetLoader.DisposeSkillBundle(eData._UnitId);
+        }
+
+        //Component
     }
 
     static public bool InBattle
@@ -669,12 +697,12 @@ public class Battle {
     //销毁场景 角色 UI
     static public void Fini()
     {
+        UnLoadAssets();
         CurrentState = BattleState.BS_Max;
         _Result = BattleResult.BR_None;
         _ReportIsPlaying = false;
         _Fee = 0;
         _BattleId = 0;
-        UnLoadAssets();
         _BattleCamera.Reset();
     }
 }

@@ -7,6 +7,8 @@ public class DragDrop {
     GGraph _AgentGraph;
     object _SourceData;
 
+    string _AssetPath;
+
     static DragDrop _Inst;
     static public DragDrop inst
     {
@@ -81,6 +83,7 @@ public class DragDrop {
                 GRoot.inst.AddChild(_AgentGraph);
                 _AgentGraph.xy = GRoot.inst.GlobalToLocal(Stage.inst.GetTouchPosition(touchPointID));
                 _AgentGraph.StartDrag(touchPointID);
+                _AssetPath = path;
             }
         }
     }
@@ -150,6 +153,12 @@ public class DragDrop {
                 }
                 obj = obj.parent;
             }
+        }
+
+        if (string.IsNullOrEmpty(_AssetPath))
+        {
+            AssetLoader.UnloadAsset(_AssetPath);
+            _AssetPath = "";
         }
     }
 }

@@ -13,6 +13,7 @@ local talkNums;
 local typeWriter;
 local leftDisplay;
 local rightDisplay;
+local lastAsset;
 
 function duibaikuang:OnEntry()
 	Window = duibaikuang.New();
@@ -89,16 +90,24 @@ function duibaikuang_FlushData()
 		local dData = DisplayData.GetData(tData._DisplayId);
 		if tData._Side == 0 then
 			if dData ~= nil then
+				Proxy4Lua.UnloadAsset(lastAsset);
+				lastAsset = dData._AssetPath;
 				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height));
 			else
 				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+				Proxy4Lua.UnloadAsset(lastAsset);
+				lastAsset = "";
 			end
 			rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 		else
 			if dData ~= nil then
+				Proxy4Lua.UnloadAsset(lastAsset);
+				lastAsset = dData._AssetPath;
 				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height));
 			else
 				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+				Proxy4Lua.UnloadAsset(lastAsset);
+				lastAsset = "";
 			end
 			leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 		end

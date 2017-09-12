@@ -84,6 +84,14 @@ public class Proxy4Lua {
         return new FairyGUI.GoWrapper(go);
     }
 
+    static public void UnloadAsset(string assetPath)
+    {
+        if (string.IsNullOrEmpty(assetPath))
+            return;
+
+        AssetLoader.UnloadAsset(assetPath);
+    }
+
     static public int[] GetTalk()
     {
         OpraSystem os = GameObject.FindObjectOfType<OpraSystem>();

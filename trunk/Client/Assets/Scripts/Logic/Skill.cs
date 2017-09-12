@@ -49,7 +49,6 @@ public class Skill {
         // get skilldata by id
 
         _SkillData = SkillData.GetData(skillId);
-        Battle.AddSkill(_SkillData);
         if (_SkillData == null)
         {
             Clear();
