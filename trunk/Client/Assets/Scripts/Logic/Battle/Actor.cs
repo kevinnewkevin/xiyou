@@ -22,7 +22,7 @@ public class Actor {
 
     long _InstID;
 
-    int _DisplayID;
+    public int _DisplayID;
 
     //Animator _Animator;
     Animation _Animation;

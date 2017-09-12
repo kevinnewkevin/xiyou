@@ -9,6 +9,7 @@ public class DisplayData {
     public string _HeadIcon;
     public string _CardIcon;
     public float _Distance;
+    public float _HeadBarHeight;
 
     static Dictionary<int, DisplayData> metaData;
 
@@ -33,6 +34,7 @@ public class DisplayData {
             data._HeadIcon = parser.GetString(i, "HeadIcon");
             data._CardIcon = parser.GetString(i, "CardIcon");
             data._Distance = parser.GetFloat(i, "Distance");
+            data._HeadBarHeight = parser.GetFloat(i, "HeadBarHeight");
 
             if(metaData.ContainsKey(data._Id))
             {

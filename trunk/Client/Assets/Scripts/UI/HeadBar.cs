@@ -23,6 +23,8 @@ public class HeadBar {
 
     GList _BuffList;
 
+    float _HeightAdjust;
+
     string _BuffLoaderUrl = "ui://xuetiao/buff_loader";
 
     public bool _IsDirty;
@@ -43,7 +45,10 @@ public class HeadBar {
         headbarpanel.packageName = "xuetiao";
         _Headbar.transform.parent = root._ActorObj.transform;
         _Headbar.transform.localScale = Vector3.one;
-        _Headbar.transform.localPosition = new Vector3(0f, 2f, 0f);
+        DisplayData dData = DisplayData.GetData(root._DisplayID);
+        if (dData != null)
+            _HeightAdjust = dData._HeadBarHeight;
+        _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust, 0f);
         _HeadBarCom = headbarpanel.ui;
         _BuffList = _HeadBarCom.GetChild("n7").asList;
         _BloodBar = _HeadBarCom.GetChild("n5").asProgress;
@@ -79,7 +84,7 @@ public class HeadBar {
                 data = BuffData.GetData(_Root.BuffList[i]);
                 item.asCom.GetChild("n0").asLoader.url = string.Format("ui://{0}", data._Icon);
             }
-            _Headbar.transform.localPosition = new Vector3(0f, 2f + (line - 1) * 0.245f, 0f);
+            _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust + (line - 1) * 0.245f, 0f);
         }
 
         _BloodBar.TweenValue(((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
