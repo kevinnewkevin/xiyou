@@ -133,7 +133,7 @@ public class OpraSystem : MonoBehaviour {
 
     void UnloadAsset(ActorData data)
     {
-        AssetLoader.UnloadAsset(data._Asset, true);
+        AssetLoader.UnloadAsset(data._Asset);
     }
 
     void SetActorAction(int animationid)
