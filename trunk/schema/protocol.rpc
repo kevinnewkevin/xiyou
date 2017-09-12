@@ -32,5 +32,5 @@ service COM_ServerToClient{
 	UpdateBagItem(COM_ItemInst item);
 	DeleteItemOK(int64 instId);
 	UpdateTiantiVal(int32 curVal);
-	PromoteUnitOK();			//晋升完成
+	PromoteUnitOK(COM_UnitInfo unit);			//晋升完成
 };

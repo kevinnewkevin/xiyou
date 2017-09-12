@@ -44,6 +44,9 @@ type COM_ServerToClient_DeleteItemOK struct{
 type COM_ServerToClient_UpdateTiantiVal struct{
   curVal int32  //0
 }
+type COM_ServerToClient_PromoteUnitOK struct{
+  unit COM_UnitInfo  //0
+}
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
 }
@@ -62,7 +65,7 @@ type COM_ServerToClientProxy interface{
   UpdateBagItem(item COM_ItemInst ) error // 11
   DeleteItemOK(instId int64 ) error // 12
   UpdateTiantiVal(curVal int32 ) error // 13
-  PromoteUnitOK() error // 14
+  PromoteUnitOK(unit COM_UnitInfo ) error // 14
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -549,6 +552,40 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer)
   }
   return nil
 }
+func (this *COM_ServerToClient_PromoteUnitOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //unit
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize unit
+  {
+    err := this.unit.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_PromoteUnitOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize unit
+  if mask.ReadBit() {
+    err := this.unit.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -782,12 +819,18 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)PromoteUnitOK() error {
+func(this* COM_ServerToClientStub)PromoteUnitOK(unit COM_UnitInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
   err := prpc.Write(buffer,uint16(14))
+  if err != nil{
+    return err
+  }
+  _14 := COM_ServerToClient_PromoteUnitOK{}
+  _14.unit = unit;
+  err = _14.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -991,7 +1034,12 @@ func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_Serve
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  return p.PromoteUnitOK()
+  _14 := COM_ServerToClient_PromoteUnitOK{}
+  err := _14.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.PromoteUnitOK(_14.unit)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {

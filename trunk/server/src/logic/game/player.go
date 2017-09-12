@@ -600,10 +600,8 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	if unit == nil {
 		return
 	}
-	err := unit.Promote()
 
-	if err != nil {
-		return
-	}
-	this.session.PromoteUnitOK()
+	unit.Promote()
+
+	this.session.PromoteUnitOK(unit.GetUnitInfo())
 }

@@ -142,3 +142,16 @@ struct COM_BattleResult{
 	int32 	MySelfDeathNum;
 };
 
+//卡牌晋升
+struct COM_UnitInfo{
+	int64	InstId;
+	int32	UnitId;
+	int32	Level;
+	int32	HP;
+	int32	AGILE;
+	int32	ATK;
+	int32	DEF;
+	int32	MATK;
+	int32	MDEF;
+};
+
