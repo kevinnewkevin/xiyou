@@ -1722,7 +1722,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829850291822368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42, y: 0, z: 0}
+  m_LocalPosition: {x: 0.48, y: 0, z: 0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4530716156930958}
@@ -2093,8 +2093,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1415749486277024}
-  m_LocalRotation: {x: 0.50848573, y: -0.05150658, z: 0.12093717, w: 0.850978}
-  m_LocalPosition: {x: -0.2749796, y: 3.8553667, z: 7.440209}
+  m_LocalRotation: {x: 0.5781334, y: -0.0045912857, z: 0.116386116, w: 0.8075859}
+  m_LocalPosition: {x: -0.04, y: 3.8553667, z: 7.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4823180559534654}
@@ -2103,7 +2103,7 @@ Transform:
   - {fileID: 4576858626561412}
   m_Father: {fileID: 4177223324192624}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 61.387, y: 4.2310004, z: 18.689001}
+  m_LocalEulerAnglesHint: {x: 69.204, y: 20.987001, z: 30.966002}
 --- !u!4 &4381979965917752
 Transform:
   m_ObjectHideFlags: 1
@@ -23682,7 +23682,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1873338938
+  randomSeed: -297857923
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53455,7 +53455,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 2022006567
+  randomSeed: -469629808
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -76839,7 +76839,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -361675216
+  randomSeed: 2146461755
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -94483,7 +94483,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1122588509
+  randomSeed: -59914576
   InitialModule:
     serializedVersion: 3
     enabled: 1
