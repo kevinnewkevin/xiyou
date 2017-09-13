@@ -26,6 +26,9 @@ local level;
 local exp;
 local expBar;
 
+local starEff = nil;
+local starIdx = 0;
+
 function jiesuanjiemian:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = jiesuanjiemian.New();
@@ -73,6 +76,10 @@ function jiesuanjiemian_FlushData()
 	star2_des.text = "回合内胜利";
 	star3_des.text = "阵亡卡牌少于";
 
+	star1.visible = false;
+	star2.visible = false;
+	star3.visible = false;
+
 	local cpData = CheckpointData.GetDataByBattleID(Battle._BattleId);
 	if cpData ~= nil then
 		local eData = EntityData.GetData(cpData._Star1Need);
@@ -102,14 +109,11 @@ function jiesuanjiemian_FlushData()
 
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
-		star1.visible = Proxy4Lua.IsAchieve1;
-		star2.visible = star1.visible and Proxy4Lua.IsAchieve2;
-		star3.visible = star1.visible and star2.visible and Proxy4Lua.IsAchieve3;
+		starEff = {};
+		starEff.max = 10;
+		starEff.count = 0;
 	else
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shibai");
-		star1.visible = false;
-		star2.visible = false;
-		star3.visible = false;
 	end
 
 	if star1.visible then
@@ -134,6 +138,29 @@ function jiesuanjiemian:OnUpdate()
 		jiesuanjiemian_FlushData();
 		UIManager.ClearDirty("jiesuanjiemian");
 	end
+
+	if starEff ~= nil then
+		starEff.count = starEff.count + 1;
+		if starEff.count > starEff.max then
+			if starIdx == 0 then
+				star1.visible = Proxy4Lua.IsAchieve1;
+				starIdx = starIdx + 1;
+				starEff.count = 0;
+				return;
+			end
+			if starIdx == 1 then
+				star2.visible = star1.visible and Proxy4Lua.IsAchieve2;
+				starIdx = starIdx + 1;
+				starEff.count = 0;
+				return;
+			end
+			if starIdx == 2 then
+				star3.visible = star1.visible and star2.visible and Proxy4Lua.IsAchieve3;
+				starIdx = 0;
+				starEff = nil;
+			end
+		end
+	end
 end
 
 function jiesuanjiemian:OnTick()
@@ -153,5 +180,6 @@ function jiesuanjiemian:OnHide()
 end
 
 function jiesuanjiemian_OnOkBtn()
+	starIdx = 0;
 	SceneLoader.LoadScene("main");
 end
