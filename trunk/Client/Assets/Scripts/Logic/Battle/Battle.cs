@@ -160,7 +160,6 @@ public class Battle {
         _ReportIsPlaying = false;
         _Turn = 1;
         _Side = side;
-        Debug.LogError(" Your SIde is : " + side);
         _BattleId = battleid;
         CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
