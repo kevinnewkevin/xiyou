@@ -172,9 +172,44 @@ func (this *BattleRoom) BattleStart() {
 		if p == nil || p.session == nil {
 			continue
 		}
-		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp))
-		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID)
+		targetList := this.findCardsByTarget(p.BattleCamp)
+		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
+		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList)
 	}
+}
+
+func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
+	li := []int32{}
+	for _, p := range this.PlayerList {
+		if p == nil {
+			continue
+		}
+
+		if p.BattleCamp == camp {
+			continue
+		}
+
+		var group *prpc.COM_UnitGroup
+
+		if this.Type == prpc.BT_PVP {
+			group = p.GetUnitGroupById(p.BattleUnitGroup)
+		} else {
+			group = p.GetUnitGroupById(p.BattleUnitGroup)
+		}
+		if group == nil {
+			continue
+		}
+
+		for _, instid := range group.UnitList {
+			unit := p.GetUnit(instid)
+			if unit == nil {
+				continue
+			}
+			li = append(li, unit.UnitId)
+		}
+	}
+
+	return li
 }
 
 //臨時用

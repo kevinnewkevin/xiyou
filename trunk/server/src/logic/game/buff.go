@@ -26,6 +26,7 @@ const (
 
 	kKindUntil = 1			//有行为的buff
 	kKindNow = 2			//无行为的buff
+	kKindStill = 3			//被动buff
 )
 
 var BuffInstId int32 = 1
@@ -65,6 +66,10 @@ func (this *Buff) AddProperty() {
 }
 
 func (this *Buff) DeleteProperty() {
+
+	if this.BuffKind == kKindStill {			//被动buff永远不会删除
+		return
+	}
 
 	fmt.Println("DeleteProperty", this.Data, this.InstId)
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
