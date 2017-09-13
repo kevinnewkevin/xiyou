@@ -266,6 +266,12 @@ public class Actor {
         }
     }
 
+    public void DisplaySkill(int skillid)
+    {
+        SkillData sData = SkillData.GetData(skillid);
+        _Headbar.DisplaySkill(sData._Name);
+    }
+
     //Hud操作
     public void PopContent(int value, string special = "")
     {

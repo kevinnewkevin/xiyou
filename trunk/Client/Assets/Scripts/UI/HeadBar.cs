@@ -11,6 +11,10 @@ public class HeadBar {
 
     GProgressBar _BloodBar;
 
+    GMovieClip _MovieClip;
+
+    GTextField _SkillName;
+
     GTextField _Name;
 
     GTextField _Title;
@@ -58,6 +62,8 @@ public class HeadBar {
         _HeadIconCom = _HeadBarCom.GetChild("n9").asCom;
         _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
         _HeadBarCom.GetController("xuetiao").selectedIndex = state;
+        _MovieClip = _HeadBarCom.GetChild("t0").asMovieClip;
+        _SkillName = _HeadBarCom.GetChild("n11").asTextField;
 
         _IsDirty = true;
     }
@@ -65,6 +71,12 @@ public class HeadBar {
     public void PopContent(int value, string special)
     {
         EmitManager.inst.Emit(_Root._ActorObj.transform, value, special);
+    }
+
+    public void DisplaySkill(string skillName)
+    {
+        _SkillName.text = skillName;
+        _MovieClip.playing = true;
     }
 
     public void Update()
