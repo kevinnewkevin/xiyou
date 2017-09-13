@@ -202,6 +202,7 @@ public class Skill {
             return false;
         }
 
+        _Caster.DisplaySkill(_SkillData._Name);
         if (_SkillData._IsMelee)
             Melee();
         else

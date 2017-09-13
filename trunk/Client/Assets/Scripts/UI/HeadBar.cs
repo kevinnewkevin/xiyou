@@ -11,7 +11,7 @@ public class HeadBar {
 
     GProgressBar _BloodBar;
 
-    GMovieClip _MovieClip;
+    Transition _Transition;
 
     GTextField _SkillName;
 
@@ -62,7 +62,7 @@ public class HeadBar {
         _HeadIconCom = _HeadBarCom.GetChild("n9").asCom;
         _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
         _HeadBarCom.GetController("xuetiao").selectedIndex = state;
-        _MovieClip = _HeadBarCom.GetChild("t0").asMovieClip;
+        _Transition = _HeadBarCom.GetTransition("t0");
         _SkillName = _HeadBarCom.GetChild("n11").asTextField;
 
         _IsDirty = true;
@@ -75,8 +75,10 @@ public class HeadBar {
 
     public void DisplaySkill(string skillName)
     {
+        if (_Transition.playing)
+            _Transition.Stop();
         _SkillName.text = skillName;
-        _MovieClip.playing = true;
+        _Transition.Play();
     }
 
     public void Update()
