@@ -80,6 +80,30 @@ public class GamePlayer {
         return null;
     }
 
+    static public void UpdateUnitIProperty(long instId, int type, int vaule)
+    {
+        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        {
+            if (_CardsByFee[0][i].InstId == instId)
+            {
+                _CardsByFee[0][i].IProperties[type] = vaule;
+            }
+        }
+    }
+
+    static public void UpdateUnitCProperty(long instId, int type, float vaule)
+    {
+        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        {
+            if (_CardsByFee[0][i].InstId == instId)
+            {
+                _CardsByFee[0][i].CProperties[type] = vaule;
+            }
+        }
+    }
+
+
+
     //通过索引获取卡组
     static public List<long> GetGroupCards(int idx)
     {

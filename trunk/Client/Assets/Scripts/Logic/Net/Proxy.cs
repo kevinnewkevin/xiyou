@@ -96,16 +96,19 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool RequestChapterStarRewardOK()
 	{
+        UIManager.Show("qianghuachenggong");
 		return true;
 	}
 
     public bool UpdateUnitIProperty(long instId, int type, int vaule)
     {
+        GamePlayer.UpdateUnitIProperty(instId, type, vaule);
         return true;
     }
 
     public bool UpdateUnitCProperty(long instId, int type, float vaule)
     {
+        GamePlayer.UpdateUnitCProperty(instId, type, vaule);
         return true;
     }
 }
