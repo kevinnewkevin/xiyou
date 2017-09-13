@@ -156,6 +156,7 @@ public static class CustomSettings
         _GT(typeof(SceneLoader)),
         _GT(typeof(Proxy4Lua)),
         _GT(typeof(COM_BattlePosition)),
+        _GT(typeof(COM_BattleResult)),
         _GT(typeof(COM_Unit)),
         _GT(typeof(UIManager)),
         _GT(typeof(UnityEngine.Random)),
