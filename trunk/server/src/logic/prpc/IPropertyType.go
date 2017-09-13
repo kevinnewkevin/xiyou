@@ -7,10 +7,10 @@ const(
   IPT_TITLE = 3
   IPT_EXPERIENCE = 4
   IPT_LEVEL = 5
-  IPT_PROMOTE = 6
-  IPT_COPPER = 7
-  IPT_SILVER = 8
-  IPT_GOLD = 9
+  IPT_COPPER = 6
+  IPT_SILVER = 7
+  IPT_GOLD = 8
+  IPT_PROMOTE = 9
   IPT_MAX = 10
 )
 const( 
@@ -20,10 +20,10 @@ const(
   K_IPT_TITLE = "IPT_TITLE"
   K_IPT_EXPERIENCE = "IPT_EXPERIENCE"
   K_IPT_LEVEL = "IPT_LEVEL"
-  K_IPT_PROMOTE = "IPT_PROMOTE"
   K_IPT_COPPER = "IPT_COPPER"
   K_IPT_SILVER = "IPT_SILVER"
   K_IPT_GOLD = "IPT_GOLD"
+  K_IPT_PROMOTE = "IPT_PROMOTE"
   K_IPT_MAX = "IPT_MAX"
 )
 func ToName_IPropertyType( id int )string{
@@ -40,14 +40,14 @@ func ToName_IPropertyType( id int )string{
       return "IPT_EXPERIENCE"
     case IPT_LEVEL:
       return "IPT_LEVEL"
-    case IPT_PROMOTE:
-      return "IPT_PROMOTE"
     case IPT_COPPER:
       return "IPT_COPPER"
     case IPT_SILVER:
       return "IPT_SILVER"
     case IPT_GOLD:
       return "IPT_GOLD"
+    case IPT_PROMOTE:
+      return "IPT_PROMOTE"
     case IPT_MAX:
       return "IPT_MAX"
     default:
@@ -68,14 +68,14 @@ func ToId_IPropertyType( name string ) int {
       return IPT_EXPERIENCE
     case "IPT_LEVEL":
       return IPT_LEVEL
-    case "IPT_PROMOTE":
-      return IPT_PROMOTE
     case "IPT_COPPER":
       return IPT_COPPER
     case "IPT_SILVER":
       return IPT_SILVER
     case "IPT_GOLD":
       return IPT_GOLD
+    case "IPT_PROMOTE":
+      return IPT_PROMOTE
     case "IPT_MAX":
       return IPT_MAX
     default:
