@@ -1223,6 +1223,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1733230887691036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4524016890271834}
+  m_Layer: 0
+  m_Name: long
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1747579545473592
 GameObject:
   m_ObjectHideFlags: 1
@@ -1381,7 +1396,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1851367449339096
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -1712,7 +1727,7 @@ Transform:
   m_Children:
   - {fileID: 4530716156930958}
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4116422640380438
 Transform:
@@ -1779,7 +1794,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4615063127721264}
   - {fileID: 4785808150349398}
   - {fileID: 4178662976776768}
   - {fileID: 4208675604971528}
@@ -1790,6 +1804,7 @@ Transform:
   - {fileID: 4357467771582206}
   - {fileID: 4364944510548768}
   - {fileID: 4112481629209788}
+  - {fileID: 4524016890271834}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1807,7 +1822,7 @@ Transform:
   - {fileID: 4890383402560968}
   - {fileID: 4206622526396824}
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4196453709367344
 Transform:
@@ -1847,7 +1862,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4223383927311978
 Transform:
@@ -2070,7 +2085,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4364944510548768
 Transform:
@@ -2078,8 +2093,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1415749486277024}
-  m_LocalRotation: {x: 0.4826151, y: -0.053184927, z: 0.11851938, w: 0.866145}
-  m_LocalPosition: {x: -0.10717082, y: 2.9840002, z: 6.904152}
+  m_LocalRotation: {x: 0.50848573, y: -0.05150658, z: 0.12093717, w: 0.850978}
+  m_LocalPosition: {x: -0.2749796, y: 3.8553667, z: 7.440209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4823180559534654}
@@ -2087,8 +2102,8 @@ Transform:
   - {fileID: 4575101470473940}
   - {fileID: 4576858626561412}
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 58.064003, y: -37.587, z: 16.923}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 61.387, y: 4.2310004, z: 18.689001}
 --- !u!4 &4381979965917752
 Transform:
   m_ObjectHideFlags: 1
@@ -2261,6 +2276,20 @@ Transform:
   m_Father: {fileID: 4590337825564242}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4524016890271834
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1733230887691036}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1.4920402, y: 1.4920394, z: 1.4920394}
+  m_Children:
+  - {fileID: 4615063127721264}
+  m_Father: {fileID: 4177223324192624}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4525793846846062
 Transform:
   m_ObjectHideFlags: 1
@@ -2339,7 +2368,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358634253379124}
   m_LocalRotation: {x: -0.41227907, y: 0.3459751, z: -0.27673805, w: 0.79608}
-  m_LocalPosition: {x: -0.78, y: -1.06, z: 3.65}
+  m_LocalPosition: {x: -0.83, y: -1, z: 3.91}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4364944510548768}
@@ -2399,7 +2428,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90.457, y: -108.12399, z: 71.242}
 --- !u!4 &4615063127721264
 Transform:
@@ -2413,7 +2442,7 @@ Transform:
   m_Children:
   - {fileID: 4116422640380438}
   - {fileID: 4044557050929490}
-  m_Father: {fileID: 4177223324192624}
+  m_Father: {fileID: 4524016890271834}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4624283083060360
@@ -2663,7 +2692,7 @@ Transform:
   - {fileID: 4319512535029538}
   - {fileID: 4259591396986056}
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4794442378444200
 Transform:
@@ -2703,7 +2732,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4811037942943570
 Transform:
@@ -2894,7 +2923,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4923260683600358
 Transform:
@@ -2949,7 +2978,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4177223324192624}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4968167836016552
 Transform:
@@ -3261,7 +3290,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -2006261169
+  randomSeed: 1055799815
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11932,7 +11961,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 2031718368
+  randomSeed: -652226219
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17936,13 +17965,13 @@ ParticleSystem:
       maxColor: {r: 0.38235295, g: 0.71886414, b: 1, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 0.8
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: 0.8
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -17954,7 +17983,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.625
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -20868,13 +20897,13 @@ ParticleSystem:
       maxColor: {r: 0.38235295, g: 0.71886414, b: 1, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 0.8
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: 0.8
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -20886,7 +20915,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.625
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -23653,7 +23682,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -981197162
+  randomSeed: -1873338938
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -23785,7 +23814,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 0.6431373, b: 0, a: 1}
-      maxColor: {r: 0, g: 0.05076067, b: 0.08088237, a: 1}
+      maxColor: {r: 0, g: 0.24437125, b: 0.44852942, a: 1}
     startSize:
       minMaxState: 3
       scalar: 3
@@ -38555,7 +38584,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -242234994
+  randomSeed: -375678601
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -44567,7 +44596,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -496687677
+  randomSeed: 123020768
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -47576,7 +47605,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -805726945
+  randomSeed: 1911675241
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53426,7 +53455,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1748962902
+  randomSeed: 2022006567
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53558,7 +53587,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 0.6431373, b: 0, a: 1}
-      maxColor: {r: 0, g: 0.7529412, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.37093422, b: 0.49264705, a: 1}
     startSize:
       minMaxState: 3
       scalar: 2
@@ -53579,7 +53608,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.5
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -64977,7 +65006,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1019591656
+  randomSeed: -1381219258
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -65124,7 +65153,7 @@ ParticleSystem:
       maxColor: {r: 0.52205884, g: 0.88133866, b: 1, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 16
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -70858,7 +70887,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -282791577
+  randomSeed: 375271492
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -71005,7 +71034,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 23
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -71486,18 +71515,18 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 0
-          inSlope: 32.222237
-          outSlope: 32.222237
+          inSlope: 6.751851
+          outSlope: 6.751851
           tangentMode: 34
         - serializedVersion: 2
-          time: 0.03103447
+          time: 0.14810753
           value: 1
-          inSlope: 32.222237
-          outSlope: 32.222237
+          inSlope: 6.751851
+          outSlope: 6.751851
           tangentMode: 34
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -71722,15 +71751,15 @@ ParticleSystem:
       minMaxState: 1
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.7794118, g: 0.7794118, b: 0.7794118, a: 0}
-        key1: {r: 0, g: 0.26090273, b: 0.77205884, a: 0.627451}
-        key2: {r: 0.13333334, g: 0, b: 0, a: 0}
+        key0: {r: 0.38602942, g: 0.4638438, b: 0.75, a: 0}
+        key1: {r: 0, g: 0.26090273, b: 0.77205884, a: 0.71552116}
+        key2: {r: 0.13333334, g: 0, b: 0, a: 0.61960787}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 0
+        ctime0: 386
         ctime1: 65535
         ctime2: 65535
         ctime3: 0
@@ -71738,17 +71767,17 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 193
-        atime1: 31033
-        atime2: 65535
-        atime3: 0
+        atime0: 0
+        atime1: 21588
+        atime2: 47995
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -76810,7 +76839,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 167178876
+  randomSeed: -361675216
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -76855,13 +76884,13 @@ ParticleSystem:
         m_RotationOrder: 4
     startSpeed:
       minMaxState: 3
-      scalar: 15
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: 0.75
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -76873,7 +76902,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6666667
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -82749,13 +82778,13 @@ ParticleSystem:
       maxColor: {r: 0.38235295, g: 0.71886414, b: 1, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 0.8
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: 0.8
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -82767,7 +82796,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.625
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -88489,7 +88518,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1573283525
+  randomSeed: 1321877858
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -91493,7 +91522,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 247989473
+  randomSeed: -1034645829
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -94454,7 +94483,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -814134803
+  randomSeed: -1122588509
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -94499,13 +94528,13 @@ ParticleSystem:
         m_RotationOrder: 4
     startSpeed:
       minMaxState: 3
-      scalar: 5
+      scalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -94517,7 +94546,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -94589,7 +94618,7 @@ ParticleSystem:
       maxColor: {r: 0.5529412, g: 1, b: 0.98039216, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 1
+      scalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -94601,19 +94630,19 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.5
+          value: 0.33333334
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
     startSizeY:
       minMaxState: 3
       scalar: 1
@@ -94993,20 +95022,20 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 0
-          inSlope: 3.596492
-          outSlope: 3.596492
+          inSlope: 2.8082201
+          outSlope: 2.8082201
           tangentMode: 34
         - serializedVersion: 2
-          time: 0.27804872
+          time: 0.35609743
           value: 1
-          inSlope: 1.1056786
-          outSlope: 1.1056786
+          inSlope: 0.62759507
+          outSlope: 0.62759507
           tangentMode: 34
         - serializedVersion: 2
           time: 1
           value: 0
-          inSlope: -1.385135
-          outSlope: -1.385135
+          inSlope: -1.55303
+          outSlope: -1.55303
           tangentMode: 34
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -95111,26 +95140,20 @@ ParticleSystem:
   RotationModule:
     enabled: 1
     x:
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -95140,36 +95163,24 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
     y:
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -95179,15 +95190,9 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
     curve:
       minMaxState: 3
       scalar: 0.7853981
@@ -100299,7 +100304,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1481951213
+  randomSeed: -1635910386
   InitialModule:
     serializedVersion: 3
     enabled: 1
