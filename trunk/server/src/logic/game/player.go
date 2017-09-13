@@ -659,5 +659,5 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 
 	unit.Promote(level_info)
 
-	this.session.PromoteUnitOK(unit.GetUnitInfo())
+	this.session.PromoteUnitOK()
 }

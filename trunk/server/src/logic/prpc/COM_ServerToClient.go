@@ -45,8 +45,15 @@ type COM_ServerToClient_DeleteItemOK struct{
 type COM_ServerToClient_UpdateTiantiVal struct{
   curVal int32  //0
 }
-type COM_ServerToClient_PromoteUnitOK struct{
-  unit COM_UnitInfo  //0
+type COM_ServerToClient_UpdateUnitIProperty struct{
+  instid int64  //0
+  iType int32  //1
+  value int32  //2
+}
+type COM_ServerToClient_UpdateUnitCProperty struct{
+  instid int64  //0
+  cType int32  //1
+  value float32  //2
 }
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
@@ -66,8 +73,10 @@ type COM_ServerToClientProxy interface{
   UpdateBagItem(item COM_ItemInst ) error // 11
   DeleteItemOK(instId int64 ) error // 12
   UpdateTiantiVal(curVal int32 ) error // 13
-  PromoteUnitOK(unit COM_UnitInfo ) error // 14
-  RequestChapterStarRewardOK() error // 15
+  UpdateUnitIProperty(instid int64, iType int32, value int32 ) error // 14
+  UpdateUnitCProperty(instid int64, cType int32, value float32 ) error // 15
+  PromoteUnitOK() error // 16
+  RequestChapterStarRewardOK() error // 17
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -585,34 +594,140 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer)
   }
   return nil
 }
-func (this *COM_ServerToClient_PromoteUnitOK)Serialize(buffer *bytes.Buffer) error {
+func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
-  mask.WriteBit(true) //unit
+  mask.WriteBit(this.instid!=0)
+  mask.WriteBit(this.iType!=0)
+  mask.WriteBit(this.value!=0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
   }
-  // serialize unit
+  // serialize instid
   {
-    err := this.unit.Serialize(buffer)
+    if(this.instid!=0){
+      err := prpc.Write(buffer,this.instid)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize iType
+  {
+    if(this.iType!=0){
+      err := prpc.Write(buffer,this.iType)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize value
+  {
+    if(this.value!=0){
+      err := prpc.Write(buffer,this.value)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateUnitIProperty)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instid
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.instid)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize iType
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.iType)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize value
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.value)
     if err != nil{
       return err
     }
   }
   return nil
 }
-func (this *COM_ServerToClient_PromoteUnitOK)Deserialize(buffer *bytes.Buffer) error{
+func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.instid!=0)
+  mask.WriteBit(this.cType!=0)
+  mask.WriteBit(this.value!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instid
+  {
+    if(this.instid!=0){
+      err := prpc.Write(buffer,this.instid)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize cType
+  {
+    if(this.cType!=0){
+      err := prpc.Write(buffer,this.cType)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize value
+  {
+    if(this.value!=0){
+      err := prpc.Write(buffer,this.value)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buffer) error{
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
     return err
   }
-  // deserialize unit
+  // deserialize instid
   if mask.ReadBit() {
-    err := this.unit.Deserialize(buffer)
+    err := prpc.Read(buffer,&this.instid)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize cType
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.cType)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize value
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.value)
     if err != nil{
       return err
     }
@@ -853,7 +968,7 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)PromoteUnitOK(unit COM_UnitInfo ) error {
+func(this* COM_ServerToClientStub)UpdateUnitIProperty(instid int64, iType int32, value int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -862,9 +977,41 @@ func(this* COM_ServerToClientStub)PromoteUnitOK(unit COM_UnitInfo ) error {
   if err != nil{
     return err
   }
-  _14 := COM_ServerToClient_PromoteUnitOK{}
-  _14.unit = unit;
+  _14 := COM_ServerToClient_UpdateUnitIProperty{}
+  _14.instid = instid;
+  _14.iType = iType;
+  _14.value = value;
   err = _14.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)UpdateUnitCProperty(instid int64, cType int32, value float32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(15))
+  if err != nil{
+    return err
+  }
+  _15 := COM_ServerToClient_UpdateUnitCProperty{}
+  _15.instid = instid;
+  _15.cType = cType;
+  _15.value = value;
+  err = _15.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)PromoteUnitOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(16))
   if err != nil{
     return err
   }
@@ -875,7 +1022,7 @@ func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(15))
+  err := prpc.Write(buffer,uint16(17))
   if err != nil{
     return err
   }
@@ -1072,6 +1219,34 @@ func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_Ser
   }
   return p.UpdateTiantiVal(_13.curVal)
 }
+func Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _14 := COM_ServerToClient_UpdateUnitIProperty{}
+  err := _14.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.UpdateUnitIProperty(_14.instid,_14.iType,_14.value)
+}
+func Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _15 := COM_ServerToClient_UpdateUnitCProperty{}
+  err := _15.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.UpdateUnitCProperty(_15.instid,_15.cType,_15.value)
+}
 func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1079,12 +1254,7 @@ func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_Serve
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _14 := COM_ServerToClient_PromoteUnitOK{}
-  err := _14.Deserialize(buffer)
-  if err != nil{
-    return err
-  }
-  return p.PromoteUnitOK(_14.unit)
+  return p.PromoteUnitOK()
 }
 func Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1137,8 +1307,12 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 13 :
       return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
     case 14 :
-      return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
+      return Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer,p);
     case 15 :
+      return Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer,p);
+    case 16 :
+      return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
+    case 17 :
       return Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)

@@ -33,6 +33,8 @@ service COM_ServerToClient{
 	UpdateBagItem(COM_ItemInst item);
 	DeleteItemOK(int64 instId);
 	UpdateTiantiVal(int32 curVal);
-	PromoteUnitOK(COM_UnitInfo unit);			//晋升完成
+	UpdateUnitIProperty(int64 instid, int32 iType, int32 value);			//同步I属性
+	UpdateUnitCProperty(int64 instid, int32 cType, float value);			//同步C属性
+	PromoteUnitOK();			//晋升完成
 	RequestChapterStarRewardOK();
 };

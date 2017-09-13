@@ -584,6 +584,8 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 
 	this.IProperties[iType] += value
 
+	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, this.IProperties[iType])
+
 	return nil
 }
 
@@ -595,6 +597,8 @@ func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 
 	this.CProperties[cType] += value
 
+	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, this.CProperties[cType])
+
 	return nil
 }
 func (this *GameUnit) SetIProperty(iType int32, value int32) error {
@@ -604,6 +608,8 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 	}
 
 	this.IProperties[iType] = value
+
+	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, value)
 
 	return nil
 }
@@ -616,6 +622,8 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 
 	this.CProperties[cType] = value
 
+	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, value)
+
 	return nil
 }
 
@@ -623,13 +631,22 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 func (this *GameUnit) Promote(info *PromoteInfo) error {
 
 	this.Level = info.Level
-	this.IProperties[prpc.IPT_HP] += info.Hp
-	this.CProperties[prpc.CPT_HP] += float32(info.Hp)
-	this.CProperties[prpc.CPT_ATK] += float32(info.ATK)
-	this.CProperties[prpc.CPT_DEF] += float32(info.DEF)
-	this.CProperties[prpc.CPT_MAGIC_ATK] += float32(info.MATK)
-	this.CProperties[prpc.CPT_MAGIC_DEF] += float32(info.MDEF)
-	this.CProperties[prpc.CPT_AGILE] += float32(info.AGILE)
+	//this.IProperties[prpc.IPT_HP] += info.Hp
+	//this.CProperties[prpc.CPT_HP] += float32(info.Hp)
+	//this.CProperties[prpc.CPT_ATK] += info.ATK
+	//this.CProperties[prpc.CPT_DEF] += info.DEF
+	//this.CProperties[prpc.CPT_MAGIC_ATK] += info.MATK
+	//this.CProperties[prpc.CPT_MAGIC_DEF] += info.MDEF
+	//this.CProperties[prpc.CPT_AGILE] += info.AGILE
+
+	this.SetIProperty(prpc.IPT_LEVEL, info.Level)
+	this.UpdateIProperty(prpc.IPT_HP, info.Hp)
+	this.UpdateCProperty(prpc.CPT_HP, float32(info.Hp))
+	this.UpdateCProperty(prpc.CPT_ATK, info.ATK)
+	this.UpdateCProperty(prpc.CPT_DEF, info.DEF)
+	this.UpdateCProperty(prpc.CPT_MAGIC_ATK, info.MATK)
+	this.UpdateCProperty(prpc.CPT_MAGIC_DEF, info.MDEF)
+	this.UpdateCProperty(prpc.CPT_AGILE, info.AGILE)
 
 	return nil
 }
