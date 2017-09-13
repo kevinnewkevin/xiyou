@@ -145,5 +145,63 @@ public class Proxy4Lua {
         }
     }
 
+    static public bool IsAchieve1
+    {
+        get
+        {
+            if (Battle._Result == null)
+                return false;
+
+            CheckpointData cpData = CheckpointData.GetDataByBattleID(Battle._BattleId);
+            if (cpData == null)
+                return false;
+
+            if(Battle._Result.KillMonsters == null)
+                return false;
+
+            for(int i=0; i < Battle._Result.KillMonsters.Length; ++i)
+            {
+                if (Battle._Result.KillMonsters [i] == cpData._Star1Need)
+                    return true;
+            }
+            return false;
+        }
+    }
+
+    static public bool IsAchieve2
+    {
+        get
+        {
+            if (Battle._Result == null)
+                return false;
+
+            CheckpointData cpData = CheckpointData.GetDataByBattleID(Battle._BattleId);
+            if (cpData == null)
+                return false;
+
+            if(Battle._Result.BattleRound <= cpData._Star2Need)
+                return true;
+
+            return false;
+        }
+    }
+
+    static public bool IsAchieve3
+    {
+        get
+        {
+            if (Battle._Result == null)
+                return false;
+
+            CheckpointData cpData = CheckpointData.GetDataByBattleID(Battle._BattleId);
+            if (cpData == null)
+                return false;
+
+            if(Battle._Result.MySelfDeathNum <= cpData._Star3Need)
+                return true;
+            return false;
+        }
+    }
+
     #endregion
 }

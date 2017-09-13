@@ -27,7 +27,7 @@ public class Battle {
     static Dictionary<int, SkillData> skillAssets;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
-    static public BattleResult _Result = BattleResult.BR_None;
+    static public COM_BattleResult _Result = null;
     static public COM_BattleReport _BattleReport;
     static public List<COM_BattleAction> _ReportAction;
 
@@ -82,7 +82,7 @@ public class Battle {
         }
     }
 
-    static public BattleResult SetResult
+    static public COM_BattleResult Result
     {
         set
         {
@@ -470,7 +470,7 @@ public class Battle {
 
     static public void Judgement()
     {
-        if (_Result == BattleResult.BR_None)
+        if(_Result == null || (BattleResult)_Result.Win == BattleResult.BR_None)
             CurrentState = BattleState.BS_Oper;
         else
             CurrentState = BattleState.BS_Result;
@@ -629,7 +629,9 @@ public class Battle {
     {
         get
         {
-            return _Result == BattleResult.BR_Win;
+            if (_Result == null)
+                return false;
+            return _Result.Win == (int)BattleResult.BR_Win;
         }
     }
 
@@ -727,7 +729,7 @@ public class Battle {
     {
         UnLoadAssets();
         CurrentState = BattleState.BS_Max;
-        _Result = BattleResult.BR_None;
+        _Result = null;
         _ReportIsPlaying = false;
         _ShowTimeDoing = false;
         _LongestShowTime = 0f;
