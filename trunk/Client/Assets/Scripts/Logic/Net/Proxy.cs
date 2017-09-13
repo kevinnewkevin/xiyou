@@ -89,7 +89,7 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
-    public bool PromoteUnitOK(ref COM_UnitInfo inst)
+    public bool PromoteUnitOK()
 	{
 		return true;
 	}
@@ -98,4 +98,14 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		return true;
 	}
+
+    public bool UpdateUnitIProperty(long instId, int type, int vaule)
+    {
+        return true;
+    }
+
+    public bool UpdateUnitCProperty(long instId, int type, float vaule)
+    {
+        return true;
+    }
 }
