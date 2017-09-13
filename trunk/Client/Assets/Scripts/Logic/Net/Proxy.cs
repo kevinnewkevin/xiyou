@@ -22,7 +22,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards)
     {
-        Battle.Init(side, battleid);
+        Battle.Init(side, battleid, opponentCards);
         SceneLoader.LoadScene(Define.SCENE_BATTLE);
         return true;
     }

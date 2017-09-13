@@ -63,6 +63,8 @@ public class Battle {
 
     static public BattleCamera _BattleCamera;
 
+    static public int[] _OpponentCards;
+
     static public COM_BattleReport BattleReport
     {
         set
@@ -150,8 +152,9 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init(int side, int battleid = 0)
+    static public void Init(int side, int battleid = 0, int[] opponentCards = null)
     {
+        _OpponentCards = opponentCards;
         _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
@@ -674,7 +677,14 @@ public class Battle {
                 AssetLoader.LaunchBundle(eData._UnitId);
         }
 
-        //Component
+        //opponent
+        if (_OpponentCards != null)
+        {
+            for(int i=0; i < _OpponentCards.Length; ++i)
+            {
+                AssetLoader.LaunchBundle(_OpponentCards[i]);
+            }
+        }
     }
 
     static void DisposeAssets()
@@ -698,7 +708,14 @@ public class Battle {
                 AssetLoader.DisposeBundle(eData._UnitId);
         }
 
-        //Component
+        //opponent
+        if (_OpponentCards != null)
+        {
+            for(int i=0; i < _OpponentCards.Length; ++i)
+            {
+                AssetLoader.DisposeBundle(_OpponentCards[i]);
+            }
+        }
     }
 
     static public bool InBattle
