@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="382,378">
+  <displayList>
+    <image id="n0_fdjr" name="n0" src="ry0u3" xy="1,0"/>
+    <image id="n1_fdjr" name="n1" src="ry0u1" xy="0,-26"/>
+  </displayList>
+  <transition name="t0" autoPlay="true">
+    <item time="0" type="Alpha" target="n1_fdjr" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n1_fdjr" tween="true" startValue="0,-26" endValue="0,-198" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n0_fdjr" tween="true" startValue="1,0" endValue="1,101" duration="12" ease="Circ.InOut"/>
+  </transition>
+</component>

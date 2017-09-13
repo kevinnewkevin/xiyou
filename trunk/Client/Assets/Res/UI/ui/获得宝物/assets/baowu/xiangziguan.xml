@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="382,378">
+  <displayList>
+    <image id="n0_f8un" name="n0" src="ry0u2" xy="189,187" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="100">
+    <item time="0" type="Rotation" target="n0_f8un" tween="true" startValue="0" endValue="15" duration="3"/>
+    <item time="3" type="Rotation" target="n0_f8un" tween="true" startValue="15" endValue="-15" duration="3"/>
+    <item time="6" type="Rotation" target="n0_f8un" tween="true" startValue="-15" endValue="10" duration="3"/>
+    <item time="9" type="Rotation" target="n0_f8un" tween="true" startValue="10" endValue="-10" duration="3"/>
+    <item time="12" type="Rotation" target="n0_f8un" tween="true" startValue="-10" endValue="0" duration="3"/>
+    <item time="15" type="Rotation" target="n0_f8un" tween="true" startValue="0" endValue="0" duration="6"/>
+  </transition>
+</component>

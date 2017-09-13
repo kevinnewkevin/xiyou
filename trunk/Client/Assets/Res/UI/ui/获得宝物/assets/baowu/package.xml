@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="t8pdjij8" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="ry0u0" name="baowu_com.xml" path="/"/>
+    <image id="ry0u1" name="baoxiang_gai.png" path="/"/>
+    <image id="ry0u2" name="baoxiang_guan.png" path="/"/>
+    <image id="ry0u3" name="baoxiang_kai.png" path="/"/>
+    <component id="dwqv4" name="daoju_com.xml" path="/" exported="true"/>
+    <component id="f8un5" name="xiangziguan.xml" path="/"/>
+    <image id="f8un6" name="daojukuang_hong.png" path="/"/>
+    <image id="fdjr7" name="guang.png" path="/"/>
+    <component id="fdjr8" name="xiangzikai.xml" path="/"/>
+  </resources>
+  <publish name="baowu" maxAtlasSize="1024" extractAlpha="true">
+    <atlas name="默认" index="0"/>
+  </publish>
+</packageDescription>
