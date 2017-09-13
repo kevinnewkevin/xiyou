@@ -90,6 +90,7 @@ func LoadUnitTable(filename string) error {
 		u.IProp[prpc.IPT_COPPER] = csv.GetInt32(r, prpc.K_IPT_COPPER)
 		u.IProp[prpc.IPT_SILVER] = csv.GetInt32(r, prpc.K_IPT_SILVER)
 		u.IProp[prpc.IPT_GOLD] = csv.GetInt32(r, prpc.K_IPT_GOLD)
+		u.IProp[prpc.IPT_PROMOTE] = csv.GetInt32(r, prpc.K_IPT_PROMOTE)
 
 		u.CProp[prpc.CPT_HP] = csv.GetFloat32(r, prpc.K_CPT_HP)
 		u.CProp[prpc.CPT_CHP] = csv.GetFloat32(r, prpc.K_CPT_HP)
