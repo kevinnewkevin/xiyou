@@ -10,6 +10,8 @@ public class DisplayData {
     public string _CardIcon;
     public float _Distance;
     public float _HeadBarHeight;
+    public float _BattleSkillScale;
+    public float _BattleSkillHeight;
 
     static Dictionary<int, DisplayData> metaData;
 
@@ -35,6 +37,8 @@ public class DisplayData {
             data._CardIcon = parser.GetString(i, "CardIcon");
             data._Distance = parser.GetFloat(i, "Distance");
             data._HeadBarHeight = parser.GetFloat(i, "HeadBarHeight");
+            data._BattleSkillScale = parser.GetFloat(i, "ScaleInBattleSkill");
+            data._BattleSkillHeight = parser.GetFloat(i, "HeightInBattleSkill");
 
             if(metaData.ContainsKey(data._Id))
             {

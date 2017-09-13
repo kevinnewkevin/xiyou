@@ -57,6 +57,8 @@ public class Battle {
 
     static public int _BattleId;
 
+    static public int _CasterDisplayID;
+
     static public Vector3 _Center;
 
     static public List<long> _MyGroupCards;

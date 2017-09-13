@@ -71,7 +71,7 @@ public class Proxy4Lua {
         if (string.IsNullOrEmpty(assetPath))
             return new FairyGUI.GoWrapper(new GameObject());
         GameObject go = AssetLoader.LoadAsset(assetPath);
-        go.transform.position = new Vector3(0f, 0f, 1000f);
+        go.transform.position = new Vector3(0f, 0f, 100f);
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
         go.transform.Rotate(Vector3.up, 180f);
         return new FairyGUI.GoWrapper(go);
@@ -82,7 +82,7 @@ public class Proxy4Lua {
         if (string.IsNullOrEmpty(assetPath))
             return new FairyGUI.GoWrapper(new GameObject());
         GameObject go = AssetLoader.LoadAsset(assetPath);
-        go.transform.position = new Vector3(0f, height, 1000f);
+        go.transform.position = new Vector3(0f, height, 100f);
         go.transform.localScale = Vector3.one * scale;
         go.transform.Rotate(Vector3.up, 180f);
         return new FairyGUI.GoWrapper(go);

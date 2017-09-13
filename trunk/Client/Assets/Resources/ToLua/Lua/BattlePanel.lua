@@ -17,6 +17,10 @@ local cardsInGroup = {};
 local cardsInGroupNum;
 local fees = {};
 
+local skillActor;
+local skillActor_modRes;
+local skillObj = nil;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -65,6 +69,8 @@ function BattlePanel:OnInit()
 
 	cardsInGroupNum = self.contentPane:GetChild("n43");
 
+	skillActor = self.contentPane:GetChild("n44").asGraph;
+
 	BattlePanel_FlushData();
 end
 
@@ -85,18 +91,42 @@ function BattlePanel:OnUpdate()
 		BattlePanel_FlushData();
 		UIManager.ClearDirty("BattlePanel");
 	end
+
+	if Battle._CasterDisplayID ~= 0 then
+		local dData = DisplayData.GetData(Battle._CasterDisplayID);
+		if dData ~= nil then
+			skillObj = {};
+			skillObj.max = 2;
+			skillObj.count = 0;
+			skillActor_modRes = dData._AssetPath;
+			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(skillActor_modRes, dData._BattleSkillScale, dData._BattleSkillHeight));
+		else
+			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+			Proxy4Lua.UnloadAsset(skillActor_modRes);
+			skillActor_modRes = "";
+		end
+		Battle._CasterDisplayID = 0;
+	end
 end
 
 function BattlePanel:OnTick()
-	--2秒倒计时 注意return
-	if battleStart == nil then
-		return;
+	--2秒倒计时
+	if battleStart ~= nil then
+		battleStart.count = battleStart.count + 1;
+		if battleStart.count > battleStart.max then
+			BattlePanel_OnHiddenBattleStart();
+			battleStart = nil;
+		end
 	end
 
-	battleStart.count = battleStart.count + 1;
-	if battleStart.count > battleStart.max then
-		BattlePanel_OnHiddenBattleStart();
-		battleStart = nil;
+	if skillObj ~= nil then
+		skillObj.count = skillObj.count + 1;
+		if skillObj.count > skillObj.max then
+			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+			Proxy4Lua.UnloadAsset(skillActor_modRes);
+			skillActor_modRes = "";
+			skillObj = nil;
+		end
 	end
 end
 

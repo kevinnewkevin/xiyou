@@ -203,6 +203,9 @@ public class Skill {
         }
 
         _Caster.DisplaySkill(_SkillData._Name);
+        Battle._CasterDisplayID = _Caster._DisplayID;
+        UIManager.SetDirty("BattlePanel");
+
         if (_SkillData._IsMelee)
             Melee();
         else
