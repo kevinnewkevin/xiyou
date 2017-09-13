@@ -49,7 +49,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId
 	u.Skill = map[int32]*Skill{}
-	u.Level = 0
+	u.Level = 1
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
 	for i := 0; i < len(t.Skills); i++ {
@@ -582,7 +582,9 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 		return errors.New("error iType")
 	}
 
+	fmt.Println("UpdateIProperty, itype", iType, "front pro ", this.IProperties[iType])
 	this.IProperties[iType] += value
+	fmt.Println("UpdateIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
 	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, this.IProperties[iType])
 
@@ -595,7 +597,9 @@ func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 		return errors.New("error cType")
 	}
 
+	fmt.Println("UpdateCProperty, cType", cType, "front pro ", this.CProperties[cType])
 	this.CProperties[cType] += value
+	fmt.Println("UpdateCProperty, cType", cType, "after pro ", this.CProperties[cType])
 
 	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, this.CProperties[cType])
 
@@ -607,7 +611,9 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 		return errors.New("error iType")
 	}
 
+	fmt.Println("SetIProperty, itype", iType, "front pro ", this.IProperties[iType])
 	this.IProperties[iType] = value
+	fmt.Println("SetIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
 	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, value)
 
@@ -620,7 +626,9 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 		return errors.New("error cType")
 	}
 
+	fmt.Println("SetCProperty, cType", cType, "front pro ", this.CProperties[cType])
 	this.CProperties[cType] = value
+	fmt.Println("SetCProperty, cType", cType, "after pro ", this.CProperties[cType])
 
 	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, value)
 
@@ -630,7 +638,7 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 
 func (this *GameUnit) Promote(info *PromoteInfo) error {
 
-	this.Level = info.Level
+	//this.Level = info.Level
 	//this.IProperties[prpc.IPT_HP] += info.Hp
 	//this.CProperties[prpc.CPT_HP] += float32(info.Hp)
 	//this.CProperties[prpc.CPT_ATK] += info.ATK
@@ -639,7 +647,7 @@ func (this *GameUnit) Promote(info *PromoteInfo) error {
 	//this.CProperties[prpc.CPT_MAGIC_DEF] += info.MDEF
 	//this.CProperties[prpc.CPT_AGILE] += info.AGILE
 
-	this.SetIProperty(prpc.IPT_LEVEL, info.Level)
+	this.SetIProperty(prpc.IPT_PROMOTE, info.Level)
 	this.UpdateIProperty(prpc.IPT_HP, info.Hp)
 	this.UpdateCProperty(prpc.CPT_HP, float32(info.Hp))
 	this.UpdateCProperty(prpc.CPT_ATK, info.ATK)
