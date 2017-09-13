@@ -15,6 +15,11 @@ public class CameraTracker : MonoBehaviour {
 
     private Camera mainCamera;
 
+    Vector3 _PlusPos;
+    GameObject _FocusObject;
+    Vector3 _PosSnapShot;
+    Quaternion _RotSnapShot;
+
     public float MoveToLookAt
     {
         set
@@ -28,9 +33,42 @@ public class CameraTracker : MonoBehaviour {
         }
     }
 
+    public void Focus(GameObject go)
+    {
+        _FocusObject = go;
+        // disable obj's trigger
+        BoxCollider bc = go.GetComponent<BoxCollider>();
+        if (bc != null)
+            bc.enabled = false;
+
+        // snapshot preTransform info
+        _PosSnapShot = transform.position;
+        _RotSnapShot = transform.rotation;
+
+        World._DisableMainSceneOperate = true;
+
+        Vector3 destPos = go.transform.position + _PlusPos;
+        iTween.MoveTo(gameObject, iTween.Hash("time", 0.6f, "position", destPos, "oncomplete", "Focused", "easetype", iTween.EaseType.linear));
+    }
+
+    public void CancelFocus()
+    {
+        if (_FocusObject != null)
+        {
+            BoxCollider bc = _FocusObject.GetComponent<BoxCollider>();
+            if (bc != null)
+                bc.enabled = true;
+        }
+        
+        iTween.MoveTo(gameObject, iTween.Hash("time", 0.6f, "position", _PosSnapShot, "oncomplete", "CancelFocused", "easetype", iTween.EaseType.linear));
+    }
+
     void Awake()
     {
         mainCamera = Camera.main;
+
+        string[] devPos = Define.GetStr("WorldCamera_focusPlus").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
+        _PlusPos = new Vector3(float.Parse(devPos[0]), float.Parse(devPos[1]), float.Parse(devPos[2]));
     }
 
 	// Use this for initialization
@@ -50,5 +88,16 @@ public class CameraTracker : MonoBehaviour {
     void Moved()
     {
         _CanMove = false;
+    }
+
+    void Focused()
+    {
+        
+    }
+
+    void CancelFocused()
+    {
+        transform.rotation = _RotSnapShot;
+        World._DisableMainSceneOperate = false;
     }
 }

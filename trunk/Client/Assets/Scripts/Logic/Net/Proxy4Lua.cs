@@ -134,5 +134,16 @@ public class Proxy4Lua {
         os.Play();
     }
 
+    static public void FocusNpcObject(int npcid)
+    {
+        Actor npc = World.GetNpc(npcid);
+        if (npc != null)
+        {
+            CameraTracker ct = Camera.main.GetComponent<CameraTracker>();
+            if (ct != null)
+                ct.Focus(npc._ActorObj);
+        }
+    }
+
     #endregion
 }

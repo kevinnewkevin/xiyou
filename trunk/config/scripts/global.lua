@@ -12,9 +12,9 @@ end
 
 function ExcuteNpc(id)
 	if id == 1 then
-		Proxy4Lua.BattleJoin();
-		local MessageBox = UIManager.ShowMessageBox();
-		MessageBox:SetData("提示", "匹配中 请稍后...", true);
+		Proxy4Lua.FocusNpcObject(1);
+--		local MessageBox = UIManager.ShowMessageBox();
+--		MessageBox:SetData("提示", "匹配中 请稍后...", true);
 	end
 end
 
@@ -47,4 +47,5 @@ function RegGlobalValue()
 	Define.Set("DestLight", "Effect/dianjiguangquan");
 	Define.Set("BornPos", "20,-14.3,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
+	Define.Set("WorldCamera_focusPlus", "0,1,5");	--主场景公告牌偏移坐标
 end

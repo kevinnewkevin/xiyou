@@ -18,7 +18,7 @@ public class SceneLoader
 
             if(Battle.CurrentState == Battle.BattleState.BS_Init)
             {
-                Battle.LaunchSkillBundle();
+                Battle.LaunchBundle();
             }
             CameraEffect.Continue();
         });

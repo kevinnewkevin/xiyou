@@ -653,7 +653,7 @@ public class Battle {
         return true;
     }
 
-    static public void LaunchSkillBundle()
+    static public void LaunchBundle()
     {
         EntityData eData = null;
         //AI

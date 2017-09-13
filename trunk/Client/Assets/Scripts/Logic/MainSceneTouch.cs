@@ -27,6 +27,19 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchBegin(EventContext context)
     {
+        if (World._DisableMainSceneOperate)
+        {
+            bool isTouchOnNpc = false;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
+            if (Physics.Raycast(ray, out hit))
+                isTouchOnNpc = hit.transform.CompareTag("Npc");
+
+            if (Stage.isTouchOnUI || !isTouchOnNpc)
+                Camera.main.GetComponent<CameraTracker>().CancelFocus();
+            return;
+        }
+        
         if (Stage.isTouchOnUI)
             return;
         
@@ -37,6 +50,9 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchEnd()
     {
+        if (World._DisableMainSceneOperate)
+            return;
+        
         _IsPress = false;
         if (_IsMoved)
             return;
@@ -94,6 +110,9 @@ public class MainSceneTouch : MonoBehaviour {
 
     void OnTouchMove(EventContext context)
     {
+        if (World._DisableMainSceneOperate)
+            return;
+        
         if (!Stage.isTouchOnUI)
         {
             if (_IsPress)

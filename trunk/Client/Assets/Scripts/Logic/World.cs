@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class World {
 
+    static public bool _DisableMainSceneOperate;
+
     const int MAIN_SCENE_ID = 1;
 
     static Actor _PlayerActor;
@@ -48,6 +50,16 @@ public class World {
         {
             return _PlayerActor;
         }
+    }
+
+    static public Actor GetNpc(int npcid)
+    {
+        for(int i=0; i < _NpcActors.Length; ++i)
+        {
+            if(_NpcActors[i].InstID == npcid)//npc 不走服务器 instid即为tableid
+                return _NpcActors[i];
+        }
+        return null;
     }
 
     static public void Update()
