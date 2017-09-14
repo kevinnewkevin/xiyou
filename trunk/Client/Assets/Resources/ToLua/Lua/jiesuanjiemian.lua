@@ -85,6 +85,10 @@ function jiesuanjiemian_FlushData()
 	star2.visible = false;
 	star3.visible = false;
 
+	star1_ac.text = "";
+	star2_ac.text = "";
+	star3_ac.text = "";
+
 	local cpData = CheckpointData.GetDataByBattleID(Battle._BattleId);
 	if cpData ~= nil then
 		local eData = EntityData.GetData(cpData._Star1Need);
@@ -121,21 +125,8 @@ function jiesuanjiemian_FlushData()
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shibai");
 		okBtn.enabled = true;
 		okLbl.visible = true;
-	end
-
-	if star1.visible then
-		star1_ac.text = "达成";
-	else
 		star1_ac.text = "未达成";
-	end
-	if star2.visible then
-		star2_ac.text = "达成";
-	else
 		star2_ac.text = "未达成";
-	end
-	if star3.visible then
-		star3_ac.text = "达成";
-	else
 		star3_ac.text = "未达成";
 	end
 end
@@ -153,12 +144,18 @@ function jiesuanjiemian:OnUpdate()
 				star1.visible = Proxy4Lua.IsAchieve1;
 				starIdx = starIdx + 1;
 				starEff.count = 0;
+				if star1.visible then
+					star1_ac.text = "达成";
+				end
 				return;
 			end
 			if starIdx == 1 then
 				star2.visible = star1.visible and Proxy4Lua.IsAchieve2;
 				starIdx = starIdx + 1;
 				starEff.count = 0;
+				if star2.visible then
+					star2_ac.text = "达成";
+				end
 				return;
 			end
 			if starIdx == 2 then
@@ -167,6 +164,9 @@ function jiesuanjiemian:OnUpdate()
 				starEff = nil;
 				okBtn.enabled = true;
 				okLbl.visible = true;
+				if star3.visible then
+					star3_ac.text = "达成";
+				end
 			end
 		end
 	end
