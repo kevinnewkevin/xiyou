@@ -263,6 +263,7 @@ func LoadPromoteTable(filename string) error {
 
 		PromoteTable[e_id] = append(PromoteTable[e_id], &p_info)
 
+
 	}
 	fmt.Println("PromoteTable", PromoteTable)
 	return nil

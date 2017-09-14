@@ -40,6 +40,9 @@ type GamePlayer struct {
 
 	//Bag
 	BagItems				[]*prpc.COM_ItemInst
+
+	//经验
+	Exp 					int32		//经验
 }
 
 var (
@@ -92,6 +95,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
+	p.Exp = 0
 	//来两个默认的小兵
 	//p.UnitList = append(p.UnitList, p.NewGameUnit(4))
 	//p.UnitList = append(p.UnitList, p.NewGameUnit(5))
@@ -583,6 +587,8 @@ func (this *GamePlayer)AddExp(val int32)  {
 	if curExp<0 {
 		curExp = 0
 	}
+	//在这里加上对于经验值和等级的判断
+
 	this.MyUnit.SetIProperty(prpc.IPT_EXPERIENCE,curExp)
 
 	fmt.Println("append EXP",val,"all EXP",curExp)
@@ -636,28 +642,52 @@ func (this *GamePlayer) ClearAllBuff ()  {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////卡牌强化
+/////升级 强化....
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer) PromoteUnit (unitid int64)  {
+	fmt.Println("PromoteUnit", unitid)
 	unit := this.GetUnit(unitid)
 	if unit == nil {
 		return
 	}
-
 	promote_info := GetPromoteRecordById(unit.UnitId)
 
 	if promote_info == nil {
 		return
 	}
 
-	if unit.Level >= int32(len(promote_info)) {
+
+	if unit.IProperties[prpc.IPT_PROMOTE] >= int32(len(promote_info)) {
 		return
 	}
 
-	level_info := promote_info[unit.Level]
+	level_info := promote_info[unit.IProperties[prpc.IPT_PROMOTE]]
 
 	unit.Promote(level_info)
 
 	this.session.PromoteUnitOK()
 }
+
+
+func (this *GamePlayer) MyUnitLevelUp()  {
+
+	LevelUp_info := GetPromoteRecordById(1)
+	fmt.Println("MyUnitLevelUp 1", LevelUp_info)
+
+	if LevelUp_info == nil {
+		return
+	}
+
+	if this.MyUnit.Level >= int32(len(LevelUp_info)) {
+		return
+	}
+
+	level_info := LevelUp_info[this.MyUnit.Level]
+
+	this.MyUnit.Promote(level_info)
+	fmt.Println("MyUnitLevelUp 2", level_info)
+
+	//this.session.PromoteUnitOK()
+}
+
