@@ -161,7 +161,7 @@ function BattlePanel_FlushData()
 			eData = Battle.GetHandCard(i-1);
 			dData = Battle.GetHandCardDisplay(i-1);
 			cards[i]["icon"].url = "ui://" .. dData._CardIcon;
-			cards[i]["power"].text = i;
+			cards[i]["power"].text = Battle.GetHandCardStrLv(i-1);
 			cards[i]["cost"].text = eData._Cost;
 			cards[i]["card"].visible = true;
 

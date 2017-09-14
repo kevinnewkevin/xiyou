@@ -16,6 +16,7 @@ local stateIcon;
 local stateBar;
 
 function zhujiemian:OnEntry()
+	UIManager.RegIDirty("zhujiemian");
 	Define.LaunchUIBundle("icon");
 	Window = zhujiemian.New();
 	Window:Show();

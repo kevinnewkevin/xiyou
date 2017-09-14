@@ -193,7 +193,7 @@ function paiku_FlushData()
 		fee.text = entityData._Cost
 		local radImg = itemBtn:GetChild("n10");
 		local level = itemBtn:GetChild("n6");
-		local instId = GamePlayer.GetInstID(crtGroupIdx,  i - 1);
+		local instId = GamePlayer.GetInstIDFromGroup(crtGroupIdx,  i - 1);
 		local entityInst = GamePlayer.GetCardByInstID(instId);
 		local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 		level.text = entityInst.IProperties[9] .. "";
