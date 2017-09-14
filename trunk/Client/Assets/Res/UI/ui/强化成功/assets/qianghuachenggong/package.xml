@@ -23,7 +23,7 @@
     <image id="myecl" name="dengjitisheng.png" path="/" exported="true"/>
     <component id="myecn" name="queding_Button.xml" path="/" exported="true"/>
   </resources>
-  <publish name="qianghuachenggong" extractAlpha="true">
+  <publish name="qianghuachenggong" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>
