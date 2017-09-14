@@ -10,6 +10,7 @@ local atk;
 local def;
 local matk;
 local mdef;
+local holder;
 
 local levelUpHp;
 local levelUpAtk;
@@ -57,9 +58,8 @@ function qianghuachenggong:OnInit()
 	levelUpAgility = self.contentPane:GetChild("n30");
 	levelUpMatk = self.contentPane:GetChild("n27"); 
 	levelUpMdef = self.contentPane:GetChild("n28");
+	holder = self.contentPane:GetChild("n56").asGraph;
 
-		local back= self.contentPane:GetChild("n54");
-		back.onClick:Add(qianghuachenggong_Onback);
 
 	qianghuachenggong_FlushData();
 end
@@ -89,12 +89,10 @@ function qianghuachenggong:OnHide()
 	Window:Hide();
 end
 
-
-function qianghuachenggong_Onback(context)
-end
-
-
 function qianghuachenggong_FlushData()
+	
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("Effect/dengjitishen"));
+
 	local instId = UIParamHolder.Get("qiecuo1");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	local entityInst = GamePlayer.GetCardByInstID(instId);

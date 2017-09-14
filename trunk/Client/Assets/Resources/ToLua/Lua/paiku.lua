@@ -91,6 +91,7 @@ function paiku_RenderListItem(index, obj)
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
 	local img = obj:GetChild("n5");
 	local feeImg = obj:GetChild("n3");
+	local radImg = obj:GetChild("n10");
 	img.asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj.onClick:Add(paiku_OnCardItem);
 	local instId = GamePlayer.GetInstID(crtCardsFee, index);
@@ -105,6 +106,18 @@ function paiku_RenderListItem(index, obj)
 	fee.enabled = not isIn;
 	feeImg.enabled = not isIn;
 	obj.draggable = not isIn;
+
+	local entityInst = GamePlayer.GetCardByInstID(instId);
+	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
+	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+	if itemNum >= levelData._ItemNum   then
+		radImg.visible = true;
+	else
+		radImg.visible = false;
+	end
+
+
+
 end
 
 function paiku_OnDeleteGroup(context)
