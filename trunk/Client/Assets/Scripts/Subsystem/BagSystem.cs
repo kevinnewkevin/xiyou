@@ -10,12 +10,15 @@ public class BagSystem {
     {
 		_ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 		List<COM_ItemInst> itemList = new List<COM_ItemInst> ();
-		
-		for (int i = 0; i < items.Length; i++) 
-		{
-			itemList.Add (items [i]);
-		}
 
+        if ( items != null )
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                itemList.Add(items[i]);
+            }
+        }
+        
 		_ItemsByType.Add(0, itemList);
 
        // _ItemsByType [0].Sort(Sort);
