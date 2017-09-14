@@ -68,7 +68,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool AddBagItem(ref COM_ItemInst inst)
 	{
-	//	BagSystem.AddItem(inst);
+		BagSystem.AddItem(inst);
 		return true;
 	}
 	public bool UpdateBagItem(ref COM_ItemInst inst)
