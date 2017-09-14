@@ -19,6 +19,8 @@ public class HeadBar {
 
     GTextField _Title;
 
+    GTextField _Lv;
+
     GComponent _HeadIconCom;
 
     GLoader _QuestIcon;
@@ -56,6 +58,7 @@ public class HeadBar {
         _HeadBarCom = headbarpanel.ui;
         _BuffList = _HeadBarCom.GetChild("n7").asList;
         _BloodBar = _HeadBarCom.GetChild("n5").asProgress;
+        _Lv = _HeadBarCom.GetChild("n3").asTextField;
         GComponent labelCom = _HeadBarCom.GetChild("n8").asCom;
         _Name = labelCom.GetChild("n0").asTextField;
         _Title = labelCom.GetChild("n1").asTextField;
@@ -105,6 +108,7 @@ public class HeadBar {
 
         _Name.text = _Root._Name;
         _Title.text = _Root._Title;
+        _Lv.text = _Root._StrLv.ToString();
 
         if (!_Root.HasQuest)
             _HeadIconCom.visible = false;

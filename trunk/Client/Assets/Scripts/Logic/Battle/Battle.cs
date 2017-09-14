@@ -303,7 +303,7 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId, 0);
                 float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
                 if (_LongestShowTime < clipLen)
                     _LongestShowTime = clipLen;
@@ -385,7 +385,7 @@ public class Battle {
     }
 
     //场上添加一个角色
-    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId)
+    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId, int strLv)
     {
         Actor actor = GetActor(instid);
         if (actor != null)
@@ -395,7 +395,7 @@ public class Battle {
             GameObject.Destroy(go);
             return actor;
         }
-        _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId);
+        _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId, strLv);
         _ActorInScene[pos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [pos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
@@ -538,7 +538,7 @@ public class Battle {
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
             EntityData eData = EntityData.GetData(entity.UnitId);
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
-            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100, eData._DisplayId);
+            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100, eData._DisplayId, entity.IProperties[9]);
             RemoveHandCard(_SelectedHandCardInstID);
             CostFee(eData._Cost);
         }
@@ -554,7 +554,7 @@ public class Battle {
         COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
         EntityData eData = EntityData.GetData(entity.UnitId);
         DisplayData displayData = DisplayData.GetData(eData._DisplayId);
-        AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, 0, 100, 100, eData._DisplayId);
+        AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, 0, 100, 100, eData._DisplayId, entity.IProperties[9]);
     }
 
     static public void ClearSimActor()
@@ -577,6 +577,14 @@ public class Battle {
         EntityData eData = EntityData.GetData(_HandCards[idx].UnitId);
         
         return eData;
+    }
+
+    static public int GetHandCardStrLv(int idx)
+    {
+        if (idx < 0 || idx >= _HandCards.Count)
+            return null;
+
+        return _HandCards[idx].IProperties[9];
     }
 
     static public DisplayData GetHandCardDisplay(int idx)

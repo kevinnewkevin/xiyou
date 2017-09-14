@@ -22,6 +22,8 @@ public class Actor {
 
     long _InstID;
 
+    public int _StrLv;
+
     public int _DisplayID;
 
     //Animator _Animator;
@@ -64,7 +66,7 @@ public class Actor {
         Init(false);
     }
 
-    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayid)
+    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayid, int strLv)
     {
         if (go == null)
         {
@@ -74,6 +76,7 @@ public class Actor {
         _ActorObj = go;
         _InstID = instid;
         _Pos = pos;
+        _StrLv = strLv;
         _RealPosInScene = realPos;
         _CrtValue = crtHp;
         _MaxValue = maxHp;
