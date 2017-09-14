@@ -120,6 +120,19 @@ public class BagSystem {
 		return _ItemsByType [crtTab].Count;
     }
 
+    public static int GetItemMaxNum(int itemId)
+    {
+        int num = 0;
+        for (int i = 0; i < _ItemsByType[0].Count; ++i)
+        {
+            if (_ItemsByType[0][i].ItemId == itemId)
+            {
+                num++;
+            }
+        }
+        return num;
+    }
+
     static public void Fini()
     {
         if(_ItemsByType != null)

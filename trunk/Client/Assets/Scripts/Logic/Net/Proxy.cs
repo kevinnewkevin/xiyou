@@ -91,12 +91,14 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool PromoteUnitOK()
 	{
+        UIManager.Show("qianghuachenggong");
+        UIManager.SetDirty("qianghuachenggong");
+        UIManager.SetDirty("xiangxiziliao");
 		return true;
 	}
 
 	public bool RequestChapterStarRewardOK()
 	{
-        UIManager.Show("qianghuachenggong");
 		return true;
 	}
 
