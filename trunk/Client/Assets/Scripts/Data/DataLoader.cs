@@ -62,6 +62,7 @@ public class DataLoader {
         RegistTables("Battle", BattleData.ParseData);
         RegistTables("Talk", TalkData.ParseData);
         RegistTables("Strengthen", StrengthenData.ParseData);
+        RegistTables("Exp", ExpData.ParseData);
     }
 
     static public void BeginLoad()
