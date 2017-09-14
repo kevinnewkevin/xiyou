@@ -202,12 +202,4 @@ public class UIManager {
         if (GamePlayer._CPropDirty.Contains(uiName))
             GamePlayer._CPropDirty.Add(uiName);
     }
-
-    static public Window GetWindow(string uiName)
-    {
-        if (!_Windows.ContainsKey(uiName))
-            return null;
-
-        return _Windows [uiName].GetWindow();
-    }
 }

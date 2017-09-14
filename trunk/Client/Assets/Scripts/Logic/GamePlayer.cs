@@ -116,7 +116,7 @@ public class GamePlayer {
 
         if (_InstID == instId)
         {
-            _Data.IProperties [type] = vaule;
+            _Data.CProperties [type] = vaule;
         }
 
         for(int i=0; i < _CPropDirty.Count; ++i)
