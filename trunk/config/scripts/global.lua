@@ -11,8 +11,8 @@ function OnLevelWasLoaded(level)
 end
 
 function ExcuteNpc(id)
-	if id == 1 then
-		Proxy4Lua.FocusNpcObject(1);
+	if id == 2 then
+		Proxy4Lua.FocusNpcObject(2);
 --		local MessageBox = UIManager.ShowMessageBox();
 --		MessageBox:SetData("提示", "匹配中 请稍后...", true);
 	end
