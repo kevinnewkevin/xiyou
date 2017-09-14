@@ -191,13 +191,13 @@ public class UIManager {
         return _Windows [uiName].GetWindow();
     }
 
-    static public void RegIPropDirty(string uiName)
+    static public void RegIDirty(string uiName)
     {
         if (GamePlayer._IPropDirty.Contains(uiName))
             GamePlayer._IPropDirty.Add(uiName);
     }
 
-    static public void RegCPropDirty(string uiName)
+    static public void RegCDirty(string uiName)
     {
         if (GamePlayer._CPropDirty.Contains(uiName))
             GamePlayer._CPropDirty.Add(uiName);
