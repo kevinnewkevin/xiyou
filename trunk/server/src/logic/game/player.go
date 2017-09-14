@@ -672,12 +672,6 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 
 	items := this.GetBagItemByTableId(level_info.ItemId)
 
-	fmt.Println("PromoteUnit, items", items, level_info)
-
-	for _, i := range items {
-		fmt.Println("PromoteUnit, item", i)
-	}
-
 	if items == nil || len(items) <= 0{
 		fmt.Println("cant find item, this id is ", level_info.ItemId)
 		return
@@ -696,11 +690,6 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	this.DelItemByTableId(level_info.ItemId, level_info.ItemNum)
 
 	unit.Promote(level_info)
-	fmt.Println("PromoteUnit, items 2", items, level_info)
-
-	for _, i := range items {
-		fmt.Println("PromoteUnit, item 2.5", i)
-	}
 
 	this.session.PromoteUnitOK()
 }
