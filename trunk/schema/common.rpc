@@ -93,6 +93,7 @@ struct COM_BattleUnit{
 	int32 		Position;
 	int32 		HP;			//卡牌的最大血量 可以变化
 	int32 		CHP;		//卡牌的当前血量
+	int32 		Level;		//等级
 	string 		Name;
 };
 
@@ -142,6 +143,7 @@ struct COM_BattleResult{
 	int32[] KillMonsters;
 	int32 	BattleRound;
 	int32 	MySelfDeathNum;
+	COM_ItemInst[]	BattleItems;
 };
 
 //卡牌晋升

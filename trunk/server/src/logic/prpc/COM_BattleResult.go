@@ -9,6 +9,7 @@ type COM_BattleResult struct{
   KillMonsters []int32  //2
   BattleRound int32  //3
   MySelfDeathNum int32  //4
+  BattleItems []COM_ItemInst  //5
 }
 func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -18,6 +19,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(len(this.KillMonsters) != 0)
   mask.WriteBit(this.BattleRound!=0)
   mask.WriteBit(this.MySelfDeathNum!=0)
+  mask.WriteBit(len(this.BattleItems) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -75,6 +77,21 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize BattleItems
+  if len(this.BattleItems) != 0{
+    {
+      err := prpc.Write(buffer,uint(len(this.BattleItems)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.BattleItems {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
@@ -124,6 +141,21 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
     err := prpc.Read(buffer,&this.MySelfDeathNum)
     if err != nil{
       return err
+    }
+  }
+  // deserialize BattleItems
+  if mask.ReadBit() {
+    var size uint
+    err := prpc.Read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.BattleItems = make([]COM_ItemInst,size)
+    for i,_ := range this.BattleItems{
+      err := this.BattleItems[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
     }
   }
   return nil

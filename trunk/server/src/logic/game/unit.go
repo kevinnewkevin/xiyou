@@ -282,6 +282,15 @@ func (this *GameUnit) GetBattleUnitCOM() prpc.COM_BattleUnit {
 	u.CHP = int32(this.GetCProperty(prpc.CPT_CHP))
 	u.Position = this.Position
 	u.Name = this.InstName
+
+	if this.Owner == nil {
+		u.Level = this.IProperties[prpc.IPT_PROMOTE]
+	} else if this.UnitId == this.Owner.MyUnit.UnitId {
+		u.Level = this.Level
+	} else {
+		u.Level = this.IProperties[prpc.IPT_PROMOTE]
+	}
+
 	return u
 }
 

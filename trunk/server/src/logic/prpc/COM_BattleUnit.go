@@ -9,7 +9,8 @@ type COM_BattleUnit struct{
   Position int32  //2
   HP int32  //3
   CHP int32  //4
-  Name string  //5
+  Level int32  //5
+  Name string  //6
 }
 func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -19,6 +20,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.Position!=0)
   mask.WriteBit(this.HP!=0)
   mask.WriteBit(this.CHP!=0)
+  mask.WriteBit(this.Level!=0)
   mask.WriteBit(len(this.Name) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
@@ -71,6 +73,15 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize Level
+  {
+    if(this.Level!=0){
+      err := prpc.Write(buffer,this.Level)
+      if err != nil{
+        return err
+      }
+    }
+  }
   // serialize Name
   if len(this.Name) != 0{
     err := prpc.Write(buffer,this.Name)
@@ -117,6 +128,13 @@ func (this *COM_BattleUnit)Deserialize(buffer *bytes.Buffer) error{
   // deserialize CHP
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.CHP)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize Level
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.Level)
     if err != nil{
       return err
     }

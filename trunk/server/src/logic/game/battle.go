@@ -267,6 +267,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		var money int32
 		var win int32
+		var itemnum int32
 		round := this.Round
 		deathnum := p.MyDeathNum
 		killmonster := p.KillUnits
@@ -274,9 +275,10 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		if p.BattleCamp == camp {
 			money = 2000
 			win = 1
+			itemnum = 20
 		} else {
 			money = 1000
-			win = 0
+			itemnum = 10
 		}
 
 		result := prpc.COM_BattleResult{}
@@ -286,6 +288,14 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		result.BattleRound = round
 		result.KillMonsters = killmonster
 		result.MySelfDeathNum = deathnum
+
+		for _, itemid := range []int32{2,3,4} {
+			items := GenItemInst(itemid, itemnum)
+			p.AddBagItemByItemId(itemid, itemnum)
+			for _, item := range items {
+				result.BattleItems = append(result.BattleItems, *item)
+			}
+		}
 
 		fmt.Println("roomover 11111", this.Type)
 		if this.Type == prpc.BT_PVE {
