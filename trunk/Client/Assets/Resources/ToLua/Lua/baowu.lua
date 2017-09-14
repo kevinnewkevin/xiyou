@@ -18,6 +18,8 @@ local dropItemUrl = "url://baowu/daoju_com";
 local readyOutDrop;
 local canExit;
 
+local timeOut;
+
 function baowu:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = baowu.New();
@@ -47,6 +49,10 @@ function baowu:OnInit()
 	outTrans = outCom:GetTransition("t0");
 
 	openCom.onClick:Add(baowu_OnBoxBtn);
+
+	timeOut = {};
+	timeOut.max = 2;
+	timeOut.count = 0;
 
 	baowu_FlushData();
 end
@@ -124,7 +130,13 @@ function baowu:OnUpdate()
 end
 
 function baowu:OnTick()
-	
+	if timeOut ~= nil then
+		timeOut.count = timeOut.count + 1;
+		if timeOut.count >= timeOut.max then
+			baowu_OnBoxBtn();
+			timeOut = nil;
+		end
+	end
 end
 
 function baowu:isShow()
