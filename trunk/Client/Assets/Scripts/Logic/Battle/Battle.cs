@@ -43,6 +43,7 @@ public class Battle {
 
     static float _LongestShowTime;
     static bool _ShowTimeDoing;
+    static bool _IsEnding;
 
     static public long _SelectedHandCardInstID;
     static public List<COM_Unit> _HandCards = new List<COM_Unit>();
@@ -370,6 +371,9 @@ public class Battle {
 
     static void End()
     {
+        if (_IsEnding)
+            return;
+        
         if (_BattleReport != null)
         {
             CurrentState = BattleState.BS_Play;
@@ -377,6 +381,7 @@ public class Battle {
         }
 
         UIManager.Show("jiesuanjiemian");
+        _IsEnding = true;
     }
 
     //场上添加一个角色
@@ -721,6 +726,32 @@ public class Battle {
         }
     }
 
+    static public int DropItemCount
+    {
+        get
+        {
+            return 1;
+            if (_Result == null)
+                return 0;
+            return 0;//_Result.dropitem.len
+        }
+    }
+
+    static public COM_ItemInst DropItem(int idx)
+    {
+        COM_ItemInst isnt = new COM_ItemInst();
+        isnt.ItemId = 2;
+        isnt.Stack_ = 5;
+        return isnt;
+        if (_Result == null)
+            return null;
+
+        if(idx < 0 || idx >= 0)//_Result.dropitem.len)
+            return null;
+        
+        return null;//_Result.dropitem[idx];
+    }
+
     static public bool InBattle
     {
         get{ return CurrentState != BattleState.BS_Max; } 
@@ -734,6 +765,7 @@ public class Battle {
         _Result = null;
         _ReportIsPlaying = false;
         _ShowTimeDoing = false;
+        _IsEnding = false;
         _LongestShowTime = 0f;
         _Fee = 0;
         _BattleId = 0;

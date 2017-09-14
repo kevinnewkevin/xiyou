@@ -4,6 +4,7 @@ jiesuanjiemian = fgui.window_class(WindowBase)
 local Window;
 
 local okBtn;
+local okLbl;
 local resultImg;
 
 local star1;
@@ -47,6 +48,10 @@ function jiesuanjiemian:OnInit()
 
 	okBtn = self.contentPane:GetChild("n33").asButton;
 	okBtn.onClick:Add(jiesuanjiemian_OnOkBtn);
+	okBtn.enabled = false;
+
+	okLbl = self.contentPane:GetChild("n31");
+	okLbl.visible = false;
 
 	star1 = self.contentPane:GetChild("n29");
 	star2 = self.contentPane:GetChild("n30");
@@ -114,6 +119,8 @@ function jiesuanjiemian_FlushData()
 		starEff.count = 0;
 	else
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shibai");
+		okBtn.enabled = true;
+		okLbl.visible = true;
 	end
 
 	if star1.visible then
@@ -158,6 +165,8 @@ function jiesuanjiemian:OnUpdate()
 				star3.visible = star1.visible and star2.visible and Proxy4Lua.IsAchieve3;
 				starIdx = 0;
 				starEff = nil;
+				okBtn.enabled = true;
+				okLbl.visible = true;
 			end
 		end
 	end
@@ -181,5 +190,13 @@ end
 
 function jiesuanjiemian_OnOkBtn()
 	starIdx = 0;
-	SceneLoader.LoadScene("main");
+	okBtn.enabled = false;
+	okLbl.visible = false;
+
+	if Battle.DropItemCount > 0 then
+		UIManager.Hide("jiesuanjiemian");
+		UIManager.Show("baowu");
+	else
+		SceneLoader.LoadScene("main");
+	end
 end
