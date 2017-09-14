@@ -10,6 +10,7 @@ local isInGroup;
 
 local fee;
 local name;
+local level;
 
 local skillList;
 local hp;
@@ -54,6 +55,11 @@ local rightLevelUp;
 local levelUpBtn;
 local needMoneyLab;
 local needItemNumLab; 
+local needItemIcon;
+local needItemIconback;
+local needItem;
+local needItemBar;
+local levelUpRad;
 
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
@@ -86,11 +92,14 @@ function xiangxiziliao:OnInit()
 		btnItem = btnList:GetChildAt(i-1);
 		btnItem.data = i-1;
 		btnItem.onClick:Add(xiangxiziliao_OnBtnItemClick);
+		if i == btnMax then 
+			levelUpRad = btnItem:GetChild("n5");
+		end
 	end
 	rightInfo.visible = true;
 	rightLevelUp.visible = false;
 	btnList.selectedIndex = 0;
-
+	level= self.contentPane:GetChild("n59");
 	fee = self.contentPane:GetChild("n58");
 	name = self.contentPane:GetChild("n60");
 	skillList = rightInfo:GetChild("n237").asList;
@@ -130,8 +139,12 @@ function xiangxiziliao:OnInit()
 	levelUpAgility = rightLevelUp:GetChild("n272");
 	levelUpMatk = rightLevelUp:GetChild("n269"); 
 	levelUpMdef = rightLevelUp:GetChild("n270");
-
-
+	needMoneyLab = rightLevelUp:GetChild("n304");
+	needItemNumLab = rightLevelUp:GetChild("n301"); 
+	needItem= rightLevelUp:GetChild("n297"); 
+	needItemIcon= needItem:GetChild("n1"); 
+	needItemIconback= needItem:GetChild("n0"); 
+	needItemBar = rightLevelUp:GetChild("n300");
 	xiangxiziliao_FlushData();
 end
 
@@ -242,6 +255,7 @@ function xiangxiziliao_FlushData()
 	name.text = entityData._Name;
 
 	local entityInst = GamePlayer.GetCardByInstID(instId);
+	level.text =  entityInst.IProperties[9] .. "";
 	hp.text = entityInst.CProperties[1];
 	agility.text = entityInst.CProperties[7];
 	atk.text = entityInst.CProperties[3];
@@ -263,7 +277,7 @@ function xiangxiziliao_FlushData()
 	levelMatk.text = entityInst.CProperties[5];
 	levelMdef.text = entityInst.CProperties[6];
 	
-	local  levelData =  StrengthenData.GetData( entityInst.UnitId, entityInst.Level+1 );
+	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 	addLevelHp.text = levelData._Hp .. "";
 	addLevelAtk.text = levelData._Atk .. "";
 	addLevelDef.text = levelData._Def .. "";
@@ -277,7 +291,22 @@ function xiangxiziliao_FlushData()
 	levelUpAgility.text = levelData._Agile + entityInst.CProperties[7]  .. "";
 	levelUpMatk.text = levelData._MagicAtk + entityInst.CProperties[5]  .. "";
 	levelUpMdef.text = levelData._MagicDef + entityInst.CProperties[6]  .. "";
-
+	needMoneyLab.text = levelData._ItemNum .. "";
+	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+	needItemBar.value = itemNum/levelData._ItemNum*100;
+	needItemNumLab.text = itemNum .. "/" .. levelData._ItemNum ;
+	local itemdata = ItemData.GetData(levelData._ItemId);
+	needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
+	needItemIconback.asLoader.url = "ui://icon/" .. itemdata._IconBack;
+	
+	if itemNum >= levelData._ItemNum   then
+		levelUpBtn.enabled  = true;
+		levelUpRad.visible = true;
+	else
+		levelUpRad.visible = false;
+		levelUpBtn.enabled  = false;
+	end
+	
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = SkillData.GetData(entityData._Skills[i - 1]);
