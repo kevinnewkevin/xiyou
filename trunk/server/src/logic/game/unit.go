@@ -639,6 +639,34 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 }
 
 func (this *GameUnit) CheckExp(exp int32) int32 {
+	fmt.Println("CheckExp in", exp)
+	if this.Owner == nil {
+		return 0
+	}
+
+	if this.Owner.MyUnit.InstId != this.InstId {
+		return 0
+	}
+
+	exp_info := GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
+	if exp_info == 0 {
+		return 0
+	}
+	if exp_info > exp {
+		return exp
+	}
+
+	for exp_info < exp {
+		promote := GetPromoteRecordById(this.UnitId)
+		fmt.Println("this.IProperties[prpc.IPT_PROMOTE]", this.IProperties[prpc.IPT_PROMOTE])
+		fmt.Println("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE]])
+		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE]])
+
+		exp -= exp_info
+		exp_info = GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
+	}
+
+	fmt.Println("CheckExp out final", exp)
 
 	return exp
 }

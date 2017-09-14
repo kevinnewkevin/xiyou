@@ -67,6 +67,7 @@ var (
 	SkillLuaTable = map[int32]*SkillLuaRecord{}
 	BuffTable = map[int32]*BuffRecord{}
 	BattleTable = map[int32]*BattleRecord{}
+	ExpTable = map[int32]int32{}
 	PromoteTable = map[int32][]*PromoteInfo{}
 )
 
@@ -274,3 +275,24 @@ func LoadPromoteTable(filename string) error {
 func GetPromoteRecordById(id int32) []*PromoteInfo {
 	return PromoteTable[id]
 }
+func LoadExpTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+
+		Level := csv.GetInt32(r, "Lv")
+		Exp := csv.GetInt32(r, "Exp")
+
+		ExpTable[Level] = Exp
+	}
+	return nil
+}
+
+func GetExpRecordById(level int32) int32 {
+	return ExpTable[level]
+}
+
+

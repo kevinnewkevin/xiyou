@@ -74,6 +74,11 @@ func (this *App) Run() {
 		fmt.Println("LoadPromoteTable", err.Error())
 		return
 	}
+	err = game.LoadExpTable("../../../config/tables/Exp.csv")
+	if err != nil {
+		fmt.Println("LoadExpTable", err.Error())
+		return
+	}
 
 	game.InitLua("../../../config/scripts/")
 
