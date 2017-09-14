@@ -84,15 +84,16 @@ end
 function zhujiemian_FlushData()
 	local displayData = GamePlayer.GetMyDisplayData();
 	headIcon.url = "ui://" .. displayData._HeadIcon;
+	local needExp = ExpData.NeedExp(GamePlayer._Data.IProperties[5]);
 	playerName.text = GamePlayer._Name;
-	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. 99999;
+	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. needExp;
 	playerLevel.text = GamePlayer._Data.IProperties[5];
 
 	gold.text = GamePlayer._Data.IProperties[8];
 	chopper.text = GamePlayer._Data.IProperties[6];
 	stamaPoint.text = GamePlayer._Data.IProperties[2];
 
-	expBar.value = GamePlayer._Data.IProperties[4] / 99999.0 * 100;
+	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 end
 
 function zhujiemian_OnFolder()
