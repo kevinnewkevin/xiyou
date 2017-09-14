@@ -420,13 +420,13 @@ func (this *GamePlayer)SyncBag()  {
 			this.AddBagItemByItemId(int32(i+1),10)
 		}
 	}
-	for _,item := range this.BagItems{
-		if item.ItemId== 2 {
-			this.DelItemByTableId(2,1000)
-		}
-
-		fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(this.BagItems))
-	}
+	//for _,item := range this.BagItems{
+	//	if item.ItemId== 2 {
+	//		this.DelItemByTableId(2,1000)
+	//	}
+	//
+	//	fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(this.BagItems))
+	//}
 /////
 	items := []prpc.COM_ItemInst{}
 
