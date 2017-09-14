@@ -191,6 +191,19 @@ function paiku_FlushData()
 		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 		local fee = itemBtn:GetChild("n7");
 		fee.text = entityData._Cost
+		local radImg = itemBtn:GetChild("n10");
+		local level = itemBtn:GetChild("n6");
+		local instId = GamePlayer.GetInstID(crtGroupIdx,  i - 1);
+		local entityInst = GamePlayer.GetCardByInstID(instId);
+		local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
+		level.text = entityInst.IProperties[9] .. "";
+		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+		if itemNum >= levelData._ItemNum   then
+			radImg.visible = true;
+		else
+			radImg.visible = false;
+		end
+
 		itemBtn.onClick:Add(paiku_OnCardInGroup); 
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
