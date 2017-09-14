@@ -107,7 +107,7 @@ function zhujiemian_OnCardCargo()
 end
 
 function zhujiemian_OnTaskBtn()
-	
+	UIManager.Show("jiehun");
 end
 
 function zhujiemian_OnQieCuoBtn()
