@@ -254,6 +254,8 @@ func LoadPromoteTable(filename string) error {
 		p_info.MATK = csv.GetFloat32(r, "MATK")
 		p_info.MDEF = csv.GetFloat32(r, "MDEF")
 		p_info.AGILE = csv.GetFloat32(r, "AGILE")
+		p_info.ItemId = csv.GetInt32(r, "ItemID")
+		p_info.ItemNum = csv.GetInt32(r, "ItemNum")
 
 
 		_, ok := PromoteTable[e_id]

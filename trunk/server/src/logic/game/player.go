@@ -515,6 +515,21 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 }
 
 func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
+	items := this.GetBagItemByTableId(tableId)
+	if items == nil {
+		return
+	}
+
+	for _, item := range items {
+		if item.Stack_ >= delNum {
+			this.DelItemByInstId(item.InstId, delNum)
+			continue
+		} else {
+			this.DelItemByInstId(item.InstId, item.Stack_)
+			delNum -= item.Stack_
+			continue
+		}
+	}
 	
 }
 
@@ -657,14 +672,43 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 		return
 	}
 
-
 	if unit.IProperties[prpc.IPT_PROMOTE] >= int32(len(promote_info)) {
 		return
 	}
 
 	level_info := promote_info[unit.IProperties[prpc.IPT_PROMOTE]]
 
+	items := this.GetBagItemByTableId(level_info.ItemId)
+
+	fmt.Println("PromoteUnit, items", items, level_info)
+
+	for _, i := range items {
+		fmt.Println("PromoteUnit, item", i)
+	}
+
+	if items == nil || len(items) <= 0{
+		fmt.Println("cant find item, this id is ", level_info.ItemId)
+		return
+	}
+
+	var num int32
+	for _, item := range items {
+		num += item.Stack_
+	}
+
+	if num < level_info.ItemNum {
+		fmt.Println("数量不足, this id is ", level_info.ItemId, "need itemnum is ", level_info.ItemNum, "i have num is ", num)
+		return
+	}
+
+	this.DelItemByTableId(level_info.ItemId, level_info.ItemNum)
+
 	unit.Promote(level_info)
+	fmt.Println("PromoteUnit, items 2", items, level_info)
+
+	for _, i := range items {
+		fmt.Println("PromoteUnit, item 2.5", i)
+	}
 
 	this.session.PromoteUnitOK()
 }
