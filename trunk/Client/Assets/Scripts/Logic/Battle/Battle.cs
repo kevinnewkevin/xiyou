@@ -303,7 +303,7 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId, 0);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId, _BattleReport.UnitList[i].Level);
                 float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
                 if (_LongestShowTime < clipLen)
                     _LongestShowTime = clipLen;
@@ -738,26 +738,28 @@ public class Battle {
     {
         get
         {
-            return 1;
             if (_Result == null)
                 return 0;
-            return 0;//_Result.dropitem.len
+
+            if (_Result.BattleItems == null)
+                return 0;
+            
+            return _Result.BattleItems.Length;
         }
     }
 
     static public COM_ItemInst DropItem(int idx)
     {
-        COM_ItemInst isnt = new COM_ItemInst();
-        isnt.ItemId = 2;
-        isnt.Stack_ = 5;
-        return isnt;
         if (_Result == null)
             return null;
 
-        if(idx < 0 || idx >= 0)//_Result.dropitem.len)
+        if (_Result.BattleItems == null)
+            return null;
+
+        if(idx < 0 || idx >= _Result.BattleItems.Length)
             return null;
         
-        return null;//_Result.dropitem[idx];
+        return _Result.BattleItems[idx];
     }
 
     static public bool InBattle
