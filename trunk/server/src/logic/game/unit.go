@@ -658,19 +658,3 @@ func (this *GameUnit) Promote(info *PromoteInfo) error {
 
 	return nil
 }
-
-func (this *GameUnit) GetUnitInfo() prpc.COM_UnitInfo {
-	n := prpc.COM_UnitInfo{}
-
-	n.InstId = this.InstId
-	n.UnitId = this.UnitId
-	n.Level = this.Level
-	n.HP = int32(this.CProperties[prpc.CPT_HP])
-	n.AGILE = int32(this.CProperties[prpc.CPT_AGILE])
-	n.ATK = int32(this.CProperties[prpc.CPT_ATK])
-	n.DEF = int32(this.CProperties[prpc.CPT_DEF])
-	n.MATK = int32(this.CProperties[prpc.CPT_MAGIC_ATK])
-	n.MDEF = int32(this.CProperties[prpc.CPT_MAGIC_DEF])
-
-	return n
-}
