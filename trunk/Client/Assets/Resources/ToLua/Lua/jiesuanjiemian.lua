@@ -107,7 +107,7 @@ function jiesuanjiemian_FlushData()
 		exp.text = "";
 	end
 	local needExp = ExpData.NeedExp(GamePlayer._Data.IProperties[9]);
-	expBar.value((GamePlayer._Data.IProperties[4] / needExp * 100));
+	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
