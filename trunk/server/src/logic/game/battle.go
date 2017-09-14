@@ -277,8 +277,8 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		result.Win	= win
 		result.BattleRound = this.Round
-		result.KillMonsters = p.MyDeathNum
-		result.MySelfDeathNum = p.KillUnits
+		result.KillMonsters = p.KillUnits
+		result.MySelfDeathNum = p.MyDeathNum
 
 		if this.Type == prpc.BT_PVE {
 			dropId := p.CalcSmallChapterStar(result)
@@ -747,6 +747,30 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	idx := rand.Intn(len(u_list) - 1)
 
 	return u_list[idx]
+}
+
+func GetNearPos(pos int32) {
+	if pos < prpc.BP_RED_1 {
+		
+	}
+}
+
+func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
+	unit := this.SelectOneUnit(instid)
+
+	my_pos := unit.Position
+
+	if unit.Camp == prpc.CT_RED {
+		if unit.Position <= prpc.BP_RED_3 {
+			tar_pos := my_pos + 6
+			if this.Units[tar_pos] == nil {
+				tar_pos += 1
+			}
+		}
+	}
+
+
+	return 0
 }
 
 
