@@ -58,6 +58,7 @@ function baowu:OnInit()
 end
 
 function baowu_OnBoxBtn(context)
+	timeOut = nil;
 	outCom.visible = true;
 	openCom.visible = false;
 	outTrans:Play();
