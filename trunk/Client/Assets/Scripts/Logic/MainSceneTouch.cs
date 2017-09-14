@@ -37,6 +37,13 @@ public class MainSceneTouch : MonoBehaviour {
 
             if (Stage.isTouchOnUI || !isTouchOnNpc)
                 Camera.main.GetComponent<CameraTracker>().CancelFocus();
+
+            if (isTouchOnNpc)
+            {
+                NpcHandle handler = hit.transform.GetComponent<NpcHandle>();
+                if (handler != null)
+                    handler.Excute();
+            }
             return;
         }
         
