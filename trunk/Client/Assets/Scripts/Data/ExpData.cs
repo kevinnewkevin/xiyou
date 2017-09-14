@@ -42,7 +42,7 @@ public class ExpData {
     static public int NeedExp(int level)
     {
         if (!metaData.ContainsKey(level))
-            return null;
+            return 0;
 
         return metaData[level]._Exp;
     }

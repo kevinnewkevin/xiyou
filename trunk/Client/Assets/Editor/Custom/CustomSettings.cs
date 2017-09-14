@@ -219,6 +219,7 @@ public static class CustomSettings
 		_GT(typeof(COM_ItemInst)),
 		_GT(typeof(Dictionary<int, List<COM_ItemInst>>)),
         _GT(typeof(StrengthenData)),
+        _GT(typeof(ExpData)),
         _GT(typeof(LuaWindow)),
 
     };
