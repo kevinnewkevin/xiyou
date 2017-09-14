@@ -515,22 +515,7 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 }
 
 func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
-	items := this.GetBagItemByTableId(tableId)
-	if items == nil {
-		return
-	}
 
-	for _, item := range items {
-		if item.Stack_ >= delNum {
-			this.DelItemByInstId(item.InstId, delNum)
-			continue
-		} else {
-			this.DelItemByInstId(item.InstId, item.Stack_)
-			delNum -= item.Stack_
-			continue
-		}
-	}
-	
 }
 
 func (this *GamePlayer)GetBagItemByInstId(instId int64) *prpc.COM_ItemInst {
