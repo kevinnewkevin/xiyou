@@ -426,9 +426,9 @@ func (this *GamePlayer)SyncBag()  {
 		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack_,"InstId=",item.InstId)
 	}
 
-	if len(items) == 0 {
-		return 
-	}
+	//if len(items) == 0 {
+	//	return
+	//}
 
 	if this.session != nil {
 		this.session.InitBagItems(items)
