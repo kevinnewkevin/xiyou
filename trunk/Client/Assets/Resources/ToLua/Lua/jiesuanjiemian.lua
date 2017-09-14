@@ -19,9 +19,6 @@ local star1_des;
 local star2_des;
 local star3_des;
 
-local gold;
-local coin;
-
 local headicon;
 local level;
 local exp;
@@ -65,9 +62,6 @@ function jiesuanjiemian:OnInit()
 	star2_des = self.contentPane:GetChild("n21");
 	star3_des = self.contentPane:GetChild("n22");
 
-	gold = self.contentPane:GetChild("n10");
-	coin = self.contentPane:GetChild("n11");
-
 	headicon = self.contentPane:GetChild("n12").asLoader;
 	level = self.contentPane:GetChild("n16");
 	exp = self.contentPane:GetChild("n18");
@@ -107,14 +101,6 @@ function jiesuanjiemian_FlushData()
 	end
 	level.text = GamePlayer._Data.IProperties[4];
 	exp.text = GamePlayer._Data.IProperties[5];
-
-	if Battle._Result ~= nil then
-		gold.text = Battle._Result.Money;
-		coin.text = Battle._Result.Money;
-	else
-		gold.text = 0;
-		coin.text = 0;
-	end
 
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
