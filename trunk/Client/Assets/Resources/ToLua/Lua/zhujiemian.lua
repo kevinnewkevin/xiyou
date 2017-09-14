@@ -85,10 +85,10 @@ end
 function zhujiemian_FlushData()
 	local displayData = GamePlayer.GetMyDisplayData();
 	headIcon.url = "ui://" .. displayData._HeadIcon;
-	local needExp = ExpData.NeedExp(GamePlayer._Data.IProperties[5]);
+	local needExp = ExpData.NeedExp(GamePlayer._Data.IProperties[9]);
 	playerName.text = GamePlayer._Name;
 	playerExp.text = GamePlayer._Data.IProperties[4] .. "/" .. needExp;
-	playerLevel.text = GamePlayer._Data.IProperties[5];
+	playerLevel.text = GamePlayer._Data.IProperties[9];
 
 	gold.text = GamePlayer._Data.IProperties[8];
 	chopper.text = GamePlayer._Data.IProperties[6];

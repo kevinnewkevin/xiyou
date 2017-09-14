@@ -100,14 +100,14 @@ function jiesuanjiemian_FlushData()
 	else
 		headicon.url = "";
 	end
-	level.text = GamePlayer._Data.IProperties[5] .. "";
+	level.text = GamePlayer._Data.IProperties[9] .. "";
 	if Battle._Result ~= nil then
 		exp.text = "+" .. Battle._Result.Exp;
 	else
 		exp.text = "";
 	end
-	local eData = ExpData.NeedExp(GamePlayer._Data.IProperties[5]);
-	expBar.value((GamePlayer._Data.IProperties[4] / eData._Exp * 100));
+	local needExp = ExpData.NeedExp(GamePlayer._Data.IProperties[9]);
+	expBar.value((GamePlayer._Data.IProperties[4] / needExp * 100));
 
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
