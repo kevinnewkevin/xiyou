@@ -115,6 +115,10 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	for _,u := range p.UnitList{
 		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
+
+	for i := 1; i < 9 ; i++ {	//测试用
+		p.AddBagItemByItemId(int32(i), 10)
+	}
 	
 	return &p
 
