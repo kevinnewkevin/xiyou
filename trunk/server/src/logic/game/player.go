@@ -515,7 +515,22 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 }
 
 func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
-
+	items := this.GetBagItemByTableId(tableId)
+	if len(items) == 0 {
+		fmt.Println("Can Not Find Item In Bag By TableId =",tableId)
+		return
+	}
+	for _,item := range items{
+		if item.Stack_ > delNum {
+			item.Stack_ -= delNum
+			if this.session != nil {
+				this.session.UpdateBagItem(*item)
+			}
+		}else {
+			delNum -= item.Stack_
+			this.DelItemByInstId(item.InstId,item.Stack_)
+		}
+	}
 }
 
 func (this *GamePlayer)GetBagItemByInstId(instId int64) *prpc.COM_ItemInst {
