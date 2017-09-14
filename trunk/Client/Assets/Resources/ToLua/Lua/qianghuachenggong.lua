@@ -23,6 +23,8 @@ local nowLevel;
 local head;
 local headIcon;
 local headLevel;
+local fee;
+local inGroup;
 
 function qianghuachenggong:OnEntry()
 	Window = qianghuachenggong.New();
@@ -41,7 +43,9 @@ function qianghuachenggong:OnInit()
 	head = self.contentPane:GetChild("n47");
 	headIcon = head:GetChild("n5").asLoader;
 	headLevel = head:GetChild("n6");
-
+	fee = head:GetChild("n7");
+	inGroup = head:GetChild("n9");
+	inGroup.visible = false;
 	oldLevel = self.contentPane:GetChild("n48");
 	nowLevel = self.contentPane:GetChild("n49");
 
@@ -92,14 +96,15 @@ end
 function qianghuachenggong_FlushData()
 	
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("Effect/dengjitishen"));
-
 	local instId = UIParamHolder.Get("qiecuo1");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	local entityInst = GamePlayer.GetCardByInstID(instId);
+	local entityData = GamePlayer.GetEntityDataByInstID(instId);
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9] );
 	headIcon.url = "ui://" .. displayData._HeadIcon;
-	oldLevel.text = entityInst.IProperties[9] -1 .. "";
-	nowLevel.text =  entityInst.IProperties[9] .. "";
+	fee.text = entityData._Cost;
+	oldLevel.text =  entityInst.IProperties[9] -1 .. "";
+	nowLevel.text =   entityInst.IProperties[9] .. "";
 	headLevel.text =  entityInst.IProperties[9] .. "";
 	hp.text =  entityInst.CProperties[1] - levelData._Hp .. "";
 	agility.text =  entityInst.CProperties[7] - levelData._Agile   .. "";

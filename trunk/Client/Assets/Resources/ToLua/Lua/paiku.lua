@@ -106,9 +106,10 @@ function paiku_RenderListItem(index, obj)
 	fee.enabled = not isIn;
 	feeImg.enabled = not isIn;
 	obj.draggable = not isIn;
-
+	local level = obj:GetChild("n6");
 	local entityInst = GamePlayer.GetCardByInstID(instId);
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
+	level.text = entityInst.IProperties[9] .. "";
 	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
 	if itemNum >= levelData._ItemNum   then
 		radImg.visible = true;
