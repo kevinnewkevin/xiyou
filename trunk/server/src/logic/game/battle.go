@@ -265,42 +265,49 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			continue
 		}
 
-		var money int32
 		var win int32
-		var itemnum int32
-		round := this.Round
-		deathnum := p.MyDeathNum
-		killmonster := p.KillUnits
 
 		if p.BattleCamp == camp {
-			money = 2000
 			win = 1
-			itemnum = 20
 		} else {
-			money = 1000
-			itemnum = 10
+			win = 0
 		}
 
 		result := prpc.COM_BattleResult{}
 
-		result.Money = money
-		result.Win = win
-		result.BattleRound = round
-		result.KillMonsters = killmonster
-		result.MySelfDeathNum = deathnum
+		result.Win	= win
+		result.BattleRound = this.Round
+		result.KillMonsters = p.MyDeathNum
+		result.MySelfDeathNum = p.KillUnits
 
-		for _, itemid := range []int32{2,3,4} {
-			items := GenItemInst(itemid, itemnum)
-			p.AddBagItemByItemId(itemid, itemnum)
-			for _, item := range items {
-				result.BattleItems = append(result.BattleItems, *item)
-			}
-		}
-
-		fmt.Println("roomover 11111", this.Type)
 		if this.Type == prpc.BT_PVE {
-			fmt.Println("roomover type == pve")
-			p.CalcSmallChapterStar(result)
+			dropId := p.CalcSmallChapterStar(result)
+			if dropId != 0 {
+				drop := GetDropById(dropId)
+				if drop==nil {
+					fmt.Println("Can Not Find Drop By DropId=",dropId)
+					return
+				}
+				if drop.Exp != 0 {
+					p.AddExp(drop.Exp)
+					result.Exp = drop.Exp
+				}
+				if drop.Money != 0 {
+					p.AddCopper(drop.Money)
+					result.Money = drop.Money
+				}
+				if len(drop.Items) != 0 {
+					for _,item := range drop.Items{
+						p.AddBagItemByItemId(item.ItemId,item.ItemNum)
+						fmt.Println("GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+						itemInst := prpc.COM_ItemInst{}
+						itemInst.ItemId = item.ItemId
+						itemInst.Stack_ = item.ItemNum
+						result.BattleItems = append(result.BattleItems,itemInst)
+					}
+				}
+			}
+			fmt.Println("Battle Over PVE DropId=",dropId)
 		}
 		if this.Type == prpc.BT_PVP {
 			for _,once := range this.PlayerList{

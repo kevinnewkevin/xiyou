@@ -120,26 +120,26 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	player.ChapterID = smallchapterid
 }
 
-func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult)  {
+func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) int32 {
 	if player == nil {
-		return
+		return 0
 	}
 	if player.ChapterID == 0 {
 		fmt.Println("CalcSmallChapterStar player.ChapterID == 0")
-		return
+		return 0
 	}
 	if battledata.Win==0 {
-		return
+		return 0
 	}
 	small := player.GetMySmallChapterDataById(player.ChapterID)
 	if small == nil {
 		fmt.Println("CalcSmallChapterStar small == nil")
-		return
+		return 0
 	}
 	smallData := GetSmallChapterById(player.ChapterID)
 	if smallData == nil {
 		fmt.Println("CalcSmallChapterStar smallData == nil")
-		return
+		return 0
 	}
 
 	if !small.Star1 {
@@ -162,8 +162,8 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 		}
 	}
 	fmt.Println("CalcSmallChapterStar DropId = ",smallData.DropID)
-	player.GiveDrop(smallData.DropID)
 	player.SycnMyChapterDataById(smallData.SmallChapterType)
+	return smallData.DropID
 }
 
 func (player *GamePlayer)GetChapterStarReward(chapterId int32,star int32)  {
