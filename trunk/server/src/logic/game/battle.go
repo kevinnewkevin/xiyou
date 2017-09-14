@@ -748,29 +748,58 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 
 	return u_list[idx]
 }
-
-func GetNearPos(pos int32) {
-	if pos < prpc.BP_RED_1 {
-		
+//写死
+func GetNearPos(pos int32) []int32 {
+	if pos < prpc.BP_RED_1 || pos >= prpc.BP_MAX{
+		return []int32{}
 	}
+	switch int(pos) {
+		case prpc.BP_RED_1 :
+			return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_3, prpc.BP_BLUE_6}
+		case prpc.BP_RED_2 :
+			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_1, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_2, prpc.BP_BLUE_6}
+		case prpc.BP_RED_3 :
+			return []int32{prpc.BP_BLUE_3, prpc.BP_BLUE_2, prpc.BP_BLUE_6, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_1}
+		case prpc.BP_RED_4 :
+			return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_3, prpc.BP_BLUE_6}
+		case prpc.BP_RED_5 :
+			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_1, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_2, prpc.BP_BLUE_6}
+		case prpc.BP_RED_6 :
+			return []int32{prpc.BP_BLUE_3, prpc.BP_BLUE_2, prpc.BP_BLUE_6, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_1}
+		case prpc.BP_BLUE_1 :
+			return []int32{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_3, prpc.BP_RED_6}
+		case prpc.BP_BLUE_2 :
+			return []int32{prpc.BP_RED_2, prpc.BP_RED_1, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_2, prpc.BP_RED_6}
+		case prpc.BP_BLUE_3 :
+			return []int32{prpc.BP_RED_3, prpc.BP_RED_2, prpc.BP_RED_6, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_1}
+		case prpc.BP_BLUE_4 :
+			return []int32{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_3, prpc.BP_RED_6}
+		case prpc.BP_BLUE_5 :
+			return []int32{prpc.BP_RED_2, prpc.BP_RED_1, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_2, prpc.BP_RED_6}
+		case prpc.BP_BLUE_6 :
+			return []int32{prpc.BP_RED_3, prpc.BP_RED_2, prpc.BP_RED_6, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_1}
+		default: return []int32{}
+	}
+	return []int32{}
 }
 
 func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	unit := this.SelectOneUnit(instid)
 
-	my_pos := unit.Position
+	near_pos := GetNearPos(unit.Position)
 
-	if unit.Camp == prpc.CT_RED {
-		if unit.Position <= prpc.BP_RED_3 {
-			tar_pos := my_pos + 6
-			if this.Units[tar_pos] == nil {
-				tar_pos += 1
-			}
-		}
+	if near_pos == nil || len(near_pos) == 0 {
+		return this.SelectOneTarget(unit.InstId)
 	}
 
+	for _, pos := range near_pos{
+		if this.Units[pos] == nil{
+			continue
+		}
+		return this.Units[pos].InstId
+	}
 
-	return 0
+	return this.SelectOneTarget(unit.InstId)
 }
 
 
