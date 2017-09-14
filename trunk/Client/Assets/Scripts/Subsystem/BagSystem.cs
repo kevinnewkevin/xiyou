@@ -51,12 +51,12 @@ public class BagSystem {
 	public static void AddItem(COM_ItemInst inst)
     {
         _ItemsByType [0].Add(inst);
-				ItemData iData = ItemData.GetData(inst.ItemId);
+			ItemData iData = ItemData.GetData(inst.ItemId);
         if (iData != null)
         {
-            if (!_ItemsByType.ContainsKey(iData._Type))
-				_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
-            _ItemsByType [iData._Type].Add(inst);
+            //if (!_ItemsByType.ContainsKey(iData._Type))
+			//	_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
+            //_ItemsByType [iData._Type].Add(inst);
         }
         UIManager.SetDirty("bagui");
     }
