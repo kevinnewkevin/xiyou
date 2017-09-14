@@ -582,7 +582,7 @@ public class Battle {
     static public int GetHandCardStrLv(int idx)
     {
         if (idx < 0 || idx >= _HandCards.Count)
-            return null;
+            return 0;
 
         return _HandCards[idx].IProperties[9];
     }
