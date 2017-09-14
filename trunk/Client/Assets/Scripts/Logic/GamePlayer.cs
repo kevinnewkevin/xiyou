@@ -22,6 +22,9 @@ public class GamePlayer {
 	
     static public int _CrtBattleGroupIdx;
 
+    static public List<string> _IPropDirty = new List<string>();
+    static public List<string> _CPropDirty = new List<string>();
+
     static public void Init(COM_Player player)
     {
         Clear();
@@ -89,6 +92,16 @@ public class GamePlayer {
                 _CardsByFee[0][i].IProperties[type] = vaule;
             }
         }
+
+        if (_InstID == instId)
+        {
+            _Data.IProperties [type] = vaule;
+        }
+
+        for(int i=0; i < _IPropDirty.Count; ++i)
+        {
+            UIManager.SetDirty(_IPropDirty[i]);
+        }
     }
 
     static public void UpdateUnitCProperty(long instId, int type, float vaule)
@@ -100,9 +113,17 @@ public class GamePlayer {
                 _CardsByFee[0][i].CProperties[type] = vaule;
             }
         }
+
+        if (_InstID == instId)
+        {
+            _Data.IProperties [type] = vaule;
+        }
+
+        for(int i=0; i < _CPropDirty.Count; ++i)
+        {
+            UIManager.SetDirty(_CPropDirty[i]);
+        }
     }
-
-
 
     //通过索引获取卡组
     static public List<long> GetGroupCards(int idx)
