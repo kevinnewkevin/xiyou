@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"logic/application"
 	"runtime"
 	"os"
