@@ -202,9 +202,7 @@ public class Skill {
             return false;
         }
 
-        _Caster.DisplaySkill(_SkillData._Name);
-        Battle._CasterDisplayID = _Caster._DisplayID;
-        UIManager.SetDirty("BattlePanel");
+        SkillOutLook();
 
         if (_SkillData._IsMelee)
             Melee();
@@ -386,6 +384,13 @@ public class Skill {
                     _Caster.RemoveBuff(_SkillBuff [i].BuffId);
             }
         }
+    }
+
+    void SkillOutLook()
+    {
+        _Caster.DisplaySkill(_SkillData._Name);
+        Battle._CasterDisplayID = _Caster._DisplayID;
+        UIManager.SetDirty("BattlePanel");
     }
 
     public int TargetCount
