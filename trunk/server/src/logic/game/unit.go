@@ -49,7 +49,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId
 	u.Skill = map[int32]*Skill{}
-	u.Level = 1
+	u.Level = u.IProperties[prpc.IPT_PROMOTE]
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
 	for i := 0; i < len(t.Skills); i++ {
@@ -282,14 +282,8 @@ func (this *GameUnit) GetBattleUnitCOM() prpc.COM_BattleUnit {
 	u.CHP = int32(this.GetCProperty(prpc.CPT_CHP))
 	u.Position = this.Position
 	u.Name = this.InstName
+	u.Level = this.IProperties[prpc.IPT_PROMOTE]
 
-	if this.Owner == nil {
-		u.Level = this.IProperties[prpc.IPT_PROMOTE]
-	} else if this.UnitId == this.Owner.MyUnit.UnitId {
-		u.Level = this.Level
-	} else {
-		u.Level = this.IProperties[prpc.IPT_PROMOTE]
-	}
 
 	return u
 }
@@ -642,6 +636,11 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, value)
 
 	return nil
+}
+
+func (this *GameUnit) CheckExp(exp int32) int32 {
+
+	return exp
 }
 
 

@@ -596,6 +596,8 @@ func (this *GamePlayer)AddExp(val int32)  {
 	}
 	//在这里加上对于经验值和等级的判断
 
+	curExp = this.MyUnit.CheckExp(curExp)
+
 	this.MyUnit.SetIProperty(prpc.IPT_EXPERIENCE,curExp)
 
 	fmt.Println("append EXP",val,"all EXP",curExp)
