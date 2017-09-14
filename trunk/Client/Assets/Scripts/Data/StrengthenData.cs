@@ -59,7 +59,7 @@ public class StrengthenData
     {
         if (!metaData.ContainsKey(id))
             return null;
-        return metaData[id][level];
+        return metaData[id][level-1];
     }
 	
 }
