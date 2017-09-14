@@ -198,7 +198,7 @@ function paiku_FlushData()
 		local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 		level.text = entityInst.IProperties[9] .. "";
 		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
-		if itemNum >= levelData._ItemNum   then
+		if itemNum >= levelData._ItemNum then
 			radImg.visible = true;
 		else
 			radImg.visible = false;
