@@ -98,6 +98,8 @@ function xiangxiziliao:OnInit()
 	end
 	rightInfo.visible = true;
 	rightLevelUp.visible = false;
+	local moveLab=  self.contentPane:GetChild("n84");
+	moveLab.visible = false;
 	btnList.selectedIndex = 0;
 	level= self.contentPane:GetChild("n59");
 	fee = self.contentPane:GetChild("n58");
