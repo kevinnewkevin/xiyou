@@ -102,7 +102,7 @@ using System.Collections;
 	        // display two fractional digits (f2 format)
 		    float fps = accum/frames;
 			
-			    szFPS = string.Format("{0:F2} FPS",fps);			
+			    szFPS = string.Format("{0:F2} 帧",fps);			
 			    if(fps < 10)
 				{
 					labelStyle.normal.textColor = Color.red;
@@ -134,29 +134,29 @@ using System.Collections;
     {
         GUI.Label(new Rect(10, 2, 80, 20), szFPS, labelStyle);
 
-        GUI.Label(new Rect(120, 2, 80, 20), string.Format("Ping:{0:N0}ms", pingDelay), pingStyle);
+//        GUI.Label(new Rect(120, 2, 80, 20), string.Format("Ping:{0:N0}ms", pingDelay), pingStyle);
 
 		showProfileTime	-= Time.deltaTime;
 		if( showProfileTime < 0f )
 		{
 			showProfileTime	=	1f;
-            szMonoHeapSize	= string.Format("MonoHeapSize : {0}Mb" , (UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong() / 1048576).ToString());
-            szMonoUsedSize = "MonoUsedSize : " + (UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong() / 1048576).ToString();
-            szUsedHeapSize = "UsedHeapSize : " + (UnityEngine.Profiling.Profiler.usedHeapSizeLong / 1048576).ToString();
-            szTotalAllocatedMemory = "TotalAllocatedMem : " + (UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() / 1048576).ToString();
-            szTotalUnusedReservedMemory = "UnusedReservedMem : " + (UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong() / 1048576).ToString();
-            szTotalReservedMemory = "TotalReservedMem : " + (UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong() / 1048576).ToString();
-			szGCTotalMemory = "GC.TotalMem : " + (System.GC.GetTotalMemory(false) / 1048576).ToString();
+//            szMonoHeapSize	= string.Format("MonoHeapSize : {0}Mb" , (UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong() / 1048576).ToString());
+//            szMonoUsedSize = "MonoUsedSize : " + (UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong() / 1048576).ToString();
+//            szUsedHeapSize = "UsedHeapSize : " + (UnityEngine.Profiling.Profiler.usedHeapSizeLong / 1048576).ToString();
+            szTotalAllocatedMemory = "内存消耗 : " + (UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() / 1048576).ToString() + "M";
+//            szTotalUnusedReservedMemory = "UnusedReservedMem : " + (UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong() / 1048576).ToString();
+//            szTotalReservedMemory = "TotalReservedMem : " + (UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong() / 1048576).ToString();
+//			szGCTotalMemory = "GC.TotalMem : " + (System.GC.GetTotalMemory(false) / 1048576).ToString();
 		}
 		
-		GUI.Label( new Rect(10,20, 200, 20),  szMonoHeapSize, profileStyle );
-		GUI.Label( new Rect(10,40, 200, 20),  szMonoUsedSize, profileStyle );
-		GUI.Label( new Rect(10,60, 200, 20),  szUsedHeapSize, profileStyle );
-		GUI.Label( new Rect(10,80, 200, 20),  szTotalAllocatedMemory, profileStyle );
-		GUI.Label( new Rect(10,100, 200, 20),  szTotalUnusedReservedMemory, profileStyle );
-		GUI.Label( new Rect(10,120, 200, 20),  szTotalReservedMemory, profileStyle );
-		GUI.Label( new Rect(10,140, 200, 20),  szGCTotalMemory, profileStyle );
-
-        GUI.Label(new Rect(10, 160, 200, 20), _time, profileStyle);
+//		GUI.Label( new Rect(10,20, 200, 20),  szMonoHeapSize, profileStyle );
+//		GUI.Label( new Rect(10,40, 200, 20),  szMonoUsedSize, profileStyle );
+//		GUI.Label( new Rect(10,60, 200, 20),  szUsedHeapSize, profileStyle );
+		GUI.Label( new Rect(120,2, 200, 20),  szTotalAllocatedMemory, profileStyle );
+//		GUI.Label( new Rect(10,100, 200, 20),  szTotalUnusedReservedMemory, profileStyle );
+//		GUI.Label( new Rect(10,120, 200, 20),  szTotalReservedMemory, profileStyle );
+//		GUI.Label( new Rect(10,140, 200, 20),  szGCTotalMemory, profileStyle );
+//
+//        GUI.Label(new Rect(10, 160, 200, 20), _time, profileStyle);
 	}
  }
