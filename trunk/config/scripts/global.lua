@@ -13,13 +13,16 @@ end
 function ExcuteNpc(id)
 	if id == 2 then
 		Proxy4Lua.FocusNpcObject(2);
---		local MessageBox = UIManager.ShowMessageBox();
---		MessageBox:SetData("提示", "匹配中 请稍后...", true);
+		return;
 	end
 
 	if id == 11 then
 		UIManager.Show("jiehun");
+		return;
 	end
+
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "暂未开放,敬请期待", true);
 end
 
 function NetWorkException(errCode)
