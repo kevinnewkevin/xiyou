@@ -2,15 +2,15 @@
 <component size="234,219" extention="Button">
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="tqum1e" xy="0,0">
+    <image id="n1" name="n1" src="tqum36" xy="0,0">
       <gearDisplay controller="button" pages="1"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n2" name="n2" src="tqum1f" xy="52,0">
+    <image id="n2" name="n2" src="tqum34" xy="52,0">
       <gearDisplay controller="button" pages="0"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n3_myec" name="n3" src="tqum1g" xy="58,47">
+    <image id="n3_myec" name="n3" src="myec1o" xy="58,47">
       <gearDisplay controller="button" pages="1"/>
     </image>
   </displayList>
