@@ -16,6 +16,10 @@ function ExcuteNpc(id)
 --		local MessageBox = UIManager.ShowMessageBox();
 --		MessageBox:SetData("提示", "匹配中 请稍后...", true);
 	end
+
+	if id == 11 then
+		UIManager.Show("jiehun");
+	end
 end
 
 function NetWorkException(errCode)
