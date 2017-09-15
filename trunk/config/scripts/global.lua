@@ -21,7 +21,7 @@ function ExcuteNpc(id)
 		return;
 	end
 
-	if id == 11 then
+	if id == 12 then
 		UIManager.Show("qiecuo");
 		return;
 	end
