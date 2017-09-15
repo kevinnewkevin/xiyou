@@ -85,6 +85,7 @@ ModelImporter:
     100154: Object001
     100156: Object010
     100158: //RootNode
+    100160: Plane001
     400000: Bip001
     400002: Bip001 Footsteps
     400004: Bip001 Head
@@ -165,11 +166,15 @@ ModelImporter:
     400154: Object001
     400156: Object010
     400158: //RootNode
+    400160: Plane001
     2300000: Box001
+    2300002: Plane001
     3300000: Box001
+    3300002: Plane001
     4300000: Object001
     4300002: Object010
     4300004: Box001
+    4300006: Plane001
     7400000: GuiChengxiang
     7400002: ' stand'
     7400004: run
@@ -207,7 +212,7 @@ ModelImporter:
       name: GuiChengxiang
       takeName: GuiChengxiang
       firstFrame: 50
-      lastFrame: 521
+      lastFrame: 541
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -957,7 +962,7 @@ ModelImporter:
       name: beattack
       takeName: GuiChengxiang
       firstFrame: 410
-      lastFrame: 430
+      lastFrame: 450
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1456,8 +1461,8 @@ ModelImporter:
     - serializedVersion: 16
       name: magic1
       takeName: GuiChengxiang
-      firstFrame: 450
-      lastFrame: 521
+      firstFrame: 470
+      lastFrame: 541
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
