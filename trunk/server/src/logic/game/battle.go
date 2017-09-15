@@ -285,7 +285,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			if dropId != 0 {
 				drop := GetDropById(dropId)
 				if drop==nil {
-					fmt.Println("Can Not Find Drop By DropId=",dropId)
+					fmt.Println("PVE Can Not Find Drop By DropId=",dropId)
 					return
 				}
 				if drop.Exp != 0 {
@@ -299,7 +299,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if len(drop.Items) != 0 {
 					for _,item := range drop.Items{
 						p.AddBagItemByItemId(item.ItemId,item.ItemNum)
-						fmt.Println("GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+						fmt.Println("PVE GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 						itemInst := prpc.COM_ItemInst{}
 						itemInst.ItemId = item.ItemId
 						itemInst.Stack_ = item.ItemNum
@@ -320,7 +320,33 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if p.BattleCamp == once.BattleCamp {
 					continue
 				}
-				CaleTianTiVal(p,once,camp)
+				dropId := CaleTianTiVal(p,once,camp)
+
+				if dropId != 0 {
+					drop := GetDropById(dropId)
+					if drop==nil {
+						fmt.Println("PVP Can Not Find Drop By DropId=",dropId)
+						return
+					}
+					if drop.Exp != 0 {
+						p.AddExp(drop.Exp)
+						result.Exp = drop.Exp
+					}
+					if drop.Money != 0 {
+						p.AddCopper(drop.Money)
+						result.Money = drop.Money
+					}
+					if len(drop.Items) != 0 {
+						for _,item := range drop.Items{
+							p.AddBagItemByItemId(item.ItemId,item.ItemNum)
+							fmt.Println("PVP GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+							itemInst := prpc.COM_ItemInst{}
+							itemInst.ItemId = item.ItemId
+							itemInst.Stack_ = item.ItemNum
+							result.BattleItems = append(result.BattleItems,itemInst)
+						}
+					}
+				}
 			}
 		}
 		p.BattleId = 0

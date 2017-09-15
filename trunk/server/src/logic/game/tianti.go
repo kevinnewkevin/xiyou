@@ -123,9 +123,9 @@ func RemoveMatching(instId int64) bool {
 	return false
 }
 
-func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int)  {
+func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int) int32 {
 	if player1 == nil || player2 == nil {
-		return
+		return 0
 	}
 	coef := int32((player1.TianTiVal - player2.TianTiVal)/5)
 
@@ -146,14 +146,18 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int)  {
 	ttData := GetTianTiTableDataById(tableId)
 	if ttData == nil {
 		fmt.Println("Can Not Find TianTiTableData By TableId=",tableId)
-		return
+		return 0
 	}
 
+	var dropId int32 = 0;
+
 	if player1.BattleCamp == winCamp {
-		player1.GiveDrop(ttData.WinDrop)
+		dropId = ttData.WinDrop
 		fmt.Println("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.WinDrop)
 	}else {
-		player1.GiveDrop(ttData.LoseDop)
+		dropId = ttData.LoseDop
 		fmt.Println("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.LoseDop)
 	}
+
+	return dropId
 }
