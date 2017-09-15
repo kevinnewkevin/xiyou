@@ -172,7 +172,7 @@ func __DefineCards(p unsafe.Pointer) C.int {
 //export __GetTarget
 func __GetTarget(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__GetTarget")
+	fmt.Println("__GetTarget")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -185,7 +185,8 @@ func __GetTarget(p unsafe.Pointer) C.int {
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(uid))
 
-	t_id := battle.SelectOneTarget(unit.InstId)
+	//t_id := battle.SelectOneTarget(unit.InstId)
+	t_id := battle.SelectNearTarget(unit.InstId)
 	//for _, u := range battle.Units {
 	//	if u == nil {
 	//		continue

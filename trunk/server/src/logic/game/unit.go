@@ -656,11 +656,14 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 		return exp
 	}
 
-	for exp_info < exp {
+	for {
+		if exp_info > exp {
+			break
+		}
 		promote := GetPromoteRecordById(this.UnitId)
 		fmt.Println("this.IProperties[prpc.IPT_PROMOTE]", this.IProperties[prpc.IPT_PROMOTE])
-		fmt.Println("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE]])
-		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE]])
+		fmt.Println("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
+		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
 
 		exp -= exp_info
 		exp_info = GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
