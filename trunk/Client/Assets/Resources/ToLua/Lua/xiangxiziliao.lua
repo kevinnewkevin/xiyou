@@ -299,7 +299,7 @@ function xiangxiziliao_FlushData()
 	needItemNumLab.text = itemNum .. "/" .. levelData._ItemNum ;
 	local itemdata = ItemData.GetData(levelData._ItemId);
 	needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
-	needItemIconback.asLoader.url = "ui://icon/" .. itemdata._IconBack;
+	needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
 	
 	if itemNum >= levelData._ItemNum   then
 		levelUpBtn.enabled  = true;
