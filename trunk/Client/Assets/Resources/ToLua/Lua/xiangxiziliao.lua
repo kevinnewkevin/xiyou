@@ -210,6 +210,7 @@ end
 function xiangxiziliao:OnHide()
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
 	Window:Hide();
 end
 
