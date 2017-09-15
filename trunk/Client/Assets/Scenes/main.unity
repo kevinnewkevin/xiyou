@@ -319,7 +319,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 681065278
+  randomSeed: 346599857
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3407,7 +3407,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1334132012
+  randomSeed: -472883915
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13371,12 +13371,12 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 76553657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.097, y: -0, z: 1.145}
+  m_LocalRotation: {x: -0.031706087, y: 0.029466573, z: 0.70200783, w: 0.7108526}
+  m_LocalPosition: {x: 2.34, y: 0.96, z: 0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1358060891}
-  m_RootOrder: 1
+  m_Father: {fileID: 477951582}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &76553659
 ParticleSystemRenderer:
@@ -13486,7 +13486,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -218508552
+  randomSeed: -1435075782
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17214,7 +17214,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 209026069
+  randomSeed: 1466523448
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24173,7 +24173,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 741666532
+  randomSeed: 65783891
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -27261,7 +27261,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1724586617
+  randomSeed: -2067799310
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -31666,7 +31666,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1440797005
+  randomSeed: 1952030649
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -41582,7 +41582,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 463759044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.889458, y: -5, z: 0}
+  m_LocalPosition: {x: 8.881119, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53964,7 +53964,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1358098216
+  randomSeed: -1112334579
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -56981,7 +56981,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -249247504
+  randomSeed: 993105012
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -62187,7 +62187,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1254501187
+  randomSeed: 1272010413
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -71909,7 +71909,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 918575326}
   m_LocalRotation: {x: -0.68960726, y: -0, z: -0, w: 0.7241836}
-  m_LocalPosition: {x: -0.37, y: -13.958, z: -1.07}
+  m_LocalPosition: {x: -0.37, y: -13.958, z: -0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149754835}
@@ -72023,7 +72023,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1815711146
+  randomSeed: -1667337780
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -95113,7 +95113,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1878848698
+  randomSeed: -1849956658
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -98274,10 +98274,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1355479984}
   m_Mesh: {fileID: 4300026, guid: 6db48d5efa10da44aabd63659cbc84dd, type: 3}
---- !u!4 &1358060891 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400008, guid: d9e14615a935f29459a58c20004be4ab, type: 3}
-  m_PrefabInternal: {fileID: 243086801}
 --- !u!1 &1358930514
 GameObject:
   m_ObjectHideFlags: 0
@@ -98815,7 +98811,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1714859607
+  randomSeed: -1907111654
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -109616,7 +109612,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1445087388
+  randomSeed: 493760602
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -116314,7 +116310,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -81477090
+  randomSeed: -329676775
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -119739,7 +119735,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1100129289
+  randomSeed: 1554000181
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -131317,7 +131313,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 958008554
+  randomSeed: 2071417759
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -138265,7 +138261,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1240033924
+  randomSeed: 492754020
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -141784,7 +141780,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1111763375
+  randomSeed: 123642669
   InitialModule:
     serializedVersion: 3
     enabled: 1
