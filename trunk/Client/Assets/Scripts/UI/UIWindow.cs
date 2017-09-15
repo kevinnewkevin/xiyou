@@ -26,7 +26,8 @@ public class UIWindow {
     {
         _UiName = uiName;
         _ParamValue = paramVal;
-        Define.LaunchUIBundle(_UiName);
+        string resName = UIManager.GetUIResName(uiName);
+        Define.LaunchUIBundle(resName);
         _Lua = UIManager._Lua;
         _Lua.DoFile(_UiName + ".lua");
         Debug.Log(" UI Name : " + uiName);

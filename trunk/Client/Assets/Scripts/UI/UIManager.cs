@@ -16,8 +16,11 @@ public class UIManager {
         _Lua = new LuaState();
         LuaBinder.Bind(_Lua);
         _Lua.Start();
+
+        LuaManager.Call("global.lua", "RegUIResMap");
     }
 
+    static Dictionary<string, string> _UIResDic = new Dictionary<string, string>();
     static Dictionary<string, UIWindow> _Windows = new Dictionary<string, UIWindow>();
     static Dictionary<string, bool> _DirtyPool = new Dictionary<string, bool>();
     static List<string> _WantClearDirty = new List<string>();
@@ -201,5 +204,24 @@ public class UIManager {
     {
         if (GamePlayer._CPropDirty.Contains(uiName))
             GamePlayer._CPropDirty.Add(uiName);
+    }
+
+    static public void RegUIResMap(string uiName, string resName)
+    {
+        if (_UIResDic.ContainsKey(uiName))
+        {
+            Debug.LogWarning(" Regist same ui: " + uiName + " for resName Before: " + _UIResDic [uiName] + " After: " + resName);
+            _UIResDic [uiName] = resName;
+            return;
+        }
+        _UIResDic.Add(uiName, resName);
+    }
+
+    static public string GetUIResName(string uiName)
+    {
+        if (!_UIResDic.ContainsKey(uiName))
+            return uiName;
+
+        return _UIResDic[uiName];
     }
 }
