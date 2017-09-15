@@ -142,12 +142,12 @@ function xiangxiziliao:OnInit()
 	levelUpMatk = rightLevelUp:GetChild("n269"); 
 	levelUpMdef = rightLevelUp:GetChild("n270");
 	needMoneyLab = rightLevelUp:GetChild("n304");
-	needItemNumLab = rightLevelUp:GetChild("n301"); 
+	needItemNumLab = rightLevelUp:GetChild("n301");
 	needItem= rightLevelUp:GetChild("n297"); 
 	needItemIcon= needItem:GetChild("n1"); 
 	needItemIconback= needItem:GetChild("n0"); 
 	needItemBar = rightLevelUp:GetChild("n300");
-	xiangxiziliao_FlushData();
+	--xiangxiziliao_FlushData();
 end
 
 function xiangxiziliao_OnAddGroup()
@@ -208,6 +208,7 @@ function xiangxiziliao:OnDispose()
 end
 
 function xiangxiziliao:OnHide()
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 	Proxy4Lua.UnloadAsset(modelRes);
 	Window:Hide();
 end
@@ -233,22 +234,19 @@ function xiangxiziliao_FlushData()
 	local instId = UIParamHolder.Get("qiecuo1");
 	local hideBtn = UIParamHolder.Get("qiecuo2");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
-	if modelRes ~= displayData._AssetPath then
-		Proxy4Lua.UnloadAsset(modelRes);
-		modelRes = displayData._AssetPath;
-		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
+	modelRes = displayData._AssetPath;
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
 
-		if hideBtn == false then
-			isInGroup = UIManager.GetWindow("paiku").IsInGroup();
-			if isInGroup then
-				controller.selectedIndex = 1;
-			else
-				controller.selectedIndex = 0;
-			end
-			addGroupBtn.visible = true;
+	if hideBtn == false then
+		isInGroup = UIManager.GetWindow("paiku").IsInGroup();
+		if isInGroup then
+			controller.selectedIndex = 1;
 		else
-			addGroupBtn.visible = false;
+			controller.selectedIndex = 0;
 		end
+		addGroupBtn.visible = true;
+	else
+		addGroupBtn.visible = false;
 	end
 
 
