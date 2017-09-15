@@ -80,6 +80,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadTianTiTable("../../../config/tables/Ladder.csv")
+	if err != nil {
+		fmt.Println("LoadTianTiTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

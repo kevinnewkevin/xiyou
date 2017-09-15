@@ -142,9 +142,18 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int)  {
 		player1.session.UpdateTiantiVal(player1.TianTiVal)
 	}
 
+	tableId := GetTianTiIdByVal(player1.TianTiVal)
+	ttData := GetTianTiTableDataById(tableId)
+	if ttData == nil {
+		fmt.Println("Can Not Find TianTiTableData By TableId=",tableId)
+		return
+	}
+
 	if player1.BattleCamp == winCamp {
-		fmt.Println("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]")
+		player1.GiveDrop(ttData.WinDrop)
+		fmt.Println("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.WinDrop)
 	}else {
-		fmt.Println("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]")
+		player1.GiveDrop(ttData.LoseDop)
+		fmt.Println("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.LoseDop)
 	}
 }
