@@ -90,6 +90,7 @@ end
 
 function qianghuachenggong:OnHide()
 	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
 	Window:Hide();
 end
 

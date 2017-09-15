@@ -91,6 +91,7 @@ end
 
 function renwuziliao:OnHide()
 	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
 	Window:Hide();
 end
 
