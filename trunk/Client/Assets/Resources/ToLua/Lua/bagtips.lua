@@ -80,7 +80,7 @@ function bagtips_FlushData()
 	end
 	icon.asLoader.url = "ui://" .. itemdata._Icon;
 	stackLab.text ="" .. iteminst.Stack_;
-	iconBack.asLoader.url = "ui://icon/" .. itemdata._IconBack;
+	iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
 	descLab.text = itemdata._Desc;
 	nameLab.text = itemdata._Name;
 	typeLab.text = "碎片";

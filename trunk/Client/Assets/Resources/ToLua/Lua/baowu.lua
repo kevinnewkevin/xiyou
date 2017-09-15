@@ -96,7 +96,7 @@ function baowu_FlushData()
 			if iData ~= nil then
 				name.text = iData._Name;
 				icon.url = "ui://" .. iData._Icon;
-				quality.url = "ui://icon/" .. iData._IconBack;
+				quality.url = "ui://" .. iData._IconBack;
 			end
 		end
 	end

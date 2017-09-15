@@ -69,7 +69,7 @@ function bagui_RenderListItem(index, obj)
 	end
 	icon.asLoader.url = "ui://" .. iconpath;
 	stackLab.text ="" .. stackNum;
-	iconBack.asLoader.url = "ui://icon/" .. itemdata._IconBack;
+	iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
 end
 
 function bag_OnItem(context)
