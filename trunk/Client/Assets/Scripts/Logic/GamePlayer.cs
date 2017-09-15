@@ -325,6 +325,15 @@ public class GamePlayer {
         return dData;
     }
 
+    static public EntityData GetMyEntityData()
+    {
+        EntityData eData = EntityData.GetData(_Data.UnitId);
+        if (eData == null)
+            return null;
+
+        return eData;
+    }
+
     //通过索引获得卡牌UnitID
     static public int GetUnitIDInMyCards(int idx)
     {
