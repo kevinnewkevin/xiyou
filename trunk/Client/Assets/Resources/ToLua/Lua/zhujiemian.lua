@@ -46,6 +46,8 @@ function zhujiemian:OnInit()
 	playerLevel = infoGroup:GetChild("n11");
 	expBar = infoGroup:GetChild("n8").asProgress;
 	headIcon = infoGroup:GetChild("n13").asLoader;
+	local headBtn = infoGroup:GetChild("n2");
+	headIcon.onClick:Add(zhujiemian_OnHead);
 
 	local moneyGroup = self.contentPane:GetChild("n16").asCom;
 	gold = moneyGroup:GetChild("n5");
@@ -112,6 +114,10 @@ end
 
 function zhujiemian_OnQieCuoBtn()
 	UIManager.Show("qiecuo");
+end
+
+function zhujiemian_OnHead()
+	UIManager.Show("renwuziliao");
 end
 
 function zhujiemian_OnBagBtn()
