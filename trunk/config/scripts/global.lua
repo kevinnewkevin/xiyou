@@ -21,6 +21,11 @@ function ExcuteNpc(id)
 		return;
 	end
 
+	if id == 11 then
+		UIManager.Show("qiecuo");
+		return;
+	end
+
 	local MessageBox = UIManager.ShowMessageBox();
 	MessageBox:SetData("提示", "暂未开放,敬请期待", true);
 end
@@ -44,7 +49,7 @@ function ErrorMessage(errCode)
 end
 
 function RegGlobalValue()
-	Define.Set("DebugServerAddress", "127.0.0.1");
+	Define.Set("DebugServerAddress", "10.10.10.3");
 	Define.Set("DebugServerPort", 10999);
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
