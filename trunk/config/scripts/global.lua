@@ -45,7 +45,7 @@ function RegGlobalValue()
 	Define.Set("MoveSpeed_InWorld", 2.5);
 	Define.Set("PointLight", "Effect/chushengdian");
 	Define.Set("DestLight", "Effect/dianjiguangquan");
-	Define.Set("BornPos", "20,-14.3,4");
+	Define.Set("BornPos", "8.55,-14.34,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
 	Define.Set("WorldCamera_focusPlus", "0,1,9");	--主场景公告牌偏移坐标
 end
