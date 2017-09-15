@@ -796,6 +796,9 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 		if this.Units[pos] == nil{
 			continue
 		}
+		if this.Units[pos].IsDead() {
+			continue
+		}
 		return this.Units[pos].InstId
 	}
 
