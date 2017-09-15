@@ -74,7 +74,7 @@ end
 function jiesuanjiemian_FlushData()
 	star1_des.text = "击杀";
 	star2_des.text = "回合内胜利";
-	star3_des.text = "阵亡卡牌少于";
+	star3_des.text = "阵亡卡牌不超过";
 
 	star1.visible = false;
 	star2.visible = false;
