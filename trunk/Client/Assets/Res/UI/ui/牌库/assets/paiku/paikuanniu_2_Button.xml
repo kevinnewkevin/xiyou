@@ -10,7 +10,7 @@
       <gearDisplay controller="button" pages="1,3"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n3_qu1s" name="n3" xy="16,6" size="89,55" font="方正粗楷简体" fontSize="42" color="#511d1a" text="肉盾">
+    <text id="n3_qu1s" name="n3" xy="16,6" size="91,49" font="方正楷体_GBK" fontSize="42" color="#511d1a" bold="true" text="肉盾">
       <gearColor controller="button" pages="1,2,3" values="#ffffff,#000000|#ffffff,#000000|#ffffff,#000000" default="#511d1a,#000000" tween="true"/>
     </text>
   </displayList>
