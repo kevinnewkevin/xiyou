@@ -36,7 +36,7 @@ public class WeatherSystem {
         
         int hour = DateTime.Now.Hour;
         string nextWeather = WeatherData.GetWeather(hour);
-        if (!_CrtWeather.Equals(nextWeather) && _WeatherObj != null)
+        if (!_CrtWeather.Equals(nextWeather) && _WeatherObj == null)
         {
             if (!string.IsNullOrEmpty(_CrtWeather))
                 AssetLoader.UnloadAsset(_CrtWeather, true);
