@@ -16,6 +16,9 @@ public class WeatherSystem {
 
     public static void Update()
     {
+        if (Battle.InBattle)
+            return;
+        
         _MinGap -= Time.deltaTime;
         if (_MinGap < 0f)
         {
@@ -36,7 +39,7 @@ public class WeatherSystem {
         
         int hour = DateTime.Now.Hour;
         string nextWeather = WeatherData.GetWeather(hour);
-        if (!_CrtWeather.Equals(nextWeather) && _WeatherObj == null)
+        if (!_CrtWeather.Equals(nextWeather) || _WeatherObj == null)
         {
             if (!string.IsNullOrEmpty(_CrtWeather))
                 AssetLoader.UnloadAsset(_CrtWeather, true);
