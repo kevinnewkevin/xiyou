@@ -49,7 +49,7 @@ function ErrorMessage(errCode)
 end
 
 function RegGlobalValue()
-	Define.Set("DebugServerAddress", "10.10.10.3");
+	Define.Set("DebugServerAddress", "127.0.0.1");
 	Define.Set("DebugServerPort", 10999);
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
@@ -60,6 +60,7 @@ function RegGlobalValue()
 	Define.Set("BornPos", "8.55,-14.34,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
 	Define.Set("WorldCamera_focusPlus", "0,1,9");	--主场景公告牌偏移坐标
+	Define.Set("WeatherCheckTime", 60); --天气监测间隔 秒
 end
 
 function RegUIResMap()
