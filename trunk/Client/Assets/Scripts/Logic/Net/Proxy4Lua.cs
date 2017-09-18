@@ -39,6 +39,21 @@ public class Proxy4Lua {
         NetWoking.S.PromoteUnit(instId);
     }
 
+    static public void Login()  
+    {
+        //if has channel get username from channel;
+        //if debug fetch mobile phone info instead.
+
+        string username = "";
+        string password = "";
+
+        username = UnityEngine.SystemInfo.deviceUniqueIdentifier;
+        COM_LoginInfo info = new COM_LoginInfo();
+        info.Username = username;
+        info.Password = password;
+        NetWoking.S.Login(info);
+    }
+
     static public void CreatePlayer(int templateId, string nickName)  
     {
         NetWoking.S.CreatePlayer(templateId, nickName);
@@ -208,6 +223,15 @@ public class Proxy4Lua {
             if(Battle._Result.MySelfDeathNum <= cpData._Star3Need)
                 return true;
             return false;
+        }
+    }
+
+    static public void ShakeCamera(Vector3 amount, float time)
+    {
+        Camera[] cameras = GameObject.FindObjectsOfType<Camera>();
+        for(int i=0; i < cameras.Length; ++i)
+        {
+            iTween.ShakePosition(cameras[i].gameObject, amount, time);
         }
     }
 
