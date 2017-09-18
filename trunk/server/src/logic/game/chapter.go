@@ -93,6 +93,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if player==nil {
 		return
 	}
+	fmt.Println("AttackChapter smallchapterid=",smallchapterid)
 	small := player.GetMySmallChapterDataById(smallchapterid)
 	if small == nil {
 		return
