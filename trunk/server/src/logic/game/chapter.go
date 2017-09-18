@@ -106,9 +106,42 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if chapterData == nil {
 		return
 	}
-	if chapterData.ChapterLevel > myUnitLevel {
-		return
+
+	if chapterData.ChapterType == 1 {
+		for _,id :=  range smallData.UnLockId{
+			//
+			checksmall := player.GetMySmallChapterDataById(id)
+			if checksmall == nil {
+				fmt.Println("AttackChapter General checksmall==nil smallchapterid=",id)
+				return
+			}
+			if !checksmall.Star1 {
+				return
+			}
+		}
+	}else {
+		if chapterData.ChapterLevel > myUnitLevel {
+			return
+		}
+		for _,id :=  range smallData.UnLockId{
+			//
+			checksmall := player.GetMySmallChapterDataById(id)
+			if checksmall == nil {
+				fmt.Println("AttackChapter Difficulty checksmall==nil smallchapterid=",id)
+				return
+			}
+			if !checksmall.Star1 {
+				return
+			}
+			if !checksmall.Star2 {
+				return
+			}
+			if !checksmall.Star3 {
+				return
+			}
+		}
 	}
+
 	if player.IsBattle() {
 		return
 	}

@@ -25,6 +25,7 @@ type (
 		SmallChapterCase3	int32
 		BattleID			int32
 		DropID				int32
+		UnLockId			[]int32
 	}
 )
 
@@ -94,6 +95,13 @@ func LoadSmallChapterTable(filename string) error {
 		c.SmallChapterCase3		= int32(csv.GetInt(r,"Star3Need"))
 		c.BattleID				= int32(csv.GetInt(r,"BattleID"))
 		c.DropID				= int32(csv.GetInt(r,"DropID"))
+
+		strTmp3 := strings.Split(csv.GetString(r,"UnlockID"),";")
+		for i:=0;i<len(strTmp3);i++{
+			id,_ := strconv.Atoi(strTmp3[i])
+			c.UnLockId = append(c.UnLockId,int32(id))
+		}
+
 		SmallChapterTable[c.SmallChapterId] = &c
 	}
 	return nil
