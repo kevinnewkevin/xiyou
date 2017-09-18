@@ -99,6 +99,9 @@ func LoadSmallChapterTable(filename string) error {
 		strTmp3 := strings.Split(csv.GetString(r,"UnlockID"),";")
 		for i:=0;i<len(strTmp3);i++{
 			id,_ := strconv.Atoi(strTmp3[i])
+			if id==0 {
+				continue
+			}
 			c.UnLockId = append(c.UnLockId,int32(id))
 		}
 
