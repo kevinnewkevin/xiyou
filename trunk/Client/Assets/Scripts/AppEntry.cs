@@ -20,7 +20,7 @@ public class AppEntry : MonoBehaviour {
         UIManager.Init();
         Define.Init();
         CameraEffect.Init();
-
+        WeatherSystem.Init();
         UIManager.Show("denglu");
         DataLoader.BeginLoad();
 
@@ -38,5 +38,11 @@ public class AppEntry : MonoBehaviour {
         SceneLoader.Update();
         CameraEffect.Update();
         ExceptionHandle.Update();
+        WeatherSystem.Update();
 	}
+
+    void OnGUI()
+    {
+        
+    }
 }
