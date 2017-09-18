@@ -3,7 +3,10 @@ require "FairyGUI"
 denglu = fgui.window_class(WindowBase)
 local Window;
 
+local selectInfo;
 local enterBtn;
+local selectServ;
+local selectServCloseBtn;
 
 function denglu:OnEntry()
 	Window = denglu.New();
@@ -20,6 +23,14 @@ function denglu:OnInit()
 
 	enterBtn = self.contentPane:GetChild("n3").asButton;
 	enterBtn.onClick:Add(denglu_OnEnterGame);
+
+	selectInfo = self.contentPane:GetChild("n9");
+	selectInfo.onClick:Add(denglu_OnShowServ);
+
+	selectServ = self.contentPane:GetChild("n8").asCom;
+	selectServ.visible = false;
+	selectServCloseBtn = selectServ:GetChild("n5").asButton;
+	selectServCloseBtn.onClick:Add(denglu_OnCloseServ);
 
 	denglu_FlushData();
 end
@@ -51,8 +62,17 @@ function denglu_FlushData()
 	enterBtn.enabled = not DataLoader._IsLoading;
 end
 
+function denglu_OnShowServ()
+	selectServ.visible = true;
+end
+
+function denglu_OnCloseServ()
+	selectServ.visible = false;
+end
+
 function denglu_OnEnterGame()
 	if Proxy4Lua.ReconnectServer() == true then
-		Proxy4Lua.CreatePlayer(1, "小西游名字七字");
+		Proxy4Lua.Login();
+--Proxy4Lua.CreatePlayer(2, "sdf");
 	end
 end
