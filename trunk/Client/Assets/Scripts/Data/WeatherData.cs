@@ -42,7 +42,7 @@ public class WeatherData {
     public static string GetWeather(int hour)
     {
         if (!metaData.ContainsKey(hour))
-            return null;
+            return "";
 
         return metaData[hour]._Asset;
     }
