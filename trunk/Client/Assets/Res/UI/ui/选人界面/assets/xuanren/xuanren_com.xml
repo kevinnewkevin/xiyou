@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_h59k" name="n0" src="h59k4" xy="0,0" size="1920,1080"/>
+    <image id="n1_h59k" name="n1" src="h59k5" xy="696,750" size="540,305"/>
+    <image id="n2_h59k" name="n2" src="h59k7" xy="764,801" size="408,50"/>
+    <image id="n3_h59k" name="n3" src="h59k8" xy="794,865" size="342,55"/>
+    <component id="n4_h59k" name="n4" src="h59kb" xy="1090,851"/>
+    <image id="n5_h59k" name="n5" src="h59k6" xy="754,40"/>
+    <component id="n6_h59k" name="n6" src="h59kc" xy="1762,22"/>
+    <component id="n7_h59k" name="n7" src="h59ke" xy="824,936"/>
+    <text id="n8_h59k" name="n8" xy="854,808" size="224,43" font="方正楷体_GBK" fontSize="34" align="center" vAlign="middle" autoSize="none" text="选择人物"/>
+    <text id="n9_h59k" name="n9" xy="811,873" size="272,42" input="true" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text="点击输入名字"/>
+    <list id="n10_h59k" name="n10" xy="730,420" size="482,196" layout="flow_hz" scroll="horizontal" colGap="105">
+      <item url="ui://1koj6zquh59kf"/>
+      <item url="ui://1koj6zquh59kg"/>
+    </list>
+  </displayList>
+</component>

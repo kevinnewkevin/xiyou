@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="1koj6zqu" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="h59k0" name="xuanren_com.xml" path="/" exported="true"/>
+    <image id="h59k1" name="touxiangkuang.png" path="/" exported="true"/>
+    <image id="h59k2" name="touxiang_nan.png" path="/" exported="true"/>
+    <image id="h59k3" name="touxiang_nv.png" path="/" exported="true"/>
+    <image id="h59k4" name="beijing.png" path="/" exported="true"/>
+    <image id="h59k5" name="beijingkuang.png" path="/" exported="true" scale="9grid" scale9grid="138,54,267,5"/>
+    <image id="h59k6" name="biaoti.png" path="/" exported="true"/>
+    <image id="h59k7" name="tiao.png" path="/" exported="true" scale="9grid" scale9grid="13,21,12,8"/>
+    <image id="h59k8" name="tiao2.png" path="/" exported="true" scale="9grid" scale9grid="36,14,7,28"/>
+    <image id="h59k9" name="shanzi.png" path="/" exported="true"/>
+    <image id="h59ka" name="fanhui.png" path="/" exported="true"/>
+    <component id="h59kb" name="shaizi_Button.xml" path="/" exported="true"/>
+    <component id="h59kc" name="fanhui_Button.xml" path="/" exported="true"/>
+    <image id="h59kd" name="anniu.png" path="/" exported="true"/>
+    <component id="h59ke" name="kaishi_Button.xml" path="/" exported="true"/>
+    <component id="h59kf" name="nanzhu_Button.xml" path="/" exported="true"/>
+    <component id="h59kg" name="nvzhu_Button.xml" path="/" exported="true"/>
+    <image id="h59kh" name="xuanzhong.png" path="/" exported="true"/>
+  </resources>
+  <publish name="xuanren" maxAtlasSize="1024" extractAlpha="true">
+    <atlas name="默认" index="0"/>
+  </publish>
+</packageDescription>

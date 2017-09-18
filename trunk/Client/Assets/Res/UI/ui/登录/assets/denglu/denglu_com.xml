@@ -5,5 +5,16 @@
     <image id="n1_nw1s" name="n1" src="nw1s4" xy="472,150"/>
     <image id="n2_nw1s" name="n2" src="nw1s2" xy="2,894" size="1916,158"/>
     <component id="n3_nw1s" name="n3" src="nw1s6" xy="790,908"/>
+    <image id="n4_mil9" name="n4" src="mil9h" xy="676,740" size="576,70"/>
+    <loader id="n5_mil9" name="n5" xy="689,742" size="65,64" url="ui://9211bzvymil9b" align="center" vAlign="middle">
+      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
+    </loader>
+    <text id="n6_mil9" name="n6" xy="760,750" size="272,49" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦">
+      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n7_mil9" name="n7" xy="1080,750" size="146,49" font="方正楷体_GBK" fontSize="34" color="#f8b351" vAlign="middle" autoSize="none" text="点击换区">
+      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n8_mil9" name="n8" src="mil9m" xy="0,0" hideByEditor="true"/>
   </displayList>
 </component>
