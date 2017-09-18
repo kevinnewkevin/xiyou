@@ -10,6 +10,7 @@ public class WeatherSystem {
 
     public static void Init()
     {
+        _CrtWeather = "";
         _MinGap = Define.GetFloat("WeatherCheckTime");
     }
 
