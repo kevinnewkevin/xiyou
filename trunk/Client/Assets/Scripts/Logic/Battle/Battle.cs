@@ -211,7 +211,7 @@ public class Battle {
         }
         BattleSetup();
     }
-    static OpraSystem op;
+    static public OpraSystem op;
     static bool LoadAssets()
     {
         // 加载场景站位点信息
