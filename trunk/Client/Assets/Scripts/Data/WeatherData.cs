@@ -26,7 +26,7 @@ public class WeatherData {
         {
             data = new WeatherData ();
             data._Id = parser.GetInt (i, "Hour");
-            data._Asset = parser.GetInt (i, "Asset");
+            data._Asset = parser.GetString (i, "Asset");
 
             if(metaData.ContainsKey(data._Id))
             {
