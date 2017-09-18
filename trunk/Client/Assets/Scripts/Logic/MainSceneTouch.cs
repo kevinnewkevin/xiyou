@@ -16,6 +16,7 @@ public class MainSceneTouch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        WeatherSystem.ForceCheck();
         World.InitPlayerActor(GamePlayer._Data);
         World.InitNpcActor();
         Stage.inst.onTouchBegin.Add(OnTouchBegin);

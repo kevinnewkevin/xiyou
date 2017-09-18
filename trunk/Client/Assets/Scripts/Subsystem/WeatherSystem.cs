@@ -24,6 +24,11 @@ public class WeatherSystem {
         }
     }
 
+    static public void ForceCheck()
+    {
+        CheckWeather();
+    }
+
     static void CheckWeather()
     {
         if (Camera.main == null)
