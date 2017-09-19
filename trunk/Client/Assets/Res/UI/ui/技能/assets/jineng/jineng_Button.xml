@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="141,138" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
+  <displayList>
+    <image id="n4_s5s1" name="n4" src="tmaej" xy="0,0"/>
+    <image id="n11_tmae" name="n11" src="v9hce" xy="1,-4">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
+    <image id="n10_tmae" name="n10" src="v9hcd" xy="10,1" hideByEditor="true"/>
+    <image id="n5_s5s1" name="n5" src="tmael" xy="95,92"/>
+    <text id="n7_s5s1" name="n7" xy="102,97" size="33,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
+  </displayList>
+  <Button mode="Radio"/>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="100">
+    <item time="0" type="Alpha" target="n10_tmae" tween="true" startValue="1" endValue="0.5" duration="12" ease="Back.In"/>
+    <item time="12" type="Alpha" target="n10_tmae" tween="true" startValue="0.5" endValue="1" duration="12" ease="Back.In"/>
+    <item time="24" type="Alpha" target="n10_tmae" tween="true" startValue="1" endValue="0.5" duration="12" ease="Back.In"/>
+  </transition>
+</component>

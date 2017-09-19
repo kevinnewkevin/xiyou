@@ -2,11 +2,11 @@
 <packageDescription id="a89mapfo" jpegQuality="80" compressPNG="true">
   <resources>
     <component id="mx9u0" name="jineng_com.xml" path="/"/>
-    <image id="v9hc1" name="bb_diban2.png" path="/"/>
+    <image id="v9hc1" name="bb_diban2.png" path="/" scale="9grid" scale9grid="27,27,4,10"/>
     <image id="v9hc2" name="bb_fanhui.png" path="/"/>
     <image id="v9hc3" name="beijing_1.png" path="/"/>
-    <image id="v9hc4" name="biaotilan.png" path="/"/>
-    <image id="v9hc5" name="dikuang2.png" path="/"/>
+    <image id="v9hc4" name="biaotilan.png" path="/" scale="9grid" scale9grid="213,12,5,24"/>
+    <image id="v9hc5" name="dikuang2.png" path="/" scale="9grid" scale9grid="266,106,24,9"/>
     <image id="v9hc6" name="ditiao.png" path="/"/>
     <image id="v9hc7" name="guagou.png" path="/"/>
     <image id="v9hc8" name="huawen2.png" path="/"/>
@@ -19,6 +19,13 @@
     <image id="v9hcf" name="zhuangshi3.png" path="/"/>
     <image id="v9hcg" name="bb_diban.png" path="/" scale="9grid" scale9grid="286,149,20,12"/>
     <component id="v9hch" name="guanbi_Button.xml" path="/"/>
+    <component id="tmaei" name="jineng_Button.xml" path="/" exported="true"/>
+    <image id="tmaej" name="jinengkuang.png" path="/" exported="true"/>
+    <image id="tmaek" name="jinengkuangxuanzhong.png" path="/" exported="true"/>
+    <image id="tmael" name="jinengdengji.png" path="/" exported="true"/>
+    <component id="tmaem" name="zhudong_com.xml" path="/"/>
+    <component id="tmaen" name="beidong_com.xml" path="/"/>
+    <component id="tmaeo" name="bishaji_com.xml" path="/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

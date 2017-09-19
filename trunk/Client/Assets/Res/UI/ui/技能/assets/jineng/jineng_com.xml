@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1920,1080"/>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_v9hc" name="n0" src="v9hcg" xy="121,66" size="1704,960"/>
+    <component id="n2_v9hc" name="n2" src="v9hch" xy="1738,132"/>
+    <image id="n7_tmae" name="n7" src="v9hc1" xy="965,205" size="641,540"/>
+    <image id="n3_v9hc" name="n3" src="v9hcc" xy="156,18"/>
+    <image id="n4_tmae" name="n4" src="v9hc5" xy="332,146" size="629,847"/>
+    <image id="n5_tmae" name="n5" src="v9hc7" xy="575,105"/>
+    <image id="n6_tmae" name="n6" src="v9hc8" xy="945,152"/>
+    <image id="n8_tmae" name="n8" src="v9hc4" xy="977,150" size="629,46"/>
+    <image id="n9_tmae" name="n9" src="v9hc4" xy="967,760" size="629,46"/>
+    <component id="n10_tmae" name="n10" src="tmaei" xy="952,814"/>
+    <component id="n11_tmae" name="n11" src="tmaei" xy="1118,814"/>
+    <component id="n12_tmae" name="n12" src="tmaei" xy="1284,814"/>
+    <component id="n13_tmae" name="n13" src="tmaei" xy="1450,814"/>
+    <image id="n14_tmae" name="n14" src="v9hc4" xy="364,193" size="569,46"/>
+    <list id="n16_tmae" name="n16" xy="970,224" size="641,498" overflow="scroll" lineGap="-60">
+      <item url="ui://a89mapfotmaem"/>
+      <item url="ui://a89mapfotmaen"/>
+      <item url="ui://a89mapfotmaeo"/>
+    </list>
+    <text id="n17_tmae" name="n17" xy="1164,148" size="252,49" font="方正楷体_GBK" fontSize="34" align="center" vAlign="middle" autoSize="none" text="拥有技能"/>
+    <text id="n18_tmae" name="n18" xy="1150,757" size="252,49" font="方正楷体_GBK" fontSize="34" align="center" vAlign="middle" autoSize="none" text="装备技能"/>
+    <text id="n19_tmae" name="n19" xy="524,194" size="252,49" font="方正楷体_GBK" fontSize="34" align="center" vAlign="middle" autoSize="none" text="技能升级"/>
+  </displayList>
+</component>
