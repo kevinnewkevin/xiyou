@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="249,100" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="kcujv" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_kcuj" name="n2" xy="85,16" size="116,43" font="方正楷体_GBK" fontSize="34" color="#4e2a0d" align="center" vAlign="middle" autoSize="none" bold="true" text="确定"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
