@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: f16e3a2554f88ae43a696fad327e68e2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -47,9 +47,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AllPower: 10
-    - _AlphaPower: 1.1
-    - _InnerColorPower: 0.51
-    - _RimPower: 2.87
+    - _AlphaPower: 2.9
+    - _InnerColorPower: 1
+    - _RimPower: 5
     - _Shininess: 0.078125
     m_Colors:
     - _Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
