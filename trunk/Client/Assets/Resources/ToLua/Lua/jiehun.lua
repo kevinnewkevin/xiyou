@@ -83,13 +83,13 @@ function jiehun_RenderListItem(index, obj)
 	local starNum = 0;
 	for i=1, len do
 		if comData.SmallChapters[i-1].Star1 == true then
-			starNum = starNum + data.Star_[0];
+			starNum = starNum + 1;
 		end
 		if comData.SmallChapters[i-1].Star2 == true then
-			starNum = starNum + data.Star_[1];
+			starNum = starNum + 1;
 		end
 		if comData.SmallChapters[i-1].Star3 == true then 
-			starNum = starNum + data.Star_[2];
+			starNum = starNum +1;
 		end
 	end
 	starBar.value = starNum/data.Star_[2]*100;

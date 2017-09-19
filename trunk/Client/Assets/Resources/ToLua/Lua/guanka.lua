@@ -92,18 +92,18 @@ end
 
 function guakan_RenderListItem(index, obj)
 	 local smallData = smallChapters[index];
-	 local data = CheckpointData.GetData(smallData.SmallChapterId);
+	 local data = CheckpointData.GetSmallData(guankaID,smallData.SmallChapterId);
 	 local name = obj:GetChild("n6");
-	 name.text = data[index]._Name;
+	 name.text = data._Name;
 	 local open = obj:GetChild("n12");
 	 open.visible  = false;
-	 obj.data = data[index]._ID;
+	 obj.data = data._ID;
 	 obj.onClick:Add(guakan_OnSelectGroup);
 	 if index ~= 0 then
-		if(smallChapters[index -1].Star1 == false) then
-			 obj.visible  = false;
+		if smallChapters[index -1].Star1 == true or smallChapters[index -1].Star2 == true or smallChapters[index -1].Star3 == true  then   
+			 obj.visible  = true;
 		else
-			obj.visible  = true;
+			obj.visible  = false;
 		end
 	 end
 end
@@ -111,3 +111,4 @@ end
 function guakan_OnSelectGroup(context)
 	smallId = context.sender.data;
 end
+
