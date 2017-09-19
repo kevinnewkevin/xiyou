@@ -33,6 +33,36 @@ public class JieHunSystem
 		}
 	}
 
+    public void UpdateChapterData(COM_Chapter chapter)
+    {
+        for (int i = 0; i < chapteList.Count; i++)
+        {
+            if (chapteList[i].ChapterId == chapter.ChapterId)
+            {
+                chapteList[i] = chapter ;
+                break;
+            }
+        }
+        for (int j = 0; j < chapteEasyList.Count; j++)
+        {
+            if (chapteEasyList[j].ChapterId == chapter.ChapterId)
+            {
+                chapteEasyList[j] = chapter;
+                break;
+            }
+        }
+        for (int k = 0; k < chapteHardList.Count; k++)
+        {
+            if (chapteHardList[k].ChapterId == chapter.ChapterId)
+            {
+                chapteHardList[k] = chapter;
+                break;
+            }
+        }
+        UIManager.SetDirty("jiehun");
+        UIManager.SetDirty("guanka");
+    }
+
     public void InitChapterData(COM_Chapter[] data)
     {
         chapteList.Clear();
