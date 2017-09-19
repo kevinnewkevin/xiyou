@@ -635,9 +635,7 @@ func TestPlayer() {
 	//
 	//	fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
 	//}
-	P1.GetChapterStarReward(1,10)
-	P1.GetChapterStarReward(1,20)
-	P1.GetChapterStarReward(1,30)
+	fmt.Println("111111111111111111111111111111111===",P1.MyUnit.GetIProperty(prpc.IPT_ENERGY))
 }
 
 

@@ -20,6 +20,7 @@ type (
 	SmallChapter struct {
 		SmallChapterId		int32
 		SmallChapterType	int32
+		EnergyExpend		int32
 		SmallChapterCase1	int32		//小章节星级达成条件  case1:击杀某个怪物   case2:多少回合内  case3:阵亡数量
 		SmallChapterCase2	int32
 		SmallChapterCase3	int32
@@ -88,13 +89,14 @@ func LoadSmallChapterTable(filename string) error {
 
 	for r := 0; r < csv.Length(); r++ {
 		c := SmallChapter{}
-		c.SmallChapterId 		= int32(csv.GetInt(r,"ID"))
-		c.SmallChapterType		= int32(csv.GetInt(r,"HeroID"))
-		c.SmallChapterCase1		= int32(csv.GetInt(r,"Star1Need"))
-		c.SmallChapterCase2		= int32(csv.GetInt(r,"Star2Need"))
-		c.SmallChapterCase3		= int32(csv.GetInt(r,"Star3Need"))
-		c.BattleID				= int32(csv.GetInt(r,"BattleID"))
-		c.DropID				= int32(csv.GetInt(r,"DropID"))
+		c.SmallChapterId 		= csv.GetInt32(r,"ID")
+		c.SmallChapterType		= csv.GetInt32(r,"HeroID")
+		c.EnergyExpend			= csv.GetInt32(r,"Main")
+		c.SmallChapterCase1		= csv.GetInt32(r,"Star1Need")
+		c.SmallChapterCase2		= csv.GetInt32(r,"Star2Need")
+		c.SmallChapterCase3		= csv.GetInt32(r,"Star3Need")
+		c.BattleID				= csv.GetInt32(r,"BattleID")
+		c.DropID				= csv.GetInt32(r,"DropID")
 
 		strTmp3 := strings.Split(csv.GetString(r,"UnlockID"),";")
 		for i:=0;i<len(strTmp3);i++{
