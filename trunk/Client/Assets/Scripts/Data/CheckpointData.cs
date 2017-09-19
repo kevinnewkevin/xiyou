@@ -65,6 +65,18 @@ public class CheckpointData
 		return metaData[id];
 	}
 
+    static public CheckpointData GetSmallData(int id,int smallId)
+    {
+        if (!metaData.ContainsKey(id))
+            return null;
+        for (int i = 0; i < metaData[id].Count; i++)
+        {
+            if (metaData[id][i]._ID == smallId)
+                return metaData[id][i];
+        }
+            return null;
+    }
+
     static public CheckpointData GetDataByBattleID(int id)
     {
         if (!metaData2.ContainsKey(id))
