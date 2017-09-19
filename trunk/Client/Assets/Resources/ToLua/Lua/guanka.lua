@@ -10,6 +10,9 @@ local stamaPoint;
 local img;
 local guankaID;
 local needPower;
+local smallChapters;
+
+
 function guanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = guanka.New();
@@ -73,25 +76,36 @@ end
 
 function guanka_FlushData()
 	guankaID = UIManager.GetWindow("jiehun").GetGuankaId();
+	
+	 local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
+	smallChapters = chapterData.SmallChapters;
+	
 	local data = HeroStroyData.GetData(guankaID);
 	tatle.text = data.Name_;
 	desc.text = data.Desc_;
-
 	img.asLoader.url = "ui://" .. data.Icon_;
 	local data = CheckpointData.GetData(guankaID);
-	smallList.numItems = data.Count;
+	smallList.numItems = smallChapters.Length;
 
 	stamaPoint.text = GamePlayer._Data.IProperties[2];
 end
 
 function guakan_RenderListItem(index, obj)
-	 local data = CheckpointData.GetData(guankaID);
+	 local smallData = smallChapters[index];
+	 local data = CheckpointData.GetData(smallData.SmallChapterId);
 	 local name = obj:GetChild("n6");
 	 name.text = data[index]._Name;
 	 local open = obj:GetChild("n12");
 	 open.visible  = false;
 	 obj.data = data[index]._ID;
 	 obj.onClick:Add(guakan_OnSelectGroup);
+	 if index ~= 0 then
+		if(smallChapters[index -1].Star1 == false) then
+			 obj.visible  = false;
+		else
+			obj.visible  = true;
+		end
+	 end
 end
 
 function guakan_OnSelectGroup(context)
