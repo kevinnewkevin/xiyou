@@ -49,6 +49,7 @@ public class GamePlayer {
         _Name = player.Name;
         _Data = player.Unit;
 		_TianTiVal = player.TianTiVal;
+        JieHunSystem.instance.InitChapterData(player.Chapters);
         EntityData eData = null;
         for(int i=0; i < player.Employees.Length; ++i)
         {
@@ -64,6 +65,7 @@ public class GamePlayer {
             if(!_CardsByFee.ContainsKey(0))
                 _CardsByFee.Add(0, new List<COM_Unit>());
             _CardsByFee [0].Add(player.Employees [i]);
+        
         }
 
         UIManager.SetDirty("zhujiemian");
