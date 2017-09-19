@@ -614,6 +614,10 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 		return errors.New("error iType")
 	}
 
+	if value < 0 {
+		value = 0
+	}
+
 	fmt.Println("SetIProperty, itype", iType, "front pro ", this.IProperties[iType])
 	this.IProperties[iType] = value
 	fmt.Println("SetIProperty, itype", iType, "after pro ", this.IProperties[iType])
