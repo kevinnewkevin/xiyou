@@ -157,8 +157,9 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if isok==nil {
 		return
 	}
-	myEnergy -= smallData.EnergyExpend
-	player.MyUnit.SetIProperty(prpc.IPT_ENERGY,myEnergy)
+
+	player.CalcMyEnergy(smallData.EnergyExpend,false)
+
 	player.ChapterID = smallchapterid
 }
 

@@ -716,3 +716,15 @@ func (this *GamePlayer) MyUnitLevelUp()  {
 	//this.session.PromoteUnitOK()
 }
 
+func (this *GamePlayer)CalcMyEnergy(val int32,isAdd bool)  {
+
+	myEnergy := this.MyUnit.GetIProperty(prpc.IPT_ENERGY)
+
+	if isAdd {
+		myEnergy += val
+
+	}else {
+		myEnergy -= val
+	}
+	this.MyUnit.SetIProperty(prpc.IPT_ENERGY,myEnergy)
+}
