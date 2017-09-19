@@ -11,6 +11,10 @@ local star1;
 local star2;
 local star3;
 
+local star1_eff;
+local star2_eff;
+local star3_eff;
+
 local star1_ac;
 local star2_ac;
 local star3_ac;
@@ -57,6 +61,10 @@ function jiesuanjiemian:OnInit()
 	star1 = self.contentPane:GetChild("n29");
 	star2 = self.contentPane:GetChild("n30");
 	star3 = self.contentPane:GetChild("n32");
+
+	star1_eff = self.contentPane:GetChild("n40");
+	star2_eff = self.contentPane:GetChild("n41");
+	star3_eff = self.contentPane:GetChild("n42");
 
 	star1_ac = self.contentPane:GetChild("n23");
 	star2_ac = self.contentPane:GetChild("n27");
@@ -181,8 +189,11 @@ function jiesuanjiemian_FlushData()
 	if Battle.IsWin then
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shengli");
 		starEff = {};
-		starEff.max = 10;
+		starEff.max = 15;
 		starEff.count = 0;
+		if Proxy4Lua.IsAchieve1 == true then
+			star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
+		end
 	else
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shibai");
 		okBtn.enabled = true;
@@ -209,6 +220,10 @@ function jiesuanjiemian:OnUpdate()
 				if star1.visible then
 					star1_ac.text = "达成";
 				end
+				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0, 0), 0.3);
+				if Proxy4Lua.IsAchieve2 == true then
+					star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
+				end
 				return;
 			end
 			if starIdx == 1 then
@@ -217,6 +232,10 @@ function jiesuanjiemian:OnUpdate()
 				starEff.count = 0;
 				if star2.visible then
 					star2_ac.text = "达成";
+				end
+				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0, 0), 0.3);
+				if Proxy4Lua.IsAchieve3 == true then
+					star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
 				end
 				return;
 			end
@@ -229,6 +248,7 @@ function jiesuanjiemian:OnUpdate()
 				if star3.visible then
 					star3_ac.text = "达成";
 				end
+				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0, 0), 0.3);
 			end
 		end
 	end
@@ -254,6 +274,19 @@ function jiesuanjiemian_OnOkBtn()
 	starIdx = 0;
 	okBtn.enabled = false;
 	okLbl.visible = false;
+
+	if Proxy4Lua.IsAchieve1 == true then
+		star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
+	end
+	if Proxy4Lua.IsAchieve2 == true then
+		star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
+	end
+	if Proxy4Lua.IsAchieve3 == true then
+		star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
+	end
 
 	if Battle.DropItemCount > 0 then
 		UIManager.Hide("jiesuanjiemian");
