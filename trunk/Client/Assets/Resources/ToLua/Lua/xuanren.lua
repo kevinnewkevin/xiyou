@@ -48,7 +48,12 @@ function xuanren:OnHide()
 end
 
 function xuanren_OnCreate()
-	if Proxy4Lua.ReconnectServer() == true then
-		Proxy4Lua.CreatePlayer(selectList.selectedIndex + 1, name.text);
+	if selectList.selectedIndex == -1 then
+		return;
 	end
+
+	if name.text == "" then
+		return;
+	end
+	Proxy4Lua.CreatePlayer(selectList.selectedIndex + 1, name.text);
 end
