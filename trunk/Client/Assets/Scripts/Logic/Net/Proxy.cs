@@ -9,6 +9,15 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool LoginOK(ref COM_AccountInfo info)
     {
+        if (true/* new account */)
+        {
+            UIManager.Hide("denglu");
+            UIManager.Show("xuanren");
+        }
+        else
+        {
+            // onboard
+        }
         return true;
     }
 

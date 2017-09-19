@@ -72,7 +72,6 @@ end
 
 function denglu_OnEnterGame()
 	if Proxy4Lua.ReconnectServer() == true then
---		Proxy4Lua.Login();
-Proxy4Lua.CreatePlayer(2, "sdf");
+		Proxy4Lua.Login();
 	end
 end
