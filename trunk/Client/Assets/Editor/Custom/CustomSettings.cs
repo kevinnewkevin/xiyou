@@ -195,7 +195,7 @@ public static class CustomSettings
         _GT(typeof(GProgressBar)),
         _GT(typeof(GSlider)),
         _GT(typeof(PopupMenu)),
-        _GT(typeof(ScrollPane)),
+        _GT(typeof(ScrollPane)), 
         _GT(typeof(Transition)),
         _GT(typeof(UIPackage)),
         _GT(typeof(Window)),
@@ -209,7 +209,7 @@ public static class CustomSettings
         _GT(typeof(SkillData)),
         _GT(typeof(ItemData)),
 		_GT(typeof(HeroStroyData)),
-        _GT(typeof(CheckpointData)),
+        _GT(typeof(CheckpointData)), 
         _GT(typeof(TalkData)),
         _GT(typeof(DragDrop)),
         _GT(typeof(List<long>)),
@@ -220,6 +220,9 @@ public static class CustomSettings
 		_GT(typeof(Dictionary<int, List<COM_ItemInst>>)),
         _GT(typeof(StrengthenData)),
         _GT(typeof(ExpData)),
+        _GT(typeof(JieHunSystem)),
+        _GT(typeof(COM_Chapter)),
+         _GT(typeof(COM_SmallChapter)),
         _GT(typeof(LuaWindow)),
 
     };
