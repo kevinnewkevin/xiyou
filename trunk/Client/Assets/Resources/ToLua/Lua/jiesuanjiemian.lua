@@ -227,8 +227,12 @@ function jiesuanjiemian:OnUpdate()
 				return;
 			end
 			if starIdx == 1 then
-				star2.visible = star1.visible and Proxy4Lua.IsAchieve2;
+				star2.visible = Proxy4Lua.IsAchieve2;
 				starIdx = starIdx + 1;
+				if star2.visible == false then
+					starEff.count = starEff.max;
+					return;
+				end
 				starEff.count = 0;
 				if star2.visible then
 					star2_ac.text = "达成";
@@ -240,7 +244,14 @@ function jiesuanjiemian:OnUpdate()
 				return;
 			end
 			if starIdx == 2 then
-				star3.visible = star1.visible and star2.visible and Proxy4Lua.IsAchieve3;
+				star3.visible = Proxy4Lua.IsAchieve3;
+				if star2.visible == false then
+					starIdx = 0;
+					starEff = nil;
+					okBtn.enabled = true;
+					okLbl.visible = true;
+					return;
+				end
 				starIdx = 0;
 				starEff = nil;
 				okBtn.enabled = true;
