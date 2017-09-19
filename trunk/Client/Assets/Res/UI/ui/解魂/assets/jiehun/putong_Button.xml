@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="134,135" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
   <displayList>
     <image id="n1" name="n1" src="vpj2v" xy="0,0">
       <gearDisplay controller="button" pages="0,2"/>
@@ -11,5 +11,5 @@
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
-  <Button mode="Radio"/>
+  <Button mode="Radio" downEffect="scale" downEffectValue="1.20"/>
 </component>
