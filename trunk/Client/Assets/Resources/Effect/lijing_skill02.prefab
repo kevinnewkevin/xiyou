@@ -66,14 +66,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206654735530822}
-  m_LocalRotation: {x: -0.7160035, y: -0.17808081, z: -0.23062798, w: -0.63437927}
-  m_LocalPosition: {x: 0, y: 1.42, z: 0.53}
+  m_LocalRotation: {x: -0.6004919, y: -0.45785618, z: 0.11168052, w: -0.6459913}
+  m_LocalPosition: {x: 0, y: 1.42, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4376808449185080}
   m_Father: {fileID: 4548616402951618}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 124.28, y: 279.066, z: -436.477}
+  m_LocalEulerAnglesHint: {x: 118.587006, y: 287.069, z: -482.044}
 --- !u!4 &4376808449185080
 Transform:
   m_ObjectHideFlags: 1
@@ -116,7 +116,7 @@ ParticleSystem:
   autoRandomSeed: 1
   startDelay:
     minMaxState: 0
-    scalar: 1.2
+    scalar: 1.15
     maxCurve:
       serializedVersion: 2
       m_Curve:
@@ -156,13 +156,13 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1981352006
+  randomSeed: -1912902441
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3165,13 +3165,13 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 766135441
+  randomSeed: 934426052
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4029,7 +4029,7 @@ ParticleSystem:
       minMaxState: 1
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.72048676, b: 0.2205882, a: 0}
+        key0: {r: 1, g: 0.8312373, b: 0.5294118, a: 0}
         key1: {r: 1, g: 0.39310342, b: 0, a: 0.74509805}
         key2: {r: 1, g: 1, b: 1, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
