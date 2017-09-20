@@ -92,7 +92,7 @@ public class Skill {
                 _SkillEff [0].transform.localPosition = Vector3.zero;
                 _SkillEff [0].transform.localScale = Vector3.one;
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
-                if (_Caster._RealPosInScene > 5)
+                if (caster._RealPosInScene > 5)
                     _SkillEff [0].transform.Rotate(Vector3.up, 180f);
                 _SkillEff [0].SetActive(false);
             }
@@ -297,11 +297,21 @@ public class Skill {
     {
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
-        Play(_Caster, _SkillData._CastAnim);
-        if(_SkillData._Single)
-            Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        if (_SkillData._Single)
+        {
+            if (string.IsNullOrEmpty(_SkillData._CastAnim))
+                Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+            else
+            {
+                Play(_Caster, _SkillData._CastAnim);
+                PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+            }
+        }
         else
+        {
+            Play(_Caster, _SkillData._CastAnim);
             PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        }
         CastEffect();
         OnTimeDo(_SkillData._CastTime, Range_BeforeCast);
         crtTargetIdx = 0;
