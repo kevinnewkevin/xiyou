@@ -101,6 +101,9 @@ public class Skill {
                         _SkillEff [0].transform.Rotate(Vector3.up, 180f);
                 }
                 _SkillEff [0].SetActive(false);
+
+                if(_SkillPos != null)
+                    _SkillEff [0].transform.parent = null;
             }
 
             _BeattackEff = new GameObject[1];
@@ -230,10 +233,10 @@ public class Skill {
         }
         else if(tposType == SkillData.TargetPosType.TPT_All)
         {
-            if (targets [0]._RealPosInScene >= 0 || targets [0]._RealPosInScene <= 5)
+            if (targets [0]._RealPosInScene >= 0 && targets [0]._RealPosInScene <= 5)
                 return Battle.GetPoint(1);
 
-            if (targets [0]._RealPosInScene >= 6 || targets [0]._RealPosInScene <= 11)
+            if (targets [0]._RealPosInScene >= 6 && targets [0]._RealPosInScene <= 11)
                 return Battle.GetPoint(7);
         }
         else if(tposType == SkillData.TargetPosType.TPT_Center)
