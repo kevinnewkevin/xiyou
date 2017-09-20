@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="851,231">
+  <displayList>
+    <image id="n7_olbb" name="n7" src="olbbk" xy="0,0" size="850,231"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n7_olbb" tween="true" startValue="0" endValue="1" duration="12" ease="Cubic.InOut"/>
+    <item time="0" type="Scale" target="n7_olbb" tween="true" startValue="-0,1" endValue="1,1" duration="12" ease="Cubic.InOut"/>
+    <item time="18" type="Alpha" target="n7_olbb" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
+    <item time="18" type="Scale" target="n7_olbb" tween="true" startValue="1,1" endValue="1,1" duration="6"/>
+  </transition>
+</component>
