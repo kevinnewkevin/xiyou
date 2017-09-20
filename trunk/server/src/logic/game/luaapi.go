@@ -1390,7 +1390,8 @@ func __BuffChangeStillData(p unsafe.Pointer) C.int {
 	idx ++
 	unitid := L.ToInteger(idx)
 	idx ++
-	new_data := L.ToString(idx)
+	new_data := L.ToInteger(idx)
+
 	fmt.Println("__BuffChangeStillData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
