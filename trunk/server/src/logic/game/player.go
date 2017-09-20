@@ -131,6 +131,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		p.AddBagItemByItemId(int32(i), 10)
 	}
 
+	fmt.Println("ccccccc", p.MyUnit.Skill)
 	
 	return &p
 
@@ -778,6 +779,8 @@ func (this *GamePlayer) LearnSkill(skillinfo prpc.COM_LearnSkill) {
 
 	//this.session.LearnSkillOK()
 
+	//如果是被动技能 需要修改buff
+
 	return
 }
 
@@ -838,5 +841,7 @@ func (this * GamePlayer)SkillUpdate_equip(position int32, skillId int32) {
 	if change != 0{
 		this.SkillBase[change] = updateInfo.NextID
 	}
+
+	//这里需要buff更新一下
 
 }

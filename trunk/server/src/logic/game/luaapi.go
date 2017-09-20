@@ -30,6 +30,7 @@ extern int __HasDebuff(void*);
 extern int __BuffMintsHp(void*);
 extern int __BuffCureHp(void*);
 extern int __BuffUpdate(void*);
+extern int __BuffChangeStillData(void*);
 extern int __GetCalcMagicDef(void*);
 extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
@@ -121,6 +122,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
 	_L.LoadApi(C.__BuffCureHp,"BuffCureHp","Battle")
 	_L.LoadApi(C.__BuffUpdate,"BuffUpdate","Battle")
+	_L.LoadApi(C.__BuffChangeStillData,"BuffChangeData","Battle")
 	_L.LoadApi(C.__TargetOver,"TargetOver","Battle")
 	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
@@ -1373,6 +1375,36 @@ func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
 
 	unit.MustUpdateBuff(spe, battle.Round)
 
+	//buff := unit.SelectBuff(int32(buffinstid))
+	//buff.MustUpdate()
+
+	return 0
+}
+//export __BuffChangeStillData
+func __BuffChangeStillData(p unsafe.Pointer) C.int {		//开始前清理数据
+
+	fmt.Println("__BuffChangeStillData")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	new_data := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	for _, buff := range unit.Allbuff {
+		if buff.BuffKind != kKindStill {
+			continue
+		}
+
+		buff.Data = int32(new_data)
+	}
+	
 	//buff := unit.SelectBuff(int32(buffinstid))
 	//buff.MustUpdate()
 
