@@ -64,6 +64,7 @@ public class DataLoader {
         RegistTables("Strengthen", StrengthenData.ParseData);
         RegistTables("Exp", ExpData.ParseData);
         RegistTables("Weather", WeatherData.ParseData);
+        RegistTables("Drop", DropData.ParseData);
     }
 
     static public void BeginLoad()
