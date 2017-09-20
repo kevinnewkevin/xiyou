@@ -207,7 +207,15 @@ public class Skill {
         if (_SkillData._IsMelee)
             Melee();
         else
-            Range();
+        {
+            if (_SkillData._Single)
+            {
+                Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
+                MoveTo(_Caster, Battle._Center, Range);
+            }
+            else
+                Range();
+        }
         return true;
     }
 
@@ -713,9 +721,21 @@ public class Skill {
         }
         else
         {
-            Clear();
-            _Caster.Stop();
-            _Caster.Reset();
+            if (_SkillData._Single)
+            {
+                _Caster.MoveTo(_OriginPos, (Actor.CallBackHandler)delegate
+                {
+                    Clear();
+                    _Caster.Stop();
+                    _Caster.Reset();
+                });
+            }
+            else
+            {
+                Clear();
+                _Caster.Stop();
+                _Caster.Reset();
+            }
         }
     }
 
