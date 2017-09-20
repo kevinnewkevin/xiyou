@@ -1,12 +1,12 @@
 SkillId,Name,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,CastEffect,CastTime,SkillEffect,AttackAnim,BeattackEffect,BeattackTime,EmitNumTime,TotalTime,MotionType,SingleSkill,TargetPosType,Camera,LuaName
-107,乾坤圈,icon/icon_skill_qiankunquan,10,,,,,,0,attack,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.45,0.45,1.2,MT_Sec,1,TPT_None,,SK_107_Action
+107,乾坤圈,icon/icon_skill_qiankunquan,10,,,,,,0,attack,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.45,0.45,0.7,MT_Sec,1,TPT_None,,SK_107_Action
 108,火尖枪,icon/icon_skill_huojianqiang,10,,,,,,1,,,0.65,Effect/neza_skill02,magic1,,0.3;0.6;0.9;1.6;2.3,0.3;0.6;0.9;1.6;2.3,,MT_Self,,TPT_None,1,SK_108_Action
 106,混天绫,icon/icon_skill_huntianling,10,,,,,,0,magic2,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,TPT_None,,SK_106_Action
 124,行云,icon/icon_skill_xingyun,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_attack,,,0.5,0.5,2,MT_Target,0,TPT_None,,SK_124_Action
 125,布雨,icon/icon_skill_buyu,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,0.6,Effect/xihailongwang_skill01_fx1,,,0.4;0.6;0.8,0.4;0.6;0.8,2,MT_Target,1,TPT_All,,SK_125_Action
 126,消灾,icon/icon_skill_xiaozai,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill02_fx1,,,0.5,0.5,2,MT_Target,0,TPT_None,1,SK_126_Action
 127,龙摆尾,icon/icon_skill_shenli,10,,,,,,1,,,1.1,Effect/longtaizi_attack,attack,Effect/shouji,0.5;1;1.5,0.5;1;1.5,,MT_Self,,TPT_None,,SK_100_Action
-128,龙雨击,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,,3.7,3.7,10,MT_Self,1,TPT_Center,,SK_101_Action
+128,龙雨击,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,,3.7,3.7,10,MT_Target,1,TPT_Center,,SK_101_Action
 129,龙刀,icon/icon_skill_zhongji,10,,,,,,0,magic2,Effect/longtaizi_skill02_1,1.2,Effect/longtaizi_skill02_2,,Effect/shouji,0.8,0.8,1.2,MT_Fly,0,TPT_None,1,SK_102_Action
 131,铁钳,icon/icon_skill_qianzi,10,,,,,,1,,,,Effect/xiejiang_attack,attack,Effect/shouji,0.5,0.5,1.06,MT_Self,,TPT_None,,SK_131_Action
 130,突刺,icon/icon_skill_pingci,10,,,,,,1,,,,Effect/xiabing_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_130_Action
@@ -18,7 +18,7 @@ SkillId,Name,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,Cas
 137,落雷,icon/icon_skill_luolei,10,,,,,,0,magic2,Effect/leizhenzhi_skill02_1,1.8,Effect/leizhenzhi_skill02,magic2,,1.2;1.3;1.4;1.5,1.2;1.3;1.4;1.5,4,MT_Target,1,TPT_All,,SK_122_Action
 138,电场,icon/icon_skill_dianchang,10,,,,,,0,magic3,Effect/leizhenzhi_skill03_1,1,Effect/leizhenzhi_skill03,magic3,,1,1,3,MT_Target,,TPT_None,,SK_123_Action
 139,三叉戟,icon/icon_skill_sanchaji,10,,,,,,1,,,,Effect/lijing_skill02,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_109_Action
-140,天罡刀,icon/icon_skill_tiangangdao,10,,,,,,1,,,,Effect/lijing_skill03,magic3,,1.5,1.5,4,MT_Self,1,TPT_All,,SK_110_Action
+140,天罡刀,icon/icon_skill_tiangangdao,10,,,,,,1,,,,Effect/lijing_skill03,magic3,,1.5,1.5,4,MT_Target,1,TPT_All,,SK_110_Action
 141,玲珑塔,icon/icon_skill_linglongta,10,,,,,,0,magic4,Effect/lijing_skill04_1,1,Effect/lijing_skill04,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_111_Action
 142,水攻,icon/icon_skill_shuizushanghaitigao,10,,,,,,0,magic1,Effect/guichengxiang_skill01_1,1,Effect/guichengxiang_skill01,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_132_Action
 1000,乾坤圈,icon/icon_skill_qiankunquan,10,,,,,,0,magic,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.25,0.25,1.2,MT_Sec,1,TPT_None,,SK_107_Action
