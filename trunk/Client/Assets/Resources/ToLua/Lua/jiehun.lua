@@ -9,6 +9,9 @@ local guankaId = 0;
 local stamaPoint;
 local starLab;
 local crtTab;
+local rewardShow;
+local getRewardBtn;
+local rewardOkBtn;
 function jiehun:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = jiehun.New();
@@ -26,8 +29,11 @@ function jiehun:OnInit()
 	cardGroupList:SetVirtual();
 	cardGroupList.itemRenderer = jiehun_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n12");
-
+	rewardShow = self.contentPane:GetChild("n14");
+	rewardShow.visible= false;
 	local feeList = self.contentPane:GetChild("n13").asList;
+	getRewardBtn = rewardShow:GetChild("n13");
+	getRewardBtn = rewardShow:GetChild("n16");
 	local feeMax = feeList.numItems;
 	local feeItem;
 	for i=1, feeMax do
@@ -79,6 +85,9 @@ function jiehun_RenderListItem(index, obj)
 	local starLab1 = obj:GetChild("n24");
 	local starLab2 = obj:GetChild("n28");
 	local starBar = obj:GetChild("n15");
+	local box0 = obj:GetChild("n18");
+	local box1 = obj:GetChild("n22");
+	local box2 = obj:GetChild("n26");
 	local len  = comData.SmallChapters.Length;
 	local starNum = 0;
 	for i=1, len do
@@ -99,6 +108,7 @@ function jiehun_RenderListItem(index, obj)
 	starLab2.text = "" .. data.Star_[2];
 	 local suo = obj:GetChild("n32");
 	 suo.visible  = false;
+	
 end
 
 function jiehun_OnSelectGroup(context)
