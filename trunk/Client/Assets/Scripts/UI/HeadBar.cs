@@ -5,7 +5,7 @@ using FairyGUI;
 
 public class HeadBar {
 
-    GameObject _Headbar;
+    public GameObject _Headbar;
 
     GComponent _HeadBarCom;
 
@@ -66,7 +66,7 @@ public class HeadBar {
         _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
         _HeadBarCom.GetController("xuetiao").selectedIndex = state;
         _Transition = _HeadBarCom.GetTransition("t0");
-        _SkillName = _HeadBarCom.GetChild("n11").asTextField;
+        //_SkillName = _HeadBarCom.GetChild("n11").asTextField;
 
         _IsDirty = true;
     }
@@ -80,7 +80,7 @@ public class HeadBar {
     {
         if (_Transition.playing)
             _Transition.Stop();
-        _SkillName.text = skillName;
+        //_SkillName.text = skillName;
         _Transition.Play();
     }
 
