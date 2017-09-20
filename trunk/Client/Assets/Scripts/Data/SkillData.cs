@@ -13,6 +13,15 @@ public class SkillData {
         MT_Sec,
     }
 
+    public enum TargetPosType
+    {
+        TPT_None,
+        TPT_Row,
+        TPT_Col,
+        TPT_All,
+        TPT_Center,
+    }
+
     public int _Id;
     public bool _IsMelee;
     public string _Name;
@@ -26,6 +35,7 @@ public class SkillData {
     public float[] _EmitNumTime;
     public float _TotalTime;
     public MotionType _Motion;
+    public TargetPosType _TargetPos;
     public bool _Single;
     public string _Camera;
     public string _Icon;
@@ -74,6 +84,7 @@ public class SkillData {
             }
             data._TotalTime = parser.GetFloat(i, "TotalTime");
             data._Motion = (MotionType)Enum.Parse(typeof(MotionType), parser.GetString(i, "MotionType"));
+            data._TargetPos = (TargetPosType)Enum.Parse(typeof(TargetPosType), parser.GetString(i, "TargetPosType"));
             data._Single = parser.GetInt(i, "SingleSkill") == 1;
             data._Icon = parser.GetString(i, "ICON");
             data._Camera = parser.GetString(i, "Camera");

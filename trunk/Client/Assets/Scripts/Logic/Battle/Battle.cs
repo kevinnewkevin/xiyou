@@ -515,6 +515,11 @@ public class Battle {
         }
     }
 
+    static public Transform GetPoint(int idx)
+    {
+        return _PosInScene [idx].transform;
+    }
+
     static public void OperateSetActor(int pos)
     {
         if (pos == -1)

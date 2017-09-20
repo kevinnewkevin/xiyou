@@ -35,6 +35,9 @@ public class Skill {
     // 受击特效缓存
     GameObject[] _BeattackEff;
 
+    // single skill and target type skillpos
+    Transform _SkillPos;
+
     int crtTargetIdx;
 
     bool IsSec;
@@ -80,20 +83,23 @@ public class Skill {
             _SkillEff [0] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
             if (_SkillEff [0] != null)
             {
-//                if (_SkillData._Motion == SkillData.MotionType.MT_Target)
-//                {
-//                    _SkillEff [0].transform.parent = targets[0]._ActorObj.transform;
-//                }
-//                else
-//                {
-//                    _SkillEff [0].transform.parent = caster._ActorObj.transform;
-//                }
-                _SkillEff [0].transform.parent = Battle._CenterTrans;
+                if (_SkillData._Motion == SkillData.MotionType.MT_Target)
+                {
+                    _SkillPos = GetPos(targets, _SkillData._TargetPos);
+                    _SkillPos.parent = targets[0]._ActorObj.transform;
+                }
+                else
+                {
+                    _SkillEff [0].transform.parent = caster._ActorObj.transform;
+                }
                 _SkillEff [0].transform.localPosition = Vector3.zero;
-                _SkillEff [0].transform.localScale = Vector3.one;
+                _SkillEff [0].transform.localScale = Vector3.one / _SkillEff [0].transform.parent.localScale;
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
-                if (caster._RealPosInScene > 5)
-                    _SkillEff [0].transform.Rotate(Vector3.up, 180f);
+                if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
+                {
+                    if(caster._RealPosInScene > 5)
+                        _SkillEff [0].transform.Rotate(Vector3.up, 180f);
+                }
                 _SkillEff [0].SetActive(false);
             }
 
@@ -186,6 +192,56 @@ public class Skill {
 //        _Lua.CheckTop();
     }
 
+    Transform GetPos(Actor[] targets, SkillData.TargetPosType tposType)
+    {
+        if (tposType == SkillData.TargetPosType.TPT_Row)
+        {
+            if (targets.Length > 0)
+            {
+                if (targets [0]._RealPosInScene >= 0 && targets [0]._RealPosInScene <= 2)
+                    return Battle.GetPoint(1);
+                if (targets [0]._RealPosInScene >= 3 && targets [0]._RealPosInScene <= 5)
+                    return Battle.GetPoint(4);
+
+                if (targets [0]._RealPosInScene >= 6 && targets [0]._RealPosInScene <= 8)
+                    return Battle.GetPoint(7);
+                if (targets [0]._RealPosInScene >= 9 && targets [0]._RealPosInScene <= 11)
+                    return Battle.GetPoint(10);
+            }
+        }
+        else if(tposType == SkillData.TargetPosType.TPT_Col)
+        {
+            if (targets.Length > 0)
+            {
+                if (targets [0]._RealPosInScene == 0 || targets [0]._RealPosInScene == 3)
+                    return Battle.GetPoint(0);
+                if (targets [0]._RealPosInScene == 1 || targets [0]._RealPosInScene == 4)
+                    return Battle.GetPoint(1);
+                if (targets [0]._RealPosInScene == 2 || targets [0]._RealPosInScene == 5)
+                    return Battle.GetPoint(2);
+
+                if (targets [0]._RealPosInScene == 6 || targets [0]._RealPosInScene == 9)
+                    return Battle.GetPoint(6);
+                if (targets [0]._RealPosInScene == 7 || targets [0]._RealPosInScene == 10)
+                    return Battle.GetPoint(7);
+                if (targets [0]._RealPosInScene == 8 || targets [0]._RealPosInScene == 11)
+                    return Battle.GetPoint(8);
+            }
+        }
+        else if(tposType == SkillData.TargetPosType.TPT_All)
+        {
+            if (targets [0]._RealPosInScene >= 0 || targets [0]._RealPosInScene <= 5)
+                return Battle.GetPoint(1);
+
+            if (targets [0]._RealPosInScene >= 6 || targets [0]._RealPosInScene <= 11)
+                return Battle.GetPoint(7);
+        }
+        else if(tposType == SkillData.TargetPosType.TPT_Center)
+        {
+            return Battle._CenterTrans;
+        }
+    }
+
     public bool Cast()
     {
 //        if (_CastFunc != null)
@@ -211,7 +267,7 @@ public class Skill {
             Melee();
         else
         {
-            if (_SkillData._Single)
+            if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
             {
                 Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
                 MoveTo(_Caster, Battle._Center, Range);
@@ -242,7 +298,10 @@ public class Skill {
 
         Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
 
-        MoveTo(_Caster, _Targets[crtTargetIdx].Forward(_Caster.ForwardAjax), Melee_Moved);
+        if(_SkillPos != null)
+            MoveTo(_Caster, _SkillPos.position + _SkillPos.forward * _Caster.ForwardAjax, Melee_Moved);
+        else
+            MoveTo(_Caster, _Targets[crtTargetIdx].Forward(_Caster.ForwardAjax), Melee_Moved);
     }
 
     void Melee_Moved()
@@ -297,9 +356,16 @@ public class Skill {
     {
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
-        Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
-        Play(_Caster, _SkillData._CastAnim);
-        PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        if (string.IsNullOrEmpty(_SkillData._CastAnim))
+        {
+            if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
+                Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        }
+        else
+        {
+            Play(_Caster, _SkillData._CastAnim);
+            PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        }
         CastEffect();
         OnTimeDo(_SkillData._CastTime, Range_BeforeCast);
         crtTargetIdx = 0;
@@ -725,7 +791,7 @@ public class Skill {
         }
         else
         {
-            if (_SkillData._Single)
+            if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
             {
                 _Caster.MoveTo(_OriginPos, (Actor.CallBackHandler)delegate
                 {
