@@ -80,17 +80,20 @@ public class Skill {
             _SkillEff [0] = AssetLoader.LoadAsset(_SkillData._SkillEffect);
             if (_SkillEff [0] != null)
             {
-                if (_SkillData._Motion == SkillData.MotionType.MT_Target)
-                {
-                    _SkillEff [0].transform.parent = targets[0]._ActorObj.transform;
-                }
-                else
-                {
-                    _SkillEff [0].transform.parent = caster._ActorObj.transform;
-                }
+//                if (_SkillData._Motion == SkillData.MotionType.MT_Target)
+//                {
+//                    _SkillEff [0].transform.parent = targets[0]._ActorObj.transform;
+//                }
+//                else
+//                {
+//                    _SkillEff [0].transform.parent = caster._ActorObj.transform;
+//                }
+                _SkillEff [0].transform.parent = Battle._CenterTrans;
                 _SkillEff [0].transform.localPosition = Vector3.zero;
                 _SkillEff [0].transform.localScale = Vector3.one;
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
+                if (_Caster._RealPosInScene > 5)
+                    _SkillEff [0].transform.Rotate(Vector3.up, 180f);
                 _SkillEff [0].SetActive(false);
             }
 
@@ -295,7 +298,10 @@ public class Skill {
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
         Play(_Caster, _SkillData._CastAnim);
-        PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        if(_SkillData._Single)
+            Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        else
+            PlayQueue(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
         CastEffect();
         OnTimeDo(_SkillData._CastTime, Range_BeforeCast);
         crtTargetIdx = 0;

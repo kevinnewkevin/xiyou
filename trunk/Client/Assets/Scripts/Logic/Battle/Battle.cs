@@ -62,6 +62,8 @@ public class Battle {
 
     static public Vector3 _Center;
 
+    static public Transform _CenterTrans;
+
     static public List<long> _MyGroupCards;
 
     static public BattleCamera _BattleCamera;
@@ -225,7 +227,10 @@ public class Battle {
                 {
                     point = _SceneConfig.transform.GetChild(i);
                     if (point.name.Equals("center"))
+                    {
                         _Center = point.transform.position;
+                        _CenterTrans = point.transform;
+                    }
                     else
                     {
                         int toIdx = int.Parse(point.name) - 1;
