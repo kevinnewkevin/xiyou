@@ -117,6 +117,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	for _,u := range p.UnitList{
 		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
+	p.SkillBase = map[int32]int32{}
 
 	for ID, info := range RoleSkillTable {
 		if p.MyUnit.Level >= info.OpenLv {
@@ -795,6 +796,16 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 		return
 	}
 
+	var skillpos int32 = 999
+	for idx, skill := range this.MyUnit.Skill {
+		if skill.SkillID == skillId {
+			skillpos = idx
+		}
+	}
+
+	if skillpos != 999 {
+		this.MyUnit.Skill[skillpos] = new_skill
+	}
 	this.SkillBase[skillindex] = updateInfo.NextID
 
 }
@@ -814,6 +825,18 @@ func (this * GamePlayer)SkillUpdate_equip(position int32, skillId int32) {
 		return
 	}
 
+	var change int32
+	for index, skill_id := range this.SkillBase {
+		if skill_id == skillId {
+			change = index
+		}
+	}
+
 	this.MyUnit.Skill[position] = new_skill
+
+
+	if change != 0{
+		this.SkillBase[change] = updateInfo.NextID
+	}
 
 }
