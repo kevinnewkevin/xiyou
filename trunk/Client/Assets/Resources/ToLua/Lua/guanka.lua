@@ -37,8 +37,8 @@ function guanka:OnInit()
 	guankaID = UIManager.GetWindow("jiehun").GetGuankaId();
 	local smalldata = CheckpointData.GetData(guankaID);
 	smallId = smalldata[0]._ID;
-	smallList.selectedIndex = 0;
 	guanka_FlushData();
+	smallList.selectedIndex = 0;
 end
 
 function guanka:GetWindow()
@@ -98,9 +98,48 @@ function guakan_RenderListItem(index, obj)
 	 local open = obj:GetChild("n12");
 	 open.visible  = false;
 	 obj.data = data._ID;
+	 local drop = DropData.GetData(data._DropID);
+	 local icon0 = obj:GetChild("n17");
+	 local icon1 = obj:GetChild("n18");
+	 local icon2 = obj:GetChild("n19");
+	 local star0 = obj:GetChild("n14");
+	 local star1 = obj:GetChild("n15");
+	 local star2 = obj:GetChild("n16");
 	 obj.onClick:Add(guakan_OnSelectGroup);
+	 local expIcon  = icon0:GetChild("n1");
+	 expIcon.asLoader.url = "ui://icon/jinyan_icon" ; 
+	 local expLab  = icon0:GetChild("n2");
+	 expLab.text = drop.exp_ .. "";
+	 local moneyIcon  = icon1:GetChild("n1");
+	 moneyIcon.asLoader.url = "ui://icon/jinbi_icon" ; 
+	 local moneyLab  = icon1:GetChild("n2");
+	 moneyLab.text = drop.money_ .. "";
+	 local item = ItemData.GetData(drop.item1_);
+	 local itemIcon  = icon2:GetChild("n1");
+	 itemIcon.asLoader.url = "ui://" .. item._Icon; 
+	  local itemIconBack  = icon2:GetChild("n0");
+	 itemIconBack.asLoader.url = "ui://" .. item._IconBack; 
+	 local itemLab  = icon2:GetChild("n2");
+	 itemLab.text = drop.itemNum1_ .. "";
+
+	 local starNum =0;
+	  
+	 if smallData.Star1 == true then 
+		starNum = starNum +1;
+	  end
+
+	 if smallData.Star2 == true then 
+		starNum = starNum +1;
+	  end
+
+    if smallData.Star3 == true then 
+		starNum = starNum +1;
+	  end
+
+
+
 	 if index ~= 0 then
-		if smallChapters[index -1].Star1 == true or smallChapters[index -1].Star2 == true or smallChapters[index -1].Star3 == true  then   
+		if  starNum  > 0 then   
 			 obj.visible  = true;
 		else
 			obj.visible  = false;
