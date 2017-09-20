@@ -622,6 +622,10 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 	this.IProperties[iType] = value
 	fmt.Println("SetIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
+	if this.Owner.session == nil {
+		return nil
+	}
+	
 	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, value)
 
 	return nil

@@ -58,6 +58,7 @@ func (this *LuaState) ToString(idx int) string {
 func (this *LuaState) PushNil()             { lua_pushnil(this.luaState) }
 func (this *LuaState) PushNumber(n float64) { lua_pushnumber(this.luaState, n) }
 func (this *LuaState) PushInteger(n int)    { lua_pushinteger(this.luaState, uintptr(n)) }
+func (this *LuaState) PushLong(n int64)    { lua_pushLong(this.luaState, n) }
 func (this *LuaState) PushString(s string) {
 	lua_pushstring(this.luaState, s)
 }
@@ -116,7 +117,7 @@ func (this *LuaState) CallFuncEx(funcName string, args []interface{}, results *[
 			this.PushInteger(arg.(int))
 			break
 		case int64:
-			this.PushInteger(arg.(int))
+			this.PushLong(arg.(int64))
 			break
 		case float64:
 			this.PushNumber(arg.(float64))
@@ -124,6 +125,8 @@ func (this *LuaState) CallFuncEx(funcName string, args []interface{}, results *[
 		case string:
 			this.PushString(arg.(string))
 			break
+		case bool:
+			this.PushBoolean(arg.(bool))
 		default:
 			panic("cant not use lua params")
 			break
@@ -134,8 +137,28 @@ func (this *LuaState) CallFuncEx(funcName string, args []interface{}, results *[
 
 	this.Call(len(args), len(*results))
 
-	for i := 0; i < len(*results); i++ {
-		(*results)[i] = this.ToString(i + 1)
+	resLen := len(*results)
+	for i := 0; i < resLen; i++ {
+		idx := i-resLen
+		switch (*results)[i].(type) {
+		case int:
+			(*results)[i] = this.ToInteger(idx)
+			break
+		case int64:
+			(*results)[i] = this.ToLong(idx)
+			break
+		case float64:
+			(*results)[i] = this.ToNumber(idx)
+			break
+		case string:
+			(*results)[i] = this.ToString(idx)
+			break
+		case bool:
+			(*results)[i] = this.ToBoolean(idx)
+		default:
+			panic("cant not use lua params rsuly")
+			break
+		}
 	}
 
 	this.Pop(len(*results))

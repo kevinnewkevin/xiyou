@@ -158,7 +158,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 		return
 	}
 
-	player.CalcMyEnergy(smallData.EnergyExpend,false)
+	player.SetMyEnergy(smallData.EnergyExpend,false)
 
 	player.ChapterID = smallchapterid
 }

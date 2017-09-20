@@ -37,7 +37,7 @@ type GamePlayer struct {
 	Chapters				[]*prpc.COM_Chapter
 
 	TianTiVal				int32
-
+	EnergyTimer				float64
 	//Bag
 	BagItems				[]*prpc.COM_ItemInst
 
@@ -86,6 +86,15 @@ func SetDefaultUnits(cards string) {
 	for _, c := range s1{
 		e_id, _ := strconv.Atoi(c)
 		DefaultUnits = append(DefaultUnits, int32(e_id))
+	}
+}
+
+func PlayerTick(dt float64)  {
+	for _, p :=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		p.CaleMyEnergy(dt)
 	}
 }
 
@@ -569,16 +578,37 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 		return
 	}
 
+	if itemInst.Stack_ < useNum {
+		return
+	}
+
 	itemData := GetItemTableDataById(itemInst.ItemId)
 	if itemData==nil {
 		return
 	}
 
-	v := []interface{}{0}
-	r := []interface{}{0}
+	v := []interface{}{int64(this.MyUnit.InstId),int64(itemData.ItemId)}
+	r := []interface{}{""}
 
+	usestack := 0
 
-	_L.CallFuncEx(itemData.GloAction, v, &r)
+	for i := 0; i < int(useNum) ; i++ {
+		_L.CallFuncEx(itemData.GloAction, v, &r)
+		errorNo := r[0]
+		if errorNo != "" {
+			errorId := prpc.ToId_ErrorNo(errorNo.(string))
+			if this.session != nil {
+				this.session.ErrorMessage(errorId)
+			}
+			fmt.Println("useItem errorId=",errorId,"itemId=",itemData.ItemId)
+			break
+		}
+		usestack++
+	}
+	if usestack != 0 {
+		this.DelItemByInstId(instId,int32(usestack))
+	}
+	fmt.Println("123123123123",r,len(r),r[0],usestack)
 }
 
 func (this *GamePlayer)GiveDrop(dropId int32)  {
@@ -626,31 +656,6 @@ func (this *GamePlayer)AddCopper(val int32)  {
 
 	fmt.Println("append copper",val,"all copper",curCopper)
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-func TestPlayer() {
-	P1 := CreatePlayer(1, "testPlayer")
-	//fmt.Println(len(ItemTableData))
-	//for i:=0;i<len(ItemTableData) ;i++  {
-	//	if i==1 {
-	//		P1.AddBagItemByItemId(int32(i+1),1050)
-	//	}else {
-	//		P1.AddBagItemByItemId(int32(i+1),10)
-	//	}
-	//}
-	//for _,item := range P1.BagItems{
-	//	if item.ItemId== 2 {
-	//		P1.DelItemByTableId(2,1000)
-	//	}
-	//
-	//	fmt.Println("ItemInst  ItemInstId=",item.InstId,"ItemId=",item.ItemId,"itemStack=",item.Stack_,"Bag len",len(P1.BagItems))
-	//}
-	fmt.Println("111111111111111111111111111111111===",P1.MyUnit.GetIProperty(prpc.IPT_ENERGY))
-}
-
 
 func (this *GamePlayer) ClearAllBuff ()  {
 	fmt.Println("ClearAllBuff")
@@ -741,17 +746,34 @@ func (this *GamePlayer) MyUnitLevelUp()  {
 	//this.session.PromoteUnitOK()
 }
 
-func (this *GamePlayer)CalcMyEnergy(val int32,isAdd bool) {
+func (this *GamePlayer)CaleMyEnergy(dt float64)  {
+	myEnergy := this.MyUnit.GetIProperty(prpc.IPT_ENERGY)
+	if myEnergy >= 1000 {
+		return
+	}
+	this.EnergyTimer += dt
+	if this.EnergyTimer >= 30 {
+		this.SetMyEnergy(1,true)
+		this.EnergyTimer = 0
+	}
+}
 
+func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 	myEnergy := this.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
 	if isAdd {
+		if myEnergy >= 1000 {
+			return
+		}
+		
 		myEnergy += val
 
 	} else {
 		myEnergy -= val
 	}
+
 	this.MyUnit.SetIProperty(prpc.IPT_ENERGY, myEnergy)
+	fmt.Println("SetMyEnergy Val=",val,"CurmyEnergy=",myEnergy)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -762,7 +784,7 @@ func (this *GamePlayer) LearnSkill(skillinfo prpc.COM_LearnSkill) {
 
 	skill := GetRoleSkillRecordById(skillinfo.SkillID)
 	if skill == nil {
-			return 		//错误的skill
+		return 		//错误的skill
 	}
 
 	if this.MyUnit.Level < skill.OpenLv {
@@ -844,4 +866,18 @@ func (this * GamePlayer)SkillUpdate_equip(position int32, skillId int32) {
 
 	//这里需要buff更新一下
 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func TestPlayer() {
+	P1 := CreatePlayer(1, "testPlayer")
+
+	P1.AddBagItemByItemId(1000,10)
+	items := P1.GetBagItemByTableId(1000)
+	for _,item := range items{
+		P1.UseItem(item.InstId,1)
+	}
 }

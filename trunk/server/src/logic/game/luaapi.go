@@ -50,8 +50,8 @@ extern int __GetOneSheld(void*);
 extern int __ClacStrongPer(void*);
 extern int __ClacWeakPer(void*);
 extern int __ChangeBuffTimes(void*);
-
-
+extern int __GetMyUnitIProperty(void*);
+extern int __AddMyUnitEnergy(void*);
 
 */
 import "C"
@@ -110,7 +110,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__ClacWeakPer,"ClacWeakPer","Player")
 	_L.LoadApi(C.__ClacStrongPer,"ClacStrongPer","Player")
 	_L.LoadApi(C.__ChangeBuffTimes,"ChangeBuffTimes","Player")
-
+	_L.LoadApi(C.__GetMyUnitIProperty,"GetMyUnitIProperty","Player")
+	_L.LoadApi(C.__AddMyUnitEnergy,"AddMyUnitEnergy","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -1381,19 +1382,16 @@ func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
 	return 0
 }
 //export __BuffChangeStillData
-func __BuffChangeStillData(p unsafe.Pointer) C.int {		//开始前清理数据
-
-	fmt.Println("__BuffChangeStillData")
-
+func __BuffChangeStillData(p unsafe.Pointer) C.int {
+	//开始前清理数据
 	L := lua.GetLuaState(p)
-
 	idx := 1
 	battleid := L.ToInteger(idx)
 	idx ++
 	unitid := L.ToInteger(idx)
 	idx ++
 	new_data := L.ToString(idx)
-
+	fmt.Println("__BuffChangeStillData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
@@ -1404,13 +1402,56 @@ func __BuffChangeStillData(p unsafe.Pointer) C.int {		//开始前清理数据
 
 		buff.Data = int32(new_data)
 	}
-	
+
 	//buff := unit.SelectBuff(int32(buffinstid))
 	//buff.MustUpdate()
 
 	return 0
 }
+////////////////////////////////////////////////////////////////////////////////////////////
+//export __GetMyUnitIProperty
+func __GetMyUnitIProperty(p unsafe.Pointer) C.int {
+	L := lua.GetLuaState(p)
 
+	idx := 1
+	casterId := L.ToLong(idx)
+	idx ++
+	ipc := L.ToString(idx)
+
+	player := FindPlayerByInstId(casterId)
+	if player == nil {
+		fmt.Println("__GetMyUnitIProperty FindPlayerByInstId==nil",casterId)
+		return 1
+	}
+
+	pd := prpc.ToId_IPropertyType(ipc)
+
+	val := player.MyUnit.GetIProperty(int32(pd))
+
+	L.PushInteger(int(val))
+
+	return 1
+}
+//export __AddMyUnitEnergy
+func __AddMyUnitEnergy(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	casterId := L.ToLong(idx)
+	idx ++
+	val := L.ToInteger(idx)
+
+	player := FindPlayerByInstId(casterId)
+	if player == nil {
+		fmt.Println("__AddMyUnitEnergy FindPlayerByInstId==nil",casterId)
+		return 0
+	}
+
+	player.SetMyEnergy(int32(val),true)
+
+	return 0
+}
 
 
 

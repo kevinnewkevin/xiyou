@@ -378,6 +378,9 @@ func lua_pushnumber(L uintptr, n float64) {
 func lua_pushinteger(L uintptr, n uintptr) {
 	C.lua_pushinteger(unsafe.Pointer(L), C.lua_Integer(n))
 }
+func lua_pushLong(L uintptr, n int64) {
+	C.lua_pushinteger(unsafe.Pointer(L), C.lua_Integer(n))
+}
 
 //func (lua_pushlstring) (L uintptr, const char *s, size_t l);
 func lua_pushstring(L uintptr, s string) {

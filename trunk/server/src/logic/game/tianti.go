@@ -44,6 +44,8 @@ func Tick(dt float64)  {
 		}
 		CheckMatching(TianTiStore[i],TempSecond)
 	}
+
+	PlayerTick(TempSecond)
 }
 
 func CheckMatching(oncePlayer *OncePlayer, dt float64)  {
