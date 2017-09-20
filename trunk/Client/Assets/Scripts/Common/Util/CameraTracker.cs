@@ -9,6 +9,8 @@ public class CameraTracker : MonoBehaviour {
 
     private bool _CanMove;
 
+    float _Speed;
+
     public float smoothTime = 0.01f;  //摄像机平滑移动的时间
 
     private Vector3 cameraVelocity = Vector3.zero;
@@ -73,7 +75,7 @@ public class CameraTracker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        _Speed = Define.GetFloat("MoveSpeed_InWorld");
 	}
 	
 	// Update is called once per frame
@@ -82,7 +84,7 @@ public class CameraTracker : MonoBehaviour {
             return;
         
         Vector3 pos = new Vector3(_LookAtPos, transform.position.y, transform.position.z);
-        iTween.MoveTo(gameObject, iTween.Hash("speed", 4f, "position", pos, "oncomplete", "Moved", "easetype", iTween.EaseType.linear));
+        iTween.MoveTo(gameObject, iTween.Hash("speed", _Speed, "position", pos, "oncomplete", "Moved", "easetype", iTween.EaseType.linear));
 	}
 
     void Moved()
