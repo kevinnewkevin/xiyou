@@ -86,14 +86,14 @@ public class Skill {
                 if (_SkillData._Motion == SkillData.MotionType.MT_Target)
                 {
                     _SkillPos = GetPos(targets, _SkillData._TargetPos);
-                    _SkillPos.parent = targets[0]._ActorObj.transform;
+                    _SkillEff [0].transform.parent = _SkillPos;
                 }
                 else
                 {
                     _SkillEff [0].transform.parent = caster._ActorObj.transform;
                 }
                 _SkillEff [0].transform.localPosition = Vector3.zero;
-                _SkillEff [0].transform.localScale = Vector3.one / _SkillEff [0].transform.parent.localScale;
+                _SkillEff [0].transform.localScale = Vector3.one / _SkillEff [0].transform.parent.localScale.x;
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
                 if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
                 {
@@ -240,6 +240,7 @@ public class Skill {
         {
             return Battle._CenterTrans;
         }
+        return null;
     }
 
     public bool Cast()
