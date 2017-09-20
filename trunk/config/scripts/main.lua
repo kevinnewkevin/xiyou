@@ -1,5 +1,5 @@
 
-Server.DefineCards("3,5,6,7,8,9,10,11,12")
+Server.DefineCards("3,5,6,7,8,9,10,11,12,13")
 
 sys.loadfile("common.lua")
 sys.loadfile("test.lua")
