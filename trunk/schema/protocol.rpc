@@ -16,6 +16,7 @@ service COM_ClientToServer{
 	StopMatching();
 	DeleteItem(int64 instId,int32 stack);
 	PromoteUnit(int64 instId);					//晋升卡牌
+	LearnSkill(COM_LearnSkill skillInfo);					//技能学习
 };
 
 service COM_ServerToClient{

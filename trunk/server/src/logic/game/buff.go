@@ -60,7 +60,7 @@ func (this *Buff) AddProperty() {
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
 	buff_t := GetBuffRecordById(this.BuffId)
-	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId)
+	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId, buff_t.AddLua)
 
 	_L.CallFuncEx(buff_t.AddLua, v, &r)
 }

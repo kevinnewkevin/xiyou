@@ -43,6 +43,8 @@ type GamePlayer struct {
 
 	//经验
 	Exp 					int32		//经验
+	//主角可学习技能
+	SkillBase				map[int32]int32
 }
 
 var (
@@ -116,9 +118,18 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
 
+	for ID, info := range RoleSkillTable {
+		if p.MyUnit.Level >= info.OpenLv {
+			p.SkillBase[ID] = info.SKillID
+		} else {
+			p.SkillBase[ID] = 0
+		}
+	}
+
 	for i := 1; i < 9 ; i++ {	//测试用
 		p.AddBagItemByItemId(int32(i), 10)
 	}
+
 	
 	return &p
 
@@ -711,20 +722,98 @@ func (this *GamePlayer) MyUnitLevelUp()  {
 	level_info := LevelUp_info[this.MyUnit.Level]
 
 	this.MyUnit.Promote(level_info)
+	this.MyUnit.Level = level_info.Level
 	fmt.Println("MyUnitLevelUp 2", level_info)
+
+	for ID, info := range RoleSkillTable {
+		if this.MyUnit.Level < info.OpenLv {
+			continue
+		}
+		if this.SkillBase[ID] != 0 {
+			continue
+		}
+
+		this.SkillBase[ID] = info.SKillID
+	}
 
 	//this.session.PromoteUnitOK()
 }
 
-func (this *GamePlayer)CalcMyEnergy(val int32,isAdd bool)  {
+func (this *GamePlayer)CalcMyEnergy(val int32,isAdd bool) {
 
 	myEnergy := this.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
 	if isAdd {
 		myEnergy += val
 
-	}else {
+	} else {
 		myEnergy -= val
 	}
-	this.MyUnit.SetIProperty(prpc.IPT_ENERGY,myEnergy)
+	this.MyUnit.SetIProperty(prpc.IPT_ENERGY, myEnergy)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////技能学习
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer) LearnSkill(skillinfo prpc.COM_LearnSkill) {
+
+	skill := GetRoleSkillRecordById(skillinfo.SkillID)
+	if skill == nil {
+			return 		//错误的skill
+	}
+
+	if this.MyUnit.Level < skill.OpenLv {
+		return
+	}
+
+	learnSkill := InitSkillFromTable(skill.SKillID)
+
+	if learnSkill == nil {
+		return
+	}
+
+	this.MyUnit.Skill[skillinfo.Position] = learnSkill
+
+	//this.session.LearnSkillOK()
+
+	return
+}
+
+func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
+	updateInfo := GetRoleSkillUpdateRecordById(skillId)
+
+	if updateInfo == nil{
+		return
+	}
+
+	//检测道具是否拥有
+
+	new_skill := InitSkillFromTable(updateInfo.NextID)
+
+	if new_skill == nil {
+		return
+	}
+
+	this.SkillBase[skillindex] = updateInfo.NextID
+
+}
+
+func (this * GamePlayer)SkillUpdate_equip(position int32, skillId int32) {
+	updateInfo := GetRoleSkillUpdateRecordById(skillId)
+
+	if updateInfo == nil{
+		return
+	}
+
+	//检测道具是否拥有
+
+	new_skill := InitSkillFromTable(updateInfo.NextID)
+
+	if new_skill == nil {
+		return
+	}
+
+	this.MyUnit.Skill[position] = new_skill
+
 }

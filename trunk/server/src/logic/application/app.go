@@ -86,6 +86,18 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadRoleSkillTable("../../../config/tables/RoleSkill.csv")
+	if err != nil {
+		fmt.Println("LoadRoleSkillTable", err.Error())
+		return
+	}
+
+	err = game.LoadRoleSkillUpdateTable("../../../config/tables/RoleSkillUpdate.csv")
+	if err != nil {
+		fmt.Println("LoadRoleSkillUpdateTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

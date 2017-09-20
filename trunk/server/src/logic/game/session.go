@@ -157,6 +157,14 @@ func (this *Session)RequestChapterStarReward(chapterId int32, star int32 ) error
 	return nil
 }
 
+func (this *Session)LearnSkill(skillinfo prpc.COM_LearnSkill) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.LearnSkill(skillinfo)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

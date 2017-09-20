@@ -59,6 +59,16 @@ type (
 		ItemId		int32
 		ItemNum		int32
 	}
+	RoleSkill struct {
+		OpenLv		int32
+		SKillID		int32
+		Type 		int32
+	}
+	RoleSkillUpdate struct {
+		NeedItem	int32
+		NeedNum		int32
+		NextID 		int32
+	}
 )
 
 var (
@@ -69,6 +79,8 @@ var (
 	BattleTable = map[int32]*BattleRecord{}
 	ExpTable = map[int32]int32{}
 	PromoteTable = map[int32][]*PromoteInfo{}
+	RoleSkillTable = map[int32]*RoleSkill{}
+	RoleSkillUpdateTable = map[int32]*RoleSkillUpdate{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -276,6 +288,7 @@ func LoadPromoteTable(filename string) error {
 func GetPromoteRecordById(id int32) []*PromoteInfo {
 	return PromoteTable[id]
 }
+
 func LoadExpTable(filename string) error {
 	csv, err := conf.NewCSVFile(filename)
 	if err != nil {
@@ -294,6 +307,53 @@ func LoadExpTable(filename string) error {
 
 func GetExpRecordById(level int32) int32 {
 	return ExpTable[level]
+}
+
+
+func LoadRoleSkillTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+
+		s := RoleSkill{}
+		ID := csv.GetInt32(r, "ID")
+		s.OpenLv = csv.GetInt32(r, "OpenLv")
+		s.SKillID = csv.GetInt32(r, "SkillID")
+		s.Type = csv.GetInt32(r, "Type")
+
+		RoleSkillTable[ID] = &s
+	}
+	return nil
+}
+
+func GetRoleSkillRecordById(ID int32) *RoleSkill {
+	return RoleSkillTable[ID]
+}
+
+func LoadRoleSkillUpdateTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+
+		s := RoleSkillUpdate{}
+		ID := csv.GetInt32(r, "SkillID")
+		s.NeedItem = csv.GetInt32(r, "NeedItem")
+		s.NeedNum = csv.GetInt32(r, "NeedNum")
+		s.NextID = csv.GetInt32(r, "NextID")
+
+		RoleSkillUpdateTable[ID] = &s
+	}
+	return nil
+}
+
+func GetRoleSkillUpdateRecordById(ID int32) *RoleSkillUpdate {
+	return RoleSkillUpdateTable[ID]
 }
 
 

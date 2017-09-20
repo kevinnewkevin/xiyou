@@ -8,6 +8,7 @@ import (
 	"time"
 	"math/rand"
 	"sort"
+	"encoding/json"
 )
 
 type UnitList []*GameUnit
@@ -559,12 +560,16 @@ func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
 }
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
-	fmt.Println("SendReport", "111111111111111111111111")
+	b,_ := json.Marshal(report)
+	fmt.Println(string(b))
 	for _, p := range this.PlayerList {
 		if p == nil || p.session == nil {
 			continue
 		}
 		p.BattlePoint = this.Point
+
+
+
 		p.session.BattleReport(report)
 	}
 }

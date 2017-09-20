@@ -49,6 +49,7 @@ func (this *LuaState) TypeName(idx int) string { return lua_typename(this.luaSta
 
 func (this *LuaState) ToNumber(idx int) float64 { return lua_tonumber(this.luaState, idx) }
 func (this *LuaState) ToInteger(idx int) int    { return int(lua_tointeger(this.luaState, idx)) }
+func (this *LuaState) ToLong(idx int) int64    { return int64(lua_tointeger(this.luaState, idx)) }
 func (this *LuaState) ToBoolean(idx int) bool   { return lua_toboolean(this.luaState, idx) != 0 }
 func (this *LuaState) ToString(idx int) string {
 	return lua_tolstring(this.luaState, idx, nil)

@@ -160,3 +160,9 @@ struct COM_UnitInfo{
 	int32	MDEF;
 };
 
+//技能学习
+struct COM_LearnSkill{
+	int32	Position;
+	int32	SkillID;
+};
+
