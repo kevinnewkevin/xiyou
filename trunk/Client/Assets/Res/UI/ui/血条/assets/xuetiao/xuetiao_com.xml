@@ -21,16 +21,6 @@
     <component id="n9_92dv" name="n9" src="p5859" xy="93,-50">
       <gearDisplay controller="xuetiao" pages="1"/>
     </component>
-    <image id="n10_fiqe" name="n10" src="fiqed" xy="-21,48" size="58,187" alpha="0"/>
-    <text id="n11_fiqe" name="n11" xy="-25,62" size="46,152" alpha="0" font="方正楷体_GBK" fontSize="22" color="#ffffff" align="center" autoSize="none" bold="true" text="啦啦啦啦">
-      <relation target="n10_fiqe" sidePair="middle-middle,center-center"/>
-    </text>
   </displayList>
-  <transition name="t0">
-    <item time="0" type="Alpha" target="n11_fiqe" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="Alpha" target="n10_fiqe" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="Scale" target="n10_fiqe" tween="true" startValue="1,0" endValue="1,1" duration="12" ease="Circ.InOut"/>
-    <item time="24" type="Alpha" target="n11_fiqe" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
-    <item time="24" type="Alpha" target="n10_fiqe" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
-  </transition>
+  <transition name="t0"/>
 </component>
