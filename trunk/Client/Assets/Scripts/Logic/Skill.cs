@@ -97,8 +97,12 @@ public class Skill {
                 _SkillEff [0].transform.localRotation = Quaternion.identity;
                 if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
                 {
-                    if(caster._RealPosInScene > 5)
+                    if (caster._RealPosInScene > 5)
                         _SkillEff [0].transform.Rotate(Vector3.up, 180f);
+                }
+                else
+                {
+                    _SkillEff [0].transform.Rotate(Vector3.up, 180f);
                 }
                 _SkillEff [0].SetActive(false);
 
@@ -358,6 +362,13 @@ public class Skill {
 
     void Range()
     {
+        if (_SkillPos != null && _SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
+        {
+            _Caster._ActorObj.transform.rotation = _SkillPos.rotation;
+            if(_Caster._RealPosInScene > 5)
+                _Caster._ActorObj.transform.Rotate(Vector3.up, 180f);
+        }
+            
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Feature(_Caster._ActorObj, _SkillData._Camera);
         if (string.IsNullOrEmpty(_SkillData._CastAnim))
