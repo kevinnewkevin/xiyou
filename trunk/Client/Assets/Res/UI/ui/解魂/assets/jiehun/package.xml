@@ -38,6 +38,14 @@
     <image id="ymqb16" name="ditiao.png" path="/" exported="true"/>
     <image id="j6bg17" name="jh_02_2.png" path="/" exported="true"/>
     <image id="tzjy18" name="jh_06_1.png" path="/"/>
+    <component id="ccom19" name="jianglizhanshi_com.xml" path="/" exported="true"/>
+    <image id="ccom1a" name="tsk_01.png" path="/" exported="true" scale="9grid" scale9grid="145,168,16,13"/>
+    <image id="ccom1b" name="tsk_02.png" path="/" exported="true" scale="9grid" scale9grid="122,16,2,21"/>
+    <image id="ccom1c" name="tck_fengexian.png" path="/" exported="true" scale="9grid" scale9grid="78,1,6,2"/>
+    <component id="ccom1d" name="daoju_Button.xml" path="/" exported="true"/>
+    <component id="ccom1e" name="daoju_com.xml" path="/" exported="true"/>
+    <component id="ccom1f" name="anniu_Button.xml" path="/" exported="true"/>
+    <image id="ccom1g" name="anniu1(1).png" path="/" exported="true"/>
   </resources>
   <publish name="jiehun" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
