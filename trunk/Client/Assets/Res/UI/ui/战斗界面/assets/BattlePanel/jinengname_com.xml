@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="150,483">
   <displayList>
-    <image id="n44_pbzi" name="n44" src="pbzi17" xy="0,0" size="150,518"/>
-    <text id="n45_pbzi" name="n45" xy="20,-9" size="78,502" font="方正楷体_GBK" fontSize="50" color="#ffffff" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦"/>
+    <image id="n44_pbzi" name="n44" src="pbzi17" xy="1,0" size="150,518"/>
+    <text id="n45_pbzi" name="n45" xy="20,-3" size="78,502" font="方正楷体_GBK" fontSize="50" color="#ffffff" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦"/>
   </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Size" target="n44_pbzi" tween="true" startValue="150,23" endValue="150,518" duration="12"/>
+  </transition>
 </component>

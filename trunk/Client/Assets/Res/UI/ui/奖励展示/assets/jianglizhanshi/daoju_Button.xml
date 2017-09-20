@@ -2,15 +2,7 @@
 <component size="118,118" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="l97w4" xy="0,0" size="118,118">
-      <gearDisplay controller="button" pages="0,2"/>
-      <relation target="" sidePair="width-width,height-height"/>
-    </image>
-    <image id="n2" name="n2" src="l97w4" xy="0,0" size="118,118">
-      <gearDisplay controller="button" pages="1,3"/>
-      <relation target="" sidePair="width-width,height-height"/>
-    </image>
-    <loader id="n3_l97w" name="n3" xy="0,0" size="118,151" align="center" vAlign="middle"/>
+    <component id="n5_u6ww" name="n5" src="u6wwa" xy="-2,-2"/>
     <text id="n4_d3p9" name="n4" xy="-43,117" size="200,35" font="方正楷体_GBK" fontSize="24" align="center" vAlign="middle" leading="0" autoSize="none" text="啦啦啦啦啦啦"/>
   </displayList>
   <Button/>
