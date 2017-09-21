@@ -136,10 +136,9 @@ function guakan_RenderListItem(index, obj)
 		starNum = starNum +1;
 	  end
 
-
-
+	
 	 if index ~= 0 then
-		if  starNum  > 0 then   
+		if smallChapters[index -1].Star1 == true or smallChapters[index -1].Star2 == true or smallChapters[index -1].Star3 == true  then    
 			 obj.visible  = true;
 		else
 			obj.visible  = false;
