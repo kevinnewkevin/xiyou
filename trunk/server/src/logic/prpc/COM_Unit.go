@@ -10,6 +10,7 @@ type COM_Unit struct{
   IProperties []int32  //3
   CProperties []float32  //4
   Equipments []COM_ItemInst  //5
+  Skills []COM_UnitSkill  //6
 }
 func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -20,6 +21,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(len(this.IProperties) != 0)
   mask.WriteBit(len(this.CProperties) != 0)
   mask.WriteBit(len(this.Equipments) != 0)
+  mask.WriteBit(len(this.Skills) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -98,6 +100,21 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize Skills
+  if len(this.Skills) != 0{
+    {
+      err := prpc.Write(buffer,uint(len(this.Skills)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.Skills {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
@@ -167,6 +184,21 @@ func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
     this.Equipments = make([]COM_ItemInst,size)
     for i,_ := range this.Equipments{
       err := this.Equipments[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize Skills
+  if mask.ReadBit() {
+    var size uint
+    err := prpc.Read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.Skills = make([]COM_UnitSkill,size)
+    for i,_ := range this.Skills{
+      err := this.Skills[i].Deserialize(buffer)
       if err != nil{
         return err
       }

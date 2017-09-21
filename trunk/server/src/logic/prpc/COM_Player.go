@@ -11,6 +11,7 @@ type COM_Player struct{
   Chapters []COM_Chapter  //4
   UnitGroup []COM_UnitGroup  //5
   TianTiVal int32  //6
+  SkillBase []COM_SkillBase  //7
 }
 func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -22,6 +23,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(len(this.Chapters) != 0)
   mask.WriteBit(len(this.UnitGroup) != 0)
   mask.WriteBit(this.TianTiVal!=0)
+  mask.WriteBit(len(this.SkillBase) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -105,6 +107,21 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize SkillBase
+  if len(this.SkillBase) != 0{
+    {
+      err := prpc.Write(buffer,uint(len(this.SkillBase)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.SkillBase {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
@@ -184,6 +201,21 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     err := prpc.Read(buffer,&this.TianTiVal)
     if err != nil{
       return err
+    }
+  }
+  // deserialize SkillBase
+  if mask.ReadBit() {
+    var size uint
+    err := prpc.Read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.SkillBase = make([]COM_SkillBase,size)
+    for i,_ := range this.SkillBase{
+      err := this.SkillBase[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
     }
   }
   return nil

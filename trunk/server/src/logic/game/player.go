@@ -174,6 +174,14 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 	p.TianTiVal = this.TianTiVal
 
+	for index, skillid := range this.SkillBase {
+		skillbase := prpc.COM_SkillBase{}
+		skillbase.SkillIdx = index
+		skillbase.SkillId = skillid
+
+		p.SkillBase = append(p.SkillBase, skillbase)
+	}
+
 	//
 	this.SyncBag()
 

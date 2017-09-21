@@ -270,6 +270,14 @@ func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 	u.Level = this.Level
 	u.IProperties = append(u.IProperties, this.IProperties...)
 	u.CProperties = append(u.CProperties, this.CProperties...)
+
+	for idx, skill := range this.Skill {
+		unit_skill := prpc.COM_UnitSkill{}
+		unit_skill.Pos = idx
+		unit_skill.SkillId = skill.SkillID
+
+		u.Skills = append(u.Skills, unit_skill)
+	}
 	return u
 }
 

@@ -19,6 +19,12 @@ struct COM_ItemInst{
 	int32	Stack_;
 };
 
+//卡牌自带技能
+struct COM_UnitSkill{
+	int32	Pos;
+	int32	SkillId;
+};
+
 //卡片实例
 struct COM_Unit{
 	int32			UnitId;
@@ -27,6 +33,7 @@ struct COM_Unit{
 	int32[] 		IProperties;
 	float[]			CProperties;
 	COM_ItemInst[]	Equipments;
+	COM_UnitSkill[]	Skills;
 };
 
 //英雄故事章节
@@ -49,6 +56,12 @@ struct COM_UnitGroup{
 	int64[]			UnitList;	
 };
 
+//可学习技能
+struct COM_SkillBase{
+	int32			SkillIdx;
+	int32			SkillId;	
+};
+
 //角色实例
 struct COM_Player{
 	int64 				InstId;
@@ -58,6 +71,7 @@ struct COM_Player{
 	COM_Chapter[]		Chapters;
 	COM_UnitGroup[]		UnitGroup;
 	int32				TianTiVal;
+	COM_SkillBase[]		SkillBase;
 };
 
 //战斗位置
