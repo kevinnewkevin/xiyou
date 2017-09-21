@@ -29,7 +29,7 @@ function jiehun:OnInit()
 	
 	self.closeButton = self.contentPane:GetChild("n5").asButton;
 	
-		cardGroupList = self.contentPane:GetChild("n1").asList;
+	cardGroupList = self.contentPane:GetChild("n1").asList;
 	cardGroupList:SetVirtual();
 	cardGroupList.itemRenderer = jiehun_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n12");
@@ -51,7 +51,8 @@ function jiehun:OnInit()
 	end
 	crtTab = 1;
 	feeList.selectedIndex = crtTab-1;
-
+	local teamBtn = self.contentPane:GetChild("n7");
+	teamBtn.onClick:Add(jiehun_OnTeamBtn);
 	jiehun_FlushData();
 end
 
@@ -180,6 +181,12 @@ function jiehun_OnFeeItemClick(context)
 	crtTab = context.sender.data;
 	jiehun_FlushData();
 end
+
+function jiehun_OnTeamBtn(context)
+	Window:Hide();
+	UIManager.Show("paiku");
+end
+
 
 function jiehun_OnGetRewardBtn(context)
 	Proxy4Lua.RequestChapterStarReward(showRewardId,showRewardStar+1);
