@@ -26,6 +26,8 @@ local headLevel;
 local fee;
 local inGroup;
 
+local effRes;
+
 function qianghuachenggong:OnEntry()
 	Window = qianghuachenggong.New();
 	Window:Show();
@@ -89,14 +91,14 @@ function qianghuachenggong:OnDispose()
 end
 
 function qianghuachenggong:OnHide()
-	Proxy4Lua.UnloadAsset(modelRes);
-	modelRes = "";
+	Proxy4Lua.UnloadAsset(effRes);
+	effRes = "";
 	Window:Hide();
 end
 
 function qianghuachenggong_FlushData()
-	
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("Effect/dengjitishen"));
+	effRes = "Effect/dengjitishen";
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes));
 	local instId = UIParamHolder.Get("qiecuo1");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	local entityInst = GamePlayer.GetCardByInstID(instId);
