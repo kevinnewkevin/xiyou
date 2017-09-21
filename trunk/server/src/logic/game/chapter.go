@@ -72,6 +72,11 @@ func (player *GamePlayer)SycnMyChapterDataById(chapterId int32)  {
 	if player.session==nil {
 		return
 	}
+
+	for _,temp := range onceChapter.SmallChapters{
+		fmt.Println("SyncChapter ChapterId=",onceChapter.ChapterId,"SmallChapterId=",temp.SmallChapterId,"Star1=",temp.Star1,"Star2=",temp.Star2,"Star3=",temp.Star3)
+	}
+
 	player.session.SycnChapterData(*onceChapter)
 }
 
@@ -80,9 +85,9 @@ func (player *GamePlayer)GetMySmallChapterDataById(smallid int32) *prpc.COM_Smal
 		return nil
 	}
 	for _, chapter := range player.Chapters {
-		for _,smallchapter := range chapter.SmallChapters{
-			if smallchapter.SmallChapterId == smallid {
-				return &smallchapter
+		for i:=0; i<len(chapter.SmallChapters); i++{
+			if chapter.SmallChapters[i].SmallChapterId == smallid{
+				return  &chapter.SmallChapters[i]
 			}
 		}
 	}
@@ -189,6 +194,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 		for i:=0;i<len(battledata.KillMonsters) ;i++  {
 			if battledata.KillMonsters[i] == smallData.SmallChapterCase1 {
 				small.Star1 = true
+				fmt.Println("SmallChapter=",small.SmallChapterId,"Star1 Succeed")
 			}
 		}
 	}
@@ -196,12 +202,14 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 	if !small.Star2 {
 		if smallData.SmallChapterCase2 > battledata.BattleRound {
 			small.Star2 = true
+			fmt.Println("SmallChapter=",small.SmallChapterId,"Star2 Succeed")
 		}
 	}
 
 	if !small.Star3 {
 		if smallData.SmallChapterCase3 > battledata.MySelfDeathNum {
 			small.Star3 = true
+			fmt.Println("SmallChapter=",small.SmallChapterId,"Star3 Succeed")
 		}
 	}
 	fmt.Println("CalcSmallChapterStar DropId = ",smallData.DropID)

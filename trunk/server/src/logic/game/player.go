@@ -760,7 +760,7 @@ func (this *GamePlayer)CaleMyEnergy(dt float64)  {
 		return
 	}
 	this.EnergyTimer += dt
-	if this.EnergyTimer >= 30 {
+	if this.EnergyTimer >= 300 {
 		this.SetMyEnergy(1,true)
 		this.EnergyTimer = 0
 	}
