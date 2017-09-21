@@ -184,7 +184,7 @@ public class OpraSystem : MonoBehaviour {
         _ActorList.Clear();
         CameraEffect.Fade(delegate {
             UIManager.Show("BattlePanel");
-//            CameraEffect.Continue();
+            CameraEffect.Continue();
         }, delegate {
             Battle.FadedCallback();
         });

@@ -86,7 +86,16 @@ public class GamePlayer {
 
         if (_Data.Skills == null)
             return;
-        
+
+        for(int i=0; i < _Data.Skills.Length; ++i)
+        {
+            if (_Data.Skills [i].SkillId == skillid)
+            {
+                _Data.Skills [i].SkillId = 0;
+                UIManager.SetDirty("jineng");
+            }
+        }
+
         for(int i=0; i < _Data.Skills.Length; ++i)
         {
             if (_Data.Skills [i].Pos == idx)
