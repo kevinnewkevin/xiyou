@@ -307,6 +307,15 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 		idx = round
 	}
 
+	if this.Skill[idx + 1] == nil {
+		for _, skill := range this.Skill {
+			if skill == nil {
+				continue
+			}
+			return skill
+		}
+	}
+
 	return this.Skill[idx + 1]
 }
 

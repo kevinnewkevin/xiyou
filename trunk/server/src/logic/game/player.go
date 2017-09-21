@@ -809,6 +809,16 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
+	var idx int32
+	for index, skill := range this.MyUnit.Skill {
+		if skill.SkillID == learnSkill.SkillID{
+			idx = index
+			break
+		}
+	}
+
+	this.MyUnit.Skill[idx] = nil
+
 	this.session.EquipSkillOK(skillinfo.Position, skill.SKillID)
 	fmt.Println("EquipSkillOK", skillinfo.Position, skill.SKillID)
 
