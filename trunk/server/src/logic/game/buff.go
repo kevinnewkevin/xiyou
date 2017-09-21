@@ -22,7 +22,7 @@ type Buff struct {
 
 const (
 	kTypeBuff = 1			//增益buff
-	kTypeDebuff = 2			//减益buff
+	kTypeDebuff = 2		//减益buff
 
 	kKindUntil = 1			//有行为的buff
 	kKindNow = 2			//无行为的buff

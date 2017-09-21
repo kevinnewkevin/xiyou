@@ -987,9 +987,36 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 
 	return int(pro)
 }
-func (this *BattleRoom) ChangeUnitProperty(instid int64, data int32, property string) {
+func (this *BattleRoom) ChangeCptProperty(instid int64, data int32, property string) {//CPT
 	fmt.Println("增加攻击力,目标为 ", instid, data)
 	p_d := prpc.ToId_CPropertyType(property)
+
+	unit := this.SelectOneUnit(instid)
+	if unit == nil {
+		for _, p := range this.PlayerList {
+			if instid == p.MyUnit.InstId {
+				unit = p.MyUnit
+				break
+			}
+			for _, u := range p.UnitList {
+				if u.InstId == instid{
+					unit = u
+					break
+				}
+			}
+		}
+	}
+	fmt.Println("属性修改前", unit.CProperties[p_d], data)
+
+	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
+	fmt.Println("属性修改后", unit.CProperties[p_d], data)
+
+	return
+}
+
+func (this *BattleRoom) ChangeIptProperty(instid int64, data int32, property string) { //IPT
+	fmt.Println("增加攻击力,目标为 ", instid, data)
+	p_d := prpc.ToId_IPropertyType(property)
 
 	unit := this.SelectOneUnit(instid)
 	if unit == nil {

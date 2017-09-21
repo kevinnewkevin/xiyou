@@ -540,7 +540,7 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 	return len(tmp)
 }
 
-func (this *GameUnit) PopAllBuffByBuff() {
+func (this *GameUnit) PopAllBuffByBuff() int{
 //删除卡牌身上的buff
 	tmp := map[*Buff]int{}
 
@@ -565,6 +565,9 @@ func (this *GameUnit) PopAllBuffByBuff() {
 
 	fmt.Println("PopAllBuffByBuff")
 	this.Allbuff = newBufflist
+	fmt.Println("allbuff 3", this.Allbuff)
+	fmt.Println(len(tmp), tmp)
+	return len(tmp)
 }
 
 func (this *GameUnit) ChangeBuffTimes(round int32) {

@@ -10,7 +10,8 @@ extern int __GetTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetTargetsAround(void*);
 extern int __GetUnitProperty(void*);
-extern int __ChangeUnitProperty(void*);
+extern int __ChangeCptProperty(void*);
+extern int __ChangeIptProperty(void*);
 extern int __AddSheld(void*);
 extern int __PopSheld(void*);
 extern int __DamageSheld(void*);
@@ -31,6 +32,7 @@ extern int __BuffMintsHp(void*);
 extern int __BuffCureHp(void*);
 extern int __BuffUpdate(void*);
 extern int __BuffChangeStillData(void*);
+extern int __BuffChangeData(void*);
 extern int __GetCalcMagicDef(void*);
 extern int __GetUnitMtk(void*);
 extern int __GetUnitAtk(void*);
@@ -41,6 +43,7 @@ extern int __ClacSheld(void*);
 extern int __TargetOver(void*);
 extern int __TargetOn(void*);
 extern int __PopAllBuffByDebuff(void*);
+extern int __PopAllBuffBybuff(void*);
 extern int __GetUnitSheld(void*);
 extern int __FrontTarget(void*);
 extern int __LineTraget(void*);
@@ -84,7 +87,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetTargetsAround,"GetTargetsAround","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
-	_L.LoadApi(C.__ChangeUnitProperty,"ChangeUnitProperty","Player")
+	_L.LoadApi(C.__ChangeCptProperty,"ChangeUnitProperty","Player")
+	_L.LoadApi(C.__ChangeIptProperty,"ChangeIptProperty","Player")
 	_L.LoadApi(C.__AddSheld,"AddSheld","Player")
 	_L.LoadApi(C.__PopSheld,"PopSheld","Player")
 	_L.LoadApi(C.__DamageSheld,"DownSheld","Player")
@@ -101,6 +105,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetMagicDamage,"GetMagicDamage","Player")
 	_L.LoadApi(C.__ClacSheld,"ClacSheld","Player")
 	_L.LoadApi(C.__PopAllBuffByDebuff,"PopAllBuffByDebuff","Player")
+	_L.LoadApi(C.__PopAllBuffBybuff,"PopAllBuffBybuff","Player")
 	_L.LoadApi(C.__GetUnitSheld,"GetUnitSheld","Player")
 	_L.LoadApi(C.__FrontTarget,"FrontTarget","Player")
 	_L.LoadApi(C.__LineTraget,"LineTraget","Player")
@@ -123,7 +128,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
 	_L.LoadApi(C.__BuffCureHp,"BuffCureHp","Battle")
 	_L.LoadApi(C.__BuffUpdate,"BuffUpdate","Battle")
-	_L.LoadApi(C.__BuffChangeStillData,"BuffChangeData","Battle")
+	_L.LoadApi(C.__BuffChangeStillData,"BuffChangeStillData","Battle")
+	_L.LoadApi(C.__BuffChangeData,"BuffChangeData","Battle")
 	_L.LoadApi(C.__TargetOver,"TargetOver","Battle")
 	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
@@ -273,10 +279,10 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {
 	return 1
 }
 
-//export __ChangeUnitProperty
-func __ChangeUnitProperty(p unsafe.Pointer) C.int {   //加减属性值
+//export __ChangeCptProperty
+func __ChangeCptProperty(p unsafe.Pointer) C.int {   //加Cpt减属性值
 
-	//fmt.Println("__ChangeUnitProperty")
+	//fmt.Println("__ChangeCptProperty")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -288,15 +294,37 @@ func __ChangeUnitProperty(p unsafe.Pointer) C.int {   //加减属性值
 	idx ++
 	property := L.ToString(idx)
 
-	fmt.Println("__ChangeUnitProperty", battleid, unitid, property)
+	fmt.Println("__ChangeCptProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
-	battle.ChangeUnitProperty(int64(unitid), int32(data), property)
+	battle.ChangeCptProperty(int64(unitid), int32(data), property)
 
 	return 0
 }
+//export __ChangeIptProperty
+func __ChangeIptProperty(p unsafe.Pointer) C.int {   //加 IPT减属性值
 
+	//fmt.Println("__ChangeIptProperty")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	data := L.ToInteger(idx)
+	idx ++
+	property := L.ToString(idx)
+
+	fmt.Println("__ChangeIptProperty", battleid, unitid, property)
+
+	battle := FindBattle(int64(battleid))
+
+	battle.ChangeIptProperty(int64(unitid), int32(data), property)
+
+	return 0
+}
 //export __AddSheld
 func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 
@@ -1091,6 +1119,29 @@ func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果 
 	return 1
 }
 
+//export __PopAllBuffBybuff
+func __PopAllBuffBybuff(p unsafe.Pointer) C.int {		//驱散所有增益buff效果
+
+	fmt.Println("__PopAllBuffBybuff")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	num := unit.PopAllBuffByBuff()
+
+	L.PushInteger(num)
+
+	return 1
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //export __GetUnitDamage
@@ -1401,7 +1452,7 @@ func __BuffChangeStillData(p unsafe.Pointer) C.int {
 			continue
 		}
 
-		buff.Data = int32(new_data)
+		buff.Data =int32(new_data)
 	}
 
 	//buff := unit.SelectBuff(int32(buffinstid))
@@ -1409,6 +1460,37 @@ func __BuffChangeStillData(p unsafe.Pointer) C.int {
 
 	return 0
 }
+//export __BuffChangeData
+func __BuffChangeData(p unsafe.Pointer) C.int {
+	//开始前清理数据
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	new_data := L.ToInteger(idx)
+
+	fmt.Println("__BuffChangeData")
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	for _, buff := range unit.Allbuff {
+		if buff.BuffType != kTypeBuff {
+			continue
+		}
+
+		buff.Data = buff.Data + buff.Data*(int32(new_data))
+
+		fmt.Println("__BuffChangeData  battleid",battleid,"unitid",unitid,"buff.Data",buff.Data)
+	}
+
+	//buff := unit.SelectBuff(int32(buffinstid))
+	//buff.MustUpdate()
+
+	return 0
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //export __GetMyUnitIProperty
 func __GetMyUnitIProperty(p unsafe.Pointer) C.int {
