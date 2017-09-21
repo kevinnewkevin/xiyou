@@ -8,10 +8,7 @@ local stateIcon;
 local startCom;
 local battStartIcon;
 local battleTurn;
-
-local battleStart = {};
-battleStart.max = 1;
-battleStart.count = 0;
+local countDown;
 
 local cards = {};
 local cardsInGroup = {};
@@ -42,6 +39,11 @@ end
 function BattlePanel:OnInit()
 	self.contentPane = UIPackage.CreateObject("BattlePanel", "BattlePanel_com").asCom;
 	self:Center();
+
+	countDown = {};
+	countDown.ui = self.contentPane:GetChild("n45").asTextField;
+	countDown.count = 30;
+	countDown.ui.visible = false;
 
 	startCom = self.contentPane:GetChild("n7").asCom;
 	battStartIcon = startCom:GetTransition("t0");
@@ -120,15 +122,6 @@ function BattlePanel:OnUpdate()
 end
 
 function BattlePanel:OnTick()
---	--2秒倒计时
---	if battleStart ~= nil then
---		battleStart.count = battleStart.count + 1;
---		if battleStart.count > battleStart.max then
---			BattlePanel_OnHiddenBattleStart();
---			battleStart = nil;
---		end
---	end
-
 	if skillObj ~= nil then
 		skillObj.count = skillObj.count + 1;
 		if skillObj.count > skillObj.max then
@@ -138,6 +131,22 @@ function BattlePanel:OnTick()
 			skillObj = nil;
 		end
 	end
+
+	if Battle._CurrentState == Battle.BattleState.BS_Oper then
+		if countDown.ui.visible == false then
+			countDown.ui.visible = true;
+		end
+		countDown.count = countDown.count - 1;
+		if countDown.count <= 0 then
+			BattlePanel_OnTurnOver();
+		end
+	else
+		if countDown.ui.visible == true then
+			countDown.ui.visible = false;
+		end
+		countDown.count = 30;
+	end
+	countDown.ui.text = countDown.count;
 end
 
 function BattlePanel:isShow()
@@ -268,7 +277,11 @@ function BattlePanel_OnReturnBtn()
 end
 
 function BattlePanel_OnTurnOver()
-	Proxy4Lua.BattleSetup();
+	if Battle._Turn == 1 and mainActor == nil then
+		Battle.PutCardInBattle();
+	else
+		Proxy4Lua.BattleSetup();
+	end
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
 	end
