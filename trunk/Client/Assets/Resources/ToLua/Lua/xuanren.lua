@@ -6,6 +6,7 @@ local Window;
 local name;
 local createBtn;
 local selectList;
+local randNameBtn;
 
 function xuanren:OnEntry()
 	Window = denglu.New();
@@ -23,8 +24,16 @@ function denglu:OnInit()
 	name = self.contentPane:GetChild("n9");
 	createBtn = self.contentPane:GetChild("n7");
 	selectList = self.contentPane:GetChild("n10");
+	randNameBtn = self.contentPane:GetChild("n4");
+	randNameBtn.onClick:Add(xuanren_RandName);
+
+	name.text = RandNameData.Rand();
 
 	createBtn.onClick:Add(xuanren_OnCreate);
+end
+
+function xuanren_RandName()
+	name.text = RandNameData.Rand();
 end
 
 function xuanren:OnUpdate()
