@@ -47,6 +47,15 @@ public class RoleSkillData {
         return null;
     }
 
+    static public void SetData(int id, int skillid)
+    {
+        for(int i=0; i < metaData.Count; ++i)
+        {
+            if (metaData [i]._SkillId == skillid)
+                return metaData [i]._SkillId = skillid;
+        }
+    }
+
     static public RoleSkillData GetData(int id)
     {
         for(int i=0; i < metaData.Count; ++i)

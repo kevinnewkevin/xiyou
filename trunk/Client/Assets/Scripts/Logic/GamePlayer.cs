@@ -68,6 +68,14 @@ public class GamePlayer {
         
         }
 
+        if (player.SkillBase != null)
+        {
+            for(int i=0; i < player.SkillBase.Length; ++i)
+            {
+                RoleSkillData.SetData(player.SkillBase[i].SkillIdx, player.SkillBase[i].SkillId);
+            }
+        }
+
         UIManager.SetDirty("zhujiemian");
     }
 
