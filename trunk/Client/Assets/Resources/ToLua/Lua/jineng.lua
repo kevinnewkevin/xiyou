@@ -276,6 +276,28 @@ function jineng_OnlyLeftFlushData()
 		itemBarNum.text = "0/0";
 		needGold.text = "0";
 	end
+
+	if crtSelectRoleSkilltype == 0 then
+		skill1:GetChild("n10").visible = true;
+		skill2:GetChild("n10").visible = false;
+		skill3:GetChild("n10").visible = false;
+		skill4:GetChild("n10").visible = false;
+	elseif crtSelectRoleSkilltype == 1 then
+		skill1:GetChild("n10").visible = false;
+		skill2:GetChild("n10").visible = true;
+		skill3:GetChild("n10").visible = true;
+		skill4:GetChild("n10").visible = false;
+	elseif crtSelectRoleSkilltype == 2 then
+		skill1:GetChild("n10").visible = false;
+		skill2:GetChild("n10").visible = false;
+		skill3:GetChild("n10").visible = false;
+		skill4:GetChild("n10").visible = true;
+	else
+		skill1:GetChild("n10").visible = false;
+		skill2:GetChild("n10").visible = false;
+		skill3:GetChild("n10").visible = false;
+		skill4:GetChild("n10").visible = false;
+	end
 end
 
 function jineng_FlushData()
