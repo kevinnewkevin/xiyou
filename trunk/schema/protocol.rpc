@@ -29,6 +29,7 @@ service COM_ServerToClient{
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
 	BattleReport(COM_BattleReport report); 	//战报
 	BattleExit(COM_BattleResult result); 	//战斗结果
+	OpenChapter(COM_Chapter data);
 	SycnChapterData(COM_Chapter data);
 	InitBagItems(COM_ItemInst[] items);
 	AddBagItem(COM_ItemInst item);

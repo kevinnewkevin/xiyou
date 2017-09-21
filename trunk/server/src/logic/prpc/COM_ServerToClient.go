@@ -27,6 +27,9 @@ type COM_ServerToClient_BattleReport struct{
 type COM_ServerToClient_BattleExit struct{
   result COM_BattleResult  //0
 }
+type COM_ServerToClient_OpenChapter struct{
+  data COM_Chapter  //0
+}
 type COM_ServerToClient_SycnChapterData struct{
   data COM_Chapter  //0
 }
@@ -75,18 +78,19 @@ type COM_ServerToClientProxy interface{
   SetBattleUnitOK(instId int64 ) error // 5
   BattleReport(report COM_BattleReport ) error // 6
   BattleExit(result COM_BattleResult ) error // 7
-  SycnChapterData(data COM_Chapter ) error // 8
-  InitBagItems(items []COM_ItemInst ) error // 9
-  AddBagItem(item COM_ItemInst ) error // 10
-  UpdateBagItem(item COM_ItemInst ) error // 11
-  DeleteItemOK(instId int64 ) error // 12
-  UpdateTiantiVal(curVal int32 ) error // 13
-  UpdateUnitIProperty(instid int64, iType int32, value int32 ) error // 14
-  UpdateUnitCProperty(instid int64, cType int32, value float32 ) error // 15
-  PromoteUnitOK() error // 16
-  RequestChapterStarRewardOK() error // 17
-  EquipSkillOK(skillIndex int32, skillID int32 ) error // 18
-  SkillUpdateOK(skillIndex int32, skillID int32 ) error // 19
+  OpenChapter(data COM_Chapter ) error // 8
+  SycnChapterData(data COM_Chapter ) error // 9
+  InitBagItems(items []COM_ItemInst ) error // 10
+  AddBagItem(item COM_ItemInst ) error // 11
+  UpdateBagItem(item COM_ItemInst ) error // 12
+  DeleteItemOK(instId int64 ) error // 13
+  UpdateTiantiVal(curVal int32 ) error // 14
+  UpdateUnitIProperty(instid int64, iType int32, value int32 ) error // 15
+  UpdateUnitCProperty(instid int64, cType int32, value float32 ) error // 16
+  PromoteUnitOK() error // 17
+  RequestChapterStarRewardOK() error // 18
+  EquipSkillOK(skillIndex int32, skillID int32 ) error // 19
+  SkillUpdateOK(skillIndex int32, skillID int32 ) error // 20
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -374,6 +378,40 @@ func (this *COM_ServerToClient_BattleExit)Deserialize(buffer *bytes.Buffer) erro
   // deserialize result
   if mask.ReadBit() {
     err := this.result.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_OpenChapter)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //data
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize data
+  {
+    err := this.data.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_OpenChapter)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize data
+  if mask.ReadBit() {
+    err := this.data.Deserialize(buffer)
     if err != nil{
       return err
     }
@@ -982,7 +1020,7 @@ func(this* COM_ServerToClientStub)BattleExit(result COM_BattleResult ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
+func(this* COM_ServerToClientStub)OpenChapter(data COM_Chapter ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -991,9 +1029,26 @@ func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
   if err != nil{
     return err
   }
-  _8 := COM_ServerToClient_SycnChapterData{}
+  _8 := COM_ServerToClient_OpenChapter{}
   _8.data = data;
   err = _8.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(9))
+  if err != nil{
+    return err
+  }
+  _9 := COM_ServerToClient_SycnChapterData{}
+  _9.data = data;
+  err = _9.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1004,13 +1059,13 @@ func(this* COM_ServerToClientStub)InitBagItems(items []COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(9))
+  err := prpc.Write(buffer,uint16(10))
   if err != nil{
     return err
   }
-  _9 := COM_ServerToClient_InitBagItems{}
-  _9.items = items;
-  err = _9.Serialize(buffer)
+  _10 := COM_ServerToClient_InitBagItems{}
+  _10.items = items;
+  err = _10.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1021,13 +1076,13 @@ func(this* COM_ServerToClientStub)AddBagItem(item COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(10))
+  err := prpc.Write(buffer,uint16(11))
   if err != nil{
     return err
   }
-  _10 := COM_ServerToClient_AddBagItem{}
-  _10.item = item;
-  err = _10.Serialize(buffer)
+  _11 := COM_ServerToClient_AddBagItem{}
+  _11.item = item;
+  err = _11.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1038,13 +1093,13 @@ func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(11))
+  err := prpc.Write(buffer,uint16(12))
   if err != nil{
     return err
   }
-  _11 := COM_ServerToClient_UpdateBagItem{}
-  _11.item = item;
-  err = _11.Serialize(buffer)
+  _12 := COM_ServerToClient_UpdateBagItem{}
+  _12.item = item;
+  err = _12.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1055,13 +1110,13 @@ func(this* COM_ServerToClientStub)DeleteItemOK(instId int64 ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(12))
+  err := prpc.Write(buffer,uint16(13))
   if err != nil{
     return err
   }
-  _12 := COM_ServerToClient_DeleteItemOK{}
-  _12.instId = instId;
-  err = _12.Serialize(buffer)
+  _13 := COM_ServerToClient_DeleteItemOK{}
+  _13.instId = instId;
+  err = _13.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1072,13 +1127,13 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(13))
+  err := prpc.Write(buffer,uint16(14))
   if err != nil{
     return err
   }
-  _13 := COM_ServerToClient_UpdateTiantiVal{}
-  _13.curVal = curVal;
-  err = _13.Serialize(buffer)
+  _14 := COM_ServerToClient_UpdateTiantiVal{}
+  _14.curVal = curVal;
+  err = _14.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1089,15 +1144,15 @@ func(this* COM_ServerToClientStub)UpdateUnitIProperty(instid int64, iType int32,
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(14))
+  err := prpc.Write(buffer,uint16(15))
   if err != nil{
     return err
   }
-  _14 := COM_ServerToClient_UpdateUnitIProperty{}
-  _14.instid = instid;
-  _14.iType = iType;
-  _14.value = value;
-  err = _14.Serialize(buffer)
+  _15 := COM_ServerToClient_UpdateUnitIProperty{}
+  _15.instid = instid;
+  _15.iType = iType;
+  _15.value = value;
+  err = _15.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1108,15 +1163,15 @@ func(this* COM_ServerToClientStub)UpdateUnitCProperty(instid int64, cType int32,
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(15))
+  err := prpc.Write(buffer,uint16(16))
   if err != nil{
     return err
   }
-  _15 := COM_ServerToClient_UpdateUnitCProperty{}
-  _15.instid = instid;
-  _15.cType = cType;
-  _15.value = value;
-  err = _15.Serialize(buffer)
+  _16 := COM_ServerToClient_UpdateUnitCProperty{}
+  _16.instid = instid;
+  _16.cType = cType;
+  _16.value = value;
+  err = _16.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1127,7 +1182,7 @@ func(this* COM_ServerToClientStub)PromoteUnitOK() error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(16))
+  err := prpc.Write(buffer,uint16(17))
   if err != nil{
     return err
   }
@@ -1138,7 +1193,7 @@ func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(17))
+  err := prpc.Write(buffer,uint16(18))
   if err != nil{
     return err
   }
@@ -1149,14 +1204,14 @@ func(this* COM_ServerToClientStub)EquipSkillOK(skillIndex int32, skillID int32 )
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(18))
+  err := prpc.Write(buffer,uint16(19))
   if err != nil{
     return err
   }
-  _18 := COM_ServerToClient_EquipSkillOK{}
-  _18.skillIndex = skillIndex;
-  _18.skillID = skillID;
-  err = _18.Serialize(buffer)
+  _19 := COM_ServerToClient_EquipSkillOK{}
+  _19.skillIndex = skillIndex;
+  _19.skillID = skillID;
+  err = _19.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1167,14 +1222,14 @@ func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32 
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(19))
+  err := prpc.Write(buffer,uint16(20))
   if err != nil{
     return err
   }
-  _19 := COM_ServerToClient_SkillUpdateOK{}
-  _19.skillIndex = skillIndex;
-  _19.skillID = skillID;
-  err = _19.Serialize(buffer)
+  _20 := COM_ServerToClient_SkillUpdateOK{}
+  _20.skillIndex = skillIndex;
+  _20.skillID = skillID;
+  err = _20.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1287,6 +1342,20 @@ func Bridging_COM_ServerToClient_BattleExit(buffer *bytes.Buffer, p COM_ServerTo
   }
   return p.BattleExit(_7.result)
 }
+func Bridging_COM_ServerToClient_OpenChapter(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _8 := COM_ServerToClient_OpenChapter{}
+  err := _8.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.OpenChapter(_8.data)
+}
 func Bridging_COM_ServerToClient_SycnChapterData(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1294,12 +1363,12 @@ func Bridging_COM_ServerToClient_SycnChapterData(buffer *bytes.Buffer, p COM_Ser
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _8 := COM_ServerToClient_SycnChapterData{}
-  err := _8.Deserialize(buffer)
+  _9 := COM_ServerToClient_SycnChapterData{}
+  err := _9.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.SycnChapterData(_8.data)
+  return p.SycnChapterData(_9.data)
 }
 func Bridging_COM_ServerToClient_InitBagItems(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1308,12 +1377,12 @@ func Bridging_COM_ServerToClient_InitBagItems(buffer *bytes.Buffer, p COM_Server
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _9 := COM_ServerToClient_InitBagItems{}
-  err := _9.Deserialize(buffer)
+  _10 := COM_ServerToClient_InitBagItems{}
+  err := _10.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.InitBagItems(_9.items)
+  return p.InitBagItems(_10.items)
 }
 func Bridging_COM_ServerToClient_AddBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1322,12 +1391,12 @@ func Bridging_COM_ServerToClient_AddBagItem(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _10 := COM_ServerToClient_AddBagItem{}
-  err := _10.Deserialize(buffer)
+  _11 := COM_ServerToClient_AddBagItem{}
+  err := _11.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.AddBagItem(_10.item)
+  return p.AddBagItem(_11.item)
 }
 func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1336,12 +1405,12 @@ func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_Serve
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _11 := COM_ServerToClient_UpdateBagItem{}
-  err := _11.Deserialize(buffer)
+  _12 := COM_ServerToClient_UpdateBagItem{}
+  err := _12.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.UpdateBagItem(_11.item)
+  return p.UpdateBagItem(_12.item)
 }
 func Bridging_COM_ServerToClient_DeleteItemOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1350,12 +1419,12 @@ func Bridging_COM_ServerToClient_DeleteItemOK(buffer *bytes.Buffer, p COM_Server
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _12 := COM_ServerToClient_DeleteItemOK{}
-  err := _12.Deserialize(buffer)
+  _13 := COM_ServerToClient_DeleteItemOK{}
+  err := _13.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.DeleteItemOK(_12.instId)
+  return p.DeleteItemOK(_13.instId)
 }
 func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1364,12 +1433,12 @@ func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_Ser
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _13 := COM_ServerToClient_UpdateTiantiVal{}
-  err := _13.Deserialize(buffer)
+  _14 := COM_ServerToClient_UpdateTiantiVal{}
+  err := _14.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.UpdateTiantiVal(_13.curVal)
+  return p.UpdateTiantiVal(_14.curVal)
 }
 func Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1378,12 +1447,12 @@ func Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer *bytes.Buffer, p COM
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _14 := COM_ServerToClient_UpdateUnitIProperty{}
-  err := _14.Deserialize(buffer)
+  _15 := COM_ServerToClient_UpdateUnitIProperty{}
+  err := _15.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.UpdateUnitIProperty(_14.instid,_14.iType,_14.value)
+  return p.UpdateUnitIProperty(_15.instid,_15.iType,_15.value)
 }
 func Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1392,12 +1461,12 @@ func Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer *bytes.Buffer, p COM
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _15 := COM_ServerToClient_UpdateUnitCProperty{}
-  err := _15.Deserialize(buffer)
+  _16 := COM_ServerToClient_UpdateUnitCProperty{}
+  err := _16.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.UpdateUnitCProperty(_15.instid,_15.cType,_15.value)
+  return p.UpdateUnitCProperty(_16.instid,_16.cType,_16.value)
 }
 func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1424,12 +1493,12 @@ func Bridging_COM_ServerToClient_EquipSkillOK(buffer *bytes.Buffer, p COM_Server
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _18 := COM_ServerToClient_EquipSkillOK{}
-  err := _18.Deserialize(buffer)
+  _19 := COM_ServerToClient_EquipSkillOK{}
+  err := _19.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.EquipSkillOK(_18.skillIndex,_18.skillID)
+  return p.EquipSkillOK(_19.skillIndex,_19.skillID)
 }
 func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -1438,12 +1507,12 @@ func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_Serve
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _19 := COM_ServerToClient_SkillUpdateOK{}
-  err := _19.Deserialize(buffer)
+  _20 := COM_ServerToClient_SkillUpdateOK{}
+  err := _20.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.SkillUpdateOK(_19.skillIndex,_19.skillID)
+  return p.SkillUpdateOK(_20.skillIndex,_20.skillID)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -1475,28 +1544,30 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 7 :
       return Bridging_COM_ServerToClient_BattleExit(buffer,p);
     case 8 :
-      return Bridging_COM_ServerToClient_SycnChapterData(buffer,p);
+      return Bridging_COM_ServerToClient_OpenChapter(buffer,p);
     case 9 :
-      return Bridging_COM_ServerToClient_InitBagItems(buffer,p);
+      return Bridging_COM_ServerToClient_SycnChapterData(buffer,p);
     case 10 :
-      return Bridging_COM_ServerToClient_AddBagItem(buffer,p);
+      return Bridging_COM_ServerToClient_InitBagItems(buffer,p);
     case 11 :
-      return Bridging_COM_ServerToClient_UpdateBagItem(buffer,p);
+      return Bridging_COM_ServerToClient_AddBagItem(buffer,p);
     case 12 :
-      return Bridging_COM_ServerToClient_DeleteItemOK(buffer,p);
+      return Bridging_COM_ServerToClient_UpdateBagItem(buffer,p);
     case 13 :
-      return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
+      return Bridging_COM_ServerToClient_DeleteItemOK(buffer,p);
     case 14 :
-      return Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer,p);
+      return Bridging_COM_ServerToClient_UpdateTiantiVal(buffer,p);
     case 15 :
-      return Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer,p);
+      return Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer,p);
     case 16 :
-      return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
+      return Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer,p);
     case 17 :
-      return Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer,p);
+      return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
     case 18 :
-      return Bridging_COM_ServerToClient_EquipSkillOK(buffer,p);
+      return Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer,p);
     case 19 :
+      return Bridging_COM_ServerToClient_EquipSkillOK(buffer,p);
+    case 20 :
       return Bridging_COM_ServerToClient_SkillUpdateOK(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)

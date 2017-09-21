@@ -24,6 +24,11 @@ func OpenChapter(player *GamePlayer,cid int32)  {
 			chapterData.SmallChapters = append(chapterData.SmallChapters,small)
 		}
 		player.Chapters = append(player.Chapters,&chapterData)
+		if player.session==nil {
+			return
+		}
+
+		player.session.OpenChapter(chapterData)
 	}
 }
 
