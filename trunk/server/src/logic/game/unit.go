@@ -53,11 +53,9 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
 	for i := 0; i < len(t.Skills); i++ {
-		if t.Skills[i] == 0 {
-			continue
-		}
 		skill := InitSkillFromTable(t.Skills[i])
 		if skill == nil {
+			u.Skill[int32(i)] = nil
 			continue
 		}
 		u.Skill[int32(i)] = skill
@@ -274,7 +272,12 @@ func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 	for idx, skill := range this.Skill {
 		unit_skill := prpc.COM_UnitSkill{}
 		unit_skill.Pos = idx
-		unit_skill.SkillId = skill.SkillID
+		if skill == nil {
+			unit_skill.SkillId = 0
+		} else {
+			unit_skill.SkillId = skill.SkillID
+		}
+
 
 		u.Skills = append(u.Skills, unit_skill)
 	}
@@ -304,11 +307,13 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 		idx = round
 	}
 
-	return this.Skill[idx]
+	return this.Skill[idx + 1]
 }
 
 func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 	skill := this.SelectSkill(battle.Round)
+
+
 
 	//tagetList := battle.SelectAllTarget(this.Camp)
 
@@ -331,6 +336,8 @@ func (this *GameUnit) CastSkill2(battle *BattleRoom) bool {
 	}
 
 	skill := this.SelectSkill(battle.Round)
+
+	fmt.Println("CastSkill", skill, &skill)
 
 	//fmt.Println("CastSkill2 skill id is ", skill.SkillID)
 
