@@ -96,10 +96,18 @@ function jineng:OnInit()
 	skill4:GetChild("n12").visible = false;
 	skill4:GetChild("n13").visible = false;
 
-	skill1.data = 0;
-	skill2.data = 0;
-	skill3.data = 0;
-	skill4.data = 0;
+	skill1.data = {};
+	skill1.data.rsId = 0;
+	skill1.data.down = 1;
+	skill2.data = {};
+	skill2.data.rsId = 0;
+	skill2.data.down = 1;
+	skill3.data = {};
+	skill3.data.rsId = 0;
+	skill3.data.down = 1;
+	skill4.data = {};
+	skill4.data.rsId = 0;
+	skill4.data.down = 1;
 	skill1.onDrop:Add(jineng_OnDropSkill);
 	skill2.onDrop:Add(jineng_OnDropSkill);
 	skill3.onDrop:Add(jineng_OnDropSkill);
@@ -115,27 +123,32 @@ function jineng:OnInit()
 end
 
 function jineng_OnSkillSelected(context)
-	local rsData = RoleSkillData.GetData(context.sender.data);
+	local rsData = RoleSkillData.GetData(context.sender.data.rsId);
 	if rsData == nil then
 		return;
 	end
 
-	crtSelectRoleSkillId = context.sender.data;
+	crtSelectRoleSkillId = context.sender.data.rsId;
 	crtSelectRoleSkilltype = RoleSkillData.GetData(crtSelectRoleSkillId)._Type;
 	if crtSelectRoleSkilltype == 0 then
-		playerSkillList:SelectNone();
 		activeList:SelectNone();
 		criticalList:SelectNone();
 	end
 	if crtSelectRoleSkilltype == 1 then
-		playerSkillList:SelectNone();
 		passiveList:SelectNone();
 		criticalList:SelectNone();
 	end
 	if crtSelectRoleSkilltype == 2 then
-		playerSkillList:SelectNone();
 		activeList:SelectNone();
 		passiveList:SelectNone();
+	end
+
+	if context.sender.data.down == 0 then
+		playerSkillList:SelectNone();
+	else
+		activeList:SelectNone();
+		passiveList:SelectNone();
+		criticalList:SelectNone();
 	end
 
 	jineng_OnlyLeftFlushData();
@@ -148,7 +161,7 @@ function jineng_OnDragSkill(context)
 end
 
 function jineng_OnDropSkill(context)
-	local rsData = RoleSkillData.GetData(context.sender.data);
+	local rsData = RoleSkillData.GetData(context.sender.data.rsId);
 	if rsData == nil then
 		return;
 	end
@@ -298,10 +311,9 @@ function jineng_FlushData()
 			skillunlockcond.visible = playerlv < allData[i-1]._OpenLv;
 			skillunlockcond.text = allData[i-1]._OpenLv .. "级解锁";
 
-			if skillitem.data == nil then
-				skillitem.data = {};
-			end
-			skillitem.data = allData[i-1]._ID;
+			skillitem.data = {};
+			skillitem.data.rsId = allData[i-1]._ID;
+			skillitem.data.down = 0;
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
@@ -321,10 +333,9 @@ function jineng_FlushData()
 			skillunlockcond.visible = playerlv < allData[i-1]._OpenLv;
 			skillunlockcond.text = allData[i-1]._OpenLv .. "级解锁";
 
-			if skillitem.data == nil then
-				skillitem.data = {};
-			end
-			skillitem.data = allData[i-1]._ID;
+			skillitem.data = {};
+			skillitem.data.rsId = allData[i-1]._ID;
+			skillitem.data.down = 0;
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
@@ -344,77 +355,76 @@ function jineng_FlushData()
 			skillunlockcond.visible = playerlv < allData[i-1]._OpenLv;
 			skillunlockcond.text = allData[i-1]._OpenLv .. "级解锁";
 
-			if skillitem.data == nil then
-				skillitem.data = {};
-			end
-			skillitem.data = allData[i-1]._ID;
+			skillitem.data = {};
+			skillitem.data.rsId = allData[i-1]._ID;
+			skillitem.data.down = 0;
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
 		end
 	end
 	skilldata = Proxy4Lua.GetPlayerSkillData(0);
+	skilllv = skill1:GetChild("n7").asTextField;
+	skillicon = skill1:GetChild("n8").asLoader;
 	if skilldata ~= nil then
-		skillicon = skill1:GetChild("n8").asLoader;
 		skillicon.url = "ui://" .. skilldata._Icon;
-		skilllv = skill1:GetChild("n7").asTextField;
 		skilllv.text = skilldata._Level;
-		skill1.data = RoleSkillData.GetDataBySkillID(skilldata._Id);
-		if skill1.data == nil then
-			skill1.data = 0;
+		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
+		if rsData ~= nil then
+			skill1.data.rsId = rsData._ID;
 		end
 	else
 		skillicon.url = "";
 		skilllv.text = "";
-		skill1.data = 0;
+		skill1.data.rsId = 0;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(1);
+	skilllv = skill2:GetChild("n7").asTextField;
+	skillicon = skill2:GetChild("n8").asLoader;
 	if skilldata ~= nil then
-		skillicon = skill2:GetChild("n8").asLoader;
 		skillicon.url = "ui://" .. skilldata._Icon;
-		skilllv = skill2:GetChild("n7").asTextField;
 		skilllv.text = skilldata._Level;
-		skill2.data = RoleSkillData.GetDataBySkillID(skilldata._Id);
-		if skill2.data == nil then
-			skill2.data = 0;
+		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
+		if rsData ~= nil then
+			skill2.data.rsId = rsData._ID;
 		end
 	else
 		skillicon.url = "";
 		skilllv.text = "";
-		skill2.data = 0;
+		skill2.data.rsId = 0;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(2);
+	skilllv = skill3:GetChild("n7").asTextField;
+	skillicon = skill3:GetChild("n8").asLoader;
 	if skilldata ~= nil then
-		skillicon = skill3:GetChild("n8").asLoader;
 		skillicon.url = "ui://" .. skilldata._Icon;
-		skilllv = skill3:GetChild("n7").asTextField;
 		skilllv.text = skilldata._Level;
-		skill3.data = RoleSkillData.GetDataBySkillID(skilldata._Id);
-		if skill3.data == nil then
-			skill3.data = 0;
+		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
+		if rsData ~= nil then
+			skill3.data.rsId = rsData._ID;
 		end
 	else
 		skillicon.url = "";
 		skilllv.text = "";
-		skill3.data = 0;
+		skill3.data.rsId = 0;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(3);
+	skilllv = skill4:GetChild("n7").asTextField;
+	skillicon = skill4:GetChild("n8").asLoader;
 	if skilldata ~= nil then
-		skillicon = skill4:GetChild("n8").asLoader;
 		skillicon.url = "ui://" .. skilldata._Icon;
-		skilllv = skill4:GetChild("n7").asTextField;
 		skilllv.text = skilldata._Level;
-		skill4.data = RoleSkillData.GetDataBySkillID(skilldata._Id);
-		if skill4.data == nil then
-			skill4.data = 0;
+		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
+		if rsData ~= nil then
+			skill4.data.rsId = rsData._ID;
 		end
 	else
 		skillicon.url = "";
 		skilllv.text = "";
-		skill4.data = 0;
+		skill4.data.rsId = 0;
 	end
 
 	if crtSelectRoleSkilltype == 0 then
