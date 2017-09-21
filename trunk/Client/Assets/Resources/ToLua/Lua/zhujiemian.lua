@@ -32,6 +32,8 @@ function zhujiemian:OnInit()
 	local bottomGroup = self.contentPane:GetChild("n18");
 	stateBar = bottomGroup:GetController("c1");
 	local bottomBtnList = bottomGroup:GetChild("n15").asList;
+	local skillBtn = bottomBtnList:GetChildAt(1);
+	skillBtn.onClick:Add(zhujiemian_OnSkillBtn);
 	local cardCargo = bottomBtnList:GetChildAt(3);
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 	local taskBtn = bottomBtnList:GetChildAt(4);
@@ -110,6 +112,10 @@ end
 
 function zhujiemian_OnTaskBtn()
 	UIManager.Show("jiehun");
+end
+
+function zhujiemian_OnSkillBtn()
+	UIManager.Show("jineng");
 end
 
 function zhujiemian_OnQieCuoBtn()

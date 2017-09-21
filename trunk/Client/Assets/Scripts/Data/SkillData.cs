@@ -23,8 +23,10 @@ public class SkillData {
     }
 
     public int _Id;
+    public int _Level;
     public bool _IsMelee;
     public string _Name;
+    public string _Desc;
     public string _CastAnim;
     public string _CastEffect;
     public string _SkillEffect;
@@ -59,7 +61,9 @@ public class SkillData {
         {
             data = new SkillData ();
             data._Id = parser.GetInt (i, "SkillId");
+            data._Level = parser.GetInt (i, "Level");
             data._Name = parser.GetString (i, "Name");
+            data._Desc = parser.GetString (i, "Cose");
             data._IsMelee = parser.GetBool (i, "IsMelee");
             data._CastAnim = parser.GetString (i, "CastAnim");
             data._CastEffect = parser.GetString (i, "CastEffect");

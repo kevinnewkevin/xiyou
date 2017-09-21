@@ -65,7 +65,7 @@ public class HeadBar {
         _HeadIconCom = _HeadBarCom.GetChild("n9").asCom;
         _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
         _HeadBarCom.GetController("xuetiao").selectedIndex = state;
-        _Transition = _HeadBarCom.GetTransition("t0");
+        //_Transition = _HeadBarCom.GetTransition("t0");
         //_SkillName = _HeadBarCom.GetChild("n11").asTextField;
 
         _IsDirty = true;

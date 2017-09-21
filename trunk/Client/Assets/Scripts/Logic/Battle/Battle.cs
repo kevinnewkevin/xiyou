@@ -60,6 +60,8 @@ public class Battle {
 
     static public int _CasterDisplayID;
 
+    static public string _CasterSkillName;
+
     static public Vector3 _Center;
 
     static public Transform _CenterTrans;

@@ -483,6 +483,7 @@ public class Skill {
     {
         _Caster.DisplaySkill(_SkillData._Name);
         Battle._CasterDisplayID = _Caster._DisplayID;
+        Battle._CasterSkillName = _SkillData._Name;
         UIManager.SetDirty("BattlePanel");
     }
 

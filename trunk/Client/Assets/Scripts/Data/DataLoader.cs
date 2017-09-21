@@ -65,6 +65,8 @@ public class DataLoader {
         RegistTables("Exp", ExpData.ParseData);
         RegistTables("Weather", WeatherData.ParseData);
         RegistTables("Drop", DropData.ParseData);
+        RegistTables("RoleSkill", RoleSkillData.ParseData);
+        RegistTables("RoleSkillUpdate", RoleSkillUpdateData.ParseData);
     }
 
     static public void BeginLoad()
