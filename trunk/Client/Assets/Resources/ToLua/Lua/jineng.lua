@@ -205,6 +205,7 @@ end
 
 function jineng_OnlyLeftFlushData()
 
+	upgradeBtn.enabled = false;
 	local playerlv = GamePlayer._Data.IProperties[9];
 	if crtSelectRoleSkillId ~= 0 then
 		local rsData = RoleSkillData.GetData(crtSelectRoleSkillId);
@@ -270,7 +271,6 @@ function jineng_FlushData()
 
 	jineng_OnlyLeftFlushData();
 
-	upgradeBtn.enabled = false;
 	passiveList:RemoveChildrenToPool();
 	activeList:RemoveChildrenToPool();
 	criticalList:RemoveChildrenToPool();
