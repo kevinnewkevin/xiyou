@@ -3,7 +3,7 @@ require "FairyGUI"
 jiehun = fgui.window_class(WindowBase)
 local Window;
 
-local cardGroupUrl = "ui://jiehun/guanka_Button";
+local cardGroupUrl = "ui://jiehun/daoju_Button";
 local cardGroupList;
 local guankaId = 0;
 local stamaPoint;
@@ -12,6 +12,10 @@ local crtTab;
 local rewardShow;
 local getRewardBtn;
 local rewardOkBtn;
+local showRewardStar;
+local showRewardId;
+local rewardList;
+local rewardNeedNum;
 function jiehun:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = jiehun.New();
@@ -30,10 +34,14 @@ function jiehun:OnInit()
 	cardGroupList.itemRenderer = jiehun_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n12");
 	rewardShow = self.contentPane:GetChild("n14");
+	getRewardBtn = rewardShow:GetChild("n18");
+	rewardOkBtn = rewardShow:GetChild("n17");
+	rewardList = rewardShow:GetChild("n12");
+	rewardNeedNum = rewardShow:GetChild("n15");
+	getRewardBtn.onClick:Add(jiehun_OnGetRewardBtn);
+	rewardOkBtn.onClick:Add(jiehun_OnRewardOkBtn);
 	rewardShow.visible= false;
 	local feeList = self.contentPane:GetChild("n13").asList;
-	getRewardBtn = rewardShow:GetChild("n13");
-	getRewardBtn = rewardShow:GetChild("n16");
 	local feeMax = feeList.numItems;
 	local feeItem;
 	for i=1, feeMax do
@@ -68,12 +76,13 @@ function jiehun_RenderListItem(index, obj)
 		comData  = JieHunSystem.instance.ChapterHardDataList[index];
 	end
 
-	obj.onClick:Add(jiehun_OnSelectGroup);
+	local objBack= obj:GetChild("n34");
+	objBack.onClick:Add(jiehun_OnSelectGroup);
+	local objIcon= obj:GetChild("n5");
+	objIcon.onClick:Add(jiehun_OnSelectGroup);
+	objIcon.data =comData.ChapterId;
 	local data = HeroStroyData.GetData(comData.ChapterId);
-	if crtTab ~= data.Type_ then
-		return;
-	end
-	obj.data =comData.ChapterId;
+	objBack.data =comData.ChapterId;
 	local name = obj:GetChild("n9");
 	name.text = data.Name_;
 	local desc = obj:GetChild("n14");
@@ -88,6 +97,55 @@ function jiehun_RenderListItem(index, obj)
 	local box0 = obj:GetChild("n18");
 	local box1 = obj:GetChild("n22");
 	local box2 = obj:GetChild("n26");
+	
+	local boxOpen0 = box0:GetChild("n2");
+	local boxNoOpen0 = box0:GetChild("n1");
+	local boxOpen1 = box1:GetChild("n2");
+	local boxNoOpen1 = box1:GetChild("n1");
+	local boxOpen2 = box2:GetChild("n2");
+	local boxNoOpen2 = box2:GetChild("n1");
+
+	box0.onClick:Add(jiehun_OnBox);
+	box0.data =comData.ChapterId;
+	box1.onClick:Add(jiehun_OnBox1);
+	box1.data =comData.ChapterId;
+	box2.onClick:Add(jiehun_OnBox2);
+	box2.data =comData.ChapterId;
+
+	if comData.StarReward ~= nil then
+		if comData.StarReward.length >= 1 then
+			boxOpen0.visible =false;
+			boxNoOpen0.visible =true;
+		else
+			boxOpen0.visible =true;
+			boxNoOpen0.visible =false;
+		end
+
+		if comData.StarReward.length >= 2 then
+			boxOpen1.visible =false;
+			boxNoOpen1.visible =true;
+		else
+			boxOpen1.visible =true;
+			boxNoOpen1.visible =false;
+		end
+
+		if comData.StarReward.length >= 3 then
+			boxOpen2.visible =false;
+			boxNoOpen2.visible =true;
+		else
+			boxOpen2.visible =true;
+			boxNoOpen2.visible =false;
+		end
+	else
+		boxOpen0.visible =false;
+		boxOpen1.visible =false;
+		boxOpen2.visible =false;
+		boxNoOpen0.visible = true;
+		boxNoOpen1.visible = true;
+		boxNoOpen2.visible = true;
+	end
+	
+
 	local len  = comData.SmallChapters.Length;
 	local starNum = 0;
 	for i=1, len do
@@ -123,6 +181,104 @@ function jiehun_OnFeeItemClick(context)
 	jiehun_FlushData();
 end
 
+function jiehun_OnGetRewardBtn(context)
+	Proxy4Lua.RequestChapterStarReward(showRewardId,showRewardStar+1);
+end
+
+function jiehun_OnRewardOkBtn(context)
+	rewardShow.visible= false;
+end
+
+function jiehun_OnBox(context)
+	showRewardId = context.sender.data;
+	showRewardStar =0;
+	rewardShow.visible= true;
+	updateReward();
+end
+
+function jiehun_OnBox1(context)
+	showRewardId = context.sender.data;
+	showRewardStar =1;
+	rewardShow.visible= true;
+	updateReward();
+end
+
+function jiehun_OnBox2(context)
+	showRewardId = context.sender.data;
+	showRewardStar =2;
+	rewardShow.visible= true;
+	updateReward();
+end
+
+function updateReward()
+
+		if rewardShow.visible == false then
+			return;
+		end
+		rewardList:RemoveChildrenToPool(); 
+		local data = HeroStroyData.GetData(showRewardId);
+		local itemid = data.Rewards_[showRewardStar];
+		local drop = DropData.GetData(itemid);
+		local itemdata =  ItemData.GetData(drop.item1_);
+
+		local exp = rewardList:AddItemFromPool(cardGroupUrl); 
+		local expIcon0 = exp:GetChild("n5");
+		local expName = exp:GetChild("n4");
+		local expicon = expIcon0:GetChild("n1");
+		local expiconBack = expIcon0:GetChild("n0");
+		local expiconLab = expIcon0:GetChild("n2");
+		expicon.asLoader.url ="ui://icon/jingyan_icon" ;
+		expiconBack.asLoader.url = "ui://" .. itemdata._IconBack;
+		expiconLab.text =  drop.exp_ .. "";
+		expName.text ="";
+
+		local money = rewardList:AddItemFromPool(cardGroupUrl); 
+		local moneyIcon0 = money:GetChild("n5");
+		local moneyName = money:GetChild("n4");
+		local moneyicon = moneyIcon0 :GetChild("n1");
+		local moneyiconBack = moneyIcon0 :GetChild("n0");
+		local moneyiconLab = moneyIcon0 :GetChild("n2");
+		moneyicon.asLoader.url ="ui://icon/jinbi_icon" ;
+		moneyiconBack.asLoader.url = "ui://" .. itemdata._IconBack;
+		moneyiconLab.text =  drop.money_ .. "";
+		moneyName.text ="";
+
+		local Item = rewardList:AddItemFromPool(cardGroupUrl); 
+		local ItemIcon = Item:GetChild("n5");
+		local ItemName = Item:GetChild("n4");
+		local icon = ItemIcon:GetChild("n1");
+		local iconBack = ItemIcon:GetChild("n0");
+		local iconLab = ItemIcon:GetChild("n2");
+		icon.asLoader.url = "ui://" .. itemdata._Icon;
+		iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
+		iconLab.text = drop.itemNum1_ .. "";
+		ItemName.text = itemdata._Name;
+		rewardNeedNum.text = data.Star_[showRewardStar];
+		
+		local comData  = JieHunSystem.instance:GetChapterData(showRewardId);
+		local len  = comData.SmallChapters.Length;
+		local starNum = 0;
+		for i=1, len do
+			if comData.SmallChapters[i-1].Star1 == true then
+				starNum = starNum + 1;
+			end
+			if comData.SmallChapters[i-1].Star2 == true then
+				starNum = starNum + 1;
+			end
+			if comData.SmallChapters[i-1].Star3 == true then 
+				starNum = starNum +1;
+			end
+		end
+
+		if  starNum > data.Star_[showRewardStar]  and comData.StarReward[showRewardStar] ==0 then
+			getRewardBtn.visible = true;
+			rewardOkBtn.visible = false;
+		else
+			getRewardBtn.visible = false;
+			rewardOkBtn.visible = true;
+		end
+
+end
 
 function jiehun:GetGuankaId()
 	return guankaId;
@@ -150,6 +306,6 @@ function jiehun_FlushData()
 	else
 		cardGroupList.numItems =  JieHunSystem.instance.ChapterHardDataList.Count;
 	end
-
 	stamaPoint.text = GamePlayer._Data.IProperties[2];
+	updateReward();
 end

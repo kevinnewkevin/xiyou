@@ -107,7 +107,7 @@ function guakan_RenderListItem(index, obj)
 	 local star2 = obj:GetChild("n16");
 	 obj.onClick:Add(guakan_OnSelectGroup);
 	 local expIcon  = icon0:GetChild("n1");
-	 expIcon.asLoader.url = "ui://icon/jinyan_icon" ; 
+	 expIcon.asLoader.url = "ui://icon/jingyan_icon" ; 
 	 local expLab  = icon0:GetChild("n2");
 	 expLab.text = drop.exp_ .. "";
 	 local moneyIcon  = icon1:GetChild("n1");
