@@ -220,6 +220,7 @@ public static class CustomSettings
 		_GT(typeof(Dictionary<int, List<COM_ItemInst>>)),
         _GT(typeof(StrengthenData)),
         _GT(typeof(ExpData)),
+        _GT(typeof(RandNameData)),
         _GT(typeof(RoleSkillData)),
         _GT(typeof(RoleSkillUpdateData)),
         _GT(typeof(List<RoleSkillData>)),
