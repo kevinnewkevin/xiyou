@@ -50,8 +50,12 @@ type COM_ClientToServer_DeleteItem struct{
 type COM_ClientToServer_PromoteUnit struct{
   instId int64  //0
 }
-type COM_ClientToServer_LearnSkill struct{
+type COM_ClientToServer_EquipSkill struct{
   skillInfo COM_LearnSkill  //0
+}
+type COM_ClientToServer_SkillUpdate struct{
+  skillIndex int32  //0
+  skillID int32  //1
 }
 type COM_ClientToServerStub struct{
   Sender prpc.StubSender
@@ -72,7 +76,8 @@ type COM_ClientToServerProxy interface{
   StopMatching() error // 12
   DeleteItem(instId int64, stack int32 ) error // 13
   PromoteUnit(instId int64 ) error // 14
-  LearnSkill(skillInfo COM_LearnSkill ) error // 15
+  EquipSkill(skillInfo COM_LearnSkill ) error // 15
+  SkillUpdate(skillIndex int32, skillID int32 ) error // 16
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -660,7 +665,7 @@ func (this *COM_ClientToServer_PromoteUnit)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
-func (this *COM_ClientToServer_LearnSkill)Serialize(buffer *bytes.Buffer) error {
+func (this *COM_ClientToServer_EquipSkill)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(true) //skillInfo
@@ -679,7 +684,7 @@ func (this *COM_ClientToServer_LearnSkill)Serialize(buffer *bytes.Buffer) error 
   }
   return nil
 }
-func (this *COM_ClientToServer_LearnSkill)Deserialize(buffer *bytes.Buffer) error{
+func (this *COM_ClientToServer_EquipSkill)Deserialize(buffer *bytes.Buffer) error{
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -688,6 +693,59 @@ func (this *COM_ClientToServer_LearnSkill)Deserialize(buffer *bytes.Buffer) erro
   // deserialize skillInfo
   if mask.ReadBit() {
     err := this.skillInfo.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SkillUpdate)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.skillIndex!=0)
+  mask.WriteBit(this.skillID!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize skillIndex
+  {
+    if(this.skillIndex!=0){
+      err := prpc.Write(buffer,this.skillIndex)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize skillID
+  {
+    if(this.skillID!=0){
+      err := prpc.Write(buffer,this.skillID)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_SkillUpdate)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize skillIndex
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillIndex)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize skillID
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillID)
     if err != nil{
       return err
     }
@@ -944,7 +1002,7 @@ func(this* COM_ClientToServerStub)PromoteUnit(instId int64 ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ClientToServerStub)LearnSkill(skillInfo COM_LearnSkill ) error {
+func(this* COM_ClientToServerStub)EquipSkill(skillInfo COM_LearnSkill ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -953,9 +1011,27 @@ func(this* COM_ClientToServerStub)LearnSkill(skillInfo COM_LearnSkill ) error {
   if err != nil{
     return err
   }
-  _15 := COM_ClientToServer_LearnSkill{}
+  _15 := COM_ClientToServer_EquipSkill{}
   _15.skillInfo = skillInfo;
   err = _15.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)SkillUpdate(skillIndex int32, skillID int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(16))
+  if err != nil{
+    return err
+  }
+  _16 := COM_ClientToServer_SkillUpdate{}
+  _16.skillIndex = skillIndex;
+  _16.skillID = skillID;
+  err = _16.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1161,19 +1237,33 @@ func Bridging_COM_ClientToServer_PromoteUnit(buffer *bytes.Buffer, p COM_ClientT
   }
   return p.PromoteUnit(_14.instId)
 }
-func Bridging_COM_ClientToServer_LearnSkill(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+func Bridging_COM_ClientToServer_EquipSkill(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
   }
   if p == nil {
     return errors.New(prpc.NoneProxyError)
   }
-  _15 := COM_ClientToServer_LearnSkill{}
+  _15 := COM_ClientToServer_EquipSkill{}
   err := _15.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.LearnSkill(_15.skillInfo)
+  return p.EquipSkill(_15.skillInfo)
+}
+func Bridging_COM_ClientToServer_SkillUpdate(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _16 := COM_ClientToServer_SkillUpdate{}
+  err := _16.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SkillUpdate(_16.skillIndex,_16.skillID)
 }
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
@@ -1219,7 +1309,9 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
     case 14 :
       return Bridging_COM_ClientToServer_PromoteUnit(buffer,p);
     case 15 :
-      return Bridging_COM_ClientToServer_LearnSkill(buffer,p);
+      return Bridging_COM_ClientToServer_EquipSkill(buffer,p);
+    case 16 :
+      return Bridging_COM_ClientToServer_SkillUpdate(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

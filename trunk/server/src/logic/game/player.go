@@ -788,7 +788,7 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 /////技能学习
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (this *GamePlayer) LearnSkill(skillinfo prpc.COM_LearnSkill) {
+func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	skill := GetRoleSkillRecordById(skillinfo.SkillID)
 	if skill == nil {
@@ -807,7 +807,7 @@ func (this *GamePlayer) LearnSkill(skillinfo prpc.COM_LearnSkill) {
 
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
-	//this.session.LearnSkillOK()
+	this.session.EquipSkillOK()
 
 	//如果是被动技能 需要修改buff
 
@@ -840,6 +840,8 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 		this.MyUnit.Skill[skillpos] = new_skill
 	}
 	this.SkillBase[skillindex] = updateInfo.NextID
+
+	this.session.SkillUpdateOK(skillindex, updateInfo.NextID)
 
 }
 

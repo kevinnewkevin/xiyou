@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"logic/prpc"
 	"logic/socket"
+	"encoding/json"
 )
 
 type Session struct {
@@ -26,7 +27,9 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r)
 
-	fmt.Println(tempId, "CreatePlayer", &r)
+	//fmt.Println(tempId, "CreatePlayer", &r)
+	b,_ := json.Marshal(r)
+	fmt.Println(string(b))
 
 	return nil
 } // 1
@@ -157,11 +160,19 @@ func (this *Session)RequestChapterStarReward(chapterId int32, star int32 ) error
 	return nil
 }
 
-func (this *Session)LearnSkill(skillinfo prpc.COM_LearnSkill) error  {
+func (this *Session)EquipSkill(skillinfo prpc.COM_LearnSkill) error  {
 	if this.player == nil {
 		return nil
 	}
-	this.player.LearnSkill(skillinfo)
+	this.player.EquipSkill(skillinfo)
+	return nil
+}
+
+func (this *Session)SkillUpdate(skillindex int32, skillId int32) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.SkillUpdate(skillindex, skillId)
 	return nil
 }
 

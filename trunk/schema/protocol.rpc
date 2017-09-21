@@ -16,7 +16,8 @@ service COM_ClientToServer{
 	StopMatching();
 	DeleteItem(int64 instId,int32 stack);
 	PromoteUnit(int64 instId);					//晋升卡牌
-	LearnSkill(COM_LearnSkill skillInfo);					//技能学习
+	EquipSkill(COM_LearnSkill skillInfo);					//技能学习
+	SkillUpdate(int32 skillIndex, int32 skillID);			//技能学习 技能升级
 };
 
 service COM_ServerToClient{
@@ -38,4 +39,6 @@ service COM_ServerToClient{
 	UpdateUnitCProperty(int64 instid, int32 cType, float value);			//同步C属性
 	PromoteUnitOK();			//晋升完成
 	RequestChapterStarRewardOK();
+	EquipSkillOK();			//技能学习完成
+	SkillUpdateOK(int32 skillIndex, int32 skillID);		//技能学习完成
 };

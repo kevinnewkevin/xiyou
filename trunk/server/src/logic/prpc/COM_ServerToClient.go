@@ -55,6 +55,10 @@ type COM_ServerToClient_UpdateUnitCProperty struct{
   cType int32  //1
   value float32  //2
 }
+type COM_ServerToClient_SkillUpdateOK struct{
+  skillIndex int32  //0
+  skillID int32  //1
+}
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
 }
@@ -77,6 +81,8 @@ type COM_ServerToClientProxy interface{
   UpdateUnitCProperty(instid int64, cType int32, value float32 ) error // 15
   PromoteUnitOK() error // 16
   RequestChapterStarRewardOK() error // 17
+  EquipSkillOK() error // 18
+  SkillUpdateOK(skillIndex int32, skillID int32 ) error // 19
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -734,6 +740,59 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buf
   }
   return nil
 }
+func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.skillIndex!=0)
+  mask.WriteBit(this.skillID!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize skillIndex
+  {
+    if(this.skillIndex!=0){
+      err := prpc.Write(buffer,this.skillIndex)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize skillID
+  {
+    if(this.skillID!=0){
+      err := prpc.Write(buffer,this.skillID)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize skillIndex
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillIndex)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize skillID
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillID)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1028,6 +1087,35 @@ func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)EquipSkillOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(18))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(19))
+  if err != nil{
+    return err
+  }
+  _19 := COM_ServerToClient_SkillUpdateOK{}
+  _19.skillIndex = skillIndex;
+  _19.skillID = skillID;
+  err = _19.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1265,6 +1353,29 @@ func Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer *bytes.Buffer
   }
   return p.RequestChapterStarRewardOK()
 }
+func Bridging_COM_ServerToClient_EquipSkillOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.EquipSkillOK()
+}
+func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _19 := COM_ServerToClient_SkillUpdateOK{}
+  err := _19.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SkillUpdateOK(_19.skillIndex,_19.skillID)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1314,6 +1425,10 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_PromoteUnitOK(buffer,p);
     case 17 :
       return Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer,p);
+    case 18 :
+      return Bridging_COM_ServerToClient_EquipSkillOK(buffer,p);
+    case 19 :
+      return Bridging_COM_ServerToClient_SkillUpdateOK(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }
