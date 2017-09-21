@@ -23,8 +23,15 @@
     <image id="jj6tp" name="jingji.png" path="/" exported="true"/>
     <image id="jj6tq" name="xixue.png" path="/" exported="true"/>
     <image id="jj6tr" name="huifu.png" path="/" exported="true"/>
+    <component id="geh7s" name="shuxing_com.xml" path="/" exported="true"/>
+    <image id="geh7t" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="32,28,25,19"/>
+    <image id="geh7u" name="biaotilan.png" path="/" exported="true" scale="9grid" scale9grid="209,12,10,24"/>
+    <image id="geh7v" name="wenzilan.png" path="/" exported="true" scale="9grid" scale9grid="4,8,5,16"/>
+    <image id="geh7w" name="shengming.png" path="/" exported="true"/>
+    <image id="geh7x" name="mingjie.png" path="/" exported="true"/>
+    <image id="geh7y" name="xian.png" path="/" exported="true" scale="9grid" scale9grid="2,75,3,4"/>
   </resources>
-  <publish name="kaipaixiangqing" extractAlpha="true">
+  <publish name="shuxing" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>
