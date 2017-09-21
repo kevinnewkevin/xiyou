@@ -20,7 +20,12 @@ public class SceneLoader
             {
                 Battle.LaunchBundle();
             }
-            CameraEffect.Continue();
+//            CameraEffect.Continue();
+        }, delegate {
+            if(Battle.CurrentState == Battle.BattleState.BS_Init)
+            {
+                Battle.FadedCallback();
+            }
         });
     }
 

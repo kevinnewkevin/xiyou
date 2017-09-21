@@ -138,5 +138,12 @@ public class UIWindow {
         }
         func.Call();
     }
+
+    public void Call(string funcName)
+    {
+        LuaFunction func = _Lua.GetFunction(_UiName + "." + funcName);
+        if (func != null)
+            func.Call();
+    }
     #endregion
 }

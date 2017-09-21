@@ -5,6 +5,7 @@ local Window;
 
 local autoBtn;
 local stateIcon;
+local startCom;
 local battStartIcon;
 local battleTurn;
 
@@ -21,6 +22,16 @@ local skillActor;
 local skillActor_modRes;
 local skillObj = nil;
 
+local skillTransCom;
+local skillTrans;
+local skillTransName;
+
+local turnTransCom;
+local turnTrans;
+local turnTransName;
+
+local selectMainRolePos;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -32,7 +43,9 @@ function BattlePanel:OnInit()
 	self.contentPane = UIPackage.CreateObject("BattlePanel", "BattlePanel_com").asCom;
 	self:Center();
 
-	battStartIcon = self.contentPane:GetChild("n7").asImage;
+	startCom = self.contentPane:GetChild("n7").asCom;
+	battStartIcon = startCom:GetTransition("t0");
+	startCom.visible = false;
 
 	battleTurn = self.contentPane:GetChild("n36");
 
@@ -71,6 +84,19 @@ function BattlePanel:OnInit()
 
 	skillActor = self.contentPane:GetChild("n44").asGraph;
 
+	skillTransCom = self.contentPane:GetChild("n49").asCom;
+	skillTransName = skillTransCom:GetChild("n45").asTextField;
+	skillTrans = skillTransCom:GetTransition("t0");
+	skillTransCom.visible = false;
+
+	turnTransCom = self.contentPane:GetChild("n46").asCom;
+	turnTransName = turnTransCom:GetChild("n47").asTextField;
+	turnTrans = turnTransCom:GetTransition("t2");
+	turnTransCom.visible = false;
+
+	selectMainRolePos = self.contentPane:GetChild("n47").asCom;
+	selectMainRolePos.visible = false;
+
 	BattlePanel_FlushData();
 end
 
@@ -91,33 +117,17 @@ function BattlePanel:OnUpdate()
 		BattlePanel_FlushData();
 		UIManager.ClearDirty("BattlePanel");
 	end
-
-	if Battle._CasterDisplayID ~= 0 then
-		local dData = DisplayData.GetData(Battle._CasterDisplayID);
-		if dData ~= nil then
-			skillObj = {};
-			skillObj.max = 2;
-			skillObj.count = 0;
-			skillActor_modRes = dData._AssetPath;
-			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(skillActor_modRes, dData._BattleSkillScale, dData._BattleSkillHeight));
-		else
-			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
-			Proxy4Lua.UnloadAsset(skillActor_modRes);
-			skillActor_modRes = "";
-		end
-		Battle._CasterDisplayID = 0;
-	end
 end
 
 function BattlePanel:OnTick()
-	--2秒倒计时
-	if battleStart ~= nil then
-		battleStart.count = battleStart.count + 1;
-		if battleStart.count > battleStart.max then
-			BattlePanel_OnHiddenBattleStart();
-			battleStart = nil;
-		end
-	end
+--	--2秒倒计时
+--	if battleStart ~= nil then
+--		battleStart.count = battleStart.count + 1;
+--		if battleStart.count > battleStart.max then
+--			BattlePanel_OnHiddenBattleStart();
+--			battleStart = nil;
+--		end
+--	end
 
 	if skillObj ~= nil then
 		skillObj.count = skillObj.count + 1;
@@ -139,6 +149,7 @@ function BattlePanel:OnDispose()
 end
 
 function BattlePanel:OnHide()
+	selectMainRolePos.visible = false;
 	Window:Hide();
 end
 
@@ -187,9 +198,11 @@ function BattlePanel_FlushData()
 	if Battle._Turn == 1 and mainActor == nil then
 		if Battle._CurrentState == Battle.BattleState.BS_Oper then
 			stateIcon.enabled = false;
+			selectMainRolePos.visible = true;
 		end
 	else 
 		stateIcon.enabled = true;
+		selectMainRolePos.visible = false;
 	end
 
 	for i=1, 10 do
@@ -266,6 +279,47 @@ function BattlePanel_OnAutoBtn()
 	UIManager.SetDirty("BattlePanel")
 end
 
-function BattlePanel_OnHiddenBattleStart()
-	battStartIcon.visible = false;
+function BattlePanel:ShowBattleStart()
+	if startCom.visible == false then
+		startCom.visible = true;
+	end
+	if battStartIcon.playing then
+		battStartIcon:Stop();
+	end
+	battStartIcon:Play();
+end
+
+function BattlePanel:ShowTurn()
+	if turnTransCom.visible == false then
+		turnTransCom.visible =true;
+	end
+	turnTransName.text = "第" .. Battle._Turn .. "回合";
+	if turnTrans.playing then
+		turnTrans:Stop();
+	end
+	turnTrans:Play();
+end
+
+function BattlePanel:ShowSkill()
+	skillTransName.text = Battle._CasterSkillName;
+	if skillTransCom.visible == false then
+		skillTransCom.visible =true;
+	end
+	if skillTrans.playing then
+		skillTrans:Stop();
+	end
+	skillTrans:Play();
+
+	local dData = DisplayData.GetData(Battle._CasterDisplayID);
+	if dData ~= nil then
+		skillObj = {};
+		skillObj.max = 2;
+		skillObj.count = 0;
+		skillActor_modRes = dData._AssetPath;
+		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(skillActor_modRes, dData._BattleSkillScale, dData._BattleSkillHeight));
+	else
+		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		Proxy4Lua.UnloadAsset(skillActor_modRes);
+		skillActor_modRes = "";
+	end
 end

@@ -481,10 +481,9 @@ public class Skill {
 
     void SkillOutLook()
     {
-        _Caster.DisplaySkill(_SkillData._Name);
         Battle._CasterDisplayID = _Caster._DisplayID;
         Battle._CasterSkillName = _SkillData._Name;
-        UIManager.SetDirty("BattlePanel");
+        UIManager.GetUI("BattlePanel").Call("ShowSkill");
     }
 
     public int TargetCount

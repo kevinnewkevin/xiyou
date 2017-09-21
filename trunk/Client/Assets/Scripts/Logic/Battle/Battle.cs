@@ -8,6 +8,7 @@ public class Battle {
     {
         BS_Init,
         BS_Opra,
+        BS_Eff,
         BS_Oper,
         BS_Play,
         BS_Result,
@@ -58,10 +59,6 @@ public class Battle {
 
     static public int _BattleId;
 
-    static public int _CasterDisplayID;
-
-    static public string _CasterSkillName;
-
     static public Vector3 _Center;
 
     static public Transform _CenterTrans;
@@ -71,6 +68,10 @@ public class Battle {
     static public BattleCamera _BattleCamera;
 
     static public int[] _OpponentCards;
+
+    static public int _CasterDisplayID;
+
+    static public string _CasterSkillName;
 
     static public COM_BattleReport BattleReport
     {
@@ -119,7 +120,6 @@ public class Battle {
                     }
                     else
                     {
-                        CurrentState = BattleState.BS_Oper;
                         UIManager.Show("BattlePanel");
                     }
                 }
@@ -176,6 +176,26 @@ public class Battle {
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
         _MaxFee = Define.GetInt("MaxFee");
+    }
+
+    static public void FadedCallback()
+    {
+        if(CurrentState == BattleState.BS_Eff)
+            return;
+        
+        UIManager.GetUI("BattlePanel").Call("ShowBattleStart");
+        new Timer().Start(1f, delegate {
+            ShowTurn();
+        });
+        CurrentState = BattleState.BS_Eff;
+    }
+
+    static void ShowTurn()
+    {
+        UIManager.GetUI("BattlePanel").Call("ShowTurn");
+        new Timer().Start(1.5f, delegate {
+            CurrentState = BattleState.BS_Oper;
+        });
     }
 
     static public void RandHandCards(int count)
@@ -484,23 +504,25 @@ public class Battle {
 
     static public void Judgement()
     {
-        if(_Result == null || (BattleResult)_Result.Win == BattleResult.BR_None)
-            CurrentState = BattleState.BS_Oper;
+        if (_Result == null || (BattleResult)_Result.Win == BattleResult.BR_None)
+        {
+            // 从第二回合开始 每回合结束加 1 费
+            _Turn++;
+            if (_Turn > 1)
+                AddFee(_Turn);
+
+            if (_Turn == 2)
+                RandHandCards(3);
+            if(_Turn > 2)
+                RandHandCards(1);
+            CurrentState = BattleState.BS_Eff;
+            ShowTurn();
+        }
         else
             CurrentState = BattleState.BS_Result;
 
         _BattleReport = null;
-
-        // 从第二回合开始 每回合结束加 1 费
-        _Turn++;
-        if (_Turn > 1)
-            AddFee(_Turn);
-
-        if (_Turn == 2)
-            RandHandCards(3);
-        if(_Turn > 2)
-            RandHandCards(1);
-        }
+   }
 
     static public void SwitchPoint(bool on)
     {
