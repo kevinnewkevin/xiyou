@@ -17,7 +17,7 @@ class Proxy : ICOM_ServerToClientProxy
         else
         {
             // onboard
-            CreatePlayerOK(info.MyPlayer);
+            CreatePlayerOK(ref info.MyPlayer);
         }
         return true;
     }
