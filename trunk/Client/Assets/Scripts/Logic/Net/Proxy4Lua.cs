@@ -34,6 +34,11 @@ public class Proxy4Lua {
 		NetWoking.S.StopMatching();
 	}
 
+    static public void RequestChapterStarReward(int chapterId, int star)
+    {
+        NetWoking.S.RequestChapterStarReward(chapterId, star);
+    }
+
     static public void  PromoteUnit(long instId)
     {
         NetWoking.S.PromoteUnit(instId);

@@ -109,6 +109,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool RequestChapterStarRewardOK()
 	{
+        UIManager.SetDirty("jiehun");
 		return true;
 	}
 
