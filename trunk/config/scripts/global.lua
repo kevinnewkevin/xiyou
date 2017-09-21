@@ -64,5 +64,5 @@ function RegGlobalValue()
 end
 
 function RegUIResMap()
-	UIManager.RegUIResMap("playerInfoPanel", "xiangxiziliao");
+	UIManager.RegUIResMap("jinengshengji", "qianghuachenggong");
 end
