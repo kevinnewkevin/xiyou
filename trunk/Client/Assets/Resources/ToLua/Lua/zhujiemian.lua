@@ -38,8 +38,8 @@ function zhujiemian:OnInit()
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 	local taskBtn = bottomBtnList:GetChildAt(4);
 	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
-	local qiecuoBtn = bottomBtnList:GetChildAt(6);
-	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
+--	local qiecuoBtn = bottomBtnList:GetChildAt(6);
+--	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
