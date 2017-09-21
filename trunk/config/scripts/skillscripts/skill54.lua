@@ -27,7 +27,7 @@ function SK_153_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
-		local per = rand.Intn(100)
+		local per = percent()
 		
 		local skill = 5 * level
 		
