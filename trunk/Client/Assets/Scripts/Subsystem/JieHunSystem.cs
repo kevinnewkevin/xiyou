@@ -62,6 +62,16 @@ public class JieHunSystem
         UIManager.SetDirty("jiehun");
         UIManager.SetDirty("guanka");
     }
+	
+	public void AddChapterData(COM_Chapter chapter)
+	{
+		if (HeroStroyData.GetData (chapter.ChapterId) == null)
+			return;
+		chapteList.Add (chapter);
+		InitEasy ();		
+		UIManager.SetDirty("jiehun");
+		UIManager.SetDirty("guanka");		
+	}
 
     public void InitChapterData(COM_Chapter[] data)
     {

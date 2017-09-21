@@ -58,7 +58,7 @@ public class BagSystem {
 			//	_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
             //_ItemsByType [iData._Type].Add(inst);
         }
-        UIManager.SetDirty("bagui");
+        UIManager.SetDirty("bagui");  
     }
 
     public static void DelItem(long instid)
