@@ -790,6 +790,8 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 
 func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
+	fmt.Println("EquipSkill", skillinfo)
+
 	skill := GetRoleSkillRecordById(skillinfo.SkillID)
 	if skill == nil {
 		return 		//错误的skill
@@ -808,6 +810,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
 	this.session.EquipSkillOK()
+	fmt.Println("EquipSkillOK")
 
 	//如果是被动技能 需要修改buff
 
@@ -815,6 +818,11 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 }
 
 func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
+	fmt.Println("SkillUpdate", skillindex, skillId)
+	if this.SkillBase[skillindex] == 0 {
+		return
+	}
+
 	updateInfo := GetRoleSkillUpdateRecordById(skillId)
 
 	if updateInfo == nil{
@@ -842,6 +850,7 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 	this.SkillBase[skillindex] = updateInfo.NextID
 
 	this.session.SkillUpdateOK(skillindex, updateInfo.NextID)
+	fmt.Println("SkillUpdateOK", skillindex, updateInfo.NextID)
 
 }
 
@@ -875,6 +884,20 @@ func (this * GamePlayer)SkillUpdate_equip(position int32, skillId int32) {
 	}
 
 	//这里需要buff更新一下
+
+}
+
+func (this * GamePlayer)CheckSkillBase() {
+	for ID, info := range RoleSkillTable {
+		if this.MyUnit.Level < info.OpenLv {
+			continue
+		}
+		if this.SkillBase[ID] != 0 {
+			continue
+		}
+
+		this.SkillBase[ID] = info.SKillID
+	}
 
 }
 
