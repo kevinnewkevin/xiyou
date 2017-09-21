@@ -261,6 +261,10 @@ function BattlePanel_SetFeeCostCount(count)
 end
 
 function BattlePanel_OnCardClick(context)
+	if Proxy4Lua.SameCardSelected(context.sender.data - 1) == true then
+		UIManager.Show("shuxing");
+	end
+
 	Proxy4Lua.SelectCard4Ready(context.sender.data - 1);
 	local eData = Battle.GetHandCard(context.sender.data - 1);
 	if eData ~= nil then
@@ -269,9 +273,6 @@ function BattlePanel_OnCardClick(context)
 
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(0.5, 0.5);
-	end
-	if Proxy4Lua.SameCardSelected(context.sender.data - 1) == true then
-		UIManager.Show("shuxing");
 	end
 end
 
@@ -293,6 +294,9 @@ end
 function BattlePanel_OnAutoBtn()
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
 	UIManager.SetDirty("BattlePanel")
+	for i=1, 5 do
+		cards[i]["card"]:SetScale(1, 1);
+	end
 end
 
 function BattlePanel:ShowBattleStart()
