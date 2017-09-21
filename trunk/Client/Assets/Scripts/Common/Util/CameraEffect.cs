@@ -13,6 +13,9 @@ public class CameraEffect {
     public delegate void FadeingCallback();
     static FadeingCallback fadeCallback;
 
+    public delegate void FadedCallback();
+    static FadedCallback fadeCallback2;
+
     public static void Init()
     {
         _Mat = Resources.Load<Material>("Material/Fade");
@@ -31,9 +34,10 @@ public class CameraEffect {
         }
     }
 
-    public static void Fade(FadeingCallback callback)
+    public static void Fade(FadeingCallback callback, FadedCallback callback2 = null)
     {
         fadeCallback = callback;
+        fadeCallback2 = callback2;
         SearchAllCamera();
         _IsPlaying = true;
         _FadeIn = true;
@@ -69,6 +73,11 @@ public class CameraEffect {
             {
                 _V = 0f;
                 _IsPlaying = false;
+                if (fadeCallback2 != null)
+                {
+                    fadeCallback2();
+                    fadeCallback2 = null;
+                }
             }
         }
         _Mat.SetFloat("_Float1", _V);
@@ -77,6 +86,7 @@ public class CameraEffect {
     public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         SearchAllCamera();
+        Continue();
     }
 
     public static void Continue()
@@ -90,5 +100,7 @@ public class CameraEffect {
     public static void Fini()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        fadeCallback = null;
+        fadeCallback2 = null;
     }
 }
