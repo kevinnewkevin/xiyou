@@ -430,7 +430,8 @@ public class Skill {
 
     void Range_End()
     {
-        Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
+        if (_SkillData._TargetPos != SkillData.TargetPosType.TPT_Center)
+            Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
         CheckBuffGoBackToOrigin();
     }
 
