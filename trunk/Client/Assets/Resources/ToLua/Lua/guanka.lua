@@ -123,38 +123,25 @@ function guakan_RenderListItem(index, obj)
 	 itemLab.text = drop.itemNum1_ .. "";
 
 	 local starNum =0;
-	  
+
+	 star0:GetController("xianshi").selectedIndex = 0;
+	 star1:GetController("xianshi").selectedIndex = 0;
+	 star2:GetController("xianshi").selectedIndex = 0;
+
 	 if smallData.Star1 == true then 
+	 	star0:GetController("xianshi").selectedIndex = 1;
 		starNum = starNum +1;
 	  end
 
 	 if smallData.Star2 == true then 
+ 		star1:GetController("xianshi").selectedIndex = 1;
 		starNum = starNum +1;
 	  end
 
     if smallData.Star3 == true then 
+   		star2:GetController("xianshi").selectedIndex = 1;
 		starNum = starNum +1;
 	  end
-
- 	star0:GetController("xianshi").selectedIndex = 0;
-	star1:GetController("xianshi").selectedIndex = 0;
-	star2:GetController("xianshi").selectedIndex = 0;
-
-	 if starNum == 1 then
-	 	star0:GetController("xianshi").selectedIndex = 1;
- 		star1:GetController("xianshi").selectedIndex = 0;
- 		star2:GetController("xianshi").selectedIndex = 0;
-	 end
-	 if starNum == 2 then
-	 	star0:GetController("xianshi").selectedIndex = 1;
- 		star1:GetController("xianshi").selectedIndex = 1;
- 		star2:GetController("xianshi").selectedIndex = 0;
-	 end
-	 if starNum == 3 then
-	 	star0:GetController("xianshi").selectedIndex = 1;
- 		star1:GetController("xianshi").selectedIndex = 1;
- 		star2:GetController("xianshi").selectedIndex = 1;
-	 end
 
 	
 	 if index ~= 0 then
