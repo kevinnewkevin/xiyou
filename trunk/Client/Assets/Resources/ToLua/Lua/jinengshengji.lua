@@ -69,13 +69,24 @@ end
 function jinengshengji_FlushData()
 	effRes = "Effect/dengjitishen";
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes));
-	local nowSkillId = UIParamHolder.Get("jineng");
-	local sData = SkillData.GetData(nowSkillId);
+	local preSkillId = UIParamHolder.Get("jineng");
+	local nowSkillId = UIParamHolder.Get("jineng2");
+	local sData = SkillData.GetData(preSkillId);
+	local sData2 = SkillData.GetData(nowSkillId);
 	if sData ~= nil then
-		skillIcon.url = "ui://" .. sData._Icon;
 		skillLv.text = sData._Level;
-		skillPreLv.text = "等级0";
-		skillNowLv.text = "等级1";
-		skillDesc.text = sData._Desc
+		skillPreLv.text = "等级" .. sData._Level;
+	else
+		skillLv.text = "";
+		skillPreLv.text = "";
+	end
+	if sData2 ~= nil then
+		skillIcon.url = "ui://" .. sData2._Icon;
+		skillNowLv.text = "等级" .. sData2._Level;
+		skillDesc.text = sData2._Desc;
+	else
+		skillIcon.url = "";
+		skillNowLv.text = "";
+		skillDesc.text = "";
 	end
 end
