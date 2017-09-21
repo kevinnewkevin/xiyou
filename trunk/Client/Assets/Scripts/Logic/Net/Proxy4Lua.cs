@@ -81,7 +81,7 @@ public class Proxy4Lua {
         COM_LearnSkill ls = new COM_LearnSkill();
         ls.SkillID = skillid;
         ls.Position = idx;
-        NetWoking.S.LearnSkill(ls);
+        NetWoking.S.EquipSkill(ls);
     }
 
     #endregion
