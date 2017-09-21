@@ -10,10 +10,6 @@
     <image id="n6_tmae" name="n6" src="v9hc8" xy="350,152" skew="0,180"/>
     <image id="n8_tmae" name="n8" src="v9hc4" xy="977,150" size="629,46"/>
     <image id="n9_tmae" name="n9" src="v9hc4" xy="967,760" size="629,46"/>
-    <component id="n10_tmae" name="n10" src="tmaei" xy="952,814"/>
-    <component id="n11_tmae" name="n11" src="tmaei" xy="1118,814"/>
-    <component id="n12_tmae" name="n12" src="tmaei" xy="1284,814"/>
-    <component id="n13_tmae" name="n13" src="tmaei" xy="1450,814"/>
     <image id="n14_tmae" name="n14" src="v9hc4" xy="364,193" size="569,46"/>
     <list id="n16_tmae" name="n16" xy="970,224" size="641,498" overflow="scroll" lineGap="-60">
       <item url="ui://a89mapfotmaem"/>
@@ -44,5 +40,14 @@
     <text id="n36_kcuj" name="n36" xy="668,785" size="112,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="right" autoSize="none" text="999999"/>
     <component id="n37_kcuj" name="n37" src="kcujw" xy="517,843"/>
     <text id="n38_qaz1" name="n38" xy="605,726" size="102,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" autoSize="none" strokeColor="#332403" strokeSize="2" text="20/20"/>
+    <text id="n39_fupg" name="n39" xy="606,856" size="116,43" font="方正楷体_GBK" fontSize="34" color="#4e2a0d" align="center" vAlign="middle" autoSize="none" bold="true" text="确定"/>
+    <list id="n40_fupg" name="n40" xy="970,820" size="617,156" layout="flow_hz" colGap="12" defaultItem="ui://a89mapfotmaei">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n41_fupg" name="n41" src="fupgx" xy="415,987" size="1126,38" alpha="0.78"/>
+    <text id="n42_fupg" name="n42" xy="283,985" size="1388,40" font="方正楷体_GBK" fontSize="27" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="拖拽已有技能至下方设置栏内，战斗中主角技能将按设置顺序依次触发"/>
   </displayList>
 </component>
