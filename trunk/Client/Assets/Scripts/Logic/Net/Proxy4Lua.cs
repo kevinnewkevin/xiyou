@@ -76,6 +76,11 @@ public class Proxy4Lua {
 		NetWoking.S.DeleteItem(instId,stack);
 	}
 
+    static public void UpdateSkill(int idx, int skillid)
+    {
+        NetWoking.S.SkillUpdate(idx, skillid);
+    }
+
     static public void EquipSkill(int idx, int skillid)
     {
         COM_LearnSkill ls = new COM_LearnSkill();

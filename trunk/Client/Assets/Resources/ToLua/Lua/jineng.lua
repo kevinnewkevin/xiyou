@@ -202,7 +202,7 @@ function jineng_OnUpgrade()
 		local rsuData = RoleSkillUpdateData.GetData(rsData._SkillId);
 		if rsuData ~= nil then
 			UIParamHolder.Set("jineng", rsuData._NextId);
-			UIManager.Show("jinengshengji");
+			Proxy4Lua.UpdateSkill(rsData._ID, rsData._SkillId);
 		end
 	end
 end
