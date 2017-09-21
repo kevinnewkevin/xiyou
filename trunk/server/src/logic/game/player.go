@@ -809,8 +809,8 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
-	this.session.EquipSkillOK()
-	fmt.Println("EquipSkillOK")
+	this.session.EquipSkillOK(skillinfo.Position, skill.SKillID)
+	fmt.Println("EquipSkillOK", skillinfo.Position, skill.SKillID)
 
 	//如果是被动技能 需要修改buff
 
