@@ -282,18 +282,14 @@ public class Proxy4Lua {
         return null;
     }
 
-    static public int GetIndexByRoleSkillID(int roleSkillId)
+    static public int GetIndexBySkillID(int skillId)
     {
         if (GamePlayer._Data.Skills == null)
             return -1;
         
-        RoleSkillData rsData = RoleSkillData.GetData(roleSkillId);
-        if (rsData == null)
-            return -1;
-        
         for(int i=0; i < GamePlayer._Data.Skills.Length; ++i)
         {
-            if (rsData._SkillId == GamePlayer._Data.Skills [i].SkillId)
+            if (skillId == GamePlayer._Data.Skills [i].SkillId)
                 return GamePlayer._Data.Skills [i].Pos;
         }
         return -1;
