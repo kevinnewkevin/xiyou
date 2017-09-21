@@ -9,7 +9,7 @@ function buff_134_add(battleid, unitid, buffinstid,data)
 	sys.log("buff_134_add "..","..battleid..","..buffinstid..","..unitid)
 end
 
-function buff_134update(battleid, buffinstid, unitid)	
+function buff_134_update(battleid, buffinstid, unitid)	
 	buff_id = 134 --配置表中的buffid
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)

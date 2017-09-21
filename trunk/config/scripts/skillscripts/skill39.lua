@@ -11,7 +11,7 @@ function SK_138_Action(battleid, casterid)
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标
 
-	skill_user_atk(battleid,casterid,t,level,127,1)
+	skill1_user_atk(battleid,casterid,t,level,127,1)
 
 	Battle.TargetOver(battleid)
 

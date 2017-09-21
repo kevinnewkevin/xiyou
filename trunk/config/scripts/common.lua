@@ -222,9 +222,19 @@ function skill_user_atk(battleid,casterid,targetid,level,buffid,num)
 	 
 	local data = num * level
 	
+	Battle.Cure(battleid,casterid,0,0)
+	
+	Battle.AddBuff(battleid,casterid,targetid,buffid,data)
+	
+end
+--主角主动技能   num 是 技能前面乘的数字   
+function skill1_user_atk(battleid,casterid,targetid,level,buffid,num)
+	-- jia buff
+	 
+	local data = num * level
+	
 	Battle.Attack(battleid,casterid,targetid,0,0)
 	
 	Battle.AddBuff(battleid,casterid,targetid,buffid,data)
 	
 end
-
