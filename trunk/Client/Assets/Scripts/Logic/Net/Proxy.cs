@@ -63,6 +63,16 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
+    public bool EquipSkillOK()
+    {
+        return true;
+    }
+
+    public bool SkillUpdateOK(int idx, int skillid)
+    {
+        return true;
+    }
+
 	public bool SycnChapterData(ref COM_Chapter chapter)
 	{
         JieHunSystem.instance.UpdateChapterData(chapter);	
