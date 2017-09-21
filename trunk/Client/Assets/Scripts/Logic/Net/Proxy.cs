@@ -63,13 +63,17 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-    public bool EquipSkillOK()
+    public bool EquipSkillOK(/*int idx, int skillid*/)
     {
+        GamePlayer.UpdateEquipedSkill(0, 0/*idx, skillid*/);
         return true;
     }
 
     public bool SkillUpdateOK(int idx, int skillid)
     {
+        RoleSkillData.SetData(idx, skillid);
+        UIManager.Show("jinengshengji");
+        UIManager.SetDirty("jineng");
         return true;
     }
 

@@ -79,6 +79,24 @@ public class GamePlayer {
         UIManager.SetDirty("zhujiemian");
     }
 
+    static public void UpdateEquipedSkill(int idx, int skillid)
+    {
+        if (_Data == null)
+            return;
+
+        if (_Data.Skills == null)
+            return;
+        
+        for(int i=0; i < _Data.Skills.Length; ++i)
+        {
+            if (_Data.Skills [i].Pos == idx)
+            {
+                _Data.Skills [i].SkillId = skillid;
+                UIManager.SetDirty("jineng");
+            }
+        }
+    }
+
     //通过InstID获取卡牌
     static public COM_Unit GetCardByInstID(long instid)
     {

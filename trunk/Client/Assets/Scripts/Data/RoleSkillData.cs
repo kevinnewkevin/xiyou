@@ -52,7 +52,7 @@ public class RoleSkillData {
         for(int i=0; i < metaData.Count; ++i)
         {
             if (metaData [i]._SkillId == skillid)
-                return metaData [i]._SkillId = skillid;
+                metaData [i]._SkillId = skillid;
         }
     }
 
