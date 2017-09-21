@@ -80,7 +80,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool SycnChapterData(ref COM_Chapter chapter)
 	{
-        JieHunSystem.instance.UpdateChapterData(chapter);	
+        JieHunSystem.instance.UpdateChapterData(chapter);
 		return true;
 	}
 
@@ -110,6 +110,12 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool DeleteItemOK(long instId) 
 	{
 		BagSystem.DelItem (instId);			
+		return true;
+	}
+
+	public bool OpenChapter(ref COM_Chapter chapter)
+	{
+		JieHunSystem.instance.AddChapterData(chapter);		
 		return true;
 	}
 
