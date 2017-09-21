@@ -9,7 +9,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool LoginOK(ref COM_AccountInfo info)
     {
-        if (true/* new account */)
+        if (info.MyPlayer.InstId == 0)
         {
             UIManager.Hide("denglu");
             UIManager.Show("xuanren");
@@ -17,6 +17,7 @@ class Proxy : ICOM_ServerToClientProxy
         else
         {
             // onboard
+            CreatePlayerOK(info.MyPlayer);
         }
         return true;
     }
