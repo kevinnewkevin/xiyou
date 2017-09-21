@@ -7,10 +7,12 @@ public class HeroStroyData
 	public int Id_;
 	public int Type_;
 	public int Level_;
-	public int[] Star_;
+    public int[] Rewards_;
+    public int[] Star_;
 	public string Name_;
 	public string Icon_;
 	public string Desc_;
+
 	static public Dictionary<int, HeroStroyData> metaData;
 	
 	static public void ParseData(string content, string fileName)
@@ -38,6 +40,13 @@ public class HeroStroyData
             for (int j = 0; j < starStr.Length; ++j)
             {
                 data.Star_[j] = int.Parse(starStr[j]);
+            }
+
+            string[] rewardStr = parser.GetString(i, "Reward").Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            data.Rewards_ = new int[starStr.Length];
+            for (int r = 0; r < rewardStr.Length; ++r)
+            {
+                data.Rewards_[r] = int.Parse(rewardStr[r]);
             }
 
 			data.Name_ = parser.GetString (i, "Name");
