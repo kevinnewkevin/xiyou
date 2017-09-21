@@ -8,6 +8,10 @@ local enterBtn;
 local selectServ;
 local selectServCloseBtn;
 
+local accountGroup;
+local account;
+local password;
+
 function denglu:OnEntry()
 	Window = denglu.New();
 	Window:Show();
@@ -31,6 +35,10 @@ function denglu:OnInit()
 	selectServ.visible = false;
 	selectServCloseBtn = selectServ:GetChild("n5").asButton;
 	selectServCloseBtn.onClick:Add(denglu_OnCloseServ);
+
+	accountGroup = self.contentPane:GetChild("n10").asCom;
+	account = accountGroup:GetChild("n11").asTextField;
+	password = accountGroup:GetChild("n12").asTextField;
 
 	denglu_FlushData();
 end
@@ -71,7 +79,12 @@ function denglu_OnCloseServ()
 end
 
 function denglu_OnEnterGame()
+	if account.text == nil or account.text == "" then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "输入账号", true);
+		return;
+	end
 	if Proxy4Lua.ReconnectServer() == true then
-		Proxy4Lua.Login();
+		Proxy4Lua.Login(account.text, password.text);
 	end
 end

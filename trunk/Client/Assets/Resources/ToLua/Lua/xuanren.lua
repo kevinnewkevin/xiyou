@@ -49,10 +49,14 @@ end
 
 function xuanren_OnCreate()
 	if selectList.selectedIndex == -1 then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "请选择角色", true);
 		return;
 	end
 
 	if name.text == "" then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "请输入昵称", true);
 		return;
 	end
 	Proxy4Lua.CreatePlayer(selectList.selectedIndex + 1, name.text);

@@ -39,17 +39,13 @@ public class Proxy4Lua {
         NetWoking.S.PromoteUnit(instId);
     }
 
-    static public void Login()  
+    static public void Login(string account, string password)  
     {
         //if has channel get username from channel;
         //if debug fetch mobile phone info instead.
 
-        string username = "";
-        string password = "";
-
-        username = UnityEngine.SystemInfo.deviceUniqueIdentifier;
         COM_LoginInfo info = new COM_LoginInfo();
-        info.Username = username;
+        info.Username = account;
         info.Password = password;
         NetWoking.S.Login(info);
 
@@ -74,6 +70,15 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.DeleteItem(instId,stack);
 	}
+
+    static public void EquipSkill(int idx, int skillid)
+    {
+        COM_LearnSkill ls = new COM_LearnSkill();
+        ls.SkillID = skillid;
+        ls.Position = idx;
+        NetWoking.S.LearnSkill(ls);
+    }
+
     #endregion
 
     #region 内部接口
@@ -244,6 +249,36 @@ public class Proxy4Lua {
         {
             iTween.ShakePosition(cameras[i].gameObject, amount, time);
         }
+    }
+
+    static public SkillData GetPlayerSkillData(int idx)
+    {
+        if (GamePlayer._Data.Skills == null)
+            return null;
+        
+        for(int i=0; i < GamePlayer._Data.Skills.Length; ++i)
+        {
+            if (GamePlayer._Data.Skills [i].Pos == idx)
+                return SkillData.GetData(GamePlayer._Data.Skills [i].SkillId);
+        }
+        return null;
+    }
+
+    static public int GetIndexByRoleSkillID(int roleSkillId)
+    {
+        if (GamePlayer._Data.Skills == null)
+            return -1;
+        
+        RoleSkillData rsData = RoleSkillData.GetData(roleSkillId);
+        if (rsData == null)
+            return -1;
+        
+        for(int i=0; i < GamePlayer._Data.Skills.Length; ++i)
+        {
+            if (rsData._SkillId == GamePlayer._Data.Skills [i].SkillId)
+                return GamePlayer._Data.Skills [i].Pos;
+        }
+        return -1;
     }
 
     #endregion
