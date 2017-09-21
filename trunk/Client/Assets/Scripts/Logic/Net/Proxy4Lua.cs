@@ -102,6 +102,14 @@ public class Proxy4Lua {
         Battle.SwitchPoint(true);
     }
 
+    static public bool SameCardSelected(int idx)
+    {
+        if (idx >= Battle._HandCards.Count || idx < 0)
+            return false;
+        
+        return Battle._SelectedHandCardInstID == Battle._HandCards [idx].InstId;
+    }
+
     static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath)
     {
         if (string.IsNullOrEmpty(assetPath))

@@ -268,6 +268,9 @@ public class GamePlayer {
 
     static public EntityData GetEntityDataByInstID(long instid)
     {
+        if (instid == _InstID)
+            return GetMyEntityData();
+        
         for (int i = 0; i < _CardsByFee[0].Count; ++i)
         {
             if (_CardsByFee[0][i].InstId == instid)

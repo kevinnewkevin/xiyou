@@ -270,6 +270,9 @@ function BattlePanel_OnCardClick(context)
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(0.5, 0.5);
 	end
+	if Proxy4Lua.SameCardSelected(context.sender.data - 1) == true then
+		UIManager.Show("shuxing");
+	end
 end
 
 function BattlePanel_OnReturnBtn()
