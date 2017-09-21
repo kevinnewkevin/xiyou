@@ -24,3 +24,5 @@ SkillId,Name,Level,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,
 1000,乾坤圈,,,icon/icon_skill_qiankunquan,10,,,,,,0,magic,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.25,0.25,1.2,MT_Sec,1,TPT_None,,SK_107_Action
 1001,龙雨击,,,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,,3.7,3.7,10,MT_Self,1,TPT_Center,,SK_101_Action
 1002,混天绫,,,icon/icon_skill_huntianling,10,,,,,,0,magic,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,TPT_None,1,SK_106_Action
+1003,物理攻击,,,,10,,,,,,,,,1,,attack,,0.8,0.8,2,MT_Target,,TPT_None,,SK_52_Action
+1004,法术攻击,,,,10,,,,,,,,,,Effect/huoqiu,,,1,1,2,MT_Fly,,TPT_None,,SK_53_Action
