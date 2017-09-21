@@ -233,24 +233,26 @@ func __GetFriend(p unsafe.Pointer) C.int {
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(uid))
 
-	t_id := 0
-	for _, u := range battle.Units {
-		if u == nil {
-			continue
-		}
-		if u.IsDead() {
-			continue
-		}
-		if u.Camp != unit.Camp {
-			continue
-		}
-		t_id = int(u.InstId)
-		break
-	}
+	t_id := battle.SelectOneFriend(unit.InstId)
+
+	//t_id := 0
+	//for _, u := range battle.Units {
+	//	if u == nil {
+	//		continue
+	//	}
+	//	if u.IsDead() {
+	//		continue
+	//	}
+	//	if u.Camp != unit.Camp {
+	//		continue
+	//	}
+	//	t_id = int(u.InstId)
+	//	break
+	//}
 
 	//fmt.Println("__GetFriend end ,", t_id)
 
-	L.PushInteger(t_id)
+	L.PushInteger(int(t_id))
 
 	return 1
 }

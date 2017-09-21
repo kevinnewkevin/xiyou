@@ -774,8 +774,41 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
+	index := len(u_list) - 1
+	idx := rand.Intn(index)
 
-	idx := rand.Intn(len(u_list) - 1)
+	return u_list[idx]
+}
+func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
+	rand.Seed(time.Now().UnixNano())
+	unit := this.SelectOneUnit(instid)
+	u_list := []int64{}
+
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead() {
+			continue
+		}
+		if u.Camp != unit.Camp {
+			continue
+		}
+
+		u_list = append(u_list, u.InstId)
+	}
+
+	fmt.Print("友方目标",u_list)
+	if len(u_list) == 1 {
+		return u_list[0]
+	}
+
+	index := len(u_list) - 1
+
+	idx := rand.Intn(index)
+	//idx := rand.Intn(5)
+
+	fmt.Print("一个友方目标","-",u_list[idx],"-","index","-",idx)
 
 	return u_list[idx]
 }
