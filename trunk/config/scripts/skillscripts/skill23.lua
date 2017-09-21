@@ -55,9 +55,11 @@ function SK_122_Action(battleid, casterid)
 	
 		if _BoolCombo == 1 then 
 		
-			local mag_sh = damage*0.75
+			local mag_damage = mag_damage*2
 			
-			Battle.Attack(battleid,casterid,v,mag_sh,crit)
+			sys.log("SK_122_Action   连击伤害"..mag_damage)
+			
+			Battle.Attack(battleid,casterid,v,mag_damage,crit)
 			
 			local  buffid = Player.GetOneSpecial(battleid,casterid,"BF_COMBO")
 			
@@ -74,7 +76,7 @@ function SK_122_Action(battleid, casterid)
 		end
 		Battle.TargetOver(battleid)
 	
-		sys.log("skill23 对id为"..v.."的目标减少"..damage.."点伤害")
+		sys.log("skill23 对id为"..v.."的目标减少"..mag_damage.."点伤害")
 	end
 	
 	

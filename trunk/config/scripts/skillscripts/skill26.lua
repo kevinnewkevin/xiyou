@@ -30,7 +30,7 @@ function SK_125_Action(battleid, casterid)
 		
 		local  truedamage  = Player.GetMagicDamage(battleid,casterid,v)
 		
-		sys.log("SK_125_Action 的伤害"..truedamage)
+		sys.log("skill26 的伤害"..truedamage)
 		
 		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		
@@ -51,7 +51,7 @@ function SK_125_Action(battleid, casterid)
 		Battle.AddBuff(battleid,casterid,v,117,sudu_del)    -- 减少20%的速度
 		Battle.TargetOver(battleid)
 	
-		sys.log("skill26 对id为"..v.."的目标减少"..damage.."点伤害")
+		sys.log("skill26 对id为"..v.."的目标减少"..mag_damage.."点伤害")
 	end
 	
 	return  true

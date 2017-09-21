@@ -33,7 +33,7 @@ function SK_126_Action(battleid, casterid)
 		
 		local  damage  = magic_damage --伤害 公式（ ）
 		
-		sys.log("SK_126_Action 的伤害"..damage)
+		sys.log("skill27 的伤害"..damage)
 		
 		local trueDamage =  ClacDamageByAllBuff(battleid,casterid,v,damage)
 		
@@ -58,13 +58,18 @@ function SK_126_Action(battleid, casterid)
 				trueDamage = trueDamage*pvalue + demage
 	
 			end
+		else 
+		
+			trueDamage = trueDamage*pvalue
+			
 		end
+		sys.log("skill27  最终伤害"..trueDamage)
 		
 		Battle.Attack(battleid,casterid,v,trueDamage,crit)
 		
 		Battle.TargetOver(battleid)
 		
-		sys.log("skill26 对id为"..v.."的目标减少"..trueDamage.."点伤害")
+		sys.log("skill27 对id为"..v.."的目标减少"..trueDamage.."点伤害")
 		
 		
 	end
