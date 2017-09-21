@@ -31,8 +31,8 @@ function guanka:OnInit()
 	local btn = self.contentPane:GetChild("n11");
 	btn.onClick:Add(guanka_OnBattle);
 	smallList = self.contentPane:GetChild("n13").asList;
-	smallList :SetVirtual();
-	smallList .itemRenderer = guakan_RenderListItem;
+	smallList:SetVirtual();
+	smallList.itemRenderer = guakan_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n19");
 	guankaID = UIManager.GetWindow("jiehun").GetGuankaId();
 	local smalldata = CheckpointData.GetData(guankaID);
@@ -135,6 +135,26 @@ function guakan_RenderListItem(index, obj)
     if smallData.Star3 == true then 
 		starNum = starNum +1;
 	  end
+
+ 	star0:GetController("xianshi").selectedIndex = 0;
+	star1:GetController("xianshi").selectedIndex = 0;
+	star2:GetController("xianshi").selectedIndex = 0;
+
+	 if starNum == 1 then
+	 	star0:GetController("xianshi").selectedIndex = 1;
+ 		star1:GetController("xianshi").selectedIndex = 0;
+ 		star2:GetController("xianshi").selectedIndex = 0;
+	 end
+	 if starNum == 2 then
+	 	star0:GetController("xianshi").selectedIndex = 1;
+ 		star1:GetController("xianshi").selectedIndex = 1;
+ 		star2:GetController("xianshi").selectedIndex = 0;
+	 end
+	 if starNum == 3 then
+	 	star0:GetController("xianshi").selectedIndex = 1;
+ 		star1:GetController("xianshi").selectedIndex = 1;
+ 		star2:GetController("xianshi").selectedIndex = 1;
+	 end
 
 	
 	 if index ~= 0 then
