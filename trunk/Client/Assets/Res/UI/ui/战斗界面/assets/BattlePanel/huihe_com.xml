@@ -2,7 +2,7 @@
 <component size="851,152">
   <displayList>
     <image id="n46_nocc" name="n46" src="nocc1w" xy="48,24" size="795,126"/>
-    <text id="n47_nocc" name="n47" xy="36,-36" size="818,177" font="ui://g7uitnianocc1y" fontSize="12" align="center" vAlign="middle" autoSize="none" text="d12ih"/>
+    <text id="n47_nocc" name="n47" xy="36,-36" size="818,177" font="ui://g7uitnianocc1y" fontSize="12" align="center" vAlign="middle" autoSize="none" text="第1回合"/>
   </displayList>
   <transition name="t2">
     <item time="0" type="Alpha" target="n46_nocc" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
