@@ -5,11 +5,13 @@ import(
 )
 type COM_AccountInfo struct{
   SessionCode string  //0
+  MyPlayer COM_Player  //1
 }
 func (this *COM_AccountInfo)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(len(this.SessionCode) != 0)
+  mask.WriteBit(true) //MyPlayer
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -20,6 +22,13 @@ func (this *COM_AccountInfo)Serialize(buffer *bytes.Buffer) error {
   if len(this.SessionCode) != 0{
     err := prpc.Write(buffer,this.SessionCode)
     if err != nil {
+      return err
+    }
+  }
+  // serialize MyPlayer
+  {
+    err := this.MyPlayer.Serialize(buffer)
+    if err != nil{
       return err
     }
   }
@@ -34,6 +43,13 @@ func (this *COM_AccountInfo)Deserialize(buffer *bytes.Buffer) error{
   // deserialize SessionCode
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.SessionCode)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize MyPlayer
+  if mask.ReadBit() {
+    err := this.MyPlayer.Deserialize(buffer)
     if err != nil{
       return err
     }

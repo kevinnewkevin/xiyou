@@ -16,6 +16,9 @@ type Session struct {
 
 func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	fmt.Println("Login", info)
+	infoext := prpc.COM_AccountInfo{}
+	infoext.SessionCode = info.Username + info.Password
+	this.LoginOK(infoext)
 	return nil
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {

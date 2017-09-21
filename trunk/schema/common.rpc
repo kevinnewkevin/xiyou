@@ -7,11 +7,6 @@ struct COM_LoginInfo{
 	string Password;
 };
 
-//账户信息	登录成功返回
-struct COM_AccountInfo{
-	string SessionCode;
-};
-
 //道具实例
 struct COM_ItemInst{
 	int32	ItemId;
@@ -72,6 +67,12 @@ struct COM_Player{
 	COM_UnitGroup[]		UnitGroup;
 	int32				TianTiVal;
 	COM_SkillBase[]		SkillBase;
+};
+
+//账户信息	登录成功返回
+struct COM_AccountInfo{
+	string SessionCode;
+	COM_Player MyPlayer;
 };
 
 //战斗位置
