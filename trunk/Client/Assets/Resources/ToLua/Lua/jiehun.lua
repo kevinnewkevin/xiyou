@@ -262,7 +262,7 @@ function updateReward()
 		iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
 		iconLab.text = drop.itemNum1_ .. "";
 		ItemName.text = itemdata._Name;
-		rewardNeedNum.text = data.Star_[showRewardStar];
+		rewardNeedNum.text = "达到" .. data.Star_[showRewardStar] .. "魂可领取";
 		
 		local comData  = JieHunSystem.instance:GetChapterData(showRewardId);
 		local len  = comData.SmallChapters.Length;
