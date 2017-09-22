@@ -73,6 +73,8 @@ type (
 )
 
 var (
+	CopperMax int32 = 1000000000
+	GoldMax	 int32  =1000000000
 	UnitTable  = map[int32]*UnitRecord{}
 	SkillTable = map[int32]*SkillRecord{}
 	SkillLuaTable = map[int32]*SkillLuaRecord{}

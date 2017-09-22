@@ -657,6 +657,9 @@ func (this *GamePlayer)AddCopper(val int32)  {
 	if curCopper < 0  {
 		curCopper=0
 	}
+	if curCopper>CopperMax {
+		curCopper=CopperMax
+	}
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER,curCopper)
 
 	fmt.Println("append copper",val,"all copper",curCopper)
