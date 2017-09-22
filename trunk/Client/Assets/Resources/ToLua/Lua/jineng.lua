@@ -36,6 +36,7 @@ local skill4;
 
 local crtSelectRoleSkillId;
 local crtSelectRoleSkilltype;
+local crtSelectIsDown;
 
 function jineng:OnEntry()
 	Window = jineng.New();
@@ -150,7 +151,7 @@ function jineng_OnSkillSelected(context)
 		passiveList:SelectNone();
 		criticalList:SelectNone();
 	end
-
+	crtSelectIsDown = context.sender.data.down;
 	jineng_OnlyLeftFlushData();
 end
 
@@ -247,6 +248,11 @@ function jineng_OnlyLeftFlushData()
 						itemNum.text = has;
 						itemBar.value = has / rsuData._NeedNum * 100;
 						itemBarNum.text = has .. "/" .. rsuData._NeedNum;
+						if has < rsuData._NeedNum then
+							itemBarNum.color = Color.red;
+						else
+							itemBarNum.color = Color.white;
+						end
 						if has >= rsuData._NeedNum and GamePlayer._Data.IProperties[8] >= rsuData._NeedGold and playerlv >= rsData._OpenLv then
 							upgradeBtn.enabled = true;
 						end
@@ -258,6 +264,11 @@ function jineng_OnlyLeftFlushData()
 						itemBarNum.text = "0/" ..rsuData._NeedNum;
 					end
 					needGold.text = rsuData._NeedGold;
+					if GamePlayer._Data.IProperties[8] < rsuData._NeedGold then
+						needGold.color = Color.red;
+					else
+						needGold.color = Color.white;
+					end
 				end
 			end
 		end
@@ -278,21 +289,28 @@ function jineng_OnlyLeftFlushData()
 		needGold.text = "0";
 	end
 
-	if crtSelectRoleSkilltype == 0 then
-		skill1:GetChild("n10").visible = true;
-		skill2:GetChild("n10").visible = false;
-		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = false;
-	elseif crtSelectRoleSkilltype == 1 then
-		skill1:GetChild("n10").visible = false;
-		skill2:GetChild("n10").visible = true;
-		skill3:GetChild("n10").visible = true;
-		skill4:GetChild("n10").visible = false;
-	elseif crtSelectRoleSkilltype == 2 then
-		skill1:GetChild("n10").visible = false;
-		skill2:GetChild("n10").visible = false;
-		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = true;
+	if crtSelectIsDown == 0 then
+		if crtSelectRoleSkilltype == 0 then
+			skill1:GetChild("n10").visible = true;
+			skill2:GetChild("n10").visible = false;
+			skill3:GetChild("n10").visible = false;
+			skill4:GetChild("n10").visible = false;
+		elseif crtSelectRoleSkilltype == 1 then
+			skill1:GetChild("n10").visible = false;
+			skill2:GetChild("n10").visible = true;
+			skill3:GetChild("n10").visible = true;
+			skill4:GetChild("n10").visible = false;
+		elseif crtSelectRoleSkilltype == 2 then
+			skill1:GetChild("n10").visible = false;
+			skill2:GetChild("n10").visible = false;
+			skill3:GetChild("n10").visible = false;
+			skill4:GetChild("n10").visible = true;
+		else
+			skill1:GetChild("n10").visible = false;
+			skill2:GetChild("n10").visible = false;
+			skill3:GetChild("n10").visible = false;
+			skill4:GetChild("n10").visible = false;
+		end
 	else
 		skill1:GetChild("n10").visible = false;
 		skill2:GetChild("n10").visible = false;
@@ -396,10 +414,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill1.data.rsId = rsData._ID;
 		end
+		skill1.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill1.data.rsId = 0;
+		skill1.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(1);
@@ -412,10 +432,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill2.data.rsId = rsData._ID;
 		end
+		skill2.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill2.data.rsId = 0;
+		skill2.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(2);
@@ -428,10 +450,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill3.data.rsId = rsData._ID;
 		end
+		skill3.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill3.data.rsId = 0;
+		skill3.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(3);
@@ -444,31 +468,11 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill4.data.rsId = rsData._ID;
 		end
+		skill4.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill4.data.rsId = 0;
-	end
-
-	if crtSelectRoleSkilltype == 0 then
-		skill1:GetChild("n10").visible = true;
-		skill2:GetChild("n10").visible = false;
-		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = false;
-	elseif crtSelectRoleSkilltype == 1 then
-		skill1:GetChild("n10").visible = false;
-		skill2:GetChild("n10").visible = true;
-		skill3:GetChild("n10").visible = true;
-		skill4:GetChild("n10").visible = false;
-	elseif crtSelectRoleSkilltype == 2 then
-		skill1:GetChild("n10").visible = false;
-		skill2:GetChild("n10").visible = false;
-		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = true;
-	else
-		skill1:GetChild("n10").visible = false;
-		skill2:GetChild("n10").visible = false;
-		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = false;
+		skill4.touchable = false;
 	end
 end
