@@ -263,7 +263,7 @@ function jineng_OnlyLeftFlushData()
 						else
 							itemBarNum.color = Color.white;
 						end
-						if has >= rsuData._NeedNum and GamePlayer._Data.IProperties[6] >= rsuData._NeedGold and playerlv >= rsData._OpenLv then
+						if has >= rsuData._NeedNum and GamePlayer._Data.IProperties[6] >= rsuData._NeedGold and playerlv >= rsData._OpenLv and rsuData._NextId ~= 0 then
 							upgradeBtn.enabled = true;
 						end
 					else
