@@ -301,6 +301,7 @@ function jiesuanjiemian_OnOkBtn()
 
 	if Battle.DropItemCount > 0 then
 		UIManager.Hide("jiesuanjiemian");
+		UIParamHolder.Set("showChaptersDrop", false);
 		UIManager.Show("baowu");
 	else
 		SceneLoader.LoadScene("main");

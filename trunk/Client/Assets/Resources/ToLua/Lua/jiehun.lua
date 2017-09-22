@@ -113,29 +113,28 @@ function jiehun_RenderListItem(index, obj)
 	box2.onClick:Add(jiehun_OnBox2);
 	box2.data =comData.ChapterId;
 
+	boxOpen0.visible =false;
+	boxOpen1.visible =false;
+	boxOpen2.visible =false;
+	boxNoOpen0.visible = true;
+	boxNoOpen1.visible = true;
+	boxNoOpen2.visible = true;
 	if comData.StarReward ~= nil then
-		if comData.StarReward.length >= 1 then
-			boxOpen0.visible =false;
-			boxNoOpen0.visible =true;
-		else
-			boxOpen0.visible =true;
-			boxNoOpen0.visible =false;
-		end
+		local len = comData.StarReward.length;
+		for i=1, len do
 
-		if comData.StarReward.length >= 2 then
-			boxOpen1.visible =false;
-			boxNoOpen1.visible =true;
-		else
-			boxOpen1.visible =true;
-			boxNoOpen1.visible =false;
-		end
-
-		if comData.StarReward.length >= 3 then
-			boxOpen2.visible =false;
-			boxNoOpen2.visible =true;
-		else
-			boxOpen2.visible =true;
-			boxNoOpen2.visible =false;
+			if comData.StarReward[i-1] == 10 then
+				boxOpen0.visible =false;
+				boxNoOpen0.visible =true;
+			end
+			if comData.StarReward[i-1] == 20 then
+				boxOpen1.visible =false;
+				boxNoOpen1.visible =true;
+			end
+			if comData.StarReward[i-1] == 30 then
+				boxOpen2.visible =false;
+				boxNoOpen2.visible =true;
+			end
 		end
 	else
 		boxOpen0.visible =false;
@@ -222,6 +221,8 @@ function updateReward()
 		if rewardShow.visible == false then
 			return;
 		end
+		JieHunSystem.instance.chapterID = showRewardId;
+		JieHunSystem.instance.chapterBox = showRewardStar;
 		rewardList:RemoveChildrenToPool(); 
 		local data = HeroStroyData.GetData(showRewardId);
 		local itemid = data.Rewards_[showRewardStar];
@@ -277,9 +278,14 @@ function updateReward()
 			end
 		end
 
+			UIParamHolder.Set("chaptersDrop", drop.Id_);
+			UIParamHolder.Set("showChaptersDrop", true);
+
 		if  starNum > data.Star_[showRewardStar]  and comData.StarReward[showRewardStar] ==0 then
 			getRewardBtn.visible = true;
 			rewardOkBtn.visible = false;
+			UIParamHolder.Set("chaptersDrop", drop.Id_);
+			UIParamHolder.Set("showChaptersDrop", true);
 		else
 			getRewardBtn.visible = false;
 			rewardOkBtn.visible = true;

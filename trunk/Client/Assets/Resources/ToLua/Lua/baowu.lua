@@ -69,34 +69,68 @@ function baowu_OnBoxBtn(context)
 end
 
 function baowu_OnExit(context)
-	SceneLoader.LoadScene("main");
+	local showChapters = UIParamHolder.Get("showChaptersDrop");
+	if showChapters ==true then
+		openCom.visible = true;
+		hitNextBtn.enabled = false;
+		hitNextLbl.visible = false;
+		dropList.visible = false;
+		outCom.visible = false;
+		UIManager.Show("jiehun");
+		Window:Hide();			
+	else
+		SceneLoader.LoadScene("main");
+	end
 end
 
 function baowu_FlushData()
 	local dropItem;
-	local dropItemCount = Battle.DropItemCount;
+	local dropItemCount;
 	local itemInst;
 	local stack;
 	local name;
 	local quality;
 	local icon;
 	local iData;
-	dropList:RemoveChildrenToPool();
-	for i=1, dropItemCount do
-		itemInst = Battle.DropItem(i-1);
-		dropItem = dropList:AddItemFromPool(dropItemUrl);
-		if itemInst ~= nil then
-			iData = ItemData.GetData(itemInst.ItemId);
-			quality = dropItem:GetChild("n0").asLoader;
-			icon = dropItem:GetChild("n1").asLoader;
-			stack = dropItem:GetChild("n2").asTextField;
-			name = dropItem:GetChild("n3").asTextField;
 
-			stack.text = itemInst.Stack_;
-			if iData ~= nil then
-				name.text = iData._Name;
-				icon.url = "ui://" .. iData._Icon;
-				quality.url = "ui://" .. iData._IconBack;
+	local showChapters = UIParamHolder.Get("showChaptersDrop");
+	if showChapters == true then
+		local dropId= UIParamHolder.Get("chaptersDrop");
+		local drop = DropData.GetData(dropId);
+		dropItemCount = 1;
+		dropList:RemoveChildrenToPool();
+		local cDropItem = dropList:AddItemFromPool(dropItemUrl);
+		local cIData = ItemData.GetData(drop.item1_);
+		local cQuality = cDropItem:GetChild("n0").asLoader;
+		local cIcon = cDropItem:GetChild("n1").asLoader;
+		local cStack = cDropItem:GetChild("n2").asTextField;
+		local cName = cDropItem:GetChild("n3").asTextField;
+
+		cStack.text = drop.itemNum1_ .. "";
+		if cIData ~= nil then
+			cName.text = cIData._Name;
+			cIcon.url = "ui://" .. cIData._Icon;
+			cQuality.url = "ui://" .. cIData._IconBack;
+		end
+	else
+		dropItemCount = Battle.DropItemCount;
+		dropList:RemoveChildrenToPool();
+		for i=1, dropItemCount do
+			itemInst = Battle.DropItem(i-1);
+			dropItem = dropList:AddItemFromPool(dropItemUrl);
+			if itemInst ~= nil then
+				iData = ItemData.GetData(itemInst.ItemId);
+				quality = dropItem:GetChild("n0").asLoader;
+				icon = dropItem:GetChild("n1").asLoader;
+				stack = dropItem:GetChild("n2").asTextField;
+				name = dropItem:GetChild("n3").asTextField;
+
+				stack.text = itemInst.Stack_;
+				if iData ~= nil then
+					name.text = iData._Name;
+					icon.url = "ui://" .. iData._Icon;
+					quality.url = "ui://" .. iData._IconBack;
+				end
 			end
 		end
 	end
