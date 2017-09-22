@@ -19,6 +19,8 @@ local readyOutDrop;
 local canExit;
 
 local timeOut;
+local boxEff;
+local boxEffHolder;
 
 function baowu:OnEntry()
 	Define.LaunchUIBundle("icon");
@@ -45,6 +47,7 @@ function baowu:OnInit()
 	openCom = self.contentPane:GetChild("n4").asCom;
 	outCom = self.contentPane:GetChild("n7").asCom;
 	outCom.visible = false;
+	boxEffHolder = outCom:GetChild("n2").asGraph;
 	openTrans = self.contentPane:GetTransition("t1");
 	outTrans = outCom:GetTransition("t0");
 
@@ -66,6 +69,9 @@ function baowu_OnBoxBtn(context)
 	readyOutDrop = {};
 	readyOutDrop.max = 12;
 	readyOutDrop.count = 0;
+
+	boxEff = "effect/baoxiangguangmang";
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff));
 end
 
 function baowu_OnExit(context)
@@ -81,6 +87,9 @@ function baowu_OnExit(context)
 	else
 		SceneLoader.LoadScene("main");
 	end
+	Proxy4Lua.UnloadAsset(boxEff);
+	boxEff = "";
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
 end
 
 function baowu_FlushData()
