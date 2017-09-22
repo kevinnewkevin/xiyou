@@ -898,7 +898,7 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER, curCopper)
 	this.DelItemByTableId(updateInfo.NeedItem, updateInfo.NeedNum)
 
-	var skillpos int32 = 999
+	var skillpos int32 = -1
 	for idx, skill := range this.MyUnit.Skill {
 		if skill == nil {
 			continue
@@ -908,13 +908,13 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 		}
 	}
 
-	if skillpos != 999 {
+	if skillpos != -1 {
 		this.MyUnit.Skill[skillpos] = new_skill
 	}
 	this.SkillBase[skillindex] = updateInfo.NextID
 
-	this.session.SkillUpdateOK(skillindex, updateInfo.NextID)
-	fmt.Println("SkillUpdateOK", skillindex, updateInfo.NextID)
+	this.session.SkillUpdateOK(skillindex, updateInfo.NextID, skillpos)
+	fmt.Println("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
 
 }
 

@@ -65,6 +65,7 @@ type COM_ServerToClient_EquipSkillOK struct{
 type COM_ServerToClient_SkillUpdateOK struct{
   skillIndex int32  //0
   skillID int32  //1
+  skillpos int32  //2
 }
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
@@ -90,7 +91,7 @@ type COM_ServerToClientProxy interface{
   PromoteUnitOK() error // 17
   RequestChapterStarRewardOK() error // 18
   EquipSkillOK(skillIndex int32, skillID int32 ) error // 19
-  SkillUpdateOK(skillIndex int32, skillID int32 ) error // 20
+  SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error // 20
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -840,6 +841,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.skillIndex!=0)
   mask.WriteBit(this.skillID!=0)
+  mask.WriteBit(this.skillpos!=0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -864,6 +866,15 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
       }
     }
   }
+  // serialize skillpos
+  {
+    if(this.skillpos!=0){
+      err := prpc.Write(buffer,this.skillpos)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) error{
@@ -882,6 +893,13 @@ func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) e
   // deserialize skillID
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.skillID)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize skillpos
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillpos)
     if err != nil{
       return err
     }
@@ -1217,7 +1235,7 @@ func(this* COM_ServerToClientStub)EquipSkillOK(skillIndex int32, skillID int32 )
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32 ) error {
+func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1229,6 +1247,7 @@ func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32 
   _20 := COM_ServerToClient_SkillUpdateOK{}
   _20.skillIndex = skillIndex;
   _20.skillID = skillID;
+  _20.skillpos = skillpos;
   err = _20.Serialize(buffer)
   if err != nil{
     return err
@@ -1512,7 +1531,7 @@ func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_Serve
   if err != nil{
     return err
   }
-  return p.SkillUpdateOK(_20.skillIndex,_20.skillID)
+  return p.SkillUpdateOK(_20.skillIndex,_20.skillID,_20.skillpos)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
