@@ -136,12 +136,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		}
 	}
 
-	for i := 1; i < 9 ; i++ {	//测试用
-		p.AddBagItemByItemId(int32(i), 10)
-	}
-
-	p.AddBagItemByItemId(5000, 1000)
-	p.AddCopper(10000000)
+	p.TestItem()
 	fmt.Println("ccccccc", p.MyUnit.Skill)
 	
 	return &p
@@ -979,4 +974,12 @@ func TestPlayer() {
 	for _,item := range items{
 		P1.UseItem(item.InstId,1)
 	}
+}
+
+func (this *GamePlayer)TestItem()  {
+	for i := 1; i < 9 ; i++ {	//测试用
+		this.AddBagItemByItemId(int32(i), 10)
+	}
+	this.AddBagItemByItemId(5000,2000)
+	this.AddCopper(10000000)
 }
