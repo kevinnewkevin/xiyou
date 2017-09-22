@@ -801,8 +801,11 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 		return
 	}
 
-	learnSkill := InitSkillFromTable(skill.SKillID)
-
+	real_skillid := this.SkillBase[skillinfo.SkillID]
+	learnSkill := InitSkillFromTable(real_skillid)
+	if learnSkill == nil{
+		learnSkill = InitSkillFromTable(skill.SKillID)
+	}
 	if learnSkill == nil {
 		return
 	}
@@ -828,12 +831,12 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
 	var idx int32 = -1
-	for index, skill := range this.MyUnit.Skill {
-		fmt.Println("skill", skill, &skill)
-		if skill == nil {
+	for index, skill_ := range this.MyUnit.Skill {
+		fmt.Println("skill", skill_, &skill_)
+		if skill_ == nil {
 			continue
 		}
-		if skill.SkillID == learnSkill.SkillID{
+		if skill_.SkillID == learnSkill.SkillID{
 			if index == skillinfo.Position {
 				continue
 			}
@@ -841,15 +844,15 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 			break
 		}
 	}
-	
+
 	if idx != -1 {
 		this.MyUnit.Skill[idx] = nil
 	}
 
 	fmt.Println("skillall", this.MyUnit.Skill)
 
-	this.session.EquipSkillOK(skillinfo.Position, skill.SKillID)
-	fmt.Println("EquipSkillOK", skillinfo.Position, skill.SKillID)
+	this.session.EquipSkillOK(skillinfo.Position, learnSkill.SkillID)
+	fmt.Println("EquipSkillOK", skillinfo.Position, learnSkill.SkillID)
 
 	//如果是被动技能 需要修改buff
 
@@ -918,6 +921,7 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 
 	this.session.SkillUpdateOK(skillindex, updateInfo.NextID, skillpos)
 	fmt.Println("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
+	fmt.Println("SkillUpdateOK 1", this.SkillBase)
 
 }
 
