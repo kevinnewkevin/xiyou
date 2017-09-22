@@ -104,7 +104,7 @@ function bagui_FlushData()
 	bagList.numItems = BagSystem.GetItemCount(crtTab);
 	gold.text = GamePlayer._Data.IProperties[8];
 	chopper.text = GamePlayer._Data.IProperties[6];
-	stamaPoint.text = GamePlayer._Data.IProperties[2];
+	stamaPoint.text = GamePlayer._Data.IProperties[10];
 end
 
 function bagui:GetClickItemIdx()
