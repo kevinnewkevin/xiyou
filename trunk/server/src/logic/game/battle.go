@@ -800,7 +800,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 		u_list = append(u_list, u.InstId)
 	}
 
-	fmt.Print("友方目标",u_list)
+	fmt.Println("友方目标",u_list)
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
@@ -810,7 +810,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 	idx := rand.Intn(index)
 	//idx := rand.Intn(5)
 
-	fmt.Print("一个友方目标","-",u_list[idx],"-","index","-",idx)
+	fmt.Println("一个友方目标", u_list[idx], "index", idx)
 
 	return u_list[idx]
 }

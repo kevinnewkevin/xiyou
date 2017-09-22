@@ -827,7 +827,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
-	var idx int32
+	var idx int32 = -1
 	for index, skill := range this.MyUnit.Skill {
 		fmt.Println("skill", skill, &skill)
 		if skill == nil {
@@ -841,8 +841,11 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 			break
 		}
 	}
+	
+	if idx != -1 {
+		this.MyUnit.Skill[idx] = nil
+	}
 
-	this.MyUnit.Skill[idx] = nil
 	fmt.Println("skillall", this.MyUnit.Skill)
 
 	this.session.EquipSkillOK(skillinfo.Position, skill.SKillID)

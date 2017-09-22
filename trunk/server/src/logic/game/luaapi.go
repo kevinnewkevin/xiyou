@@ -250,7 +250,7 @@ func __GetFriend(p unsafe.Pointer) C.int {
 	//	break
 	//}
 
-	//fmt.Println("__GetFriend end ,", t_id)
+	fmt.Println("__GetFriend end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
