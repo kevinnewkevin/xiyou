@@ -207,13 +207,13 @@ public class UIManager {
 
     static public void RegIDirty(string uiName)
     {
-        if (GamePlayer._IPropDirty.Contains(uiName))
+        if (!GamePlayer._IPropDirty.Contains(uiName))
             GamePlayer._IPropDirty.Add(uiName);
     }
 
     static public void RegCDirty(string uiName)
     {
-        if (GamePlayer._CPropDirty.Contains(uiName))
+        if (!GamePlayer._CPropDirty.Contains(uiName))
             GamePlayer._CPropDirty.Add(uiName);
     }
 
