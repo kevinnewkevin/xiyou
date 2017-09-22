@@ -25,7 +25,10 @@ function SK_149_Action(battleid, casterid)
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	for i,v in ipairs(t) do
+	
 		Battle.TargetOn(battleid)
+		
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local per = percent()
 		
@@ -59,6 +62,8 @@ function SK_281_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
+		Battle.Attack(battleid, casterid, v, 0, 0)
+		
 		local per = percent()
 		
 		local skill = 5 * level
@@ -90,6 +95,8 @@ function SK_282_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
+		
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local per = percent()
 		
@@ -123,6 +130,8 @@ function SK_283_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
+		Battle.Attack(battleid, casterid, v, 0, 0)
+		
 		local per = percent()
 		
 		local skill = 5 * level
@@ -154,6 +163,8 @@ function SK_284_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
+		
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local per = percent()
 		

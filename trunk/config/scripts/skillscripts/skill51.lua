@@ -27,6 +27,8 @@ function SK_150_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
+		Battle.Attack(battleid, casterid, v, 0, 0)
+		
 		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
 		
 		local data = level/100
@@ -39,7 +41,7 @@ function SK_150_Action(battleid, casterid)
 		
 		Battle.TargetOver(battleid)
 	
-		sys.log("skill150")
+		
 	end
 	
 	
@@ -60,37 +62,7 @@ function SK_285_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		
-		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
-		
-		local data = level/100
-		
-		if  buffNum  > 0 then 
-		
-			Battle.BuffChangeData(battleid,v,data)
-		
-		end
-		
-		Battle.TargetOver(battleid)
-	
-		sys.log("skill150")
-	end
-	
-	
-	return  true
-	 
-end
-function SK_285_Action(battleid, casterid)
-	
-	local skillid = 285		-- 技能id
-
-	local  attackNum = 0   --攻击个数
-	
-	local level = 3
-
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
-	
-	for i,v in ipairs(t) do
-		Battle.TargetOn(battleid)
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
 		
@@ -113,16 +85,18 @@ function SK_285_Action(battleid, casterid)
 end
 function SK_286_Action(battleid, casterid)
 	
-	local skillid = 286		-- 技能id
+	local skillid = 286	-- 技能id
 
 	local  attackNum = 0   --攻击个数
 	
-	local level = 4
+	local level = 3
 
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
+		
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
 		
@@ -145,7 +119,41 @@ function SK_286_Action(battleid, casterid)
 end
 function SK_287_Action(battleid, casterid)
 	
-	local skillid = 287		-- 技能id
+	local skillid = 287	-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 4
+
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+		Battle.TargetOn(battleid)
+		
+		Battle.Attack(battleid, casterid, v, 0, 0)
+		
+		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
+		
+		local data = level/100
+		
+		if  buffNum  > 0 then 
+		
+			Battle.BuffChangeData(battleid,v,data)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill150")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_288_Action(battleid, casterid)
+	
+	local skillid = 288		-- 技能id
 
 	local  attackNum = 0   --攻击个数
 	
@@ -155,6 +163,7 @@ function SK_287_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
+		Battle.Attack(battleid, casterid, v, 0, 0)
 		
 		local buffNum = Player.PopAllBuffByDebuff(battleid,v)
 		
