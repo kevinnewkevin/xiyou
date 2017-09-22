@@ -312,9 +312,13 @@ function xiangxiziliao_FlushData()
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = SkillData.GetData(entityData._Skills[i - 1]);
 		local loader = skill:GetChild("n8").asLoader;
-		loader.url = "";
+		local lv = skill:GetChild("n7").asTextField;
 		if sData ~= nil then
 			loader.url = "ui://" .. sData._Icon;
+			lv.text = sData._Level;
+		else
+			loader.url = "";
+			lv.text = "";
 		end
 	end
 end
