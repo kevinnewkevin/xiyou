@@ -182,7 +182,6 @@ function jineng:OnUpdate()
 	end
 
 	if isNewOpen and activeList.numItems > 0 then
-		print("activeList.selectedIndex = 0");
 		activeList.selectedIndex = 0;
 		isNewOpen = false;
 	end
@@ -423,12 +422,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill1.data.rsId = rsData._ID;
 		end
-		skill1.touchable = true;
+--		skill1.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill1.data.rsId = 0;
-		skill1.touchable = false;
+--		skill1.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(1);
@@ -441,12 +440,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill2.data.rsId = rsData._ID;
 		end
-		skill2.touchable = true;
+--		skill2.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill2.data.rsId = 0;
-		skill2.touchable = false;
+--		skill2.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(2);
@@ -459,12 +458,12 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill3.data.rsId = rsData._ID;
 		end
-		skill3.touchable = true;
+--		skill3.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill3.data.rsId = 0;
-		skill3.touchable = false;
+--		skill3.touchable = false;
 	end
 
 	skilldata = Proxy4Lua.GetPlayerSkillData(3);
@@ -477,11 +476,11 @@ function jineng_FlushData()
 		if rsData ~= nil then
 			skill4.data.rsId = rsData._ID;
 		end
-		skill4.touchable = true;
+--		skill4.touchable = true;
 	else
 		skillicon.url = "";
 		skilllv.text = "";
 		skill4.data.rsId = 0;
-		skill4.touchable = false;
+--		skill4.touchable = false;
 	end
 end
