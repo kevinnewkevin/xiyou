@@ -222,7 +222,9 @@ function skill_user_atk(battleid,casterid,targetid,level,buffid,num)
 	 
 	local data = num * level
 	
-	Battle.Cure(battleid,casterid,0,0)
+	Battle.Cure(battleid,targetid,0,0)
+	
+	sys.log("targetid "..targetid)
 	
 	Battle.AddBuff(battleid,casterid,targetid,buffid,data)
 	
