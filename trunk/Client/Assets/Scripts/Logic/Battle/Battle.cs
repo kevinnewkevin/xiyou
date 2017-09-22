@@ -350,10 +350,13 @@ public class Battle {
             _CrtActor = GetActor(_ReportAction [0].InstId);
             _CrtTargets = new List<Actor>();
             Actor target;
-            for (int i = 0; i < _ReportAction [0].TargetList.Length; ++i)
+            if (_ReportAction [0].TargetList != null)
             {
-                target = GetActor(_ReportAction [0].TargetList [i].InstId);
-                _CrtTargets.Add(target);
+                for (int i = 0; i < _ReportAction [0].TargetList.Length; ++i)
+                {
+                    target = GetActor(_ReportAction [0].TargetList [i].InstId);
+                    _CrtTargets.Add(target);
+                }
             }
             _ActorLaunched = true;
         }
