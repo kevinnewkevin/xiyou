@@ -104,7 +104,6 @@ func LoadUnitTable(filename string) error {
 		u.IProp[prpc.IPT_PHYLE] = csv.GetInt32(r, prpc.K_IPT_PHYLE)
 		u.IProp[prpc.IPT_LEVEL] = csv.GetInt32(r, prpc.K_IPT_LEVEL)
 		u.IProp[prpc.IPT_COPPER] = csv.GetInt32(r, prpc.K_IPT_COPPER)
-		u.IProp[prpc.IPT_SILVER] = csv.GetInt32(r, prpc.K_IPT_SILVER)
 		u.IProp[prpc.IPT_GOLD] = csv.GetInt32(r, prpc.K_IPT_GOLD)
 		u.IProp[prpc.IPT_PROMOTE] = csv.GetInt32(r, prpc.K_IPT_PROMOTE)
 		u.IProp[prpc.IPT_ENERGY] = csv.GetInt32(r, prpc.K_IPT_ENERGY)
