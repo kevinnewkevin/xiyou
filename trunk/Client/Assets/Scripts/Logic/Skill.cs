@@ -812,6 +812,7 @@ public class Skill {
         {
             if (_SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
             {
+                Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
                 _Caster.MoveTo(_OriginPos, (Actor.CallBackHandler)delegate
                 {
                     Clear();

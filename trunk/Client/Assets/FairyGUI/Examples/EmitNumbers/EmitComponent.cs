@@ -95,7 +95,7 @@ public class EmitComponent : GComponent
         screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
 
 		Vector3 pt = GRoot.inst.GlobalToLocal(screenPos);
-        this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2 + Random.Range(-30f, 30f)), Mathf.RoundToInt(pt.y + pos.y - this.height) + Random.Range(-30f, 30f));
+        this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2 + Random.Range(-60f, 60f)), Mathf.RoundToInt(pt.y + pos.y - this.height) + Random.Range(-60f, 60f));
 	}
 
 	void OnCompleted()
