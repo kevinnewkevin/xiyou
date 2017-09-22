@@ -197,6 +197,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 
 	if !small.Star1 {
 		for i:=0;i<len(battledata.KillMonsters) ;i++  {
+			fmt.Println("battledata.KillMonsters monsterId=",battledata.KillMonsters[i],"Star1TargetId=",smallData.SmallChapterCase1)
 			if battledata.KillMonsters[i] == smallData.SmallChapterCase1 {
 				small.Star1 = true
 				fmt.Println("SmallChapter=",small.SmallChapterId,"Star1 Succeed")
