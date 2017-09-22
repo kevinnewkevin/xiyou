@@ -96,7 +96,7 @@ function zhujiemian_FlushData()
 
 	gold.text = GamePlayer._Data.IProperties[8];
 	chopper.text = GamePlayer._Data.IProperties[6];
-	stamaPoint.text = GamePlayer._Data.IProperties[2];
+	stamaPoint.text = GamePlayer._Data.IProperties[10];
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 end
