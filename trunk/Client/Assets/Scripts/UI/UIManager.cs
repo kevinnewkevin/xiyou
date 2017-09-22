@@ -125,9 +125,12 @@ public class UIManager {
 
         foreach(UIWindow window in _Windows.Values)
         {
-            window.Update();
-            if (_Timer >= 1f)
-                window.Tick();
+            if (IsShow(window.UIName))
+            {
+                window.Update();
+                if (_Timer >= 1f)
+                    window.Tick();
+            }
         }
 
         if (_Timer >= 1f)

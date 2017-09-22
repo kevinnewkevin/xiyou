@@ -38,6 +38,7 @@ local crtSelectRoleSkillId;
 local crtSelectRoleSkilltype;
 local crtSelectIsDown;
 
+local isNewOpen;
 function jineng:OnEntry()
 	Window = jineng.New();
 	Window:Show();
@@ -179,6 +180,12 @@ function jineng:OnUpdate()
 		jineng_FlushData();
 		UIManager.ClearDirty("jineng");
 	end
+
+	if isNewOpen and activeList.numItems > 0 then
+		print("activeList.selectedIndex = 0");
+		activeList.selectedIndex = 0;
+		isNewOpen = false;
+	end
 end
 
 function jineng:OnTick()
@@ -193,7 +200,8 @@ function jineng:OnDispose()
 	Window:Dispose();
 end
 
-function denglu:OnHide()
+function jineng:OnHide()
+	jineng_Clear();
 	Window:Hide();
 end
 
@@ -213,9 +221,10 @@ function jineng_Clear()
 	crtSelectRoleSkilltype = -1;
 	crtSelectRoleSkillId = 0;
 	playerSkillList:SelectNone();
-	activeList:SelectNone();
 	criticalList:SelectNone();
 	passiveList:SelectNone();
+	activeList:SelectNone();
+	isNewOpen = true;
 end
 
 function jineng_OnlyLeftFlushData()
