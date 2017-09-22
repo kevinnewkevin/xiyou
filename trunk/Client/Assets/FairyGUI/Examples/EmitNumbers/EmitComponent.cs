@@ -92,10 +92,10 @@ public class EmitComponent : GComponent
 		Vector3 ownerPos = _owner.position;
 		ownerPos.y += OFFSET_ADDITION;
 		Vector3 screenPos = Camera.main.WorldToScreenPoint(ownerPos);
-		screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
+        screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
 
 		Vector3 pt = GRoot.inst.GlobalToLocal(screenPos);
-		this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2), Mathf.RoundToInt(pt.y + pos.y - this.height));
+        this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2 + Random.Range(-30f, 30f)), Mathf.RoundToInt(pt.y + pos.y - this.height) + Random.Range(-30f, 30f));
 	}
 
 	void OnCompleted()
