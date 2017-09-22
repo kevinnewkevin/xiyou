@@ -79,7 +79,7 @@ function bagtips_FlushData()
 		return;
 	end
 	icon.asLoader.url = "ui://" .. itemdata._Icon;
-	stackLab.text ="" .. iteminst.Stack_;
+	stackLab.text ="" .. iteminst.Stack;
 	iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
 	descLab.text = itemdata._Desc;
 	nameLab.text = itemdata._Name;
@@ -87,7 +87,7 @@ function bagtips_FlushData()
 end
 
 function bagtips_OnDelItem(context)
-	Proxy4Lua.DeleteItem(iteminst.InstId,iteminst.Stack_);
+	Proxy4Lua.DeleteItem(iteminst.InstId,iteminst.Stack);
 	UIManager.Hide("bagtips");
 end
 

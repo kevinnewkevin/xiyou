@@ -61,7 +61,7 @@ function bagui_RenderListItem(index, obj)
 	local stackNum;
 	if iteminst ~= null then
 		itemdata = ItemData.GetData(iteminst.ItemId);
-		stackNum = iteminst.Stack_;
+		stackNum = iteminst.Stack;
 	end
 	local iconpath = "";
 	if itemdata ~= nil then

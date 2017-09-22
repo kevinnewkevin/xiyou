@@ -134,7 +134,7 @@ function baowu_FlushData()
 				stack = dropItem:GetChild("n2").asTextField;
 				name = dropItem:GetChild("n3").asTextField;
 
-				stack.text = itemInst.Stack_;
+				stack.text = itemInst.Stack;
 				if iData ~= nil then
 					name.text = iData._Name;
 					icon.url = "ui://" .. iData._Icon;
