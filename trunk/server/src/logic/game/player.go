@@ -140,6 +140,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		p.AddBagItemByItemId(int32(i), 10)
 	}
 
+	p.AddBagItemByItemId(5000, 1000)
+	p.AddCopper(10000000)
 	fmt.Println("ccccccc", p.MyUnit.Skill)
 	
 	return &p
@@ -807,20 +809,43 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 		return
 	}
 
+	switch skillinfo.Position {
+		case 0:
+			if skill.Type != 0{
+				fmt.Println("EquipSkill skill.Type wrong", 0)
+				return
+			}
+		case 1, 2:
+			if skill.Type != 1{
+				fmt.Println("EquipSkill skill.Type wrong", 1, 2)
+				return
+			}
+		case 3:
+			if skill.Type != 2 {
+				fmt.Println("EquipSkill skill.Type wrong", 3)
+				return
+			}
+	}
+
 	this.MyUnit.Skill[skillinfo.Position] = learnSkill
 
 	var idx int32
 	for index, skill := range this.MyUnit.Skill {
+		fmt.Println("skill", skill, &skill)
 		if skill == nil {
 			continue
 		}
 		if skill.SkillID == learnSkill.SkillID{
+			if index == skillinfo.Position {
+				continue
+			}
 			idx = index
 			break
 		}
 	}
 
 	this.MyUnit.Skill[idx] = nil
+	fmt.Println("skillall", this.MyUnit.Skill)
 
 	this.session.EquipSkillOK(skillinfo.Position, skill.SKillID)
 	fmt.Println("EquipSkillOK", skillinfo.Position, skill.SKillID)
@@ -877,6 +902,9 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 
 	var skillpos int32 = 999
 	for idx, skill := range this.MyUnit.Skill {
+		if skill == nil {
+			continue
+		}
 		if skill.SkillID == skillId {
 			skillpos = idx
 		}
