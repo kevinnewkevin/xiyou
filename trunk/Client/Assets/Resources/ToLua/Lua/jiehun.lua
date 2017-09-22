@@ -282,19 +282,20 @@ function updateReward()
 				starNum = starNum +1;
 			end
 		end
-			
-		if  starNum > data.Star_[showRewardStar]  then
+		if  starNum >= data.Star_[showRewardStar]  then
 			if comData.StarReward == nil then
 				getRewardBtn.visible = true;
 				rewardOkBtn.visible = false;
 				UIParamHolder.Set("chaptersDrop", drop.Id_);
 				UIParamHolder.Set("showChaptersDrop", true);
 			else
+				getRewardBtn.visible = true;
+				rewardOkBtn.visible = false;
 				local max = comData.StarReward.Length;
 				for i=1, max do
-					if comData.StarReward[i-1] ~= data.Star_[showRewardStar] then
-						getRewardBtn.visible = true;
-						rewardOkBtn.visible = false;
+					if comData.StarReward[i-1] == data.Star_[showRewardStar] then
+						getRewardBtn.visible = false;
+						rewardOkBtn.visible = true;
 						UIParamHolder.Set("chaptersDrop", drop.Id_);
 						UIParamHolder.Set("showChaptersDrop", true);
 					end
