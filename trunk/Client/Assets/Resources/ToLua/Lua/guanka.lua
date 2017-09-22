@@ -55,7 +55,14 @@ end
 
 
 function guanka_OnBattle(context)
-	Proxy4Lua.ChallengeSmallChapter(smallId);
+	local data = CheckpointData.GetSmallData(guankaID,smallId);
+	if  GamePlayer._Data.IProperties[10] < data._Main then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "体力不够", true);
+	else
+		Proxy4Lua.ChallengeSmallChapter(smallId);
+	end
+
 end
 
 function guanka:OnTick()
@@ -86,7 +93,6 @@ function guanka_FlushData()
 	img.asLoader.url = "ui://" .. data.Icon_;
 	local data = CheckpointData.GetData(guankaID);
 	smallList.numItems = smallChapters.Length;
-
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
 end
 
@@ -155,5 +161,7 @@ end
 
 function guakan_OnSelectGroup(context)
 	smallId = context.sender.data;
+	local data = CheckpointData.GetSmallData(guankaID,smallId);
+	needPower.text = data._Main .. "";
 end
 

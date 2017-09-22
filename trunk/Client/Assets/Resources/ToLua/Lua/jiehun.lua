@@ -120,7 +120,7 @@ function jiehun_RenderListItem(index, obj)
 	boxNoOpen1.visible = true;
 	boxNoOpen2.visible = true;
 	if comData.StarReward ~= nil then
-		local len = comData.StarReward.length;
+		local len = comData.StarReward.Length;
 		for i=1, len do
 
 			if comData.StarReward[i-1] == 10 then
@@ -188,7 +188,8 @@ end
 
 
 function jiehun_OnGetRewardBtn(context)
-	Proxy4Lua.RequestChapterStarReward(showRewardId,showRewardStar+1);
+	local data = HeroStroyData.GetData(showRewardId);
+	Proxy4Lua.RequestChapterStarReward(showRewardId,data.Star_[showRewardStar]);
 end
 
 function jiehun_OnRewardOkBtn(context)
@@ -288,7 +289,7 @@ function updateReward()
 				UIParamHolder.Set("chaptersDrop", drop.Id_);
 				UIParamHolder.Set("showChaptersDrop", true);
 			else
-				local max = comData.StarReward.length;
+				local max = comData.StarReward.Length;
 				for i=1, max do
 					if comData.StarReward[i-1] == data.Star_[showRewardStar] then
 						getRewardBtn.visible = true;
