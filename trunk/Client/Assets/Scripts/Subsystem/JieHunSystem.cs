@@ -138,35 +138,33 @@ public class JieHunSystem
     }
 
 	public  void  UpdataChapterRewardData ( int id,int boxId)
+	{
+		for (int i = 0; i < chapteList.Count; i++) 
 		{
-			for (int i = 0; i < chapteList.Count; i++) 
-				{
-				if (chapteList [i].ChapterId == id) 
-				{
+			if (chapteList [i].ChapterId == id) 
+			{
 				if (chapteList [i].StarReward == null)
+				{
+					chapteList [i].StarReward = new int[3];
+					chapteList [i].StarReward [0] = (boxId + 1) * 10;
+				}
+				else if (chapteList [i].StarReward.Length < 3)
+				{
+					int[] num = chapteList [i].StarReward;
+					chapteList [i].StarReward = new int[3];
+					for (int j = 0; j < num.Length; j++) 
 					{
-							chapteList [i].StarReward = new int[3];
-							chapteList [i].StarReward [0] = (boxId + 1) * 10;
+						chapteList [i].StarReward [j] = num [j]; 
 					}
-					else if (chapteList [i].StarReward.Length < 3)
+					for (int k = 0; k < chapteList [i].StarReward.Length; k++) 
 					{
-						int[] num = chapteList [i].StarReward;
-						chapteList [i].StarReward = new int[3];
-						for (int j = 0; j < num.Length; j++) 
+						if (chapteList [i].StarReward [k] == 0) 
 						{
-							chapteList [i].StarReward [j] = num [j]; 
+							chapteList [i].StarReward [k] = (boxId + 1) * 10;
 						}
-						for (int k = 0; k < chapteList [i].StarReward.Length; k++) 
-						{
-							if (chapteList [i].StarReward [k] == 0) 
-							{
-									chapteList [i].StarReward [k] = (boxId + 1) * 10;
-							}
-						}
-					}				
-			}
-
+					}
+				}				
 			}
 		}
-
+	}
 }
