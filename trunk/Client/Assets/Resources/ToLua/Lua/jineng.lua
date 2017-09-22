@@ -20,6 +20,7 @@ local itemBar;
 local itemBarNum;
 local needGold;
 local upgradeBtn;
+local upgradeText;
 
 --list
 local skillItemUrl = "ui://jineng/jineng_Button";
@@ -67,6 +68,7 @@ function jineng:OnInit()
 	needGold = self.contentPane:GetChild("n36").asTextField;
 	upgradeBtn = self.contentPane:GetChild("n37").asButton;
 	upgradeBtn.onClick:Add(jineng_OnUpgrade);
+	upgradeText = self.contentPane:GetChild("n39").asTextField;
 
 	local iconCom = self.contentPane:GetChild("n20").asCom;
 	iconCom.touchable = false;
@@ -231,6 +233,7 @@ end
 function jineng_OnlyLeftFlushData()
 
 	upgradeBtn.enabled = false;
+	upgradeText.text = "升级";
 	local playerlv = GamePlayer._Data.IProperties[9];
 	if crtSelectRoleSkillId ~= 0 then
 		local rsData = RoleSkillData.GetData(crtSelectRoleSkillId);
@@ -265,6 +268,10 @@ function jineng_OnlyLeftFlushData()
 						end
 						if has >= rsuData._NeedNum and GamePlayer._Data.IProperties[6] >= rsuData._NeedGold and playerlv >= rsData._OpenLv and rsuData._NextId ~= 0 then
 							upgradeBtn.enabled = true;
+						end
+
+						if rsuData._NextId == 0 then
+							upgradeText.text = "已满级";
 						end
 					else
 						itemQua.url = "";
