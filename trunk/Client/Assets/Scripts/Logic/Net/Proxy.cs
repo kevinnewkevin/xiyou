@@ -130,7 +130,10 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool RequestChapterStarRewardOK()
 	{
-        UIManager.SetDirty("jiehun");
+		UIParamHolder.Set("showChaptersDrop", true);
+		JieHunSystem.instance.UpdataChapterRewardData (JieHunSystem.instance.chapterID, JieHunSystem.instance.chapterBox);
+		UIManager.Hide("jiehun");
+		UIManager.Show("baowu");
 		return true;
 	}
 
