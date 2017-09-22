@@ -410,9 +410,11 @@ func (this *BattleRoom) Update() {
 
 		this.AcctionList = prpc.COM_BattleAction{}
 		//this.TargetOn()
+		this.AcctionList.InstId = u.InstId
 
 		u.CheckBuff(this.Round)
 		u.CheckDebuff(this.Round)
+
 
 		del_buf := u.CheckAllBuff(this.Round)
 		this.UpdateBuffState(del_buf)

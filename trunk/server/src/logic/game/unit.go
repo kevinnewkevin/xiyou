@@ -326,7 +326,6 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 
 	//tagetList := battle.SelectAllTarget(this.Camp)
 
-	battle.AcctionList.InstId = this.InstId
 	battle.AcctionList.SkillId = skill.SkillID
 
 	//acc, dead := skill.Action(this, tagetList, battle.Round)
