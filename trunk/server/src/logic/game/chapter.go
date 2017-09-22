@@ -116,6 +116,8 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 		return
 	}
 
+	fmt.Println("AttackChapter smallchapterid=",smallchapterid,"smallData.SmallChapterType=",smallData.SmallChapterType,"chapterData.ChapterType",chapterData.ChapterType)
+
 	myEnergy := player.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
 	if smallData.EnergyExpend > myEnergy {
@@ -131,6 +133,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 				return
 			}
 			if !checksmall.Star1 {
+				fmt.Println("AttackChapter checksmall.Star1==false")
 				return
 			}
 		}
@@ -205,7 +208,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 
 	if !small.Star2 {
 		fmt.Println("CheckChapterStar3 TableCase=",smallData.SmallChapterCase2,"BattleVal=",battledata.BattleRound)
-		if smallData.SmallChapterCase2 > battledata.BattleRound {
+		if smallData.SmallChapterCase2 >= battledata.BattleRound {
 			small.Star2 = true
 			fmt.Println("SmallChapter=",small.SmallChapterId,"Star2 Succeed")
 		}
@@ -213,7 +216,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 
 	if !small.Star3 {
 		fmt.Println("CheckChapterStar3 TableCase=",smallData.SmallChapterCase3,"BattleVal=",battledata.MySelfDeathNum)
-		if smallData.SmallChapterCase3 > battledata.MySelfDeathNum {
+		if smallData.SmallChapterCase3 >= battledata.MySelfDeathNum {
 			small.Star3 = true
 			fmt.Println("SmallChapter=",small.SmallChapterId,"Star3 Succeed")
 		}

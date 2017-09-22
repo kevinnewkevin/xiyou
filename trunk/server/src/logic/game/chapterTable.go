@@ -45,7 +45,7 @@ func LoadStoryChapterTable(filename string) error {
 		c := Chapter{}
 
 		c.ChapterId 		= int32(csv.GetInt(r,"ID"))
-		c.ChapterLevel		= int32(csv.GetInt(r,"Type"))
+		c.ChapterType		= int32(csv.GetInt(r,"Type"))
 		c.ChapterLevel		= int32(csv.GetInt(r,"Level"))
 
 		strTmp := strings.Split(csv.GetString(r,"Star"),";")
