@@ -48,19 +48,17 @@ func (player *GamePlayer)GetMyChapterDataById(chapterId int32) *prpc.COM_Chapter
 	if player==nil {
 		return nil
 	}
-	onceChapter := prpc.COM_Chapter{}
-	for _, chapter := range player.Chapters {
-		if chapter.ChapterId == chapterId {
-			onceChapter.ChapterId = chapter.ChapterId
-			for _,smallchapter := range chapter.SmallChapters{
-				onceChapter.SmallChapters = append(onceChapter.SmallChapters,smallchapter)
-			}
+	for i:=0 ; i< len(player.Chapters) ;i++  {
+		if player.Chapters[i] == nil {
+			fmt.Println("GetMyChapterDataById player.Chapters[i] == nil")
+			continue
+		}
+		if player.Chapters[i].ChapterId == chapterId {
+			return player.Chapters[i]
 		}
 	}
-	if onceChapter.ChapterId == 0 {
-		return nil
-	}
-	return &onceChapter
+
+	return nil
 }
 
 func (player *GamePlayer)SycnMyChapterDataById(chapterId int32)  {
@@ -236,7 +234,7 @@ func (player *GamePlayer)GetChapterStarReward(chapterId int32,star int32)  {
 	}
 
 	var myStar int32 = player.GetChapterStarById(chapterId)
-	fmt.Println("chapter ",chapterId," Star ",myStar)
+	fmt.Println("chapter ",chapterId," Star ",myStar,"StarReward",myChapter.StarReward)
 
 	if myStar < star {
 		fmt.Println("Lacking Star",chapterId,star)
