@@ -25,6 +25,139 @@ function SK_153_Action(battleid, casterid)
 	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 	
 	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill154")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_289_Action(battleid, casterid)
+	
+	local skillid = 289	-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 2
+
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill154")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_290_Action(battleid, casterid)
+	
+	local skillid = 290		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 3
+
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill154")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_291_Action(battleid, casterid)
+	
+	local skillid = 291		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 4
+
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+	
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill154")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_292_Action(battleid, casterid)
+	
+	local skillid = 292		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 5
+
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+	
 		Battle.TargetOn(battleid)
 		
 		local per = percent()

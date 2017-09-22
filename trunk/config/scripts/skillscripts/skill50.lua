@@ -46,5 +46,133 @@ function SK_149_Action(battleid, casterid)
 	return  true
 	 
 end
+function SK_281_Action(battleid, casterid)
+	
+	local skillid = 281		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 2
+
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill150")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_282_Action(battleid, casterid)
+	
+	local skillid = 282		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 3
+
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill150")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_283_Action(battleid, casterid)
+	
+	local skillid = 283		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 4
+
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill150")
+	end
+	
+	
+	return  true
+	 
+end
+function SK_284_Action(battleid, casterid)
+	
+	local skillid = 284		-- 技能id
+
+	local  attackNum = 0   --攻击个数
+	
+	local level = 5
+
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	
+	for i,v in ipairs(t) do
+		Battle.TargetOn(battleid)
+		
+		local per = percent()
+		
+		local skill = 5 * level
+		
+		if per < skill then 
+			
+			Player.PopAllBuffByDebuff(battleid,v)
+		
+		end
+		
+		Battle.TargetOver(battleid)
+	
+		sys.log("skill150")
+	end
+	
+	
+	return  true
+	 
+end
 
 sys.log( "skill 50 end")
