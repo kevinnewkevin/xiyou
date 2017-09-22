@@ -70,9 +70,11 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-    public bool SkillUpdateOK(int idx, int skillid)
+    public bool SkillUpdateOK(int rsId, int skillid, int idx)
     {
-        RoleSkillData.SetData(idx, skillid);
+        RoleSkillData.SetData(rsId, skillid);
+        if(idx != -1)
+            EquipSkillOK(idx, skillid);
         UIManager.Show("jinengshengji");
         UIManager.SetDirty("jineng");
         return true;
