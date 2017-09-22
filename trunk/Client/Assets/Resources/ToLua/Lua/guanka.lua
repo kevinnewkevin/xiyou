@@ -87,7 +87,7 @@ function guanka_FlushData()
 	local data = CheckpointData.GetData(guankaID);
 	smallList.numItems = smallChapters.Length;
 
-	stamaPoint.text = GamePlayer._Data.IProperties[2];
+	stamaPoint.text = GamePlayer._Data.IProperties[10];
 end
 
 function guakan_RenderListItem(index, obj)

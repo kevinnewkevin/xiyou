@@ -331,6 +331,6 @@ function jiehun_FlushData()
 	else
 		cardGroupList.numItems =  JieHunSystem.instance.ChapterHardDataList.Count;
 	end
-	stamaPoint.text = GamePlayer._Data.IProperties[2];
+	stamaPoint.text = GamePlayer._Data.IProperties[10];
 	updateReward();
 end
