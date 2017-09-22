@@ -101,19 +101,15 @@ function jineng:OnInit()
 	skill1.data = {};
 	skill1.data.rsId = 0;
 	skill1.data.down = 1;
-	skill1.data.pos = 0;
 	skill2.data = {};
 	skill2.data.rsId = 0;
 	skill2.data.down = 1;
-	skill2.data.pos = 1;
 	skill3.data = {};
 	skill3.data.rsId = 0;
 	skill3.data.down = 1;
-	skill3.data.pos = 2;
 	skill4.data = {};
 	skill4.data.rsId = 0;
 	skill4.data.down = 1;
-	skill4.data.pos = 3;
 	skill1.onDrop:Add(jineng_OnDropSkill);
 	skill2.onDrop:Add(jineng_OnDropSkill);
 	skill3.onDrop:Add(jineng_OnDropSkill);
@@ -169,15 +165,11 @@ end
 function jineng_OnDropSkill(context)
 	local rsData = RoleSkillData.GetData(context.sender.data.rsId);
 	if rsData == nil then
-		local idx = context.sender.data.pos;
-		if idx ~= nil then
-			Proxy4Lua.EquipSkill(idx, crtSelectRoleSkillId);
-		end
 		return;
 	end
 	if rsData._Type == crtSelectRoleSkilltype then
-		local idx = context.sender.data.pos;--Proxy4Lua.GetIndexBySkillID(rsData._SkillId);
-		if idx ~= nil then
+		local idx = Proxy4Lua.GetIndexBySkillID(rsData._SkillId);
+		if idx ~= -1 then
 			Proxy4Lua.EquipSkill(idx, crtSelectRoleSkillId);
 		end
 	end
@@ -375,6 +367,8 @@ function jineng_FlushData()
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
+
+			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
 		end
 
 		if allData[i-1]._Type == 1 then	--active
@@ -397,6 +391,8 @@ function jineng_FlushData()
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
+
+			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
 		end
 
 		if allData[i-1]._Type == 2 then	--critical
@@ -419,6 +415,8 @@ function jineng_FlushData()
 			skillitem.onClick:Add(jineng_OnSkillSelected);
 			skillitem.onDragStart:Add(jineng_OnDragSkill);
 			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
+
+			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
 		end
 	end
 	skilldata = Proxy4Lua.GetPlayerSkillData(0);
