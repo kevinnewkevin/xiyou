@@ -11,6 +11,7 @@ local starLab;
 local crtTab;
 local rewardShow;
 local getRewardBtn;
+local closeRewardBtn;
 local rewardOkBtn;
 local showRewardStar;
 local showRewardId;
@@ -34,12 +35,14 @@ function jiehun:OnInit()
 	cardGroupList.itemRenderer = jiehun_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n12");
 	rewardShow = self.contentPane:GetChild("n14");
+	closeRewardBtn = rewardShow:GetChild("n19");
 	getRewardBtn = rewardShow:GetChild("n18");
 	rewardOkBtn = rewardShow:GetChild("n17");
 	rewardList = rewardShow:GetChild("n12");
 	rewardNeedNum = rewardShow:GetChild("n15");
 	getRewardBtn.onClick:Add(jiehun_OnGetRewardBtn);
 	rewardOkBtn.onClick:Add(jiehun_OnRewardOkBtn);
+	closeRewardBtn.onClick:Add(jiehun_OnRewardOkBtn);
 	rewardShow.visible= false;
 	local feeList = self.contentPane:GetChild("n13").asList;
 	local feeMax = feeList.numItems;
@@ -190,6 +193,7 @@ end
 function jiehun_OnGetRewardBtn(context)
 	local data = HeroStroyData.GetData(showRewardId);
 	Proxy4Lua.RequestChapterStarReward(showRewardId,data.Star_[showRewardStar]);
+	rewardShow.visible= false;
 end
 
 function jiehun_OnRewardOkBtn(context)
