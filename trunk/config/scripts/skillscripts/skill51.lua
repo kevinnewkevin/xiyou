@@ -22,7 +22,7 @@ function SK_150_Action(battleid, casterid)
 	
 	local level = 1
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
