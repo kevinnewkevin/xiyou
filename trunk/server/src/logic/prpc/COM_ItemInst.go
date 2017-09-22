@@ -6,14 +6,14 @@ import(
 type COM_ItemInst struct{
   ItemId int32  //0
   InstId int64  //1
-  Stack_ int32  //2
+  Stack int32  //2
 }
 func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.ItemId!=0)
   mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.Stack_!=0)
+  mask.WriteBit(this.Stack!=0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -38,10 +38,10 @@ func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
-  // serialize Stack_
+  // serialize Stack
   {
-    if(this.Stack_!=0){
-      err := prpc.Write(buffer,this.Stack_)
+    if(this.Stack!=0){
+      err := prpc.Write(buffer,this.Stack)
       if err != nil{
         return err
       }
@@ -69,9 +69,9 @@ func (this *COM_ItemInst)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
-  // deserialize Stack_
+  // deserialize Stack
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Stack_)
+    err := prpc.Read(buffer,&this.Stack)
     if err != nil{
       return err
     }

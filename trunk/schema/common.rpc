@@ -11,7 +11,7 @@ struct COM_LoginInfo{
 struct COM_ItemInst{
 	int32	ItemId;
 	int64	InstId;
-	int32	Stack_;
+	int32	Stack;
 };
 
 //卡牌自带技能

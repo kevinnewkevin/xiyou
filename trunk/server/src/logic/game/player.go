@@ -450,7 +450,7 @@ func (this *GamePlayer)SyncBag()  {
 	}
 
 	for _,item := range items{
-		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack_,"InstId=",item.InstId)
+		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
 	}
 
 	//if len(items) == 0 {
@@ -470,10 +470,10 @@ func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 	}
 	for _,itemInst := range this.BagItems{
 		if itemInst.ItemId == itemId {
-			itemInst.Stack_ += itemCount
-			if itemInst.Stack_ > itemData.MaxCount {
-				itemCount = itemInst.Stack_ - itemData.MaxCount
-				itemInst.Stack_ = itemData.MaxCount
+			itemInst.Stack += itemCount
+			if itemInst.Stack > itemData.MaxCount {
+				itemCount = itemInst.Stack - itemData.MaxCount
+				itemInst.Stack = itemData.MaxCount
 			}
 			//updata bag itemInst
 			if this.session != nil {
@@ -516,8 +516,8 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 			continue
 		}
 		if this.BagItems[i].InstId == instid {
-			if this.BagItems[i].Stack_ > stack {
-				this.BagItems[i].Stack_ -= stack
+			if this.BagItems[i].Stack > stack {
+				this.BagItems[i].Stack -= stack
 				//updata item
 				if this.session != nil {
 					this.session.UpdateBagItem(*itemInst)
@@ -540,14 +540,14 @@ func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
 		return
 	}
 	for _,item := range items{
-		if item.Stack_ > delNum {
-			item.Stack_ -= delNum
+		if item.Stack > delNum {
+			item.Stack -= delNum
 			if this.session != nil {
 				this.session.UpdateBagItem(*item)
 			}
 		}else {
-			delNum -= item.Stack_
-			this.DelItemByInstId(item.InstId,item.Stack_)
+			delNum -= item.Stack
+			this.DelItemByInstId(item.InstId,item.Stack)
 		}
 	}
 }
@@ -583,7 +583,7 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 		return
 	}
 
-	if itemInst.Stack_ < useNum {
+	if itemInst.Stack < useNum {
 		return
 	}
 
@@ -702,7 +702,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 
 	var num int32
 	for _, item := range items {
-		num += item.Stack_
+		num += item.Stack
 	}
 
 	if num < level_info.ItemNum {
@@ -879,7 +879,7 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 
 	var curnum int32
 	for _, item := range items{
-		curnum += item.Stack_
+		curnum += item.Stack
 	}
 
 	if curnum < updateInfo.NeedNum {

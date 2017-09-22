@@ -71,10 +71,10 @@ func GenItemInst(itemId int32,itemCount int32) []*prpc.COM_ItemInst {
 		item.InstId = atomic.AddInt64(&rootItemInstId, 1)
 
 		if itemData.MaxCount > itemCount {
-			item.Stack_ = itemCount
+			item.Stack = itemCount
 			itemCount = 0
 		}else {
-			item.Stack_ = itemData.MaxCount
+			item.Stack = itemData.MaxCount
 			itemCount -= itemData.MaxCount
 		}
 

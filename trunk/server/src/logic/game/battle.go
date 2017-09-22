@@ -303,7 +303,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 						fmt.Println("PVE GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 						itemInst := prpc.COM_ItemInst{}
 						itemInst.ItemId = item.ItemId
-						itemInst.Stack_ = item.ItemNum
+						itemInst.Stack = item.ItemNum
 						result.BattleItems = append(result.BattleItems,itemInst)
 					}
 				}
@@ -343,7 +343,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 							fmt.Println("PVP GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 							itemInst := prpc.COM_ItemInst{}
 							itemInst.ItemId = item.ItemId
-							itemInst.Stack_ = item.ItemNum
+							itemInst.Stack = item.ItemNum
 							result.BattleItems = append(result.BattleItems,itemInst)
 						}
 					}
