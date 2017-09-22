@@ -127,16 +127,16 @@ function jiehun_RenderListItem(index, obj)
 		for i=1, len do
 
 			if comData.StarReward[i-1] == 10 then
-				boxOpen0.visible =false;
-				boxNoOpen0.visible =true;
+				boxOpen0.visible =true;
+				boxNoOpen0.visible =false;
 			end
 			if comData.StarReward[i-1] == 20 then
-				boxOpen1.visible =false;
-				boxNoOpen1.visible =true;
+				boxOpen1.visible =true;
+				boxNoOpen1.visible =false;
 			end
 			if comData.StarReward[i-1] == 30 then
-				boxOpen2.visible =false;
-				boxNoOpen2.visible =true;
+				boxOpen2.visible =true;
+				boxNoOpen2.visible =false;
 			end
 		end
 	else
@@ -282,8 +282,7 @@ function updateReward()
 				starNum = starNum +1;
 			end
 		end
-
-
+			
 		if  starNum > data.Star_[showRewardStar]  then
 			if comData.StarReward == nil then
 				getRewardBtn.visible = true;
