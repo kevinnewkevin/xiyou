@@ -811,6 +811,9 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	var idx int32
 	for index, skill := range this.MyUnit.Skill {
+		if skill == nil {
+			continue
+		}
 		if skill.SkillID == learnSkill.SkillID{
 			idx = index
 			break
@@ -840,12 +843,37 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 	}
 
 	//检测道具是否拥有
+	curCopper := this.MyUnit.GetIProperty(prpc.IPT_COPPER)
+
+	if curCopper < updateInfo.NeedMoney {
+		return
+	}
+
+	curCopper -= updateInfo.NeedMoney
+
+	items := this.GetBagItemByTableId(updateInfo.NeedItem)
+
+	if len(items) <= 0 {
+		return
+	}
+
+	var curnum int32
+	for _, item := range items{
+		curnum += item.Stack_
+	}
+
+	if curnum < updateInfo.NeedNum {
+		return
+	}
 
 	new_skill := InitSkillFromTable(updateInfo.NextID)
 
 	if new_skill == nil {
 		return
 	}
+
+	this.MyUnit.SetIProperty(prpc.IPT_COPPER, curCopper)
+	this.DelItemByTableId(updateInfo.NeedItem, updateInfo.NeedNum)
 
 	var skillpos int32 = 999
 	for idx, skill := range this.MyUnit.Skill {

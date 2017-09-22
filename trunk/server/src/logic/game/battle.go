@@ -812,6 +812,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 
 	return u_list[idx]
 }
+
 //写死
 func GetNearPos(pos int32) []int32 {
 	if pos < prpc.BP_RED_1 || pos >= prpc.BP_MAX{

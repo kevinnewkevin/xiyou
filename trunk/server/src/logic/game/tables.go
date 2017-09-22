@@ -68,6 +68,7 @@ type (
 		NeedItem	int32
 		NeedNum		int32
 		NextID 		int32
+		NeedMoney 	int32
 	}
 )
 
@@ -345,6 +346,7 @@ func LoadRoleSkillUpdateTable(filename string) error {
 		ID := csv.GetInt32(r, "SkillID")
 		s.NeedItem = csv.GetInt32(r, "NeedItem")
 		s.NeedNum = csv.GetInt32(r, "NeedNum")
+		s.NeedMoney = csv.GetInt32(r, "NeedMoney")
 		s.NextID = csv.GetInt32(r, "NextID")
 
 		RoleSkillUpdateTable[ID] = &s
