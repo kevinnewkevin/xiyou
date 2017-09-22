@@ -183,6 +183,7 @@ function jineng:OnUpdate()
 
 	if isNewOpen and activeList.numItems > 0 then
 		activeList.selectedIndex = 0;
+		crtSelectRoleSkillId = activeList:GetChildAt(0).data.rsId;
 		jineng_OnlyLeftFlushData();
 		isNewOpen = false;
 	end
