@@ -130,7 +130,7 @@ public class BagSystem {
         {
             if (_ItemsByType[0][i].ItemId == itemId)
             {
-                num += _ItemsByType[0][i].Stack_;
+                num += _ItemsByType[0][i].Stack;
             }
         }
         return num;
