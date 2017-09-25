@@ -176,7 +176,7 @@ function SK_334_Action(battleid, casterid)
 	
 	local skillid = 334	-- 技能id
 
-	local level = 12
+	local level = 13
 	
 	--local  t = Player.GetFriend(battleid,casterid)  --获取目标
 
