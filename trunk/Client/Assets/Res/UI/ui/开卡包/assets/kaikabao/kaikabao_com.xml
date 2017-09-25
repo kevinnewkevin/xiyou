@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <graph id="n4_jm1c" name="n4" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
+    <component id="n0_ains" name="n0" src="jm1c6" xy="960,516" pivot="0.5,0.5" anchor="true"/>
+    <list id="n2_jm1c" name="n2" xy="966,558" pivot="0.5,0.5" anchor="true" size="1552,878" layout="flow_hz" overflow="scroll" margin="18,14,20,20" lineGap="50" colGap="50"/>
+    <text id="n3_jm1c" name="n3" xy="738,1006" size="464,59" font="方正楷体_GBK" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="点击继续"/>
+    <component id="n5_jm1c" name="n5" src="jm1c7" xy="736,291"/>
+  </displayList>
+  <transition name="t1">
+    <item time="0" type="Alpha" target="n2_jm1c" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="0" type="Size" target="n2_jm1c" tween="true" startValue="110,66" endValue="1552,878" duration="18"/>
+  </transition>
+</component>

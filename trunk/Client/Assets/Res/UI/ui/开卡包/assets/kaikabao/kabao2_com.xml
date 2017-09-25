@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="442,439">
+  <displayList>
+    <loader id="n5_jm1c" name="n5" xy="222,225" pivot="0.5,0.5" anchor="true" size="442,439" url="ui://4r9f9n7gj7dt1" align="center" vAlign="middle"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n5_jm1c" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
+  </transition>
+</component>
