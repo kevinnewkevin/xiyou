@@ -429,14 +429,16 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 	return nil
 }
 
-func (this *GamePlayer) SetProprty(battleid int64, camp int) {
-	this.BattleId = battleid
+func (this *GamePlayer) SetProprty(battle *BattleRoom, camp int) {
+	this.BattleId = battle.InstId
 	this.BattleCamp = camp
 	this.BattlePoint = 1
-	this.MyUnit.ResetBattle(camp, true, battleid)
+	this.MyUnit.ResetBattle(camp, true, battle.InstId)
+	this.MyUnit.CastPassiveSkill(battle)
 
 	for _, u := range this.UnitList {
-		u.ResetBattle(camp, false, battleid)
+		u.ResetBattle(camp, false, battle.InstId)
+		u.CastPassiveSkill(battle)
 	}
 }
 

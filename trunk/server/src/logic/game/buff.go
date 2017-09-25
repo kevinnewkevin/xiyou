@@ -67,10 +67,6 @@ func (this *Buff) AddProperty() {
 
 func (this *Buff) DeleteProperty() {
 
-	if this.BuffKind == kKindStill {			//被动buff永远不会删除
-		return
-	}
-
 	fmt.Println("DeleteProperty", this.Data, this.InstId)
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
@@ -84,6 +80,10 @@ func (this *Buff) DeleteProperty() {
 
 
 func (this *Buff) Update(round int32) bool {
+	if this.BuffKind == kKindStill {
+		return false				// 被动buff不会结算
+	}
+
 	fmt.Println("buff每回合更新 实例ID为:", this.InstId, "round is ", round, "myRound is ", this.Round)
 
 	needDel := false

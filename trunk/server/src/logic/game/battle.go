@@ -86,12 +86,11 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Point = 1
 	room.BattleID = battleid
 
-	room.Monster = CreateMonster(battleid, room.InstId)
-
-	p.SetProprty(room.InstId, prpc.CT_RED)
-
 	fmt.Println("CreatePvE", &room)
 	BattleRoomList[room.InstId] = &room
+
+	room.Monster = CreateMonster(battleid, room.InstId)
+	p.SetProprty(&room, prpc.CT_RED)
 
 	room.BattleStart()
 	go room.BattleUpdate()
@@ -140,6 +139,7 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Type = prpc.BT_PVP
 	room.Point = 1
 	room.BattleID = 0
+	room.TargetCOM = prpc.COM_BattleActionTarget{}
 
 	//p0.BattleId = room.InstId
 	//p1.BattleId = room.InstId
@@ -147,11 +147,11 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	//p0.BattleCamp = prpc.CT_RED
 	//p1.BattleCamp = prpc.CT_BLUE
 
-	p0.SetProprty(room.InstId, prpc.CT_RED)
-	p1.SetProprty(room.InstId, prpc.CT_BLUE)
-
 	BattleRoomList[room.InstId] = &room
 	fmt.Println("CreatePvP", &room)
+
+	p0.SetProprty(&room, prpc.CT_RED)
+	p1.SetProprty(&room, prpc.CT_BLUE)
 
 	room.BattleStart()
 	go room.BattleUpdate()
@@ -423,7 +423,7 @@ func (this *BattleRoom) Update() {
 			continue
 		}
 
-		u.CastSkill2(this)
+		u.CastSkill(this)
 
 		//this.TargetOver()
 
@@ -915,12 +915,16 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 		if u == nil {
 			continue
 		}
+
 		if u.InstId == instid {
 			return u
 		}
 	}
 
 	for _, p := range this.PlayerList {
+		if instid == p.MyUnit.InstId{
+			return p.MyUnit
+		}
 		for _, u := range p.UnitList {
 			if u.InstId == instid{
 				return u

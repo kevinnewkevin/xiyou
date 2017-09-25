@@ -906,7 +906,7 @@ func __Attack(p unsafe.Pointer) C.int {
 //export __Cure
 func __Cure(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__Cure")
+	fmt.Println("__Cure")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -920,9 +920,9 @@ func __Cure(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	battle.AddHp(int64(target), int32(damage), int32(crit))
+	fmt.Println("6666666666666", battleid, target, crit, damage)
 
-	//fmt.Println("6666666666666", battleid, target, crit, damage)
+	battle.AddHp(int64(target), int32(damage), int32(crit))
 
 	return 0
 }
