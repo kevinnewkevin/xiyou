@@ -935,6 +935,42 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	return nil
 }
 
+func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
+	unit := this.SelectOneUnit(instid)
+
+	if unit == nil {
+		return 0
+	}
+
+	if this.Type == prpc.BT_PVP {
+		for _, p := range this.PlayerList {
+			if MyCamp && p.MyUnit.Camp == unit.Camp {
+				return p.MyUnit.InstId
+			}
+
+			if !MyCamp && p.MyUnit.Camp != unit.Camp {
+				return p.MyUnit.InstId
+			}
+		}
+	} else {
+		if unit.Camp == this.PlayerList[0].MyUnit.Camp {
+			if MyCamp {
+				return this.PlayerList[0].MyUnit.InstId
+			} else {
+				return this.Monster.MainUnit.InstId
+			}
+		} else {
+			if MyCamp{
+				return this.Monster.MainUnit.InstId
+			} else {
+				return this.PlayerList[0].MyUnit.InstId
+			}
+		}
+	}
+
+	return 0
+}
+
 ////////////////////////////////////////////////////////////////////////
 ////player测试
 ////////////////////////////////////////////////////////////////////////

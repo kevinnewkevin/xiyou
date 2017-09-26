@@ -5,8 +5,10 @@ extern int __loadfile(void*);
 extern int __DefineCards(void*);
 extern int __GetStrings(void*);
 extern int __GetFriend(void*);
+extern int __GetMainFriend(void*);
 extern int __GetFriends(void*);
 extern int __GetTarget(void*);
+extern int __GetMainTarget(void*);
 extern int __GetTargets(void*);
 extern int __GetTargetsAround(void*);
 extern int __GetUnitProperty(void*);
@@ -82,8 +84,10 @@ func InitLua(r string){
 	_L.LoadApi(C.__DefineCards,"DefineCards","Server")
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
 	_L.LoadApi(C.__GetFriend,"GetFriend","Player")
+	_L.LoadApi(C.__GetMainFriend,"GetMainFriend","Player")
 	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
+	_L.LoadApi(C.__GetMainTarget,"GetMainTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetTargetsAround,"GetTargetsAround","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
@@ -209,6 +213,56 @@ func __GetTarget(p unsafe.Pointer) C.int {
 	//	t_id = int(u.InstId)
 	//	break
 	//}
+
+	fmt.Println("__GetTarget end ,", t_id)
+
+	L.PushInteger(int(t_id))
+
+	return 1
+}
+
+//export __GetMainTarget
+func __GetMainTarget(p unsafe.Pointer) C.int {
+
+	fmt.Println("__GetTarget")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	uid := L.ToInteger(idx)
+
+	//fmt.Println(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+
+	t_id := 0
+	battle.selectMainUnit(int64(uid), false)
+
+	fmt.Println("__GetTarget end ,", t_id)
+
+	L.PushInteger(int(t_id))
+
+	return 1
+}
+
+//export __GetMainFriend
+func __GetMainFriend(p unsafe.Pointer) C.int {
+
+	fmt.Println("__GetTarget")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	uid := L.ToInteger(idx)
+
+	//fmt.Println(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+
+	t_id := 0
+	battle.selectMainUnit(int64(uid), true)
 
 	fmt.Println("__GetTarget end ,", t_id)
 
