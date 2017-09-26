@@ -224,7 +224,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 //export __GetMainTarget
 func __GetMainTarget(p unsafe.Pointer) C.int {
 
-	fmt.Println("__GetTarget")
+	fmt.Println("__GetMainTarget")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -236,10 +236,10 @@ func __GetMainTarget(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	t_id := 0
-	battle.selectMainUnit(int64(uid), false)
+	var t_id int64
+	t_id = battle.selectMainUnit(int64(uid), false)
 
-	fmt.Println("__GetTarget end ,", t_id)
+	fmt.Println("__GetMainTarget end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -261,8 +261,8 @@ func __GetMainFriend(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	t_id := 0
-	battle.selectMainUnit(int64(uid), true)
+	var t_id int64
+	t_id = battle.selectMainUnit(int64(uid), true)
 
 	fmt.Println("__GetTarget end ,", t_id)
 

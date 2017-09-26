@@ -960,13 +960,15 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 				return this.Monster.MainUnit.InstId
 			}
 		} else {
-			if MyCamp{
+			if MyCamp {
 				return this.Monster.MainUnit.InstId
 			} else {
 				return this.PlayerList[0].MyUnit.InstId
 			}
 		}
 	}
+
+	fmt.Println("selectMainUnit end ", 0)
 
 	return 0
 }
