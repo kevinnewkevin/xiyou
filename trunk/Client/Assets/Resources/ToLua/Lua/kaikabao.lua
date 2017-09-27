@@ -54,7 +54,6 @@ function kaikabao:OnInit()
 	openCom.onClick:Add(kaikabao_OnBoxBtn);
 
 
-
 	timeOut = {};
 	timeOut.max = 2;
 	timeOut.count = 0;
@@ -94,6 +93,22 @@ function kaikabao_FlushData()
 	local quality;
 	local icon;
 	local iData;
+	local shopType = ShopSystem.buyType;
+	local btnImg = openCom:GetChild("n0");
+	local btnImg1 = outCom:GetChild("n5");
+	if shopType == 1000 then
+		btnImg.asLoader.url  = "ui://kaikabao/kabao1";
+		btnImg1.asLoader.url  = "ui://kaikabao/kabao1";
+	end
+	if shopType == 1001 then
+		btnImg.asLoader.url  = "ui://kaikabao/kabao2";
+		btnImg1.asLoader.url  = "ui://kaikabao/kabao2";
+	end
+	if shopType == 1002 then
+		btnImg.asLoader.url  = "ui://kaikabao/kabao3";
+		btnImg1.asLoader.url  = "ui://kaikabao/kabao3";
+	end
+
 
 	local showChapters = UIParamHolder.Get("showChaptersDrop");
 

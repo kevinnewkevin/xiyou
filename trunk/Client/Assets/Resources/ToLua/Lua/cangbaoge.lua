@@ -104,11 +104,12 @@ end
 
 function cangbaoge_OnBuyClick(context)
 
-	local shopData = ShopData.GetData(1002);
+	local shopData = ShopData.GetData(context.sender.data);
 	if shopData._Price > GamePlayer._Data.IProperties[8] then
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "金不够", true);
 		return;
 	end
+	ShopSystem.buyType = context.sender.data;
 	Proxy4Lua.BuyShopItem(context.sender.data);
-end
+end 
