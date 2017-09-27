@@ -57,6 +57,9 @@ type COM_ClientToServer_SkillUpdate struct{
   skillIndex int32  //0
   skillID int32  //1
 }
+type COM_ClientToServer_BuyShopItem struct{
+  shopId int32  //0
+}
 type COM_ClientToServerStub struct{
   Sender prpc.StubSender
 }
@@ -78,6 +81,7 @@ type COM_ClientToServerProxy interface{
   PromoteUnit(instId int64 ) error // 14
   EquipSkill(skillInfo COM_LearnSkill ) error // 15
   SkillUpdate(skillIndex int32, skillID int32 ) error // 16
+  BuyShopItem(shopId int32 ) error // 17
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -752,6 +756,42 @@ func (this *COM_ClientToServer_SkillUpdate)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_BuyShopItem)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.shopId!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize shopId
+  {
+    if(this.shopId!=0){
+      err := prpc.Write(buffer,this.shopId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_BuyShopItem)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize shopId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.shopId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1037,6 +1077,23 @@ func(this* COM_ClientToServerStub)SkillUpdate(skillIndex int32, skillID int32 ) 
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)BuyShopItem(shopId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(17))
+  if err != nil{
+    return err
+  }
+  _17 := COM_ClientToServer_BuyShopItem{}
+  _17.shopId = shopId;
+  err = _17.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1265,6 +1322,20 @@ func Bridging_COM_ClientToServer_SkillUpdate(buffer *bytes.Buffer, p COM_ClientT
   }
   return p.SkillUpdate(_16.skillIndex,_16.skillID)
 }
+func Bridging_COM_ClientToServer_BuyShopItem(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _17 := COM_ClientToServer_BuyShopItem{}
+  err := _17.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.BuyShopItem(_17.shopId)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1312,6 +1383,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_EquipSkill(buffer,p);
     case 16 :
       return Bridging_COM_ClientToServer_SkillUpdate(buffer,p);
+    case 17 :
+      return Bridging_COM_ClientToServer_BuyShopItem(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

@@ -654,8 +654,8 @@ func (this *GamePlayer)AddExp(val int32)  {
 }
 
 func (this *GamePlayer)AddCopper(val int32)  {
-	curCopper := this.MyUnit.GetIProperty(prpc.IPT_COPPER)
-	curCopper += val
+	oldCopper := this.MyUnit.GetIProperty(prpc.IPT_COPPER)
+	curCopper := oldCopper + val
 	if curCopper < 0  {
 		curCopper=0
 	}
@@ -664,7 +664,21 @@ func (this *GamePlayer)AddCopper(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER,curCopper)
 
-	fmt.Println("append copper",val,"all copper",curCopper)
+	fmt.Println("Player[",this.MyUnit.InstName,"]","Old Copper=",oldCopper,"curCopper=",curCopper)
+}
+
+func (this *GamePlayer)AddGold(val int32)  {
+	oldGold := this.MyUnit.GetIProperty(prpc.IPT_GOLD)
+	curGold := oldGold + val
+	if curGold < 0  {
+		curGold=0
+	}
+	if curGold>CopperMax {
+		curGold=CopperMax
+	}
+	this.MyUnit.SetIProperty(prpc.IPT_GOLD,curGold)
+
+	fmt.Println("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
 }
 
 func (this *GamePlayer) ClearAllBuff ()  {
@@ -974,6 +988,71 @@ func (this * GamePlayer)CheckSkillBase() {
 
 }
 
+func (this *GamePlayer)BuyShopItem(shopId int32)  {
+	shopData := GetShopDataById(shopId)
+	if shopData == nil {
+		return
+	}
+
+	if shopData.CurrenciesKind == prpc.IPT_GOLD{
+
+		myGold := this.MyUnit.GetIProperty(prpc.IPT_GOLD)
+		if myGold < shopData.Price {
+			return
+		}
+		this.AddGold(-shopData.Price)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
+	}
+
+	if shopData.ShopType == prpc.SHT_Card {
+		this.OpenTreasureBox(shopData.CardPondId)
+	}
+}
+
+func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
+	data := GetCardPondTableDataById(pondId)
+	if data==nil {
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GetCardPondTableDataById Can Not Find pondId=",pondId)
+		return false
+	}
+
+	var items []int32
+
+	greenItems 		:= data.GetGreenCardItems()
+	buleItems  		:= data.GetBlueCardItems()
+	purplenItems 	:= data.GetPurpleCardItems()
+	orangeItems 	:= data.GetOrangeCardItems()
+
+	for _,itemId := range greenItems{
+		this.AddBagItemByItemId(itemId,1)
+		items = append(items,itemId)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
+	}
+	for _,itemId := range buleItems{
+		this.AddBagItemByItemId(itemId,1)
+		items = append(items,itemId)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
+	}
+	for _,itemId := range purplenItems{
+		this.AddBagItemByItemId(itemId,1)
+		items = append(items,itemId)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
+	}
+	for _,itemId := range orangeItems{
+		this.AddBagItemByItemId(itemId,1)
+		items = append(items,itemId)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
+	}
+
+	fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox Get All ItemNum=",len(items))
+
+	if this.session != nil {
+		this.session.BuyShopItemOK(items)
+	}
+	
+	return true
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -981,11 +1060,9 @@ func (this * GamePlayer)CheckSkillBase() {
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
 
-	P1.AddBagItemByItemId(1000,10)
-	items := P1.GetBagItemByTableId(1000)
-	for _,item := range items{
-		P1.UseItem(item.InstId,1)
-	}
+	P1.BuyShopItem(1000)
+	P1.BuyShopItem(1001)
+	P1.BuyShopItem(1002)
 }
 
 func (this *GamePlayer)TestItem()  {
@@ -994,4 +1071,5 @@ func (this *GamePlayer)TestItem()  {
 	}
 	this.AddBagItemByItemId(5000,2000)
 	this.AddCopper(10000000)
+	this.AddGold(10000)
 }

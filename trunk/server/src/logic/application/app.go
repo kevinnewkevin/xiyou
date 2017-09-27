@@ -98,6 +98,18 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadShopTable("../../../config/tables/ShopData.csv")
+	if err != nil {
+		fmt.Println("LoadShopTable", err.Error())
+		return
+	}
+
+	err = game.LoadCardPondTable("../../../config/tables/Cardclose.csv")
+	if err != nil {
+		fmt.Println("LoadCardPondTable", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

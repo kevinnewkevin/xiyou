@@ -179,6 +179,14 @@ func (this *Session)SkillUpdate(skillindex int32, skillId int32) error  {
 	return nil
 }
 
+func (this *Session)BuyShopItem(shopId int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.BuyShopItem(shopId)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

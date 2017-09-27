@@ -43,4 +43,5 @@ service COM_ServerToClient{
 	RequestChapterStarRewardOK();
 	EquipSkillOK(int32 skillIndex, int32 skillID);			//技能学习完成
 	SkillUpdateOK(int32 skillIndex, int32 skillID, int32 skillpos);		//技能学习完成
+	BuyShopItemOK(int32[] items);
 };
