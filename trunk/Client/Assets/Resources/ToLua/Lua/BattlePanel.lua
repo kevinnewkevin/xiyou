@@ -207,7 +207,9 @@ function BattlePanel_FlushData()
 	if Battle._Turn == 1 and mainActor == nil then
 		if Battle._CurrentState == Battle.BattleState.BS_Oper then
 			stateIcon.enabled = false;
-			selectMainRolePos.visible = true;
+--			selectMainRolePos.visible = true;
+			Battle.PutMainInBattle();
+			BattlePanel_FlushData();
 		end
 	else 
 		stateIcon.enabled = true;

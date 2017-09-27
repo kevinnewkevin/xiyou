@@ -129,8 +129,10 @@ public class Battle {
             case BattleState.BS_Oper:
                 if (GamePlayer._IsAuto)
                 {
-                    CurrentState = BattleState.BS_Play;
-                    PutCardInBattle();
+                    if (_Turn == 1)
+                        PutMainInBattle();
+                    else
+                        PutCardInBattle();
                 }
                 else
                 {
@@ -235,6 +237,23 @@ public class Battle {
         }
         BattleSetup();
     }
+
+    static public void PutMainInBattle()
+    {
+        EntityData entity = null;
+        for(int i=0; i < _HandCards.Count; ++i)
+        {
+            entity = EntityData.GetData(_HandCards [i].UnitId);
+            if (entity != null && entity._Cost <= _Fee)
+            {
+                num++;
+                _SelectedHandCardInstID = _HandCards [i].InstId;
+                OperateSetActor(4);
+            }
+        }
+        BattleSetup();
+    }
+
     static public OpraSystem op;
     static bool LoadAssets()
     {
