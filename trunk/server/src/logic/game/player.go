@@ -476,12 +476,17 @@ func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 			if itemInst.Stack > itemData.MaxCount {
 				itemCount = itemInst.Stack - itemData.MaxCount
 				itemInst.Stack = itemData.MaxCount
+			}else {
+				itemCount = 0
 			}
+
 			//updata bag itemInst
 			if this.session != nil {
 				this.session.UpdateBagItem(*itemInst)
 			}
-			break;
+			if itemCount==0 {
+				break;
+			}
 		}
 	}
 	if itemCount > 0 {
@@ -1076,17 +1081,20 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-
-	P1.BuyShopItem(1000)
-	P1.BuyShopItem(1001)
-	P1.BuyShopItem(1002)
+	P1.AddBagItemByItemId(8,10)
+	P1.AddBagItemByItemId(8,10)
+	P1.AddBagItemByItemId(8,10)
+	P1.AddBagItemByItemId(8,10)
+	for i:=0;i<len(P1.BagItems) ;i++  {
+		fmt.Println("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
+	}
 }
 
 func (this *GamePlayer)TestItem()  {
-	for i := 1; i < 9 ; i++ {	//测试用
-		this.AddBagItemByItemId(int32(i), 10)
-	}
-	this.AddBagItemByItemId(5000,2000)
+	//for i := 1; i < 9 ; i++ {	//测试用
+	//	this.AddBagItemByItemId(int32(i), 10)
+	//}
+	//this.AddBagItemByItemId(5000,2000)
 	this.AddCopper(10000000)
 	this.AddGold(10000)
 }
