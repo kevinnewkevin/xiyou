@@ -9,7 +9,7 @@ local selectList;
 local randNameBtn;
 
 function xuanren:OnEntry()
-	Window = denglu.New();
+	Window = xuanren.New();
 	Window:Show();
 end
 
@@ -17,7 +17,7 @@ function xuanren:GetWindow()
 	return Window;
 end
 
-function denglu:OnInit()
+function xuanren:OnInit()
 	self.contentPane = UIPackage.CreateObject("xuanren", "xuanren_com").asCom;
 	self:Center();
 
@@ -27,6 +27,8 @@ function denglu:OnInit()
 	randNameBtn = self.contentPane:GetChild("n4");
 	randNameBtn.onClick:Add(xuanren_RandName);
 
+	selectList.onClickItem:Add(xuanren_OnSelectRole);
+
 	name.text = RandNameData.Rand();
 
 	createBtn.onClick:Add(xuanren_OnCreate);
@@ -34,6 +36,10 @@ end
 
 function xuanren_RandName()
 	name.text = RandNameData.Rand();
+end
+
+function xuanren_OnSelectRole()
+	Proxy4Lua.SelectRole(selectList.selectedIndex);
 end
 
 function xuanren:OnUpdate()
