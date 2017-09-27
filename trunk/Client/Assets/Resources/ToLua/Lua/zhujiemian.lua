@@ -42,6 +42,10 @@ function zhujiemian:OnInit()
 --	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
+
+	local shopBtn = bottomBtnList:GetChildAt(2);
+	shopBtn.onClick:Add(zhujiemian_OnShop);
+
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
@@ -128,4 +132,8 @@ end
 
 function zhujiemian_OnBagBtn()
 	UIManager.Show("bagui");
+end
+
+function zhujiemian_OnShop()
+	UIManager.Show("cangbaoge");
 end
