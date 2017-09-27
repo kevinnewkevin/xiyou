@@ -258,6 +258,20 @@ public class Proxy4Lua {
         }
     }
 
+    static public SkillData GetCardInstSkillData(long instId, int idx)
+    {
+        COM_Unit unit = GamePlayer.GetCardByInstID(instId);
+        if (unit == null)
+            return null;
+
+        for(int i=0; i < unit.Skills.Length; ++i)
+        {
+            if (unit.Skills [i].Pos == idx)
+                return SkillData.GetData(unit.Skills [i].SkillId);
+        }
+        return null;
+    }
+
     static public SkillData GetPlayerSkillData(int idx)
     {
         if (GamePlayer._Data.Skills == null)
