@@ -172,7 +172,8 @@ public class JieHunSystem
 							chapteList [i].StarReward [k] = (boxId + 1) * 10;
 							break;
 						}
-					}		
+					}	
+					
 
 				}
 			}
