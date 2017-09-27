@@ -83,3 +83,9 @@ enum BuffSpecial{
 	BF_ATKCURE,		//受伤后回血
 	BF_MAX,
 };
+//
+enum ShopType{
+	SHT_Min,
+	SHT_Card,
+	SHT_Max,
+};

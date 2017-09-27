@@ -18,6 +18,7 @@ service COM_ClientToServer{
 	PromoteUnit(int64 instId);					//晋升卡牌
 	EquipSkill(COM_LearnSkill skillInfo);					//技能学习
 	SkillUpdate(int32 skillIndex, int32 skillID);			//技能学习 技能升级
+	BuyShopItem(int32 shopId);
 };
 
 service COM_ServerToClient{
