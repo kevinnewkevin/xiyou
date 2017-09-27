@@ -20,9 +20,17 @@
     <component id="k7i8g" name="jinbi_com.xml" path="/" exported="true"/>
     <component id="k7i8h" name="jiahao_button.xml" path="/" exported="true"/>
     <component id="l9rhi" name="guanbi1_button.xml" path="/" exported="true"/>
-    <component id="l9rhj" name="chouka_com.xml" path="/" exported="true"/>
+    <component id="l9rhj" name="chongzhi_com.xml" path="/" exported="true"/>
     <component id="l9rhk" name="goumai3_button.xml" path="/" exported="true"/>
     <component id="l9rhl" name="goumai2_button.xml" path="/" exported="true"/>
+    <image id="t33em" name="maitongbi.png" path="/" exported="true"/>
+    <image id="t33en" name="chongzhi.png" path="/" exported="true"/>
+    <image id="t33eo" name="daojukuang.png" path="/" exported="true"/>
+    <image id="t33ep" name="jiazi.png" path="/" exported="true" scale="9grid" scale9grid="80,28,26,12"/>
+    <component id="t33eq" name="chouka_com.xml" path="/" exported="true"/>
+    <component id="t33er" name="daoju_Button.xml" path="/" exported="true"/>
+    <component id="t33es" name="goumaitongbi_com.xml" path="/" exported="true"/>
+    <image id="t33et" name="ewai.png" path="/" exported="true" scale="9grid" scale9grid="14,30,28,32"/>
   </resources>
   <publish name="cangbaoge" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
