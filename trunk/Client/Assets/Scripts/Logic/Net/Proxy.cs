@@ -150,8 +150,12 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-	public bool BuyShopItemOK (ref int[] items)
+	public bool BuyShopItemOK (ref COM_ItemInst[] items)
 	{
+		ShopSystem.BuyItems = items;
+		UIManager.SetDirty("cangbaoge");
+		UIManager.Show("kaikabao");
+
 		return true;
 	}
 }

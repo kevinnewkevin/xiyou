@@ -70,6 +70,11 @@ public class Proxy4Lua {
         NetWoking.S.SkillUpdate(idx, skillid);
     }
 
+	static public void BuyShopItem(int shopId)
+	{
+		NetWoking.S.BuyShopItem (shopId);	
+	}
+
     static public void EquipSkill(int idx, int skillid)
     {
         COM_LearnSkill ls = new COM_LearnSkill();
