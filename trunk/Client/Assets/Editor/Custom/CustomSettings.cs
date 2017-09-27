@@ -226,9 +226,11 @@ public static class CustomSettings
         _GT(typeof(List<RoleSkillData>)),
         _GT(typeof(JieHunSystem)),
         _GT(typeof(COM_Chapter)),
-         _GT(typeof(COM_SmallChapter)),
-         _GT(typeof(DropData)),
-        _GT(typeof(LuaWindow)),
+        _GT(typeof(COM_SmallChapter)),
+        _GT(typeof(DropData)),
+		_GT(typeof(ShopData)),
+		_GT(typeof(ShopSystem)),
+		_GT(typeof(LuaWindow)),
 
     };
 
