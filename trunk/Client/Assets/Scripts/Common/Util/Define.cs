@@ -8,6 +8,9 @@ public class Define {
     public const string ASSET_EXT = ".ab";
     public const string TXT_EXT = ".bytes";
 
+    public const int MALE_ID = 1;
+    public const int FEMALE_ID = 2;
+
     public const string SCENE_MAIN = "main";
     public const string SCENE_CREATE = "createRole";
     public const string SCENE_BATTLE = "haidizhandou";
