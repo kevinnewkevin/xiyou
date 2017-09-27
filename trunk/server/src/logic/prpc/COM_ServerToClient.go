@@ -68,7 +68,7 @@ type COM_ServerToClient_SkillUpdateOK struct{
   skillpos int32  //2
 }
 type COM_ServerToClient_BuyShopItemOK struct{
-  items []int32  //0
+  items []COM_ItemInst  //0
 }
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
@@ -95,7 +95,7 @@ type COM_ServerToClientProxy interface{
   RequestChapterStarRewardOK() error // 18
   EquipSkillOK(skillIndex int32, skillID int32 ) error // 19
   SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error // 20
-  BuyShopItemOK(items []int32 ) error // 21
+  BuyShopItemOK(items []COM_ItemInst ) error // 21
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -929,7 +929,7 @@ func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) err
       }
     }
     for _, value := range this.items {
-      err := prpc.Write(buffer,value)
+      err := value.Serialize(buffer)
       if err != nil {
         return err
       }
@@ -950,9 +950,9 @@ func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) e
     if err != nil{
       return err
     }
-    this.items = make([]int32,size)
+    this.items = make([]COM_ItemInst,size)
     for i,_ := range this.items{
-      err := prpc.Read(buffer,&this.items[i])
+      err := this.items[i].Deserialize(buffer)
       if err != nil{
         return err
       }
@@ -1308,7 +1308,7 @@ func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32,
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)BuyShopItemOK(items []int32 ) error {
+func(this* COM_ServerToClientStub)BuyShopItemOK(items []COM_ItemInst ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)

@@ -1024,30 +1024,47 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 	orangeItems 	:= data.GetOrangeCardItems()
 
 	for _,itemId := range greenItems{
-		this.AddBagItemByItemId(itemId,1)
 		items = append(items,itemId)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
+		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
 	}
 	for _,itemId := range buleItems{
-		this.AddBagItemByItemId(itemId,1)
 		items = append(items,itemId)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
+		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
 	}
 	for _,itemId := range purplenItems{
-		this.AddBagItemByItemId(itemId,1)
 		items = append(items,itemId)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
+		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
 	}
 	for _,itemId := range orangeItems{
-		this.AddBagItemByItemId(itemId,1)
 		items = append(items,itemId)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
+		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
 	}
 
-	fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox Get All ItemNum=",len(items))
+	itemInsts := []prpc.COM_ItemInst{}
+	for _,itemId := range items {
+		var isHave bool = false
+		for i:=0;i<len(itemInsts) ;i++  {
+			if itemInsts[i].ItemId == itemId {
+				itemInsts[i].Stack++
+				isHave = true
+				break
+			}
+		}
+		if !isHave {
+			item := prpc.COM_ItemInst{}
+			item.ItemId = itemId
+			item.Stack	= 1
+			itemInsts = append(itemInsts,item)
+		}
+	}
+
+	for _,item := range itemInsts{
+		this.AddBagItemByItemId(item.ItemId,item.Stack)
+		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox AddItem ID=",item.ItemId,"Num=",item.Stack)
+	}
 
 	if this.session != nil {
-		this.session.BuyShopItemOK(items)
+		this.session.BuyShopItemOK(itemInsts)
 	}
 	
 	return true
