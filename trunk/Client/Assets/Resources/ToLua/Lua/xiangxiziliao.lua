@@ -268,7 +268,6 @@ function xiangxiziliao_FlushData()
 	local entityData = GamePlayer.GetEntityDataByInstID(instId);
 	fee.text = entityData._Cost;
 	name.text = entityData._Name;
-
 	local entityInst = GamePlayer.GetCardByInstID(instId);
 	level.text =  entityInst.IProperties[9] .. "";
 	hp.text = entityInst.CProperties[1];
@@ -321,16 +320,16 @@ function xiangxiziliao_FlushData()
 		levelUpRad.visible = false;
 		levelUpBtn.enabled  = false;
 	end
-	
+
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
-		local sData = SkillData.GetData(entityData._Skills[i - 1]);
-		skill.data = entityData._Skills[i - 1];
+		local sData = Proxy4Lua.GetCardInstSkillData(instId, i-1);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
 		if sData ~= nil then
 			loader.url = "ui://" .. sData._Icon;
 			lv.text = sData._Level;
+			skill.data = sData._Id;
 		else
 			loader.url = "";
 			lv.text = "";
