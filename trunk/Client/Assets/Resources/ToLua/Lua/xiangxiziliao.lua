@@ -147,6 +147,12 @@ function xiangxiziliao:OnInit()
 	needItemIcon= needItem:GetChild("n1"); 
 	needItemIconback= needItem:GetChild("n0"); 
 	needItemBar = rightLevelUp:GetChild("n300");
+
+	for i=1, 4 do
+		local skill = skillList:GetChildAt(i - 1);
+		skill.onClick:Add(xiangxiziliao_OnSkillBtn);
+	end
+
 	--xiangxiziliao_FlushData();
 end
 
@@ -230,6 +236,14 @@ function xiangxiziliao_OnLevelUpClick(context)
 	Proxy4Lua.PromoteUnit(instId);
 end
 
+function xiangxiziliao_OnSkillBtn(context)
+	if context.sender.data == nil or context.sender.data == 0 then
+		return;
+	end
+
+	UIParamHolder.Set("jinengxiangqing", context.sender.data);
+	UIManager.Show("jinengxiangqing");
+end
 
 function xiangxiziliao_FlushData()
 	local instId = UIParamHolder.Get("qiecuo1");
@@ -311,6 +325,7 @@ function xiangxiziliao_FlushData()
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = SkillData.GetData(entityData._Skills[i - 1]);
+		skill.data = entityData._Skills[i - 1];
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
 		if sData ~= nil then
