@@ -60,15 +60,22 @@ function renwuziliao:OnInit()
 	rec = rightInfo:GetChild("n221");
 	reflect = rightInfo:GetChild("n222");
 	suck = rightInfo:GetChild("n223");
-
+	for i=1, 4 do
+		local skill = skillList:GetChildAt(i - 1);
+		skill.onClick:Add(renwuziliao_OnSkillBtn);
+	end
 
 	renwuziliao_FlushData();
 end
 
+function renwuziliao_OnSkillBtn(context)
+	if context.sender.data == nil or context.sender.data == 0 then
+		return;
+	end
 
-
-
-
+	UIParamHolder.Set("jinengxiangqing", context.sender.data);
+	UIManager.Show("jinengxiangqing");
+end
 
 function renwuziliao:OnUpdate()
 	if UIManager.IsDirty("renwuziliao") then
@@ -126,6 +133,7 @@ function renwuziliao_FlushData()
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = SkillData.GetData(entityData._Skills[i - 1]);
+		skill.data = entityData._Skills[i - 1];
 		local loader = skill:GetChild("n8").asLoader;
 		loader.url = "";
 		if sData ~= nil then
