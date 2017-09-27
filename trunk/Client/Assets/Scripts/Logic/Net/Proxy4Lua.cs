@@ -53,17 +53,6 @@ public class Proxy4Lua {
         info.Username = account;
         info.Password = password;
         NetWoking.S.Login(info);
-
-        //TEMP TODO DELETE IT
-        if (true/* new account */)
-        {
-            UIManager.Hide("denglu");
-            UIManager.Show("xuanren");
-        }
-        else
-        {
-            // onboard
-        }
     }
 
     static public void CreatePlayer(int templateId, string nickName)  

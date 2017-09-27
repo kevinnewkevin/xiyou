@@ -9,6 +9,7 @@ public class Define {
     public const string TXT_EXT = ".bytes";
 
     public const string SCENE_MAIN = "main";
+    public const string SCENE_CREATE = "createRole";
     public const string SCENE_BATTLE = "haidizhandou";
 
     public const string ANIMATION_PLAYER_ACTION_RUN = "run";

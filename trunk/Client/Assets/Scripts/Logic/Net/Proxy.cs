@@ -11,8 +11,7 @@ class Proxy : ICOM_ServerToClientProxy
     {
         if (info.MyPlayer.InstId == 0)
         {
-            UIManager.Hide("denglu");
-            UIManager.Show("xuanren");
+            SceneLoader.LoadScene(Define.SCENE_CREATE);
         }
         else
         {
