@@ -123,21 +123,26 @@ function renwuziliao_FlushData()
 	mdef.text = GamePlayer._Data.CProperties[6];
 	crit.text = GamePlayer._Data.CProperties[9];
 	critdmg.text = GamePlayer._Data.CProperties[12];
-	combo.text = GamePlayer._Data.CProperties[10];
+	combo.text = GamePlayer._Data.CProperties[10]; 
 	split.text = GamePlayer._Data.CProperties[11];
 	rec.text = GamePlayer._Data.CProperties[13];
 	reflect.text = GamePlayer._Data.CProperties[14];
-	suck.text = GamePlayer._Data.CProperties[15];
+	suck.text = GamePlayer._Data.CProperties[15];   
 
 	local entityData = GamePlayer.GetMyEntityData();
 	for i=1, 4 do
 		local skill = skillList:GetChildAt(i - 1);
-		local sData = SkillData.GetData(entityData._Skills[i - 1]);
+		local sData = Proxy4Lua.GetPlayerSkillData(i-1);
 		skill.data = entityData._Skills[i - 1];
 		local loader = skill:GetChild("n8").asLoader;
+		local lv = skill:GetChild("n7").asTextField;
 		loader.url = "";
 		if sData ~= nil then
 			loader.url = "ui://" .. sData._Icon;
+			lv.text = sData._Level;
+		else
+			loader.url = "";
+			lv.text = "";
 		end
 	end
 
