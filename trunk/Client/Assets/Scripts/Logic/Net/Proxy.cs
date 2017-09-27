@@ -149,4 +149,9 @@ class Proxy : ICOM_ServerToClientProxy
         GamePlayer.UpdateUnitCProperty(instId, type, vaule);
         return true;
     }
+
+	public bool BuyShopItemOK (ref int[] items)
+	{
+		return true;
+	}
 }
