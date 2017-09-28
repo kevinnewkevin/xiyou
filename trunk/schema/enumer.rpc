@@ -87,5 +87,6 @@ enum BuffSpecial{
 enum ShopType{
 	SHT_Min,
 	SHT_Card,
+	SHT_BuyCopper,
 	SHT_Max,
 };

@@ -1009,8 +1009,15 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 		fmt.Println("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
 	}
 
-	if shopData.ShopType == prpc.SHT_Card {
-		this.OpenTreasureBox(shopData.CardPondId)
+	if shopData.ShopType == prpc.SHT_BuyCopper {
+		if shopData.Copper > 0 {
+			this.AddCopper(shopData.Copper)
+			if shopData.CardPondId != 0 {
+				this.OpenTreasureBox(shopData.CardPondId)
+			}
+		}else {
+			fmt.Println("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
+		}
 	}
 }
 
@@ -1081,10 +1088,9 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-	P1.AddBagItemByItemId(8,10)
-	P1.AddBagItemByItemId(8,10)
-	P1.AddBagItemByItemId(8,10)
-	P1.AddBagItemByItemId(8,10)
+	P1.BuyShopItem(1000)
+	P1.BuyShopItem(1001)
+	P1.BuyShopItem(1002)
 	for i:=0;i<len(P1.BagItems) ;i++  {
 		fmt.Println("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
 	}

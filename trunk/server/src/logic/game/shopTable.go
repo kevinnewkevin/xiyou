@@ -17,6 +17,7 @@ type (
 		CardPondId			int32
 		CurrenciesKind		int32
 		Price				int32
+		Copper				int32
 	}
 	CardPondData struct {
 		PondId				int32
@@ -55,6 +56,7 @@ func LoadShopTable(filename string) error {
 		kind 					:= csv.GetString(r,"ShopPayType")
 		c.CurrenciesKind		= int32(prpc.ToId_IPropertyType(kind))
 		c.Price					= csv.GetInt32(r,"Price")
+		c.Copper				= csv.GetInt32(r,"COPPER")
 
 		ShopTableData[c.ShopId] = &c
 	}
