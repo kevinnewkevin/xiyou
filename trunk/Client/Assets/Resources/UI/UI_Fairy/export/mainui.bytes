@@ -1,7 +1,9 @@
-hbv51.xml|2105|<component size="1920,1080" opaque="false">
+hbv51.xml|2235|<component size="1920,1080" opaque="false">
   <displayList>
     <image id="n38_nfe4" name="n38" src="nfe424" xy="0,0" size="1920,1080"/>
     <graph id="n39_nfe4" name="n39" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
+    <image id="n40_nfe4" name="n40" src="nfe41v" xy="1372,141"/>
+    <image id="n41_nfe4" name="n41" src="nfe41w" xy="1380,581"/>
     <image id="n23_tr71" name="n23" src="hbv5k" xy="0,956" size="849,123"/>
     <image id="n24_tr71" name="n24" src="hbv5k" xy="537,956" size="849,123">
       <relation target="n23_tr71" sidePair="center-center,middle-middle"/>
@@ -295,10 +297,12 @@ hbv51.xml|2105|<component size="1920,1080" opaque="false">
       <relation target="" sidePair="width,height"/>
     </image>
   </displayList>
-</component>package.xml|5475|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|5664|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
     <component id="nfe41y" name="Button18" path="/" size="803,768"/>
     <component id="nfe423" name="paihang_Button" path="/" size="36,194"/>
+    <image id="nfe41v" name="zjm_13" path="/" size="418,470"/>
+    <image id="nfe41w" name="zjm_14" path="/" size="415,312"/>
     <image id="nfe41x" name="zjm_16" path="/" size="803,768"/>
     <image id="nfe421" name="zjm_28" path="/" size="109,42"/>
     <image id="nfe422" name="zjm_29" path="/" size="36,194"/>
@@ -359,8 +363,9 @@ hbv51.xml|2105|<component size="1920,1080" opaque="false">
     <image id="hbv5l" name="youjian" path="/" size="82,77" exported="true"/>
     <image id="hbv5n" name="zuobian" path="/" size="623,100" exported="true"/>
     <image id="sv0v1s" name="zuobianyun" path="/" size="150,73" exported="true"/>
-    <atlas id="atlas0" size="1024,1024" file="atlas0.png"/>
+    <atlas id="atlas0" size="1024,512" file="atlas0.png"/>
     <atlas id="atlas100" size="1024,1024" file="atlas0_1.png"/>
     <atlas id="atlas101" size="1024,1024" file="atlas0_2.png"/>
+    <atlas id="atlas102" size="1024,1024" file="atlas0_3.png"/>
   </resources>
 </packageDescription>
