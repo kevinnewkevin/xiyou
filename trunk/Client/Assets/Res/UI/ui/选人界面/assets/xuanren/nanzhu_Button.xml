@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="182,177" extention="Button">
-  <controller name="button" pages="0,up,1,down" selected="0"/>
+<component size="260,240" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="1"/>
   <displayList>
-    <image id="n2_h59k" name="n2" src="h59k2" xy="26,15"/>
-    <image id="n1" name="n1" src="h59k1" xy="0,0">
-      <relation target="" sidePair="width-width,height-height"/>
-    </image>
-    <image id="n3_h59k" name="n3" src="h59kh" xy="-5,-4">
+    <image id="n3_h59k" name="n3" src="h59kh" xy="18,7">
       <gearDisplay controller="button" pages="1"/>
     </image>
+    <image id="n2_h59k" name="n2" src="h59k2" xy="26,15"/>
   </displayList>
   <Button mode="Radio"/>
 </component>
