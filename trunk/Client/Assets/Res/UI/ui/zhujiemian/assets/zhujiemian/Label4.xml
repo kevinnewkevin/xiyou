@@ -2,19 +2,10 @@
 <component size="1905,273" extention="Label">
   <controller name="c1" pages="0,,1," selected="0"/>
   <displayList>
-    <image id="n3_hbv5" name="n3" src="hbv5b" xy="10,20" size="1863,232">
-      <gearXY controller="c1" pages="1" values="1920,20" default="10,20" tween="true" ease="Circ.Out" duration="0.2"/>
-    </image>
-    <image id="n4_hbv5" name="n4" src="hbv5c" xy="2,171">
-      <relation target="n3_hbv5" sidePair="center-center,middle-middle"/>
-    </image>
-    <list id="n15_hbv5" name="n15" xy="52,14" size="1694,245" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="80" scrollBar="hidden" margin="8,0,13,0" clipSoftness="16,0" defaultItem="ui://s1sxt36uhbv51i" autoItemSize="false" align="right" vAlign="bottom">
-      <relation target="n3_hbv5" sidePair="center-center,middle-middle"/>
+    <list id="n15_hbv5" name="n15" xy="6,133" size="1694,136" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="80" scrollBar="hidden" margin="8,0,15,0" clipSoftness="16,0" colGap="23" defaultItem="ui://s1sxt36uhbv51i" autoItemSize="false" vAlign="bottom">
       <item/>
       <item url="ui://s1sxt36uhbv51j"/>
-      <item url="ui://s1sxt36uhbv51k"/>
       <item url="ui://s1sxt36uhbv51l"/>
-      <item url="ui://s1sxt36uhbv51n"/>
     </list>
   </displayList>
 </component>

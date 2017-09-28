@@ -3,15 +3,15 @@
   <resources>
     <component id="hbv51" name="zhujiemian_com.xml" path="/" exported="true"/>
     <image id="hbv52" name="baoshi.png" path="/" exported="true"/>
-    <image id="hbv53" name="ditiao.png" path="/" exported="true"/>
-    <image id="hbv54" name="fengji.png" path="/" exported="true"/>
+    <image id="hbv53" name="ditiao.png" path="/" exported="true" scale="9grid" scale9grid="8,16,10,23"/>
+    <image id="hbv54" name="fengji.png" path="/" exported="true" scale="9grid" scale9grid="30,136,60,4"/>
     <image id="hbv55" name="huiyuankuang.png" path="/" exported="true"/>
     <image id="hbv56" name="jiahao.png" path="/" exported="true"/>
     <image id="hbv57" name="jinbi.png" path="/" exported="true"/>
     <image id="hbv58" name="jingyan.png" path="/" exported="true"/>
     <image id="hbv59" name="jingyankuang.png" path="/" exported="true" scale="9grid" scale9grid="10,8,9,16"/>
     <image id="hbv5a" name="jingyantiao.png" path="/" exported="true" scale="9grid" scale9grid="9,6,10,12"/>
-    <image id="hbv5b" name="juanzhoudi.png" path="/" exported="true" scale="9grid" scale9grid="37,58,35,116"/>
+    <image id="hbv5b" name="juanzhoudi.png" path="/" exported="true" scale="9grid" scale9grid="78,102,45,7"/>
     <image id="hbv5c" name="juanzhoudizhuangshi.png" path="/" exported="true"/>
     <image id="hbv5d" name="juanzhouguan.png" path="/" exported="true"/>
     <image id="hbv5e" name="juanzhoukai.png" path="/" exported="true"/>
@@ -56,6 +56,18 @@
     <component id="hbv51q" name="Button16.xml" path="/" exported="true"/>
     <component id="hbv51r" name="Button17.xml" path="/" exported="true"/>
     <image id="sv0v1s" name="zuobianyun.png" path="/" exported="true"/>
+    <image id="ud9y1t" name="touxiang_nv.png" path="/"/>
+    <image id="ud9y1u" name="zjm_23.png" path="/"/>
+    <image id="nfe41v" name="zjm_13.png" path="/"/>
+    <image id="nfe41w" name="zjm_14.png" path="/"/>
+    <image id="nfe41x" name="zjm_16.png" path="/"/>
+    <component id="nfe41y" name="Button18.xml" path="/"/>
+    <component id="nfe41z" name="Button19.xml" path="/"/>
+    <component id="nfe420" name="Button20.xml" path="/"/>
+    <image id="nfe421" name="zjm_28.png" path="/"/>
+    <image id="nfe422" name="zjm_29.png" path="/"/>
+    <component id="nfe423" name="paihang_Button.xml" path="/"/>
+    <image id="nfe424" name="zjm_309.png" path="/"/>
   </resources>
   <publish name="zhujiemian" path="E:\xiyou\Client\Assets\Resources\UI\UI_Fairy\export" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
