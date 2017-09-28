@@ -230,6 +230,7 @@ public static class CustomSettings
         _GT(typeof(DropData)),
 		_GT(typeof(ShopData)),
 		_GT(typeof(ShopSystem)),
+		_GT(typeof(CardcloseData)),
 		_GT(typeof(LuaWindow)),
 
     };
