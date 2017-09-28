@@ -689,6 +689,9 @@ func (this *BattleRoom) SelectAroundTraget(unitid int64) []int64 {
 		if this.Units[pos] == nil {
 			continue
 		}
+		if this.Units[pos].IsDead() {
+			continue
+		}
 		if pos == int(pos_front) {
 			targetList = append(targetList, this.Units[pos].InstId)
 			continue
@@ -776,7 +779,13 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
+
+	if len(u_list) == 0{
+		return -1
+	}
 	index := len(u_list) - 1
+
+	fmt.Print("目标索引",index)
 	idx := rand.Intn(index)
 
 	return u_list[idx]

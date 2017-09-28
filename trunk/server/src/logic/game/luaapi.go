@@ -9,6 +9,7 @@ extern int __GetMainFriend(void*);
 extern int __GetFriends(void*);
 extern int __GetTarget(void*);
 extern int __GetMainTarget(void*);
+extern int __CheckUnitDead(void*);
 extern int __GetTargets(void*);
 extern int __GetTargetsAround(void*);
 extern int __GetUnitProperty(void*);
@@ -85,6 +86,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetStrings,"GetStrings","Player")
 	_L.LoadApi(C.__GetFriend,"GetFriend","Player")
 	_L.LoadApi(C.__GetMainFriend,"GetMainFriend","Player")
+	_L.LoadApi(C.__CheckUnitDead,"CheckUnitDead","Player")
 	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetMainTarget,"GetMainTarget","Player")
@@ -126,7 +128,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__Cure,"Cure","Battle")
 	_L.LoadApi(C.__GetCrit,"GetCrit","Battle")
 	_L.LoadApi(C.__AddBuff,"AddBuff","Battle")
-	_L.LoadApi(C.__AddBuff,"AddSkillBuff","Battle")
+	_L.LoadApi(C.__AddSkillBuff,"AddSkillBuff","Battle")
 	_L.LoadApi(C.__HasBuff,"HasBuff","Battle")
 	_L.LoadApi(C.__HasDebuff,"HasDebuff","Battle")
 	_L.LoadApi(C.__BuffMintsHp,"BuffMintsHp","Battle")
@@ -245,11 +247,37 @@ func __GetMainTarget(p unsafe.Pointer) C.int {
 
 	return 1
 }
+//export __CheckUnitDead
+func __CheckUnitDead(p unsafe.Pointer) C.int {
 
+	fmt.Println("__CheckUnitDead")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	uid := L.ToInteger(idx)
+
+	//fmt.Println(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(uid))
+
+	var t_id bool
+	if unit.IsDead() {
+		t_id = true
+	}else{
+		t_id = false
+	}
+	L.PushBoolean(t_id)
+
+	return 1
+}
 //export __GetMainFriend
 func __GetMainFriend(p unsafe.Pointer) C.int {
 
-	fmt.Println("__GetTarget")
+	fmt.Println("__GetMainFriend")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -264,7 +292,7 @@ func __GetMainFriend(p unsafe.Pointer) C.int {
 	var t_id int64
 	t_id = battle.selectMainUnit(int64(uid), true)
 
-	fmt.Println("__GetTarget end ,", t_id)
+	fmt.Println("__GetMainFriend end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -1039,7 +1067,7 @@ func __AddBuff(p unsafe.Pointer) C.int {
 //export __HasBuff
 func __HasBuff(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__AddBuff")
+	//fmt.Println("__HasBuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1060,7 +1088,7 @@ func __HasBuff(p unsafe.Pointer) C.int {
 //export __HasDebuff
 func __HasDebuff(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__AddBuff")
+	//fmt.Println("__HasDebuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1239,6 +1267,7 @@ func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 
 	fmt.Println("__GetMagicDamage")
 
+
 	L := lua.GetLuaState(p)
 	idx := 1
 	battleid := L.ToInteger(idx)
@@ -1338,7 +1367,6 @@ func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理强�
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	atk := CalcAtk(unit)
-
 	L.PushInteger(int(atk))
 
 	return 1
