@@ -26,11 +26,23 @@
     <image id="t33em" name="maitongbi.png" path="/" exported="true"/>
     <image id="t33en" name="chongzhi.png" path="/" exported="true"/>
     <image id="t33eo" name="daojukuang.png" path="/" exported="true"/>
-    <image id="t33ep" name="jiazi.png" path="/" exported="true" scale="9grid" scale9grid="80,28,26,12"/>
+    <image id="t33ep" name="jiazi.png" path="/" exported="true" scale="9grid" scale9grid="80,0,26,122"/>
     <component id="t33eq" name="chouka_com.xml" path="/" exported="true"/>
     <component id="t33er" name="daoju_Button.xml" path="/" exported="true"/>
     <component id="t33es" name="goumaitongbi_com.xml" path="/" exported="true"/>
     <image id="t33et" name="ewai.png" path="/" exported="true" scale="9grid" scale9grid="14,30,28,32"/>
+    <component id="mrcuu" name="baoxiang_com.xml" path="/" exported="true"/>
+    <image id="mrcuv" name="tc_diban.png" path="/" exported="true" scale="9grid" scale9grid="114,68,28,27"/>
+    <image id="mrcuw" name="tc_guanbi.png" path="/" exported="true"/>
+    <image id="mrcux" name="tc_jinbi.png" path="/" exported="true"/>
+    <image id="mrcuy" name="tc_tiao.png" path="/" exported="true" scale="9grid" scale9grid="54,11,8,22"/>
+    <image id="mrcuz" name="tc_toux1.png" path="/" exported="true"/>
+    <image id="mrcu10" name="tc_toux2.png" path="/" exported="true"/>
+    <image id="mrcu11" name="tc_toux3.png" path="/" exported="true"/>
+    <image id="mrcu12" name="tc_toux4.png" path="/" exported="true"/>
+    <image id="mrcu13" name="tc_xian.png" path="/" exported="true"/>
+    <component id="mrcu15" name="guanbi_Button.xml" path="/" exported="true"/>
+    <image id="mrcu16" name="bb_hongxian.png" path="/" exported="true"/>
   </resources>
   <publish name="cangbaoge" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
