@@ -25,7 +25,7 @@ end
 function buff_124_delete(battleid, unitid, buffinstid,data)
 
 	--Player.PopSpec(battleid, unitid, buffinstid,"BF_WEAK")   --减增伤
-	Player.PopSpec(battleid, unitid, buffinstid,"BF_SHELD")   --减输出伤害
+	Player.PopSpec(battleid, unitid, buffinstid,"BF_SHELD")   --减伤害
 	
 	sys.log("buff_124_delete "..","..battleid..","..buffinstid..","..unitid)
 

@@ -97,6 +97,43 @@ function min_property_one(battleid,unitid,property)
 	return arr_pro[idx]   --返回最大血的人物  单个
 	
 end
+--获取人物属性值(property)最少的一个人//己方
+function minPropertyOne(battleid,unitid,property)  
+
+	local t = Player.GetFriends(battleid,unitid)
+	
+	local arr_property = {}    --人物属性
+	
+	
+	local arr_pro = {}   -- 人物
+	
+	for i,v in ipairs(t) do
+	
+		local dangqian_property = Player.GetUnitProperty(battleid,v,property) --获取当前属性质量
+		
+		arr_property[i] = dangqian_property
+		
+		arr_pro[i] = v
+		
+	end
+	
+	
+	local minOfT = math.min(unpack(arr_property)) -- 最小属性值
+	
+	
+	local idx = 0
+	
+	for i=1,#arr_property,1 do
+	
+		if arr_property[i] == minOfT then         
+			idx = i
+		end
+		   
+	end
+	
+	return arr_pro[idx]   --返回最大血的人物  单个
+	
+end
 
 -- 计算最终伤害数值 战斗id ,释放者ID, 目标ID
 function ClacDamageByAllBuff(battleid,casterid,targetid,damage) 

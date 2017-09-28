@@ -13,7 +13,7 @@ end
 function buff_121_update(battleid, buffinstid, unitid)	
 	buff_id = 121 --配置表中的buffid
 	
-	--Battle.BuffCureHp(battleid, unitid, buffinstid)
+	Battle.BuffCureHp(battleid, unitid, buffinstid)
 	
 	sys.log("buff_121_update "..","..battleid..","..buffinstid..","..unitid)
 end

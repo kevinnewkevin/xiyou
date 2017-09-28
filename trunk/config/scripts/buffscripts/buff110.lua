@@ -28,3 +28,4 @@ function buff_110_delete(battleid, unitid, buffinstid,data)
 	sys.log("buff_110_delete "..","..battleid..","..buffinstid..","..unitid)
 
 end
+
