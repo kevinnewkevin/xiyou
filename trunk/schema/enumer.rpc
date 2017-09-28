@@ -81,6 +81,7 @@ enum BuffSpecial{
 	BF_AOE,			//必定溅射
 	BF_COMBO,		//必定连击
 	BF_ATKCURE,		//受伤后回血
+	BF_LOCK,		//锁定目标
 	BF_MAX,
 };
 //
