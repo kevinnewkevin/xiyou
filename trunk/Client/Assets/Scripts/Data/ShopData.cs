@@ -7,7 +7,7 @@ public class ShopData {
     public int _ShopId;
 	public string _Name;
 	public string _ShopType;
-	public int _ItemId;
+	public int _CardId;
 	public int _Num;
 	public string _PayType;
 	public int _Price;
@@ -33,6 +33,7 @@ public class ShopData {
 			data._ShopType = parser.GetString (i, "ShopType");
 			data._Name = parser.GetString (i, "Name");
 			data._Num = parser.GetInt (i, "Num");
+			data._CardId = parser.GetInt (i, "CardcloseID");
 			data._PayType = parser.GetString (i, "ShopPayType");
 			data._Price = parser.GetInt(i, "Price");
 			if(metaData.ContainsKey(data._ShopId))

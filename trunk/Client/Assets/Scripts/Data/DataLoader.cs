@@ -69,6 +69,7 @@ public class DataLoader {
         RegistTables("RoleSkillUpdate", RoleSkillUpdateData.ParseData);
         RegistTables("Randname", RandNameData.ParseData);
 		RegistTables("ShopData", ShopData.ParseData);
+		RegistTables("Cardclose", CardcloseData.ParseData);
     }
 
     static public void BeginLoad()
