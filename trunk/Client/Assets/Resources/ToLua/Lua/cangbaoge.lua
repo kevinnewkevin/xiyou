@@ -64,7 +64,7 @@ function cangbaoge:OnInit()
 	orangeImg =  boxInfo:GetChild("n9");
 
 	infoBuyBtnLab = infoBuyBtn:GetChild("n3");
-	infoBuyBoxImg = infoBuyBtn:GetChild("n5");
+	infoBuyBoxImg = boxInfo:GetChild("n22");
 	local feeMax = shopList.numItems;
 	local feeItem;
 	feeItem = shopList:GetChildAt(0);
@@ -163,7 +163,7 @@ function cangbaoge_UpdateInfo()
 	local shopData = ShopData.GetData(buyShopId);
 	infoBoxNameLab.text = shopData._Name;
 	infoBuyBtnLab.text = shopData._Price;
-
+	infoMoneyLab.text = shopData._copper;
 	greenLab.visible = false;
 	greenImg.visible = false;	
 	buleLab.visible = false;
@@ -177,28 +177,32 @@ function cangbaoge_UpdateInfo()
 	if cardData._Greennum > 0 then
 		greenImg.visible = true;
 		greenLab.visible = true;	
+		greenLab.text = "绿色碎片*" ..cardData._Greennum;	
 	end
 	if cardData._Bluenum > 0 then
 		buleImg.visible = true;
-		buleLab.visible = true;	
+		buleLab.visible = true;
+		buleLab.text = "蓝色碎片*" ..cardData._Bluenum;		
 	end
 	if cardData._Purplenum > 0 then
 		purpleImg.visible = true;
-		purpleLab.visible = true;	
+		purpleLab.visible = true;
+		purpleLab.text = "紫色碎片*" ..cardData._Purplenum;  	
 	end
 	if cardData._Orangenum > 0 then
 		orangeImg.visible = true;
-		orangeLab.visible = true;	
+		orangeLab.visible = true;
+		orangeLab.text = "橙色碎片*" ..cardData._Orangenum;	
 	end
 
 	if buyShopId == 1000 then
-	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/renxian";
+		infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/renxian";
 	end
 	if buyShopId == 1001 then
-	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/dixian";
+		infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/dixian";
 	end
 	if buyShopId == 1002 then
-	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/tianxian";
+		infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/tianxian";
 	end
 
 end
