@@ -559,6 +559,11 @@ public class Battle {
                     _PosInScene [i].gameObject.SetActive(on);
             }
         }
+
+        if (on == false)
+        {
+            UIManager.GetUI("BattlePanel").Call("NormalCard");
+        }
     }
 
     static public Transform GetPoint(int idx)

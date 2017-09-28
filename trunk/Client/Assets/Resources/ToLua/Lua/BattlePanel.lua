@@ -293,6 +293,12 @@ function BattlePanel_OnTurnOver()
 	end
 end
 
+function BattlePanel:NormalCard()
+	for i=1, 5 do
+		cards[i]["card"]:SetScale(1, 1);
+	end
+end
+
 function BattlePanel_OnAutoBtn()
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
 	UIManager.SetDirty("BattlePanel")
