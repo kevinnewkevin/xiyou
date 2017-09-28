@@ -562,7 +562,9 @@ public class Battle {
 
         if (on == false)
         {
-            UIManager.GetUI("BattlePanel").Call("NormalCard");
+            UIWindow win = UIManager.GetUI("BattlePanel");
+            if(win != null)
+                win.Call("NormalCard");
         }
     }
 
