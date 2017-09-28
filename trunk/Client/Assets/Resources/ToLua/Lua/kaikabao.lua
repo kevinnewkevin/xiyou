@@ -55,7 +55,7 @@ function kaikabao:OnInit()
 
 
 	timeOut = {};
-	timeOut.max = 2;
+	timeOut.max =2;
 	timeOut.count = 0;
 
 	kaikabao_FlushData();
@@ -68,10 +68,10 @@ function kaikabao_OnBoxBtn(context)
 	outTrans:Play();
 
 	readyOutDrop = {};
-	readyOutDrop.max = 12;
+	readyOutDrop.max = 50;
 	readyOutDrop.count = 0;
 
-	boxEff = "effect/baoxiangguangmang";
+	boxEff = "effect/kaikabao_texiao";
 	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff));
 end
 

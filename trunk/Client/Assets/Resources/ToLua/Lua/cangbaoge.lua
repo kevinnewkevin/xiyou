@@ -13,6 +13,21 @@ local isInGroup;
 local gold;
 local chopper;
 local stamaPoint;
+local boxInfo;
+local infoMoneyLab;
+local infoBoxNameLab;
+local infoBoxCloseBtn;
+local greenLab;
+local buleLab;
+local purpleLab;
+local orangeLab;
+local greenImg;
+local buleImg;
+local purpleImg;
+local orangeImg;
+local buyShopId;
+local infoBuyBtnLab;
+local infoBuyBoxImg;
 function cangbaoge:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = cangbaoge.New();
@@ -29,11 +44,30 @@ function cangbaoge:OnInit()
 
 	self.closeButton = self.contentPane:GetChild("n2").asButton;
 	local shopList = self.contentPane:GetChild("n5").asList;
+
+	boxInfo = self.contentPane:GetChild("n8");
+	boxInfo.visible = false;
+	local infoBuyBtn = boxInfo:GetChild("n18");
+	infoBuyBtn.onClick:Add(cangbaoge_OnInfoBuyClick);
+	infoMoneyLab = boxInfo:GetChild("n13");
+	infoBoxNameLab = boxInfo:GetChild("n12");
+	infoBoxCloseBtn = boxInfo:GetChild("n20");
+	infoBoxCloseBtn.onClick:Add(cangbaoge_OnCloseClick);
+	greenLab =  boxInfo:GetChild("n14");
+	buleLab =  boxInfo:GetChild("n15");
+	purpleLab =  boxInfo:GetChild("n16");
+	orangeLab =  boxInfo:GetChild("n17");
+
+	greenImg =  boxInfo:GetChild("n7");
+	buleImg =  boxInfo:GetChild("n8");
+	purpleImg =  boxInfo:GetChild("n10");
+	orangeImg =  boxInfo:GetChild("n9");
+
+	infoBuyBtnLab = infoBuyBtn:GetChild("n3");
+	infoBuyBoxImg = infoBuyBtn:GetChild("n5");
 	local feeMax = shopList.numItems;
 	local feeItem;
 	feeItem = shopList:GetChildAt(0);
-
-
 
 	local shopBtn0 = feeItem:GetChild("n9");
 	local itemLab0 = feeItem:GetChild("n6");
@@ -103,13 +137,68 @@ function cangbaoge_FlushData()
 end
 
 function cangbaoge_OnBuyClick(context)
+	buyShopId = context.sender.data;
+	boxInfo.visible = true;
+	cangbaoge_UpdateInfo();
+end 
 
-	local shopData = ShopData.GetData(context.sender.data);
+function cangbaoge_OnInfoBuyClick(context)
+	local shopData = ShopData.GetData(buyShopId);
 	if shopData._Price > GamePlayer._Data.IProperties[8] then
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "金不够", true);
 		return;
 	end
-	ShopSystem.buyType = context.sender.data;
-	Proxy4Lua.BuyShopItem(context.sender.data);
+	ShopSystem.buyType = buyShopId;
+	Proxy4Lua.BuyShopItem(buyShopId);
+	boxInfo.visible = false;
 end 
+
+
+function cangbaoge_OnCloseClick(context)
+	boxInfo.visible = false;
+end
+
+function cangbaoge_UpdateInfo()
+	local shopData = ShopData.GetData(buyShopId);
+	infoBoxNameLab.text = shopData._Name;
+	infoBuyBtnLab.text = shopData._Price;
+
+	greenLab.visible = false;
+	greenImg.visible = false;	
+	buleLab.visible = false;
+	buleImg.visible = false;
+	purpleLab.visible = false;
+	purpleImg.visible = false;
+	orangeLab.visible = false;
+	orangeImg.visible = false;
+
+	local cardData = CardcloseData.GetData(shopData._CardId);
+	if cardData._Greennum > 0 then
+		greenImg.visible = true;
+		greenLab.visible = true;	
+	end
+	if cardData._Bluenum > 0 then
+		buleImg.visible = true;
+		buleLab.visible = true;	
+	end
+	if cardData._Purplenum > 0 then
+		purpleImg.visible = true;
+		purpleLab.visible = true;	
+	end
+	if cardData._Orangenum > 0 then
+		orangeImg.visible = true;
+		orangeLab.visible = true;	
+	end
+
+	if buyShopId == 1000 then
+	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/renxian";
+	end
+	if buyShopId == 1001 then
+	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/dixian";
+	end
+	if buyShopId == 1002 then
+	--	infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/tianxian";
+	end
+
+end
