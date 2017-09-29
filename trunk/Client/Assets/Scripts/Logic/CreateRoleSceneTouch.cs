@@ -70,7 +70,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         }
         _Actors [0].MoveTo(_ToPos, delegate
         {
-            _Actors [0].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
+            _Actors [0].Stop();
             _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
         });
 
@@ -85,7 +85,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
             }
             _Actors [1].MoveTo(_FemalePos, delegate
             {
-                _Actors [1].Play(_DefaultAnim);
+                _Actors [1].Stop();
                 _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
                 _Actors [1]._ActorObj.transform.Rotate(Vector3.up, _FemaleRotY);
             });
@@ -107,7 +107,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
             _Actors [1].Play(_SelectAnim);
         }
         _Actors [1].MoveTo(_ToPos, delegate {
-            _Actors [1].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
+            _Actors [1].Stop();
             _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
         });
 
@@ -122,7 +122,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
             }
             _Actors [0].MoveTo(_MalePos, delegate
             {
-                _Actors [0].Play(_DefaultAnim);
+                _Actors [0].Stop();
                 _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
                 _Actors [0]._ActorObj.transform.Rotate(Vector3.up, _MaleRotY);
             });
@@ -149,7 +149,14 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (_Actors != null)
+        {
+            for(int i=0; i < _Actors.Length; ++i)
+            {
+                if (_Actors [i] != null)
+                    _Actors [i].Update();
+            }
+        }
 	}
 
     void OnDestroy()
