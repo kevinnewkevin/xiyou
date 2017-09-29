@@ -32,6 +32,7 @@ type GameUnit struct {
 	Allbuff		[]*Buff	//全体buff
 	DelBuff		[]*Buff	//需要刪除的buff
 	BattleId	int64	//zhandou id
+	MoveStage	int32	//行动信息
 	//战斗 buff需要的数据
 	VirtualHp	int32	//护盾数值
 	Special 	map[int32][]int32	//特殊属性效果
@@ -301,11 +302,12 @@ func (this *GameUnit) GetBattleUnitCOM() prpc.COM_BattleUnit {
 
 func (this *GameUnit) SelectSkill(round int32) *Skill {
 	var idx int32
-	if round > 2 {
-		idx = round % 3
+	if this.MoveStage > 2 {
+		idx = this.MoveStage % 3
 	} else {
-		idx = round
+		idx = this.MoveStage
 	}
+	this.MoveStage += 1
 
 	if this.Skill[idx + 1] == nil {
 		for _, skill := range this.Skill {
@@ -429,6 +431,7 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.VirtualHp = 0
 	this.Position = prpc.BP_MAX
 	this.Special = map[int32][]int32{}
+	this.MoveStage = 1
 }
 
 func (this *GameUnit)CheckBuff (round int32){
