@@ -126,6 +126,7 @@ class Proxy : ICOM_ServerToClientProxy
         UIManager.SetDirty("qianghuachenggong");
         UIManager.SetDirty("xiangxiziliao");
         UIManager.SetDirty("paiku");
+		UIManager.SetDirty("qiecuo");
 		return true;
 	}
 

@@ -120,6 +120,19 @@ public class GamePlayer {
         return null;
     }
 
+
+	static public COM_Unit GetCardByEntityID(int unitId)
+	{
+
+			for(int i=0; i < _CardsByFee [0].Count; ++i)
+			{
+				if (_CardsByFee [0] [i].UnitId== unitId)
+					return _CardsByFee [0] [i];
+			}
+			return null;
+	}
+
+
     static public void UpdateUnitIProperty(long instId, int type, int vaule)
     {
         for (int i = 0; i < _CardsByFee[0].Count; ++i)
