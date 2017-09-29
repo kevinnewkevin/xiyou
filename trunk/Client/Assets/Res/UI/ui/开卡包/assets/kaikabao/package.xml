@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="4r9f9n7g" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="j7dt0" name="kaikabao_com.xml" path="/" exported="true"/>
+    <component id="j7dt0" name="kaikabao2_com.xml" path="/" exported="true"/>
     <image id="j7dt1" name="kabao3.png" path="/" exported="true"/>
     <image id="j7dt2" name="kabao1.png" path="/" exported="true"/>
     <image id="j7dt3" name="kabao2.png" path="/" exported="true"/>
     <component id="ains4" name="daoju_com.xml" path="/" exported="true"/>
     <component id="jm1c6" name="kabao_com.xml" path="/" exported="true"/>
     <component id="jm1c7" name="kabao2_com.xml" path="/" exported="true"/>
-    <image id="hqls8" name="bj.png" path="/"/>
+    <image id="hqls8" name="bj.png" path="/" exported="true"/>
     <component id="mgo59" name="touxiangkuang_Label.xml" path="/" exported="true"/>
     <image id="mgo5a" name="touxiangdi.png" path="/" exported="true"/>
     <image id="mgo5b" name="touxiangkuang_lan.png" path="/" exported="true"/>
     <image id="mgo5c" name="touxiangdengji.png" path="/" exported="true"/>
     <image id="mgo5d" name="shangzhen.png" path="/" exported="true"/>
     <image id="mgo5e" name="hongdian.png" path="/" exported="true"/>
-    <image id="mgo5f" name="heisemoji.png" path="/"/>
-    <image id="mgo5g" name="heidi.png" path="/"/>
-    <image id="mgo5h" name="jindutyiaod.png" path="/" scale="9grid" scale9grid="25,9,9,18"/>
-    <image id="mgo5i" name="jindutyiao.png" path="/" scale="9grid" scale9grid="33,14,8,28"/>
-    <component id="mgo5j" name="qianghua_ProgressBar.xml" path="/"/>
-    <image id="mgo5k" name="suipian.png" path="/"/>
-    <image id="mgo5l" name="wenhao.png" path="/"/>
-    <component id="mgo5m" name="wenhaokuang_com.xml" path="/"/>
+    <image id="mgo5f" name="heisemoji.png" path="/" exported="true"/>
+    <image id="mgo5g" name="heidi.png" path="/" exported="true"/>
+    <image id="mgo5h" name="jindutyiaod.png" path="/" exported="true" scale="9grid" scale9grid="25,9,9,18"/>
+    <image id="mgo5i" name="jindutyiao.png" path="/" exported="true" scale="9grid" scale9grid="33,14,8,28"/>
+    <component id="mgo5j" name="qianghua_ProgressBar.xml" path="/" exported="true"/>
+    <image id="mgo5k" name="suipian.png" path="/" exported="true"/>
+    <image id="mgo5l" name="wenhao.png" path="/" exported="true"/>
+    <component id="mgo5m" name="wenhaokuang_com.xml" path="/" exported="true"/>
+    <component id="twtyn" name="kaikabao_com.xml" path="/" exported="true"/>
   </resources>
   <publish name="kaikabao" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
