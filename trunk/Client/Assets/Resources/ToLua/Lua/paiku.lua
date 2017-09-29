@@ -88,7 +88,6 @@ function paiku_OnFeeItemClick(context)
 end
 
 function paiku_RenderListItem(index, obj)
-print(index .. " + " .. crtCardsFee);
 	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, index);
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
 	local img = obj:GetChild("n5");
