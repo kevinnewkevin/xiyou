@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1920,1080">
   <displayList>
-    <graph id="n18_twty" name="n18" xy="978,806" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+    <graph id="n18_twty" name="n18" xy="978,806" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect">
       <relation target="n0_ains" sidePair="center-center,middle-middle"/>
     </graph>
     <image id="n6_hqls" name="n6" src="hqls8" xy="0,0" size="1920,1080"/>
     <component id="n16_mgo5" name="n16" src="mgo5m" xy="983,807" pivot="0.5,0.5" anchor="true" touchable="false"/>
-    <graph id="n19_twty" name="n19" xy="972,812" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+    <graph id="n19_twty" name="n19" xy="972,812" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect">
       <relation target="n16_mgo5" sidePair="center-center,middle-middle"/>
     </graph>
     <component id="n0_ains" name="n0" src="jm1c6" xy="970,804" pivot="0.5,0.5" anchor="true"/>
-    <graph id="n17_twty" name="n17" xy="668,370" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
+    <graph id="n17_twty" name="n17" xy="668,370" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect"/>
     <component id="n8_mgo5" name="n8" src="j5rvo" xy="670,277"/>
     <text id="n3_jm1c" name="l3" xy="738,1006" size="464,59" font="方正楷体_GBK" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="点击继续"/>
-    <graph id="n21_j5rv" name="n21" xy="978,808" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+    <graph id="n21_j5rv" name="n21" xy="978,808" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect">
       <relation target="n20_x10k" sidePair=""/>
     </graph>
     <loader id="n20_x10k" name="n3" xy="969,803" pivot="0.5,0.5" anchor="true" size="354,374" url="ui://4r9f9n7gj7dt1" align="center" vAlign="middle"/>
