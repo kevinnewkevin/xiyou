@@ -10,39 +10,16 @@
       <relation target="n16_mgo5" sidePair="center-center,middle-middle"/>
     </graph>
     <component id="n0_ains" name="n0" src="jm1c6" xy="970,804" pivot="0.5,0.5" anchor="true"/>
-    <graph id="n17_twty" name="n17" xy="668,370" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
-      <relation target="n8_mgo5" sidePair=""/>
-    </graph>
-    <component id="n8_mgo5" name="n8" src="mgo59" xy="670,364" pivot="0.5,0.5" anchor="true"/>
+    <graph id="n17_twty" name="n17" xy="668,370" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
+    <component id="n8_mgo5" name="n8" src="j5rvo" xy="670,278"/>
     <text id="n3_jm1c" name="n3" xy="738,1006" size="464,59" font="方正楷体_GBK" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="点击继续"/>
-    <image id="n10_mgo5" name="n10" src="mgo5f" xy="782,278" size="478,58"/>
-    <image id="n9_mgo5" name="n9" src="mgo5g" xy="804,347" size="117,48"/>
-    <component id="n11_mgo5" name="n11" src="mgo5j" xy="794,409">
-      <ProgressBar value="50" max="100"/>
-    </component>
-    <text id="n12_mgo5" name="n12" xy="900,413" size="178,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" align="center" autoSize="none" bold="true" text="20/20">
-      <relation target="n11_mgo5" sidePair="center-center,middle-middle"/>
-    </text>
-    <text id="n13_mgo5" name="n13" xy="803,349" size="122,49" font="方正楷体_GBK" fontSize="42" color="#f4d997" align="center" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="等级">
-      <relation target="n9_mgo5" sidePair="center-center,middle-middle"/>
-    </text>
-    <text id="n14_mgo5" name="n14" xy="928,348" size="119,51" font="方正楷体_GBK" fontSize="42" color="#f4d997" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="8&#xA;">
-      <relation target="n13_mgo5" sidePair="center-center,middle-middle"/>
-    </text>
-    <text id="n15_mgo5" name="n15" xy="792,284" size="450,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" autoSize="none" bold="true" strokeColor="#371f00" text="啦啦啦啦啦啦啦啦啦">
-      <relation target="n10_mgo5" sidePair=""/>
-    </text>
+    <graph id="n21_j5rv" name="n21" xy="978,808" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+      <relation target="n20_x10k" sidePair=""/>
+    </graph>
     <loader id="n20_x10k" name="n3" xy="969,803" pivot="0.5,0.5" anchor="true" size="354,374" url="ui://4r9f9n7gj7dt1" align="center" vAlign="middle"/>
   </displayList>
   <transition name="t1">
     <item time="0" type="Alpha" target="n8_mgo5" value="1"/>
-    <item time="0" type="Alpha" target="n15_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n10_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n9_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n13_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n14_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n11_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n12_mgo5" value="0"/>
     <item time="0" type="Scale" target="n16_mgo5" value="1,1"/>
     <item time="0" type="Scale" target="n8_mgo5" value="0,1"/>
     <item time="0" type="XY" target="n16_mgo5" tween="true" startValue="969,802" endValue="668,368" duration="12" ease="Circ.InOut"/>
@@ -51,16 +28,6 @@
     <item time="12" type="XY" target="n16_mgo5" tween="true" startValue="668,368"/>
     <item time="13" type="Alpha" target="n8_mgo5" value="1"/>
     <item time="14" type="Alpha" target="n8_mgo5" value="1"/>
-    <item time="15" type="Size" target="n10_mgo5" tween="true" startValue="478,58" endValue="54,58" duration="5"/>
     <item time="16" type="Scale" target="n8_mgo5" tween="true" startValue="0,1" endValue="1,1" duration="4" ease="Circ.InOut"/>
-    <item time="20" type="Alpha" target="n9_mgo5" value="1"/>
-    <item time="20" type="Alpha" target="n10_mgo5" tween="true" startValue="0" endValue="1" duration="4"/>
-    <item time="20" type="Size" target="n9_mgo5" tween="true" startValue="14,48" endValue="117,48" duration="4"/>
-    <item time="20" type="Size" target="n10_mgo5" tween="true" startValue="54,58" endValue="446,58" duration="4"/>
-    <item time="22" type="Alpha" target="n14_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
-    <item time="22" type="Alpha" target="n13_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
-    <item time="22" type="Alpha" target="n11_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
-    <item time="22" type="Alpha" target="n12_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
-    <item time="22" type="Alpha" target="n15_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
   </transition>
 </component>
