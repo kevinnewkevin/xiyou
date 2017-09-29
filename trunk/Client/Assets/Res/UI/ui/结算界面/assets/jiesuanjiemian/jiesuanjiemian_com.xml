@@ -11,22 +11,22 @@
     <image id="n4_euy7" name="n4" src="euy78" xy="419,414"/>
     <image id="n5_euy7" name="n5" src="euy78" xy="911,414"/>
     <image id="n6_euy7" name="n6" src="euy78" xy="1398,414"/>
-    <loader id="n12_euy7" name="n12" xy="821,753" size="158,156" group="n19_euy7" url="ui://c3q0a194euy7c"/>
-    <loader id="n14_euy7" name="n14" xy="795,745" size="202,180" group="n19_euy7" url="ui://c3q0a194euy7b"/>
+    <loader id="n14_euy7" name="n14" xy="814,751" size="202,180" group="n19_euy7" url="ui://c3q0a194euy7b" fill="scale"/>
+    <loader id="n12_euy7" name="n12" xy="843,770" size="110,110" group="n19_euy7" fill="scale"/>
     <text id="n15_euy7" name="n15" xy="1003,755" size="93,52" group="n19_euy7" font="方正楷体_GBK" fontSize="44" color="#f3d6ac" strokeColor="#421600" strokeSize="2" text="等级"/>
     <text id="n16_euy7" name="n16" xy="1113,752" size="47,54" group="n19_euy7" font="方正楷体_GBK" fontSize="44" color="#f3d6ac" strokeColor="#421600" strokeSize="2" text="99&#xA;"/>
     <component id="n17_euy7" name="n17" src="euy7f" xy="1007,825" group="n19_euy7">
       <ProgressBar value="50" max="100"/>
     </component>
     <text id="n18_euy7" name="n18" xy="1007,865" size="118,52" group="n19_euy7" font="方正楷体_GBK" fontSize="44" color="#f3d6ac" strokeColor="#421600" strokeSize="2" text="+9999"/>
-    <group id="n19_euy7" name="n19" xy="795,745" size="371,180"/>
+    <group id="n19_euy7" name="n19" xy="814,751" size="352,180"/>
     <text id="n20_euy7" name="n20" xy="264,561" size="434,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" autoSize="none" strokeColor="#421600" strokeSize="2" text="啦啦啦啦啦啦啦啦啦"/>
     <text id="n21_euy7" name="n21" xy="772,565" size="408,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" autoSize="none" strokeColor="#421600" strokeSize="2" text="啦啦啦啦"/>
     <text id="n22_euy7" name="n22" xy="1242,561" size="442,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#421600" strokeSize="2" text="啦啦啦啦啦啦啦啦啦"/>
     <text id="n23_euy7" name="n23" xy="403,613" size="159,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" autoSize="none" strokeColor="#421600" strokeSize="2" text="达成"/>
     <text id="n27_euy7" name="n27" xy="898,616" size="159,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" autoSize="none" strokeColor="#421600" strokeSize="2" text="达成"/>
     <text id="n28_euy7" name="n28" xy="1394,610" size="159,52" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" autoSize="none" strokeColor="#421600" strokeSize="2" text="未达成"/>
-    <text id="n31_euy7" name="n31" xy="-2,-2" size="1920,1080" font="方正楷体_GBK" fontSize="47" color="#ffffff" align="center" vAlign="bottom" autoSize="none" text="点击继续"/>
+    <text id="n31_euy7" name="n31" xy="-2,-2" size="1920,1080" hideByEditor="true" font="方正楷体_GBK" fontSize="47" color="#ffffff" align="center" vAlign="bottom" autoSize="none" text="点击继续"/>
     <component id="n37_jewq" name="n29" src="jewqj" xy="407,378"/>
     <component id="n38_jewq" name="n30" src="jewqj" xy="900,378"/>
     <component id="n39_jewq" name="n32" src="jewqj" xy="1388,378"/>
