@@ -25,7 +25,7 @@ BuffId,Until,Times,Type,Kind,Icon,AnimTime,EffectName,EmitTime,AddScript,UpdateS
 123,2,3,1,2,icon/hudun_buff,,,,buff_123_add,buff_123_update,buff_123_delete,测试用特殊效果  有次数的减伤盾buff
 124,3,0,1,2,icon/jianshang_buff,,,,buff_124_add,buff_124_update,buff_124_delete,测试用特殊效果  减伤盾buff
 125,2,0,1,2,icon/shanghaizengjia_buff,,,,buff_125_add,buff_125_update,buff_125_delete,测试用特殊效果  加输出伤害和造成伤害buff
-126,3,1,1,1,icon/jianjianshang_buff,,,,buff_126_add,buff_126_update,buff_126_delete,测试用属性  给自己增加所有属性buff
+126,3,1,1,2,icon/jianjianshang_buff,,,,buff_126_add,buff_126_update,buff_126_delete,测试用属性  给自己增加所有属性buff
 127,2,0,2,2,icon/gongji_buff,,,,buff_127_add,buff_127_update,buff_127_delete,测试用属性 减少对面单体目标所有属性buff
 128,2,0,1,2,icon/gongji_buff,,,,buff_128_add,buff_128_update,buff_128_delete,测试用属性  增加友方单体目标暴击buff
 129,2,0,1,2,icon/gongji_buff,,,,buff_129_add,buff_129_update,buff_129_delete,测试用属性  增加友方单体目标暴击伤害buff
@@ -34,10 +34,10 @@ BuffId,Until,Times,Type,Kind,Icon,AnimTime,EffectName,EmitTime,AddScript,UpdateS
 132,2,0,1,2,icon/gongji_buff,,,,buff_132_add,buff_132_update,buff_132_delete,测试用属性  增加友方单体目标回复buff
 133,2,0,1,2,icon/gongji_buff,,,,buff_133_add,buff_133_update,buff_133_delete,测试用属性  增加友方单体目标荆棘buff
 134,2,0,1,2,icon/gongji_buff,,,,buff_134_add,buff_134_update,buff_134_delete,测试用属性  增加友方单体目标吸血buff
-135,2,0,1,1,icon/gongji_buff,,,,buff_135_add,buff_135_update,buff_135_delete,测试用属性 增加生命值buff
-136,2,0,1,2,icon/gongji_buff,,,,buff_136_add,buff_136_update,buff_136_delete,测试用属性  增加防御力   被动buff
-137,2,0,1,2,icon/gongji_buff,,,,buff_137_add,buff_137_update,buff_137_delete,测试用属性  增加法术防御 被动buff
-138,2,1,1,3,icon/gongji_buff,,,,buff_138_add,buff_138_update,buff_138_delete,测试用特殊  减伤 被动buff
+135,2,0,1,3,icon/gongji_buff,,,,buff_135_add,buff_135_update,buff_135_delete,测试用属性 增加生命值buff
+136,2,0,1,3,icon/gongji_buff,,,,buff_136_add,buff_136_update,buff_136_delete,测试用属性  增加防御力   被动buff
+137,2,0,1,3,icon/gongji_buff,,,,buff_137_add,buff_137_update,buff_137_delete,测试用属性  增加法术防御 被动buff
+138,2,0,1,3,icon/gongji_buff,,,,buff_138_add,buff_138_update,buff_138_delete,测试用特殊  减伤 被动buff
 139,2,0,1,3,icon/gongji_buff,,,,buff_139_add,buff_139_update,buff_139_delete,测试用属性  增加物理 被动buff
 140,2,0,1,3,icon/gongji_buff,,,,buff_140_add,buff_140_update,buff_140_delete,测试用属性  增加法术 被动buff
 141,2,0,2,3,icon/gongji_buff,,,,buff_141_add,buff_141_update,buff_141_delete,测试用属性  减物理 被动buff
