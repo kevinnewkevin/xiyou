@@ -3,7 +3,7 @@
   <displayList>
     <loader id="n0_ains" name="n0" xy="176,186" pivot="0.5,0.5" anchor="true" size="354,374" url="ui://4r9f9n7gj7dt1" align="center" vAlign="middle"/>
   </displayList>
-  <transition name="t0" autoPlayRepeat="10">
+  <transition name="t0" autoPlay="true" autoPlayRepeat="10">
     <item time="0" type="Rotation" target="n0_ains" tween="true" startValue="0" endValue="15" duration="4" ease="Circ.InOut"/>
     <item time="4" type="Rotation" target="n0_ains" tween="true" startValue="15" endValue="-15" duration="5" ease="Circ.InOut"/>
     <item time="9" type="Rotation" target="n0_ains" tween="true" startValue="-15" endValue="15" duration="5" ease="Circ.InOut"/>
