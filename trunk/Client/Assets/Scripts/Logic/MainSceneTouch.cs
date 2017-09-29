@@ -16,12 +16,12 @@ public class MainSceneTouch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        WeatherSystem.ForceCheck();
-        World.InitPlayerActor(GamePlayer._Data);
-        World.InitNpcActor();
-        Stage.inst.onTouchBegin.Add(OnTouchBegin);
-        Stage.inst.onTouchEnd.Add(OnTouchEnd);
-        Stage.inst.onTouchMove.Add(OnTouchMove);
+//        WeatherSystem.ForceCheck();
+//        World.InitPlayerActor(GamePlayer._Data);
+//        World.InitNpcActor();
+//        Stage.inst.onTouchBegin.Add(OnTouchBegin);
+//        Stage.inst.onTouchEnd.Add(OnTouchEnd);
+//        Stage.inst.onTouchMove.Add(OnTouchMove);
 
         UIManager.Show("zhujiemian");
 	}
