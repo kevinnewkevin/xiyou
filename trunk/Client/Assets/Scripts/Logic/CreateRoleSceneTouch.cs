@@ -52,8 +52,12 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [0] == null)
             return;
 
-        _Actors [0].Play(_SelectAnim);
-        _Actors [0].MoveTo(_ToPos, delegate {
+        if (!_Actors [0].IsPlay(_SelectAnim))
+        {
+            _Actors [0].Play(_SelectAnim);
+        }
+        _Actors [0].MoveTo(_ToPos, delegate
+        {
             _Actors [0].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
             _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
         });
@@ -63,8 +67,11 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 
         if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) <= 0f)
             return;
-        
-        _Actors [1].Play(_SelectAnim);
+
+        if (!_Actors [1].IsPlay(_SelectAnim))
+        {
+            _Actors [1].Play(_SelectAnim);
+        }
         _Actors [1].MoveTo(_FemalePos, delegate {
             _Actors [1].Play(_DefaultAnim);
             _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
@@ -77,7 +84,10 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [1] == null)
             return;
 
-        _Actors [1].Play(_SelectAnim);
+        if (!_Actors [1].IsPlay(_SelectAnim))
+        {
+            _Actors [1].Play(_SelectAnim);
+        }
         _Actors [1].MoveTo(_ToPos, delegate {
             _Actors [1].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
             _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
@@ -89,7 +99,10 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) <= 0f)
             return;
 
-        _Actors [0].Play(_SelectAnim);
+        if (!_Actors [0].IsPlay(_SelectAnim))
+        {
+            _Actors [0].Play(_SelectAnim);
+        }
         _Actors [0].MoveTo(_MalePos, delegate {
             _Actors [0].Play(_DefaultAnim);
             _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
