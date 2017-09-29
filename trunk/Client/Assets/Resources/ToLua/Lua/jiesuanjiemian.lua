@@ -192,7 +192,7 @@ function jiesuanjiemian_FlushData()
 		starEff.max = 15;
 		starEff.count = 0;
 		if Proxy4Lua.IsAchieve1 == true then
-			star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
+			star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu", false));
 		end
 	else
 		resultImg.url = UIPackage.GetItemURL("jiesuanjiemian", "shibai");
@@ -222,7 +222,7 @@ function jiesuanjiemian:OnUpdate()
 				end
 				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				if Proxy4Lua.IsAchieve2 == true then
-					star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
+					star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu", false));
 				end
 				return;
 			end
@@ -239,7 +239,7 @@ function jiesuanjiemian:OnUpdate()
 				end
 				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				if Proxy4Lua.IsAchieve3 == true then
-					star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu"));
+					star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu", false));
 				end
 				return;
 			end
@@ -287,15 +287,15 @@ function jiesuanjiemian_OnOkBtn()
 	okLbl.visible = false;
 
 	if Proxy4Lua.IsAchieve1 == true then
-		star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		star1_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
 	end
 	if Proxy4Lua.IsAchieve2 == true then
-		star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
 	end
 	if Proxy4Lua.IsAchieve3 == true then
-		star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		Proxy4Lua.UnloadAsset("effect/lanhuoqiu");
 	end
 

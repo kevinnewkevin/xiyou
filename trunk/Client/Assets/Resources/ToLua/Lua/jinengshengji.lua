@@ -68,7 +68,7 @@ end
 
 function jinengshengji_FlushData()
 	effRes = "Effect/dengjitishen";
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes, false));
 	local preSkillId = UIParamHolder.Get("jineng");
 	local nowSkillId = UIParamHolder.Get("jineng2");
 	local sData = SkillData.GetData(preSkillId);

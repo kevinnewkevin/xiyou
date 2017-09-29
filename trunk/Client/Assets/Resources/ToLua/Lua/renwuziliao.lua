@@ -109,7 +109,7 @@ function renwuziliao_FlushData()
 	if modelRes ~= displayData._AssetPath then
 		Proxy4Lua.UnloadAsset(modelRes);
 		modelRes = displayData._AssetPath;
-		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
+		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true));
 	end
 	name.text =  GamePlayer._Name;
 

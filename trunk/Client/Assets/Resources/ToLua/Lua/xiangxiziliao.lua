@@ -214,7 +214,7 @@ function xiangxiziliao:OnDispose()
 end
 
 function xiangxiziliao:OnHide()
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
 	Window:Hide();
@@ -250,7 +250,7 @@ function xiangxiziliao_FlushData()
 	local hideBtn = UIParamHolder.Get("qiecuo2");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	modelRes = displayData._AssetPath;
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true));
 
 	if hideBtn == false then
 		isInGroup = UIManager.GetWindow("paiku").IsInGroup();

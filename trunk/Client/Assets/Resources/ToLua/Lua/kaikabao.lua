@@ -72,7 +72,7 @@ function kaikabao_OnBoxBtn(context)
 	readyOutDrop.count = 0;
 
 	boxEff = "effect/kaikabao_texiao";
-	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff));
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff, false));
 end
 
 function kaikabao_OnExit(context)
@@ -81,7 +81,7 @@ function kaikabao_OnExit(context)
 	
 	Proxy4Lua.UnloadAsset(boxEff);
 	boxEff = "";
-	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 end
 
 function kaikabao_FlushData()

@@ -98,7 +98,7 @@ end
 
 function qianghuachenggong_FlushData()
 	effRes = "Effect/dengjitishen";
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes, false));
 	local instId = UIParamHolder.Get("qiecuo1");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	local entityInst = GamePlayer.GetCardByInstID(instId);

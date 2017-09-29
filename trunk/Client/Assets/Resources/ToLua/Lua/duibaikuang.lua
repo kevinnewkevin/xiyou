@@ -92,24 +92,24 @@ function duibaikuang_FlushData()
 			if dData ~= nil then
 				Proxy4Lua.UnloadAsset(lastAsset);
 				lastAsset = dData._AssetPath;
-				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height));
+				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height, false));
 			else
-				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+				leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 				Proxy4Lua.UnloadAsset(lastAsset);
 				lastAsset = "";
 			end
-			rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+			rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		else
 			if dData ~= nil then
 				Proxy4Lua.UnloadAsset(lastAsset);
 				lastAsset = dData._AssetPath;
-				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height));
+				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(dData._AssetPath, tData._Scale, tData._Height, false));
 			else
-				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+				rightDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 				Proxy4Lua.UnloadAsset(lastAsset);
 				lastAsset = "";
 			end
-			leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+			leftDisplay:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		end
 		name.text = tData._Name;
 		content.text = tData._Content;

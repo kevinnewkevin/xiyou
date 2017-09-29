@@ -71,7 +71,7 @@ function baowu_OnBoxBtn(context)
 	readyOutDrop.count = 0;
 
 	boxEff = "effect/baoxiangguangmang";
-	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff));
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff, false));
 end
 
 function baowu_OnExit(context)
@@ -89,7 +89,7 @@ function baowu_OnExit(context)
 	end
 	Proxy4Lua.UnloadAsset(boxEff);
 	boxEff = "";
-	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 end
 
 function baowu_FlushData()

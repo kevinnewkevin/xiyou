@@ -125,7 +125,7 @@ function BattlePanel:OnTick()
 	if skillObj ~= nil then
 		skillObj.count = skillObj.count + 1;
 		if skillObj.count > skillObj.max then
-			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+			skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 			Proxy4Lua.UnloadAsset(skillActor_modRes);
 			skillActor_modRes = "";
 			skillObj = nil;
@@ -344,9 +344,9 @@ function BattlePanel:ShowSkill()
 		skillObj.max = 2;
 		skillObj.count = 0;
 		skillActor_modRes = dData._AssetPath;
-		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(skillActor_modRes, dData._BattleSkillScale, dData._BattleSkillHeight));
+		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(skillActor_modRes, dData._BattleSkillScale, dData._BattleSkillHeight, false));
 	else
-		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		Proxy4Lua.UnloadAsset(skillActor_modRes);
 		skillActor_modRes = "";
 	end
