@@ -26,24 +26,24 @@ function zhujiemian:OnInit()
 	self.contentPane = UIPackage.CreateObject("zhujiemian", "zhujiemian_com").asCom;
 	self:Center();
 
-	stateIcon = self.contentPane:GetChild("n17").asButton;
-	stateIcon.onClick:Add(zhujiemian_OnFolder);
+	--stateIcon = self.contentPane:GetChild("n17").asButton;
+	--stateIcon.onClick:Add(zhujiemian_OnFolder);
 
 	local bottomGroup = self.contentPane:GetChild("n18");
 	stateBar = bottomGroup:GetController("c1");
 	local bottomBtnList = bottomGroup:GetChild("n15").asList;
 	local skillBtn = bottomBtnList:GetChildAt(1);
 	skillBtn.onClick:Add(zhujiemian_OnSkillBtn);
-	local cardCargo = bottomBtnList:GetChildAt(3);
-	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
-	local taskBtn = bottomBtnList:GetChildAt(4);
+	--local cardCargo = bottomBtnList:GetChildAt(3);
+	--cardCargo.onClick:Add(zhujiemian_OnCardCargo);
+	local taskBtn = self.contentPane:GetChild("n31");
 	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
---	local qiecuoBtn = bottomBtnList:GetChildAt(6);
---	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
+	local qiecuoBtn = self.contentPane:GetChild("n32");
+	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 
-	local shopBtn = bottomBtnList:GetChildAt(2);
+	local shopBtn = self.contentPane:GetChild("n30");
 	shopBtn.onClick:Add(zhujiemian_OnShop);
 
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
