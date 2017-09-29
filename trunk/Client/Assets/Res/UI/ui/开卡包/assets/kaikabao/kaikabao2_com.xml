@@ -8,11 +8,11 @@
       <relation target="n19_twty" sidePair="center-center,middle-middle"/>
     </graph>
     <loader id="n19_twty" name="n19" xy="970,804" pivot="0.5,0.5" anchor="true" size="347,344" url="ui://4r9f9n7gj7dt1"/>
-    <list id="n20_twty" name="n20" xy="396,1086" size="1198,588" layout="flow_hz" overflow="scroll" lineGap="14" colGap="38" defaultItem="ui://4r9f9n7gmgo59">
+    <list id="n20_twty" name="n20" xy="382,992" size="1198,588" layout="flow_hz" overflow="scroll" lineGap="14" colGap="38" defaultItem="ui://4r9f9n7gmgo59">
       <relation target="n19_twty" sidePair="center-center,middle-middle"/>
     </list>
   </displayList>
   <transition name="t2">
-    <item time="0" type="XY" target="n19_twty" tween="true" startValue="970,804" endValue="970,256" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n19_twty" tween="true" startValue="970,804" endValue="970,356" duration="12" ease="Circ.InOut"/>
   </transition>
 </component>
