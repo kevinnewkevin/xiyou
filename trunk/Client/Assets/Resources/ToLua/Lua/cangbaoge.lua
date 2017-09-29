@@ -163,7 +163,7 @@ function cangbaoge_UpdateInfo()
 	local shopData = ShopData.GetData(buyShopId);
 	infoBoxNameLab.text = shopData._Name;
 	infoBuyBtnLab.text = shopData._Price;
-	infoMoneyLab.text = shopData._copper;
+	infoMoneyLab.text = shopData._copper .. "铜币";
 	greenLab.visible = false;
 	greenImg.visible = false;	
 	buleLab.visible = false;
