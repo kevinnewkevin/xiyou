@@ -34,8 +34,8 @@ function zhujiemian:OnInit()
 	local bottomBtnList = bottomGroup:GetChild("n15").asList;
 	local skillBtn = bottomBtnList:GetChildAt(1);
 	skillBtn.onClick:Add(zhujiemian_OnSkillBtn);
-	--local cardCargo = bottomBtnList:GetChildAt(3);
-	--cardCargo.onClick:Add(zhujiemian_OnCardCargo);
+	local cardCargo = bottomBtnList:GetChildAt(2);
+	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 	local taskBtn = self.contentPane:GetChild("n31");
 	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
 	local qiecuoBtn = self.contentPane:GetChild("n32");
