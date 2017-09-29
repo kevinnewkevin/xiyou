@@ -255,7 +255,7 @@ public class GamePlayer {
         if (idx < 0 || idx >= _CardsByFee[fee].Count)
             return null;
 
-        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
+        EntityData edata = EntityData.GetData(_CardsByFee[fee][idx].UnitId);
         if (edata == null)
             return null;
 
@@ -294,10 +294,10 @@ public class GamePlayer {
         if (!_CardsByFee.ContainsKey(fee))
             return null;
 
-        if (idx < 0 || idx >= _CardsByFee[0].Count)
+        if (idx < 0 || idx >= _CardsByFee[fee].Count)
             return null;
 
-        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
+        EntityData edata = EntityData.GetData(_CardsByFee[fee][idx].UnitId);
         return edata;
     }
 

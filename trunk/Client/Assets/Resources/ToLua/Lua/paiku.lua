@@ -7,6 +7,7 @@ local allCardList;
 local allCardGroupList;
 
 local cardItemUrl = "ui://paiku/touxiangkuang_Label";
+local cardItemGapUrl = "ui://paiku/kong_com";
 local cardGroupUrl = "ui://paiku/paizuanniu_Button";
 
 local cardGroupList;
@@ -58,7 +59,7 @@ function paiku:OnInit()
 
 	local cardGroup = rightPart:GetChild("n6");
 	local deleteBtn = cardGroup:GetChild("n24").asButton;
-	crtCardName = cardGroup:GetChild("n23");
+--	crtCardName = cardGroup:GetChild("n23");
 	deleteBtn.onClick:Add(paiku_OnDeleteGroup);
 	cardGroupList = cardGroup:GetChild("n27").asList;
 	cardGroupList.onDrop:Add(paiku_OnDropCard);
@@ -66,8 +67,8 @@ function paiku:OnInit()
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
 	setBattleBtn.onClick:Add(paiku_OnSetBattle);
 
-	local changeNameBtn = cardGroup:GetChild("n25").asButton;
-	changeNameBtn.onClick:Add(paiku_OnChangeGroupName);
+--	local changeNameBtn = cardGroup:GetChild("n25").asButton;
+--	changeNameBtn.onClick:Add(paiku_OnChangeGroupName);
 
 	--test
 
@@ -87,6 +88,7 @@ function paiku_OnFeeItemClick(context)
 end
 
 function paiku_RenderListItem(index, obj)
+print(index .. " + " .. crtCardsFee);
 	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, index);
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
 	local img = obj:GetChild("n5");
@@ -116,9 +118,6 @@ function paiku_RenderListItem(index, obj)
 	else
 		radImg.visible = false;
 	end
-
-
-
 end
 
 function paiku_OnDeleteGroup(context)
@@ -185,6 +184,10 @@ function paiku_FlushData()
 	local displayData;
 	local entityData;
 	for i=1, groupCards.Count do
+		if i == 1 or i == 4 or i == 8 then
+			cardGroupList:AddItemFromPool(cardItemGapUrl);
+		end
+
 		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
 		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
@@ -219,9 +222,9 @@ function paiku_FlushData()
 			groupName = "卡组" .. i;
 		end
 		groupItem:GetChild("n3").text = groupName;
-		if crtGroupIdx == i - 1 then
-			crtCardName.text = groupName;
-		end
+--		if crtGroupIdx == i - 1 then
+--			crtCardName.text = groupName;
+--		end
 		if i - 1 == GamePlayer._CrtBattleGroupIdx then
 			groupItem:GetChild("n4").visible = true;
 		else
@@ -244,10 +247,10 @@ function paiku_OnCardItem(context)
 	UIManager.Show("xiangxiziliao");
 end
 
-function paiku_OnChangeGroupName(context)
-	GamePlayer.ChangeGroupName(crtGroupIdx, crtCardName.text);
-	UIManager.SetDirty("paiku");
-end
+--function paiku_OnChangeGroupName(context)
+--	GamePlayer.ChangeGroupName(crtGroupIdx, crtCardName.text);
+--	UIManager.SetDirty("paiku");
+--end
 
 function paiku_OnDragCard(context)
 	context:PreventDefault();
@@ -270,23 +273,23 @@ function paiku_OnDropCard(context)
 		return;
 	end
 
-	paiku_OnMessageConfirm();
-	--[[local MessageBox = UIManager.ShowMessageBox();
-	if isInGroup then
-		MessageBox:SetData("提示", "是否取出卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
-	else
-		MessageBox:SetData("提示", "是否加入卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
-	end--]]
-end
-
-function paiku_OnMessageConfirm()
-	if GamePlayer.IsGroupMax(crtGroupIdx) then
+	if onGroupArea and GamePlayer.IsGroupMax(crtGroupIdx) then
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "卡组已满", true);
 		UIManager.SetDirty("paiku");
 		return;
 	end
 
+	paiku_OnMessageConfirm();
+--	--[[local MessageBox = UIManager.ShowMessageBox();
+--	if isInGroup then
+--		MessageBox:SetData("提示", "是否取出卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
+--	else
+--		MessageBox:SetData("提示", "是否加入卡组？", false, paiku_OnMessageConfirm, paiku_OnMessageCancel);
+--	end--]]
+end
+
+function paiku_OnMessageConfirm()
 	isInGroup = GamePlayer.IsInGroup(crtCardInstID, crtGroupIdx);
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
