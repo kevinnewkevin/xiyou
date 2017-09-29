@@ -68,6 +68,7 @@ function kaikabao:OnInit()
 	backCom = self.contentPane:GetChild("n23");
 	backCom.onClick:Add(kaikabao_OnBackBtn);
 	backCom.enabled = false;
+	hitNextLbl.visible = false;
 	itemInfoName = topPanel:GetChild("n15");
 	itemInfolevel = topPanel:GetChild("n14");
 	itemInfoIcon = topPanel:GetChild("n8");
@@ -242,7 +243,7 @@ function kaikabao:OnUpdate()
 			openTrans:Play();
 			setItemInfo();
 			backCom.enabled = true;
-
+			hitNextLbl.visible = true;
 
 		end
 	end
@@ -279,6 +280,7 @@ function kaikabao_OnBackBtn(context)
 			overTrans:Play();
 		end
 		backCom.enabled = false;
+		hitNextLbl.visible = false;
 end
 
 
@@ -359,7 +361,7 @@ function setItemInfo()
 			local itemNum = BagSystem.GetItemMaxNum(itemInst.ItemId);
 			barLab.text = itemNum .. "/" .. levelData._ItemNum ;
 			itemBar.value = 0;
-			itemBar:TweenValue( (itemNum/levelData._ItemNum*100),50 );
+			itemBar:TweenValue( (itemNum/levelData._ItemNum*100),20 );
 		else
 			itemInfoIconDebris.visible= true; 
 			itemInfoIconNum.text =  "" .. itemInst.Stack;
