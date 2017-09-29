@@ -1,4 +1,4 @@
-hbv51.xml|2235|<component size="1920,1080" opaque="false">
+hbv51.xml|2172|<component size="1920,1080" opaque="false">
   <displayList>
     <image id="n38_nfe4" name="n38" src="nfe424" xy="0,0" size="1920,1080"/>
     <graph id="n39_nfe4" name="n39" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
@@ -30,8 +30,7 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <component id="n30_nfe4" name="n30" src="hbv51o" xy="1808,195"/>
     <component id="n31_nfe4" name="n31" src="hbv51n" xy="961,139"/>
     <component id="n32_nfe4" name="n32" src="nfe41y" xy="197,141"/>
-    <image id="n35_nfe4" name="n35" src="hbv5b" xy="0,162" size="204,728"/>
-    <image id="n36_nfe4" name="n36" src="nfe421" xy="47,162"/>
+    <image id="n35_nfe4" name="n35" src="hbv5b" xy="0,162" size="221,728"/>
     <component id="n37_nfe4" name="n37" src="nfe423" xy="168,420"/>
   </displayList>
 </component>hbv511.xml|1263|<component size="982,84" extention="Label">
@@ -165,9 +164,10 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="n4_ud9y" name="n4" src="hbv516" xy="79,10"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
-</component>hbv51n.xml|290|<component size="473,771" extention="Button">
+</component>hbv51n.xml|381|<component size="473,771" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
+    <loader id="n3_10fre" name="n3" xy="32,15" size="466,766" url="ui://s1sxt36u10fre25"/>
     <image id="n2_nfe4" name="n2" src="hbv518" xy="-3,-1"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
@@ -253,7 +253,7 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     </list>
   </displayList>
   <relation target="n2" sidePair="height"/>
-</component>hbv5y.xml|1319|<component size="514,200" extention="Label">
+</component>hbv5y.xml|1318|<component size="514,200" extention="Label">
   <displayList>
     <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,7"/>
     <component id="n8_hbv5" name="n8" src="hbv5z" xy="113,55">
@@ -263,10 +263,10 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <text id="n9_hbv5" name="n9" xy="120,19" size="251,45" font="方正楷体_GBK" fontSize="30" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="3" text="今晚打老虎啊"/>
     <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145"/>
     <image id="n2_hbv5" name="n2" src="hbv5i" xy="-1,6"/>
-    <image id="n4_hbv5" name="n4" src="hbv55" xy="397,21">
+    <image id="n4_hbv5" name="n4" src="hbv55" xy="363,3">
       <relation target="" sidePair=""/>
     </image>
-    <image id="n12_hbv5" name="n12" src="hbv510" xy="401,42">
+    <image id="n12_hbv5" name="n12" src="hbv510" xy="367,24">
       <relation target="" sidePair=""/>
     </image>
     <image id="n15_ud9y" name="n15" src="ud9y1u" xy="22,21"/>
@@ -281,14 +281,15 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="n2" name="bar" src="hbv5a" xy="3,3" size="211,24"/>
   </displayList>
   <ProgressBar/>
-</component>nfe41y.xml|292|<component size="803,768" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+</component>nfe41y.xml|409|<component size="803,768" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" src="nfe41x" name="n1" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <loader id="n2_10fre" name="n2" xy="32,20" size="798,772" url="ui://s1sxt36u10fre26"/>
+    <image id="n1" name="n1" src="nfe41x" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
+  <Button/>
 </component>nfe41z.xml|292|<component size="415,312" extention="Button">
   <Button/>
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
@@ -313,7 +314,7 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
       <relation target="" sidePair="width,height"/>
     </image>
   </displayList>
-</component>package.xml|6062|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|6350|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
     <component id="hbv51" name="zhujiemian_com" path="/" size="1920,1080" exported="true"/>
     <component id="hbv511" name="Label2" path="/" size="982,84" exported="true"/>
@@ -343,6 +344,8 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <component id="nfe41z" name="Button19" path="/" size="415,312" exported="true"/>
     <component id="nfe420" name="Button20" path="/" size="418,470" exported="true"/>
     <component id="nfe423" name="paihang_Button" path="/" size="36,194" exported="true"/>
+    <image id="10fre25" name="zjm_30" path="/" size="404,732" exported="true"/>
+    <image id="10fre26" name="zjm_31" path="/" size="732,732" exported="true"/>
     <image id="hbv510" name="huiyuan" path="/" size="56,39" exported="true"/>
     <image id="hbv513" name="zjm_beibao" path="/" size="188,74" exported="true"/>
     <image id="hbv514" name="zjm_faqi" path="/" size="190,73" exported="true"/>
@@ -354,15 +357,15 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="hbv51a" name="zjm_tujian" path="/" size="230,229" exported="true"/>
     <image id="hbv52" name="baoshi" path="/" size="84,65" exported="true"/>
     <image id="hbv53" name="ditiao" path="/" size="29,50" exported="true" scale="9grid" scale9grid="8,16,10,23"/>
-    <image id="hbv54" name="fengji" path="/" size="120,285" exported="true" scale="9grid" scale9grid="30,136,60,4"/>
+    <image id="hbv54" name="fengji" path="/" size="120,295" exported="true" scale="9grid" scale9grid="30,136,60,4"/>
     <image id="hbv55" name="huiyuankuang" path="/" size="83,86" exported="true"/>
     <image id="hbv56" name="jiahao" path="/" size="75,67" exported="true"/>
     <image id="hbv57" name="jinbi" path="/" size="84,65" exported="true"/>
     <image id="hbv58" name="jingyan" path="/" size="90,28" exported="true"/>
     <image id="hbv59" name="jingyankuang" path="/" size="19,22" exported="true" scale="9grid" scale9grid="10,8,9,16"/>
     <image id="hbv5a" name="jingyantiao" path="/" size="17,18" exported="true" scale="9grid" scale9grid="9,6,10,12"/>
-    <image id="hbv5b" name="juanzhoudi" path="/" size="204,237" exported="true" scale="9grid" scale9grid="78,102,45,7"/>
-    <image id="hbv5c" name="juanzhoudizhuangshi" path="/" size="57,66" exported="true"/>
+    <image id="hbv5b" name="juanzhoudi" path="/" size="225,747" exported="true" scale="9grid" scale9grid="78,102,45,7"/>
+    <image id="hbv5c" name="juanzhoudizhuangshi" path="/" size="57,70" exported="true"/>
     <image id="hbv5d" name="juanzhouguan" path="/" size="188,249" exported="true"/>
     <image id="hbv5e" name="juanzhoukai" path="/" size="348,102" exported="true"/>
     <image id="hbv5f" name="mingzikuang" path="/" size="268,55" exported="true"/>
@@ -382,9 +385,11 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="sv0v1s" name="zuobianyun" path="/" size="150,73" exported="true"/>
     <image id="ud9y1t" name="touxiang_nv" path="/" size="149,149" exported="true"/>
     <image id="ud9y1u" name="zjm_23" path="/" size="89,89" exported="true"/>
-    <atlas id="atlas0" size="1024,512" file="atlas0.png"/>
+    <atlas id="atlas0" size="512,1024" file="atlas0.png"/>
     <atlas id="atlas100" size="1024,1024" file="atlas0_1.png"/>
     <atlas id="atlas101" size="1024,1024" file="atlas0_2.png"/>
     <atlas id="atlas102" size="1024,1024" file="atlas0_3.png"/>
+    <atlas id="atlas103" size="1024,1024" file="atlas0_4.png"/>
+    <atlas id="atlas104" size="1024,1024" file="atlas0_5.png"/>
   </resources>
 </packageDescription>
