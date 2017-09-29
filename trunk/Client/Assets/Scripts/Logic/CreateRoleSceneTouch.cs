@@ -52,9 +52,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [0] == null)
             return;
 
-        if (_Actors [0].IsPlay(_SelectAnim))
-            return;
-
         _Actors [0].Play(_SelectAnim);
         _Actors [0].MoveTo(_ToPos, delegate {
             _Actors [0].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
@@ -78,9 +75,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
     public void SelectFemale()
     {
         if (_Actors [1] == null)
-            return;
-
-        if (_Actors [1].IsPlay(_SelectAnim))
             return;
 
         _Actors [1].Play(_SelectAnim);
