@@ -61,9 +61,11 @@ function RegGlobalValue()
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
 	Define.Set("WorldCamera_focusPlus", "0,1,9");	--主场景公告牌偏移坐标
 	Define.Set("WeatherCheckTime", 60); --天气监测间隔 秒
-	Define.Set("CreateMalePos", "0,0,0"); --男主角初始位置
-	Define.Set("CreateFemalePos", "0,0,0"); --女主角初始位置
-	Define.Set("CreateSelectPos", "0,0,0"); --选中位置
+	Define.Set("CreateMalePos", "0.4693,0.45,-1.65"); --男主角初始位置
+	Define.Set("CreateMaleRotY", -47.76); --男主角初始旋转
+	Define.Set("CreateFemalePos", "1.55,0.457,-2.847"); --女主角初始位置
+	Define.Set("CreateFemaleRot", 13.97); --女主角初始旋转
+	Define.Set("CreateSelectPos", "-1.52,-0.09,0.9"); --选中位置
 	Define.Set("CreateDefaultClip", "stand"); --默认动画
 	Define.Set("CreateSelectClip", "walk"); --选中动画
 end
