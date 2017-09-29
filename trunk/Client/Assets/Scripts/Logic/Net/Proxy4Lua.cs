@@ -307,6 +307,15 @@ public class Proxy4Lua {
         return -1;
     }
 
+    static public int CrtSelect()
+    {
+        CreateRoleSceneTouch crst = GameObject.FindObjectOfType<CreateRoleSceneTouch>();
+        if (crst == null)
+            return -1;
+
+        return crst._SelectRole;
+    }
+
     static public void SelectRole(int idx)
     {
         CreateRoleSceneTouch crst = GameObject.FindObjectOfType<CreateRoleSceneTouch>();

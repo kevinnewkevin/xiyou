@@ -12,6 +12,15 @@ public class NpcHandle : MonoBehaviour {
         get{ return _ID; }
     }
 
+    void Start()
+    {
+        BoxCollider bc = GetComponent<BoxCollider>();
+        if (bc != null)
+        {
+            bc.center = new Vector3(0f, 0.75f, 0f);
+        }
+    }
+
     public void Excute()
     {
         Debug.Log("Excute Npc Function " + ID.ToString());

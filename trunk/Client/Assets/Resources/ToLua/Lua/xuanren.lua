@@ -43,7 +43,14 @@ function xuanren_OnSelectRole()
 end
 
 function xuanren:OnUpdate()
-	
+	if UIManager.IsDirty("xuanren") then
+		xuanren_FlushData();
+		UIManager.ClearDirty("xuanren");
+	end
+end
+
+function xuanren_FlushData()
+	selectList.selectedIndex = Proxy4Lua.CrtSelect();
 end
 
 function xuanren:OnTick()
@@ -63,7 +70,8 @@ function xuanren:OnHide()
 end
 
 function xuanren_OnCreate()
-	if selectList.selectedIndex == -1 then
+	local select = Proxy4Lua.CrtSelect();
+	if select == -1 then
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "请选择角色", true);
 		return;
@@ -74,5 +82,5 @@ function xuanren_OnCreate()
 		MessageBox:SetData("提示", "请输入昵称", true);
 		return;
 	end
-	Proxy4Lua.CreatePlayer(selectList.selectedIndex + 1, name.text);
+	Proxy4Lua.CreatePlayer(select + 1, name.text);
 end
