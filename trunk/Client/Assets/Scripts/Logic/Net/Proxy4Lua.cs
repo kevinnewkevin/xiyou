@@ -109,12 +109,13 @@ public class Proxy4Lua {
         return Battle._SelectedHandCardInstID == Battle._HandCards [idx].InstId;
     }
 
-    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath)
+    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, bool canRot = false)
     {
         if (string.IsNullOrEmpty(assetPath))
             return new FairyGUI.GoWrapper(new GameObject());
         GameObject go = AssetLoader.LoadAsset(assetPath);
-        go.AddComponent<ActorRotate>();
+        if(canRot)
+            go.AddComponent<ActorRotate>();
         go.transform.position = new Vector3(0f, 0f, 1000f);
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
         go.transform.Rotate(Vector3.up, 180f);
@@ -123,12 +124,13 @@ public class Proxy4Lua {
         return new FairyGUI.GoWrapper(go);
     }
 
-    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, float scale, float height)
+    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, float scale, float height, bool canRot = false)
     {
         if (string.IsNullOrEmpty(assetPath))
             return new FairyGUI.GoWrapper(new GameObject());
         GameObject go = AssetLoader.LoadAsset(assetPath);
-        go.AddComponent<ActorRotate>();
+        if(canRot)
+            go.AddComponent<ActorRotate>();
         go.transform.position = new Vector3(0f, height, 1000f);
         go.transform.localScale = Vector3.one * scale;
         go.transform.Rotate(Vector3.up, 180f);
