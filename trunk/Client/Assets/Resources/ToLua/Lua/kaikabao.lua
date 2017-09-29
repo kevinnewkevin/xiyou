@@ -134,11 +134,16 @@ function kaikabao_OnExit(context)
 	cardOutDrop.max = 1;
 	cardOutDrop.count = 0; 
 	showOuTCard = true;
+
+	Proxy4Lua.UnloadAsset(boxEff);
+	boxEff = "";
+	Proxy4Lua.UnloadAsset(overEffStr);
+	overEffStr = "";
+	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
+	overEffect:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Window:Hide();			
 
-	--Proxy4Lua.UnloadAsset(boxEff);
-	--boxEff = "";
-	--boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(""));
+
 end
 
 function kaikabao_FlushData()
@@ -198,18 +203,14 @@ end
 
 function kaikabao_OnBoxBtn(context)
 	print("kaikabao_OnBoxBtn");
-	--timeOut = nil;
 	outCom.visible = true;
 	openCom.visible = false;
-	--outTrans:Play();
 
 	readyOutDrop = {};
 	readyOutDrop.max = 1;
 	readyOutDrop.count = 0;
 	showPayBoxEffect = true;
 
-	--boxEff = "effect/kaikabao_texiao";
-	--boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject(boxEff));
 
 end
 
@@ -324,6 +325,10 @@ function kaikabao:OnHide()
 	cardOutDrop.max = 1;
 	cardOutDrop.count = 0; 
 	showOuTCard = true;
+	Proxy4Lua.UnloadAsset(boxEff);
+	boxEff = "";
+	Proxy4Lua.UnloadAsset(overEffStr);
+	overEffStr = "";
 	Window:Hide();
 end
 
@@ -353,7 +358,8 @@ function setItemInfo()
 			local  levelData =  StrengthenData.GetData( entityInst.UnitId, entityInst.IProperties[9]+1);
 			local itemNum = BagSystem.GetItemMaxNum(itemInst.ItemId);
 			barLab.text = itemNum .. "/" .. levelData._ItemNum ;
-			itemBar.value = itemNum/levelData._ItemNum*100;
+			itemBar.value = 0;
+			itemBar:TweenValue( (itemNum/levelData._ItemNum*100),50 );
 		else
 			itemInfoIconDebris.visible= true; 
 			itemInfoIconNum.text =  "" .. itemInst.Stack;
