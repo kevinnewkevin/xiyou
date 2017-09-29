@@ -13,7 +13,7 @@
     <image id="a44q9" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="272,168,18,26"/>
     <image id="a44qa" name="dixian.png" path="/" exported="true"/>
     <image id="k7i8b" name="baoshi.png" path="/" exported="true"/>
-    <image id="k7i8c" name="ditiao.png" path="/" exported="true"/>
+    <image id="k7i8c" name="ditiao.png" path="/" exported="true" scale="9grid" scale9grid="8,13,9,20"/>
     <image id="k7i8d" name="jiahao.png" path="/" exported="true"/>
     <image id="k7i8e" name="jinbi.png" path="/" exported="true"/>
     <image id="k7i8f" name="tili.png" path="/" exported="true"/>
@@ -43,6 +43,8 @@
     <image id="mrcu13" name="tc_xian.png" path="/" exported="true"/>
     <component id="mrcu15" name="guanbi_Button.xml" path="/" exported="true"/>
     <image id="mrcu16" name="bb_hongxian.png" path="/" exported="true"/>
+    <component id="jkzo17" name="Label2.xml" path="/" exported="true"/>
+    <component id="jkzo18" name="Button5.xml" path="/" exported="true"/>
   </resources>
   <publish name="cangbaoge" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
