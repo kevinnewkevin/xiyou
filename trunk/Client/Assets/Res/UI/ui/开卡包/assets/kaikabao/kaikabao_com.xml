@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1920,1080">
   <displayList>
+    <graph id="n23_shvu" name="n23" xy="0,0" size="1920,1080" alpha="0.01" type="rect"/>
+    <image id="n6_hqls" name="n6" src="hqls8" xy="0,0" size="1920,1080"/>
+    <component id="n16_mgo5" name="n16" src="mgo5m" xy="983,807" pivot="0.5,0.5" anchor="true" touchable="false"/>
     <graph id="n18_twty" name="n18" xy="978,806" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect">
       <relation target="n0_ains" sidePair="center-center,middle-middle"/>
     </graph>
-    <image id="n6_hqls" name="n6" src="hqls8" xy="0,0" size="1920,1080"/>
-    <component id="n16_mgo5" name="n16" src="mgo5m" xy="983,807" pivot="0.5,0.5" anchor="true" touchable="false"/>
     <graph id="n19_twty" name="n19" xy="972,812" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" touchable="false" type="rect">
       <relation target="n16_mgo5" sidePair="center-center,middle-middle"/>
     </graph>

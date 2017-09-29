@@ -3,12 +3,21 @@
   <displayList>
     <graph id="n9_fdjr" name="n9" xy="0,0" size="1920,1080" alpha="0.7" type="rect" fillColor="#ff000000"/>
     <text id="n0_f8un" name="n0" xy="0,0" size="1920,1080" font="方正楷体_GBK" fontSize="42" color="#ffffff" align="center" vAlign="bottom" autoSize="none" text="点击继续"/>
-    <list id="n2_f8un" name="n2" xy="986,384" pivot="0.5,0.5" anchor="true" size="1227,300" layout="row" margin="85,10,0,0" colGap="92" defaultItem="ui://t8pdjij8dwqv4" align="center" vAlign="middle"/>
+    <list id="n2_f8un" name="n2" xy="986,384" pivot="0.5,0.5" anchor="true" size="1227,300" layout="flow_hz" margin="85,10,0,0" lineGap="57" colGap="92" defaultItem="ui://t8pdjij8dwqv4" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
     <component id="n4_f8un" name="n4" src="f8un5" xy="770,452"/>
     <component id="n7_fdjr" name="n7" src="fdjr8" xy="768,454"/>
   </displayList>
   <transition name="t1">
     <item time="0" type="Scale" target="n2_f8un" tween="true" startValue="0,0" endValue="1,1" duration="18"/>
-    <item time="0" type="XY" target="n2_f8un" tween="true" startValue="986,720" endValue="986,343" duration="18"/>
+    <item time="0" type="XY" target="n2_f8un" tween="true" startValue="986,720" endValue="986,170" duration="18"/>
   </transition>
 </component>
