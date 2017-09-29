@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n6_hqls" name="n6" src="hqls8" xy="0,0" size="1920,1080"/>
+    <text id="n3_jm1c" name="n3" xy="738,1006" size="464,59" font="方正楷体_GBK" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="点击继续"/>
+    <graph id="n21_twty" name="n21" xy="972,802" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+      <relation target="n19_twty" sidePair="center-center,middle-middle"/>
+    </graph>
+    <loader id="n19_twty" name="n19" xy="970,804" pivot="0.5,0.5" anchor="true" size="347,344" url="ui://4r9f9n7gj7dt1"/>
+    <list id="n20_twty" name="n20" xy="396,1086" size="1198,588" layout="flow_hz" overflow="scroll" lineGap="14" colGap="38" defaultItem="ui://4r9f9n7gmgo59">
+      <relation target="n19_twty" sidePair="center-center,middle-middle"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+  <transition name="t2">
+    <item time="0" type="XY" target="n19_twty" tween="true" startValue="970,804" endValue="970,256" duration="12" ease="Circ.InOut"/>
+  </transition>
+</component>
