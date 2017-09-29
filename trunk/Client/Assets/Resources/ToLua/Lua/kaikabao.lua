@@ -49,6 +49,7 @@ local itemInfoIconlevel;
 local itemInfoIconRed;
 local barLab;
 local itemBar;
+local overShowBox;
 function kaikabao:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = kaikabao.New();
@@ -82,13 +83,14 @@ function kaikabao:OnInit()
 	itemInfoIconlevel = itemInfoIcon:GetChild("n6");
 	itemInfoIconRed = itemInfoIcon:GetChild("n10");
 
+
 	itemInfoIconTeam.visible= false;
 	itemInfoIconRed.visible= false;
 	itemInfoIconDebris.visible= false; 
 	topPanel.visible= false; 
 
 	overPanel = self.contentPane:GetChild("n22");
-
+	overShowBox = overPanel:GetChild("n19");
 	overTrans = overPanel:GetTransition("t2");
 	dropList = overPanel:GetChild("n20").asList;
 	hitNextBtn = overPanel:GetChild("n22");
@@ -161,14 +163,17 @@ function kaikabao_FlushData()
 	if shopType == 1000 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao1";
 		outCom.asLoader.url  = "ui://kaikabao/kabao1";
+		overShowBox.asLoader.url  = "ui://kaikabao/kabao1";
 	end
 	if shopType == 1001 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao2";
 		outCom.asLoader.url  = "ui://kaikabao/kabao2";
+		overShowBox.asLoader.url  = "ui://kaikabao/kabao2";
 	end
 	if shopType == 1002 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao3";
 		outCom.asLoader.url  = "ui://kaikabao/kabao3";
+		overShowBox.asLoader.url  = "ui://kaikabao/kabao3";
 	end
 
 
