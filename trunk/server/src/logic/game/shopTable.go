@@ -94,7 +94,7 @@ func LoadCardPondTable(filename string) error {
 		}
 		c.OrangeNum = csv.GetInt32(r,"Orangenum")
 
-		strTmp1 := strings.Split(csv.GetString(r,"OrangeitemID"),";")
+		strTmp1 := strings.Split(csv.GetString(r,"PurpleitemID"),";")
 		for i:=0;i<len(strTmp);i++{
 			itemid,_ := strconv.Atoi(strTmp1[i])
 
@@ -106,7 +106,7 @@ func LoadCardPondTable(filename string) error {
 		}
 		c.PurpleNum = csv.GetInt32(r,"Purplenum")
 
-		strTmp2 := strings.Split(csv.GetString(r,"OrangeitemID"),";")
+		strTmp2 := strings.Split(csv.GetString(r,"BlueitemID"),";")
 		for i:=0;i<len(strTmp);i++{
 			itemid,_ := strconv.Atoi(strTmp2[i])
 
@@ -118,7 +118,7 @@ func LoadCardPondTable(filename string) error {
 		}
 		c.BlueNum = csv.GetInt32(r,"Bluenum")
 
-		strTmp3 := strings.Split(csv.GetString(r,"OrangeitemID"),";")
+		strTmp3 := strings.Split(csv.GetString(r,"GreenitemID"),";")
 		for i:=0;i<len(strTmp);i++{
 			itemid,_ := strconv.Atoi(strTmp3[i])
 
