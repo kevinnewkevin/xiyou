@@ -21,7 +21,7 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="n19_sv0v" name="n19" src="sv0v1s" xy="0,77"/>
     <component id="n7_hbv5" name="n7" src="hbv5q" xy="1625,11"/>
     <component id="n8_hbv5" name="n8" src="hbv5r" xy="1711,11"/>
-    <component id="n15_hbv5" name="n15" src="hbv5y" xy="-1,3"/>
+    <component id="n15_hbv5" name="n15" src="hbv5y" xy="-2,3"/>
     <component id="n16_hbv5" name="n16" src="hbv511" xy="699,6"/>
     <component id="n18_hbv5" name="n18" src="hbv51h" xy="152,805"/>
     <image id="n27_ud9y" name="n27" src="hbv54" xy="1800,154" size="120,722"/>
@@ -253,7 +253,7 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     </list>
   </displayList>
   <relation target="n2" sidePair="height"/>
-</component>hbv5y.xml|1288|<component size="514,200" extention="Label">
+</component>hbv5y.xml|1319|<component size="514,200" extention="Label">
   <displayList>
     <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,7"/>
     <component id="n8_hbv5" name="n8" src="hbv5z" xy="113,55">
@@ -261,14 +261,15 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     </component>
     <text id="n10_hbv5" name="n10" xy="139,59" size="179,29" font="方正楷体_GBK" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="99999999/9999999&#xA;"/>
     <text id="n9_hbv5" name="n9" xy="120,19" size="251,45" font="方正楷体_GBK" fontSize="30" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="3" text="今晚打老虎啊"/>
+    <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145"/>
     <image id="n2_hbv5" name="n2" src="hbv5i" xy="-1,6"/>
     <image id="n4_hbv5" name="n4" src="hbv55" xy="397,21">
       <relation target="" sidePair=""/>
     </image>
-    <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145" align="center" vAlign="middle"/>
     <image id="n12_hbv5" name="n12" src="hbv510" xy="401,42">
       <relation target="" sidePair=""/>
     </image>
+    <image id="n15_ud9y" name="n15" src="ud9y1u" xy="22,21"/>
     <image id="n16_ud9y" name="n16" src="hbv58" xy="22,82"/>
     <text id="n11_hbv5" name="n11" xy="71,80" size="39,35" font="方正楷体_GBK" fontSize="27" color="#ffd000" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
   </displayList>
@@ -288,6 +289,22 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
       <relation target="" sidePair="width,height"/>
     </image>
   </displayList>
+</component>nfe41z.xml|292|<component size="415,312" extention="Button">
+  <Button/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <displayList>
+    <image id="n1" src="nfe41w" name="n1" xy="0,0">
+      <relation target="" sidePair="width,height"/>
+    </image>
+  </displayList>
+</component>nfe420.xml|292|<component size="418,470" extention="Button">
+  <Button/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <displayList>
+    <image id="n1" src="nfe41v" name="n1" xy="0,0">
+      <relation target="" sidePair="width,height"/>
+    </image>
+  </displayList>
 </component>nfe423.xml|291|<component size="36,194" extention="Button">
   <Button/>
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
@@ -296,16 +313,8 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
       <relation target="" sidePair="width,height"/>
     </image>
   </displayList>
-</component>package.xml|5603|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|6062|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
-    <component id="nfe41y" name="Button18" path="/" size="803,768"/>
-    <component id="nfe423" name="paihang_Button" path="/" size="36,194"/>
-    <image id="nfe41v" name="zjm_13" path="/" size="418,470"/>
-    <image id="nfe41w" name="zjm_14" path="/" size="415,312"/>
-    <image id="nfe41x" name="zjm_16" path="/" size="803,768"/>
-    <image id="nfe421" name="zjm_28" path="/" size="109,42"/>
-    <image id="nfe422" name="zjm_29" path="/" size="36,194"/>
-    <image id="nfe424" name="zjm_309" path="/" size="961,540"/>
     <component id="hbv51" name="zhujiemian_com" path="/" size="1920,1080" exported="true"/>
     <component id="hbv511" name="Label2" path="/" size="982,84" exported="true"/>
     <component id="hbv512" name="Button5" path="/" size="75,67" exported="true"/>
@@ -330,6 +339,10 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <component id="hbv5v" name="ComboBox1_popup" path="/" size="150,200" exported="true"/>
     <component id="hbv5y" name="Label1" path="/" size="514,200" exported="true"/>
     <component id="hbv5z" name="ProgressBar1" path="/" size="219,30" exported="true"/>
+    <component id="nfe41y" name="Button18" path="/" size="803,768" exported="true"/>
+    <component id="nfe41z" name="Button19" path="/" size="415,312" exported="true"/>
+    <component id="nfe420" name="Button20" path="/" size="418,470" exported="true"/>
+    <component id="nfe423" name="paihang_Button" path="/" size="36,194" exported="true"/>
     <image id="hbv510" name="huiyuan" path="/" size="56,39" exported="true"/>
     <image id="hbv513" name="zjm_beibao" path="/" size="188,74" exported="true"/>
     <image id="hbv514" name="zjm_faqi" path="/" size="190,73" exported="true"/>
@@ -360,7 +373,15 @@ hbv51.xml|2235|<component size="1920,1080" opaque="false">
     <image id="hbv5k" name="youbian" path="/" size="538,123" exported="true"/>
     <image id="hbv5l" name="youjian" path="/" size="82,77" exported="true"/>
     <image id="hbv5n" name="zuobian" path="/" size="623,100" exported="true"/>
+    <image id="nfe41v" name="zjm_13" path="/" size="418,470" exported="true"/>
+    <image id="nfe41w" name="zjm_14" path="/" size="415,312" exported="true"/>
+    <image id="nfe41x" name="zjm_16" path="/" size="803,768" exported="true"/>
+    <image id="nfe421" name="zjm_28" path="/" size="109,42" exported="true"/>
+    <image id="nfe422" name="zjm_29" path="/" size="36,194" exported="true"/>
+    <image id="nfe424" name="zjm_309" path="/" size="961,540" exported="true"/>
     <image id="sv0v1s" name="zuobianyun" path="/" size="150,73" exported="true"/>
+    <image id="ud9y1t" name="touxiang_nv" path="/" size="149,149" exported="true"/>
+    <image id="ud9y1u" name="zjm_23" path="/" size="89,89" exported="true"/>
     <atlas id="atlas0" size="1024,512" file="atlas0.png"/>
     <atlas id="atlas100" size="1024,1024" file="atlas0_1.png"/>
     <atlas id="atlas101" size="1024,1024" file="atlas0_2.png"/>
