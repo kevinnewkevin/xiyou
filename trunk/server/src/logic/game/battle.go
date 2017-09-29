@@ -396,60 +396,62 @@ func (this *BattleRoom) Update() {
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 	}
 
-	for _, u := range unitllist {
-		if u == nil {
-			continue
-		}
-
-		//fmt.Println("report.UnitList, append", u)
-		//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
-
-		if u.IsDead() { // 非主角死亡跳過
-			continue
-		}
-
-		this.AcctionList = prpc.COM_BattleAction{}
-		//this.TargetOn()
-		this.AcctionList.InstId = u.InstId
-
-		u.CheckBuff(this.Round)
-		u.CheckDebuff(this.Round)
-
-
-		del_buf := u.CheckAllBuff(this.Round)
-		this.UpdateBuffState(del_buf)
-
-		if u.IsJump() {
-			continue
-		}
-
-		u.CastSkill(this)
-
-		//this.TargetOver()
-
-		this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
-
-		//fmt.Println("BattleAcction", u.InstId, "acction", this.AcctionList)
-		//fmt.Println("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
-		if this.calcWinner() == true {
-			for _, a := range this.AcctionList.TargetList {
-				unit := this.SelectOneUnit(a.InstId)
-				if unit == nil {
-					continue
-				}
-				//fmt.Println("append", unit)
-				//this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+	//if this.Round > 0 {
+		for _, u := range unitllist {
+			if u == nil {
+				continue
 			}
-			//fmt.Println("this.Winner", this.Winner)
 
-			this.Round += 1
-			this.SendReport(this.ReportOne)
-			this.BattleRoomOver(this.Winner)
-			this.Status = kIdle
-			break
+			//fmt.Println("report.UnitList, append", u)
+			//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
+			if u.IsDead() { // 非主角死亡跳過
+				continue
+			}
+
+			this.AcctionList = prpc.COM_BattleAction{}
+			//this.TargetOn()
+			this.AcctionList.InstId = u.InstId
+
+			u.CheckBuff(this.Round)
+			u.CheckDebuff(this.Round)
+
+
+			del_buf := u.CheckAllBuff(this.Round)
+			this.UpdateBuffState(del_buf)
+
+			if u.IsJump() {
+				continue
+			}
+
+			u.CastSkill(this)
+
+			//this.TargetOver()
+
+			this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
+
+			//fmt.Println("BattleAcction", u.InstId, "acction", this.AcctionList)
+			//fmt.Println("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
+			if this.calcWinner() == true {
+				for _, a := range this.AcctionList.TargetList {
+					unit := this.SelectOneUnit(a.InstId)
+					if unit == nil {
+						continue
+					}
+					//fmt.Println("append", unit)
+					//this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+				}
+				//fmt.Println("this.Winner", this.Winner)
+
+				this.Round += 1
+				this.SendReport(this.ReportOne)
+				this.BattleRoomOver(this.Winner)
+				this.Status = kIdle
+				break
+
+			}
 		}
-	}
+	//}
 	fmt.Println("Battle report battleid is ", this.ReportOne.BattleID)
 	fmt.Println("Battle report unitlist is ", this.ReportOne.UnitList)
 	fmt.Println("Battle report acctionlist is ", this.ReportOne.ActionList)
@@ -692,6 +694,7 @@ func (this *BattleRoom) SelectAroundTraget(unitid int64) []int64 {
 		if this.Units[pos].IsDead() {
 			continue
 		}
+
 		if pos == int(pos_front) {
 			targetList = append(targetList, this.Units[pos].InstId)
 			continue
@@ -781,8 +784,16 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	}
 
 	if len(u_list) == 0{
+		if this.Round == 0 {
+			for _, p := range this.PlayerList {
+				if p.BattleCamp != unit.Camp {
+					return p.MyUnit.InstId
+				}
+			}
+		}
 		return -1
 	}
+
 	index := len(u_list) - 1
 
 	fmt.Print("目标索引",index)
@@ -812,6 +823,17 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 	fmt.Println("友方目标",u_list)
 	if len(u_list) == 1 {
 		return u_list[0]
+	}
+
+	if len(u_list) == 0{
+		if this.Round == 0 {
+			for _, p := range this.PlayerList {
+				if p.BattleCamp == unit.Camp {
+					return p.MyUnit.InstId
+				}
+			}
+		}
+		return -1
 	}
 
 	index := len(u_list) - 1

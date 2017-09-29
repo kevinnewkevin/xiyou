@@ -200,21 +200,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(uid))
 
-	//t_id := battle.SelectOneTarget(unit.InstId)
 	t_id := battle.SelectNearTarget(unit.InstId)
-	//for _, u := range battle.Units {
-	//	if u == nil {
-	//		continue
-	//	}
-	//	if u.IsDead() {
-	//		continue
-	//	}
-	//	if u.Camp == unit.Camp {
-	//		continue
-	//	}
-	//	t_id = int(u.InstId)
-	//	break
-	//}
 
 	fmt.Println("__GetTarget end ,", t_id)
 
