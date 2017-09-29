@@ -32,14 +32,15 @@
     <text id="n15_mgo5" name="n15" xy="792,284" size="450,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" autoSize="none" bold="true" strokeColor="#371f00" text="啦啦啦啦啦啦啦啦啦">
       <relation target="n10_mgo5" sidePair=""/>
     </text>
+    <loader id="n20_x10k" name="n3" xy="969,803" pivot="0.5,0.5" anchor="true" size="354,374" url="ui://4r9f9n7gj7dt1" align="center" vAlign="middle"/>
   </displayList>
   <transition name="t1">
-    <item time="0" type="Alpha" target="n14_mgo5" value="0"/>
+    <item time="0" type="Alpha" target="n8_mgo5" value="1"/>
     <item time="0" type="Alpha" target="n15_mgo5" value="0"/>
     <item time="0" type="Alpha" target="n10_mgo5" value="0"/>
     <item time="0" type="Alpha" target="n9_mgo5" value="0"/>
     <item time="0" type="Alpha" target="n13_mgo5" value="0"/>
-    <item time="0" type="Alpha" target="n8_mgo5" value="1"/>
+    <item time="0" type="Alpha" target="n14_mgo5" value="0"/>
     <item time="0" type="Alpha" target="n11_mgo5" value="0"/>
     <item time="0" type="Alpha" target="n12_mgo5" value="0"/>
     <item time="0" type="Scale" target="n16_mgo5" value="1,1"/>
@@ -52,14 +53,14 @@
     <item time="14" type="Alpha" target="n8_mgo5" value="1"/>
     <item time="15" type="Size" target="n10_mgo5" tween="true" startValue="478,58" endValue="54,58" duration="5"/>
     <item time="16" type="Scale" target="n8_mgo5" tween="true" startValue="0,1" endValue="1,1" duration="4" ease="Circ.InOut"/>
-    <item time="20" type="Alpha" target="n10_mgo5" tween="true" startValue="0" endValue="1" duration="4"/>
     <item time="20" type="Alpha" target="n9_mgo5" value="1"/>
+    <item time="20" type="Alpha" target="n10_mgo5" tween="true" startValue="0" endValue="1" duration="4"/>
     <item time="20" type="Size" target="n9_mgo5" tween="true" startValue="14,48" endValue="117,48" duration="4"/>
     <item time="20" type="Size" target="n10_mgo5" tween="true" startValue="54,58" endValue="446,58" duration="4"/>
     <item time="22" type="Alpha" target="n14_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
     <item time="22" type="Alpha" target="n13_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
+    <item time="22" type="Alpha" target="n11_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
     <item time="22" type="Alpha" target="n12_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
     <item time="22" type="Alpha" target="n15_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
-    <item time="22" type="Alpha" target="n11_mgo5" tween="true" startValue="0" endValue="1" duration="3"/>
   </transition>
 </component>
