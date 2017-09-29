@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="803,768" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" src="nfe41x" name="n1" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <loader id="n2_10fre" name="n2" xy="32,20" size="798,772" url="ui://s1sxt36u10fre26"/>
+    <image id="n1" name="n1" src="nfe41x" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
+  <Button/>
 </component>
