@@ -40,12 +40,12 @@ function SK_309_Action(battleid, casterid)
 	local pvalue = 0.4
 	local hp_damage = hp*pvalue
 	local  hp_pro= Bhp*0.1
+	damege = damage + hp_pro
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	sys.log("雷震子 雷击对目标   "..t.. "加掉血buff" )
 	Battle.AddBuff(battleid,casterid, t,100, hp_damage)     --每回合掉当前生命值40%血量
 	sys.log("雷震子 雷击对目标   "..t.. "加被动技能buff" )
-	Battle.AddBuff(battleid,casterid,t,141,hp_pro)
-	sys.log("雷震子 雷击对目标   "..t.. "加被动技能buff完成" )
+	
 	Battle.TargetOver(battleid)
 	
 	

@@ -21,6 +21,9 @@ function SK_313_Action(battleid, casterid)
 	--local attackNum = 0		-- 攻击个数
 	
 	local  target = Player.GetTarget(battleid,casterid)
+	
+	local atk = Player.GetUnitAtk(battleid,casterid)
+	local atk_damage = atk * 0.1
 	local  damage = Player.GetUnitDamage(battleid,casterid,target)
 	sys.log("蛟魔王 真龙形态 给目标  " ..target.. " 造成 法术伤害  "..damage)
 	local trueDamage = ClacDamageByAllBuff(battleid,casterid,target,damage)
@@ -37,6 +40,9 @@ function SK_313_Action(battleid, casterid)
 	
 	sys.log("蛟魔王 真龙形态 给目标  " ..target .." 造成 法术最终伤害的130%  "..Damage)
 	Battle.Attack(battleid,casterid,target,Damage,crit) 	--调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
+	Battle.AddBuff(battleid,casterid,target,110,atk_damage)
+	
 	Battle.TargetOver(battleid)
 	local  p = Player.CheckUnitDead(battleid,target)
 	
@@ -48,6 +54,7 @@ function SK_313_Action(battleid, casterid)
 			break
 		end
 		Battle.Attack(battleid,casterid,t,Damage,crit)
+		Battle.AddBuff(battleid,casterid,target,110,atk_damage)
 		Battle.TargetOver(battleid)
 		p = Player.CheckUnitDead(battleid,t)
 	end
