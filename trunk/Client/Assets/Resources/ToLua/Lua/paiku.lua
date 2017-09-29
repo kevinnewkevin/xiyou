@@ -216,10 +216,10 @@ function paiku_FlushData()
 	local groupName;
 	for i=1, 5 do
 		groupItem = allCardGroupList:GetChildAt(i-1);
-		groupName = GamePlayer.GetGroupName(i - 1);
-		if groupName == "" then
-			groupName = "卡组" .. i;
-		end
+--		groupName = GamePlayer.GetGroupName(i - 1);
+--		if groupName == "" then
+			groupName = "" .. i;
+--		end
 		groupItem:GetChild("n3").text = groupName;
 --		if crtGroupIdx == i - 1 then
 --			crtCardName.text = groupName;
