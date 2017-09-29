@@ -52,6 +52,9 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [0] == null)
             return;
 
+        if (_Actors [0].IsPlay(_SelectAnim))
+            return;
+
         _Actors [0].Play(_SelectAnim);
         _Actors [0].MoveTo(_ToPos, delegate {
             _Actors [0].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
@@ -61,7 +64,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [1] == null)
             return;
 
-        if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) <= 1f)
+        if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) <= 0f)
             return;
         
         _Actors [1].Play(_SelectAnim);
@@ -77,6 +80,9 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [1] == null)
             return;
 
+        if (_Actors [1].IsPlay(_SelectAnim))
+            return;
+
         _Actors [1].Play(_SelectAnim);
         _Actors [1].MoveTo(_ToPos, delegate {
             _Actors [1].Play(Define.ANIMATION_PLAYER_ACTION_IDLE);
@@ -86,7 +92,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [0] == null)
             return;
 
-        if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) <= 1f)
+        if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) <= 0f)
             return;
 
         _Actors [0].Play(_SelectAnim);
