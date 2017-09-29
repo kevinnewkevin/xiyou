@@ -431,7 +431,7 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.VirtualHp = 0
 	this.Position = prpc.BP_MAX
 	this.Special = map[int32][]int32{}
-	this.MoveStage = 1
+	this.MoveStage = 0
 }
 
 func (this *GameUnit)CheckBuff (round int32){
