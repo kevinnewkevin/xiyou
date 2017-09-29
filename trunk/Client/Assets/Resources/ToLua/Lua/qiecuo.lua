@@ -6,6 +6,7 @@ local Window;
 local allCardGroupList;
 local cardGroupList;
 local cardGroupUrl = "ui://qiecuo/paizuanniu_Button";
+local cardItemGapUrl = "ui://qiecuo/kong_com";
 local cardItemUrl = "ui://qiecuo/touxiangkuang_Label";
 local crtCardName;
 local crtGroupIdx = 0;
@@ -35,7 +36,7 @@ function qiecuo:OnInit()
 	allCardGroupList = bg:GetChild("n5").asList;
 
 	local cardGroup = rightPart:GetChild("n6");
-	crtCardName = cardGroup:GetChild("n23");
+	--crtCardName = cardGroup:GetChild("n23");
 	cardGroupList = cardGroup:GetChild("n27").asList;
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
 	setBattleBtn.onClick:Add(paiku_OnSetBattle);
@@ -117,12 +118,29 @@ function qiecuo_FlushData()
 	local displayData;
 	local entityData;
 	for i=1, groupCards.Count do
+		if i == 1 or i == 4 or i == 8 then
+			cardGroupList:AddItemFromPool(cardItemGapUrl);
+		end
 		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
 		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
 		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 		local fee = itemBtn:GetChild("n7");
 		fee.text = entityData._Cost
+
+		local radImg = itemBtn:GetChild("n10");
+		local level = itemBtn:GetChild("n6");
+		local instId = GamePlayer.GetInstIDFromGroup(crtGroupIdx,  i - 1);
+		local entityInst = GamePlayer.GetCardByInstID(instId);
+		local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
+		level.text = entityInst.IProperties[9] .. "";
+		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+		if itemNum >= levelData._ItemNum then
+			radImg.visible = true;
+		else
+			radImg.visible = false;
+		end
+
 		itemBtn.onClick:Add(qiecuo_OnCardInGroup);
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 	end
@@ -138,7 +156,7 @@ function qiecuo_FlushData()
 			end
 			groupItem:GetChild("n3").text = groupName;
 			if crtGroupIdx == i - 1 then
-				crtCardName.text = groupName;
+			--	crtCardName.text = groupName;
 			end
 			if i - 1 == GamePlayer._CrtBattleGroupIdx then
 				groupItem:GetChild("n4").visible = true;
