@@ -104,6 +104,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable(t.MainId)
+	fmt.Println("adasdas", battleid, t.MainId, m.MainUnit)
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
 	//m.MainUnit.Camp = prpc.CT_BLUE
@@ -393,15 +394,18 @@ func (this *BattleRoom) Update() {
 		if unit == nil {
 			continue
 		}
+		fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 	}
+
+
 
 	//if this.Round > 0 {
 		for _, u := range unitllist {
 			if u == nil {
 				continue
 			}
-
+			fmt.Println("卡牌敏捷 2 : ", u.GetCProperty(prpc.CPT_AGILE))
 			//fmt.Println("report.UnitList, append", u)
 			//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
@@ -880,6 +884,41 @@ func GetNearPos(pos int32) []int32 {
 	}
 	return []int32{}
 }
+func GetNearFriend(pos int32) []int32 {
+	if pos < prpc.BP_RED_1 || pos >= prpc.BP_MAX{
+		return []int32{}
+	}
+	switch int(pos) {
+		case prpc.BP_RED_1 :
+			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_4, prpc.BP_RED_3, prpc.BP_RED_5, prpc.BP_BLUE_6}
+		case prpc.BP_RED_2 :
+			return []int32{prpc.BP_RED_1, prpc.BP_BLUE_3, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_BLUE_6}
+		case prpc.BP_RED_3 :
+			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_6, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_BLUE_1}
+		case prpc.BP_RED_4 :
+			return []int32{prpc.BP_RED_1, prpc.BP_BLUE_5, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_BLUE_6}
+		case prpc.BP_RED_5:
+			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_4, prpc.BP_RED_6, prpc.BP_RED_3, prpc.BP_BLUE_1}
+		case prpc.BP_RED_6 :
+			return []int32{prpc.BP_RED_3, prpc.BP_BLUE_5, prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_BLUE_1}
+
+		case prpc.BP_BLUE_1 :
+			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_3, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
+		case prpc.BP_BLUE_2 :
+			return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_3, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_6}
+		case prpc.BP_BLUE_3 :
+			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_6, prpc.BP_BLUE_5, prpc.BP_BLUE_4, prpc.BP_BLUE_1}
+		case prpc.BP_BLUE_4 :
+			return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_5, prpc.BP_BLUE_2, prpc.BP_BLUE_3, prpc.BP_BLUE_6}
+		case prpc.BP_BLUE_5:
+			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_6, prpc.BP_BLUE_3, prpc.BP_BLUE_1}
+		case prpc.BP_BLUE_6 :
+			return []int32{prpc.BP_BLUE_3, prpc.BP_BLUE_5, prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_1}
+
+		default: return []int32{}
+	}
+	return []int32{}
+}
 
 func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	unit := this.SelectOneUnit(instid)
@@ -901,6 +940,28 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	}
 
 	return this.SelectOneTarget(unit.InstId)
+}
+
+func (this *BattleRoom) SelectNearFriend(instid int64) int64 {
+	unit := this.SelectOneUnit(instid)
+
+	near_pos := GetNearFriend(unit.Position)
+
+	if near_pos == nil || len(near_pos) == 0 {
+		return this.SelectOneFriend(unit.InstId)
+	}
+
+	for _, pos := range near_pos{
+		if this.Units[pos] == nil{
+			continue
+		}
+		if this.Units[pos].IsDead() {
+			continue
+		}
+		return this.Units[pos].InstId
+	}
+
+	return this.SelectOneFriend(unit.InstId)
 }
 
 
