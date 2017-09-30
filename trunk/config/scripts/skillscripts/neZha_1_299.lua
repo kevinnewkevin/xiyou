@@ -17,7 +17,8 @@ function mulatk(atk)
 	return atk * 0.1
 end 
 
-function actionbase(battle,caster, target)
+function dotarget(battle,caster, target)
+	Battle.TargetOn(battle)
 	
 	local  damage = Player.GetUnitDamage(battle,caster,target)  --获取物理伤害
 	
@@ -45,33 +46,18 @@ function actionbase(battle,caster, target)
 	atk = mul(atk,0.1)
 	
 	Battle.AddBuff(battleid,caster,caster,110,atk)
+	
+	Battle.TargetOver(battle)
 
 end
 
 function SK_299_Action(battleid, casterid)
-	Battle.TargetOn(battleid)
-
-	local target =Player.GetMainTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
-	
-	actionbase(battleid,casterid,target)
-	
-	Battle.TargetOver(battleid)
-	
-	local  targets = Player.GetTargetsAround(battleid,t)
-	
-	sys.log("nezha  zhujue")
-	
+	local target =Player.GetMainTarget(battleid, casterid)	
+	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
+	dotarget(battleid,casterid,target)
+	local  targets = Player.GetTargetsAround(battleid,target)
 	for i,v in ipairs(targets)	do
-	
-		Battle.TargetOn(battleid)
-		
-		sys.log("nezha  zhujue"..v)
-		
-		actionbase(battleid,casterid,v)
-		
-		Battle.TargetOver(battleid)
-		
-
+		dotarget(battleid,casterid,v)
 	end
 	
 	return 1
