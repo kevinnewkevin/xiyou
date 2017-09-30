@@ -43,7 +43,7 @@ function SK_312_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
-		sys.log("龙王 消灾对目标  "..v..  "清除所有负向状态")
+		sys.log("龙王 消灾对目标  "..v..  "清除所有负向状态, debuff数量为："..debuffnum)
 		local pvalue = 0.5
 	
 		if debuffnum >0 then 
