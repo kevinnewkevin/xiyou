@@ -79,6 +79,7 @@ public class Skill {
                 _CastEff.transform.parent = caster._ActorObj.transform;
                 _CastEff.transform.localPosition = Vector3.zero;
                 _CastEff.transform.localScale = Vector3.one;
+                _CastEff.transform.localRotation = caster._ActorObj.transform.rotation;
                 _CastEff.SetActive(false);
             }
         }
