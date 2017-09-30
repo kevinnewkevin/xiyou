@@ -106,7 +106,7 @@ function kaikabao:OnInit()
 	openTrans = self.contentPane:GetTransition("t1");
 --	outTrans = outCom:GetTransition("t0");
 
-	---openCom.onClick:Add(kaikabao_OnBoxBtn);
+	outCom.onClick:Add(kaikabao_OnBackBtn);
 
 
 	timeOut = {};
