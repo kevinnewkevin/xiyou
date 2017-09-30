@@ -32,6 +32,9 @@ function SK_299_Action(battleid, casterid)
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 	sys.log("哪吒对主角目标"..t.."造成的最终物理伤害"..damage)
 	
+	local num = 0.5
+	
+	local nezaDamage = damage * num
 	
 	--判断伤害
 	if damage <= 0 then 
@@ -44,7 +47,7 @@ function SK_299_Action(battleid, casterid)
 	
 	local atk =  Player.GetUnitAtk(battleid,t)
 	
-	Battle.Attack(battleid,casterid,t,damage*0.5,crit)
+	Battle.Attack(battleid,casterid,t,nezaDamage,crit)
 	
 	local per = 0.1
 	
@@ -64,26 +67,36 @@ function SK_299_Action(battleid, casterid)
 		
 		sys.log("nezha  zhujue"..v)
 		
-		local  truedamage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
+		local  true_damage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
 		
-		sys.log("哪吒对其他目标"..t.."造成的物理伤害"..truedamage)
+		sys.log("哪吒对其他目标"..t.."造成的物理伤害"..true_damage)
 		
-		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
+		local neza_damage = ClacDamageByAllBuff(battleid,casterid,v,true_damage)
 		
-		sys.log("哪吒对其他目标"..t.."造成的最终物理伤害"..damage)
+		sys.log("哪吒对其他目标"..t.."造成的最终物理伤害"..neza_damage)
 		
 		--判断伤害
-		if damage <= 0 then 
+		if neza_damage <= 0 then 
 		
-			damage = 1
+			neza_damage = 1
 		
 		end
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		Battle.Attack(battleid,casterid,v,damage*0.5,crit)
+		local neza_num = 0.5
 		
-		Battle.AddBuff(battleid,casterid,casterid,110,atk_damage)
+		local  taizi_damage = neza_damage * neza_num
+		
+		Battle.Attack(battleid,casterid,v,taizi_damage,crit)
+		
+		local atkDamage =  Player.GetUnitAtk(battleid,t)
+		
+		local per_num = 0.1
+	
+		local Atk_Demage = atkDamage * per_num
+		
+		Battle.AddBuff(battleid,casterid,casterid,110,Atk_Demage)
 		
 		Battle.TargetOver(battleid)
 		
