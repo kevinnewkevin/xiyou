@@ -1,4 +1,4 @@
-sys.log("SK_299_Action")
+sys.log("neZha_1_299.lua")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -17,25 +17,15 @@ function mulatk(atk)
 	return atk * 0.1
 end 
 
-function SK_299_Action(battleid, casterid)
-	Battle.TargetOn(battleid)
-	local skillid = 299		-- 技能id
-	local skillAttack = 10	-- 技能攻击
-	--local attackNum = 0		-- 攻击个数
+function actionbase(battle,caster, target)
 	
+	local  damage = Player.GetUnitDamage(battle,caster,target)  --获取物理伤害
 	
-	local t =Player.GetMainTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
-	
-	--local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
-	
-	local  damage = Player.GetUnitDamage(battleid,casterid,t)  --获取物理伤害
-	
-	sys.log("哪吒对主角目标"..t.."造成的物理伤害"..damage)
+	sys.log("哪吒对主角目标"..target.."造成的物理伤害"..damage)
 	
 		
-	damage = ClacDamageByAllBuff(battleid,casterid,t,damage)
-	sys.log("哪吒对主角目标"..t.."造成的最终物理伤害"..damage)
-	
+	damage = ClacDamageByAllBuff(battle,caster,target,damage)
+	sys.log("哪吒对主角目标"..target.."造成的最终物理伤害"..damage)
 	
 	damage = mul(damage,0.5)
 	
@@ -46,52 +36,38 @@ function SK_299_Action(battleid, casterid)
 	
 	end
 	
-	local crit = Battle.GetCrit(skillid)   --是否暴击
+	local crit = Battle.GetCrit(299)   --是否暴击
 	
-	local atk =  Player.GetUnitAtk(battleid,t)
+	Battle.Attack(battle,caster,target,damage,crit)
 	
-	Battle.Attack(battleid,casterid,t,damage,crit)
+	local atk =  Player.GetUnitAtk(battle,target)
 	
 	atk = mul(atk,0.1)
 	
-	Battle.AddBuff(battleid,casterid,casterid,110,atk)
+	Battle.AddBuff(battleid,caster,caster,110,atk)
+
+end
+
+function SK_299_Action(battleid, casterid)
+	Battle.TargetOn(battleid)
+
+	local target =Player.GetMainTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
+	
+	actionbase(battleid,casterid,target)
 	
 	Battle.TargetOver(battleid)
 	
-	local  aroud_target = Player.GetTargetsAround(battleid,t)
+	local  targets = Player.GetTargetsAround(battleid,t)
 	
 	sys.log("nezha  zhujue")
 	
-	for i,v in ipairs(aroud_target)	do
+	for i,v in ipairs(targets)	do
 	
 		Battle.TargetOn(battleid)
 		
 		sys.log("nezha  zhujue"..v)
 		
-		damage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
-		
-		
-		damage = ClacDamageByAllBuff(battleid,casterid,v,damage)
-		
-		
-		--判断伤害
-		if damage <= 0 then 
-		
-			damage = 1
-		
-		end
-		
-		crit = Battle.GetCrit(skillid)   --是否暴击
-		
-		--damage = damage*0.5
-		
-		Battle.Attack(battleid,casterid,v,damage,crit)
-		
-		atk =  Player.GetUnitAtk(battleid,t) 
-		
-		--atk = atk* 0.1
-		
-		Battle.AddBuff(battleid,casterid,casterid,110,atk)
+		actionbase(battleid,casterid,v)
 		
 		Battle.TargetOver(battleid)
 		
