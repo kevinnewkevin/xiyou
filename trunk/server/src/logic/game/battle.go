@@ -890,17 +890,17 @@ func GetNearFriend(pos int32) []int32 {
 	}
 	switch int(pos) {
 		case prpc.BP_RED_1 :
-			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_4, prpc.BP_RED_3, prpc.BP_RED_5, prpc.BP_BLUE_6}
+			return []int32{prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_RED_3, prpc.BP_RED_5, prpc.BP_RED_6}
 		case prpc.BP_RED_2 :
-			return []int32{prpc.BP_RED_1, prpc.BP_BLUE_3, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_BLUE_6}
+			return []int32{prpc.BP_RED_1, prpc.BP_RED_3, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_6}
 		case prpc.BP_RED_3 :
-			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_6, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_BLUE_1}
+			return []int32{prpc.BP_RED_2, prpc.BP_RED_6, prpc.BP_RED_5, prpc.BP_RED_4, prpc.BP_RED_1}
 		case prpc.BP_RED_4 :
-			return []int32{prpc.BP_RED_1, prpc.BP_BLUE_5, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_BLUE_6}
+			return []int32{prpc.BP_RED_1, prpc.BP_RED_5, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_RED_6}
 		case prpc.BP_RED_5:
-			return []int32{prpc.BP_RED_2, prpc.BP_BLUE_4, prpc.BP_RED_6, prpc.BP_RED_3, prpc.BP_BLUE_1}
+			return []int32{prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_RED_6, prpc.BP_RED_3, prpc.BP_RED_1}
 		case prpc.BP_RED_6 :
-			return []int32{prpc.BP_RED_3, prpc.BP_BLUE_5, prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_BLUE_1}
+			return []int32{prpc.BP_RED_3, prpc.BP_RED_5, prpc.BP_RED_2, prpc.BP_RED_4, prpc.BP_RED_1}
 
 		case prpc.BP_BLUE_1 :
 			return []int32{prpc.BP_BLUE_2, prpc.BP_BLUE_4, prpc.BP_BLUE_3, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
