@@ -165,8 +165,8 @@ ModelImporter:
     4300006: Plane001
     7400000: Take 001
     7400002: stand
-    7400004: ' run'
-    7400006: ' attack'
+    7400004: run
+    7400006: beattack
     7400008: dead
     7400010: ruchang
     7400012: magic2
@@ -654,7 +654,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ' run'
+      name: run
       takeName: Take 001
       firstFrame: 600
       lastFrame: 640
@@ -879,7 +879,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ' attack'
+      name: beattack
       takeName: Take 001
       firstFrame: 80
       lastFrame: 110
