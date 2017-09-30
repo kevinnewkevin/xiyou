@@ -20,9 +20,19 @@ function SK_2_Action(battleid, casterid)
 	local lock_buff = Player.GetCheckSpec(battleid,casterid,"BF_LOCK")
 	
 	if lock_buff == 1 then
-		t = Player.GetSpecialData(battleid,casterid,"BF_LOCK")
+		t = Player.GetBuffLockId(battleid,casterid,"BF_LOCK")
+		
+		isdead = Player.CheckUnitDead(battleid,t)
+		
+		if isdead == 1 then 
+		
+			t =  Player.GetTarget(battleid, casterid)
+			
+		end
+		sys.log(..casterid.."攻击目标 1111".. t)
 	else 
 		t =  Player.GetTarget(battleid, casterid)
+		sys.log(..casterid.."攻击目标 2222".. t)
 	end
 	
 	local truedamage = Player.GetMagicDamage(battleid, casterid, t)
