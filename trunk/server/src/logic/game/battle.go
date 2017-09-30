@@ -1018,6 +1018,9 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 			return p.MyUnit
 		}
 		for _, u := range p.UnitList {
+			if u == nil{
+				continue
+			}
 			if u.InstId == instid{
 				return u
 			}
