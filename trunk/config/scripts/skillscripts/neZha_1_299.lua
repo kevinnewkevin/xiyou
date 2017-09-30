@@ -1,7 +1,7 @@
 sys.log("neZha_1_299.lua")
 
 -- 技能释放 传入战斗ID和释放者的ID
--- 通过释放者和battleid取得对应的目标 单体或者多个
+-- 通过释放者和battle取得对应的目标 单体或者多个
 -- 循环/直接使用接口操控战斗 类似 战斗.攻击(战斗id, 释放者id, 承受者ID, 伤害数值, 是否暴击)
 -- 
 -- 
@@ -18,7 +18,7 @@ function mulatk(atk)
 end 
 
 function dotarget(battle,caster, target)
-	Battle.TargetOn(battle)
+	
 	
 	local  damage = Player.GetUnitDamage(battle,caster,target)  --获取物理伤害
 	
@@ -45,19 +45,23 @@ function dotarget(battle,caster, target)
 	
 	atk = mul(atk,0.1)
 	
-	Battle.AddBuff(battleid,caster,caster,110,atk)
+	Battle.AddBuff(battle,caster,caster,110,atk)
 	
-	Battle.TargetOver(battle)
+	
 
 end
 
-function SK_299_Action(battleid, casterid)
-	local target =Player.GetMainTarget(battleid, casterid)	
+function SK_299_Action(battle, caster)
+	Battle.TargetOn(battle)
+	local target =Player.GetMainTarget(battle, caster)	
 	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
-	dotarget(battleid,casterid,target)
-	local  targets = Player.GetTargetsAround(battleid,target)
+	dotarget(battle,caster,target)
+	Battle.TargetOver(battle)
+	local  targets = Player.GetTargetsAround(battle,target)
 	for i,v in ipairs(targets)	do
-		dotarget(battleid,casterid,v)
+		Battle.TargetOn(battle)
+		dotarget(battle,caster,v)
+		Battle.TargetOver(battle)
 	end
 	
 	return 1
