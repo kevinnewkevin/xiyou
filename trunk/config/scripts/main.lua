@@ -76,6 +76,7 @@ sys.loadfile("skillscripts/roles_2_cri_289.lua")
 sys.loadfile("skillscripts/roles_3_cri_294.lua")
 sys.loadfile("skillscripts/pugong_atk.lua")
 sys.loadfile("skillscripts/pugong_mtk.lua")
+sys.loadfile("skillscripts/pugong_atk_line.lua")
 
 sys.loadfile("skillscripts/monkey_1_295.lua")
 sys.loadfile("skillscripts/monkey_2_296.lua")
