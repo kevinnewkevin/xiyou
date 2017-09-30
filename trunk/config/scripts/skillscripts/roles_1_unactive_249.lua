@@ -1,4 +1,4 @@
-sys.log(" skill 10 start")
+sys.log(" SK_235_Action unactive 1")
 
 --主角被动1技能  增加生命值50*技能等级
 
@@ -213,4 +213,3 @@ function SK_249_Action(battleid, casterid)
 
 end
 
-sys.log(" skill 10 end")

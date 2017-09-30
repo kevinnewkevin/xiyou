@@ -1,4 +1,4 @@
-sys.log("skill 21 start")
+sys.log("SK_300_Action")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -31,7 +31,7 @@ function SK_300_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)    --是否暴击
 	
-	local damage_atk = damage * 0.3 * 5 
+	local damage_atk = damage * 1.5
 	
 	local atk_del = defender_def * 0.1
 	
@@ -43,4 +43,3 @@ function SK_300_Action(battleid, casterid)
 	return 1
 end
 
-sys.log("skill 21end")

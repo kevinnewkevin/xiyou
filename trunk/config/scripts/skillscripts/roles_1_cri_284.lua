@@ -1,4 +1,4 @@
-sys.log(" skill 13 start")
+sys.log("SK_280_Action cri 1")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -144,7 +144,7 @@ function SK_283_Action(battleid, casterid)
 		
 		Battle.TargetOver(battleid)
 	
-		sys.log("skill150")
+		
 	end
 	
 	
@@ -178,7 +178,6 @@ function SK_284_Action(battleid, casterid)
 		
 		Battle.TargetOver(battleid)
 	
-		sys.log("skill150")
 	end
 	
 	
@@ -186,4 +185,3 @@ function SK_284_Action(battleid, casterid)
 	 
 end
 
-sys.log( "skill 13 end")

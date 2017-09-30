@@ -1,4 +1,4 @@
-sys.log("skill 3 start")
+sys.log("SK_3_Action")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -10,7 +10,7 @@ sys.log("skill 3 start")
 --  计算伤害数值
 --  计算是否暴击
 --  攻击
---  普通单体攻击技能  物理
+--  普通单体攻击技能  物理 
 -- 增加速度视作buff
 
 function SK_3_Action(battleid, casterid)
@@ -50,5 +50,3 @@ function SK_3_Action(battleid, casterid)
 	
 	return true
 end
-
-sys.log("skill 3 end")

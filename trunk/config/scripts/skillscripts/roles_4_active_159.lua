@@ -1,4 +1,4 @@
-sys.log(" skill 4 start")
+sys.log("SK_145_Action active 4")
 
 --主角4技能  增加友方单体目标暴击伤害
 
@@ -214,4 +214,3 @@ function SK_159_Action(battleid, casterid)
 
 end
 
-sys.log(" skill 4 end")

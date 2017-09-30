@@ -1,4 +1,4 @@
-sys.log(" skill 15 start")
+sys.log(" SK_290_Action cri 3")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -188,4 +188,3 @@ function SK_294_Action(battleid, casterid)
 	 
 end
 
-sys.log( "skill 15 end")

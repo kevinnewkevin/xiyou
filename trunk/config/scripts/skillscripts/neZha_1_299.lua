@@ -1,4 +1,4 @@
-sys.log("skill 20 start")
+sys.log("SK_299_Action")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -81,13 +81,7 @@ function SK_299_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local atk =  Player.GetUnitAtk(battleid,v)
-		
 		Battle.Attack(battleid,casterid,v,damage*0.5,crit)
-		
-		local per = 0.1
-		
-		local atk_damage = atk * per
 		
 		Battle.AddBuff(battleid,casterid,casterid,110,atk_damage)
 		
@@ -98,5 +92,3 @@ function SK_299_Action(battleid, casterid)
 	
 	return 1
 end
-
-sys.log("skill 20 end")

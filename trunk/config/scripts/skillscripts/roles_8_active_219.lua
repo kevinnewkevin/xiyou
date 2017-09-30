@@ -1,4 +1,4 @@
-sys.log(" skill 8 start")
+sys.log(" SK_205_Action active 8")
 
 --主角8技能  增加友方单体目标荆棘
 
@@ -212,5 +212,3 @@ function SK_219_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
-
-sys.log(" skill 8 end")

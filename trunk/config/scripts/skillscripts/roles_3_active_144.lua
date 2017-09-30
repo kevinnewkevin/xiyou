@@ -1,4 +1,4 @@
-sys.log(" skill 3 start")
+sys.log("SK_130_Action active 3")
 
 --主角3技能  增加友方单体目标暴击
 
@@ -215,4 +215,3 @@ function SK_144_Action(battleid, casterid)
 
 end
 
-sys.log(" skill 3 end")

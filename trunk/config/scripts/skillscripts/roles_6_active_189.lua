@@ -1,4 +1,4 @@
-sys.log(" skill 6 start")
+sys.log(" SK_175_Action active 6")
 
 --主角6技能  增加友方单体目标溅射
 
@@ -212,4 +212,3 @@ function SK_189_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
-sys.log(" skill 6 end")

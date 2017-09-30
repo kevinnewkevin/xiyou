@@ -1,4 +1,4 @@
-sys.log("skill 22 start")
+sys.log("SK_301_Action")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -57,4 +57,3 @@ function SK_301_Action(battleid, casterid)
 	
 end
 
-sys.log("skill 22 end")
