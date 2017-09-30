@@ -28,7 +28,9 @@ function SK_298_Action(battleid, casterid)
 	
 	Battle.cure(battleid, t, 0, 0)
 	
-	Battle.AddBuff(battleid,casterid,t,103,damage)  --给友方分别提供一个盾牌
+	local buffid = 103
+	
+	Battle.AddBuff(battleid,casterid,t,buffid,damage)  --给友方分别提供一个盾牌
 	
 	Battle.TargetOver(battleid)
 	
