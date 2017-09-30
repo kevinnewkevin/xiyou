@@ -28,10 +28,10 @@ function SK_1_Action(battleid, casterid)
 			t =  Player.GetTarget(battleid, casterid)
 			
 		end
-		sys.log(..casterid.."攻击目标 1111".. t)
+		sys.log(casterid.."攻击目标 1111".. t)
 	else 
 		t =  Player.GetTarget(battleid, casterid)
-		sys.log(..casterid.."攻击目标 222".. t)
+		sys.log(casterid.."攻击目标 222".. t)
 	end
 
 	local truedamage = Player.GetUnitDamage(battleid, casterid, t)
