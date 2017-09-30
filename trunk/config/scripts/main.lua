@@ -110,7 +110,7 @@ sys.loadfile("skillscripts/jiutoushe_1_319.lua")
 sys.loadfile("skillscripts/jiutoushe_2_320.lua")
 sys.loadfile("skillscripts/ziYa_unactive_321.lua")
 sys.loadfile("skillscripts/neZha_unactive_322.lua")
-sys.loadfile("skillscripts/tianWang_unactive_323.lua")
+sys.loadfile("skillscripts/tianwang_unactive_323.lua")
 sys.loadfile("skillscripts/nvWa_unactive_324.lua")
 sys.loadfile("skillscripts/longwang_unactive_325.lua")
 
