@@ -23,6 +23,7 @@ extern int __PopSpec(void*);
 extern int __GetSpecial(void*);
 extern int __GetOneSpecial(void*);
 extern int __GetCheckSpec(void*);
+extern int __GetBuffLockId(void*);
 extern int __Attack(void*);
 extern int __Cure(void*);
 extern int __GetTime(void*);
@@ -103,6 +104,7 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetSpecial,"GetSpecial","Player")
 	_L.LoadApi(C.__GetOneSpecial,"GetOneSpecial","Player")
 	_L.LoadApi(C.__GetCheckSpec,"GetCheckSpec","Player")
+	_L.LoadApi(C.__GetBuffLockId,"GetBuffLockId","Player")
 	_L.LoadApi(C.__GetUnitMtk,"GetUnitMtk","Player")
 	_L.LoadApi(C.__GetCalcMagicDef,"GetCalcMagicDef","Player")
 	_L.LoadApi(C.__GetUnitAtk,"GetUnitAtk","Player")
@@ -678,11 +680,12 @@ func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid 
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	buffid := unit.GetSpecial(spec)
+	buffids := unit.GetSpecial(spec)
+	fmt.Println("aaaaaaaaaaaaa", buffids)
 
 	var data int32
 
-	for _,buffid := range buffid {
+	for _, buffid := range buffids {
 
 		buff := unit.SelectBuff(buffid)
 
@@ -727,6 +730,46 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 
 	return 1
 	
+}
+
+//export __GetBuffLockId
+func __GetBuffLockId(p unsafe.Pointer) C.int { //是否有特殊效果的buff
+
+	fmt.Println("__GetBuffLockId")
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx++
+	unitid := L.ToInteger(idx)
+	idx++
+	spec := L.ToString(idx)
+
+	battle := FindBattle(int64(battleid))
+
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	buffids := unit.GetSpecial(spec)
+	fmt.Println("__GetBuffLockId", buffids)
+
+	var data int32
+
+	for _, buffid := range buffids {
+
+		buff := unit.SelectBuff(buffid)
+
+		if buff.Data == 0 {
+			continue
+		}
+		data = buff.Data
+		break
+	}
+
+	L.PushInteger(int(data))
+
+	return 1
+
 }
 
 //export __GetTargets
