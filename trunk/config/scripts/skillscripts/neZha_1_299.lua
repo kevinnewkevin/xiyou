@@ -13,6 +13,10 @@ sys.log("SK_299_Action")
 -- 乾坤圈。掷出乾坤圈，击中敌人主角后选择下一个敌人弹射，弹射3次，对每个敌人造成50%物理强度的伤害。每击中一个敌人增加自己10%的物理强度，持续2回合。
 -- 增加速度视作buff
 
+function mulatk(atk)
+	return atk * 0.1
+end 
+
 function SK_299_Action(battleid, casterid)
 	Battle.TargetOn(battleid)
 	local skillid = 299		-- 技能id
@@ -24,17 +28,16 @@ function SK_299_Action(battleid, casterid)
 	
 	--local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	local  truedamage = Player.GetUnitDamage(battleid,casterid,t)  --获取物理伤害
+	local  damage = Player.GetUnitDamage(battleid,casterid,t)  --获取物理伤害
 	
-	sys.log("哪吒对主角目标"..t.."造成的物理伤害"..truedamage)
+	sys.log("哪吒对主角目标"..t.."造成的物理伤害"..damage)
 	
 		
-	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
+	damage = ClacDamageByAllBuff(battleid,casterid,t,damage)
 	sys.log("哪吒对主角目标"..t.."造成的最终物理伤害"..damage)
 	
-	local num = 0.5
 	
-	local nezaDamage = damage * num
+	damage = mul(damage,0.5)
 	
 	--判断伤害
 	if damage <= 0 then 
@@ -47,13 +50,11 @@ function SK_299_Action(battleid, casterid)
 	
 	local atk =  Player.GetUnitAtk(battleid,t)
 	
-	Battle.Attack(battleid,casterid,t,nezaDamage,crit)
+	Battle.Attack(battleid,casterid,t,damage,crit)
 	
-	local per = 0.1
+	atk = mul(atk,0.1)
 	
-	local atk_damage = atk * per
-	
-	Battle.AddBuff(battleid,casterid,casterid,110,atk_damage)
+	Battle.AddBuff(battleid,casterid,casterid,110,atk)
 	
 	Battle.TargetOver(battleid)
 	
@@ -67,36 +68,30 @@ function SK_299_Action(battleid, casterid)
 		
 		sys.log("nezha  zhujue"..v)
 		
-		local  true_damage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
+		damage = Player.GetUnitDamage(battleid,casterid,v)  --获取物理伤害
 		
-		sys.log("哪吒对其他目标"..t.."造成的物理伤害"..true_damage)
 		
-		local neza_damage = ClacDamageByAllBuff(battleid,casterid,v,true_damage)
+		damage = ClacDamageByAllBuff(battleid,casterid,v,damage)
 		
-		sys.log("哪吒对其他目标"..t.."造成的最终物理伤害"..neza_damage)
 		
 		--判断伤害
-		if neza_damage <= 0 then 
+		if damage <= 0 then 
 		
-			neza_damage = 1
+			damage = 1
 		
 		end
 		
-		local crit = Battle.GetCrit(skillid)   --是否暴击
+		crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local neza_num = 0.5
+		--damage = damage*0.5
 		
-		local  taizi_damage = neza_damage * neza_num
+		Battle.Attack(battleid,casterid,v,damage,crit)
 		
-		Battle.Attack(battleid,casterid,v,taizi_damage,crit)
+		atk =  Player.GetUnitAtk(battleid,t) 
 		
-		local atkDamage =  Player.GetUnitAtk(battleid,t)
+		--atk = atk* 0.1
 		
-		local per_num = 0.1
-	
-		local Atk_Demage = atkDamage * per_num
-		
-		Battle.AddBuff(battleid,casterid,casterid,110,Atk_Demage)
+		Battle.AddBuff(battleid,casterid,casterid,110,atk)
 		
 		Battle.TargetOver(battleid)
 		
