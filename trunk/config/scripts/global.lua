@@ -10,8 +10,10 @@ function OnLevelWasLoaded(level)
 	Time.timeSinceLevelLoad = 0
 end
 
+--现在当选择人物场景的角色选择回调用
 function ExcuteNpc(id)
-	if id == 2 then
+	Proxy4Lua.SelectRole(id);
+	--[[if id == 2 then
 		Proxy4Lua.FocusNpcObject(2);
 		return;
 	end
@@ -27,7 +29,7 @@ function ExcuteNpc(id)
 	end
 
 	local MessageBox = UIManager.ShowMessageBox();
-	MessageBox:SetData("提示", "暂未开放,敬请期待", true);
+	MessageBox:SetData("提示", "暂未开放,敬请期待", true);--]]
 end
 
 function NetWorkException(errCode)
