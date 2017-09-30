@@ -90,7 +90,7 @@ function SK_299_Action(battleid, casterid)
 		
 		Battle.Attack(battleid,casterid,v,taizi_damage,crit)
 		
-		local atkDamage =  Player.GetUnitAtk(battleid,t)
+		local atkDamage =  Player.GetUnitAtk(battleid,v)
 		
 		local per_num = 0.1
 	
