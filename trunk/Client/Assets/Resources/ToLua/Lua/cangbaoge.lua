@@ -96,7 +96,7 @@ function cangbaoge:OnInit()
 	itemLab2.text = shopData._Name;
 	moenyLab2.text = shopData._Price;
 
-	local moneyGroup = self.contentPane:GetChild("n0").asCom;
+	local moneyGroup = self.contentPane:GetChild("n10").asCom;
 	gold = moneyGroup:GetChild("n5");
 	chopper = moneyGroup:GetChild("n7");
 	stamaPoint = moneyGroup:GetChild("n12");
