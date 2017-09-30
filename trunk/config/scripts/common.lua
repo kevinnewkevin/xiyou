@@ -1,4 +1,8 @@
 
+function mul(a,b)
+	return a * b
+end
+
 function sys_log(val)
 	if type(val) == "table" then
 		sys.log(table.concat(val,","))
