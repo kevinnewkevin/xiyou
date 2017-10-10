@@ -1,4 +1,4 @@
-sys.log("SK_314_Action")
+sys.log("蛟魔王 SK_314_Action 开始")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -51,3 +51,4 @@ function SK_314_Action(battleid, casterid)
 	
 end
 
+sys.log("蛟魔王 SK_314_Action 结束")

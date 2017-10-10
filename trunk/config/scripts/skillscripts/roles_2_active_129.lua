@@ -1,4 +1,4 @@
-sys.log("SK_115_Action active 2")
+sys.log("主角 主动技能 2 开始")
 
 --主角2技能  减少对方单体所有属性
 
@@ -213,3 +213,4 @@ function SK_129_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
+sys.log("主角 主动技能 2 结束")

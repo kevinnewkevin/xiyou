@@ -1,4 +1,4 @@
-sys.log(" SK_190_Action active 7")
+sys.log(" 主角 主动技能 7 开始")
 
 --主角7技能  增加友方单体目标回复
 
@@ -226,3 +226,4 @@ function SK_204_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
+sys.log(" 主角 主动技能 7 结束")

@@ -1,4 +1,4 @@
-sys.log("SK_297_Action")
+sys.log(" 子牙 SK_297_Action 开始")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -47,4 +47,4 @@ function SK_297_Action(battleid, casterid)
 	sys.log("子牙杏黄旗")
 	return 1
 end
-
+sys.log(" 子牙 SK_297_Action 结束")

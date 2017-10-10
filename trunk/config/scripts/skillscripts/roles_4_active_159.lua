@@ -1,4 +1,4 @@
-sys.log("SK_145_Action active 4")
+sys.log("主角 主动技能  4 开始")
 
 --主角4技能  增加友方单体目标暴击伤害
 
@@ -213,4 +213,4 @@ function SK_159_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
-
+sys.log("主角 主动技能  4 结束")

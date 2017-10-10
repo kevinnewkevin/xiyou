@@ -1,4 +1,4 @@
-sys.log(" SK_235_Action unactive 1")
+sys.log(" 主角 被动技能 1 开始")
 
 --主角被动1技能  增加生命值50*技能等级
 
@@ -213,3 +213,4 @@ function SK_249_Action(battleid, casterid)
 
 end
 
+sys.log(" 主角 被动技能 1 结束")

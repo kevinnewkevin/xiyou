@@ -1,4 +1,4 @@
-sys.log(" SK_220_Action active 9")
+sys.log("主角 主动技能 9 开始")
 
 --主角9技能  增加友方单体目标吸血
 
@@ -213,3 +213,4 @@ function SK_234_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
+sys.log("主角 主动技能 9 结束")

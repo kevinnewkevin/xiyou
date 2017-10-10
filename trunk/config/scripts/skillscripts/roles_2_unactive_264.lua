@@ -1,4 +1,4 @@
-sys.log(" SK_250_Action unactive 2")
+sys.log(" 主角 被动技能 2 开始")
 
 --主角被动2技能  增加防御力20*技能等级
 
@@ -213,3 +213,4 @@ function SK_264_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
+sys.log(" 主角 被动技能 2 结束")

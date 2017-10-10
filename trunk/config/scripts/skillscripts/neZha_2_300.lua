@@ -1,4 +1,4 @@
-sys.log("SK_300_Action")
+sys.log("哪吒 SK_300_Action 开始")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -42,4 +42,4 @@ function SK_300_Action(battleid, casterid)
 	
 	return 1
 end
-
+sys.log("哪吒 SK_300_Action 结束")

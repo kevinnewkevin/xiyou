@@ -1,4 +1,4 @@
-sys.log("SK_305_Action")
+sys.log(" 观音 SK_305_Action 开始")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -52,17 +52,22 @@ function SK_305_Action(battleid, casterid)
 	local atk_pro = caster_attack*pvalue
 	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
-	sys.log("观音对目标  降低目标40%法术强度 ".. mag_pro)
+	sys.log("观音对目标  降低目标"..t.."    40%法术强度 ".. mag_pro)
 	Battle.AddBuff(battleid,casterid, t,116, mag_pro)     --降低目标40%法术强度
-	sys.log("观音对目标  降低目标40%物理强度 ".. atk_pro)
+	sys.log("观音对目标  降低目标"..t.."   40%物理强度 ".. atk_pro)
 	Battle.AddBuff(battleid,casterid, t,115, atk_pro)     --降低目标40%物理强度
-	sys.log("观音对目标  降低目标40%法术强度  物理强度完成")
+	sys.log("观音对目标  降低目标"..t.."   40%法术强度  物理强度完成")
+	Battle.TargetOver(battleid)
+
+	Battle.TargetOn(battleid)
+
 	local  p = Player.GetFriend(battleid,casterid)  --获取目标 
-	sys.log("观音对目标  增加己方40%法术强度 ".. mag_pro)
+	Battle.Cure(battleid,p,0,0)
+	sys.log("观音对目标  增加己方"..p.."   40%法术强度 ".. mag_pro)
 	Battle.AddBuff(battleid,casterid, p,105, mag_pro)
-	sys.log("观音对目标  增加己方40%物理强度 ".. atk_pro)
+	sys.log("观音对目标  增加己方"..p.."   40%物理强度 ".. atk_pro)
 	Battle.AddBuff(battleid,casterid, p,102, atk_pro)
-	sys.log("观音对目标  增加己方40%法术 法术强度 物理强度  强度完成")
+	sys.log("观音对目标  增加己方"..p.."   40%法术 法术强度 物理强度  强度完成")
 	--Battle.AddBuff(battleid,casterid, t, 115,caster_attack*0.4)     --降低目标40%物理强度
 	
 	Battle.TargetOver(battleid)
@@ -70,3 +75,4 @@ function SK_305_Action(battleid, casterid)
 	return  true
 	 
 end
+sys.log(" 观音 SK_305_Action 结束")

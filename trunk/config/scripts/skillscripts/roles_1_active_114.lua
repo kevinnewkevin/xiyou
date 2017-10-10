@@ -1,4 +1,4 @@
-sys.log("SK_100_Action  active 1")
+sys.log("主角 主动技能 1 开始")
 
 --主角1技能  增加自己所有属性
 
@@ -254,3 +254,4 @@ function SK_114_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 end
+sys.log("主角 主动技能 1  结束")
