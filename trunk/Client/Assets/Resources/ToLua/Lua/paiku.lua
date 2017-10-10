@@ -215,7 +215,7 @@ function paiku_FlushData()
 			radImg.visible = false;
 		end
 
-		itemBtn.onClick:Add(paiku_OnCardInGroup); 
+		itemBtn.onClick:Add(paiku_OnCardItem); 
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
 		itemBtn.onDragStart:Add(paiku_OnDragCard);
@@ -237,30 +237,6 @@ function paiku_FlushData()
 			groupItem:GetChild("n4").visible = true;
 		else
 			groupItem:GetChild("n4").visible = false;
-		end
-	end
-end
-
-function paiku_OnCardInGroup(context)
-	crtCardInstID = context.sender.data;
-	if doubleClickTicker == nil then
-		doubleClickTicker = {};
-		doubleClickTicker.crt = 0;
-		doubleClickTicker.max = 5;
-	else
-		if doubleClickTicker.crt <= doubleClickTicker.max then
-			local max = GamePlayer.IsGroupMax(crtGroupIdx);
-			if max then
-				local MessageBox = UIManager.ShowMessageBox();
-				MessageBox:SetData("提示", "卡组已满", true);
-			else
-				paiku_OnMessageConfirm();
-			end
-			doubleClickTicker = nil;
-		else
-			doubleClickTicker = {};
-			doubleClickTicker.crt = 0;
-			doubleClickTicker.max = 5;
 		end
 	end
 end
