@@ -23,7 +23,6 @@ public class NpcHandle : MonoBehaviour {
 
     public void Excute()
     {
-        Debug.Log("Excute Npc Function " + ID.ToString());
         LuaManager.Call("global.lua", "ExcuteNpc", ID);
     }
 }

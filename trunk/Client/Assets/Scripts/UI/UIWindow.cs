@@ -30,7 +30,6 @@ public class UIWindow {
         Define.LaunchUIBundle(resName);
         _Lua = UIManager._Lua;
         _Lua.DoFile(_UiName + ".lua");
-        Debug.Log(" UI Name : " + uiName);
 
         _InitFunc = _Lua.GetFunction(_UiName + ".OnEntry");
         if (_InitFunc == null)

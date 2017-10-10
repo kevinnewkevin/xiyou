@@ -317,10 +317,8 @@ function paiku_OnMessageConfirm()
 	isInGroup = GamePlayer.IsInGroup(crtCardInstID, crtGroupIdx);
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
-		print("TakeOffCard");
 	else
 		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
-		print("PutInCard");
 	end
 	--UIManager.HideMessageBox();
 	UIManager.SetDirty("paiku");
