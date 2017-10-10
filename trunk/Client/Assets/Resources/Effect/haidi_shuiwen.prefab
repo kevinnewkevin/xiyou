@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 19800000}
   - component: {fileID: 19900000}
+  - component: {fileID: 11400000}
   m_Layer: 0
   m_Name: haidi_shuiwen
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4012782487699246}
   - component: {fileID: 198980337488144878}
   - component: {fileID: 199610101042074536}
+  - component: {fileID: 114066621049508950}
   m_Layer: 0
   m_Name: shuiwen
   m_TagString: Untagged
@@ -43,7 +44,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &114066621049508950
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1967311593010192}

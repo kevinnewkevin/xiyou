@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4023885447510620}
   - component: {fileID: 82451947253411486}
+  - component: {fileID: 114757643835929768}
   m_Layer: 0
   m_Name: huolaoshu2
   m_TagString: Untagged
@@ -553,7 +554,7 @@ AudioSource:
     m_RotationOrder: 0
 --- !u!114 &114757643835929768
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005215024888540}

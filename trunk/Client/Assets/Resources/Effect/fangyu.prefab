@@ -342,6 +342,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 400040}
+  - component: {fileID: 11400000}
   m_Layer: 0
   m_Name: fangyu
   m_TagString: Untagged
@@ -761,7 +762,7 @@ MeshFilter:
   m_Mesh: {fileID: 4300000, guid: a83c0c3b4eb77d847b30cb3e2764c9b9, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100040}
