@@ -188,33 +188,33 @@ function BattlePanel_FlushData()
 			if noPos then
 				cards[i]["card"].enabled = false;
 			else
-				if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
-					cards[i]["card"].enabled = true;
-				else
+--				if Battle._Turn == 1 and Battle.IsSelfCard(i-1) then
+--					cards[i]["card"].enabled = true;
+--				else
 					if Battle._Fee < eData._Cost or operating == false then
 						cards[i]["card"].enabled = false;
 					else
 						cards[i]["card"].enabled = true;
 					end
-				end
+--				end
 			end
 		else
 			cards[i]["card"].visible = false;
 		end
 	end
 
-	local mainActor = Battle.GetActor(GamePlayer._InstID);
-	if Battle._Turn == 1 and mainActor == nil then
-		if Battle._CurrentState == Battle.BattleState.BS_Oper then
-			stateIcon.enabled = false;
---			selectMainRolePos.visible = true;
-			Battle.PutMainInBattle();
-			BattlePanel_FlushData();
-		end
-	else 
+--	local mainActor = Battle.GetActor(GamePlayer._InstID);
+--	if Battle._Turn == 1 and mainActor == nil then
+--		if Battle._CurrentState == Battle.BattleState.BS_Oper then
+--			stateIcon.enabled = false;
+----			selectMainRolePos.visible = true;
+--			Battle.PutMainInBattle();
+--			BattlePanel_FlushData();
+--		end
+--	else 
 		stateIcon.enabled = true;
 		selectMainRolePos.visible = false;
-	end
+--	end
 
 	for i=1, 10 do
 		if i <= Battle.CardsInGroupCount then
@@ -283,11 +283,11 @@ function BattlePanel_OnReturnBtn()
 end
 
 function BattlePanel_OnTurnOver()
-	if Battle._Turn == 1 and mainActor == nil then
-		Battle.PutCardInBattle();
-	else
+--	if Battle._Turn == 1 and mainActor == nil then
+--		Battle.PutCardInBattle();
+--	else
 		Proxy4Lua.BattleSetup();
-	end
+--	end
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
 	end

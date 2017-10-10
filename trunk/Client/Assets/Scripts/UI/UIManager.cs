@@ -123,14 +123,21 @@ public class UIManager {
     {
         _Timer += Time.deltaTime;
 
-        foreach(UIWindow window in _Windows.Values)
+        try
         {
-            if (IsShow(window.UIName))
+            foreach(UIWindow window in _Windows.Values)
             {
-                window.Update();
-                if (_Timer >= 1f)
-                    window.Tick();
+                if (IsShow(window.UIName))
+                {
+                    window.Update();
+                    if (_Timer >= 1f)
+                        window.Tick();
+                }
             }
+        }
+        catch(InvalidOperationException opex)
+        {
+            
         }
 
         if (_Timer >= 1f)

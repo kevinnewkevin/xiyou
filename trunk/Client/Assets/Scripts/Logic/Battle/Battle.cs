@@ -174,7 +174,7 @@ public class Battle {
         _OperatList.Clear();
         _HandCards.Clear();
 
-        _HandCards.Add(GamePlayer._Data);
+        //_HandCards.Add(GamePlayer._Data);
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
         _MaxFee = Define.GetInt("MaxFee");

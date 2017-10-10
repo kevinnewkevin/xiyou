@@ -16,6 +16,8 @@ local crtCardInstID = 0;
 local crtCardsFee = 0;
 local crtCardName;
 
+local doubleClickTicker;
+
 local isInGroup;
 
 function paiku:OnEntry()
@@ -147,6 +149,13 @@ function paiku_OnSelectGroup(context)
 end
 
 function paiku:OnUpdate()
+	if doubleClickTicker ~= nil then
+		doubleClickTicker.crt = doubleClickTicker.crt + 1;
+		if doubleClickTicker.crt >= doubleClickTicker.max then
+			doubleClickTicker = nil;
+			paiku_ExcuteOnCardItem();
+		end
+	end
 	if UIManager.IsDirty("paiku") then
 		paiku_FlushData();
 		UIManager.ClearDirty("paiku");
@@ -234,13 +243,53 @@ end
 
 function paiku_OnCardInGroup(context)
 	crtCardInstID = context.sender.data;
-	UIParamHolder.Set("qiecuo1", crtCardInstID);
-	UIParamHolder.Set("qiecuo2", false);
-	UIManager.Show("xiangxiziliao");
+	if doubleClickTicker == nil then
+		doubleClickTicker = {};
+		doubleClickTicker.crt = 0;
+		doubleClickTicker.max = 5;
+	else
+		if doubleClickTicker.crt <= doubleClickTicker.max then
+			local max = GamePlayer.IsGroupMax(crtGroupIdx);
+			if max then
+				local MessageBox = UIManager.ShowMessageBox();
+				MessageBox:SetData("提示", "卡组已满", true);
+			else
+				paiku_OnMessageConfirm();
+			end
+			doubleClickTicker = nil;
+		else
+			doubleClickTicker = {};
+			doubleClickTicker.crt = 0;
+			doubleClickTicker.max = 5;
+		end
+	end
 end
 
 function paiku_OnCardItem(context)
 	crtCardInstID = context.sender.data;
+	if doubleClickTicker == nil then
+		doubleClickTicker = {};
+		doubleClickTicker.crt = 0;
+		doubleClickTicker.max = 5;
+	else
+		if doubleClickTicker.crt <= doubleClickTicker.max then
+			local max = GamePlayer.IsGroupMax(crtGroupIdx);
+			if max then
+				local MessageBox = UIManager.ShowMessageBox();
+				MessageBox:SetData("提示", "卡组已满", true);
+			else
+				paiku_OnMessageConfirm();
+			end
+			doubleClickTicker = nil;
+		else
+			doubleClickTicker = {};
+			doubleClickTicker.crt = 0;
+			doubleClickTicker.max = 5;
+		end
+	end
+end
+
+function paiku_ExcuteOnCardItem()
 	UIParamHolder.Set("qiecuo1", crtCardInstID);
 	UIParamHolder.Set("qiecuo2", false);
 	UIManager.Show("xiangxiziliao");
