@@ -73,6 +73,21 @@ public class Battle {
 
     static public string _CasterSkillName;
 
+    static int _SelectSkillID;      //主角选择的技能id
+
+    static public int SelectSkillID
+    {
+        set
+        {
+            _SelectSkillID = value;
+            UIManager.SetDirty("BattlePanel");
+        }
+        get
+        {
+            return _SelectSkillID;
+        }
+    }
+
     static public COM_BattleReport BattleReport
     {
         set
