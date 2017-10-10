@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="109,116" extention="Button">
+<component size="145,150" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n2_nfe4" name="n2" src="hbv519" xy="0,0"/>
+    <image id="n2_nfe4" name="n2" src="hbv519" xy="0,0" size="145,150"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>
