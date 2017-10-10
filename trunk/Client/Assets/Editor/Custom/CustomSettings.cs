@@ -179,6 +179,7 @@ public static class CustomSettings
         _GT(typeof(GGroup)),
         _GT(typeof(GImage)),
         _GT(typeof(GLoader)),
+        _GT(typeof(GoWrapper)),
         _GT(typeof(TypingEffect)),
         _GT(typeof(PlayState)),
         _GT(typeof(GMovieClip)),
@@ -214,6 +215,7 @@ public static class CustomSettings
         _GT(typeof(DragDrop)),
         _GT(typeof(List<long>)),
         _GT(typeof(List<COM_Unit>)),
+        _GT(typeof(List<COM_ItemInst>)),
         _GT(typeof(List<CheckpointData>)),
         _GT(typeof(Dictionary<int, HeroStroyData>)),
 		_GT(typeof(COM_ItemInst)),
@@ -232,6 +234,7 @@ public static class CustomSettings
 		_GT(typeof(ShopSystem)),
 		_GT(typeof(CardcloseData)),
 		_GT(typeof(LuaWindow)),
+        _GT(typeof(RenderImage)),
 
     };
 
