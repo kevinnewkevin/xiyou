@@ -2,8 +2,8 @@
 <component size="473,771" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n3_10fre" name="n3" xy="32,15" size="466,766" url="ui://s1sxt36u10fre25"/>
-    <image id="n2_nfe4" name="n2" src="hbv518" xy="-3,-1"/>
+    <image id="n2_nfe4" name="n2" src="hbv518" xy="-3,-1" alpha="0.8"/>
+    <loader id="n3_10fre" name="n3" xy="33,22" size="466,766" url="ui://s1sxt36u10fre25"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>
