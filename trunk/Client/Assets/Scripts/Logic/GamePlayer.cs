@@ -387,6 +387,19 @@ public class GamePlayer {
         return eData;
     }
 
+    static public int[] GetMyActiveSkill()
+    {
+        List<int> skills = new List<int>();
+        RoleSkillData rsData;
+        for (int i = 0; i < _Data.Skills.Length; ++i)
+        {
+            rsData = RoleSkillData.GetDataBySkillID(_Data.Skills[i].SkillId);
+            if (rsData._Type == 1)
+                skills.Add(rsData._SkillId);
+        }
+        return skills.ToArray();
+    }
+
     //通过索引获得卡牌UnitID
     static public int GetUnitIDInMyCards(int idx)
     {

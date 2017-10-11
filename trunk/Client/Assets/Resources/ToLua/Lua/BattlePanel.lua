@@ -29,6 +29,9 @@ local turnTransName;
 
 local selectMainRolePos;
 
+local skillList;
+local skills;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -59,6 +62,9 @@ function BattlePanel:OnInit()
 
 	stateIcon = self.contentPane:GetChild("n16").asLoader;
 	stateIcon.onClick:Add(BattlePanel_OnTurnOver);
+
+	skillList = self.contentPane:GetChild("n50").asList;
+	skillList.onClickItem:Add(BattlePanel_OnSelectSkill);
 
 	for i=1, 5 do
 		cards[i] = {};
@@ -172,6 +178,37 @@ function BattlePanel_FlushData()
 		stateIcon.touchable = false;
 	end
 
+	skills = GamePlayer.GetMyActiveSkill();
+	local skill;
+	local sData;
+	skillList.selectedIndex = -1;
+	for i=0, skills.Length - 1 do
+		skill = skillList:GetChildAt(i);
+		local icon = skill:GetChild("n8").asLoader;
+		local fee = skill:GetChild("n16").asTextField;
+		local lv = skill:GetChild("n7").asTextField;
+		local lock = skill:GetChild("n12");
+		local hide1 = skill:GetChild("n10");
+		local hide2 = skill:GetChild("n13");
+		hide1.visible = false;
+		hide2.visible = false;
+		sData = SkillData.GetData(skills[i]);
+		if sData ~= nil then
+			icon.url = "ui://" .. sData._Icon;
+			lv.text = sData._Level;
+			lock.visible = false;
+			skill.enabled = Battle._Fee >= sData._Fee;
+		else
+			icon.url = "";
+			lv.text = "";
+			lock.visible = true;
+			skill.enabled = false;
+		end
+		if Battle.SelectSkillID == skills[i] then
+			skillList.selectedIndex = i;
+		end
+	end
+
 	local cardNum = Battle._LeftCardNum;
 	local eData;
 	local dData;
@@ -239,6 +276,15 @@ function BattlePanel_FlushData()
 
 	battleTurn.text = "第" .. Battle._Turn .. "回合";
 	BattlePanel_SetFeeCount(Battle._Fee);
+end
+
+function BattlePanel_OnSelectSkill()
+	if Battle.SelectSkillID == skills[skillList.selectedIndex] then
+		skillList.selectedIndex = -1;
+		Battle.SelectSkillID = 0;
+	else
+		Battle.SelectSkillID = skills[skillList.selectedIndex];
+	end
 end
 
 function BattlePanel_SetFeeCount(count)
@@ -318,6 +364,8 @@ function BattlePanel:ShowBattleStart()
 end
 
 function BattlePanel:ShowTurn()
+	Battle.SelectSkillID = 0;
+	skillList.selectedIndex = -1;
 	if turnTransCom.visible == false then
 		turnTransCom.visible =true;
 	end

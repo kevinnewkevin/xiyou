@@ -24,6 +24,7 @@ public class SkillData {
 
     public int _Id;
     public int _Level;
+    public int _Fee;
     public bool _IsMelee;
     public string _Name;
     public string _Desc;
@@ -62,6 +63,7 @@ public class SkillData {
             data = new SkillData ();
             data._Id = parser.GetInt (i, "SkillId");
             data._Level = parser.GetInt (i, "Level");
+            data._Fee = parser.GetInt (i, "Level");
             data._Name = parser.GetString (i, "Name");
             data._Desc = parser.GetString (i, "Cose");
             data._IsMelee = parser.GetBool (i, "IsMelee");

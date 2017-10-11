@@ -534,7 +534,7 @@ public class Battle {
 
     static public void BattleSetup()
     {
-        NetWoking.S.SetupBattle(Battle._OperatList.ToArray());
+        NetWoking.S.SetupBattle(Battle._OperatList.ToArray(), SelectSkillID);
         Battle._OperatList.Clear();
         CurrentState = BattleState.BS_Play;
     }
@@ -858,5 +858,6 @@ public class Battle {
         _Fee = 0;
         _BattleId = 0;
         _BattleCamera.Reset();
+        _SelectSkillID = 0;
     }
 }
