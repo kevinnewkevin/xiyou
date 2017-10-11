@@ -12,7 +12,8 @@ end
 
 --现在当选择人物场景的角色选择回调用
 function ExcuteNpc(id)
-	Proxy4Lua.SelectRole(id);
+	Proxy4Lua.FocusSelectRoleObject(id);
+	--Proxy4Lua.SelectRole(id);
 	--[[if id == 2 then
 		Proxy4Lua.FocusNpcObject(2);
 		return;
@@ -61,7 +62,7 @@ function RegGlobalValue()
 	Define.Set("DestLight", "Effect/dianjiguangquan");
 	Define.Set("BornPos", "8.55,-14.34,4");
 	Define.Set("BattleCamera_plus", "5,5,5"); 		--偏移坐标
-	Define.Set("WorldCamera_focusPlus", "0,1,9");	--主场景公告牌偏移坐标
+	Define.Set("WorldCamera_focusPlus", "0,0.8,0");	--主场景公告牌偏移坐标
 	Define.Set("WeatherCheckTime", 60); --天气监测间隔 秒
 	Define.Set("CreateMalePos", "0.4693,0.45,-1.65"); --男主角初始位置
 	Define.Set("CreateMaleRotY", -47.76); --男主角初始旋转
