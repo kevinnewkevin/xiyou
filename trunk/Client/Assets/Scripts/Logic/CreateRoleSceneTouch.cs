@@ -69,6 +69,13 @@ public class CreateRoleSceneTouch : MonoBehaviour {
             return;
 
         Proxy4Lua.FocusSelectRoleObject(0);
+
+        if (_Actors [0] == null)
+            return;
+
+        _Actors [0].Play("attack");
+        _Actors [0].PlayQueue(_DefaultAnim);
+
 //        if (_Actors [0] == null)
 //            return;
 //
@@ -108,7 +115,13 @@ public class CreateRoleSceneTouch : MonoBehaviour {
             return;
 
         Proxy4Lua.FocusSelectRoleObject(1);
-        
+
+        if (_Actors [1] == null)
+            return;
+
+        _Actors [1].Play("magic");
+        _Actors [1].PlayQueue(_DefaultAnim);
+
 //        if (_Actors [1] == null)
 //            return;
 //
@@ -159,14 +172,14 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (_Actors != null)
-        {
-            for(int i=0; i < _Actors.Length; ++i)
-            {
-                if (_Actors [i] != null)
-                    _Actors [i].Update();
-            }
-        }
+//        if (_Actors != null)
+//        {
+//            for(int i=0; i < _Actors.Length; ++i)
+//            {
+//                if (_Actors [i] != null)
+//                    _Actors [i].Update();
+//            }
+//        }
 	}
 
     void OnDestroy()
