@@ -63,7 +63,7 @@ public class SkillData {
             data = new SkillData ();
             data._Id = parser.GetInt (i, "SkillId");
             data._Level = parser.GetInt (i, "Level");
-            data._Fee = parser.GetInt (i, "Level");
+            data._Fee = parser.GetInt (i, "Feel");
             data._Name = parser.GetString (i, "Name");
             data._Desc = parser.GetString (i, "Cose");
             data._IsMelee = parser.GetBool (i, "IsMelee");
