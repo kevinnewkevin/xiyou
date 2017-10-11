@@ -39,7 +39,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         _Actors = new Actor[2];
         EntityData eData = EntityData.GetData(Define.MALE_ID);
         DisplayData dData = DisplayData.GetData(eData._DisplayId);
-        GameObject actorObj = AssetLoader.LoadAsset(dData._AssetPath);
+        GameObject actorObj = AssetLoader.LoadAsset(dData._AssetPathDetail);
         actorObj.transform.Rotate(Vector3.up, _MaleRotY);
         _Actors [0] = new Actor(actorObj, _MalePos, 0, "", "", null, dData._Id);
         _Actors [0].Play(_DefaultAnim);
@@ -49,7 +49,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 
         eData = EntityData.GetData(Define.FEMALE_ID);
         dData = DisplayData.GetData(eData._DisplayId);
-        actorObj = AssetLoader.LoadAsset(dData._AssetPath);
+        actorObj = AssetLoader.LoadAsset(dData._AssetPathDetail);
         actorObj.transform.Rotate(Vector3.up, _FemaleRotY);
         _Actors [1] = new Actor(actorObj, _FemalePos, 0, "", "", null, dData._Id);
         _Actors [1].Play(_DefaultAnim);
