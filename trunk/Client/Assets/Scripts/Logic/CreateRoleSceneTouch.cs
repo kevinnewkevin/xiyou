@@ -73,7 +73,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [0] == null)
             return;
 
-        _Actors [0].Play("attack");
+        _Actors [0].Play(_SelectAnim);
         _Actors [0].PlayQueue(_DefaultAnim);
 
 //        if (_Actors [0] == null)
@@ -119,7 +119,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_Actors [1] == null)
             return;
 
-        _Actors [1].Play("magic");
+        _Actors [1].Play(_SelectAnim);
         _Actors [1].PlayQueue(_DefaultAnim);
 
 //        if (_Actors [1] == null)
