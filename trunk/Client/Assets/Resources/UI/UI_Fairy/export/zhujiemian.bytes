@@ -262,7 +262,7 @@ hbv51.xml|2627|<component size="1920,1080" opaque="false">
     </list>
   </displayList>
   <relation target="n2" sidePair="height"/>
-</component>hbv5y.xml|1256|<component size="514,200" extention="Label">
+</component>hbv5y.xml|1287|<component size="514,200" extention="Label">
   <displayList>
     <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,7"/>
     <component id="n8_hbv5" name="n8" src="hbv5z" xy="113,55">
@@ -270,8 +270,8 @@ hbv51.xml|2627|<component size="1920,1080" opaque="false">
     </component>
     <text id="n10_hbv5" name="n10" xy="139,59" size="179,29" font="方正楷体_GBK" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="99999999/9999999&#xA;"/>
     <text id="n9_hbv5" name="n9" xy="120,19" size="251,45" font="方正楷体_GBK" fontSize="30" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="3" text="今晚打老虎啊"/>
-    <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145"/>
     <image id="n2_hbv5" name="n2" src="hbv5i" xy="-1,6"/>
+    <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145" align="center" vAlign="middle"/>
     <image id="n4_hbv5" name="n4" src="hbv55" xy="363,3">
       <relation target="" sidePair=""/>
     </image>
