@@ -543,10 +543,9 @@ public class Battle {
     {
         if (_Result == null || (BattleResult)_Result.Win == BattleResult.BR_None)
         {
-            // 从第二回合开始 每回合结束加 1 费
+            //每回合结束加 1 费
             _Turn++;
-            if (_Turn > 1)
-                AddFee(_Turn);
+            AddFee(_Turn);
 
             if (_Turn == 2)
                 RandHandCards(3);
