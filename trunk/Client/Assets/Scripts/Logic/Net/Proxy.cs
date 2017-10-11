@@ -29,9 +29,9 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards)
+    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units)
     {
-        Battle.Init(side, battleid, opponentCards);
+        Battle.Init(side, battleid, opponentCards, units);
         SceneLoader.LoadScene(Define.SCENE_BATTLE);
         return true;
     }

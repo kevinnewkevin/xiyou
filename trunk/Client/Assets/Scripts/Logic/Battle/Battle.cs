@@ -75,6 +75,8 @@ public class Battle {
 
     static int _SelectSkillID;      //主角选择的技能id
 
+    static COM_BattleUnit[] _OriginUnits;
+
     static public int SelectSkillID
     {
         set
@@ -176,7 +178,7 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init(int side, int battleid = 0, int[] opponentCards = null)
+    static public void Init(int side, int battleid = 0, int[] opponentCards = null, COM_BattleUnit[] units = null)
     {
         _OpponentCards = opponentCards;
         _SceneConfig = null;
@@ -188,11 +190,13 @@ public class Battle {
         CurrentState = BattleState.BS_Init;
         _OperatList.Clear();
         _HandCards.Clear();
+        _OriginUnits = units;
 
         //_HandCards.Add(GamePlayer._Data);
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
         _MaxFee = Define.GetInt("MaxFee");
+        AddFee(_Turn);
     }
 
     static public void FadedCallback()
@@ -305,8 +309,33 @@ public class Battle {
         if(op == null)
             op = GameObject.Find("OpraSystem").GetComponent<OpraSystem>();
 
+        if (!_IsStagePointInitSuc)
+            return false;
+
         // 加载角色资源
-        //TODO
+        if (_OriginUnits != null && _OriginUnits.Length > 0)
+        {
+            EntityData entity;
+            DisplayData display;
+            Actor actor;
+            int localPos;
+            for (int i = 0; i < _OriginUnits.Length; ++i)
+            {
+                localPos = (_Side == 0? _OriginUnits [i].Position : ConvertedPos(_OriginUnits [i].Position));
+                actor = GetActorByPos(localPos);
+                if (actor != null)
+                {
+                    actor.SetValue(_OriginUnits[i].CHP, _OriginUnits[i].HP);
+                    actor.InstID = _OriginUnits [i].InstId;
+                    continue;
+                }
+
+                entity = EntityData.GetData(_OriginUnits[i].UnitId);
+                display = DisplayData.GetData(entity._DisplayId);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _OriginUnits[i].InstId, _OriginUnits[i].CHP, _OriginUnits[i].HP, entity._DisplayId, _OriginUnits[i].Level);
+            }
+            _OriginUnits = null;
+        }
 
         return _IsStagePointInitSuc && _BattleCamera != null && op != null;
     }
@@ -858,5 +887,6 @@ public class Battle {
         _BattleId = 0;
         _BattleCamera.Reset();
         _SelectSkillID = 0;
+        _OriginUnits = null;
     }
 }

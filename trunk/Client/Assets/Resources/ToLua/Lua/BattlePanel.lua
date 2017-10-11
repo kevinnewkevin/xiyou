@@ -196,11 +196,13 @@ function BattlePanel_FlushData()
 		if sData ~= nil then
 			icon.url = "ui://" .. sData._Icon;
 			lv.text = sData._Level;
+			fee.text = sData._Fee;
 			lock.visible = false;
 			skill.enabled = Battle._Fee >= sData._Fee and Battle.SelectSkillID == 0;
 		else
 			icon.url = "";
 			lv.text = "";
+			fee.text = "";
 			lock.visible = true;
 			skill.enabled = false;
 		end
