@@ -99,7 +99,6 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	p.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
-	room.SendReportFirst()
 	go room.BattleUpdate()
 
 	return &room
@@ -168,7 +167,6 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	p0.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
-	room.SendReportFirst()
 	go room.BattleUpdate()
 
 	return &room
@@ -183,21 +181,8 @@ func FindBattle(battleId int64) *BattleRoom {
 }
 
 func (this *BattleRoom) BattleStart() {
-	for _, p := range this.PlayerList {
 
-		if p == nil || p.session == nil {
-			continue
-		}
-		targetList := this.findCardsByTarget(p.BattleCamp)
-		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
-		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList)
-	}
-}
-
-func (this *BattleRoom) SendReportFirst() {
-	this.ReportOne = prpc.COM_BattleReport{}
-	this.Dead = []*GameUnit{}
-	this.ReportOne.BattleID = this.BattleID
+	ul := []prpc.COM_BattleUnit{}
 
 	unitllist := this.SortUnits()
 
@@ -206,10 +191,36 @@ func (this *BattleRoom) SendReportFirst() {
 			continue
 		}
 		fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
-		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+		ul = append(ul, unit.GetBattleUnitCOM())
 	}
 
-	this.SendReport(this.ReportOne)
+	for _, p := range this.PlayerList {
+
+		if p == nil || p.session == nil {
+			continue
+		}
+		targetList := this.findCardsByTarget(p.BattleCamp)
+		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
+		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList, ul)
+	}
+}
+
+func (this *BattleRoom) SendReportFirst() {
+	//this.ReportOne = prpc.COM_BattleReport{}
+	//this.Dead = []*GameUnit{}
+	//this.ReportOne.BattleID = this.BattleID
+	//
+	//unitllist := this.SortUnits()
+	//
+	//for _, unit := range unitllist {
+	//	if unit == nil {
+	//		continue
+	//	}
+	//	fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+	//	this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+	//}
+	//
+	//this.SendReport(this.ReportOne)
 }
 
 func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
