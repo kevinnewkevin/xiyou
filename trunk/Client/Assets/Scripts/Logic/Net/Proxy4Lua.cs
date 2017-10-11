@@ -200,6 +200,22 @@ public class Proxy4Lua {
         }
     }
 
+    static public void FocusSelectRoleObject(int roleid)
+    {
+        CreateRoleSceneTouch crst = GameObject.FindObjectOfType<CreateRoleSceneTouch>();
+        if (crst == null)
+            return;
+        
+        Actor role = crst.GetRole(roleid);
+        if (role != null)
+        {
+            CameraTracker ct = Camera.main.GetComponent<CameraTracker>();
+            if (ct == null)
+                ct = Camera.main.gameObject.AddComponent<CameraTracker>();
+            ct.Focus(role._ActorObj);
+        }
+    }
+
     static public bool IsAchieve1
     {
         get

@@ -39,20 +39,40 @@ public class CameraTracker : MonoBehaviour {
     {
         _FocusObject = go;
         // disable obj's trigger
-        BoxCollider bc = go.GetComponent<BoxCollider>();
-        if (bc != null)
-            bc.enabled = false;
+//        BoxCollider bc = go.GetComponent<BoxCollider>();
+//        if (bc != null)
+//            bc.enabled = false;
 
         // snapshot preTransform info
         _PosSnapShot = transform.position;
         _RotSnapShot = transform.rotation;
 
-        World._DisableMainSceneOperate = true;
+//        World._DisableMainSceneOperate = true;
 
-        Vector3 destPos = go.transform.position + _PlusPos;
-        iTween.MoveTo(gameObject, iTween.Hash("time", 0.6f, "position", destPos, "oncomplete", "Focused", "easetype", iTween.EaseType.linear));
+        Vector3 lookat = new Vector3(go.transform.position.x, go.transform.position.y + _PlusPos.y, go.transform.position.z);
+
+        Vector3 destPos = go.transform.position + go.transform.forward * 5f + _PlusPos;
+        iTween.MoveTo(gameObject, iTween.Hash("time", 0.6f, "position", destPos, "looktarget", lookat, "oncomplete", "Focused", "easetype", iTween.EaseType.linear));
     }
 
+//    public void Focus(GameObject go)
+//    {
+//        _FocusObject = go;
+//        // disable obj's trigger
+//        BoxCollider bc = go.GetComponent<BoxCollider>();
+//        if (bc != null)
+//            bc.enabled = false;
+//
+//        // snapshot preTransform info
+//        _PosSnapShot = transform.position;
+//        _RotSnapShot = transform.rotation;
+//
+//        World._DisableMainSceneOperate = true;
+//
+//        Vector3 destPos = go.transform.position + _PlusPos;
+//        iTween.MoveTo(gameObject, iTween.Hash("time", 0.6f, "position", destPos, "oncomplete", "Focused", "easetype", iTween.EaseType.linear));
+//    }
+//
     public void CancelFocus()
     {
         if (_FocusObject != null)

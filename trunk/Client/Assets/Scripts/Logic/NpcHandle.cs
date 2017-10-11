@@ -6,6 +6,7 @@ using UnityEngine;
 public class NpcHandle : MonoBehaviour {
 
     int _ID;
+    public bool _DisableTrigger;
     public int ID
     {
         set{ _ID = value; gameObject.tag = "Npc"; }
@@ -19,6 +20,7 @@ public class NpcHandle : MonoBehaviour {
         {
             bc.center = new Vector3(0f, 0.75f, 0f);
         }
+        bc.enabled = !_DisableTrigger;
     }
 
     public void Excute()

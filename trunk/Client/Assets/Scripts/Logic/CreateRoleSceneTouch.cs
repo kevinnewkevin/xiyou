@@ -45,6 +45,7 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         _Actors [0].Play(_DefaultAnim);
         NpcHandle npcHandler = actorObj.AddComponent<NpcHandle>();
         npcHandler.ID = 0;
+        npcHandler._DisableTrigger = true;
 
         eData = EntityData.GetData(Define.FEMALE_ID);
         dData = DisplayData.GetData(eData._DisplayId);
@@ -54,42 +55,49 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         _Actors [1].Play(_DefaultAnim);
         npcHandler = actorObj.AddComponent<NpcHandle>();
         npcHandler.ID = 1;
+        npcHandler._DisableTrigger = true;
 	}
+
+    public Actor GetRole(int roleid)
+    {
+        return _Actors[roleid];
+    }
 
     public void SelectMale()
     {
         if (_SelectRole == 0)
             return;
-        
-        if (_Actors [0] == null)
-            return;
 
-        if (!_Actors [0].IsPlay(_SelectAnim))
-        {
-            _Actors [0].Play(_SelectAnim);
-        }
-        _Actors [0].MoveTo(_ToPos, delegate
-        {
-            _Actors [0].Stop();
-            _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
-        });
-
-        if (_Actors [1] == null)
-            return;
-
-        if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) > 0f)
-        {
-            if (!_Actors [1].IsPlay(_SelectAnim))
-            {
-                _Actors [1].Play(_SelectAnim);
-            }
-            _Actors [1].MoveTo(_FemalePos, delegate
-            {
-                _Actors [1].Stop();
-                _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
-                _Actors [1]._ActorObj.transform.Rotate(Vector3.up, _FemaleRotY);
-            });
-        }
+        Proxy4Lua.FocusSelectRoleObject(0);
+//        if (_Actors [0] == null)
+//            return;
+//
+//        if (!_Actors [0].IsPlay(_SelectAnim))
+//        {
+//            _Actors [0].Play(_SelectAnim);
+//        }
+//        _Actors [0].MoveTo(_ToPos, delegate
+//        {
+//            _Actors [0].Stop();
+//            _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
+//        });
+//
+//        if (_Actors [1] == null)
+//            return;
+//
+//        if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) > 0f)
+//        {
+//            if (!_Actors [1].IsPlay(_SelectAnim))
+//            {
+//                _Actors [1].Play(_SelectAnim);
+//            }
+//            _Actors [1].MoveTo(_FemalePos, delegate
+//            {
+//                _Actors [1].Stop();
+//                _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
+//                _Actors [1]._ActorObj.transform.Rotate(Vector3.up, _FemaleRotY);
+//            });
+//        }
         _SelectRole = 0;
         UIManager.SetDirty("xuanren");
     }
@@ -98,35 +106,37 @@ public class CreateRoleSceneTouch : MonoBehaviour {
     {
         if (_SelectRole == 1)
             return;
+
+        Proxy4Lua.FocusSelectRoleObject(1);
         
-        if (_Actors [1] == null)
-            return;
-
-        if (!_Actors [1].IsPlay(_SelectAnim))
-        {
-            _Actors [1].Play(_SelectAnim);
-        }
-        _Actors [1].MoveTo(_ToPos, delegate {
-            _Actors [1].Stop();
-            _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
-        });
-
-        if (_Actors [0] == null)
-            return;
-
-        if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) > 0f)
-        {
-            if (!_Actors [0].IsPlay(_SelectAnim))
-            {
-                _Actors [0].Play(_SelectAnim);
-            }
-            _Actors [0].MoveTo(_MalePos, delegate
-            {
-                _Actors [0].Stop();
-                _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
-                _Actors [0]._ActorObj.transform.Rotate(Vector3.up, _MaleRotY);
-            });
-        }
+//        if (_Actors [1] == null)
+//            return;
+//
+//        if (!_Actors [1].IsPlay(_SelectAnim))
+//        {
+//            _Actors [1].Play(_SelectAnim);
+//        }
+//        _Actors [1].MoveTo(_ToPos, delegate {
+//            _Actors [1].Stop();
+//            _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
+//        });
+//
+//        if (_Actors [0] == null)
+//            return;
+//
+//        if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) > 0f)
+//        {
+//            if (!_Actors [0].IsPlay(_SelectAnim))
+//            {
+//                _Actors [0].Play(_SelectAnim);
+//            }
+//            _Actors [0].MoveTo(_MalePos, delegate
+//            {
+//                _Actors [0].Stop();
+//                _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
+//                _Actors [0]._ActorObj.transform.Rotate(Vector3.up, _MaleRotY);
+//            });
+//        }
         _SelectRole = 1;
         UIManager.SetDirty("xuanren");
     }
