@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="520,520">
+  <displayList>
+    <image id="n20_scpb" name="n20" src="scpbp" xy="58,0" size="462,520"/>
+    <image id="n23_scpb" name="n23" src="scpbo" xy="219,26" group="n32_scpb"/>
+    <image id="n24_scpb" name="n24" src="scpbo" xy="150,26" group="n32_scpb"/>
+    <image id="n26_scpb" name="n26" src="scpbo" xy="357,26" group="n32_scpb"/>
+    <image id="n27_scpb" name="n27" src="scpbo" xy="288,26" group="n32_scpb"/>
+    <image id="n25_scpb" name="n25" src="scpbo" xy="495,26" group="n32_scpb"/>
+    <image id="n33_scpb" name="n33" src="scpbo" xy="426,26" group="n32_scpb"/>
+    <group id="n32_scpb" name="n32" xy="150,26" size="348,463" advanced="true" collapsed="true">
+      <relation target="n20_scpb" sidePair="middle-middle,center-center"/>
+    </group>
+    <text id="n34_scpb" name="n34" xy="432,15" size="60,514" group="n39_scpb" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦啦啦啦啦"/>
+    <text id="n35_scpb" name="n35" xy="362,15" size="60,514" group="n39_scpb" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦啦啦啦啦"/>
+    <text id="n36_scpb" name="n36" xy="291,15" size="60,514" group="n39_scpb" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦啦啦啦啦"/>
+    <text id="n37_scpb" name="n37" xy="222,15" size="60,514" group="n39_scpb" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦啦啦啦啦"/>
+    <text id="n38_scpb" name="n38" xy="155,15" size="60,514" group="n39_scpb" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦啦啦啦啦啦"/>
+    <group id="n39_scpb" name="n39" xy="155,15" size="337,514"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n37_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n34_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n36_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n38_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n32_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n35_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n38_scpb" value="0.01"/>
+    <item time="5" type="Alpha" target="n37_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n34_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n35_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n32_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n36_scpb" value="0"/>
+    <item time="6" type="Alpha" target="n35_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="7" type="Alpha" target="n36_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="8" type="Alpha" target="n37_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="9" type="Alpha" target="n38_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Alpha" target="n35_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n34_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n36_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n38_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n32_scpb" value="0"/>
+    <item time="0" type="Alpha" target="n37_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n34_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n37_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n38_scpb" value="0.01"/>
+    <item time="5" type="Alpha" target="n35_scpb" value="0"/>
+    <item time="5" type="Alpha" target="n32_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n36_scpb" value="0"/>
+    <item time="6" type="Alpha" target="n35_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="7" type="Alpha" target="n36_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="8" type="Alpha" target="n37_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="9" type="Alpha" target="n38_scpb" tween="true" startValue="0" endValue="1" duration="6"/>
+  </transition>
+</component>
