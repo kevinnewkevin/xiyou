@@ -7,6 +7,8 @@ local name;
 local createBtn;
 local selectList;
 local randNameBtn;
+local descCom;
+local descAnim;
 
 function xuanren:OnEntry()
 	Window = xuanren.New();
@@ -26,6 +28,9 @@ function xuanren:OnInit()
 	selectList = self.contentPane:GetChild("n10");
 	randNameBtn = self.contentPane:GetChild("n4");
 	randNameBtn.onClick:Add(xuanren_RandName);
+	descCom = self.contentPane:GetChild("n20");
+	descCom.visible = false;
+	descAnim = descCom:GetTransition("t0");
 
 	selectList.onClickItem:Add(xuanren_OnSelectRole);
 
@@ -39,7 +44,16 @@ function xuanren_RandName()
 end
 
 function xuanren_OnSelectRole()
+	if selectList.selectedIndex == Proxy4Lua.CrtSelect() then
+		return;
+	end
+
 	Proxy4Lua.SelectRole(selectList.selectedIndex);
+	descCom.visible = selectList.selectedIndex ~= -1;
+	if descAnim.playing then
+		descAnim:Stop();
+	end
+	descAnim:Play();
 end
 
 function xuanren:OnUpdate()
