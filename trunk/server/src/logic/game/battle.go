@@ -1595,17 +1595,17 @@ func IsCrit(skillid int32) int {
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition, skillid int32) {
 
 	fmt.Println("SetupPosition.start", posList, p.BattleCamp)
-	if this.Round == 0 { //第一回合 必须设置主角卡
-		for _, pos := range posList {
-			//fmt.Println("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
-			if pos.InstId == p.MyUnit.InstId {
-				goto setup_check_success
-			}
-			fmt.Println("SetupPosition.error no main")
-			return //没有主角卡
-		}
-	}
-setup_check_success:
+	//if this.Round == 0 { //第一回合 必须设置主角卡
+	//	for _, pos := range posList {
+	//		//fmt.Println("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
+	//		if pos.InstId == p.MyUnit.InstId {
+	//			goto setup_check_success
+	//		}
+	//		fmt.Println("SetupPosition.error no main")
+	//		return //没有主角卡
+	//	}
+	//}
+//setup_check_success:
 	var needPoint int32
 	for i := 0; i < len(posList)-1; i++ {
 		for j := i + 1; j < len(posList); j++ {
