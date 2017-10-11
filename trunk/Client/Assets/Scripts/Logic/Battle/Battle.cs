@@ -197,6 +197,7 @@ public class Battle {
 
         _MaxFee = Define.GetInt("MaxFee");
         AddFee(_Turn);
+        RandHandCards(3);
     }
 
     static public void FadedCallback()
@@ -575,9 +576,6 @@ public class Battle {
             //每回合结束加 1 费
             _Turn++;
             AddFee(_Turn);
-
-            if (_Turn == 2)
-                RandHandCards(3);
             if(_Turn > 2)
                 RandHandCards(1);
             CurrentState = BattleState.BS_Eff;
