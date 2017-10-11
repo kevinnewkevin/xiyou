@@ -279,11 +279,25 @@ function BattlePanel_FlushData()
 end
 
 function BattlePanel_OnSelectSkill()
-	if Battle.SelectSkillID == skills[skillList.selectedIndex] then
-		skillList.selectedIndex = -1;
-		Battle.SelectSkillID = 0;
-	else
+--	if Battle.SelectSkillID == skills[skillList.selectedIndex] then
+--		skillList.selectedIndex = -1;
+--		Battle.SelectSkillID = 0;
+--	else
 		Battle.SelectSkillID = skills[skillList.selectedIndex];
+		local sData = SkillData.GetData(Battle.SelectSkillID);
+		if sData ~= nil then
+			Battle.CostFee(sData._Fee);
+		end
+		BattlePanel_DisableSkills(true);
+--	end
+end
+
+function BattlePanel_DisableSkills(yes)
+	skills = GamePlayer.GetMyActiveSkill();
+	local skill;
+	for i=0, skills.Length - 1 do
+		skill = skillList:GetChildAt(i);
+		skill.enabled = ~yes;
 	end
 end
 
@@ -366,6 +380,7 @@ end
 function BattlePanel:ShowTurn()
 	Battle.SelectSkillID = 0;
 	skillList.selectedIndex = -1;
+	BattlePanel_DisableSkills(false);
 	if turnTransCom.visible == false then
 		turnTransCom.visible =true;
 	end
