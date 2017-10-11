@@ -1,6 +1,6 @@
 package prpc
 // enum BattleActionType
-const(
+const( 
   BAT_MIN = 0
   BAT_CRIT = 1
   BAT_SUCK = 2
@@ -9,7 +9,7 @@ const(
   BAT_DEL_STATE = 5
   BAT_MAX = 6
 )
-const(
+const( 
   K_BAT_MIN = "BAT_MIN"
   K_BAT_CRIT = "BAT_CRIT"
   K_BAT_SUCK = "BAT_SUCK"

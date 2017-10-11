@@ -399,7 +399,7 @@ func (this *GamePlayer)DeleteUnitGroup(groupId int32)  {
 	}
 }
 
-func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡牌上阵	每次回合之前
+func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition , skillid int32) error { //卡牌上阵	每次回合之前
 	//this.Lock()
 	//defer this.Unlock()
 	//fmt.Println("SetupBattle", pos)
@@ -419,7 +419,7 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition) error { //卡
 		return nil
 	}
 	fmt.Println("SetupBattle 1 ", battleRoom.Units)
-	battleRoom.SetupPosition(this, pos)
+	battleRoom.SetupPosition(this, pos, skillid)
 	fmt.Println("SetupBattle 2 ", battleRoom.Units)
 
 	this.session.SetupBattleOK()

@@ -8,7 +8,7 @@ service COM_ClientToServer{
 	SetBattleUnit(int64 instId, int32 groupId, bool isBattle);
 	DelUnitGroup(int32 groupId);
 	JoinBattle(); 				 //加入战斗
-	SetupBattle(COM_BattlePosition[] positionList); //设置位置
+	SetupBattle(COM_BattlePosition[] positionList, int32 skillid); //设置位置
 	RequestChapterData(int32 chapterId);
 	ChallengeSmallChapter(int32 smallChapterId);
 	RequestChapterStarReward(int32 chapterId,int32 star);

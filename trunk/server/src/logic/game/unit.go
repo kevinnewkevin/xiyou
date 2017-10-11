@@ -26,6 +26,7 @@ type GameUnit struct {
 	Skill       map[int32]*Skill
 
 	//战斗的实际信息
+	ChoiceSKill	int32
 	Position 	int32 //prpc.BattlePosition
 	Buff 		[]*Buff //增益状态
 	Debuff 		[]*Buff //负面状态
@@ -326,7 +327,24 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 		return false
 	}
 
-	skill := this.SelectSkill(battle.Round)
+	var skill *Skill
+	if this.IsMain {
+		if this.ChoiceSKill == 0 {
+			return false
+		} else {
+			for _, sk := range this.Skill {
+				if sk.SkillID == this.ChoiceSKill{
+					skill = sk
+					break
+				}
+			}
+			if skill == nil {
+				return false
+			}
+		}
+	} else {
+		skill = this.SelectSkill(battle.Round)
+	}
 
 	fmt.Println("CastSkill", skill, &skill)
 

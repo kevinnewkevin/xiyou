@@ -31,7 +31,7 @@ const (
 	kMaxUnit = 6 		//雙方最多上陣卡牌
 	kMaxMove = 2 		//行动结束
 
-	kTimeSleep = 5   	//檢測間隔
+	kTimeSleep = 3   	//檢測間隔
 	kTimeMax   = 600	//戰鬥持續時間
 )
 
@@ -429,6 +429,7 @@ func (this *BattleRoom) Update() {
 			}
 
 			u.CastSkill(this)
+			u.ChoiceSKill = 0
 
 			//this.TargetOver()
 
@@ -1550,7 +1551,7 @@ func IsCrit(skillid int32) int {
 ////战斗过程
 ////////////////////////////////////////////////////////////////////////
 
-func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition) {
+func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition, skillid int32) {
 
 	fmt.Println("SetupPosition.start", posList, p.BattleCamp)
 	if this.Round == 0 { //第一回合 必须设置主角卡
@@ -1579,6 +1580,8 @@ setup_check_success:
 			needPoint += unit.Cost
 		}
 	}
+
+	needPoint += 0 // 主角技能应该有消耗
 
 	if needPoint > p.BattlePoint {
 		fmt.Println("SetupPosition.error point less", needPoint, p.BattlePoint)
@@ -1609,6 +1612,7 @@ setup_check_success:
 	}
 	p.IsActive = true
 	p.BattlePoint -= needPoint
+	p.MyUnit.ChoiceSKill = skillid
 
 	//fmt.Println("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
 }

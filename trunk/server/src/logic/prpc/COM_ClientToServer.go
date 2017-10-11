@@ -29,6 +29,7 @@ type COM_ClientToServer_DelUnitGroup struct{
 }
 type COM_ClientToServer_SetupBattle struct{
   positionList []COM_BattlePosition  //0
+  skillid int32  //1
 }
 type COM_ClientToServer_RequestChapterData struct{
   chapterId int32  //0
@@ -71,7 +72,7 @@ type COM_ClientToServerProxy interface{
   SetBattleUnit(instId int64, groupId int32, isBattle bool ) error // 4
   DelUnitGroup(groupId int32 ) error // 5
   JoinBattle() error // 6
-  SetupBattle(positionList []COM_BattlePosition ) error // 7
+  SetupBattle(positionList []COM_BattlePosition, skillid int32 ) error // 7
   RequestChapterData(chapterId int32 ) error // 8
   ChallengeSmallChapter(smallChapterId int32 ) error // 9
   RequestChapterStarReward(chapterId int32, star int32 ) error // 10
@@ -373,6 +374,7 @@ func (this *COM_ClientToServer_SetupBattle)Serialize(buffer *bytes.Buffer) error
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(len(this.positionList) != 0)
+  mask.WriteBit(this.skillid!=0)
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -390,6 +392,15 @@ func (this *COM_ClientToServer_SetupBattle)Serialize(buffer *bytes.Buffer) error
     for _, value := range this.positionList {
       err := value.Serialize(buffer)
       if err != nil {
+        return err
+      }
+    }
+  }
+  // serialize skillid
+  {
+    if(this.skillid!=0){
+      err := prpc.Write(buffer,this.skillid)
+      if err != nil{
         return err
       }
     }
@@ -415,6 +426,13 @@ func (this *COM_ClientToServer_SetupBattle)Deserialize(buffer *bytes.Buffer) err
       if err != nil{
         return err
       }
+    }
+  }
+  // deserialize skillid
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.skillid)
+    if err != nil{
+      return err
     }
   }
   return nil
@@ -910,7 +928,7 @@ func(this* COM_ClientToServerStub)JoinBattle() error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ClientToServerStub)SetupBattle(positionList []COM_BattlePosition ) error {
+func(this* COM_ClientToServerStub)SetupBattle(positionList []COM_BattlePosition, skillid int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -921,6 +939,7 @@ func(this* COM_ClientToServerStub)SetupBattle(positionList []COM_BattlePosition 
   }
   _7 := COM_ClientToServer_SetupBattle{}
   _7.positionList = positionList;
+  _7.skillid = skillid;
   err = _7.Serialize(buffer)
   if err != nil{
     return err
@@ -1199,7 +1218,7 @@ func Bridging_COM_ClientToServer_SetupBattle(buffer *bytes.Buffer, p COM_ClientT
   if err != nil{
     return err
   }
-  return p.SetupBattle(_7.positionList)
+  return p.SetupBattle(_7.positionList,_7.skillid)
 }
 func Bridging_COM_ClientToServer_RequestChapterData(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
