@@ -344,5 +344,13 @@ public class Proxy4Lua {
             crst.SelectFemale();
     }
 
+    static public string GetRoleDesc(int idx)
+    {
+        EntityData eData = EntityData.GetData(idx+1);
+        if (eData != null)
+            return eData._Desc;
+        return "";
+    }
+
     #endregion
 }

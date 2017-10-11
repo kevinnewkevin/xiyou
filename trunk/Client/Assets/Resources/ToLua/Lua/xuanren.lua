@@ -9,6 +9,7 @@ local selectList;
 local randNameBtn;
 local descCom;
 local descAnim;
+local descLbl;
 
 function xuanren:OnEntry()
 	Window = xuanren.New();
@@ -31,6 +32,7 @@ function xuanren:OnInit()
 	descCom = self.contentPane:GetChild("n20");
 	descCom.visible = false;
 	descAnim = descCom:GetTransition("t0");
+	descLbl = descCom:GetChild("n34").asTextField;
 
 	selectList.onClickItem:Add(xuanren_OnSelectRole);
 
@@ -47,6 +49,7 @@ function xuanren_OnSelectRole()
 	if selectList.selectedIndex == Proxy4Lua.CrtSelect() then
 		return;
 	end
+	descLbl.text = Proxy4Lua.GetRoleDesc(selectList.selectedIndex);
 
 	Proxy4Lua.SelectRole(selectList.selectedIndex);
 	descCom.visible = selectList.selectedIndex ~= -1;

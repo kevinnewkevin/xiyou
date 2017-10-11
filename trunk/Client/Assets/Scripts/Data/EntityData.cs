@@ -9,6 +9,7 @@ public class EntityData {
     public int _Cost;
     public string _Name;
     public int[] _Skills;
+    public string _Desc;
 
     static Dictionary<int, EntityData> metaData;
 
@@ -32,6 +33,7 @@ public class EntityData {
             data._DisplayId = parser.GetInt(i, "DisplayId");
             data._Cost = parser.GetInt(i, "Cost");
             data._Name = parser.GetString(i, "Name");
+            data._Desc = parser.GetString(i, "Desc");
             data._Skills = new int[4];
             for(int j=0; j < 4; ++j)
             {

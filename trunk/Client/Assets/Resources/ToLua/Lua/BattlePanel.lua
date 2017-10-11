@@ -197,7 +197,7 @@ function BattlePanel_FlushData()
 			icon.url = "ui://" .. sData._Icon;
 			lv.text = sData._Level;
 			lock.visible = false;
-			skill.enabled = Battle._Fee >= sData._Fee;
+			skill.enabled = Battle._Fee >= sData._Fee and Battle.SelectSkillID == 0;
 		else
 			icon.url = "";
 			lv.text = "";
@@ -297,7 +297,7 @@ function BattlePanel_DisableSkills(yes)
 	local skill;
 	for i=0, skills.Length - 1 do
 		skill = skillList:GetChildAt(i);
-		skill.enabled = ~yes;
+		skill.enabled = not yes;
 	end
 end
 
