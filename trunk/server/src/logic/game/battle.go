@@ -92,6 +92,12 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Monster = CreateMonster(battleid, room.InstId)
 	p.SetProprty(&room, prpc.CT_RED)
 
+	room.Units[prpc.BP_BLUE_2] = room.Monster.MainUnit
+	room.Monster.MainUnit.Position = prpc.BP_BLUE_2
+
+	room.Units[prpc.BP_RED_2] = p.MyUnit
+	p.MyUnit.Position = prpc.BP_RED_2
+
 	room.BattleStart()
 	go room.BattleUpdate()
 
@@ -153,6 +159,12 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 
 	p0.SetProprty(&room, prpc.CT_RED)
 	p1.SetProprty(&room, prpc.CT_BLUE)
+
+	room.Units[prpc.BP_BLUE_2] = p1.MyUnit
+	p1.MyUnit.Position = prpc.BP_BLUE_2
+
+	room.Units[prpc.BP_RED_2] = p0.MyUnit
+	p0.MyUnit.Position = prpc.BP_RED_2
 
 	room.BattleStart()
 	go room.BattleUpdate()
