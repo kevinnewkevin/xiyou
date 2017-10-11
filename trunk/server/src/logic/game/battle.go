@@ -92,13 +92,14 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Monster = CreateMonster(battleid, room.InstId)
 	p.SetProprty(&room, prpc.CT_RED)
 
-	room.Units[prpc.BP_BLUE_2] = room.Monster.MainUnit
-	room.Monster.MainUnit.Position = prpc.BP_BLUE_2
+	room.Units[prpc.BP_BLUE_5] = room.Monster.MainUnit
+	room.Monster.MainUnit.Position = prpc.BP_BLUE_5
 
-	room.Units[prpc.BP_RED_2] = p.MyUnit
-	p.MyUnit.Position = prpc.BP_RED_2
+	room.Units[prpc.BP_RED_5] = p.MyUnit
+	p.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
+	room.SendReportFirst()
 	go room.BattleUpdate()
 
 	return &room
@@ -160,13 +161,14 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	p0.SetProprty(&room, prpc.CT_RED)
 	p1.SetProprty(&room, prpc.CT_BLUE)
 
-	room.Units[prpc.BP_BLUE_2] = p1.MyUnit
-	p1.MyUnit.Position = prpc.BP_BLUE_2
+	room.Units[prpc.BP_BLUE_5] = p1.MyUnit
+	p1.MyUnit.Position = prpc.BP_BLUE_5
 
-	room.Units[prpc.BP_RED_2] = p0.MyUnit
-	p0.MyUnit.Position = prpc.BP_RED_2
+	room.Units[prpc.BP_RED_5] = p0.MyUnit
+	p0.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
+	room.SendReportFirst()
 	go room.BattleUpdate()
 
 	return &room
@@ -190,6 +192,24 @@ func (this *BattleRoom) BattleStart() {
 		fmt.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
 		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList)
 	}
+}
+
+func (this *BattleRoom) SendReportFirst() {
+	this.ReportOne = prpc.COM_BattleReport{}
+	this.Dead = []*GameUnit{}
+	this.ReportOne.BattleID = this.BattleID
+
+	unitllist := this.SortUnits()
+
+	for _, unit := range unitllist {
+		if unit == nil {
+			continue
+		}
+		fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
+	}
+
+	this.SendReport(this.ReportOne)
 }
 
 func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
@@ -409,8 +429,6 @@ func (this *BattleRoom) Update() {
 		fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 	}
-
-
 
 	//if this.Round > 0 {
 		for _, u := range unitllist {
