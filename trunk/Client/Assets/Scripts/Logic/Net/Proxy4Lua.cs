@@ -348,7 +348,7 @@ public class Proxy4Lua {
     {
         EntityData eData = EntityData.GetData(idx+1);
         if (eData != null)
-            return eData._Desc;
+            return eData._Desc.Replace("\\n", "\n");
         return "";
     }
 
