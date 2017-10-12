@@ -246,7 +246,7 @@ function paiku_OnCardItem(context)
 	if doubleClickTicker == nil then
 		doubleClickTicker = {};
 		doubleClickTicker.crt = 0;
-		doubleClickTicker.max = 5;
+		doubleClickTicker.max = 20;
 	else
 		if doubleClickTicker.crt <= doubleClickTicker.max then
 			local max = GamePlayer.IsGroupMax(crtGroupIdx);
@@ -260,7 +260,7 @@ function paiku_OnCardItem(context)
 		else
 			doubleClickTicker = {};
 			doubleClickTicker.crt = 0;
-			doubleClickTicker.max = 5;
+			doubleClickTicker.max = 20;
 		end
 	end
 end
