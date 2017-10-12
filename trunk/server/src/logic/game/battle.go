@@ -1037,7 +1037,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  int64 {
 
 	if this.Type == prpc.BT_PVP {
 		for _, p := range this.PlayerList {
-			if p.MyUnit.InstId != unit.Owner.MyUnit.InstId {
+			if p.MyUnit.InstId == unit.Owner.MyUnit.InstId {
 				continue
 			}
 			for _, g := range p.UnitGroup {
