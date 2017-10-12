@@ -40,12 +40,12 @@ function SK_296_Action(battleid, casterid)
 		end
 		
 		if damage <= 0 then
-			damage = 1
+			damage = 0
 		end
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local atk_damage = damage*2.3
+		local atk_damage = damage*0.8
 		
 		Battle.Attack(battleid, casterid, v, atk_damage, crit)
 		
