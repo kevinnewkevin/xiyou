@@ -29,8 +29,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 		if QueryPlayer(&p) {
 			this.player = &GamePlayer{}
 			this.player.SetSession(this)
-			PlayerStore[this.player.MyUnit.InstId] = this.player
 			this.player.SetPlayerSGE(p)
+			PlayerStore[this.player.MyUnit.InstId] = this.player
 			infoext.MyPlayer = p.COM_Player
 			fmt.Println(infoext.MyPlayer.UnitGroup)
 			fmt.Println(p.Employees)
