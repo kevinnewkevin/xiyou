@@ -48,7 +48,7 @@ type GamePlayer struct {
 }
 
 var (
-	PlayerStore	[]*GamePlayer
+	PlayerStore	[]*GamePlayer = []*GamePlayer{}
 	DefaultUnits	[]int32
 )
 
