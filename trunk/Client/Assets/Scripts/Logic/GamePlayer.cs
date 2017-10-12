@@ -37,7 +37,7 @@ public class GamePlayer {
         {
             if (player.UnitGroup [i].UnitList != null)
             {
-                for(int j=0; j < player.UnitGroup [i].UnitList.Length; ++j)
+//                for(int j=0; j < player.UnitGroup [i].UnitList.Length; ++j)
                     _CardGroup [player.UnitGroup [i].GroupId - 1].AddRange(player.UnitGroup [i].UnitList);
             }
 

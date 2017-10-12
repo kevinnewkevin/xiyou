@@ -86,5 +86,6 @@ function denglu_OnEnterGame()
 	end
 	if Proxy4Lua.ReconnectServer() == true then
 		Proxy4Lua.Login(account.text, password.text);
+		enterBtn.enabled = false;
 	end
 end
