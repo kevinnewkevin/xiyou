@@ -267,7 +267,6 @@ func (this *GameUnit) ClacWeakPer(round int32) float32 {			//计算百分比增�
 
 func (this* GameUnit) SetUnitCOM(u *prpc.COM_Unit) {
 	this.UnitId = u.UnitId
-	this.UnitId = u.UnitId
 	this.InstId = u.InstId
 	this.Level = u.Level
 	this.IProperties =  u.IProperties
@@ -275,7 +274,7 @@ func (this* GameUnit) SetUnitCOM(u *prpc.COM_Unit) {
 
 	this.Skill =  map[int32]*Skill{}
 	for _, sk := range u.Skills {
-		this.Skill[sk.SkillId] = InitSkillFromTable(sk.SkillId)
+		this.Skill[sk.Pos] = InitSkillFromTable(sk.SkillId)
 	}
 }
 

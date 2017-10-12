@@ -101,21 +101,23 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if player==nil {
 		return
 	}
-
+	fmt.Println(2);
 	small := player.GetMySmallChapterDataById(smallchapterid)
 	if small == nil {
 		return
 	}
+	fmt.Println(3);
 	smallData := GetSmallChapterById(small.SmallChapterId)
 	if smallData == nil {
 		return
 	}
+	fmt.Println(4);
 	chapterData := GetChapterById(smallData.SmallChapterType)
 	myUnitLevel := player.MyUnit.GetIProperty(prpc.IPT_LEVEL)
 	if chapterData == nil {
 		return
 	}
-
+	fmt.Println(5);
 	fmt.Println("AttackChapter smallchapterid=",smallchapterid,"smallData.SmallChapterType=",smallData.SmallChapterType,"chapterData.ChapterType",chapterData.ChapterType)
 
 	myEnergy := player.MyUnit.GetIProperty(prpc.IPT_ENERGY)
@@ -123,6 +125,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if smallData.EnergyExpend > myEnergy {
 		return
 	}
+	fmt.Println(2);
 
 	if chapterData.ChapterType == 1 {
 		for _,id :=  range smallData.UnLockId{

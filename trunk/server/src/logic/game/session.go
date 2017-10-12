@@ -146,6 +146,7 @@ func (this *Session)ChallengeSmallChapter(smallChapterId int32) error {
 	if this.player == nil {
 		return nil
 	}
+	fmt.Println(1);
 	this.player.AttackChapter(smallChapterId)
 
 	return nil

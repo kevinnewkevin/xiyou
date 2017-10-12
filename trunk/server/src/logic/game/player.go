@@ -161,15 +161,17 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 
 func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player){
 	this.MyUnit = &GameUnit{}
+	this.MyUnit.Owner = this
 	this.MyUnit.SetUnitCOM(&p.Unit)
 
 	for _, u := range p.Employees {
 		unit := GameUnit{}
 		unit.SetUnitCOM(&u)
+		unit.Owner = this
 		this.UnitList = append(this.UnitList, &unit)
 	}
-	for _, c := range p.Chapters {
-		this.Chapters = append(this.Chapters,&c)
+	for i, _ := range p.Chapters {
+		this.Chapters = append(this.Chapters,&p.Chapters[i])
 	}
 
 	for i ,_ := range p.UnitGroup{
