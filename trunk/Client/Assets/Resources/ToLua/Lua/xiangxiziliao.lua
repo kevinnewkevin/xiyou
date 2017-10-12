@@ -26,6 +26,8 @@ local split;
 local rec;
 local reflect;
 local suck;
+local race;
+local raceBack;
 
 local levelHp;
 local levelAtk;
@@ -104,6 +106,8 @@ function xiangxiziliao:OnInit()
 	level= self.contentPane:GetChild("n59");
 	fee = self.contentPane:GetChild("n58");
 	name = self.contentPane:GetChild("n60");
+	race = self.contentPane:GetChild("n79");
+	raceBack = self.contentPane:GetChild("n85");
 	skillList = rightInfo:GetChild("n237").asList;
 	hp = rightInfo:GetChild("n242");
 	agility = rightInfo:GetChild("n246");
@@ -252,6 +256,8 @@ function xiangxiziliao_FlushData()
 	modelRes = displayData._AssetPath;
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true));
 
+	race.asLoader.url = "ui://" .. displayData._Race;
+	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
 	if hideBtn == false then
 		isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 		if isInGroup then
