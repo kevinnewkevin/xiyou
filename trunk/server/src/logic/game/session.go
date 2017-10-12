@@ -10,7 +10,7 @@ import (
 type Session struct {
 	prpc.COM_ServerToClientStub
 	peer *socket.Peer
-
+	username string
 	player *GamePlayer
 }
 
@@ -18,6 +18,19 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	fmt.Println("Login", info)
 	infoext := prpc.COM_AccountInfo{}
 	infoext.SessionCode = info.Username + info.Password
+
+	this.username = info.Username
+
+	p := prpc.SGE_DBPlayer{Username:info.Username}
+
+	if QueryPlayer(&p){
+		this.player = &GamePlayer{}
+		this.player.SetSession(this)
+
+		this.player.SetPlayerSGE(p)
+		infoext.MyPlayer = p.COM_Player
+	}
+
 	this.LoginOK(infoext)
 	return nil
 } // 0
@@ -25,12 +38,16 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.player = CreatePlayer(tempId, playerName)
 	this.player.SetSession(this)
+	this.player.Username = this.username
 
-	r := this.player.GetPlayerCOM()
+	r := this.player.GetPlayerSGE()
 
-	this.CreatePlayerOK(r)
+	InsertPlayer(r)
 
-	//fmt.Println(tempId, "CreatePlayer", &r)
+	this.CreatePlayerOK(r.COM_Player)
+
+	this.player.SyncBag()
+	fmt.Println(tempId, "CreatePlayer", &r)
 	b,_ := json.Marshal(r)
 	fmt.Println(string(b))
 
@@ -209,7 +226,7 @@ endLoop:
 
 	//do clean
 
-	if this.player != nil && this != nil {
+	if this.player != nil {
 		this.player.SetSession(nil)
 		this.player = nil
 		this.peer = nil

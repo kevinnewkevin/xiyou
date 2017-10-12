@@ -62,13 +62,67 @@ func (this *LuaState) PushLong(n int64)    { lua_pushLong(this.luaState, n) }
 func (this *LuaState) PushString(s string) {
 	lua_pushstring(this.luaState, s)
 }
-
 func (this *LuaState) PushBoolean(b bool) {
 	if b {
 		lua_pushboolean(this.luaState, 1)
 	} else {
 		lua_pushboolean(this.luaState, 0)
 	}
+}
+func (this *LuaState) Push(v interface{}){
+	switch v.(type) {
+	case int:
+		this.PushInteger(v.(int))
+		break
+	case int64:
+		this.PushLong(v.(int64))
+		break
+	case float64:
+		this.PushNumber(v.(float64))
+		break
+	case string:
+		this.PushString(v.(string))
+		break
+	case bool:
+		this.PushBoolean(v.(bool))
+	default:
+		panic("cant not use lua params")
+		break
+	}
+}
+func (this* LuaState) PushArray(arr []interface{}){
+	this.NewTable()
+	for k, v :=range arr{
+		this.PushInteger(k)
+		this.Push(v)
+		this.SetTable(-3)
+	}
+}
+
+func (this *LuaState) To(v *interface{}, idx int){
+	switch (*v).(type) {
+	case int:
+		(*v) = this.ToInteger(idx)
+		break
+	case int64:
+		(*v)= this.ToLong(idx)
+		break
+	case float64:
+		(*v) = this.ToNumber(idx)
+		break
+	case string:
+		(*v) = this.ToString(idx)
+		break
+	case bool:
+		(*v) = this.ToBoolean(idx)
+	default:
+		panic("cant not use lua params rsuly")
+		break
+	}
+}
+
+func (this* LuaState) ToArray(arr *[]interface{}){
+
 }
 
 //func(this *LuaState)  PushLightUserdata( p unsafe.Pointer) { lua_pushlightuserdata(this.luaState, p) }
@@ -211,7 +265,6 @@ func (this *LuaState) LoadFile(fileName string) int {
 	}
 
 	this.Call(0,0)
-
 
 	return 0
 }

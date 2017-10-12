@@ -1075,6 +1075,7 @@ func __AddBuff(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
+
 	battle.AddBuff(int64(casterid), int64(target), int32(buffid), int32(data))
 
 	return 0

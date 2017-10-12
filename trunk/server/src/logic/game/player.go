@@ -4,25 +4,25 @@ import (
 	"errors"
 	"fmt"
 	"logic/prpc"
-	"sync"
 	"strings"
 	"strconv"
 )
 
 const (
 	unitGroupMax		= 5			//卡组上限
-	onceUnitGroupMax 	= 10		//每组卡片上限
+	onceUnitGroupMax 	= 10			//每组卡片上限
 	bagMaxGrid			= 200
 )
 
 type GamePlayer struct {
-	sync.Locker
-	session        			*Session    //链接
-	MyUnit         			*GameUnit   //自己的卡片
-	UnitList       			[]*GameUnit //拥有的卡片
-	BattleUnitList 			[]int64     //默认出战卡片
+	session        			*Session    		//链接
+	PlayerId 			int64			//角色ID
+	Username 			string 			//账户名
+	MyUnit         			*GameUnit   		//自己的卡片
+	UnitList       			[]*GameUnit 		//拥有的卡片
+	BattleUnitList 			[]int64     		//默认出战卡片
 	DefaultUnitGroup		int			//默认战斗卡片组
-	BattleUnitGroup			int32		//战斗卡片组
+	BattleUnitGroup			int32			//战斗卡片组
 	UnitGroup				[]*prpc.COM_UnitGroup
 	//战斗相关辅助信息
 	BattleId   				int64 		//所在房间编号
@@ -42,13 +42,13 @@ type GamePlayer struct {
 	BagItems				[]*prpc.COM_ItemInst
 
 	//经验
-	Exp 					int32		//经验
+	Exp 					int32
 	//主角可学习技能
 	SkillBase				map[int32]int32
 }
 
 var (
-	PlayerStore		[]*GamePlayer
+	PlayerStore	[]*GamePlayer
 	DefaultUnits	[]int32
 )
 
@@ -102,19 +102,13 @@ func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
 }
 
+
 func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
 	p.Exp = 0
-	//来两个默认的小兵
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(4))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(5))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(6))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(7))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(8))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(9))
-	//p.UnitList = append(p.UnitList, p.NewGameUnit(10))
+
 	for _, e_id := range DefaultUnits {
 		p.UnitList = append(p.UnitList, p.NewGameUnit(e_id))
 	}
@@ -137,7 +131,6 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	}
 
 	p.TestItem()
-	fmt.Println("ccccccc", p.MyUnit.Skill)
 	
 	return &p
 
@@ -151,6 +144,29 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 		OpenChapter(this,chapterids[i])
 	}
 	return unit
+}
+
+func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player){
+	this.MyUnit = &GameUnit{}
+	this.MyUnit.SetUnitCOM(&p.Unit)
+
+	for _, u := range p.Employees {
+		unit := GameUnit{}
+		unit.SetUnitCOM(&u)
+		this.UnitList = append(this.UnitList, &unit)
+	}
+	for _, c := range p.Chapters {
+		this.Chapters = append(this.Chapters,&c)
+	}
+	for _,ug := range p.UnitGroup{
+		this.UnitGroup = append(this.UnitGroup,&ug)
+	}
+	this.TianTiVal = p.TianTiVal
+
+	this.SkillBase = map[int32]int32{}
+	for _, skb:= range p.SkillBase {
+		this.SkillBase[skb.SkillId] = skb.SkillId
+	}
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -180,9 +196,26 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 
 	//
-	this.SyncBag()
+
 
 	return p
+}
+
+func( this* GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer){
+	this.SetPlayerCOM(&p.COM_Player)
+	this.PlayerId = p.PlayerId
+	this.Username = p.Username
+	for _, a := range p.BagItemList{
+		this.BagItems = append(this.BagItems,&a)
+	}
+}
+
+func (this* GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer{
+	items := []prpc.COM_ItemInst{}
+	for _, a := range this.BagItems{
+		items = append(items,*a)
+	}
+	return prpc.SGE_DBPlayer{COM_Player:this.GetPlayerCOM(),PlayerId:this.PlayerId,Username:this.Username ,BagItemList:items}
 }
 
 func (this *GamePlayer)IsBattle() bool {
@@ -454,10 +487,6 @@ func (this *GamePlayer)SyncBag()  {
 	for _,item := range items{
 		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
 	}
-
-	//if len(items) == 0 {
-	//	return
-	//}
 
 	if this.session != nil {
 		this.session.InitBagItems(items)
@@ -1080,6 +1109,10 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 	}
 	
 	return true
+}
+
+func (this* GamePlayer)Save(){
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
