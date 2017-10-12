@@ -31,7 +31,7 @@ function SK_319_Action(battleid, casterid)
 		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		sys.log("九头蛇群蛇乱舞对目标   "..t.. " 造成 最终法术伤害  "..damage )
 		if damage <= 0 then
-			damage = 1
+			damage = 0
 		end
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击

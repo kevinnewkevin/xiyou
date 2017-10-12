@@ -30,7 +30,7 @@ function SK_316_Action(battleid, casterid)
 	--判断伤害
 	if damage <= 0 then 
 		
-		damage = 1
+		damage = 0
 		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击

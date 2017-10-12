@@ -29,7 +29,7 @@ function SK_309_Action(battleid, casterid)
 	--判断伤害
 	if damage <= 0 then 
 	
-		damage = 1
+		damage = 0
 	
 	end
 	
@@ -40,7 +40,7 @@ function SK_309_Action(battleid, casterid)
 	local pvalue = 0.4
 	local hp_damage = hp*pvalue
 	local  hp_pro= Bhp*0.1
-	
+
 	sys.log("雷震子 雷击对目标   "..t.. "加被动技能  伤害   "..   hp_pro)
 	
 	damege = damage + hp_pro

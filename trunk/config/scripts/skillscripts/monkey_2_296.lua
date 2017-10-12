@@ -23,7 +23,7 @@ function SK_296_Action(battleid, casterid)
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
 	
-	for i,v in ipairs(t)	do
+	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
 		--local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
 		--local damage = caster_attack * 2.3 - defender_def		-- 伤害公式

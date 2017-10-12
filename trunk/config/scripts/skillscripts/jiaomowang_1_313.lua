@@ -31,7 +31,7 @@ function SK_313_Action(battleid, casterid)
 	
 	if trueDamage <= 0 then 
 		
-		trueDamage = 1
+		trueDamage = 0
 		
 	end
 	local crit = Battle.GetCrit(skillid)

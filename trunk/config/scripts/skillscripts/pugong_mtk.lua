@@ -44,7 +44,7 @@ function SK_2_Action(battleid, casterid)
 	sys.log("攻击者的普通最终法术伤害    "..damage)
 	
 	if damage <= 0 then 
-		damage = 1
+		damage = 0
 	end
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
