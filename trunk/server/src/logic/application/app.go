@@ -7,6 +7,7 @@ import (
 	"logic/socket"
 	"net"
 	"suzuki/logs"
+	"time"
 )
 
 type App struct {
@@ -130,6 +131,7 @@ func (this *App) Run() {
 				endRunning <- true
 			}
 			fmt.Println("Has one connect ")
+			conn.SetDeadline(time.Second)
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)
 			//
