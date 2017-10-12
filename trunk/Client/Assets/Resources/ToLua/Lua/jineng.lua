@@ -26,14 +26,14 @@ local upgradeText;
 local skillItemUrl = "ui://jineng/jineng_Button";
 local activeList;
 local passiveList;
-local criticalList;
+--local criticalList;
 
 --equipment
 local playerSkillList;
 local skill1;
 local skill2;
 local skill3;
-local skill4;
+--local skill4;
 
 local crtSelectRoleSkillId;
 local crtSelectRoleSkilltype;
@@ -84,21 +84,21 @@ function jineng:OnInit()
 	local crCom = skillList:GetChildAt(2).asCom;
 	activeList = acCom:GetChild("n6").asList;
 	passiveList = paCom:GetChild("n6").asList;
-	criticalList = crCom:GetChild("n6").asList;
+	--criticalList = crCom:GetChild("n6").asList;
 
 	playerSkillList = self.contentPane:GetChild("n40").asList;
 	skill1 = playerSkillList:GetChildAt(0).asCom;
 	skill2 = playerSkillList:GetChildAt(1).asCom;
 	skill3 = playerSkillList:GetChildAt(2).asCom;
-	skill4 = playerSkillList:GetChildAt(3).asCom;
+--	skill4 = playerSkillList:GetChildAt(3).asCom;
 	skill1:GetChild("n12").visible = false;
 	skill1:GetChild("n13").visible = false;
 	skill2:GetChild("n12").visible = false;
 	skill2:GetChild("n13").visible = false;
 	skill3:GetChild("n12").visible = false;
 	skill3:GetChild("n13").visible = false;
-	skill4:GetChild("n12").visible = false;
-	skill4:GetChild("n13").visible = false;
+--	skill4:GetChild("n12").visible = false;
+--	skill4:GetChild("n13").visible = false;
 
 	skill1.data = {};
 	skill1.data.rsId = 0;
@@ -109,18 +109,18 @@ function jineng:OnInit()
 	skill3.data = {};
 	skill3.data.rsId = 0;
 	skill3.data.down = 1;
-	skill4.data = {};
-	skill4.data.rsId = 0;
-	skill4.data.down = 1;
+--	skill4.data = {};
+--	skill4.data.rsId = 0;
+--	skill4.data.down = 1;
 	skill1.onDrop:Add(jineng_OnDropSkill);
 	skill2.onDrop:Add(jineng_OnDropSkill);
 	skill3.onDrop:Add(jineng_OnDropSkill);
-	skill4.onDrop:Add(jineng_OnDropSkill);
+--	skill4.onDrop:Add(jineng_OnDropSkill);
 
 	skill1.onClick:Add(jineng_OnSkillSelected);
 	skill2.onClick:Add(jineng_OnSkillSelected);
 	skill3.onClick:Add(jineng_OnSkillSelected);
-	skill4.onClick:Add(jineng_OnSkillSelected);
+--	skill4.onClick:Add(jineng_OnSkillSelected);
 
 	jineng_Clear();
 	jineng_FlushData();
@@ -136,11 +136,11 @@ function jineng_OnSkillSelected(context)
 	crtSelectRoleSkilltype = RoleSkillData.GetData(crtSelectRoleSkillId)._Type;
 	if crtSelectRoleSkilltype == 0 then
 		activeList:SelectNone();
-		criticalList:SelectNone();
+--		criticalList:SelectNone();
 	end
 	if crtSelectRoleSkilltype == 1 then
 		passiveList:SelectNone();
-		criticalList:SelectNone();
+--		criticalList:SelectNone();
 	end
 	if crtSelectRoleSkilltype == 2 then
 		activeList:SelectNone();
@@ -152,7 +152,7 @@ function jineng_OnSkillSelected(context)
 	else
 		activeList:SelectNone();
 		passiveList:SelectNone();
-		criticalList:SelectNone();
+--		criticalList:SelectNone();
 	end
 	crtSelectIsDown = context.sender.data.down;
 	jineng_OnlyLeftFlushData();
@@ -224,7 +224,7 @@ function jineng_Clear()
 	crtSelectRoleSkilltype = -1;
 	crtSelectRoleSkillId = 0;
 	playerSkillList:SelectNone();
-	criticalList:SelectNone();
+--	criticalList:SelectNone();
 	passiveList:SelectNone();
 	activeList:SelectNone();
 	isNewOpen = true;
@@ -311,28 +311,28 @@ function jineng_OnlyLeftFlushData()
 			skill1:GetChild("n10").visible = true;
 			skill2:GetChild("n10").visible = false;
 			skill3:GetChild("n10").visible = false;
-			skill4:GetChild("n10").visible = false;
+--			skill4:GetChild("n10").visible = false;
 		elseif crtSelectRoleSkilltype == 1 then
 			skill1:GetChild("n10").visible = false;
 			skill2:GetChild("n10").visible = true;
 			skill3:GetChild("n10").visible = true;
-			skill4:GetChild("n10").visible = false;
+--			skill4:GetChild("n10").visible = false;
 		elseif crtSelectRoleSkilltype == 2 then
 			skill1:GetChild("n10").visible = false;
 			skill2:GetChild("n10").visible = false;
 			skill3:GetChild("n10").visible = false;
-			skill4:GetChild("n10").visible = true;
+--			skill4:GetChild("n10").visible = true;
 		else
 			skill1:GetChild("n10").visible = false;
 			skill2:GetChild("n10").visible = false;
 			skill3:GetChild("n10").visible = false;
-			skill4:GetChild("n10").visible = false;
+--			skill4:GetChild("n10").visible = false;
 		end
 	else
 		skill1:GetChild("n10").visible = false;
 		skill2:GetChild("n10").visible = false;
 		skill3:GetChild("n10").visible = false;
-		skill4:GetChild("n10").visible = false;
+--		skill4:GetChild("n10").visible = false;
 	end
 end
 
@@ -344,7 +344,7 @@ function jineng_FlushData()
 
 	passiveList:RemoveChildrenToPool();
 	activeList:RemoveChildrenToPool();
-	criticalList:RemoveChildrenToPool();
+--	criticalList:RemoveChildrenToPool();
 
 	
 	local allData = RoleSkillData.metaData;
@@ -403,29 +403,29 @@ function jineng_FlushData()
 			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
 		end
 
-		if allData[i-1]._Type == 2 then	--critical
-			skilldata = SkillData.GetData(allData[i-1]._SkillId);
-			skillitem = criticalList:AddItemFromPool(skillItemUrl);
-			skillitem:GetChild("n10").visible = false;
-			skillicon = skillitem:GetChild("n8").asLoader;
-			skillicon.url = "ui://" .. skilldata._Icon;
-			skilllv = skillitem:GetChild("n7").asTextField;
-			skilllv.text = skilldata._Level;
-			skilllock = skillitem:GetChild("n12");
-			skillunlockcond = skillitem:GetChild("n13").asTextField;
-			skilllock.visible = playerlv < allData[i-1]._OpenLv;
-			skillunlockcond.visible = playerlv < allData[i-1]._OpenLv;
-			skillunlockcond.text = allData[i-1]._OpenLv .. "级解锁";
-
-			skillitem.data = {};
-			skillitem.data.rsId = allData[i-1]._ID;
-			skillitem.data.down = 0;
-			skillitem.onClick:Add(jineng_OnSkillSelected);
-			skillitem.onDragStart:Add(jineng_OnDragSkill);
-			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
-
-			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
-		end
+--		if allData[i-1]._Type == 2 then	--critical
+--			skilldata = SkillData.GetData(allData[i-1]._SkillId);
+--			skillitem = criticalList:AddItemFromPool(skillItemUrl);
+--			skillitem:GetChild("n10").visible = false;
+--			skillicon = skillitem:GetChild("n8").asLoader;
+--			skillicon.url = "ui://" .. skilldata._Icon;
+--			skilllv = skillitem:GetChild("n7").asTextField;
+--			skilllv.text = skilldata._Level;
+--			skilllock = skillitem:GetChild("n12");
+--			skillunlockcond = skillitem:GetChild("n13").asTextField;
+--			skilllock.visible = playerlv < allData[i-1]._OpenLv;
+--			skillunlockcond.visible = playerlv < allData[i-1]._OpenLv;
+--			skillunlockcond.text = allData[i-1]._OpenLv .. "级解锁";
+--
+--			skillitem.data = {};
+--			skillitem.data.rsId = allData[i-1]._ID;
+--			skillitem.data.down = 0;
+--			skillitem.onClick:Add(jineng_OnSkillSelected);
+--			skillitem.onDragStart:Add(jineng_OnDragSkill);
+--			skillitem.draggable = playerlv >= allData[i-1]._OpenLv;
+--
+--			skillitem.enabled = Proxy4Lua.GetIndexBySkillID(allData[i-1]._SkillId) == -1;
+--		end
 	end
 	skilldata = Proxy4Lua.GetPlayerSkillData(0);
 	skilllv = skill1:GetChild("n7").asTextField;
@@ -481,21 +481,21 @@ function jineng_FlushData()
 --		skill3.touchable = false;
 	end
 
-	skilldata = Proxy4Lua.GetPlayerSkillData(3);
-	skilllv = skill4:GetChild("n7").asTextField;
-	skillicon = skill4:GetChild("n8").asLoader;
-	if skilldata ~= nil then
-		skillicon.url = "ui://" .. skilldata._Icon;
-		skilllv.text = skilldata._Level;
-		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
-		if rsData ~= nil then
-			skill4.data.rsId = rsData._ID;
-		end
---		skill4.touchable = true;
-	else
-		skillicon.url = "";
-		skilllv.text = "";
-		skill4.data.rsId = 0;
---		skill4.touchable = false;
-	end
+--	skilldata = Proxy4Lua.GetPlayerSkillData(3);
+--	skilllv = skill4:GetChild("n7").asTextField;
+--	skillicon = skill4:GetChild("n8").asLoader;
+--	if skilldata ~= nil then
+--		skillicon.url = "ui://" .. skilldata._Icon;
+--		skilllv.text = skilldata._Level;
+--		local rsData = RoleSkillData.GetDataBySkillID(skilldata._Id);
+--		if rsData ~= nil then
+--			skill4.data.rsId = rsData._ID;
+--		end
+----		skill4.touchable = true;
+--	else
+--		skillicon.url = "";
+--		skilllv.text = "";
+--		skill4.data.rsId = 0;
+----		skill4.touchable = false;
+--	end
 end
