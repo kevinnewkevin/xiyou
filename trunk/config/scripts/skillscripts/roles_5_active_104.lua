@@ -9,12 +9,12 @@ function SK_104_Action(battleid, casterid)
 
 	local level = 1
 	local  t = Player.GetFriend(battleid,casterid)  --获取目标
-	
+	sys.log("SK_104_Action 目标  "..   t)
 	local hp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")	-- 获取到攻击者的属性
-	
+	sys.log("SK_104_Action zhujue血量  "..   hp)
 	local damage = hp * 0.1
 	
-	Battle.cure(battleid, casterid, 0, 0)
+	Battle.Cure(battleid, casterid, 0, 0)
 	
 	local buffid = 103
 	
