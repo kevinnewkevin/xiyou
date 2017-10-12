@@ -37,6 +37,7 @@ type GameUnit struct {
 	//战斗 buff需要的数据
 	VirtualHp	int32	//护盾数值
 	Special 	map[int32][]int32	//特殊属性效果
+	OutBattle	bool	//脱离战斗
 }
 //如果是创建怪物卡牌的话 player = 你来
 func CreateUnitFromTable(id int32) *GameUnit {
@@ -450,6 +451,7 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.Position = prpc.BP_MAX
 	this.Special = map[int32][]int32{}
 	this.MoveStage = 0
+	this.OutBattle = false
 }
 
 func (this *GameUnit)CheckBuff (round int32){

@@ -206,21 +206,7 @@ func (this *BattleRoom) BattleStart() {
 }
 
 func (this *BattleRoom) SendReportFirst() {
-	//this.ReportOne = prpc.COM_BattleReport{}
-	//this.Dead = []*GameUnit{}
-	//this.ReportOne.BattleID = this.BattleID
-	//
-	//unitllist := this.SortUnits()
-	//
-	//for _, unit := range unitllist {
-	//	if unit == nil {
-	//		continue
-	//	}
-	//	fmt.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
-	//	this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
-	//}
-	//
-	//this.SendReport(this.ReportOne)
+
 }
 
 func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
@@ -1044,6 +1030,67 @@ func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
 	return friends
 }
 
+func (this *BattleRoom) SelectThrowCard(instid int64)  int64 {
+	unit := this.SelectOneUnit(instid)
+
+	canThrow := []int64{}
+
+	if this.Type == prpc.BT_PVP {
+		for _, p := range this.PlayerList {
+			if p.MyUnit.InstId != unit.Owner.MyUnit.InstId {
+				continue
+			}
+			for _, g := range p.UnitGroup {
+				if g.GroupId != p.BattleUnitGroup {
+					continue
+				}
+				for _, ud := range g.UnitList{
+					u := p.GetUnit(ud)
+					if u.IsDead() {
+						continue
+					}
+					if u.OutBattle {
+						continue
+					}
+					canThrow = append(canThrow, ud)
+				}
+			}
+		}
+	} else {
+		for _, m := range this.Monster.BattleUnitList {
+			if m.IsDead() {
+				continue
+			}
+			if m.OutBattle {
+				continue
+			}
+			canThrow = append(canThrow, m.InstId)
+		}
+	}
+
+	fmt.Println("can throw all cards", canThrow)
+
+	if len(canThrow) == 0{
+		return 0
+	}
+
+	if len(canThrow) == 1{
+		return canThrow[0]
+	}
+
+	var del_card int64
+
+	index := len(canThrow) - 1
+
+	idx := rand.Intn(index)
+
+	del_card = canThrow[idx]
+
+	fmt.Println("throw one card", del_card)
+
+	return del_card
+}
+
 func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	for _, u := range this.Units {
 		if u == nil {
@@ -1151,9 +1198,17 @@ func (this *BattleRoom) MonsterMove() {
 		if len(this.Monster.BattleUnitList) == 0 {
 			return
 		}
-		this.Units[pos] = this.Monster.BattleUnitList[0]
-		this.Monster.BattleUnitList[0].Position = int32(pos)
-		this.Monster.BattleUnitList = this.Monster.BattleUnitList[1:]
+		for index, m:= range this.Monster.BattleUnitList{
+			if m.OutBattle{
+				fmt.Println("outbattle", m.InstId)
+				continue
+			}
+			fmt.Println("outbattle1111111 ", m.InstId)
+			this.Units[pos] = m
+			m.Position = int32(pos)
+			this.Monster.BattleUnitList = this.Monster.BattleUnitList[index + 1:]
+			break
+		}
 	}
 
 	fmt.Println("MonsterMove 2", this.Units)
@@ -1349,6 +1404,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	fmt.Println("MintsHp 1  ", this.TargetCOM)
 
 	if unit.IsDead() {
+		unit.OutBattle = true
 		this.isDeadOwner(casterid, target)
 		this.Dead = append(this.Dead, unit)
 		if unit.Owner != nil{
@@ -1361,6 +1417,41 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	}
 
 }
+
+func (this *BattleRoom) ThrowCard (target int64, throwcard int64) {
+
+	this.TargetCOM.InstId = target
+	this.TargetCOM.ActionType = 1
+	this.TargetCOM.ActionParam = -0
+	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(prpc.BE_MAX)
+	this.TargetCOM.Dead = false
+	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
+	this.TargetCOM.ThrowCard = throwcard
+	this.NewAction = false
+
+}
+
+func (this *BattleRoom) Throw (main int64, throwcard int64) {
+
+	if this.Type == prpc.BT_PVP {
+		for _, p :=range this.PlayerList {
+			if p.MyUnit.InstId != main {
+				continue
+			}
+			unit := p.GetUnit(throwcard)
+			unit.OutBattle = true
+		}
+	} else {
+		for _, m := range this.Monster.BattleUnitList {
+			if m.InstId != throwcard {
+				continue
+			}
+			m.OutBattle = true
+		}
+	}
+
+}
+
 func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	unit := this.SelectOneUnit(target)
 
@@ -1516,6 +1607,7 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 	this.AcctionList.BuffList = append(this.AcctionList.BuffList, buffCOM)
 
 	if unit.IsDead() {
+		unit.OutBattle = true
 		this.isDeadOwner(casterid, target)
 		this.Dead = append(this.Dead, unit)
 		if unit.Owner != nil{
@@ -1624,6 +1716,11 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 				return //有重复位置设置
 			}
 			unit := p.GetUnit(posList[i].InstId)
+
+			if unit.IsDead() {
+				fmt.Println("SetupPosition.error card is dead")
+				return
+			}
 			needPoint += unit.Cost
 		}
 	}

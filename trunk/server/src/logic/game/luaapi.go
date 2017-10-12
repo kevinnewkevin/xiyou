@@ -59,6 +59,8 @@ extern int __ClacWeakPer(void*);
 extern int __ChangeBuffTimes(void*);
 extern int __GetMyUnitIProperty(void*);
 extern int __AddMyUnitEnergy(void*);
+extern int __ThrowCard(void*);
+extern int __Throw(void*);
 
 */
 import "C"
@@ -125,6 +127,8 @@ func InitLua(r string){
 	_L.LoadApi(C.__ChangeBuffTimes,"ChangeBuffTimes","Player")
 	_L.LoadApi(C.__GetMyUnitIProperty,"GetMyUnitIProperty","Player")
 	_L.LoadApi(C.__AddMyUnitEnergy,"AddMyUnitEnergy","Player")
+	_L.LoadApi(C.__ThrowCard,"ThrowCard","Player")
+	_L.LoadApi(C.__Throw,"Throw","Player")
 
 	_L.LoadApi(C.__Attack,"Attack","Battle")
 	_L.LoadApi(C.__Cure,"Cure","Battle")
@@ -1628,6 +1632,48 @@ func __AddMyUnitEnergy(p unsafe.Pointer) C.int {
 	}
 
 	player.SetMyEnergy(int32(val),true)
+
+	return 0
+}
+
+
+//export __ThrowCard
+func __ThrowCard(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToLong(idx)
+	idx ++
+	unitid := L.ToLong(idx)
+	idx ++
+	target := L.ToLong(idx)
+
+	battle := FindBattle(battleid)
+
+	throwCard := battle.SelectThrowCard(unitid)
+
+	battle.ThrowCard(target, throwCard)
+
+	L.PushLong(throwCard)
+
+	return 1
+}
+//export __Throw
+func __Throw(p unsafe.Pointer) C.int {
+
+	L := lua.GetLuaState(p)
+
+	idx := 1
+	battleid := L.ToLong(idx)
+	idx ++
+	unitid := L.ToLong(idx)
+	idx ++
+	throw := L.ToLong(idx)
+
+	battle := FindBattle(battleid)
+
+	battle.Throw(unitid, throw)
 
 	return 0
 }
