@@ -2,10 +2,11 @@
 <component size="803,768" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="nfe41x" xy="0,0" alpha="0.7">
+    <image id="n1" name="n1" src="nfe41x" xy="0,0" hideByEditor="true" alpha="0.7">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
     <loader id="n2_10fre" name="n2" xy="32,20" size="798,772" url="ui://s1sxt36u10fre26"/>
+    <image id="n3_mub1" name="n3" src="mub1e29" xy="18,9" size="760,765"/>
   </displayList>
   <Button/>
 </component>
