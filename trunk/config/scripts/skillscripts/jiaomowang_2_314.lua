@@ -19,8 +19,7 @@ function SK_314_Action(battleid, casterid)
 	local skillid = 314		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	--local attackNum = 0		-- 攻击个数
-	
-	Battle.Cure(battleid,casterid,0,0)
+	--Battle.Cure(battleid,casterid,0,0)
 	sys.log("蛟魔王 孽龙 给自己  加buff110")
 	Battle.AddSkillBuff(battleid,casterid, casterid, 110,50)  -- 造成的伤害增加50%
 	sys.log("蛟魔王 孽龙 给自己   加buff122")
@@ -36,7 +35,7 @@ function SK_314_Action(battleid, casterid)
 	--判断伤害
 	if caster_damage <= 0 then 
 	
-		caster_damage = 1
+		caster_damage = 0
 	
 	end
 	
