@@ -131,7 +131,7 @@ func (this *App) Run() {
 				endRunning <- true
 			}
 			fmt.Println("Has one connect ")
-			conn.SetDeadline(time.NewTimer(time.Second))
+			conn.SetDeadline(*time.NewTimer(time.Second))
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)
 			//
