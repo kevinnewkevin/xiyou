@@ -40,7 +40,7 @@ function SK_313_Action(battleid, casterid)
 	
 	sys.log("蛟魔王 真龙形态 给目标  " ..target .." 造成 法术最终伤害的130%  "..Damage)
 	Battle.Attack(battleid,casterid,target,Damage,crit) 	--调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-	
+	sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  110")
 	Battle.AddBuff(battleid,casterid,target,110,atk_damage)
 	
 	Battle.TargetOver(battleid)
@@ -54,6 +54,7 @@ function SK_313_Action(battleid, casterid)
 			break
 		end
 		Battle.Attack(battleid,casterid,t,Damage,crit)
+		sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  110")
 		Battle.AddBuff(battleid,casterid,target,110,atk_damage)
 		Battle.TargetOver(battleid)
 		p = Player.CheckUnitDead(battleid,t)

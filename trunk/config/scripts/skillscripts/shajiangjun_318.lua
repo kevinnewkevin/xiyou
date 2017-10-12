@@ -32,8 +32,8 @@ function SK_318_Action(battleid, casterid)
 		damage = 1
 		
 	end
-	local crit = Battle.GetCrit(skillid)   --是否暴击
-		
+	local crit = 1
+	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
 	Battle.TargetOver(battleid)

@@ -25,7 +25,7 @@ function SK_317_Action(battleid, casterid)
 	local  true_damage = Player.GetUnitDamage(battleid,casterid,t)
 	sys.log("万年龟相 给目标  " ..t.. " 造成 物理伤害  "..true_damage)
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,true_damage)
-	sys.log("万年龟相给目标  " ..t.. " 造成 物理伤害  "..damage)	
+	sys.log("万年龟相给目标  " ..t.. " 造成 最终物理伤害  "..damage)	
 	--判断伤害
 	if damage <= 0 then 
 		
@@ -33,7 +33,11 @@ function SK_317_Action(battleid, casterid)
 		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-		
+
+	local per = 0.2
+	sys.log("万年龟相给目标  " ..t.. " 增加的伤害  "..     damage * per)	
+	damage = damage + damage * per
+	sys.log("万年龟相给目标  " ..t.. " 增加的伤害 以后最终伤害  "..     damage)
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	Battle.TargetOver(battleid)
 		

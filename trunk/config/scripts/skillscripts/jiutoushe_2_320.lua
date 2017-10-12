@@ -18,7 +18,7 @@ function SK_320_Action(battleid, casterid)
 	local skillid = 320		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	--local attackNum = 0		-- 攻击个数
-	
+
 	local t = Player.GetMainTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	
 	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
@@ -47,6 +47,7 @@ function SK_320_Action(battleid, casterid)
 	Battle.Attack(battleid,casterid,t,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	
 	Battle.AddBuff(battleid,casterid,t,117,sudu_del)  --每次都到伤害降低10%速度
+
 	
 	Battle.TargetOver(battleid)
 	

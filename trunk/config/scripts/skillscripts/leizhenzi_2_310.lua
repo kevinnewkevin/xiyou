@@ -41,7 +41,9 @@ function SK_310_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		local Bhp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")
 		local  hp_pro= Bhp*0.1
+		sys.log("雷震子  落雷对目标   "..v.. " 增加法术伤害  "..   hp_pro )
 		damege = damage + hp_pro
+		sys.log("雷震子  落雷对目标   "..v.. " 增加法术伤害以后最终伤害  "..   damege )
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
 		Battle.TargetOver(battleid)

@@ -36,10 +36,15 @@ function SK_316_Action(battleid, casterid)
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	sys.log("水晶虾兵技能 的伤害"..t.."造成最终物理伤害"..damage)
+	local  aroud_target = Player.GetTargetsAround(battleid,t)
 		
+	for i,v in ipairs(aroud_target) do
+		sys.log("水晶虾兵 被动技能 的伤害"..v.."造成最终物理伤害"..damage)
+		Battle.Attack(battleid,casterid,v,damage,crit)  
+			
+	end
 	Battle.TargetOver(battleid)
-		
-	
 	
 	return  true
 	 

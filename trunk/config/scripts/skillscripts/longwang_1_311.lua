@@ -49,7 +49,7 @@ function SK_311_Action(battleid, casterid)
 		local sudu_del = sudu*0.2
 		sys.log("龙王 布雨对目标  "..v .. "造成最终法术伤害的50%"..mag_damage)
 		Battle.Attack(battleid,casterid,v,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		sys.log("龙王 布雨对目标   "..v.. "加被动技能buff" )
+		
 		Battle.AddBuff(battleid,casterid,v,117,sudu_del)    -- 减少20%的速度
 		
 		Battle.TargetOver(battleid)

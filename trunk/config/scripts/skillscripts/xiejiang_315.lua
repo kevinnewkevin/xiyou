@@ -41,9 +41,11 @@ function SK_315_Action(battleid, casterid)
 		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-		
+	
+	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		
+	sys.log("铁剪蟹将 被动技能连击   伤害    "   ..  damage)
+	Battle.Attack(battleid,casterid,t,damage,crit)
 	Battle.TargetOver(battleid)
 		
 	sys.log("铁剪蟹将对id为"..t.."的目标造成"..damage.."点伤害")
