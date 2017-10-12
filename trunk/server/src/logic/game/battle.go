@@ -1373,6 +1373,12 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 		this.TargetCOM = prpc.COM_BattleActionTarget{}
 	}
 
+	if crit == 0 {
+		crit = prpc.BE_MAX
+	} else {
+		crit = prpc.BE_Crit
+	}
+
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(damage)
 
 	this.TargetCOM.InstId = target
