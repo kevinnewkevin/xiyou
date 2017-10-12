@@ -60,7 +60,7 @@ function renwuziliao:OnInit()
 	rec = rightInfo:GetChild("n221");
 	reflect = rightInfo:GetChild("n222");
 	suck = rightInfo:GetChild("n223");
-	for i=1, 4 do
+	for i=1, 3 do
 		local skill = skillList:GetChildAt(i - 1);
 		skill.onClick:Add(renwuziliao_OnSkillBtn);
 	end
@@ -130,7 +130,7 @@ function renwuziliao_FlushData()
 	suck.text = GamePlayer._Data.CProperties[15];   
 
 	local entityData = GamePlayer.GetMyEntityData();
-	for i=1, 4 do
+	for i=1, 3 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = Proxy4Lua.GetPlayerSkillData(i-1);
 		skill.data = entityData._Skills[i - 1];
