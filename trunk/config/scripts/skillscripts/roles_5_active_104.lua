@@ -18,7 +18,7 @@ function SK_104_Action(battleid, casterid)
 	
 	local buffid = 103
 	
-	Battle.AddBuff(battleid,casterid,battleid,buffid,damage)  --给zishen提供一个盾牌
+	Battle.AddBuff(battleid,casterid,casterid,buffid,damage)  --给zishen提供一个盾牌
 
 	Battle.TargetOver(battleid)
 
