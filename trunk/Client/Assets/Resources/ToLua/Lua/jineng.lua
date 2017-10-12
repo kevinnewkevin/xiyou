@@ -81,7 +81,7 @@ function jineng:OnInit()
 	local skillList = self.contentPane:GetChild("n16").asList;
 	local acCom = skillList:GetChildAt(0).asCom;
 	local paCom = skillList:GetChildAt(1).asCom;
-	local crCom = skillList:GetChildAt(2).asCom;
+--	local crCom = skillList:GetChildAt(2).asCom;
 	activeList = acCom:GetChild("n6").asList;
 	passiveList = paCom:GetChild("n6").asList;
 	--criticalList = crCom:GetChild("n6").asList;
