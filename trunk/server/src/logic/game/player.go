@@ -1112,7 +1112,8 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 }
 
 func (this* GamePlayer)Save(){
-
+	fmt.Println("SAVE ")
+	UpdatePlayer(this.GetPlayerSGE())
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

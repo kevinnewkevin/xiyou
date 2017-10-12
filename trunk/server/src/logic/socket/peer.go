@@ -51,6 +51,7 @@ func (this *Peer) HandleSocket() error {
 	return nil
 }
 
+
 func NewPeer(conn net.Conn) *Peer {
 	return &Peer{IncomingBuffer: bytes.NewBuffer(nil), OutgoingBuffer: bytes.NewBuffer(nil), Connection: conn}
 }

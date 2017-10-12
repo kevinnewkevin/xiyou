@@ -79,6 +79,9 @@ func InsertPlayer(p prpc.SGE_DBPlayer){
 }
 
 func UpdatePlayer(p prpc.SGE_DBPlayer){
+
+	fmt.Println(p.UnitGroup)
+
 	c,e := ConnectDB()
 	if e != nil{
 		fmt.Println(e.Error())
@@ -89,7 +92,12 @@ func UpdatePlayer(p prpc.SGE_DBPlayer){
 
 	p.Serialize(&b)
 
-	_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `PlayerId` = ?", b.Bytes(), p.InstId)
+	_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `PlayerId` = ?", b.Bytes(), p.PlayerId)
+
+	if e != nil{
+		fmt.Println(e.Error())
+		return
+	}
 }
 
 

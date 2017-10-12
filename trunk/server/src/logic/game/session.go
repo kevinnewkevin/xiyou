@@ -29,9 +29,16 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 
 		this.player.SetPlayerSGE(p)
 		infoext.MyPlayer = p.COM_Player
+
+		fmt.Println(p.Employees)
 	}
 
 	this.LoginOK(infoext)
+
+	if this.player != nil{
+		this.player.SyncBag()
+	}
+
 	return nil
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
@@ -227,6 +234,7 @@ endLoop:
 	//do clean
 
 	if this.player != nil {
+		this.player.Save()
 		this.player.SetSession(nil)
 		this.player = nil
 		this.peer = nil
