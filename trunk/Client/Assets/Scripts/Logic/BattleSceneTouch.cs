@@ -6,8 +6,11 @@ using FairyGUI;
 public class BattleSceneTouch : MonoBehaviour {
 
     bool _IsPress;
+    bool _WantPress;
 
     float _PreVmag, _PreHmag;
+
+    float _PressTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -26,8 +29,11 @@ public class BattleSceneTouch : MonoBehaviour {
 
         if (Battle.op != null && Battle.op._IsPlaying)
             return;
+
+        if (!_WantPress)
+            _WantPress = true;
         
-        _IsPress = true;
+//        _IsPress = true;
     }
 
     void OnTouchMove(EventContext context)
@@ -50,7 +56,7 @@ public class BattleSceneTouch : MonoBehaviour {
             float h = Mathf.Abs(_PreHmag - crtHmag);
             float v = Mathf.Abs(_PreVmag - crtVmag);
             if (h > v)
-                Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.up, crtVmag * Time.deltaTime * 0.1f * (hanti ? -1f : 1f));
+                Camera.main.transform.RotateAround(Battle._Center, Camera.main.transform.up, crtVmag * Time.deltaTime * 0.05f * (hanti ? -1f : 1f));
             else if (h < v)
             {
                 float gap = Camera.main.transform.position.y - Battle._Center.y;
@@ -93,6 +99,12 @@ public class BattleSceneTouch : MonoBehaviour {
 
     void OnTouchEnd()
     {
+        if (_WantPress)
+        {
+            _WantPress = false;
+            _PressTimer = 0;
+        }
+        
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
         if (Physics.Raycast(ray, out hit))
@@ -105,6 +117,20 @@ public class BattleSceneTouch : MonoBehaviour {
             }
         }
         _IsPress = false;
+    }
+
+    void Update()
+    {
+        if (_WantPress)
+        {
+            _PressTimer += Time.deltaTime;
+            if (_PressTimer > 0.2f)
+            {
+                _WantPress = false;
+                _IsPress = true;
+                _PressTimer = 0;
+            }
+        }
     }
 
     void OnDestroy()

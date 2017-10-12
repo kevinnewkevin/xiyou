@@ -150,7 +150,7 @@ end
 
 function paiku:OnUpdate()
 	if doubleClickTicker ~= nil then
-		doubleClickTicker.crt = doubleClickTicker.crt + 1;
+		doubleClickTicker.crt = doubleClickTicker.crt + Proxy4Lua.DeltaTime;
 		if doubleClickTicker.crt >= doubleClickTicker.max then
 			doubleClickTicker = nil;
 			paiku_ExcuteOnCardItem();
@@ -246,7 +246,7 @@ function paiku_OnCardItem(context)
 	if doubleClickTicker == nil then
 		doubleClickTicker = {};
 		doubleClickTicker.crt = 0;
-		doubleClickTicker.max = 20;
+		doubleClickTicker.max = 0.2;
 	else
 		if doubleClickTicker.crt <= doubleClickTicker.max then
 			local max = GamePlayer.IsGroupMax(crtGroupIdx);
@@ -260,7 +260,7 @@ function paiku_OnCardItem(context)
 		else
 			doubleClickTicker = {};
 			doubleClickTicker.crt = 0;
-			doubleClickTicker.max = 20;
+			doubleClickTicker.max = 0.2;
 		end
 	end
 end

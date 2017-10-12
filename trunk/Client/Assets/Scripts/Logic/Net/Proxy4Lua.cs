@@ -352,5 +352,13 @@ public class Proxy4Lua {
         return "";
     }
 
+    static public float DeltaTime
+    {
+        get
+        {
+            return Time.deltaTime;
+        }
+    }
+
     #endregion
 }
