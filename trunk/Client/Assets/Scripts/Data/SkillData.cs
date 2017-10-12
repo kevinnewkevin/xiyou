@@ -42,7 +42,7 @@ public class SkillData {
     public bool _Single;
     public string _Camera;
     public string _Icon;
-
+	public int _Type;
     static Dictionary<int, SkillData> metaData;
 
     static public void ParseData(string content, string fileName)
@@ -73,6 +73,7 @@ public class SkillData {
             data._SkillEffect = parser.GetString (i, "SkillEffect");
             data._AttackAnim = parser.GetString(i, "AttackAnim");
             data._CastTime = parser.GetFloat(i, "CastTime");
+			data._Type =  parser.GetInt(i, "Type");
             string beatkTimes = parser.GetString (i, "BeattackTime");
             string[] beatkTimeAry = beatkTimes.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
             int j;
