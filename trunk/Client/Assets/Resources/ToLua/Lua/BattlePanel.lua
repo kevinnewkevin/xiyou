@@ -243,7 +243,7 @@ function BattlePanel_FlushData()
 		end
 	end
 
-	BattlePanel_DisableSkills(operating or Battle.SelectSkillID ~= 0);
+	BattlePanel_DisableSkills(not operating or Battle.SelectSkillID ~= 0);
 
 --	local mainActor = Battle.GetActor(GamePlayer._InstID);
 --	if Battle._Turn == 1 and mainActor == nil then
