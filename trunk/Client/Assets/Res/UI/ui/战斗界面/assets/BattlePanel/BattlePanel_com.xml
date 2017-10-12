@@ -17,8 +17,25 @@
     <image id="n22_gswf" name="n22" src="olbbf" xy="1262,984"/>
     <image id="n2_olbb" name="n2" src="olbb9" xy="1652,938"/>
     <image id="n3_olbb" name="n3" src="olbba" xy="1,1001" size="162,72"/>
+    <image id="n51_i407" name="n51" src="i4072l" xy="272,7" size="1534,109"/>
+    <image id="n71_i407" name="n71" src="i4072n" xy="1465,24">
+      <relation target="n51_i407" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n73_i407" name="n73" src="i4072n" xy="1147,24">
+      <relation target="n51_i407" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n74_i407" name="n74" src="i4072n" xy="829,24">
+      <relation target="n51_i407" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n75_i407" name="n75" src="i4072n" xy="511,24">
+      <relation target="n51_i407" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n76_i407" name="n76" src="i4072n" xy="193,24">
+      <relation target="n51_i407" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n50_i407" name="n50" src="i4072k" xy="0,0"/>
     <image id="n48_dv3n" name="n48" src="dv3n23" xy="-14,462"/>
-    <image id="n6_olbb" name="n6" src="olbbb" xy="657,0"/>
+    <image id="n6_olbb" name="n6" src="olbbb" xy="657,0" hideByEditor="true"/>
     <component id="n7_olbb" name="n7" src="h4l515" xy="562,344"/>
     <component id="n8_olbb" name="n8" src="olbbs" xy="5,5"/>
     <component id="n9_olbb" name="n9" src="olbbt" xy="93,5"/>
@@ -33,7 +50,7 @@
     <component id="n19_i02i" name="n19" src="i02ix" xy="834,1067" pivot="1,1" anchor="true"/>
     <component id="n20_i02i" name="n20" src="i02ix" xy="1045,1067" pivot="1,1" anchor="true"/>
     <component id="n21_i02i" name="n21" src="i02ix" xy="1256,1067" pivot="1,1" anchor="true"/>
-    <text id="n36_gswf" name="n36" xy="845,4" size="225,57" font="方正楷体_GBK" fontSize="35" color="#401911" align="center" vAlign="middle" letterSpacing="2" autoSize="none" bold="true" singleLine="true" text="第99回合"/>
+    <text id="n36_gswf" name="n36" xy="845,4" size="225,57" hideByEditor="true" font="方正楷体_GBK" fontSize="35" color="#401911" align="center" vAlign="middle" letterSpacing="2" autoSize="none" bold="true" singleLine="true" text="第99回合"/>
     <component id="n37_gswf" name="n37" src="gswf10" xy="1365,1085"/>
     <component id="n38_gswf" name="n38" src="gswf10" xy="1415,1085"/>
     <component id="n39_gswf" name="n39" src="gswf10" xy="1465,1085"/>
@@ -49,4 +66,7 @@
       <item/>
     </list>
   </displayList>
+  <transition name="t0">
+    <item time="0" type="XY" target="n51_i407" tween="true" startValue="-1540,7" endValue="272,7" duration="12" ease="Circ.InOut"/>
+  </transition>
 </component>

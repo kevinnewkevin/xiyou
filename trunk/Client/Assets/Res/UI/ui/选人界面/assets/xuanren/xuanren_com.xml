@@ -17,6 +17,7 @@
     <text id="n15_scpb" name="n15" xy="786,920" size="378,41" font="方正楷体_GBK" fontSize="30" color="#543e28" align="center" autoSize="none" bold="true" text="角色名不超过7个汉字"/>
     <image id="n18_scpb" name="n18" src="scpbm" xy="1084,969"/>
     <image id="n19_scpb" name="n19" src="scpbn" xy="646,790"/>
+    <text id="n21_a0vq" name="n21" xy="930,976" size="75,41" font="方正楷体_GBK" fontSize="34" color="#4e2a0d" bold="true" text="确定"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="XY" target="n20_scpb" tween="true" startValue="-49,250" endValue="423,250" duration="9" ease="Circ.InOut"/>
