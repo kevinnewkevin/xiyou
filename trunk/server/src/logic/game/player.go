@@ -1129,6 +1129,12 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func (this* GamePlayer)Save(){
 	fmt.Println("SAVE ")
+	if FindBattle(this.BattleId) != nil{
+		FindBattle(this.BattleId).BattleRoomOver(prpc.CT_MAX)
+	}
+	this.BattleId = 0
+	this.BattleCamp = prpc.CT_MAX
+	this.ClearAllBuff()
 	UpdatePlayer(this.GetPlayerSGE())
 }
 

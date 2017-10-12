@@ -33,7 +33,6 @@ func (this *Peer) HandleSocket() error {
 	{
 		bs := make([]byte, 2048)
 
-		this.Connection.SetReadDeadline()
 		c, e := this.Connection.Read(bs)
 		if e != nil {
 			return e

@@ -21,9 +21,9 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 
 	this.username = info.Username
 
-	//this.player = FindPlayerByUsername(info.Username)
-	//
-	//if this.player == nil {
+	this.player = FindPlayerByUsername(info.Username)
+
+	if this.player == nil {
 		p := prpc.SGE_DBPlayer{Username:info.Username}
 
 		if QueryPlayer(&p) {
@@ -46,10 +46,10 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			fmt.Println(infoext.MyPlayer.UnitGroup)
 			fmt.Println(p.Employees)
 		}
-	//}else{
-	//	this.player.SetSession(this)
-	//	infoext.MyPlayer = this.player.GetPlayerCOM()
-	//}
+	}else{
+		this.player.SetSession(this)
+		infoext.MyPlayer = this.player.GetPlayerCOM()
+	}
 
 	this.LoginOK(infoext)
 
@@ -244,7 +244,6 @@ func (this *Session) Update() {
 			fmt.Println(err)
 			goto endLoop
 		}
-		fmt.Println(123)
 		if this.peer.IncomingBuffer.Len() >= 2 {
 			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
 			if err != nil {
