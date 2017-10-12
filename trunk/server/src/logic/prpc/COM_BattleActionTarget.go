@@ -9,7 +9,8 @@ type COM_BattleActionTarget struct{
   ActionParam int32  //2
   ActionParamExt string  //3
   Dead bool  //4
-  BuffAdd []COM_BattleBuff  //5
+  ThrowCard int64  //5
+  BuffAdd []COM_BattleBuff  //6
 }
 func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -19,6 +20,7 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.ActionParam!=0)
   mask.WriteBit(len(this.ActionParamExt) != 0)
   mask.WriteBit(this.Dead)
+  mask.WriteBit(this.ThrowCard!=0)
   mask.WriteBit(len(this.BuffAdd) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
@@ -62,6 +64,15 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Dead
   {
+  }
+  // serialize ThrowCard
+  {
+    if(this.ThrowCard!=0){
+      err := prpc.Write(buffer,this.ThrowCard)
+      if err != nil{
+        return err
+      }
+    }
   }
   // serialize BuffAdd
   if len(this.BuffAdd) != 0{
@@ -116,6 +127,13 @@ func (this *COM_BattleActionTarget)Deserialize(buffer *bytes.Buffer) error{
   }
   // deserialize Dead
   this.Dead = mask.ReadBit();
+  // deserialize ThrowCard
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.ThrowCard)
+    if err != nil{
+      return err
+    }
+  }
   // deserialize BuffAdd
   if mask.ReadBit() {
     var size uint

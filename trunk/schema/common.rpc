@@ -125,6 +125,7 @@ struct COM_BattleActionTarget{
 	int32				ActionParam;		//伤害数值
 	string				ActionParamExt;		//是否暴击
 	bool				Dead;				//死亡
+	int64 				ThrowCard;			//扔掉的卡牌
 	COM_BattleBuff[]	BuffAdd;			//目标是否增加的buff
 };
 
