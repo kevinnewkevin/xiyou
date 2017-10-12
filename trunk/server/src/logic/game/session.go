@@ -30,7 +30,19 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			this.player = &GamePlayer{}
 			this.player.SetSession(this)
 			this.player.SetPlayerSGE(p)
-			PlayerStore[this.player.MyUnit.InstId] = this.player
+			if FindPlayerByUsername(info.Username) != nil{
+				for k, n:=range PlayerStore{
+					if n == nil {
+						continue
+					}
+					if n.Username == info.Username {
+						PlayerStore[k] = this.player
+					}
+				}
+			}else {
+				PlayerStore = append(PlayerStore,this.player)
+			}
+			PlayerStore = this.player
 			infoext.MyPlayer = p.COM_Player
 			fmt.Println(infoext.MyPlayer.UnitGroup)
 			fmt.Println(p.Employees)
