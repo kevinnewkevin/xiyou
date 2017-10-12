@@ -2,7 +2,7 @@
 <component size="283,72">
   <displayList>
     <image id="n2_kkfi" name="n2" src="kkk26" xy="0,2" size="283,73"/>
-    <text id="n3_kkfi" name="n3" xy="8,7" size="258,61" font="ui://tpocxmnlkkfi22" fontSize="12" autoSize="none" text="66666"/>
+    <text id="n3_kkfi" name="n3" xy="12,-12" size="258,95" font="ui://tpocxmnlkkfi22" fontSize="12" vAlign="middle" autoSize="none" text="66666"/>
   </displayList>
   <transition name="t0" autoPlay="true">
     <item time="0" type="Alpha" target="n2_kkfi" tween="true" startValue="0.4" endValue="1" duration="3" ease="Cubic.InOut"/>
