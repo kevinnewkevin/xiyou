@@ -9,8 +9,16 @@ function SK_106_Action(battleid, casterid)
 
 	local level = 1
 	
-	--Battle.Addbuff(battleid,casterid,0,0,0)
-
+	sys.log("casterid "..casterid)
+	local t = Player.GetMainTarget(battleid, casterid, false)
+	sys.log("target main id "..t)
+	
+	local throwCard = Player.ThrowCard(battleid, casterid, t)
+	
+	sys.log("throwCard "..throwCard)
+	
+	Player.Throw(battleid, t, throwCard)
+	
 	Battle.TargetOver(battleid)
 
 end
