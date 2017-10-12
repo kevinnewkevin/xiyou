@@ -22,7 +22,7 @@ function SK_295_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	sys_log(t)
+	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
 		local defender_atk = Player.GetUnitProperty(battleid, v, "CPT_DEF")
@@ -37,12 +37,12 @@ function SK_295_Action(battleid, casterid)
 		sys.log("猴子 化身三千最终的物理伤害   "..damage)
 		
 		if damage <= 0 then
-			damage = 1
+			damage = 0
 		end
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local atk_damage = damage*1.5
+		local atk_damage = damage*1
 		
 		local per = 0.15
 		
