@@ -58,7 +58,8 @@ function BattlePanel:OnInit()
 	returnBtn.onClick:Add(BattlePanel_OnReturnBtn);
 
 	autoBtn = self.contentPane:GetChild("n12").asButton;
-	autoBtn.onClick:Add(BattlePanel_OnAutoBtn);
+	--autoBtn.onClick:Add(BattlePanel_OnAutoBtn);
+	autoBtn.visible = false;
 
 	stateIcon = self.contentPane:GetChild("n16").asLoader;
 	stateIcon.onClick:Add(BattlePanel_OnTurnOver);
@@ -241,6 +242,8 @@ function BattlePanel_FlushData()
 			cards[i]["card"].visible = false;
 		end
 	end
+
+	BattlePanel_DisableSkills(operating or Battle.SelectSkillID ~= 0);
 
 --	local mainActor = Battle.GetActor(GamePlayer._InstID);
 --	if Battle._Turn == 1 and mainActor == nil then
