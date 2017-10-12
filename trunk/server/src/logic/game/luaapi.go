@@ -191,7 +191,7 @@ func __DefineCards(p unsafe.Pointer) C.int {
 }
 
 //export __GetTarget
-func __GetTarget(p unsafe.Pointer) C.int {
+func __GetTarget(p unsafe.Pointer) C.int { //获取 敌方单个目标
 
 	fmt.Println("__GetTarget")
 
@@ -216,7 +216,7 @@ func __GetTarget(p unsafe.Pointer) C.int {
 }
 
 //export __GetMainTarget
-func __GetMainTarget(p unsafe.Pointer) C.int {
+func __GetMainTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
 
 	fmt.Println("__GetMainTarget")
 
@@ -240,7 +240,7 @@ func __GetMainTarget(p unsafe.Pointer) C.int {
 	return 1
 }
 //export __CheckUnitDead
-func __CheckUnitDead(p unsafe.Pointer) C.int {
+func __CheckUnitDead(p unsafe.Pointer) C.int {//判断是否死亡
 
 	fmt.Println("__CheckUnitDead")
 
@@ -267,8 +267,7 @@ func __CheckUnitDead(p unsafe.Pointer) C.int {
 	return 1
 }
 //export __GetMainFriend
-func __GetMainFriend(p unsafe.Pointer) C.int {
-
+func __GetMainFriend(p unsafe.Pointer) C.int {  //友方主角
 	fmt.Println("__GetMainFriend")
 
 	L := lua.GetLuaState(p)
@@ -292,7 +291,7 @@ func __GetMainFriend(p unsafe.Pointer) C.int {
 }
 
 //export __GetFriend
-func __GetFriend(p unsafe.Pointer) C.int {
+func __GetFriend(p unsafe.Pointer) C.int {//友方单个目标
 
 	//fmt.Println("__GetFriend")
 
@@ -315,7 +314,7 @@ func __GetFriend(p unsafe.Pointer) C.int {
 }
 
 //export __GetUnitProperty
-func __GetUnitProperty(p unsafe.Pointer) C.int {
+func __GetUnitProperty(p unsafe.Pointer) C.int {//获取属性值
 
 	//fmt.Println("__GetUnitProperty")
 
@@ -581,7 +580,7 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 	return 0
 }
 //export __PopSpec
-func __PopSpec(p unsafe.Pointer) C.int {  //
+func __PopSpec(p unsafe.Pointer) C.int {  //删除buff
 
 	fmt.Println("__PopSpec")
 
@@ -777,7 +776,7 @@ func __GetBuffLockId(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 }
 
 //export __GetTargets
-func __GetTargets(p unsafe.Pointer) C.int {
+func __GetTargets(p unsafe.Pointer) C.int {  //获取敌方多个目标
 
 	//fmt.Println("__GetTargets")
 
@@ -808,7 +807,7 @@ func __GetTargets(p unsafe.Pointer) C.int {
 	return 1
 }
 //export __GetTargetsAround
-func __GetTargetsAround(p unsafe.Pointer) C.int {
+func __GetTargetsAround(p unsafe.Pointer) C.int {  //溅射目标
 
 	//fmt.Println("__GetTargetsAround")
 
@@ -892,6 +891,7 @@ func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 	fmt.Println(unitid, "Front", len(FrontTarget), "info", FrontTarget)
 
 	//L.PushInteger(int(num))
+
 
 	L.NewTable()
 	//L.PushInteger(-1)
@@ -1026,7 +1026,7 @@ func __Cure(p unsafe.Pointer) C.int {
 }
 
 //export __GetCrit
-func __GetCrit(p unsafe.Pointer) C.int {
+func __GetCrit(p unsafe.Pointer) C.int {   //判断暴击
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1081,7 +1081,7 @@ func __AddBuff(p unsafe.Pointer) C.int {
 }
 
 //export __HasBuff
-func __HasBuff(p unsafe.Pointer) C.int {
+func __HasBuff(p unsafe.Pointer) C.int {  //是否有增益buff
 
 	//fmt.Println("__HasBuff")
 
@@ -1102,7 +1102,7 @@ func __HasBuff(p unsafe.Pointer) C.int {
 }
 
 //export __HasDebuff
-func __HasDebuff(p unsafe.Pointer) C.int {
+func __HasDebuff(p unsafe.Pointer) C.int { //是否delbuff
 
 	//fmt.Println("__HasDebuff")
 
@@ -1638,7 +1638,7 @@ func __AddMyUnitEnergy(p unsafe.Pointer) C.int {
 
 
 //export __ThrowCard
-func __ThrowCard(p unsafe.Pointer) C.int {
+func __ThrowCard(p unsafe.Pointer) C.int {  //获取要删除的卡牌
 
 	L := lua.GetLuaState(p)
 
@@ -1660,7 +1660,7 @@ func __ThrowCard(p unsafe.Pointer) C.int {
 	return 1
 }
 //export __Throw
-func __Throw(p unsafe.Pointer) C.int {
+func __Throw(p unsafe.Pointer) C.int { //删除指定卡牌
 
 	L := lua.GetLuaState(p)
 
