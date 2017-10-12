@@ -10,7 +10,7 @@ type Peer struct {
 	sync.Mutex
 	TotalIncoming, TotalOutgoing   int
 	IncomingBuffer, OutgoingBuffer *bytes.Buffer
-	Connection                     net.Conn
+	Connection                     *net.TCPConn
 }
 
 func (this *Peer) MethodBegin() *bytes.Buffer {
@@ -33,6 +33,7 @@ func (this *Peer) HandleSocket() error {
 	{
 		bs := make([]byte, 2048)
 
+		this.Connection.SetReadDeadline()
 		c, e := this.Connection.Read(bs)
 		if e != nil {
 			return e
@@ -52,6 +53,6 @@ func (this *Peer) HandleSocket() error {
 }
 
 
-func NewPeer(conn net.Conn) *Peer {
+func NewPeer(conn *net.TCPConn) *Peer {
 	return &Peer{IncomingBuffer: bytes.NewBuffer(nil), OutgoingBuffer: bytes.NewBuffer(nil), Connection: conn}
 }

@@ -244,6 +244,7 @@ func (this *Session) Update() {
 			fmt.Println(err)
 			goto endLoop
 		}
+		fmt.Println(123)
 		if this.peer.IncomingBuffer.Len() >= 2 {
 			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
 			if err != nil {

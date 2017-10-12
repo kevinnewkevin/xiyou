@@ -7,17 +7,16 @@ import (
 	"logic/socket"
 	"net"
 	"suzuki/logs"
-	"time"
 )
 
 type App struct {
-	l net.Listener
+	l *net.TCPListener
 }
 
 func (this *App) Run() {
 	var (
 		err        error
-		conn       net.Conn
+		conn       *net.TCPConn
 		endRunning = make(chan bool, 1)
 	)
 	logs.Init()
@@ -116,7 +115,7 @@ func (this *App) Run() {
 	//game.InitGlobalLuaState()
 	game.InitTianTi()
 	//game.TestPlayer()
-	this.l, err = net.Listen("tcp", "0.0.0.0:10999")
+	this.l, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("0.0.0.0"),10999,"ipv4"})
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -125,13 +124,13 @@ func (this *App) Run() {
 
 	go func() {
 		for {
-			conn, err = this.l.Accept()
+			conn, err = this.l.AcceptTCP()
 			if err != nil {
 				fmt.Println(err.Error())
 				endRunning <- true
 			}
 			fmt.Println("Has one connect ")
-			conn.SetDeadline(time.Time{1,0,nil})
+
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)
 			//
