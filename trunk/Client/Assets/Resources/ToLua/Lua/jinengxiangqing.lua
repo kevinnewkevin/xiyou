@@ -6,6 +6,7 @@ local Window;
 local iconLoader;
 local iconLv;
 local skillType;
+local skillName;
 local skillDesc;
 local skillCoolDown;
 
@@ -19,7 +20,7 @@ function jinengxiangqing:GetWindow()
 end
 
 function jinengxiangqing:OnInit()
-	self.contentPane = UIPackage.CreateObject("jinengxiangqing", "jinengxiangqing_com").asCom;
+	self.contentPane = UIPackage.CreateObject("jinengxiangqing", "jineng_Component").asCom;
 	self:Center();
 	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n13").asButton;
@@ -29,6 +30,7 @@ function jinengxiangqing:OnInit()
 	iconLv = iconGroup:GetChild("n7").asTextField;
 
 	skillType = self.contentPane:GetChild("n7").asTextField;
+	skillName = self.contentPane:GetChild("n8").asTextField;
 	skillDesc = self.contentPane:GetChild("n12").asTextField;
 end
 
@@ -61,7 +63,12 @@ function jinengxiangqing_FlushData()
 	if sData ~= nil then
 		iconLoader.url = "ui://" .. sData._Icon;
 		iconLv.text = sData._Level;
-		skillType.text = "主动";
+		if sData._Type == 0 then
+			skillType.text = "被动";
+		else
+			skillType.text = "主动";
+		end
+		skillName.text = sData._Name;
 		skillDesc.text = sData._Desc;
 	end
 end
