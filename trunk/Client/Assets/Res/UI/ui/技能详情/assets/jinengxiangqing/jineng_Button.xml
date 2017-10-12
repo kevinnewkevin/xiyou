@@ -7,16 +7,9 @@
       <gearDisplay controller="button" pages="1"/>
     </image>
     <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
-    <image id="n12_tzjy" name="n12" src="p3jwb" xy="11,6" hideByEditor="true"/>
-    <text id="n13_tzjy" name="n13" xy="3,51" size="136,53" hideByEditor="true" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="10级解锁"/>
-    <image id="n10_tmae" name="n10" src="p3jwc" xy="10,1" hideByEditor="true"/>
     <image id="n5_s5s1" name="n5" src="nmle5" xy="95,92"/>
     <text id="n7_s5s1" name="n7" xy="87,97" size="63,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
   </displayList>
   <Button mode="Radio"/>
-  <transition name="t0" autoPlay="true" autoPlayRepeat="100">
-    <item time="0" type="Alpha" target="n10_tmae" tween="true" startValue="1" endValue="0.5" duration="12" ease="Back.In"/>
-    <item time="12" type="Alpha" target="n10_tmae" tween="true" startValue="0.5" endValue="1" duration="12" ease="Back.In"/>
-    <item time="24" type="Alpha" target="n10_tmae" tween="true" startValue="1" endValue="0.5" duration="12" ease="Back.In"/>
-  </transition>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="100"/>
 </component>
