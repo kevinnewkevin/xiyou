@@ -39,7 +39,7 @@ SkillId,Name,Level,Type,Feel,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,T
 1009,普通攻击,,1,,对敌方造成伤害。,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_1_Action,
 1010,普通攻击,,1,,对敌方造成伤害。,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,,,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action,
 1011,普通攻击,,1,,对敌方造成伤害。,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic1,,1.5,1.5,2,MT_Self,,TPT_None,,SK_3_Action,
-1012,普通攻击,,1,,对敌方造成伤害。,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic3,Effect/sunwukong_attack,0.8,0.8,2,MT_Self,,TPT_None,,SK_1_Action,
+1012,普通攻击,,1,,对敌方造成伤害。,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,Effect/sunwukong_attack,magic3,,0.6,0.6,2,MT_Self,,TPT_None,,SK_1_Action,
 2101,万剑诀,1,1,1,物理攻击敌方全体,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/leizhenzhi_skill02_1,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_100_Action,
 2102,万剑诀,2,1,1,物理攻击敌方全体,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/leizhenzhi_skill02_1,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_100_Action,
 2103,万剑诀,3,1,1,物理攻击敌方全体,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/leizhenzhi_skill02_1,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_100_Action,
