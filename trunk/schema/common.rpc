@@ -185,6 +185,7 @@ struct COM_LearnSkill{
 struct SGE_DBPlayer : COM_Player {
 	int64 PlayerId;
 	string Username;
+	int32 BattleGroupIdx;
 	COM_ItemInst[] BagItemList;
 };
 

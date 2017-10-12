@@ -29,7 +29,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 
 		this.player.SetPlayerSGE(p)
 		infoext.MyPlayer = p.COM_Player
-
+		fmt.Println(infoext.MyPlayer.UnitGroup)
 		fmt.Println(p.Employees)
 	}
 

@@ -21,7 +21,7 @@ type GamePlayer struct {
 	MyUnit         			*GameUnit   		//自己的卡片
 	UnitList       			[]*GameUnit 		//拥有的卡片
 	BattleUnitList 			[]int64     		//默认出战卡片
-	DefaultUnitGroup		int			//默认战斗卡片组
+	//DefaultUnitGroup		int			//默认战斗卡片组
 	BattleUnitGroup			int32			//战斗卡片组
 	UnitGroup				[]*prpc.COM_UnitGroup
 	//战斗相关辅助信息
@@ -112,7 +112,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	for _, e_id := range DefaultUnits {
 		p.UnitList = append(p.UnitList, p.NewGameUnit(e_id))
 	}
-	p.DefaultUnitGroup = 1
+	//p.DefaultUnitGroup = 1
 	p.TianTiVal	= 0
 	PlayerStore = append(PlayerStore, &p)
 	p.InitUnitGroup()
@@ -158,8 +158,9 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player){
 	for _, c := range p.Chapters {
 		this.Chapters = append(this.Chapters,&c)
 	}
-	for _,ug := range p.UnitGroup{
-		this.UnitGroup = append(this.UnitGroup,&ug)
+
+	for i ,_ := range p.UnitGroup{
+		this.UnitGroup = append(this.UnitGroup,&p.UnitGroup[i])
 	}
 	this.TianTiVal = p.TianTiVal
 
