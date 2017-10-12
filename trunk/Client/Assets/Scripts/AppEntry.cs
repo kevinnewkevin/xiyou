@@ -39,5 +39,15 @@ public class AppEntry : MonoBehaviour {
         CameraEffect.Update();
         ExceptionHandle.Update();
 //        WeatherSystem.Update();
+
+        if (StageCamera.main != null)
+        {
+            if (StageCamera.main.transform.position.y != 995)
+            {
+                StageCamera.main.transform.position = new Vector3(StageCamera.main.transform.position.x, 995, StageCamera.main.transform.position.z);
+            }
+        }
+        if(Stage.inst.y != -1000)
+            Stage.inst.SetXY(0f, -1000f);
 	}
 }
