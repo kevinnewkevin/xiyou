@@ -36,6 +36,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			fmt.Println(p.Employees)
 		}
 	}else{
+		this.player.SetSession(this)
 		infoext.MyPlayer = this.player.GetPlayerCOM()
 	}
 
