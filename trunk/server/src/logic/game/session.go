@@ -42,7 +42,6 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			}else {
 				PlayerStore = append(PlayerStore,this.player)
 			}
-			PlayerStore = this.player
 			infoext.MyPlayer = p.COM_Player
 			fmt.Println(infoext.MyPlayer.UnitGroup)
 			fmt.Println(p.Employees)
