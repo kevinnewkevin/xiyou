@@ -68,6 +68,19 @@ func FindPlayerByInstId(instid int64) *GamePlayer{
 	return nil
 }
 
+func FindPlayerByUsername(username string) *GamePlayer {
+	for _,p:=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		if p.Username == username {
+			return p
+		}
+	}
+
+	return nil
+}
+
 func FindPlayerByInstName(instName string) *GamePlayer {
 	for _,p:=range PlayerStore{
 		if p == nil {

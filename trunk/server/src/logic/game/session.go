@@ -21,16 +21,22 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 
 	this.username = info.Username
 
-	p := prpc.SGE_DBPlayer{Username:info.Username}
+	this.player = FindPlayerByUsername(info.Username)
 
-	if QueryPlayer(&p){
-		this.player = &GamePlayer{}
-		this.player.SetSession(this)
+	if this.player == nil {
+		p := prpc.SGE_DBPlayer{Username:info.Username}
 
-		this.player.SetPlayerSGE(p)
-		infoext.MyPlayer = p.COM_Player
-		fmt.Println(infoext.MyPlayer.UnitGroup)
-		fmt.Println(p.Employees)
+		if QueryPlayer(&p) {
+			this.player = &GamePlayer{}
+			this.player.SetSession(this)
+
+			this.player.SetPlayerSGE(p)
+			infoext.MyPlayer = p.COM_Player
+			fmt.Println(infoext.MyPlayer.UnitGroup)
+			fmt.Println(p.Employees)
+		}
+	}else{
+		infoext.MyPlayer = this.player.GetPlayerCOM()
 	}
 
 	this.LoginOK(infoext)
@@ -42,6 +48,10 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	return nil
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
+
+	if FindPlayerByInstName(playerName) != nil{
+		return nil
+	}
 
 	this.player = CreatePlayer(tempId, playerName)
 	this.player.SetSession(this)
