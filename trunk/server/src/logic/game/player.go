@@ -94,6 +94,25 @@ func FindPlayerByInstName(instName string) *GamePlayer {
 	return nil
 }
 
+func RemovePlayerByInstName(instName string){
+	for i:=0;i<len(PlayerStore) ;i++  {
+		if PlayerStore[i] == nil {
+			continue
+		}
+		if PlayerStore[i].MyUnit.InstName == instName {
+			PlayerStore = append(PlayerStore[:i],PlayerStore[i+1:]...)
+		}
+	}
+	fmt.Println("RemovePlayerByInstName Name=",instName,"PlayerStore len=",len(PlayerStore))
+}
+
+func RemovePlayer(player *GamePlayer)  {
+	if player==nil {
+		return
+	}
+	RemovePlayerByInstName(player.MyUnit.InstName)
+}
+
 func SetDefaultUnits(cards string) {
 	s1 := strings.Split(cards, ",")
 	for _, c := range s1{
@@ -1140,7 +1159,7 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func (this *GamePlayer) Logout(){
 
-	fmt.Println("Logout")
+	fmt.Println("Logout","PlayerName=",this.MyUnit.InstName)
 	//清理战斗信息
 	this.LeftBattle_strong()
 	
@@ -1149,16 +1168,11 @@ func (this *GamePlayer) Logout(){
 	this.Save()
 
 	//
+	RemovePlayer(this)
 }
 
 func (this* GamePlayer)Save(){
 	fmt.Println("SAVE ")
-	//if FindBattle(this.BattleId) != nil{
-	//	FindBattle(this.BattleId).BattleRoomOver(prpc.CT_MAX)
-	//}
-	//this.BattleId = 0
-	//this.BattleCamp = prpc.CT_MAX
-	//this.ClearAllBuff()
 	UpdatePlayer(this.GetPlayerSGE())
 }
 
