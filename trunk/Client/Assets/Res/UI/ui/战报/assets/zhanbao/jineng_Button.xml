@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="141,138" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n4_s5s1" name="n4" src="ijs7j" xy="0,0"/>
+    <image id="n11_tmae" name="n11" src="ijs7k" xy="1,-4">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
+  </displayList>
+  <Button mode="Radio"/>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="100"/>
+</component>
