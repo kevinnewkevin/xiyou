@@ -188,16 +188,16 @@ function BattlePanel_FlushData()
 		local oper = reportBtn:GetChild("n7").asLoader;
 		local icon = reportBtn:GetChild("n6").asLoader;
 		local qubg = reportBtn:GetChild("n5").asLoader;
+		side.url = "";
+		oper.url = "";
+		icon.url = "";
+		qubg.url = "";
+
 		if Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_SelfSkill then
-			side.url = "ui://BattlePanel/zb_wo";
-			oper.url = "";
 			local sData = SkillData.GetData(Battle._ReportTips[i]._SkillID);
 			if sData ~= nil then
 				icon.url = "ui://" .. sData._Icon;
-			else
-				icon.url = "";
 			end
-			qubg.url = "";
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_SelfAppear then
 			side.url = "ui://BattlePanel/zb_wo";
 			oper.url = "ui://BattlePanel/zb_zhan";
@@ -206,10 +206,7 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(actor._DisplayID);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
-					qubg.url = "";
-				else
-					icon.url = "";
-					qubg.url = "";
+					qubg.url = "ui://icon/touxiangkuang_hui";
 				end
 			end
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllAppear then
@@ -220,10 +217,9 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(actor._DisplayID);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
-					qubg.url = "";
+					qubg.url = "ui://icon/touxiangkuang_hui";
 				else
-					icon.url = "";
-					qubg.url = "";
+					qubg.url = "ui://icon/touxiangkuang_hui";
 				end
 			end
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllSkill then
@@ -235,18 +231,19 @@ function BattlePanel_FlushData()
 				else
 					sideStr = "ui://BattlePanel/zb_di";
 				end
-			else
-				sideStr = "";
 			end
 			side.url = sideStr;
 			oper.url = "ui://BattlePanel/zb_ji";
-			local sData = SkillData.GetData(Battle._ReportTips[i]._SkillID);
-			if sData ~= nil then
-				icon.url = "ui://" .. sData._Icon;
-			else
-				icon.url = "";
+			local actor = Battle.GetActor(Battle._ReportTips[i]._CasterID);
+			if actor ~= nil then
+				local dData = DisplayData.GetData(actor._DisplayID);
+				if dData ~= nil then
+					icon.url = "ui://" .. dData._HeadIcon;
+					qubg.url = "ui://icon/touxiangkuang_hui";
+				else
+					qubg.url = "ui://icon/touxiangkuang_hui";
+				end
 			end
-			qubg.url = "";
 		end
 	end
 

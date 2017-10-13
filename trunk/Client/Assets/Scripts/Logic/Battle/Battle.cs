@@ -398,6 +398,7 @@ public class Battle {
                 {
                     actor.SetValue(_BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP);
                     actor.InstID = _BattleReport.UnitList [i].InstId;
+                    _BattleReport.UnitList [i] = null;
                     continue;
                 }
                 
@@ -828,7 +829,7 @@ public class Battle {
         _ReportTips.Add(rb);
         while (_ReportTips.Count > 15)
         {
-            _ReportTips.RemoveAt(_ReportTips.Count);
+            _ReportTips.RemoveAt(0);
         }
         UIManager.SetDirty("BattlePanel");
     }
@@ -836,13 +837,16 @@ public class Battle {
     //Push 自身技能
     static void PushReportTip(int operateSkillId)
     {
+        if (operateSkillId == 0)
+            return;
+        
         ReportBase rb = new ReportBase();
         rb._RBType = ReportBase.RBType.RBT_SelfSkill;
         rb._SkillID = operateSkillId;
         _ReportTips.Add(rb);
         while (_ReportTips.Count > 15)
         {
-            _ReportTips.RemoveAt(_ReportTips.Count);
+            _ReportTips.RemoveAt(0);
         }
         UIManager.SetDirty("BattlePanel");
     }
@@ -853,6 +857,9 @@ public class Battle {
         ReportBase rb = null;
         for(int i=0; i < appearActors.Length; ++i)
         {
+            if (appearActors [i] == null)
+                continue;
+            
             rb = new ReportBase();
             rb._RBType = ReportBase.RBType.RBT_AllAppear;
             rb._CasterID = appearActors [i].InstId;
@@ -860,7 +867,7 @@ public class Battle {
         }
         while (_ReportTips.Count > 15)
         {
-            _ReportTips.RemoveAt(_ReportTips.Count);
+            _ReportTips.RemoveAt(0);
         }
         UIManager.SetDirty("BattlePanel");
     }
@@ -869,6 +876,9 @@ public class Battle {
     //Push 战报buff(回合开始自然增删忽略， 行动后自身buff处理，目标buff处理)
     static void PushReportTip(COM_BattleAction report)
     {
+        if (report.SkillId == 0)
+            return;
+        
         ReportBase rb = new ReportBase();
         rb._RBType = ReportBase.RBType.RBT_AllSkill;
         rb._CasterID = report.InstId;
@@ -911,7 +921,7 @@ public class Battle {
         _ReportTips.Add(rb);
         while (_ReportTips.Count > 15)
         {
-            _ReportTips.RemoveAt(_ReportTips.Count);
+            _ReportTips.RemoveAt(0);
         }
         UIManager.SetDirty("BattlePanel");
     }
