@@ -323,6 +323,17 @@ func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
 	fmt.Println("JoinBattlePvE", battlePlayerList)
 }
 
+
+func (this *GamePlayer) LeftBattle_strong() {
+	battle:= FindBattle(this.BattleId)
+	if battle != nil {
+		battle.PlayerLeft(this)
+	}
+	this.BattleId = 0
+	this.BattleCamp = prpc.CT_MAX
+	this.ClearAllBuff()
+}
+
 func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出战卡牌  战斗开始之前
 	//this.Lock()
 	//defer this.Unlock()
@@ -1127,14 +1138,27 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 	return true
 }
 
+func (this *GamePlayer) Logout(){
+
+	fmt.Println("Logout")
+	//清理战斗信息
+	this.LeftBattle_strong()
+	
+	//
+
+	this.Save()
+
+	//
+}
+
 func (this* GamePlayer)Save(){
 	fmt.Println("SAVE ")
-	if FindBattle(this.BattleId) != nil{
-		FindBattle(this.BattleId).BattleRoomOver(prpc.CT_MAX)
-	}
-	this.BattleId = 0
-	this.BattleCamp = prpc.CT_MAX
-	this.ClearAllBuff()
+	//if FindBattle(this.BattleId) != nil{
+	//	FindBattle(this.BattleId).BattleRoomOver(prpc.CT_MAX)
+	//}
+	//this.BattleId = 0
+	//this.BattleCamp = prpc.CT_MAX
+	//this.ClearAllBuff()
 	UpdatePlayer(this.GetPlayerSGE())
 }
 

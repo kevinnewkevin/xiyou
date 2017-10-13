@@ -205,6 +205,32 @@ func (this *BattleRoom) BattleStart() {
 	}
 }
 
+func (this *BattleRoom) BattleStrongOver() {
+	this.BattleRoomOver(prpc.CT_MAX)
+	this.PlayerList = []*GamePlayer{}
+
+	this.Status = kIdle
+
+}
+
+func (this *BattleRoom) PlayerLeft(player *GamePlayer) {
+	del_index := -1
+	for index, p := range this.PlayerList{
+		if p.MyUnit.InstId == player.MyUnit.InstId {
+			del_index = index
+		}
+	}
+	if del_index != -1 {
+		this.PlayerList = append(this.PlayerList[:del_index], this.PlayerList[del_index+1:]...)
+	}
+
+	if len(this.PlayerList) == 0{
+		this.BattleRoomOver(prpc.CT_MAX)
+		this.Status = kIdle
+	}
+
+}
+
 func (this *BattleRoom) SendReportFirst() {
 
 }
@@ -292,7 +318,7 @@ func (this *BattleRoom) BattleUpdate() {
 func (this *BattleRoom) BattleRoomOver(camp int) {
 	for _, p := range this.PlayerList {
 
-		if p == nil || p.session == nil {
+		if p == nil {
 			continue
 		}
 
@@ -383,7 +409,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		p.BattleId = 0
 		p.ClearAllBuff()
 
-		p.session.BattleExit(result)
+		if p.session != nil {
+			p.session.BattleExit(result)
+		}
 		fmt.Println("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "wincampis ", camp, "winis", win)
 		p.BattleCamp = prpc.CT_MAX
 	}

@@ -257,7 +257,7 @@ endLoop:
 	//do clean
 
 	if this.player != nil {
-		this.player.Save()
+		this.player.Logout()
 		this.player.SetSession(nil)
 		this.player = nil
 		this.peer = nil
