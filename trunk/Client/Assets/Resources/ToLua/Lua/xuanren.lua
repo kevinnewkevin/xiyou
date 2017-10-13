@@ -114,4 +114,5 @@ function xuanren_OnCreate()
 	end
 	Proxy4Lua.CreatePlayer(select + 1, name.text);
 	createBtn.enabled = false;
+	randNameBtn.enabled = false;
 end
