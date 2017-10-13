@@ -7,7 +7,7 @@ local autoBtn;
 local stateIcon;
 local startCom;
 local battStartIcon;
-local battleTurn;
+--local battleTurn;
 local countDown;
 
 local cards = {};
@@ -32,6 +32,11 @@ local selectMainRolePos;
 local skillList;
 local skills;
 
+local reportList;
+local reportListBg;
+local reportBtnUrl = "ui://BattlePanel/zhanbao_Button";
+local reportTransition;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -52,7 +57,7 @@ function BattlePanel:OnInit()
 	battStartIcon = startCom:GetTransition("t0");
 	startCom.visible = false;
 
-	battleTurn = self.contentPane:GetChild("n36");
+--	battleTurn = self.contentPane:GetChild("n36");
 
 	local returnBtn = self.contentPane:GetChild("n8").asButton;
 	returnBtn.onClick:Add(BattlePanel_OnReturnBtn);
@@ -66,6 +71,12 @@ function BattlePanel:OnInit()
 
 	skillList = self.contentPane:GetChild("n50").asList;
 	skillList.onClickItem:Add(BattlePanel_OnSelectSkill);
+
+	reportList = self.contentPane:GetChild("n77").asList;
+	reportListBg = self.contentPane:GetChild("n51");
+	reportTransition = self.contentPane:GetTransition("t0");
+	reportList.visible = false;
+	reportListBg.visible = false;
 
 	for i=1, 5 do
 		cards[i] = {};
@@ -170,6 +181,75 @@ function BattlePanel:OnHide()
 end
 
 function BattlePanel_FlushData()
+	reportList:RemoveChildrenToPool();
+	for i=0, Battle._ReportTips.Count - 1 do
+		local reportBtn = reportList:AddItemFromPool(reportBtnUrl);
+		local side = reportBtn:GetChild("n8").asLoader;
+		local oper = reportBtn:GetChild("n7").asLoader;
+		local icon = reportBtn:GetChild("n6").asLoader;
+		local qubg = reportBtn:GetChild("n5").asLoader;
+		if Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_SelfSkill then
+			side.url = "ui://BattlePanel/zb_wo";
+			oper.url = "";
+			local sData = SkillData.GetData(Battle._ReportTips[i]._SkillID);
+			if sData ~= nil then
+				icon.url = "ui://" .. sData._Icon;
+			else
+				icon.url = "";
+			end
+			qubg.url = "";
+		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_SelfAppear then
+			side.url = "ui://BattlePanel/zb_wo";
+			oper.url = "ui://BattlePanel/zb_zhan";
+			local actor = Battle.GetActor(Battle._ReportTips[i]._CasterID);
+			if actor ~= nil then
+				local dData = DisplayData.GetData(actor._DisplayID);
+				if dData ~= nil then
+					icon.url = "ui://" .. dData._HeadIcon;
+					qubg.url = "";
+				else
+					icon.url = "";
+					qubg.url = "";
+				end
+			end
+		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllAppear then
+			side.url = "ui://BattlePanel/zb_di";
+			oper.url = "ui://BattlePanel/zb_zhan";
+			local actor = Battle.GetActor(Battle._ReportTips[i]._CasterID);
+			if actor ~= nil then
+				local dData = DisplayData.GetData(actor._DisplayID);
+				if dData ~= nil then
+					icon.url = "ui://" .. dData._HeadIcon;
+					qubg.url = "";
+				else
+					icon.url = "";
+					qubg.url = "";
+				end
+			end
+		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllSkill then
+			local sideStr = "";
+			local actor = Battle.GetActor(Battle._ReportTips[i]._CasterID);
+			if actor ~= nil then
+				if actor._RealPosInScene < 6 then
+					sideStr = "ui://BattlePanel/zb_wo";
+				else
+					sideStr = "ui://BattlePanel/zb_di";
+				end
+			else
+				sideStr = "";
+			end
+			side.url = sideStr;
+			oper.url = "ui://BattlePanel/zb_ji";
+			local sData = SkillData.GetData(Battle._ReportTips[i]._SkillID);
+			if sData ~= nil then
+				icon.url = "ui://" .. sData._Icon;
+			else
+				icon.url = "";
+			end
+			qubg.url = "";
+		end
+	end
+
 	local operating = Battle._CurrentState == Battle.BattleState.BS_Oper;
 	if operating then
 		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_jieshuhuihe");
@@ -279,7 +359,7 @@ function BattlePanel_FlushData()
 		autoBtn:GetController("icon").selectedIndex = 0;
 	end
 
-	battleTurn.text = "第" .. Battle._Turn .. "回合";
+--	battleTurn.text = "第" .. Battle._Turn .. "回合";
 	BattlePanel_SetFeeCount(Battle._Fee);
 end
 
@@ -380,6 +460,17 @@ function BattlePanel:ShowBattleStart()
 		battStartIcon:Stop();
 	end
 	battStartIcon:Play();
+
+	if reportList.visible == false then
+		reportList.visible = true;
+	end
+	if reportListBg.visible == false then
+		reportListBg.visible = true;
+	end
+	if reportTransition.playing then
+		reportTransition:Stop();
+	end
+	reportTransition:Play();
 end
 
 function BattlePanel:ShowTurn()

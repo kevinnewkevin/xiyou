@@ -423,6 +423,16 @@ public class Skill {
         OnTimeDo(_SkillData._TotalTime, Range_EndCast);
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Reset();
+
+        //删除手牌
+        for(int i=0; i < _Actions.Length; ++i)
+        {
+            if (_Actions [i].InstId == GamePlayer._InstID)
+            {
+                Battle.RemoveHandCard(_Actions [i].ThrowCard);
+                UIManager.SetDirty("BattlePanel");
+            }
+        }
     }
 
     void Range_EndCast()

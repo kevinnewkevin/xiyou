@@ -49,6 +49,8 @@ public class Battle {
     static public long _SelectedHandCardInstID;
     static public List<COM_Unit> _HandCards = new List<COM_Unit>();
 
+    static public List<ReportBase> _ReportTips = new List<ReportBase>();
+
     static public int _Turn;
 
     static public int _Fee;
@@ -83,6 +85,7 @@ public class Battle {
         {
             _SelectSkillID = value;
             UIManager.SetDirty("BattlePanel");
+            PushReportTip(_SelectSkillID);
         }
         get
         {
@@ -348,7 +351,13 @@ public class Battle {
 
     static bool PlaceActor()
     {
-        return true;
+        bool ok = false;
+        if (StageCamera.main != null)
+        {
+            StageCamera.main.transform.position = new Vector3(StageCamera.main.transform.position.x, Stage.inst.y - 5f, StageCamera.main.transform.position.z);
+            ok = true;
+        }
+        return ok;
     }
 
     static void UnLoadAssets()
@@ -399,6 +408,7 @@ public class Battle {
                 if (_LongestShowTime < clipLen)
                     _LongestShowTime = clipLen;
             }
+            PushReportTip(_BattleReport.UnitList);
             _BattleReport.UnitList = null;
             new Timer().Start(_LongestShowTime, delegate {
                 _ShowTimeDoing = false;
@@ -442,6 +452,7 @@ public class Battle {
         {
             _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList, _ReportAction[0].SkillBuff);
             _CrtSkill.Cast();
+            PushReportTip(_ReportAction[0]);
             return;
         }
         else if(!_CrtSkill._IsCasted)
@@ -638,6 +649,7 @@ public class Battle {
             bp.InstId = _SelectedHandCardInstID;
             bp.Position = (_Side == 0 ? pos : ConvertedPos(pos));
             _OperatList.Add(bp);
+            PushReportTip(bp);
 
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
             EntityData eData = EntityData.GetData(entity.UnitId);
@@ -807,6 +819,103 @@ public class Battle {
         }
     }
 
+    //Push 自身出牌
+    static void PushReportTip(COM_BattlePosition operate)
+    {
+        ReportBase rb = new ReportBase();
+        rb._RBType = ReportBase.RBType.RBT_SelfAppear;
+        rb._CasterID = operate.InstId;
+        _ReportTips.Add(rb);
+        while (_ReportTips.Count > 15)
+        {
+            _ReportTips.RemoveAt(_ReportTips.Count);
+        }
+        UIManager.SetDirty("BattlePanel");
+    }
+
+    //Push 自身技能
+    static void PushReportTip(int operateSkillId)
+    {
+        ReportBase rb = new ReportBase();
+        rb._RBType = ReportBase.RBType.RBT_SelfSkill;
+        rb._SkillID = operateSkillId;
+        _ReportTips.Add(rb);
+        while (_ReportTips.Count > 15)
+        {
+            _ReportTips.RemoveAt(_ReportTips.Count);
+        }
+        UIManager.SetDirty("BattlePanel");
+    }
+
+    //Push 战报上场
+    static void PushReportTip(COM_BattleUnit[] appearActors)
+    {
+        ReportBase rb = null;
+        for(int i=0; i < appearActors.Length; ++i)
+        {
+            rb = new ReportBase();
+            rb._RBType = ReportBase.RBType.RBT_AllAppear;
+            rb._CasterID = appearActors [i].InstId;
+            _ReportTips.Add(rb);
+        }
+        while (_ReportTips.Count > 15)
+        {
+            _ReportTips.RemoveAt(_ReportTips.Count);
+        }
+        UIManager.SetDirty("BattlePanel");
+    }
+
+    //Push 战报技能
+    //Push 战报buff(回合开始自然增删忽略， 行动后自身buff处理，目标buff处理)
+    static void PushReportTip(COM_BattleAction report)
+    {
+        ReportBase rb = new ReportBase();
+        rb._RBType = ReportBase.RBType.RBT_AllSkill;
+        rb._CasterID = report.InstId;
+        rb._SkillID = report.SkillId;
+        if (report.SkillBuff != null)
+        {
+            rb._Buffs = new COM_BattleBuff[report.SkillBuff.Length];
+            for(int i=0; i < rb._Buffs.Length; ++i)
+            {
+                rb._Buffs [i] = new COM_BattleBuff();
+                rb._Buffs [i].BuffId = report.SkillBuff [i].BuffId;
+                rb._Buffs [i].Change = report.SkillBuff [i].Change;
+            }
+        }
+        if (report.TargetList != null)
+        {
+            rb._Targets = new COM_BattleActionTarget[report.TargetList.Length];
+            for(int i=0; i < rb._Targets.Length; ++i)
+            {
+                rb._Targets [i] = new COM_BattleActionTarget();
+                rb._Targets [i].InstId = report.TargetList [i].InstId;
+                rb._Targets [i].ActionType = report.TargetList [i].ActionType;
+                rb._Targets [i].ActionParam = report.TargetList [i].ActionParam;
+                rb._Targets [i].ActionParamExt = report.TargetList [i].ActionParamExt;
+                rb._Targets [i].Dead = report.TargetList [i].Dead;
+
+                if (report.TargetList [i].BuffAdd != null)
+                {
+                    rb._Targets [i].BuffAdd = new COM_BattleBuff[report.TargetList[i].BuffAdd.Length];
+                    for(int j=0; j < rb._Targets [i].BuffAdd.Length; ++j)
+                    {
+                        rb._Targets [i].BuffAdd[j] = new COM_BattleBuff();
+                        rb._Targets [i].BuffAdd[j].BuffId = report.TargetList[i].BuffAdd [j].BuffId;
+                        rb._Targets [i].BuffAdd[j].Change = report.TargetList[i].BuffAdd [j].Change;
+                        rb._Targets [i].ThrowCard = report.TargetList [i].ThrowCard;
+                    }
+                }
+            }
+        }
+        _ReportTips.Add(rb);
+        while (_ReportTips.Count > 15)
+        {
+            _ReportTips.RemoveAt(_ReportTips.Count);
+        }
+        UIManager.SetDirty("BattlePanel");
+    }
+
     static void DisposeAssets()
     {
         EntityData eData = null;
@@ -886,5 +995,23 @@ public class Battle {
         _BattleCamera.Reset();
         _SelectSkillID = 0;
         _OriginUnits = null;
+        _ReportTips.Clear();
     }
+}
+
+public class ReportBase
+{
+    public enum RBType
+    {
+        RBT_SelfSkill,
+        RBT_SelfAppear,
+        RBT_AllAppear,
+        RBT_AllSkill,
+        RBT_AllBuff,
+    }
+    public RBType _RBType;
+    public int _SkillID;
+    public long _CasterID;
+    public COM_BattleBuff[] _Buffs;
+    public COM_BattleActionTarget[] _Targets;
 }

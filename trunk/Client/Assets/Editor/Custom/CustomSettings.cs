@@ -235,7 +235,9 @@ public static class CustomSettings
 		_GT(typeof(CardcloseData)),
 		_GT(typeof(LuaWindow)),
         _GT(typeof(RenderImage)),
-
+        _GT(typeof(ReportBase)),
+        _GT(typeof(ReportBase.RBType)),
+        _GT(typeof(List<ReportBase>)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
