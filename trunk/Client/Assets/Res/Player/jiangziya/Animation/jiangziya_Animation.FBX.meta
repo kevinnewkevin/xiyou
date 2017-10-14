@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: eb12d8d6aaf8e2044be0a56fd154ff6c
-timeCreated: 1507861579
+timeCreated: 1507954888
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -355,6 +355,8 @@ ModelImporter:
     400344: wuqi
     400346: "\u3000\uE813\uE811"
     400348: "\uE814\uE812"
+    2300000: Plane001
+    3300000: Plane001
     4300000: wuqi
     4300002: jiangziya
     4300004: sibuxiang
@@ -366,7 +368,7 @@ ModelImporter:
     4300016: Plane001
     7400000: jiangziya_Animation
     7400002: stand
-    7400004: run
+    7400004: walk
     7400006: beattack
     7400008: dead
     7400010: ruchang
@@ -1424,7 +1426,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: run
+      name: walk
       takeName: jiangziya_Animation
       firstFrame: 50
       lastFrame: 83
@@ -1934,8 +1936,8 @@ ModelImporter:
     - serializedVersion: 16
       name: beattack
       takeName: jiangziya_Animation
-      firstFrame: 90
-      lastFrame: 112
+      firstFrame: 94
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2442,8 +2444,8 @@ ModelImporter:
     - serializedVersion: 16
       name: dead
       takeName: jiangziya_Animation
-      firstFrame: 460
-      lastFrame: 533
+      firstFrame: 500
+      lastFrame: 573
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2950,8 +2952,8 @@ ModelImporter:
     - serializedVersion: 16
       name: ruchang
       takeName: jiangziya_Animation
-      firstFrame: 120
-      lastFrame: 162
+      firstFrame: 138
+      lastFrame: 197
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3458,8 +3460,8 @@ ModelImporter:
     - serializedVersion: 16
       name: magic1
       takeName: jiangziya_Animation
-      firstFrame: 170
-      lastFrame: 226
+      firstFrame: 215
+      lastFrame: 270
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3966,8 +3968,8 @@ ModelImporter:
     - serializedVersion: 16
       name: magic2
       takeName: jiangziya_Animation
-      firstFrame: 250
-      lastFrame: 335
+      firstFrame: 295
+      lastFrame: 370
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4474,8 +4476,8 @@ ModelImporter:
     - serializedVersion: 16
       name: magic3
       takeName: jiangziya_Animation
-      firstFrame: 360
-      lastFrame: 440
+      firstFrame: 400
+      lastFrame: 472
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
