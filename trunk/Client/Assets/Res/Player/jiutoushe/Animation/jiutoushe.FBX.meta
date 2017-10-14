@@ -224,7 +224,7 @@ ModelImporter:
     4300008: Plane001
     7400000: jiutoushe
     7400002: stand
-    7400004: run
+    7400004: walk
     7400006: beattack
     7400008: dead
     7400010: ruchang
@@ -825,7 +825,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: run
+      name: walk
       takeName: jiutoushe
       firstFrame: 50
       lastFrame: 100
