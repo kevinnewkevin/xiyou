@@ -1252,6 +1252,8 @@ func (this *BattleRoom) MonsterMove() {
 		}
 	}
 
+	this.Monster.MainUnit.ChoiceSKill = this.Monster.MainUnit.SelectSkill(this.Round).SkillID
+
 	fmt.Println("MonsterMove 2", this.Units)
 
 	return

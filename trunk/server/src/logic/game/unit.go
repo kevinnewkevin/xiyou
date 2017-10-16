@@ -55,6 +55,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.Level = u.IProperties[prpc.IPT_PROMOTE]
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
+	u.IsMain = false
 	for i := 0; i < len(t.Skills); i++ {
 		skill := InitSkillFromTable(t.Skills[i])
 		if skill == nil {
@@ -342,8 +343,10 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 		return false
 	}
 
+	fmt.Println("111111CastSkill", this.IsMain, this.InstId, this.InstName)
 	var skill *Skill
 	if this.IsMain {
+		fmt.Println("22222222CastSkill")
 		if this.ChoiceSKill == 0 {
 			return false
 		} else {

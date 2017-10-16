@@ -139,6 +139,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
 	p.MyUnit = p.NewGameUnit(tid)
 	p.MyUnit.InstName = name
+	p.MyUnit.IsMain = true
 	p.Exp = 0
 
 	for _, e_id := range DefaultUnits {
@@ -527,6 +528,9 @@ func (this *GamePlayer) SetProprty(battle *BattleRoom, camp int) {
 	this.MyUnit.CastPassiveSkill(battle)
 
 	for _, u := range this.UnitList {
+		if u.IsMain {
+			continue
+		}
 		u.ResetBattle(camp, false, battle.InstId)
 		u.CastPassiveSkill(battle)
 	}
