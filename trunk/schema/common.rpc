@@ -118,6 +118,12 @@ struct COM_BattleBuff{
 	int32			Change;			//buff变更 1是增加 0是删除 其他不变
 };
 
+//Buff变更
+struct COM_ThrowCard{
+	int64			InstId;			//buffid
+	int32			EntityId;		//buff变更 1是增加 0是删除 其他不变
+};
+
 //战斗操作对象
 struct COM_BattleActionTarget{
 	int64 				InstId;				//target
@@ -125,7 +131,7 @@ struct COM_BattleActionTarget{
 	int32				ActionParam;		//伤害数值
 	string				ActionParamExt;		//是否暴击
 	bool				Dead;				//死亡
-	int64 				ThrowCard;			//扔掉的卡牌
+	COM_ThrowCard 		ThrowCard;			//扔掉的卡牌
 	COM_BattleBuff[]	BuffAdd;			//目标是否增加的buff
 };
 
