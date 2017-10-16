@@ -704,7 +704,7 @@ func (this *BattleRoom) SelectBackTarget(camp int) []int64 {
 	}
 
 	if len(targets) == 0 {
-		return this.SelectBackTarget(camp)
+		return this.SelectFrontTarget(camp)
 	}
 
 	return targets
