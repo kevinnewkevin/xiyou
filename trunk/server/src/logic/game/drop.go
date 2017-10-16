@@ -52,6 +52,7 @@ type (
 		DropID		int32
 		Exp			int32
 		Money		int32
+		Hero		int32
 		Items		[]DropItem
 	}
 )
@@ -82,6 +83,8 @@ func LoadDropTable(filename string) error {
 		item.DropID			= DropId
 		item.Exp			= csv.GetInt32(r,"exp")
 		item.Money			= csv.GetInt32(r,"money")
+
+		item.Hero			= csv.GetInt32(r,"Hero")
 
 		item1 := DropItem{}
 		item1.ItemId		= csv.GetInt32(r,"item-1");
@@ -148,6 +151,7 @@ func GetDropById(dropid int32) *Drop {
 	newDrop.DropID 	= drop.DropID
 	newDrop.Exp		= drop.Exp
 	newDrop.Money	= drop.Money
+	newDrop.Hero	= drop.Hero
 
 	if len(drop.Items) == 0 {
 		return &newDrop

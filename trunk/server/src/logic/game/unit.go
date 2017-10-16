@@ -647,6 +647,9 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 	this.IProperties[iType] += value
 	fmt.Println("UpdateIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
+	if this.Owner.session == nil {
+		return nil
+	}
 	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, this.IProperties[iType])
 
 	return nil
@@ -662,6 +665,9 @@ func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 	this.CProperties[cType] += value
 	fmt.Println("UpdateCProperty, cType", cType, "after pro ", this.CProperties[cType])
 
+	if this.Owner.session == nil {
+		return nil
+	}
 	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, this.CProperties[cType])
 
 	return nil

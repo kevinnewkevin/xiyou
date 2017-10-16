@@ -44,4 +44,5 @@ service COM_ServerToClient{
 	EquipSkillOK(int32 skillIndex, int32 skillID);			//技能学习完成
 	SkillUpdateOK(int32 skillIndex, int32 skillID, int32 skillpos);		//技能学习完成
 	BuyShopItemOK(COM_ItemInst[] items);
+	AddNewUnit(COM_Unit unit);
 };

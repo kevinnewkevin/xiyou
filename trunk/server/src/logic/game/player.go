@@ -142,7 +142,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.Exp = 0
 
 	for _, e_id := range DefaultUnits {
-		p.UnitList = append(p.UnitList, p.NewGameUnit(e_id))
+		p.NewGameUnit(e_id)
 	}
 	//p.DefaultUnitGroup = 1
 	p.TianTiVal	= 0
@@ -162,19 +162,21 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		}
 	}
 
-	p.TestItem()
-	
 	return &p
 
 }
 
 func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 	unit := CreateUnitFromTable(tid)
+	if unit==nil {
+		return nil
+	}
 	unit.Owner = this
 	chapterids := GetUnitChapterById(tid)
 	for i:=0;i<len(chapterids) ;i++  {
 		OpenChapter(this,chapterids[i])
 	}
+	this.UnitList = append(this.UnitList, unit)
 	return unit
 }
 
@@ -286,6 +288,15 @@ func (this *GamePlayer) GetBattleUnit(instId int64) *GameUnit {
 		}
 	}
 	return nil
+}
+
+func (this *GamePlayer) HasUnitByTableId(tableId int32) bool{
+	for _, v := range this.UnitList {
+		if v.UnitId == tableId {
+			return true
+		}
+	}
+	return false
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -713,7 +724,22 @@ func (this *GamePlayer)GiveDrop(dropId int32)  {
 	if len(drop.Items) != 0 {
 		for _,item := range drop.Items{
 			this.AddBagItemByItemId(item.ItemId,item.ItemNum)
-			fmt.Println("GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+			fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+		}
+	}
+	if drop.Hero != 0 {
+		if this.HasUnitByTableId(drop.Hero) {
+			//有这个卡就不给了
+			fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
+		}else {
+			unit := this.NewGameUnit(drop.Hero)
+			if unit!=nil {
+				fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+				temp := unit.GetUnitCOM()
+				if this.session != nil {
+					this.session.AddNewUnit(temp)
+				}
+			}
 		}
 	}
 }
@@ -1188,6 +1214,7 @@ func TestPlayer() {
 	for i:=0;i<len(P1.BagItems) ;i++  {
 		fmt.Println("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
 	}
+	P1.TestItem()
 }
 
 func (this *GamePlayer)TestItem()  {
@@ -1197,4 +1224,9 @@ func (this *GamePlayer)TestItem()  {
 	//this.AddBagItemByItemId(5000,2000)
 	this.AddCopper(10000000)
 	this.AddGold(10000)
+	this.GiveDrop(1000)
+
+	for _,u := range this.UnitList{
+		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+	}
 }

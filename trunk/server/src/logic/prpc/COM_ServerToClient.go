@@ -71,6 +71,9 @@ type COM_ServerToClient_SkillUpdateOK struct{
 type COM_ServerToClient_BuyShopItemOK struct{
   items []COM_ItemInst  //0
 }
+type COM_ServerToClient_AddNewUnit struct{
+  unit COM_Unit  //0
+}
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
 }
@@ -97,6 +100,7 @@ type COM_ServerToClientProxy interface{
   EquipSkillOK(skillIndex int32, skillID int32 ) error // 19
   SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error // 20
   BuyShopItemOK(items []COM_ItemInst ) error // 21
+  AddNewUnit(unit COM_Unit ) error // 22
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -992,6 +996,40 @@ func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) e
   }
   return nil
 }
+func (this *COM_ServerToClient_AddNewUnit)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //unit
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize unit
+  {
+    err := this.unit.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize unit
+  if mask.ReadBit() {
+    err := this.unit.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1358,6 +1396,23 @@ func(this* COM_ServerToClientStub)BuyShopItemOK(items []COM_ItemInst ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)AddNewUnit(unit COM_Unit ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(22))
+  if err != nil{
+    return err
+  }
+  _22 := COM_ServerToClient_AddNewUnit{}
+  _22.unit = unit;
+  err = _22.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1651,6 +1706,20 @@ func Bridging_COM_ServerToClient_BuyShopItemOK(buffer *bytes.Buffer, p COM_Serve
   }
   return p.BuyShopItemOK(_21.items)
 }
+func Bridging_COM_ServerToClient_AddNewUnit(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _22 := COM_ServerToClient_AddNewUnit{}
+  err := _22.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.AddNewUnit(_22.unit)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1708,6 +1777,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_SkillUpdateOK(buffer,p);
     case 21 :
       return Bridging_COM_ServerToClient_BuyShopItemOK(buffer,p);
+    case 22 :
+      return Bridging_COM_ServerToClient_AddNewUnit(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }
