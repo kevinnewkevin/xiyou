@@ -204,10 +204,16 @@ function zhanbao_FlushData()
 					end
 
 					tidead.visible = target.Dead;
-					tichada.visible = false;
+					local casterId = Battle._ReportTips[Battle._SelectReportIdx]._CasterEntityID;
+					if target.ThrowCard ~= nil then
+						if target.ThrowCard.EntityId ~= 0 then
+							casterId = target.ThrowCard.EntityId;
+						end
+						tichada.visible = target.ThrowCard.EntityId ~= 0;
+					end
 
 					local sideStr = "";
-					local eData = EntityData.GetData(Battle._ReportTips[Battle._SelectReportIdx]._CasterEntityID);
+					local eData = EntityData.GetData(casterId);
 					if eData ~= nil then
 						if Battle._ReportTips[i]._Self then
 							sideStr = "ui://BattlePanel/zb_wo";

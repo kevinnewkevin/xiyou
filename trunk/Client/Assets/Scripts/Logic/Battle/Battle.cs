@@ -81,6 +81,8 @@ public class Battle {
 
     static COM_BattleUnit[] _OriginUnits;
 
+    static public COM_Unit _ThrowCardInst;
+
     static public int SelectSkillID
     {
         set
@@ -719,13 +721,15 @@ public class Battle {
         return dData;
     }
 
-    static public void RemoveHandCard(long instid)
+    static public void RemoveHandCard(long instid, bool anim = false)
     {
         for(int i=0; i < _HandCards.Count; ++i)
         {
             if (_HandCards [i].InstId == instid)
             {
                 _HandCards.RemoveAt(i);
+                if (anim)
+                    _ThrowCardInst = GamePlayer.GetCardByInstID(instid);
                 break;
             }
         }

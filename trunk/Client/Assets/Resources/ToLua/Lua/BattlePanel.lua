@@ -37,6 +37,10 @@ local reportListBg;
 local reportBtnUrl = "ui://BattlePanel/zhanbao_Button";
 local reportTransition;
 
+local throwCardCom;
+local throwCardTrans;
+local throwCardTimer;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -116,6 +120,11 @@ function BattlePanel:OnInit()
 
 	selectMainRolePos = self.contentPane:GetChild("n47").asCom;
 	selectMainRolePos.visible = false;
+
+	throwCardCom = self.contentPane:GetChild("n78").asCom;
+	throwCardCom.visible = false;
+	throwCardTrans = self.contentPane:GetTransition("t1");
+	throwCardTimer = {};
 
 	BattlePanel_FlushData();
 end
@@ -325,6 +334,35 @@ function BattlePanel_FlushData()
 	end
 
 	BattlePanel_DisableSkills(not operating or Battle.SelectSkillID ~= 0);
+
+	if Battle._ThrowCardInst ~= nil then
+		if throwCardCom.visible == false then
+			throwCardCom.visible = true;
+		end
+		local power = throwCardCom:GetChild("power");
+		local cost = throwCardCom:GetChild("cost");
+		local icon = throwCardCom:GetChild("icon");
+		local eData = EntityData.GetData(Battle._ThrowCardInst.UnitId);
+		local dData = DisplayData.GetData(eData._DisplayId);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._CardIcon;
+		else
+			icon.url = "";
+		end
+		if eData ~= nil then
+			cost.text = eData._Cost;
+		else
+			cost.text = "";
+		end
+		power.text = Battle._ThrowCardInst.IProperties[9];
+
+		if throwCardTrans.playing then
+			throwCardTrans:Stop();
+		end
+		throwCardTrans:Play();
+
+		Battle._ThrowCardInst = nil;
+	end
 
 --	local mainActor = Battle.GetActor(GamePlayer._InstID);
 --	if Battle._Turn == 1 and mainActor == nil then

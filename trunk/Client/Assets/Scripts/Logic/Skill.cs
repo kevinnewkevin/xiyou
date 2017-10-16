@@ -429,7 +429,7 @@ public class Skill {
         {
             if (_Actions [i].InstId == GamePlayer._InstID)
             {
-                Battle.RemoveHandCard(_Actions [i].ThrowCard);
+                Battle.RemoveHandCard(_Actions [i].ThrowCard.InstId, true);
                 UIManager.SetDirty("BattlePanel");
             }
         }

@@ -168,6 +168,7 @@ public static class CustomSettings
         _GT(typeof(COM_BattleBuff)),
         _GT(typeof(COM_BattleActionTarget)),
         _GT(typeof(BuffData)),
+        _GT(typeof(COM_ThrowCard)),
 
         _GT(typeof(EventContext)),
         _GT(typeof(EventDispatcher)),
