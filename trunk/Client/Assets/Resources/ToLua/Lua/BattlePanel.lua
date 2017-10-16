@@ -491,6 +491,7 @@ function BattlePanel:NormalCard()
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
 	end
+	Battle._SelectedHandCardInstID = 0;
 end
 
 function BattlePanel_OnAutoBtn()
@@ -539,7 +540,7 @@ end
 function BattlePanel:ShowSkill()
 	skillTransName.text = Battle._CasterSkillName;
 	if skillTransCom.visible == false then
-		skillTransCom.visible =true;
+		skillTransCom.visible = true;
 	end
 	if skillTrans.playing then
 		skillTrans:Stop();
