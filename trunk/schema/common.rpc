@@ -120,8 +120,9 @@ struct COM_BattleBuff{
 
 //Buff变更
 struct COM_ThrowCard{
-	int64			InstId;			//buffid
-	int32			EntityId;		//buff变更 1是增加 0是删除 其他不变
+	int64			InstId;			//实例ID
+	int32			EntityId;		//模型ID
+	int32			Level;			//等级
 };
 
 //战斗操作对象

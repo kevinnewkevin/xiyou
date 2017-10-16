@@ -1066,7 +1066,7 @@ func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
 	return friends
 }
 
-func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32) {
+func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32, int32) {
 	unit := this.SelectOneUnit(instid)
 
 	canThrow := []int64{}
@@ -1110,7 +1110,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32) {
 	fmt.Println("can throw all cards", canThrow)
 
 	if len(canThrow) == 0{
-		return 0, 0
+		return 0, 0, 0
 	}
 
 	var del_card int64
@@ -1129,7 +1129,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32) {
 
 	fmt.Println("throw one card", del_card)
 
-	return del_card, del_unit.UnitId
+	return del_card, del_unit.UnitId, del_unit.IProperties[prpc.IPT_PROMOTE]
 }
 
 func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
@@ -1459,7 +1459,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 }
 
-func (this *BattleRoom) ThrowCard (target int64, throwcard int64, entity int32) {
+func (this *BattleRoom) ThrowCard (target int64, throwcard int64, entity int32, level int32) {
 
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
@@ -1467,7 +1467,7 @@ func (this *BattleRoom) ThrowCard (target int64, throwcard int64, entity int32) 
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(prpc.BE_MAX)
 	this.TargetCOM.Dead = false
 	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
-	this.TargetCOM.ThrowCard = prpc.COM_ThrowCard{InstId:throwcard, EntityId:entity}
+	this.TargetCOM.ThrowCard = prpc.COM_ThrowCard{InstId:throwcard, EntityId:entity, Level:level}
 	this.NewAction = false
 
 }
