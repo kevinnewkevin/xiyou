@@ -927,6 +927,10 @@ public class Battle {
                 rb._Targets [i].ActionParam = report.TargetList [i].ActionParam;
                 rb._Targets [i].ActionParamExt = report.TargetList [i].ActionParamExt;
                 rb._Targets [i].Dead = report.TargetList [i].Dead;
+                rb._Targets [i].ThrowCard = new COM_ThrowCard();
+                rb._Targets [i].ThrowCard.InstId = report.TargetList [i].ThrowCard.InstId;
+                rb._Targets [i].ThrowCard.EntityId = report.TargetList [i].ThrowCard.EntityId;
+                rb._Targets [i].ThrowCard.Level = report.TargetList [i].ThrowCard.Level;
 
                 if (report.TargetList [i].BuffAdd != null)
                 {
@@ -936,7 +940,6 @@ public class Battle {
                         rb._Targets [i].BuffAdd[j] = new COM_BattleBuff();
                         rb._Targets [i].BuffAdd[j].BuffId = report.TargetList[i].BuffAdd [j].BuffId;
                         rb._Targets [i].BuffAdd[j].Change = report.TargetList[i].BuffAdd [j].Change;
-                        rb._Targets [i].ThrowCard = report.TargetList [i].ThrowCard;
                     }
                 }
             }

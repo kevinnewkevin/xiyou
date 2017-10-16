@@ -341,7 +341,7 @@ function BattlePanel_FlushData()
 		end
 		local power = throwCardCom:GetChild("power");
 		local cost = throwCardCom:GetChild("cost");
-		local icon = throwCardCom:GetChild("icon");
+		local icon = throwCardCom:GetChild("card");
 		local eData = EntityData.GetData(Battle._ThrowCardInst.UnitId);
 		local dData = DisplayData.GetData(eData._DisplayId);
 		if dData ~= nil then

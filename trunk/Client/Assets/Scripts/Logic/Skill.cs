@@ -427,11 +427,9 @@ public class Skill {
         //删除手牌
         for(int i=0; i < _Actions.Length; ++i)
         {
-            if (_Actions [i].InstId == GamePlayer._InstID)
-            {
+            if(_Actions [i].InstId == GamePlayer._InstID)
                 Battle.RemoveHandCard(_Actions [i].ThrowCard.InstId, true);
-                UIManager.SetDirty("BattlePanel");
-            }
+            UIManager.SetDirty("BattlePanel");
         }
     }
 
