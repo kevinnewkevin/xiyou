@@ -677,6 +677,10 @@ func (this *BattleRoom) SelectFrontTarget(camp int) []int64 {
 		targets = append(targets, u.InstId)
 	}
 
+	if len(targets) == 0 {
+		return this.SelectBackTarget(camp)
+	}
+
 	return targets
 }
 
@@ -697,6 +701,10 @@ func (this *BattleRoom) SelectBackTarget(camp int) []int64 {
 			continue
 		}
 		targets = append(targets, u.InstId)
+	}
+
+	if len(targets) == 0 {
+		return this.SelectBackTarget(camp)
 	}
 
 	return targets
