@@ -208,9 +208,9 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(eData._DisplayId);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				else
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				end
 			end
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllAppear then
@@ -221,9 +221,9 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(eData._DisplayId);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				else
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				end
 			end
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllSkill then
@@ -243,9 +243,9 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(eData._DisplayId);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				else
-					qubg.url = "ui://icon/touxiangkuang_hui";
+					qubg.url = "ui://icon/touxiangkuang_bai";
 				end
 			end
 		end

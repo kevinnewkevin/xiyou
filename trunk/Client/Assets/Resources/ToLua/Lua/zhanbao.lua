@@ -119,7 +119,7 @@ function zhanbao_FlushData()
 		outSkillCom.visible = true;
 		local dData = GamePlayer.GetMyDisplayData();
 		outSkillHeadSide.url = "ui://BattlePanel/zb_wo";
-		outSkillHeadQuali.url = "ui://icon/touxiangkuang_hui";
+		outSkillHeadQuali.url = "ui://icon/touxiangkuang_bai";
 		outSkillHeadIcon.url = "ui://" .. dData._HeadIcon;
 		local sData = SkillData.GetData(Battle._ReportTips[Battle._SelectReportIdx]._SkillID);
 		if sData ~= nil then
@@ -133,9 +133,9 @@ function zhanbao_FlushData()
 			local dData = DisplayData.GetData(eData._DisplayId);
 			if dData ~= nil then
 				outIcon.url = "ui://" .. dData._HeadIcon;
-				outQuali.url = "ui://icon/touxiangkuang_hui";
+				outQuali.url = "ui://icon/touxiangkuang_bai";
 			else
-				outQuali.url = "ui://icon/touxiangkuang_hui";
+				outQuali.url = "ui://icon/touxiangkuang_bai";
 			end
 		end
 	elseif Battle._ReportTips[Battle._SelectReportIdx]._RBType == ReportBase.RBType.RBT_AllAppear then
@@ -146,9 +146,9 @@ function zhanbao_FlushData()
 			local dData = DisplayData.GetData(eData._DisplayId);
 			if dData ~= nil then
 				outIcon.url = "ui://" .. dData._HeadIcon;
-				outQuali.url = "ui://icon/touxiangkuang_hui";
+				outQuali.url = "ui://icon/touxiangkuang_bai";
 			else
-				outQuali.url = "ui://icon/touxiangkuang_hui";
+				outQuali.url = "ui://icon/touxiangkuang_bai";
 			end
 		end
 	elseif Battle._ReportTips[Battle._SelectReportIdx]._RBType == ReportBase.RBType.RBT_AllSkill then
@@ -159,7 +159,7 @@ function zhanbao_FlushData()
 			sideStr = "ui://BattlePanel/zb_di";
 		end
 		side.url = sideStr;
-		quali.url = "ui://icon/touxiangkuang_hui";
+		quali.url = "ui://icon/touxiangkuang_bai";
 		local eData = EntityData.GetData(Battle._ReportTips[Battle._SelectReportIdx]._CasterEntityID);
 		if eData ~= nil then
 			local dData = DisplayData.GetData(eData._DisplayId);
@@ -180,6 +180,7 @@ function zhanbao_FlushData()
 				tEid = Battle._ReportTips[Battle._SelectReportIdx]._TargetEntityID[i];
 				if target ~= nil then
 					local targetItem = targetList:AddItemFromPool(targetListItemUrl);
+					local tivalbar = targetItem:GetChild("n19");
 					local tiside = targetItem:GetChild("n18").asLoader;
 					local tiqua = targetItem:GetChild("n16").asLoader;
 					local tiicon = targetItem:GetChild("n17").asLoader;
@@ -188,12 +189,15 @@ function zhanbao_FlushData()
 					local buffList = targetItem:GetChild("n25").asList;
 					local dmg = targetItem:GetChild("n20").asTextField;
 					local addhp = targetItem:GetChild("n22").asTextField;
+					tivalbar.visible = false;
 					if target.ActionParam > 0 then
 						addhp.text = target.ActionParam;
 						dmg.text = "";
+						tivalbar.visible = true;
 					elseif target.ActionParam < 0 then
 						dmg.text = target.ActionParam;
 						addhp.text = "";
+						tivalbar.visible = true;
 					end
 
 					tidead.visible = target.Dead;
@@ -214,9 +218,9 @@ function zhanbao_FlushData()
 						local dData = DisplayData.GetData(eData._DisplayId);
 						if dData ~= nil then
 							tiicon.url = "ui://" .. dData._HeadIcon;
-							tiqua.url = "ui://icon/touxiangkuang_hui";
+							tiqua.url = "ui://icon/touxiangkuang_bai";
 						else
-							tiqua.url = "ui://icon/touxiangkuang_hui";
+							tiqua.url = "ui://icon/touxiangkuang_bai";
 						end
 					end
 
