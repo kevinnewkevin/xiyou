@@ -191,13 +191,16 @@ function zhanbao_FlushData()
 					local addhp = targetItem:GetChild("n22").asTextField;
 					tivalbar.visible = false;
 					if target.ActionParam > 0 then
-						addhp.text = target.ActionParam;
+						addhp.text = "+" .. target.ActionParam;
 						dmg.text = "";
 						tivalbar.visible = true;
 					elseif target.ActionParam < 0 then
 						dmg.text = target.ActionParam;
 						addhp.text = "";
 						tivalbar.visible = true;
+					else
+						dmg.text = "";
+						addhp.text = "";
 					end
 
 					tidead.visible = target.Dead;
