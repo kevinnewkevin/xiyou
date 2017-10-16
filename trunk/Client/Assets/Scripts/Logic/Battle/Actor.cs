@@ -18,19 +18,27 @@ public class Actor {
     public int _CrtValue;   //当前血量
     public int _MaxValue;  //最大血量
 
-    Transform _Pos;
-
-    long _InstID;
+    public float _IncreaseValue;
 
     public int _StrLv;
 
     public int _DisplayID;
+
+    public int _EntityID;
 
     //Animator _Animator;
     Animation _Animation;
 
     float MOVE_SPEED_BATTLE = 4f;
     float MOVE_SPEED_WORLD = 4f;
+
+    Transform _Pos;
+
+    CallBackHandler _MoveCallBack;
+
+    Vector3 _PrePos;
+
+    long _InstID;
 
     bool _IsRunning;
 
@@ -66,7 +74,7 @@ public class Actor {
         Init(false);
     }
 
-    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int displayid, int strLv)
+    public Actor(GameObject go, Transform pos, long instid, int realPos, int crtHp, int maxHp, int entityid, int strLv)
     {
         if (go == null)
         {
@@ -80,7 +88,10 @@ public class Actor {
         _RealPosInScene = realPos;
         _CrtValue = crtHp;
         _MaxValue = maxHp;
-        _DisplayID = displayid;
+        _EntityID = entityid;
+        EntityData eData = EntityData.GetData(entityid);
+        if (eData != null)
+            _DisplayID = eData._DisplayId;
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
         Init();
@@ -95,6 +106,8 @@ public class Actor {
 
         MOVE_SPEED_BATTLE = Define.GetFloat("MoveSpeed_InBattle");
         MOVE_SPEED_WORLD = Define.GetFloat("MoveSpeed_InWorld");
+
+        AdjustHeadBarScale();
     }
 
     public void UpdateValue(int value, int maxValue)
@@ -111,8 +124,6 @@ public class Actor {
         _MaxValue = maxValue;
         _Headbar._IsDirty = true;
     }
-
-    CallBackHandler _MoveCallBack;
 
     public void Update()
     {
@@ -131,6 +142,11 @@ public class Actor {
                 if (!IsPlay(Define.ANIMATION_PLAYER_ACTION_WALK))
                     Play(Define.ANIMATION_PLAYER_ACTION_WALK);
             }
+        }
+
+        if (_ActorObj != null)
+        {
+            AdjustHeadBarScale();
         }
     }
 
@@ -334,6 +350,22 @@ public class Actor {
     {
         get{ return _InstID; }
         set{ _InstID = value;}
+    }
+
+    void AdjustHeadBarScale()
+    {
+        return;
+        if(_ActorObj == null)
+            return;
+        
+        if (_Headbar == null)
+            return;
+
+        float dis = Vector3.Distance(Camera.main.transform.position, _ActorObj.transform.position);
+        // 14 ===> 1
+
+        float adjScale = dis / 20 * 0.01f;
+        _Headbar._Headbar.transform.localScale = new Vector3(adjScale, adjScale, adjScale);
     }
 
     public void Fini(bool clear = false)
