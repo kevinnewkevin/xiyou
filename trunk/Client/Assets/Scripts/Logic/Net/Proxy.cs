@@ -36,6 +36,11 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
+    public bool AddNewUnit(ref COM_Unit u)
+    {
+        return true;
+    }
+
     public bool BattleReport(ref COM_BattleReport report)
     {
         Battle.BattleReport = report;
