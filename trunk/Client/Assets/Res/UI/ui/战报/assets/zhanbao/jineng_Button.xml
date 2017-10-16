@@ -3,10 +3,11 @@
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
     <image id="n4_s5s1" name="n4" src="ijs7j" xy="0,0"/>
-    <image id="n11_tmae" name="n11" src="ijs7k" xy="1,-4">
+    <image id="n11_tmae" name="n11" xy="1,-4">
       <gearDisplay controller="button" pages="1"/>
     </image>
     <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
+    <text id="n12_n04d" name="n12" xy="72,152" pivot="0.5,0.5" anchor="true" size="179,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" align="center" vAlign="middle" bold="true" text="啦啦啦啦啦啦"/>
   </displayList>
   <Button mode="Radio"/>
   <transition name="t0" autoPlay="true" autoPlayRepeat="100"/>
