@@ -1066,10 +1066,11 @@ func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
 	return friends
 }
 
-func (this *BattleRoom) SelectThrowCard(instid int64)  int64 {
+func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32) {
 	unit := this.SelectOneUnit(instid)
 
 	canThrow := []int64{}
+	units := []*GameUnit{}
 
 	if this.Type == prpc.BT_PVP {
 		for _, p := range this.PlayerList {
@@ -1089,6 +1090,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  int64 {
 						continue
 					}
 					canThrow = append(canThrow, ud)
+					units = append(units, u)
 				}
 			}
 		}
@@ -1101,30 +1103,33 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  int64 {
 				continue
 			}
 			canThrow = append(canThrow, m.InstId)
+			units = append(units, m)
 		}
 	}
 
 	fmt.Println("can throw all cards", canThrow)
 
 	if len(canThrow) == 0{
-		return 0
-	}
-
-	if len(canThrow) == 1{
-		return canThrow[0]
+		return 0, 0
 	}
 
 	var del_card int64
+	var idx int
 
-	index := len(canThrow) - 1
+	if len(canThrow) == 1{
+		idx = 0
+	} else {
+		index := len(canThrow) - 1
 
-	idx := rand.Intn(index)
+		idx = rand.Intn(index)
+	}
 
 	del_card = canThrow[idx]
+	del_unit := units[idx]
 
 	fmt.Println("throw one card", del_card)
 
-	return del_card
+	return del_card, del_unit.UnitId
 }
 
 func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
@@ -1454,7 +1459,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 }
 
-func (this *BattleRoom) ThrowCard (target int64, throwcard int64) {
+func (this *BattleRoom) ThrowCard (target int64, throwcard int64, entity int32) {
 
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
@@ -1462,7 +1467,7 @@ func (this *BattleRoom) ThrowCard (target int64, throwcard int64) {
 	this.TargetCOM.ActionParamExt = prpc.ToName_BattleExt(prpc.BE_MAX)
 	this.TargetCOM.Dead = false
 	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
-	this.TargetCOM.ThrowCard = throwcard
+	this.TargetCOM.ThrowCard = prpc.COM_ThrowCard{InstId:throwcard, EntityId:entity}
 	this.NewAction = false
 
 }

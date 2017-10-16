@@ -9,7 +9,7 @@ type COM_BattleActionTarget struct{
   ActionParam int32  //2
   ActionParamExt string  //3
   Dead bool  //4
-  ThrowCard int64  //5
+  ThrowCard COM_ThrowCard  //5
   BuffAdd []COM_BattleBuff  //6
 }
 func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
@@ -20,7 +20,7 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.ActionParam!=0)
   mask.WriteBit(len(this.ActionParamExt) != 0)
   mask.WriteBit(this.Dead)
-  mask.WriteBit(this.ThrowCard!=0)
+  mask.WriteBit(true) //ThrowCard
   mask.WriteBit(len(this.BuffAdd) != 0)
   {
     err := prpc.Write(buffer,mask.Bytes())
@@ -67,11 +67,9 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize ThrowCard
   {
-    if(this.ThrowCard!=0){
-      err := prpc.Write(buffer,this.ThrowCard)
-      if err != nil{
-        return err
-      }
+    err := this.ThrowCard.Serialize(buffer)
+    if err != nil{
+      return err
     }
   }
   // serialize BuffAdd
@@ -129,7 +127,7 @@ func (this *COM_BattleActionTarget)Deserialize(buffer *bytes.Buffer) error{
   this.Dead = mask.ReadBit();
   // deserialize ThrowCard
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.ThrowCard)
+    err := this.ThrowCard.Deserialize(buffer)
     if err != nil{
       return err
     }

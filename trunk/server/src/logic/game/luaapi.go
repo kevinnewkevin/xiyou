@@ -1652,9 +1652,9 @@ func __ThrowCard(p unsafe.Pointer) C.int {  //获取要删除的卡牌
 
 	battle := FindBattle(battleid)
 
-	throwCard := battle.SelectThrowCard(unitid)
+	throwCard, entid := battle.SelectThrowCard(unitid)
 
-	battle.ThrowCard(target, throwCard)
+	battle.ThrowCard(target, throwCard, entid)
 
 	L.PushLong(throwCard)
 
