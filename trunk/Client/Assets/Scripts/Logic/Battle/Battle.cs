@@ -336,7 +336,7 @@ public class Battle {
 
                 entity = EntityData.GetData(_OriginUnits[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _OriginUnits[i].InstId, _OriginUnits[i].CHP, _OriginUnits[i].HP, entity._DisplayId, _OriginUnits[i].Level);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _OriginUnits[i].InstId, _OriginUnits[i].CHP, _OriginUnits[i].HP, entity._UnitId, _OriginUnits[i].Level);
             }
             _OriginUnits = null;
         }
@@ -404,7 +404,7 @@ public class Battle {
                 
                 entity = EntityData.GetData(_BattleReport.UnitList[i].UnitId);
                 display = DisplayData.GetData(entity._DisplayId);
-                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._DisplayId, _BattleReport.UnitList[i].Level);
+                actor = AddActor(AssetLoader.LoadAsset(display._AssetPath), localPos, _BattleReport.UnitList[i].InstId, _BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP, entity._UnitId, _BattleReport.UnitList[i].Level);
                 float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
                 if (_LongestShowTime < clipLen)
                     _LongestShowTime = clipLen;
@@ -491,7 +491,7 @@ public class Battle {
     }
 
     //场上添加一个角色
-    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int displayId, int strLv)
+    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int entityid, int strLv)
     {
         Actor actor = GetActor(instid);
         if (actor != null)
@@ -501,7 +501,7 @@ public class Battle {
             GameObject.Destroy(go);
             return actor;
         }
-        _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, displayId, strLv);
+        _ActorInScene[pos] = new Actor(go, _PosInScene[pos], instid, pos, crtHp, maxHp, entityid, strLv);
         _ActorInScene[pos].Play(Define.ANIMATION_PLAYER_ACTION_SHOW);
         _ActorInScene [pos].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
 
@@ -655,7 +655,7 @@ public class Battle {
             COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
             EntityData eData = EntityData.GetData(entity.UnitId);
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
-            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100, eData._DisplayId, entity.IProperties[9]);
+            AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100, eData._UnitId, entity.IProperties[9]);
             RemoveHandCard(_SelectedHandCardInstID);
             CostFee(eData._Cost);
         }
@@ -671,7 +671,7 @@ public class Battle {
         COM_Unit entity = GamePlayer.GetCardByInstID(_SelectedHandCardInstID);
         EntityData eData = EntityData.GetData(entity.UnitId);
         DisplayData displayData = DisplayData.GetData(eData._DisplayId);
-        AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, 0, 100, 100, eData._DisplayId, entity.IProperties[9]);
+        AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, 0, 100, 100, eData._UnitId, entity.IProperties[9]);
     }
 
     static public void ClearSimActor()
@@ -825,7 +825,10 @@ public class Battle {
     {
         ReportBase rb = new ReportBase();
         rb._RBType = ReportBase.RBType.RBT_SelfAppear;
-        rb._CasterID = operate.InstId;
+        EntityData eData = GamePlayer.GetEntityDataByInstID(operate.InstId);
+        if (eData != null)
+            rb._CasterEntityID = eData._UnitId;
+        rb._Self = true;
         _ReportTips.Add(rb);
         while (_ReportTips.Count > 15)
         {
@@ -843,6 +846,7 @@ public class Battle {
         ReportBase rb = new ReportBase();
         rb._RBType = ReportBase.RBType.RBT_SelfSkill;
         rb._SkillID = operateSkillId;
+        rb._Self = true;
         _ReportTips.Add(rb);
         while (_ReportTips.Count > 15)
         {
@@ -862,7 +866,12 @@ public class Battle {
             
             rb = new ReportBase();
             rb._RBType = ReportBase.RBType.RBT_AllAppear;
-            rb._CasterID = appearActors [i].InstId;
+            rb._CasterEntityID = appearActors [i].UnitId;
+            Actor actor = GetActor(appearActors [i].InstId);
+            if (actor != null)
+            {
+                rb._Self = actor._RealPosInScene < 6;
+            }
             _ReportTips.Add(rb);
         }
         while (_ReportTips.Count > 15)
@@ -881,7 +890,13 @@ public class Battle {
         
         ReportBase rb = new ReportBase();
         rb._RBType = ReportBase.RBType.RBT_AllSkill;
-        rb._CasterID = report.InstId;
+        Actor actor = GetActor(report.InstId);
+        if (actor != null)
+        {
+            rb._CasterEntityID = actor._EntityID;
+            rb._Self = actor._RealPosInScene < 6;
+        }
+        
         rb._SkillID = report.SkillId;
         if (report.SkillBuff != null)
         {
@@ -899,7 +914,9 @@ public class Battle {
             for(int i=0; i < rb._Targets.Length; ++i)
             {
                 rb._Targets [i] = new COM_BattleActionTarget();
-                rb._Targets [i].InstId = report.TargetList [i].InstId;
+                actor = GetActor(report.TargetList [i].InstId);
+                if (actor != null)
+                    rb._Targets [i].InstId = actor._EntityID;
                 rb._Targets [i].ActionType = report.TargetList [i].ActionType;
                 rb._Targets [i].ActionParam = report.TargetList [i].ActionParam;
                 rb._Targets [i].ActionParamExt = report.TargetList [i].ActionParamExt;
@@ -1019,9 +1036,10 @@ public class ReportBase
         RBT_AllSkill,
         RBT_AllBuff,
     }
+    public bool _Self;
     public RBType _RBType;
     public int _SkillID;
-    public long _CasterID;
+    public int _CasterEntityID;
     public COM_BattleBuff[] _Buffs;
     public COM_BattleActionTarget[] _Targets;
 }
