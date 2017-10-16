@@ -64,8 +64,14 @@
       <item/>
     </list>
     <list id="n77_nz5f" name="n77" xy="336,1" size="1444,111" layout="flow_hz" overflow="scroll" colGap="-2" defaultItem="ui://g7uitnianz5f2o" align="right" vAlign="middle"/>
+    <component id="n78_jdlj" name="n78" src="i02ix" xy="627,773"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="XY" target="n51_i407" tween="true" startValue="-1540,7" endValue="272,7" duration="12" ease="Circ.InOut"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Alpha" target="n78_jdlj" value="1"/>
+    <item time="0" type="XY" target="n78_jdlj" tween="true" startValue="627,773" endValue="627,333" duration="13" ease="Circ.InOut"/>
+    <item time="13" type="Alpha" target="n78_jdlj" tween="true" startValue="1" endValue="0" duration="11" ease="Circ.InOut"/>
   </transition>
 </component>
