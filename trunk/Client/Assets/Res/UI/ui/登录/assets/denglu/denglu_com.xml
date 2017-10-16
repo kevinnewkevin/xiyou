@@ -2,18 +2,8 @@
 <component size="1920,1080">
   <displayList>
     <image id="n0_nw1s" name="n0" src="nw1s1" xy="0,0" size="1920,1080"/>
-    <image id="n1_nw1s" name="n1" src="nw1s4" xy="678,118" size="552,448"/>
+    <image id="n1_nw1s" name="n1" src="nw1s4" xy="718,138" size="472,380"/>
     <component id="n3_nw1s" name="n3" src="nw1s6" xy="726,920" size="286,106"/>
-    <image id="n4_mil9" name="n4" src="mil9h" xy="676,721" size="576,70"/>
-    <text id="n6_mil9" name="n6" xy="760,731" size="272,49" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦">
-      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
-    </text>
-    <text id="n7_mil9" name="n7" xy="1080,731" size="146,49" font="方正楷体_GBK" fontSize="34" color="#f8b351" vAlign="middle" autoSize="none" text="点击换区">
-      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
-    </text>
-    <loader id="n5_mil9" name="n5" xy="689,723" size="65,64" url="ui://9211bzvymil9b" align="center" vAlign="middle">
-      <relation target="n4_mil9" sidePair="center-center,middle-middle"/>
-    </loader>
     <component id="n8_mil9" name="n8" src="mil9m" xy="0,0" hideByEditor="true"/>
     <graph id="n9_mn72" name="n9" xy="676,738" size="578,72" alpha="0" type="rect"/>
     <component id="n10_7zdj" name="n10" src="7zdju" xy="612,600"/>
