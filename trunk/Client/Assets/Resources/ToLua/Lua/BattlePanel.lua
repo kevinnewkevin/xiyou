@@ -184,6 +184,8 @@ function BattlePanel_FlushData()
 	reportList:RemoveChildrenToPool();
 	for i=0, Battle._ReportTips.Count - 1 do
 		local reportBtn = reportList:AddItemFromPool(reportBtnUrl);
+		reportBtn.data = i;
+		reportBtn.onClick:Add(BattlePanel_OnReport);
 		local side = reportBtn:GetChild("n8").asLoader;
 		local oper = reportBtn:GetChild("n7").asLoader;
 		local icon = reportBtn:GetChild("n6").asLoader;
@@ -206,6 +208,8 @@ function BattlePanel_FlushData()
 				local dData = DisplayData.GetData(eData._DisplayId);
 				if dData ~= nil then
 					icon.url = "ui://" .. dData._HeadIcon;
+					qubg.url = "ui://icon/touxiangkuang_hui";
+				else
 					qubg.url = "ui://icon/touxiangkuang_hui";
 				end
 			end
@@ -360,6 +364,11 @@ function BattlePanel_FlushData()
 	BattlePanel_SetFeeCount(Battle._Fee);
 end
 
+function BattlePanel_OnReport(context)
+	Battle._SelectReportIdx = context.sender.data;
+	UIManager.Show("zhanbao");
+end
+
 function BattlePanel_OnSelectSkill()
 --	if Battle.SelectSkillID == skills[skillList.selectedIndex] then
 --		skillList.selectedIndex = -1;
@@ -377,9 +386,14 @@ end
 function BattlePanel_DisableSkills(yes)
 	skills = GamePlayer.GetMyActiveSkill();
 	local skill;
+	local sData;
 	for i=0, skills.Length - 1 do
 		skill = skillList:GetChildAt(i);
 		skill.enabled = not yes;
+		sData = SkillData.GetData(skills[0]);
+		if sData ~= nil  and skill.enabled then
+			skill.enabled = sData._Fee <= Battle._Fee;
+		end
 	end
 end
 

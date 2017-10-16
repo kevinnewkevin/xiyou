@@ -173,7 +173,7 @@ function jiesuanjiemian_FlushData()
 	
 	local display = GamePlayer.GetMyDisplayData();
 	if display ~= nil then
-		headicon.url = "ui://" .. display._HeadIcon;
+		headicon.url = "ui://" .. display._HeadIcon .. "_yuan";;
 	else
 		headicon.url = "";
 	end

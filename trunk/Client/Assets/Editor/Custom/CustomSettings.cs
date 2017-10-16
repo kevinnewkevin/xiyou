@@ -165,6 +165,9 @@ public static class CustomSettings
         _GT(typeof(Battle.BattleState)),
         _GT(typeof(UIParamHolder)),
         _GT(typeof(Define)),
+        _GT(typeof(COM_BattleBuff)),
+        _GT(typeof(COM_BattleActionTarget)),
+        _GT(typeof(BuffData)),
 
         _GT(typeof(EventContext)),
         _GT(typeof(EventDispatcher)),

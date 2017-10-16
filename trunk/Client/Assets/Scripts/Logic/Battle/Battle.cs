@@ -75,6 +75,8 @@ public class Battle {
 
     static public string _CasterSkillName;
 
+    static public int _SelectReportIdx; //当前选择的战报索引
+
     static int _SelectSkillID;      //主角选择的技能id
 
     static COM_BattleUnit[] _OriginUnits;
@@ -911,12 +913,12 @@ public class Battle {
         if (report.TargetList != null)
         {
             rb._Targets = new COM_BattleActionTarget[report.TargetList.Length];
+            rb._TargetEntityID = new int[report.TargetList.Length];
             for(int i=0; i < rb._Targets.Length; ++i)
             {
                 rb._Targets [i] = new COM_BattleActionTarget();
                 actor = GetActor(report.TargetList [i].InstId);
-                if (actor != null)
-                    rb._Targets [i].InstId = actor._EntityID;
+                rb._TargetEntityID [i] = actor._EntityID;
                 rb._Targets [i].ActionType = report.TargetList [i].ActionType;
                 rb._Targets [i].ActionParam = report.TargetList [i].ActionParam;
                 rb._Targets [i].ActionParamExt = report.TargetList [i].ActionParamExt;
@@ -1042,4 +1044,5 @@ public class ReportBase
     public int _CasterEntityID;
     public COM_BattleBuff[] _Buffs;
     public COM_BattleActionTarget[] _Targets;
+    public int[] _TargetEntityID;
 }
