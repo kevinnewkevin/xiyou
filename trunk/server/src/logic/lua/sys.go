@@ -11,6 +11,7 @@ import "C"
 import (
 	"fmt"
 	"unsafe"
+	"logic/std"
 )
 
 //export __panic
@@ -45,7 +46,7 @@ func __log(p unsafe.Pointer) C.int {
 	L := GetLuaState(p)
 	idx := 1
 	s := L.ToString(idx)
-	fmt.Println("LUA >>", s)
+	std.LogDebug("LUA >> %s", s)
 	return 0
 }
 
