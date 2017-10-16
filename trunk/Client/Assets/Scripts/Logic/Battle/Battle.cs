@@ -581,6 +581,7 @@ public class Battle {
     static public void BattleSetup()
     {
         NetWoking.S.SetupBattle(Battle._OperatList.ToArray(), SelectSkillID);
+        _SelectSkillID = 0;
         Battle._OperatList.Clear();
         CurrentState = BattleState.BS_Play;
     }
