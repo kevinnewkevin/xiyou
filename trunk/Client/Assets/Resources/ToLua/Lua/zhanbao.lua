@@ -8,6 +8,7 @@ local side;
 local quali;
 local icon;
 local skillIcon;
+local skillName;
 local targetList;
 local targetListItemUrl = "ui://zhanbao/touxiangxiao_com";
 local targetBuffItemUrl = "";
@@ -22,6 +23,7 @@ local outSkillHeadSide;
 local outSkillHeadQuali;
 local outSkillHeadIcon;
 local outSkillIcon;
+local outSkillName;
 
 function zhanbao:OnEntry()
 	Define.LaunchUIBundle("icon");
@@ -47,6 +49,7 @@ function zhanbao:OnInit()
 
 	local skillCom = reportCom:GetChild("n7").asCom;
 	skillIcon = skillCom:GetChild("n8").asLoader;
+	skillName = skillCom:GetChild("n12").asTextField;
 
 	targetList = reportCom:GetChild("n19").asList;
 
@@ -64,6 +67,7 @@ function zhanbao:OnInit()
 
 	local outSkillInfoCom = outSkillCom:GetChild("n4").asCom;
 	outSkillIcon = outSkillInfoCom:GetChild("n8").asLoader;
+	outSkillName = outSkillInfoCom:GetChild("n12").asTextField;
 
 	zhanbao_FlushData();
 end
@@ -97,6 +101,7 @@ function zhanbao_FlushData()
 	quali.url = "";
 	icon.url = "";
 	skillIcon.url = "";
+	skillName.text = "";
 	targetList:RemoveChildrenToPool();
 
 	outCom.visible = false;
@@ -109,6 +114,7 @@ function zhanbao_FlushData()
 	outSkillHeadQuali.url = "";
 	outSkillHeadIcon.url = "";
 	outSkillIcon.url = "";
+	outSkillName.text = "";
 
 	print("Battle._SelectReportIdx: " .. Battle._SelectReportIdx);
 	if Battle._SelectReportIdx >= Battle._ReportTips.Count or Battle._SelectReportIdx < 0 then
@@ -124,6 +130,7 @@ function zhanbao_FlushData()
 		local sData = SkillData.GetData(Battle._ReportTips[Battle._SelectReportIdx]._SkillID);
 		if sData ~= nil then
 			outSkillIcon.url = "ui://" .. sData._Icon;
+			outSkillName.text = sData._Name;
 		end
 	elseif Battle._ReportTips[Battle._SelectReportIdx]._RBType == ReportBase.RBType.RBT_SelfAppear then
 		outCom.visible = true;
@@ -170,6 +177,7 @@ function zhanbao_FlushData()
 		local sData = SkillData.GetData(Battle._ReportTips[Battle._SelectReportIdx]._SkillID);
 		if sData ~= nil then
 			skillIcon.url = "ui://" .. sData._Icon;
+			skillName.text = sData._Name;
 		end
 
 		if Battle._ReportTips[Battle._SelectReportIdx]._Targets ~= nil then
