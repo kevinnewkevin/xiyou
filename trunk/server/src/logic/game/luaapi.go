@@ -68,9 +68,9 @@ import (
 	"unsafe"
 	"logic/lua"
 
-	"fmt"
 	"time"
 	"logic/prpc"
+	"logic/std"
 )
 
 var (
@@ -169,9 +169,9 @@ func __GetStrings(p unsafe.Pointer) C.int {
 
 	i := L.ToInteger(idx)
 
-	fmt.Println("__GetStrings", int32(i))
+	std.LogInfo("__GetStrings", int32(i))
 
-	//fmt.Println("__GetStrings")
+	//std.LogInfo("__GetStrings")
 
 	return 0
 }
@@ -185,7 +185,7 @@ func __DefineCards(p unsafe.Pointer) C.int {
 	cards := L.ToString(idx)
 	SetDefaultUnits(cards)
 
-	//fmt.Println("__GetStrings")`
+	//std.LogInfo("__GetStrings")`
 
 	return 0
 }
@@ -193,7 +193,7 @@ func __DefineCards(p unsafe.Pointer) C.int {
 //export __GetTarget
 func __GetTarget(p unsafe.Pointer) C.int { //获取 敌方单个目标
 
-	fmt.Println("__GetTarget")
+	std.LogInfo("__GetTarget")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -201,14 +201,14 @@ func __GetTarget(p unsafe.Pointer) C.int { //获取 敌方单个目标
 	idx ++
 	uid := L.ToInteger(idx)
 
-	//fmt.Println(battleid, uid)
+	//std.LogInfo(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(uid))
 
 	t_id := battle.SelectNearTarget(unit.InstId)
 
-	fmt.Println("__GetTarget end ,", t_id)
+	std.LogInfo("__GetTarget end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -218,7 +218,7 @@ func __GetTarget(p unsafe.Pointer) C.int { //获取 敌方单个目标
 //export __GetMainTarget
 func __GetMainTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
 
-	fmt.Println("__GetMainTarget")
+	std.LogInfo("__GetMainTarget")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -226,14 +226,14 @@ func __GetMainTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
 	idx ++
 	uid := L.ToInteger(idx)
 
-	//fmt.Println(battleid, uid)
+	//std.LogInfo(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
 	var t_id int64
 	t_id = battle.selectMainUnit(int64(uid), false)
 
-	fmt.Println("__GetMainTarget end ,", t_id)
+	std.LogInfo("__GetMainTarget end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -242,7 +242,7 @@ func __GetMainTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
 //export __CheckUnitDead
 func __CheckUnitDead(p unsafe.Pointer) C.int {//判断是否死亡
 
-	fmt.Println("__CheckUnitDead")
+	std.LogInfo("__CheckUnitDead")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -250,7 +250,7 @@ func __CheckUnitDead(p unsafe.Pointer) C.int {//判断是否死亡
 	idx ++
 	uid := L.ToInteger(idx)
 
-	//fmt.Println(battleid, uid)
+	//std.LogInfo(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
@@ -268,7 +268,7 @@ func __CheckUnitDead(p unsafe.Pointer) C.int {//判断是否死亡
 }
 //export __GetMainFriend
 func __GetMainFriend(p unsafe.Pointer) C.int {  //友方主角
-	fmt.Println("__GetMainFriend")
+	std.LogInfo("__GetMainFriend")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -276,14 +276,14 @@ func __GetMainFriend(p unsafe.Pointer) C.int {  //友方主角
 	idx ++
 	uid := L.ToInteger(idx)
 
-	//fmt.Println(battleid, uid)
+	//std.LogInfo(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
 	var t_id int64
 	t_id = battle.selectMainUnit(int64(uid), true)
 
-	fmt.Println("__GetMainFriend end ,", t_id)
+	std.LogInfo("__GetMainFriend end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -293,7 +293,7 @@ func __GetMainFriend(p unsafe.Pointer) C.int {  //友方主角
 //export __GetFriend
 func __GetFriend(p unsafe.Pointer) C.int {//友方单个目标
 
-	//fmt.Println("__GetFriend")
+	//std.LogInfo("__GetFriend")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -306,7 +306,7 @@ func __GetFriend(p unsafe.Pointer) C.int {//友方单个目标
 
 	t_id := battle.SelectNearFriend(unit.InstId)
 
-	fmt.Println("__GetFriend end ,", t_id)
+	std.LogInfo("__GetFriend end ,", t_id)
 
 	L.PushInteger(int(t_id))
 
@@ -316,7 +316,7 @@ func __GetFriend(p unsafe.Pointer) C.int {//友方单个目标
 //export __GetUnitProperty
 func __GetUnitProperty(p unsafe.Pointer) C.int {//获取属性值
 
-	//fmt.Println("__GetUnitProperty")
+	//std.LogInfo("__GetUnitProperty")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -326,7 +326,7 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {//获取属性值
 	idx ++
 	property := L.ToString(idx)
 
-	//fmt.Println(battleid, unitid, property)
+	//std.LogInfo(battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -340,7 +340,7 @@ func __GetUnitProperty(p unsafe.Pointer) C.int {//获取属性值
 //export __ChangeCptProperty
 func __ChangeCptProperty(p unsafe.Pointer) C.int {   //加Cpt减属性值
 
-	//fmt.Println("__ChangeCptProperty")
+	//std.LogInfo("__ChangeCptProperty")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -352,7 +352,7 @@ func __ChangeCptProperty(p unsafe.Pointer) C.int {   //加Cpt减属性值
 	idx ++
 	property := L.ToString(idx)
 
-	fmt.Println("__ChangeCptProperty", battleid, unitid, property)
+	std.LogInfo("__ChangeCptProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -363,7 +363,7 @@ func __ChangeCptProperty(p unsafe.Pointer) C.int {   //加Cpt减属性值
 //export __ChangeIptProperty
 func __ChangeIptProperty(p unsafe.Pointer) C.int {   //加 IPT减属性值
 
-	//fmt.Println("__ChangeIptProperty")
+	//std.LogInfo("__ChangeIptProperty")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -375,7 +375,7 @@ func __ChangeIptProperty(p unsafe.Pointer) C.int {   //加 IPT减属性值
 	idx ++
 	property := L.ToString(idx)
 
-	fmt.Println("__ChangeIptProperty", battleid, unitid, property)
+	std.LogInfo("__ChangeIptProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -386,7 +386,7 @@ func __ChangeIptProperty(p unsafe.Pointer) C.int {   //加 IPT减属性值
 //export __AddSheld
 func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 
-	fmt.Println("__AddSheld")
+	std.LogInfo("__AddSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -412,7 +412,7 @@ func __AddSheld(p unsafe.Pointer) C.int {   //加护盾
 //export __PopSheld
 func __PopSheld(p unsafe.Pointer) C.int {   //减护盾
 
-	fmt.Println("__PopSheld")
+	std.LogInfo("__PopSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -440,7 +440,7 @@ func __PopSheld(p unsafe.Pointer) C.int {   //减护盾
 //export __DamageSheld
 func __DamageSheld(p unsafe.Pointer) C.int {   //减護盾值
 
-	fmt.Println("__DamageSheld")
+	std.LogInfo("__DamageSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -485,7 +485,7 @@ func __DamageSheld(p unsafe.Pointer) C.int {   //减護盾值
 //export __ClacSheld
 func __ClacSheld(p unsafe.Pointer) C.int {   //减伤
 
-	fmt.Println("__ClacSheld")
+	std.LogInfo("__ClacSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -495,12 +495,12 @@ func __ClacSheld(p unsafe.Pointer) C.int {   //减伤
 
 	battle := FindBattle(int64(battleid))
 
-	//fmt.Println("__ClacSheld",battleid,unitid)
+	//std.LogInfo("__ClacSheld",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacSheldPer(int32(battle.Round))
 
-	//fmt.Println("__ClacSheld1111",unit,ClacSheld)
+	//std.LogInfo("__ClacSheld1111",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -510,7 +510,7 @@ func __ClacSheld(p unsafe.Pointer) C.int {   //减伤
 //export __ClacStrongPer
 func __ClacStrongPer(p unsafe.Pointer) C.int {   //增输出伤比
 
-	fmt.Println("__ClacStrongPer")
+	std.LogInfo("__ClacStrongPer")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -520,12 +520,12 @@ func __ClacStrongPer(p unsafe.Pointer) C.int {   //增输出伤比
 
 	battle := FindBattle(int64(battleid))
 
-	//fmt.Println("__ClacStrongPer",battleid,unitid)
+	//std.LogInfo("__ClacStrongPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacStrongPer(int32(battle.Round))
 
-	//fmt.Println("__ClacStrongPer",unit,ClacSheld)
+	//std.LogInfo("__ClacStrongPer",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -534,7 +534,7 @@ func __ClacStrongPer(p unsafe.Pointer) C.int {   //增输出伤比
 //export __ClacWeakPer
 func __ClacWeakPer(p unsafe.Pointer) C.int {   //增承受伤比
 
-	fmt.Println("__ClacStrongPer")
+	std.LogInfo("__ClacStrongPer")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -544,12 +544,12 @@ func __ClacWeakPer(p unsafe.Pointer) C.int {   //增承受伤比
 
 	battle := FindBattle(int64(battleid))
 
-	//fmt.Println("__ClacWeakPer",battleid,unitid)
+	//std.LogInfo("__ClacWeakPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacWeakPer(int32(battle.Round))
 
-	//fmt.Println("__ClacWeakPer",unit,ClacSheld)
+	//std.LogInfo("__ClacWeakPer",unit,ClacSheld)
 
 	L.PushNumber(float64(ClacSheld))
 
@@ -559,7 +559,7 @@ func __ClacWeakPer(p unsafe.Pointer) C.int {   //增承受伤比
 //export __ChangeSpecial
 func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有替换，么加上
 
-	fmt.Println("__ChangeSpecial")
+	std.LogInfo("__ChangeSpecial")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -582,7 +582,7 @@ func __ChangeSpecial(p unsafe.Pointer) C.int {  //判断有无这个属性，有
 //export __PopSpec
 func __PopSpec(p unsafe.Pointer) C.int {  //删除buff
 
-	fmt.Println("__PopSpec")
+	std.LogInfo("__PopSpec")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -598,7 +598,7 @@ func __PopSpec(p unsafe.Pointer) C.int {  //删除buff
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	fmt.Println("__PopSpec , unit:", unit)
+	std.LogInfo("__PopSpec , unit:", unit)
 	if unit == nil {
 		return 0
 	}
@@ -609,7 +609,7 @@ func __PopSpec(p unsafe.Pointer) C.int {  //删除buff
 //export __GetSpecial
 func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 
-	fmt.Println("__GetSpecial")
+	std.LogInfo("__GetSpecial")
 
 	L := lua.GetLuaState(p)
 
@@ -642,7 +642,7 @@ func  __GetSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid
 //export __GetOneSpecial
 func  __GetOneSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid  实例id
 
-	fmt.Println("__GetOneSpecial")
+	std.LogInfo("__GetOneSpecial")
 
 	L := lua.GetLuaState(p)
 
@@ -668,7 +668,7 @@ func  __GetOneSpecial(p unsafe.Pointer) C.int { //獲取spec相对应的buffid  
 //export __GetSpecialData
 func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid s数值
 
-	fmt.Println("__GetSpecialData")
+	std.LogInfo("__GetSpecialData")
 
 	L := lua.GetLuaState(p)
 
@@ -684,7 +684,7 @@ func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid 
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buffids := unit.GetSpecial(spec)
-	fmt.Println("aaaaaaaaaaaaa", buffids)
+	std.LogInfo("aaaaaaaaaaaaa", buffids)
 
 	var data int32
 
@@ -705,7 +705,7 @@ func  __GetSpecialData(p unsafe.Pointer) C.int { //獲取spec相对应的buffid 
 //export __GetCheckSpec
 func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 
-	fmt.Println("__GetCheckSpec")
+	std.LogInfo("__GetCheckSpec")
 
 	L := lua.GetLuaState(p)
 
@@ -717,17 +717,17 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 	idx++
 	spec := L.ToString(idx)
 
-	//fmt.Println("__GetCheckSpec ",battleid,unitid)
+	//std.LogInfo("__GetCheckSpec ",battleid,unitid)
 
 	battle := FindBattle(int64(battleid))
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	//fmt.Println("__GetCheckSpec 1111",battleid,unitid)
+	//std.LogInfo("__GetCheckSpec 1111",battleid,unitid)
 
 	_bool := unit.CheckSpec(spec, battle.Round)
 
-	//fmt.Println("__GetCheckSpec 22222",_bool)
+	//std.LogInfo("__GetCheckSpec 22222",_bool)
 
 	L.PushBoolean(_bool)
 
@@ -738,7 +738,7 @@ func __GetCheckSpec(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 //export __GetBuffLockId
 func __GetBuffLockId(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 
-	fmt.Println("__GetBuffLockId")
+	std.LogInfo("__GetBuffLockId")
 
 	L := lua.GetLuaState(p)
 
@@ -754,7 +754,7 @@ func __GetBuffLockId(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buffids := unit.GetSpecial(spec)
-	fmt.Println("__GetBuffLockId", buffids)
+	std.LogInfo("__GetBuffLockId", buffids)
 
 	var data int32
 
@@ -778,7 +778,7 @@ func __GetBuffLockId(p unsafe.Pointer) C.int { //是否有特殊效果的buff
 //export __GetTargets
 func __GetTargets(p unsafe.Pointer) C.int {  //获取敌方多个目标
 
-	//fmt.Println("__GetTargets")
+	//std.LogInfo("__GetTargets")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -788,7 +788,7 @@ func __GetTargets(p unsafe.Pointer) C.int {  //获取敌方多个目标
 	idx ++
 	num := L.ToInteger(idx)
 
-	////fmt.Println("4444444444", battleid, unitid, num)
+	////std.LogInfo("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
@@ -809,7 +809,7 @@ func __GetTargets(p unsafe.Pointer) C.int {  //获取敌方多个目标
 //export __GetTargetsAround
 func __GetTargetsAround(p unsafe.Pointer) C.int {  //溅射目标
 
-	//fmt.Println("__GetTargetsAround")
+	//std.LogInfo("__GetTargetsAround")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -818,7 +818,7 @@ func __GetTargetsAround(p unsafe.Pointer) C.int {  //溅射目标
 	unitid := L.ToInteger(idx)
 
 
-	////fmt.Println("4444444444", battleid, unitid, num)
+	////std.LogInfo("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
@@ -840,7 +840,7 @@ func __GetTargetsAround(p unsafe.Pointer) C.int {  //溅射目标
 //export __GetFriends
 func __GetFriends(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__GetTargets")
+	//std.LogInfo("__GetTargets")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -850,12 +850,12 @@ func __GetFriends(p unsafe.Pointer) C.int {
 	idx ++
 	num := L.ToInteger(idx)
 
-	////fmt.Println("4444444444", battleid, unitid, num)
+	////std.LogInfo("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
 	ls := battle.SelectMoreFriend(int64(unitid), num)
-	fmt.Println("__GetFriends", ls)
+	std.LogInfo("__GetFriends", ls)
 
 	L.NewTable()
 	//L.PushInteger(-1)
@@ -873,7 +873,7 @@ func __GetFriends(p unsafe.Pointer) C.int {
 //export __FrontTarget
 func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 
-	fmt.Println("__FrontTarget")
+	std.LogInfo("__FrontTarget")
 
 	L := lua.GetLuaState(p)
 
@@ -888,7 +888,7 @@ func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 
 	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
 
-	fmt.Println(unitid, "Front", len(FrontTarget), "info", FrontTarget)
+	std.LogInfo(string(unitid), "Front", len(FrontTarget), "info", FrontTarget)
 
 	//L.PushInteger(int(num))
 
@@ -909,7 +909,7 @@ func __FrontTarget(p unsafe.Pointer) C.int {		//获取前排人数
 //export __LineTraget
 func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 
-	fmt.Println("__LineTraget")
+	std.LogInfo("__LineTraget")
 
 	L := lua.GetLuaState(p)
 
@@ -922,7 +922,7 @@ func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 
 	LineTraget := battle.SelectLineTraget(int64(unitid))
 
-	fmt.Println(unitid, "line", len(LineTraget), "info", LineTraget)
+	std.LogInfo(string(unitid), "line", len(LineTraget), "info", LineTraget)
 
 	//L.PushInteger(int(num))
 
@@ -942,7 +942,7 @@ func __LineTraget(p unsafe.Pointer) C.int {		//获取纵排人数
 //export __BackTarget
 func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
 
-	fmt.Println("__BackTarget")
+	std.LogInfo("__BackTarget")
 
 	L := lua.GetLuaState(p)
 
@@ -957,7 +957,7 @@ func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
 
 	BackTarget := battle.SelectBackTarget(int(unit.Camp))
 
-	fmt.Println(unitid, "Back", len(BackTarget), "info", BackTarget)
+	std.LogInfo(string(unitid), "Back", len(BackTarget), "info", BackTarget)
 
 	//L.PushInteger(int(num))
 
@@ -978,7 +978,7 @@ func __BackTarget(p unsafe.Pointer) C.int {		//获取后排人数
 //export __Attack
 func __Attack(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__Attack battleid")
+	//std.LogInfo("__Attack battleid")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -996,7 +996,7 @@ func __Attack(p unsafe.Pointer) C.int {
 
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	//fmt.Println("55555555555555", battleid, caster, target, crit, damage)
+	//std.LogInfo("55555555555555", battleid, caster, target, crit, damage)
 
 	return 0
 }
@@ -1004,7 +1004,7 @@ func __Attack(p unsafe.Pointer) C.int {
 //export __Cure
 func __Cure(p unsafe.Pointer) C.int {
 
-	fmt.Println("__Cure")
+	std.LogInfo("__Cure")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1018,7 +1018,7 @@ func __Cure(p unsafe.Pointer) C.int {
 
 	battle := FindBattle(int64(battleid))
 
-	fmt.Println("6666666666666", battleid, target, crit, damage)
+	std.LogInfo("6666666666666", battleid, target, crit, damage)
 
 	battle.AddHp(int64(target), int32(damage), int32(crit))
 
@@ -1042,7 +1042,7 @@ func __GetCrit(p unsafe.Pointer) C.int {   //判断暴击
 //export __GetTime
 func __GetTime(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__GetTime")
+	//std.LogInfo("__GetTime")
 
 	L := lua.GetLuaState(p)
 
@@ -1059,7 +1059,7 @@ func __GetTime(p unsafe.Pointer) C.int {
 //export __AddBuff
 func __AddBuff(p unsafe.Pointer) C.int {
 
-	//fmt.Println("__AddBuff")
+	//std.LogInfo("__AddBuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1084,7 +1084,7 @@ func __AddBuff(p unsafe.Pointer) C.int {
 //export __HasBuff
 func __HasBuff(p unsafe.Pointer) C.int {  //是否有增益buff
 
-	//fmt.Println("__HasBuff")
+	//std.LogInfo("__HasBuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1105,7 +1105,7 @@ func __HasBuff(p unsafe.Pointer) C.int {  //是否有增益buff
 //export __HasDebuff
 func __HasDebuff(p unsafe.Pointer) C.int { //是否delbuff
 
-	//fmt.Println("__HasDebuff")
+	//std.LogInfo("__HasDebuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1126,7 +1126,7 @@ func __HasDebuff(p unsafe.Pointer) C.int { //是否delbuff
 
 //export __AddSkillBuff
 func __AddSkillBuff(p unsafe.Pointer) C.int {
-	//fmt.Println("__AddSkillBuff")
+	//std.LogInfo("__AddSkillBuff")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1150,7 +1150,7 @@ func __AddSkillBuff(p unsafe.Pointer) C.int {
 //export __BuffMintsHp
 func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 
-	fmt.Println("__BuffMintsHp")
+	std.LogInfo("__BuffMintsHp")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1165,7 +1165,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	//fmt.Println("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//std.LogInfo("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
@@ -1175,7 +1175,7 @@ func __BuffMintsHp(p unsafe.Pointer) C.int {  //掉血
 //export __BuffCureHp
 func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 
-	fmt.Println("__BuffCureHp")
+	std.LogInfo("__BuffCureHp")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1190,7 +1190,7 @@ func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	//fmt.Println("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//std.LogInfo("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffAddHp(buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
@@ -1200,7 +1200,7 @@ func __BuffCureHp(p unsafe.Pointer) C.int {   //回血buff
 //export __PopAllBuffByDebuff
 func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果    返回负面buff数量
 
-	fmt.Println("__PopAllBuffByDebuff")
+	std.LogInfo("__PopAllBuffByDebuff")
 
 	L := lua.GetLuaState(p)
 
@@ -1223,7 +1223,7 @@ func __PopAllBuffByDebuff(p unsafe.Pointer) C.int {		//驱散所有负面效果 
 //export __PopAllBuffBybuff
 func __PopAllBuffBybuff(p unsafe.Pointer) C.int {		//驱散所有增益buff效果
 
-	fmt.Println("__PopAllBuffBybuff")
+	std.LogInfo("__PopAllBuffBybuff")
 
 	L := lua.GetLuaState(p)
 
@@ -1248,7 +1248,7 @@ func __PopAllBuffBybuff(p unsafe.Pointer) C.int {		//驱散所有增益buff效�
 //export __GetUnitDamage
 func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 
-	fmt.Println("__GetUnitDamage")
+	std.LogInfo("__GetUnitDamage")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1258,21 +1258,21 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 	idx ++
 	targetid := L.ToInteger(idx)
 
-	fmt.Println("battleid",battleid)
-	fmt.Println("targetid",targetid)
+	std.LogInfo("battleid",battleid)
+	std.LogInfo("targetid",targetid)
 
 	battle := FindBattle(int64(battleid))
-	fmt.Println("battle",battle)
+	std.LogInfo("battle",battle)
 
 	caster := battle.SelectOneUnit(int64(casterid))
-	fmt.Println("caster",caster)
+	std.LogInfo("caster",caster)
 
 	target := battle.SelectOneUnit(int64(targetid))
-	fmt.Println("target",target)
+	std.LogInfo("target",target)
 
 	finaldamage := CalcDamage(caster, target)
 
-	fmt.Println(finaldamage)
+	std.LogInfo(string(int(finaldamage)))
 
 	L.PushNumber(float64(finaldamage))
 
@@ -1282,7 +1282,7 @@ func __GetUnitDamage(p unsafe.Pointer) C.int {    //物理  伤害
 //export __GetMagicDamage
 func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 
-	fmt.Println("__GetMagicDamage")
+	std.LogInfo("__GetMagicDamage")
 
 
 	L := lua.GetLuaState(p)
@@ -1309,7 +1309,7 @@ func __GetMagicDamage(p unsafe.Pointer) C.int {    //法术   伤害
 //export __GetUnitSheld
 func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取场上所有玩家护盾数值
 
-	fmt.Println("__GetUnitSheld")
+	std.LogInfo("__GetUnitSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1337,7 +1337,7 @@ func __GetUnitSheld(p unsafe.Pointer) C.int {	// 获取场上所有玩家护盾�
 //export __GetOneSheld
 func __GetOneSheld(p unsafe.Pointer) C.int {	// 获取场上单个玩家护盾数值
 
-	fmt.Println("__GetOneSheld")
+	std.LogInfo("__GetOneSheld")
 
 	L := lua.GetLuaState(p)
 	idx := 1
@@ -1359,7 +1359,7 @@ func __GetOneSheld(p unsafe.Pointer) C.int {	// 获取场上单个玩家护盾�
 //export __GetUnitSheldPer
 func __GetUnitSheldPer(p unsafe.Pointer) C.int {		//获取减伤百分比
 
-	fmt.Println("__GetUnitSheldPer")
+	std.LogInfo("__GetUnitSheldPer")
 
 	L := lua.GetLuaState(p)
 	L.PushInteger(1)
@@ -1370,7 +1370,7 @@ func __GetUnitSheldPer(p unsafe.Pointer) C.int {		//获取减伤百分比
 //export __GetUnitAtk
 func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理强度
 
-	fmt.Println("__GetUnitAtk")
+	std.LogInfo("__GetUnitAtk")
 
 	L := lua.GetLuaState(p)
 
@@ -1393,7 +1393,7 @@ func __GetUnitAtk(p unsafe.Pointer) C.int {		//获取减伤百分比  物理强�
 //export __GetCalcDef
 func __GetCalcDef(p unsafe.Pointer) C.int {		//获取减伤百分比  物理防御
 
-	fmt.Println("__GetCalcDef")
+	std.LogInfo("__GetCalcDef")
 
 	L := lua.GetLuaState(p)
 
@@ -1415,7 +1415,7 @@ func __GetCalcDef(p unsafe.Pointer) C.int {		//获取减伤百分比  物理防�
 //export __GetUnitMtk
 func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术强度
 
-	fmt.Println("__GetUnitMtk")
+	std.LogInfo("__GetUnitMtk")
 
 	L := lua.GetLuaState(p)
 
@@ -1437,7 +1437,7 @@ func __GetUnitMtk(p unsafe.Pointer) C.int {		//获取减伤百分比   法术强
 //export __GetCalcMagicDef
 func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法术 防御
 
-	fmt.Println("__GetCalcMagicDef")
+	std.LogInfo("__GetCalcMagicDef")
 
 	L := lua.GetLuaState(p)
 
@@ -1459,7 +1459,7 @@ func __GetCalcMagicDef(p unsafe.Pointer) C.int {		//获取减伤百分比   法�
 //export __TargetOver
 func __TargetOver(p unsafe.Pointer) C.int {		//结束后
 
-	fmt.Println("__TargetOver")
+	std.LogInfo("__TargetOver")
 
 	L := lua.GetLuaState(p)
 
@@ -1475,7 +1475,7 @@ func __TargetOver(p unsafe.Pointer) C.int {		//结束后
 //export __TargetOn
 func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 
-	fmt.Println("__TargetOn")
+	std.LogInfo("__TargetOn")
 
 	L := lua.GetLuaState(p)
 
@@ -1492,7 +1492,7 @@ func __TargetOn(p unsafe.Pointer) C.int {		//开始前清理数据
 //export __ChangeBuffTimes
 func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 
-	fmt.Println("__ChangeBuffTimes")
+	std.LogInfo("__ChangeBuffTimes")
 
 	L := lua.GetLuaState(p)
 
@@ -1512,7 +1512,7 @@ func __ChangeBuffTimes(p unsafe.Pointer) C.int {		//开始前清理数据
 //export __BuffUpdate
 func __BuffUpdate(p unsafe.Pointer) C.int {		//开始前清理数据
 
-	fmt.Println("__BuffUpdate")
+	std.LogInfo("__BuffUpdate")
 
 	L := lua.GetLuaState(p)
 
@@ -1544,7 +1544,7 @@ func __BuffChangeStillData(p unsafe.Pointer) C.int {
 	idx ++
 	new_data := L.ToInteger(idx)
 
-	fmt.Println("__BuffChangeStillData")
+	std.LogInfo("__BuffChangeStillData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
@@ -1572,7 +1572,7 @@ func __BuffChangeData(p unsafe.Pointer) C.int {
 	idx ++
 	new_data := L.ToInteger(idx)
 
-	fmt.Println("__BuffChangeData")
+	std.LogInfo("__BuffChangeData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
@@ -1583,7 +1583,7 @@ func __BuffChangeData(p unsafe.Pointer) C.int {
 
 		buff.Data = buff.Data + buff.Data*(int32(new_data))
 
-		fmt.Println("__BuffChangeData  battleid",battleid,"unitid",unitid,"buff.Data",buff.Data)
+		std.LogInfo("__BuffChangeData  battleid",battleid,"unitid",unitid,"buff.Data",buff.Data)
 	}
 
 	//buff := unit.SelectBuff(int32(buffinstid))
@@ -1604,7 +1604,7 @@ func __GetMyUnitIProperty(p unsafe.Pointer) C.int {
 
 	player := FindPlayerByInstId(casterId)
 	if player == nil {
-		fmt.Println("__GetMyUnitIProperty FindPlayerByInstId==nil",casterId)
+		std.LogInfo("__GetMyUnitIProperty FindPlayerByInstId==nil",casterId)
 		return 1
 	}
 
@@ -1628,7 +1628,7 @@ func __AddMyUnitEnergy(p unsafe.Pointer) C.int {
 
 	player := FindPlayerByInstId(casterId)
 	if player == nil {
-		fmt.Println("__AddMyUnitEnergy FindPlayerByInstId==nil",casterId)
+		std.LogInfo("__AddMyUnitEnergy FindPlayerByInstId==nil",casterId)
 		return 0
 	}
 

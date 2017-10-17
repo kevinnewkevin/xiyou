@@ -4,8 +4,8 @@ import (
 	"logic/prpc"
 	"sync"
 	"sync/atomic"
-	"fmt"
 	"errors"
+	"logic/std"
 )
 
 var genInstId int64 = 1
@@ -94,15 +94,15 @@ func (this *GameUnit) AddSpec(spec string, buffinstid int32) {
 	} else {
 		this.Special[int32(spe)] = append(bufflist, buffinstid)
 	}
-	fmt.Println("AddSpec", spe, "speeee", this.Special[int32(spe)])
+	std.LogInfo("AddSpec", spe, "speeee", this.Special[int32(spe)])
 	return
 }
 
 func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
 	spe := prpc.ToId_BuffSpecial(spec)
-	fmt.Println("PopSpec 11111,", buffinstid)
-	fmt.Println("PopSpec 11111,", spe)
-	fmt.Println("PopSpec 11111,", this.Special)
+	std.LogInfo("PopSpec 11111,", buffinstid)
+	std.LogInfo("PopSpec 11111,", spe)
+	std.LogInfo("PopSpec 11111,", this.Special)
 	bufflist, ok := this.Special[int32(spe)]
 	if ok {
 		if len(bufflist) > 0{
@@ -343,10 +343,8 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 		return false
 	}
 
-	fmt.Println("111111CastSkill", this.IsMain, this.InstId, this.InstName)
 	var skill *Skill
 	if this.IsMain {
-		fmt.Println("22222222CastSkill")
 		if this.ChoiceSKill == 0 {
 			return false
 		} else {
@@ -364,15 +362,15 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 		skill = this.SelectSkill(battle.Round)
 	}
 
-	fmt.Println("CastSkill", skill, &skill)
+	std.LogInfo("CastSkill", skill, &skill)
 
-	//fmt.Println("CastSkill skill id is ", skill.SkillID)
+	//std.LogInfo("CastSkill skill id is ", skill.SkillID)
 
 	battle.AcctionList.SkillId = skill.SkillID
 
 	skill.ActionBylua(battle.InstId, this.InstId)
 
-	//fmt.Println("CastSkill, AcctionList ", battle.AcctionList)
+	//std.LogInfo("CastSkill, AcctionList ", battle.AcctionList)
 
 	return false
 }
@@ -380,7 +378,7 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 func (this *GameUnit) CastPassiveSkill(battle *BattleRoom) bool {
 	skill := this.Skill[0]
 
-	fmt.Println("CastPassiveSkill", skill, &skill)
+	std.LogInfo("CastPassiveSkill", skill, &skill)
 	if skill == nil {
 		return false
 	}
@@ -447,7 +445,7 @@ func (this *GameUnit) isBack() bool {
 
 func (this *GameUnit) ClearAllbuff()  {
 
-	fmt.Println("ClearAllbuff, unitid:", this.InstId)
+	std.LogInfo("ClearAllbuff, unitid:", this.InstId)
 	for _, buff := range this.Allbuff {
 		buff.DeleteProperty()
 	}
@@ -505,7 +503,7 @@ func (this *GameUnit)SelectBuff (instid int32) *Buff {
 }
 
 func (this *GameUnit)CheckAllBuff (round int32) []int32 {
-	fmt.Println(this.InstId, "checkallBuff round is ", round)			//檢測buff效果
+	std.LogInfo(string(this.InstId), "checkallBuff round is ", round)			//檢測buff效果
 	needDelete := map[*Buff]int{}
 	this.DelBuff = []*Buff{}
 
@@ -514,7 +512,7 @@ func (this *GameUnit)CheckAllBuff (round int32) []int32 {
 			break
 		}
 		if buff.Update(round) {
-			fmt.Println("CheckAllBuff one", buff.InstId, buff.Round)
+			std.LogInfo("CheckAllBuff one", buff.InstId, buff.Round)
 			needDelete[buff] = 1
 			this.DelBuff = append(this.DelBuff, buff)		//這個是給戰鬥房間用的 用來寫入戰報
 		}
@@ -522,8 +520,8 @@ func (this *GameUnit)CheckAllBuff (round int32) []int32 {
 
 	need := this.deletBuff(needDelete)
 
-	fmt.Println(this.InstId, "checkallBuff over 1", len(needDelete))			//檢測buff效果
-	fmt.Println(this.InstId, "checkallBuff over 2", need)			//檢測buff效果
+	std.LogInfo(string(this.InstId), "checkallBuff over 1", len(needDelete))			//檢測buff效果
+	std.LogInfo(string(this.InstId), "checkallBuff over 2", need)			//檢測buff效果
 
 	return need
 }
@@ -543,7 +541,7 @@ func (this *GameUnit) deletBuff (need map[*Buff]int) []int32 {
 		newList = append(newList, buff)
 	}
 
-	fmt.Println("deletBuff", need)
+	std.LogInfo("deletBuff", need)
 	this.Allbuff = newList
 	return delete_id
 }
@@ -560,9 +558,9 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 		return 0
 	}
 
-	fmt.Println("allbuff 1", this.Allbuff)
+	std.LogInfo("allbuff 1", this.Allbuff)
 	for _, buff := range this.Allbuff {
-		fmt.Println("this buff", buff)
+		std.LogInfo("this buff", buff)
 		if buff == nil {
 			continue
 		}
@@ -583,10 +581,10 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 		newBufflist = append(newBufflist, v)
 	}
 
-	fmt.Println("PopAllBuffByDebuff")
+	std.LogInfo("PopAllBuffByDebuff")
 	this.Allbuff = newBufflist
-	fmt.Println("allbuff 2", this.Allbuff)
-	fmt.Println(len(tmp), tmp)
+	std.LogInfo("allbuff 2", this.Allbuff)
+	std.LogInfo(string(len(tmp)), tmp)
 	return len(tmp)
 }
 
@@ -613,10 +611,10 @@ func (this *GameUnit) PopAllBuffByBuff() int{
 		newBufflist = append(newBufflist, v)
 	}
 
-	fmt.Println("PopAllBuffByBuff")
+	std.LogInfo("PopAllBuffByBuff")
 	this.Allbuff = newBufflist
-	fmt.Println("allbuff 3", this.Allbuff)
-	fmt.Println(len(tmp), tmp)
+	std.LogInfo("allbuff 3", this.Allbuff)
+	std.LogInfo(string(len(tmp)), tmp)
 	return len(tmp)
 }
 
@@ -646,9 +644,9 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 		return errors.New("error iType")
 	}
 
-	fmt.Println("UpdateIProperty, itype", iType, "front pro ", this.IProperties[iType])
+	std.LogInfo("UpdateIProperty, itype", iType, "front pro ", this.IProperties[iType])
 	this.IProperties[iType] += value
-	fmt.Println("UpdateIProperty, itype", iType, "after pro ", this.IProperties[iType])
+	std.LogInfo("UpdateIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
 	if this.Owner.session == nil {
 		return nil
@@ -664,9 +662,9 @@ func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 		return errors.New("error cType")
 	}
 
-	fmt.Println("UpdateCProperty, cType", cType, "front pro ", this.CProperties[cType])
+	std.LogInfo("UpdateCProperty, cType", cType, "front pro ", this.CProperties[cType])
 	this.CProperties[cType] += value
-	fmt.Println("UpdateCProperty, cType", cType, "after pro ", this.CProperties[cType])
+	std.LogInfo("UpdateCProperty, cType", cType, "after pro ", this.CProperties[cType])
 
 	if this.Owner.session == nil {
 		return nil
@@ -685,9 +683,9 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 		value = 0
 	}
 
-	fmt.Println("SetIProperty, itype", iType, "front pro ", this.IProperties[iType])
+	std.LogInfo("SetIProperty, itype", iType, "front pro ", this.IProperties[iType])
 	this.IProperties[iType] = value
-	fmt.Println("SetIProperty, itype", iType, "after pro ", this.IProperties[iType])
+	std.LogInfo("SetIProperty, itype", iType, "after pro ", this.IProperties[iType])
 
 	if this.Owner.session == nil {
 		return nil
@@ -704,9 +702,9 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 		return errors.New("error cType")
 	}
 
-	fmt.Println("SetCProperty, cType", cType, "front pro ", this.CProperties[cType])
+	std.LogInfo("SetCProperty, cType", cType, "front pro ", this.CProperties[cType])
 	this.CProperties[cType] = value
-	fmt.Println("SetCProperty, cType", cType, "after pro ", this.CProperties[cType])
+	std.LogInfo("SetCProperty, cType", cType, "after pro ", this.CProperties[cType])
 
 	this.Owner.session.UpdateUnitCProperty(this.InstId, cType, value)
 
@@ -714,7 +712,7 @@ func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 }
 
 func (this *GameUnit) CheckExp(exp int32) int32 {
-	fmt.Println("CheckExp in", exp)
+	std.LogInfo("CheckExp in", exp)
 	if this.Owner == nil {
 		return 0
 	}
@@ -736,8 +734,8 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 			break
 		}
 		promote := GetPromoteRecordById(this.UnitId)
-		fmt.Println("this.IProperties[prpc.IPT_PROMOTE]", this.IProperties[prpc.IPT_PROMOTE])
-		fmt.Println("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
+		std.LogInfo("this.IProperties[prpc.IPT_PROMOTE]", this.IProperties[prpc.IPT_PROMOTE])
+		std.LogInfo("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
 		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
 
 		exp -= exp_info
@@ -747,7 +745,7 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 		this.Owner.CheckSkillBase()
 	}
 
-	fmt.Println("CheckExp out final", exp)
+	std.LogInfo("CheckExp out final", exp)
 
 	return exp
 }

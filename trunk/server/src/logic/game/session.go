@@ -1,10 +1,10 @@
 package game
 
 import (
-	"fmt"
 	"logic/prpc"
 	"logic/socket"
 	"encoding/json"
+	"logic/std"
 )
 
 type Session struct {
@@ -15,7 +15,7 @@ type Session struct {
 }
 
 func (this *Session) Login(info prpc.COM_LoginInfo) error {
-	fmt.Println("Login", info)
+	std.LogInfo("Login", info)
 	infoext := prpc.COM_AccountInfo{}
 	infoext.SessionCode = info.Username + info.Password
 
@@ -43,8 +43,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 				PlayerStore = append(PlayerStore,this.player)
 			}
 			infoext.MyPlayer = p.COM_Player
-			fmt.Println(infoext.MyPlayer.UnitGroup)
-			fmt.Println(p.Employees)
+			std.LogInfo("", infoext.MyPlayer.UnitGroup)
+			std.LogInfo("", p.Employees)
 		}
 	}else{
 		this.player.SetSession(this)
@@ -76,34 +76,34 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 	this.CreatePlayerOK(r.COM_Player)
 
 	this.player.SyncBag()
-	fmt.Println(tempId, "CreatePlayer", &r)
+	std.LogInfo(string(tempId), "CreatePlayer", &r)
 	b,_ := json.Marshal(r)
-	fmt.Println(string(b))
+	std.LogInfo(string(b))
 
 	return nil
 } // 1
 func (this *Session) AddBattleUnit(instId int64, groupId int32) error {
-	fmt.Println("SetBattleUnit", instId)
+	std.LogInfo("SetBattleUnit", instId)
 	this.player.SetBattleUnit(instId)
 
 	r := this.player.GetBattleUnit(instId)
 
 	this.SetBattleUnitOK(r.InstId)
 
-	fmt.Println("SetBattleUnitOK")
+	std.LogInfo("SetBattleUnitOK")
 
 	return nil
 } // 2
 
 func (this *Session) PopBattleUnit(instId int64, groupId int32) error {
-	fmt.Println("SetBattleUnit", instId)
+	std.LogInfo("SetBattleUnit", instId)
 	this.player.SetBattleUnit(instId)
 
 	r := this.player.GetBattleUnit(instId)
 
 	this.SetBattleUnitOK(r.InstId)
 
-	fmt.Println("SetBattleUnitOK")
+	std.LogInfo("SetBattleUnitOK")
 
 	return nil
 } // 3
@@ -120,7 +120,7 @@ func (this *Session) JoinBattle() error {
 } // 4
 
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition, skillid int32) error {
-	//fmt.Println("SetupBattle", positionList)
+	//std.LogInfo("SetupBattle", positionList)
 	r := this.player.SetupBattle(positionList, skillid)
 
 	if r != nil {
@@ -128,7 +128,7 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition, skillid
 	}
 
 	this.SetupBattleOK()
-	//fmt.Println("SetupBattleOK", positionList)
+	//std.LogInfo("SetupBattleOK", positionList)
 
 	return nil
 } // 5
@@ -146,7 +146,7 @@ func (this *Session) ChallengeSmallChapter(smallChapterId int32) error {
 	if this.player == nil {
 		return nil
 	}
-	fmt.Println(1);
+	std.LogInfo("1");
 	this.player.AttackChapter(smallChapterId)
 
 	return nil
@@ -241,13 +241,13 @@ func (this *Session) Update() {
 	for {
 		err := this.peer.HandleSocket()
 		if err != nil {
-			fmt.Println(err)
+			std.LogInfo("", err)
 			goto endLoop
 		}
 		if this.peer.IncomingBuffer.Len() >= 2 {
 			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
 			if err != nil {
-				fmt.Println("err", err)
+				std.LogInfo("err", err)
 				goto endLoop
 			}
 		}
@@ -262,7 +262,7 @@ endLoop:
 		this.player = nil
 		this.peer = nil
 
-		fmt.Println("Socket close ")
+		std.LogInfo("Socket close ")
 	}
 
 }

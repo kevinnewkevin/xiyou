@@ -1,37 +1,13 @@
 package prpc
 import(
   "bytes"
-  "sync"
   "suzuki/prpc"
 )
 type COM_LearnSkill struct{
-  sync.Mutex
   Position int32  //0
   SkillID int32  //1
 }
-func (this *COM_LearnSkill)SetPosition(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.Position = value
-}
-func (this *COM_LearnSkill)GetPosition() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.Position
-}
-func (this *COM_LearnSkill)SetSkillID(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.SkillID = value
-}
-func (this *COM_LearnSkill)GetSkillID() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.SkillID
-}
 func (this *COM_LearnSkill)Serialize(buffer *bytes.Buffer) error {
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.Position!=0)
@@ -63,8 +39,6 @@ func (this *COM_LearnSkill)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_LearnSkill)Deserialize(buffer *bytes.Buffer) error{
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

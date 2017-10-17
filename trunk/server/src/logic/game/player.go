@@ -2,10 +2,10 @@ package game
 
 import (
 	"errors"
-	"fmt"
 	"logic/prpc"
 	"strings"
 	"strconv"
+	"logic/std"
 )
 
 const (
@@ -103,7 +103,7 @@ func RemovePlayerByInstName(instName string){
 			PlayerStore = append(PlayerStore[:i],PlayerStore[i+1:]...)
 		}
 	}
-	fmt.Println("RemovePlayerByInstName Name=",instName,"PlayerStore len=",len(PlayerStore))
+	std.LogInfo("RemovePlayerByInstName Name=",instName,"PlayerStore len=",len(PlayerStore))
 }
 
 func RemovePlayer(player *GamePlayer)  {
@@ -151,7 +151,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.InitUnitGroup()
 
 	for _,u := range p.UnitList{
-		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+		std.LogInfo("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
 	p.SkillBase = map[int32]int32{}
 
@@ -306,7 +306,7 @@ func (this *GamePlayer) HasUnitByTableId(tableId int32) bool{
 
 func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) error {
 	if skillpos >= 2 {
-		fmt.Println("技能位置錯誤")
+		std.LogInfo("技能位置錯誤")
 		return errors.New("技能位置錯誤")
 	}
 	unit := this.GetUnit(UnitID)
@@ -342,7 +342,7 @@ func (this *GamePlayer) JoinBattle() {
 
 		battlePlayerList = battlePlayerList[:0]
 	}
-	fmt.Println("JoinBattle", battlePlayerList)
+	std.LogInfo("JoinBattle", battlePlayerList)
 }
 
 func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
@@ -351,7 +351,7 @@ func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
 
 	CreatePvE(battlePlayerList[0], 1)
 
-	fmt.Println("JoinBattlePvE", battlePlayerList)
+	std.LogInfo("JoinBattlePvE", battlePlayerList)
 }
 
 
@@ -379,7 +379,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 		return //在出战设置你妹
 	}
 	this.BattleUnitList = append(this.BattleUnitList, instId)
-	fmt.Println("SetBattleUnit ", this.BattleUnitList)
+	std.LogInfo("SetBattleUnit ", this.BattleUnitList)
 }
 
 func (this *GamePlayer)InitUnitGroup()  {
@@ -397,16 +397,16 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle 
 	if this.GetUnit(instId) == nil {
 		return
 	}
-	fmt.Println("SetBattleUnitGroup InstId",instId,"GroupID",groupId,"IsBattle",isBattle)
+	std.LogInfo("SetBattleUnitGroup InstId",instId,"GroupID",groupId,"IsBattle",isBattle)
 	if isBattle {
 		addError := this.AddUnitToGroup(instId,groupId)
 		if addError != 0{
-			fmt.Println("AddUnitToGroup Error",addError)
+			std.LogInfo("AddUnitToGroup Error",addError)
 		}
 	}else {
 		addError := this.RemoveUnitToGroup(instId,groupId)
 		if addError != 0{
-			fmt.Println("RemoveUnitToGroup Error",addError)
+			std.LogInfo("RemoveUnitToGroup Error",addError)
 		}
 	}
 }
@@ -493,7 +493,7 @@ func (this *GamePlayer)DeleteUnitGroup(groupId int32)  {
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition , skillid int32) error { //卡牌上阵	每次回合之前
 	//this.Lock()
 	//defer this.Unlock()
-	//fmt.Println("SetupBattle", pos)
+	//std.LogInfo("SetupBattle", pos)
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息
@@ -509,9 +509,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition , skillid int3
 		//错误消息
 		return nil
 	}
-	fmt.Println("SetupBattle 1 ", battleRoom.Units)
+	std.LogInfo("SetupBattle 1 ", battleRoom.Units)
 	battleRoom.SetupPosition(this, pos, skillid)
-	fmt.Println("SetupBattle 2 ", battleRoom.Units)
+	std.LogInfo("SetupBattle 2 ", battleRoom.Units)
 
 	this.session.SetupBattleOK()
 
@@ -546,7 +546,7 @@ func (this *GamePlayer)SyncBag()  {
 	}
 
 	for _,item := range items{
-		fmt.Println("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
+		std.LogInfo("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
 	}
 
 	if this.session != nil {
@@ -557,7 +557,7 @@ func (this *GamePlayer)SyncBag()  {
 func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 	itemData := GetItemTableDataById(itemId)
 	if itemData==nil {
-		fmt.Println("ItemTable Not Find This ItemId=",itemId)
+		std.LogInfo("ItemTable Not Find This ItemId=",itemId)
 		return
 	}
 	for _,itemInst := range this.BagItems{
@@ -605,7 +605,7 @@ func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 	itemInst := this.GetBagItemByInstId(instid)
 	if itemInst == nil {
-		fmt.Println("Not Find Item In The Bag",instid)
+		std.LogInfo("Not Find Item In The Bag",instid)
 		return
 	}
 	for i:=0;i<len(this.BagItems) ;i++  {
@@ -633,7 +633,7 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
 	items := this.GetBagItemByTableId(tableId)
 	if len(items) == 0 {
-		fmt.Println("Can Not Find Item In Bag By TableId =",tableId)
+		std.LogInfo("Can Not Find Item In Bag By TableId =",tableId)
 		return
 	}
 	for _,item := range items{
@@ -702,7 +702,7 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 			if this.session != nil {
 				this.session.ErrorMessage(errorId)
 			}
-			fmt.Println("useItem errorId=",errorId,"itemId=",itemData.ItemId)
+			std.LogInfo("useItem errorId=",errorId,"itemId=",itemData.ItemId)
 			break
 		}
 		usestack++
@@ -710,13 +710,13 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 	if usestack != 0 {
 		this.DelItemByInstId(instId,int32(usestack))
 	}
-	fmt.Println("123123123123",r,len(r),r[0],usestack)
+	std.LogInfo("123123123123",r,len(r),r[0],usestack)
 }
 
 func (this *GamePlayer)GiveDrop(dropId int32)  {
 	drop := GetDropById(dropId)
 	if drop==nil {
-		fmt.Println("Can Not Find Drop By DropId=",dropId)
+		std.LogInfo("Can Not Find Drop By DropId=",dropId)
 		return
 	}
 	if drop.Exp != 0 {
@@ -728,17 +728,17 @@ func (this *GamePlayer)GiveDrop(dropId int32)  {
 	if len(drop.Items) != 0 {
 		for _,item := range drop.Items{
 			this.AddBagItemByItemId(item.ItemId,item.ItemNum)
-			fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+			std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 		}
 	}
 	if drop.Hero != 0 {
 		if this.HasUnitByTableId(drop.Hero) {
 			//有这个卡就不给了
-			fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
+			std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
 		}else {
 			unit := this.NewGameUnit(drop.Hero)
 			if unit!=nil {
-				fmt.Println("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+				std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
 				temp := unit.GetUnitCOM()
 				if this.session != nil {
 					this.session.AddNewUnit(temp)
@@ -760,7 +760,7 @@ func (this *GamePlayer)AddExp(val int32)  {
 
 	this.MyUnit.SetIProperty(prpc.IPT_EXPERIENCE,curExp)
 
-	fmt.Println("append EXP",val,"all EXP",curExp)
+	std.LogInfo("append EXP",val,"all EXP",curExp)
 }
 
 func (this *GamePlayer)AddCopper(val int32)  {
@@ -774,7 +774,7 @@ func (this *GamePlayer)AddCopper(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER,curCopper)
 
-	fmt.Println("Player[",this.MyUnit.InstName,"]","Old Copper=",oldCopper,"curCopper=",curCopper)
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old Copper=",oldCopper,"curCopper=",curCopper)
 }
 
 func (this *GamePlayer)AddGold(val int32)  {
@@ -788,11 +788,11 @@ func (this *GamePlayer)AddGold(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_GOLD,curGold)
 
-	fmt.Println("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
 }
 
 func (this *GamePlayer) ClearAllBuff ()  {
-	fmt.Println("ClearAllBuff")
+	std.LogInfo("ClearAllBuff")
 	this.MyUnit.ClearAllbuff()
 
 	for _, unit := range this.UnitList {
@@ -805,7 +805,7 @@ func (this *GamePlayer) ClearAllBuff ()  {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer) PromoteUnit (unitid int64)  {
-	fmt.Println("PromoteUnit", unitid)
+	std.LogInfo("PromoteUnit", unitid)
 	unit := this.GetUnit(unitid)
 	if unit == nil {
 		return
@@ -825,7 +825,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	items := this.GetBagItemByTableId(level_info.ItemId)
 
 	if items == nil || len(items) <= 0{
-		fmt.Println("cant find item, this id is ", level_info.ItemId)
+		std.LogInfo("cant find item, this id is ", level_info.ItemId)
 		return
 	}
 
@@ -835,7 +835,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	}
 
 	if num < level_info.ItemNum {
-		fmt.Println("数量不足, this id is ", level_info.ItemId, "need itemnum is ", level_info.ItemNum, "i have num is ", num)
+		std.LogInfo("数量不足, this id is ", level_info.ItemId, "need itemnum is ", level_info.ItemNum, "i have num is ", num)
 		return
 	}
 
@@ -850,7 +850,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 func (this *GamePlayer) MyUnitLevelUp()  {
 
 	LevelUp_info := GetPromoteRecordById(1)
-	fmt.Println("MyUnitLevelUp 1", LevelUp_info)
+	std.LogInfo("MyUnitLevelUp 1", LevelUp_info)
 
 	if LevelUp_info == nil {
 		return
@@ -864,7 +864,7 @@ func (this *GamePlayer) MyUnitLevelUp()  {
 
 	this.MyUnit.Promote(level_info)
 	this.MyUnit.Level = level_info.Level
-	fmt.Println("MyUnitLevelUp 2", level_info)
+	std.LogInfo("MyUnitLevelUp 2", level_info)
 
 	for ID, info := range RoleSkillTable {
 		if this.MyUnit.Level < info.OpenLv {
@@ -907,7 +907,7 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 	}
 
 	this.MyUnit.SetIProperty(prpc.IPT_ENERGY, myEnergy)
-	fmt.Println("SetMyEnergy Val=",val,"CurmyEnergy=",myEnergy)
+	std.LogInfo("SetMyEnergy Val=",val,"CurmyEnergy=",myEnergy)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -916,7 +916,7 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 
 func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
-	fmt.Println("EquipSkill", skillinfo)
+	std.LogInfo("EquipSkill", skillinfo)
 
 	skill := GetRoleSkillRecordById(skillinfo.SkillID)
 	if skill == nil {
@@ -939,17 +939,17 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 	switch skillinfo.Position {
 		case 0:
 			if skill.Type != 0{
-				fmt.Println("EquipSkill skill.Type wrong", 0)
+				std.LogInfo("EquipSkill skill.Type wrong", 0)
 				return
 			}
 		case 1, 2:
 			if skill.Type != 1{
-				fmt.Println("EquipSkill skill.Type wrong", 1, 2)
+				std.LogInfo("EquipSkill skill.Type wrong", 1, 2)
 				return
 			}
 		case 3:
 			if skill.Type != 2 {
-				fmt.Println("EquipSkill skill.Type wrong", 3)
+				std.LogInfo("EquipSkill skill.Type wrong", 3)
 				return
 			}
 	}
@@ -958,7 +958,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	var idx int32 = -1
 	for index, skill_ := range this.MyUnit.Skill {
-		fmt.Println("skill", skill_, &skill_)
+		std.LogInfo("skill", skill_, &skill_)
 		if skill_ == nil {
 			continue
 		}
@@ -975,10 +975,10 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 		this.MyUnit.Skill[idx] = nil
 	}
 
-	fmt.Println("skillall", this.MyUnit.Skill)
+	std.LogInfo("skillall", this.MyUnit.Skill)
 
 	this.session.EquipSkillOK(skillinfo.Position, learnSkill.SkillID)
-	fmt.Println("EquipSkillOK", skillinfo.Position, learnSkill.SkillID)
+	std.LogInfo("EquipSkillOK", skillinfo.Position, learnSkill.SkillID)
 
 	//如果是被动技能 需要修改buff
 
@@ -986,7 +986,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 }
 
 func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
-	fmt.Println("SkillUpdate", skillindex, skillId)
+	std.LogInfo("SkillUpdate", skillindex, skillId)
 	if this.SkillBase[skillindex] == 0 {
 		return
 	}
@@ -1046,8 +1046,8 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 	this.SkillBase[skillindex] = updateInfo.NextID
 
 	this.session.SkillUpdateOK(skillindex, updateInfo.NextID, skillpos)
-	fmt.Println("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
-	fmt.Println("SkillUpdateOK 1", this.SkillBase)
+	std.LogInfo("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
+	std.LogInfo("SkillUpdateOK 1", this.SkillBase)
 
 }
 
@@ -1111,7 +1111,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 			return
 		}
 		this.AddGold(-shopData.Price)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
+		std.LogInfo("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
 	}
 
 	if shopData.ShopType == prpc.SHT_BuyCopper {
@@ -1121,7 +1121,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 				this.OpenTreasureBox(shopData.CardPondId)
 			}
 		}else {
-			fmt.Println("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
+			std.LogInfo("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
 		}
 	}
 }
@@ -1129,7 +1129,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 	data := GetCardPondTableDataById(pondId)
 	if data==nil {
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GetCardPondTableDataById Can Not Find pondId=",pondId)
+		std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GetCardPondTableDataById Can Not Find pondId=",pondId)
 		return false
 	}
 
@@ -1142,19 +1142,19 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 	for _,itemId := range greenItems{
 		items = append(items,itemId)
-		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
+		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
 	}
 	for _,itemId := range buleItems{
 		items = append(items,itemId)
-		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
+		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
 	}
 	for _,itemId := range purplenItems{
 		items = append(items,itemId)
-		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
+		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
 	}
 	for _,itemId := range orangeItems{
 		items = append(items,itemId)
-		//fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
+		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
 	}
 
 	itemInsts := []prpc.COM_ItemInst{}
@@ -1177,7 +1177,7 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 	for _,item := range itemInsts{
 		this.AddBagItemByItemId(item.ItemId,item.Stack)
-		fmt.Println("Player[",this.MyUnit.InstName,"]","OpenTreasureBox AddItem ID=",item.ItemId,"Num=",item.Stack)
+		std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox AddItem ID=",item.ItemId,"Num=",item.Stack)
 	}
 
 	if this.session != nil {
@@ -1189,7 +1189,7 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func (this *GamePlayer) Logout(){
 
-	fmt.Println("Logout","PlayerName=",this.MyUnit.InstName)
+	std.LogInfo("Logout","PlayerName=",this.MyUnit.InstName)
 	//清理战斗信息
 	this.LeftBattle_strong()
 	
@@ -1202,7 +1202,7 @@ func (this *GamePlayer) Logout(){
 }
 
 func (this* GamePlayer)Save(){
-	fmt.Println("SAVE ")
+	std.LogInfo("SAVE ")
 	UpdatePlayer(this.GetPlayerSGE())
 }
 
@@ -1216,7 +1216,7 @@ func TestPlayer() {
 	P1.BuyShopItem(1001)
 	P1.BuyShopItem(1002)
 	for i:=0;i<len(P1.BagItems) ;i++  {
-		fmt.Println("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
+		std.LogInfo("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
 	}
 	P1.TestItem()
 }
@@ -1231,6 +1231,6 @@ func (this *GamePlayer)TestItem()  {
 	this.GiveDrop(1000)
 
 	for _,u := range this.UnitList{
-		fmt.Println("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+		std.LogInfo("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
 }

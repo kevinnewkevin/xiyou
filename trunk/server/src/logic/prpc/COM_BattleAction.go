@@ -1,70 +1,16 @@
 package prpc
 import(
   "bytes"
-  "sync"
   "suzuki/prpc"
 )
 type COM_BattleAction struct{
-  sync.Mutex
   InstId int64  //0
   BuffList []COM_BattleBuffAction  //1
   SkillId int32  //2
   SkillBuff []COM_BattleBuff  //3
   TargetList []COM_BattleActionTarget  //4
 }
-func (this *COM_BattleAction)SetInstId(value int64) {
-  this.Lock()
-  defer this.Unlock()
-  this.InstId = value
-}
-func (this *COM_BattleAction)GetInstId() int64 {
-  this.Lock()
-  defer this.Unlock()
-  return this.InstId
-}
-func (this *COM_BattleAction)SetBuffList(value []COM_BattleBuffAction) {
-  this.Lock()
-  defer this.Unlock()
-  this.BuffList = value
-}
-func (this *COM_BattleAction)GetBuffList() []COM_BattleBuffAction {
-  this.Lock()
-  defer this.Unlock()
-  return this.BuffList
-}
-func (this *COM_BattleAction)SetSkillId(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.SkillId = value
-}
-func (this *COM_BattleAction)GetSkillId() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.SkillId
-}
-func (this *COM_BattleAction)SetSkillBuff(value []COM_BattleBuff) {
-  this.Lock()
-  defer this.Unlock()
-  this.SkillBuff = value
-}
-func (this *COM_BattleAction)GetSkillBuff() []COM_BattleBuff {
-  this.Lock()
-  defer this.Unlock()
-  return this.SkillBuff
-}
-func (this *COM_BattleAction)SetTargetList(value []COM_BattleActionTarget) {
-  this.Lock()
-  defer this.Unlock()
-  this.TargetList = value
-}
-func (this *COM_BattleAction)GetTargetList() []COM_BattleActionTarget {
-  this.Lock()
-  defer this.Unlock()
-  return this.TargetList
-}
 func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -144,8 +90,6 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
