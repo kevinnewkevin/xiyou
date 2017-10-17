@@ -16,8 +16,8 @@ const(
 
 func ConnectDB() (*sql.DB, error) {
 	//dsn := beego.AppConfig.String("dbuser") + ":" + beego.AppConfig.String("dbpass") + "@tcp(" + beego.AppConfig.String("dbhost") + ":" + beego.AppConfig.String("dbport") + ")/" + beego.AppConfig.String("dbname")
-	//dsn := "xysk:123456@tcp(106.75.8.248:3306)/xygame"
-	dsn := GetEnvString("V_MySqlData")
+	dsn := "xysk:123456@tcp(106.75.8.248:3306)/xygame"
+	//dsn := "xysk:123456@tcp(10.10.10.254:3306)/xygame"
 	return sql.Open("mysql", dsn)
 }
 
