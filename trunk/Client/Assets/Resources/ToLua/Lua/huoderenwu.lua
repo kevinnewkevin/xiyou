@@ -67,9 +67,9 @@ function huoderenwu_FlushData()
     local card = GamePlayer.newCard;
     local displayData = GamePlayer.GetDisplayDataByInstID(card.InstId);
     modelRes = displayData._AssetPath;
-
+    race.asLoader.url = "ui://" .. displayData._Race;
     local wrapper = Proxy4Lua.GetAssetGameObject(modelRes, true);
-    local anim = wrapper.wrapTarget.GetComponent("Animation");
+    local anim = wrapper.wrapTarget:GetComponent("Animation");
     anim.Play("attack");
     holder:SetNativeObject(wrapper);
 
@@ -78,4 +78,3 @@ function huoderenwu_FlushData()
     nameLab.text = entityData._Name;
 
 end
-
