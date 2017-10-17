@@ -363,6 +363,21 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 						result.BattleItems = append(result.BattleItems,itemInst)
 					}
 				}
+				if drop.Hero != 0 {
+					if p.HasUnitByTableId(drop.Hero) {
+						//有这个卡就不给了
+						fmt.Println("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
+					}else {
+						unit := p.NewGameUnit(drop.Hero)
+						if unit!=nil {
+							fmt.Println("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+							temp := unit.GetUnitCOM()
+							if p.session != nil {
+								p.session.AddNewUnit(temp)
+							}
+						}
+					}
+				}
 			}
 			fmt.Println("Battle Over PVE DropId=",dropId)
 		}
