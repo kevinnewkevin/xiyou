@@ -10,7 +10,7 @@ sys.log("九头蛇 SK_319_Action 开始")
 --  计算伤害数值
 --  计算是否暴击
 --  攻击
--- 群蛇乱舞。对敌方随机目标进行9次攻击（随机9次目标），每次攻击造成30%法术强度伤害，每次攻击会使目标降低10%速度，持续1回合。
+-- 酸雾喷吐。使敌方全体目标受到30%法术强度的伤害，受到该伤害的目标无法回复生命值（所有回复生命值类型的属性和技能都不会生效。回复量为0），持续3回合。
 -- 增加速度视作buff
 
 function SK_319_Action(battleid, casterid)
@@ -36,7 +36,7 @@ function SK_319_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local atk_damage = damage*0.3*9
+		local atk_damage = damage*0.3
 		
 		Battle.Attack(battleid, casterid, v, atk_damage, crit)
 		
