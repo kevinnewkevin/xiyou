@@ -2,8 +2,7 @@ sys.log(" 主角 主动技能  6 开始")
 
 --主角6技能  全体加血
 
-function All_6_Skill(battleid, casterid,attackNum,level,skillid)
-	Battle.Cure(battleid,casterid,truedamage,crit)   --jiaxue
+function All_6_Skill(battleid, casterid,attackNum,level,skillid) 
 	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 	for i,v in ipairs(t) do
 	
