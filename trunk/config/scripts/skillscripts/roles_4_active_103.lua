@@ -17,8 +17,8 @@ function SK_103_Action(battleid, casterid)
 	
 		Battle.TargetOn(battleid) -- 清空数据
 		Battle.Cure(battleid,v,0,0)
-		Battle.AddBuff(battleid,casterid,v,114,20)   --增shangfang
-		
+		Battle.AddBuff(battleid,casterid,v,112,20)   --增shangfang
+		Battle.AddBuff(battleid,casterid,v,112,20)   --增shangfang
 		Battle.TargetOver(battleid)  
 		
 		

@@ -5,7 +5,7 @@
 sys.log("buff114")
 
 function buff_114_add(battleid, unitid, buffinstid,data) 
-	 Player.ChangeUnitProperty(battleid, unitid,data,"CPT_DEF")  --加物理防御
+	-- Player.ChangeUnitProperty(battleid, unitid,data,"CPT_DEF")  --加物理防御
 	 Player.ChangeUnitProperty(battleid, unitid,data,"CPT_MAGIC_DEF")  --加法术防御
 
 	
@@ -23,7 +23,7 @@ end
 
 function buff_114_delete(battleid, unitid, buffinstid,data)
 
-	Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_DEF")   --减物理防御
+	--Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_DEF")   --减物理防御
 	Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_MAGIC_DEF")   --减法术防御
 	
 	sys.log("buff_114_delete "..","..battleid..","..buffinstid..","..data)

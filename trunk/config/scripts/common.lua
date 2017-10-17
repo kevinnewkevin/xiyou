@@ -281,3 +281,9 @@ function skill1_user_atk(battleid,casterid,targetid,level,buffid,num)
 	Battle.AddBuff(battleid,casterid,targetid,buffid,data)
 	
 end
+
+
+
+
+
+	
