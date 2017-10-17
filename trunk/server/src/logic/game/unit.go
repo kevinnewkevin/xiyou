@@ -349,6 +349,9 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 			return false
 		} else {
 			for _, sk := range this.Skill {
+				if sk == nil {
+					continue
+				}
 				if sk.SkillID == this.ChoiceSKill{
 					skill = sk
 					break

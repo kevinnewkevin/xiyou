@@ -142,6 +142,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit.IsMain = true
 	p.Exp = 0
 
+	std.LogInfo("createplayer", DefaultUnits)
 	for _, e_id := range DefaultUnits {
 		p.NewGameUnit(e_id)
 	}
@@ -176,6 +177,9 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 	chapterids := GetUnitChapterById(tid)
 	for i:=0;i<len(chapterids) ;i++  {
 		OpenChapter(this,chapterids[i])
+	}
+	if tid == 1 || tid == 2 {		//主角卡不要放在牌库中
+		return unit
 	}
 	this.UnitList = append(this.UnitList, unit)
 	return unit
