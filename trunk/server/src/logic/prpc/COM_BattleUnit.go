@@ -1,9 +1,11 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "suzuki/prpc"
 )
 type COM_BattleUnit struct{
+  sync.Mutex
   UnitId int32  //0
   InstId int64  //1
   Position int32  //2
@@ -12,7 +14,79 @@ type COM_BattleUnit struct{
   Level int32  //5
   Name string  //6
 }
+func (this *COM_BattleUnit)SetUnitId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.UnitId = value
+}
+func (this *COM_BattleUnit)GetUnitId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.UnitId
+}
+func (this *COM_BattleUnit)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_BattleUnit)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_BattleUnit)SetPosition(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Position = value
+}
+func (this *COM_BattleUnit)GetPosition() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Position
+}
+func (this *COM_BattleUnit)SetHP(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.HP = value
+}
+func (this *COM_BattleUnit)GetHP() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.HP
+}
+func (this *COM_BattleUnit)SetCHP(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.CHP = value
+}
+func (this *COM_BattleUnit)GetCHP() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.CHP
+}
+func (this *COM_BattleUnit)SetLevel(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Level = value
+}
+func (this *COM_BattleUnit)GetLevel() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Level
+}
+func (this *COM_BattleUnit)SetName(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.Name = value
+}
+func (this *COM_BattleUnit)GetName() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.Name
+}
 func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.UnitId!=0)
@@ -92,6 +166,8 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleUnit)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

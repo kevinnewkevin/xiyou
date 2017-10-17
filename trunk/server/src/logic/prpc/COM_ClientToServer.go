@@ -3,62 +3,79 @@ import(
   "bytes"
   "errors"
   "suzuki/prpc"
+  "sync"
 )
 type COM_ClientToServer_Login struct{
+  sync.Mutex
   info COM_LoginInfo  //0
 }
 type COM_ClientToServer_CreatePlayer struct{
+  sync.Mutex
   tempId int32  //0
   playerName string  //1
 }
 type COM_ClientToServer_AddBattleUnit struct{
+  sync.Mutex
   instId int64  //0
   groupId int32  //1
 }
 type COM_ClientToServer_PopBattleUnit struct{
+  sync.Mutex
   instId int64  //0
   groupId int32  //1
 }
 type COM_ClientToServer_SetBattleUnit struct{
+  sync.Mutex
   instId int64  //0
   groupId int32  //1
   isBattle bool  //2
 }
 type COM_ClientToServer_DelUnitGroup struct{
+  sync.Mutex
   groupId int32  //0
 }
 type COM_ClientToServer_SetupBattle struct{
+  sync.Mutex
   positionList []COM_BattlePosition  //0
   skillid int32  //1
 }
 type COM_ClientToServer_RequestChapterData struct{
+  sync.Mutex
   chapterId int32  //0
 }
 type COM_ClientToServer_ChallengeSmallChapter struct{
+  sync.Mutex
   smallChapterId int32  //0
 }
 type COM_ClientToServer_RequestChapterStarReward struct{
+  sync.Mutex
   chapterId int32  //0
   star int32  //1
 }
 type COM_ClientToServer_StartMatching struct{
+  sync.Mutex
   groupId int32  //0
 }
 type COM_ClientToServer_DeleteItem struct{
+  sync.Mutex
   instId int64  //0
   stack int32  //1
 }
 type COM_ClientToServer_PromoteUnit struct{
+  sync.Mutex
   instId int64  //0
 }
 type COM_ClientToServer_EquipSkill struct{
+  sync.Mutex
   skillInfo COM_LearnSkill  //0
 }
 type COM_ClientToServer_SkillUpdate struct{
+  sync.Mutex
   skillIndex int32  //0
   skillID int32  //1
 }
 type COM_ClientToServer_BuyShopItem struct{
+  sync.Mutex
   shopId int32  //0
 }
 type COM_ClientToServerStub struct{
@@ -84,7 +101,19 @@ type COM_ClientToServerProxy interface{
   SkillUpdate(skillIndex int32, skillID int32 ) error // 16
   BuyShopItem(shopId int32 ) error // 17
 }
+func (this *COM_ClientToServer_Login)Setinfo(value COM_LoginInfo) {
+  this.Lock()
+  defer this.Unlock()
+  this.info = value
+}
+func (this *COM_ClientToServer_Login)Getinfo() COM_LoginInfo {
+  this.Lock()
+  defer this.Unlock()
+  return this.info
+}
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(true) //info
@@ -104,6 +133,8 @@ func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_ClientToServer_Login)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -118,7 +149,29 @@ func (this *COM_ClientToServer_Login)Deserialize(buffer *bytes.Buffer) error{
   }
   return nil
 }
+func (this *COM_ClientToServer_CreatePlayer)SettempId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.tempId = value
+}
+func (this *COM_ClientToServer_CreatePlayer)GettempId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.tempId
+}
+func (this *COM_ClientToServer_CreatePlayer)SetplayerName(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.playerName = value
+}
+func (this *COM_ClientToServer_CreatePlayer)GetplayerName() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.playerName
+}
 func (this *COM_ClientToServer_CreatePlayer)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.tempId!=0)
@@ -148,6 +201,8 @@ func (this *COM_ClientToServer_CreatePlayer)Serialize(buffer *bytes.Buffer) erro
   return nil
 }
 func (this *COM_ClientToServer_CreatePlayer)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -169,7 +224,29 @@ func (this *COM_ClientToServer_CreatePlayer)Deserialize(buffer *bytes.Buffer) er
   }
   return nil
 }
+func (this *COM_ClientToServer_AddBattleUnit)SetinstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.instId = value
+}
+func (this *COM_ClientToServer_AddBattleUnit)GetinstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.instId
+}
+func (this *COM_ClientToServer_AddBattleUnit)SetgroupId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.groupId = value
+}
+func (this *COM_ClientToServer_AddBattleUnit)GetgroupId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.groupId
+}
 func (this *COM_ClientToServer_AddBattleUnit)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.instId!=0)
@@ -201,6 +278,8 @@ func (this *COM_ClientToServer_AddBattleUnit)Serialize(buffer *bytes.Buffer) err
   return nil
 }
 func (this *COM_ClientToServer_AddBattleUnit)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -222,7 +301,29 @@ func (this *COM_ClientToServer_AddBattleUnit)Deserialize(buffer *bytes.Buffer) e
   }
   return nil
 }
+func (this *COM_ClientToServer_PopBattleUnit)SetinstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.instId = value
+}
+func (this *COM_ClientToServer_PopBattleUnit)GetinstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.instId
+}
+func (this *COM_ClientToServer_PopBattleUnit)SetgroupId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.groupId = value
+}
+func (this *COM_ClientToServer_PopBattleUnit)GetgroupId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.groupId
+}
 func (this *COM_ClientToServer_PopBattleUnit)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.instId!=0)
@@ -254,6 +355,8 @@ func (this *COM_ClientToServer_PopBattleUnit)Serialize(buffer *bytes.Buffer) err
   return nil
 }
 func (this *COM_ClientToServer_PopBattleUnit)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -275,7 +378,39 @@ func (this *COM_ClientToServer_PopBattleUnit)Deserialize(buffer *bytes.Buffer) e
   }
   return nil
 }
+func (this *COM_ClientToServer_SetBattleUnit)SetinstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.instId = value
+}
+func (this *COM_ClientToServer_SetBattleUnit)GetinstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.instId
+}
+func (this *COM_ClientToServer_SetBattleUnit)SetgroupId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.groupId = value
+}
+func (this *COM_ClientToServer_SetBattleUnit)GetgroupId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.groupId
+}
+func (this *COM_ClientToServer_SetBattleUnit)SetisBattle(value bool) {
+  this.Lock()
+  defer this.Unlock()
+  this.isBattle = value
+}
+func (this *COM_ClientToServer_SetBattleUnit)GetisBattle() bool {
+  this.Lock()
+  defer this.Unlock()
+  return this.isBattle
+}
 func (this *COM_ClientToServer_SetBattleUnit)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.instId!=0)
@@ -311,6 +446,8 @@ func (this *COM_ClientToServer_SetBattleUnit)Serialize(buffer *bytes.Buffer) err
   return nil
 }
 func (this *COM_ClientToServer_SetBattleUnit)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -334,7 +471,19 @@ func (this *COM_ClientToServer_SetBattleUnit)Deserialize(buffer *bytes.Buffer) e
   this.isBattle = mask.ReadBit();
   return nil
 }
+func (this *COM_ClientToServer_DelUnitGroup)SetgroupId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.groupId = value
+}
+func (this *COM_ClientToServer_DelUnitGroup)GetgroupId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.groupId
+}
 func (this *COM_ClientToServer_DelUnitGroup)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.groupId!=0)
@@ -356,6 +505,8 @@ func (this *COM_ClientToServer_DelUnitGroup)Serialize(buffer *bytes.Buffer) erro
   return nil
 }
 func (this *COM_ClientToServer_DelUnitGroup)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -370,7 +521,29 @@ func (this *COM_ClientToServer_DelUnitGroup)Deserialize(buffer *bytes.Buffer) er
   }
   return nil
 }
+func (this *COM_ClientToServer_SetupBattle)SetpositionList(value []COM_BattlePosition) {
+  this.Lock()
+  defer this.Unlock()
+  this.positionList = value
+}
+func (this *COM_ClientToServer_SetupBattle)GetpositionList() []COM_BattlePosition {
+  this.Lock()
+  defer this.Unlock()
+  return this.positionList
+}
+func (this *COM_ClientToServer_SetupBattle)Setskillid(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.skillid = value
+}
+func (this *COM_ClientToServer_SetupBattle)Getskillid() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.skillid
+}
 func (this *COM_ClientToServer_SetupBattle)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(len(this.positionList) != 0)
@@ -408,6 +581,8 @@ func (this *COM_ClientToServer_SetupBattle)Serialize(buffer *bytes.Buffer) error
   return nil
 }
 func (this *COM_ClientToServer_SetupBattle)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -437,7 +612,19 @@ func (this *COM_ClientToServer_SetupBattle)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_RequestChapterData)SetchapterId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.chapterId = value
+}
+func (this *COM_ClientToServer_RequestChapterData)GetchapterId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.chapterId
+}
 func (this *COM_ClientToServer_RequestChapterData)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.chapterId!=0)
@@ -459,6 +646,8 @@ func (this *COM_ClientToServer_RequestChapterData)Serialize(buffer *bytes.Buffer
   return nil
 }
 func (this *COM_ClientToServer_RequestChapterData)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -473,7 +662,19 @@ func (this *COM_ClientToServer_RequestChapterData)Deserialize(buffer *bytes.Buff
   }
   return nil
 }
+func (this *COM_ClientToServer_ChallengeSmallChapter)SetsmallChapterId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.smallChapterId = value
+}
+func (this *COM_ClientToServer_ChallengeSmallChapter)GetsmallChapterId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.smallChapterId
+}
 func (this *COM_ClientToServer_ChallengeSmallChapter)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.smallChapterId!=0)
@@ -495,6 +696,8 @@ func (this *COM_ClientToServer_ChallengeSmallChapter)Serialize(buffer *bytes.Buf
   return nil
 }
 func (this *COM_ClientToServer_ChallengeSmallChapter)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -509,7 +712,29 @@ func (this *COM_ClientToServer_ChallengeSmallChapter)Deserialize(buffer *bytes.B
   }
   return nil
 }
+func (this *COM_ClientToServer_RequestChapterStarReward)SetchapterId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.chapterId = value
+}
+func (this *COM_ClientToServer_RequestChapterStarReward)GetchapterId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.chapterId
+}
+func (this *COM_ClientToServer_RequestChapterStarReward)Setstar(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.star = value
+}
+func (this *COM_ClientToServer_RequestChapterStarReward)Getstar() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.star
+}
 func (this *COM_ClientToServer_RequestChapterStarReward)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.chapterId!=0)
@@ -541,6 +766,8 @@ func (this *COM_ClientToServer_RequestChapterStarReward)Serialize(buffer *bytes.
   return nil
 }
 func (this *COM_ClientToServer_RequestChapterStarReward)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -562,7 +789,19 @@ func (this *COM_ClientToServer_RequestChapterStarReward)Deserialize(buffer *byte
   }
   return nil
 }
+func (this *COM_ClientToServer_StartMatching)SetgroupId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.groupId = value
+}
+func (this *COM_ClientToServer_StartMatching)GetgroupId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.groupId
+}
 func (this *COM_ClientToServer_StartMatching)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.groupId!=0)
@@ -584,6 +823,8 @@ func (this *COM_ClientToServer_StartMatching)Serialize(buffer *bytes.Buffer) err
   return nil
 }
 func (this *COM_ClientToServer_StartMatching)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -598,7 +839,29 @@ func (this *COM_ClientToServer_StartMatching)Deserialize(buffer *bytes.Buffer) e
   }
   return nil
 }
+func (this *COM_ClientToServer_DeleteItem)SetinstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.instId = value
+}
+func (this *COM_ClientToServer_DeleteItem)GetinstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.instId
+}
+func (this *COM_ClientToServer_DeleteItem)Setstack(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.stack = value
+}
+func (this *COM_ClientToServer_DeleteItem)Getstack() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.stack
+}
 func (this *COM_ClientToServer_DeleteItem)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.instId!=0)
@@ -630,6 +893,8 @@ func (this *COM_ClientToServer_DeleteItem)Serialize(buffer *bytes.Buffer) error 
   return nil
 }
 func (this *COM_ClientToServer_DeleteItem)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -651,7 +916,19 @@ func (this *COM_ClientToServer_DeleteItem)Deserialize(buffer *bytes.Buffer) erro
   }
   return nil
 }
+func (this *COM_ClientToServer_PromoteUnit)SetinstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.instId = value
+}
+func (this *COM_ClientToServer_PromoteUnit)GetinstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.instId
+}
 func (this *COM_ClientToServer_PromoteUnit)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.instId!=0)
@@ -673,6 +950,8 @@ func (this *COM_ClientToServer_PromoteUnit)Serialize(buffer *bytes.Buffer) error
   return nil
 }
 func (this *COM_ClientToServer_PromoteUnit)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -687,7 +966,19 @@ func (this *COM_ClientToServer_PromoteUnit)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_EquipSkill)SetskillInfo(value COM_LearnSkill) {
+  this.Lock()
+  defer this.Unlock()
+  this.skillInfo = value
+}
+func (this *COM_ClientToServer_EquipSkill)GetskillInfo() COM_LearnSkill {
+  this.Lock()
+  defer this.Unlock()
+  return this.skillInfo
+}
 func (this *COM_ClientToServer_EquipSkill)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(true) //skillInfo
@@ -707,6 +998,8 @@ func (this *COM_ClientToServer_EquipSkill)Serialize(buffer *bytes.Buffer) error 
   return nil
 }
 func (this *COM_ClientToServer_EquipSkill)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -721,7 +1014,29 @@ func (this *COM_ClientToServer_EquipSkill)Deserialize(buffer *bytes.Buffer) erro
   }
   return nil
 }
+func (this *COM_ClientToServer_SkillUpdate)SetskillIndex(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.skillIndex = value
+}
+func (this *COM_ClientToServer_SkillUpdate)GetskillIndex() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.skillIndex
+}
+func (this *COM_ClientToServer_SkillUpdate)SetskillID(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.skillID = value
+}
+func (this *COM_ClientToServer_SkillUpdate)GetskillID() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.skillID
+}
 func (this *COM_ClientToServer_SkillUpdate)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.skillIndex!=0)
@@ -753,6 +1068,8 @@ func (this *COM_ClientToServer_SkillUpdate)Serialize(buffer *bytes.Buffer) error
   return nil
 }
 func (this *COM_ClientToServer_SkillUpdate)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
@@ -774,7 +1091,19 @@ func (this *COM_ClientToServer_SkillUpdate)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_BuyShopItem)SetshopId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.shopId = value
+}
+func (this *COM_ClientToServer_BuyShopItem)GetshopId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.shopId
+}
 func (this *COM_ClientToServer_BuyShopItem)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.shopId!=0)
@@ -796,6 +1125,8 @@ func (this *COM_ClientToServer_BuyShopItem)Serialize(buffer *bytes.Buffer) error
   return nil
 }
 func (this *COM_ClientToServer_BuyShopItem)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
