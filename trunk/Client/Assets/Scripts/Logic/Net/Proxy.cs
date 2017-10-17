@@ -37,7 +37,10 @@ class Proxy : ICOM_ServerToClientProxy
     }
 
     public bool AddNewUnit(ref COM_Unit u)
-    {
+	{
+		GamePlayer.AddCard (u);
+		GamePlayer.showNewCard = true;	
+		GamePlayer.newCard = u;
         return true;
     }
 
