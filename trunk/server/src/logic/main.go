@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"os/exec"
+	"fmt"
+	"logic/std"
 )
 
 func main() {
@@ -24,7 +26,16 @@ func main() {
 		}
 	}
 
+	defer func() {
+
+		if r := recover(); r != nil {
+			std.LogError("main panic %s",fmt.Sprint(r))
+		}
+
+	}()
 
 	app := application.NewApp()
 	app.Run()
+
+
 }
