@@ -1,14 +1,48 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "suzuki/prpc"
 )
 type COM_BattleBuffAction struct{
+  sync.Mutex
   BuffData int32  //0
   Dead bool  //1
   BuffChange COM_BattleBuff  //2
 }
+func (this *COM_BattleBuffAction)SetBuffData(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.BuffData = value
+}
+func (this *COM_BattleBuffAction)GetBuffData() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.BuffData
+}
+func (this *COM_BattleBuffAction)SetDead(value bool) {
+  this.Lock()
+  defer this.Unlock()
+  this.Dead = value
+}
+func (this *COM_BattleBuffAction)GetDead() bool {
+  this.Lock()
+  defer this.Unlock()
+  return this.Dead
+}
+func (this *COM_BattleBuffAction)SetBuffChange(value COM_BattleBuff) {
+  this.Lock()
+  defer this.Unlock()
+  this.BuffChange = value
+}
+func (this *COM_BattleBuffAction)GetBuffChange() COM_BattleBuff {
+  this.Lock()
+  defer this.Unlock()
+  return this.BuffChange
+}
 func (this *COM_BattleBuffAction)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.BuffData!=0)
@@ -42,6 +76,8 @@ func (this *COM_BattleBuffAction)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleBuffAction)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

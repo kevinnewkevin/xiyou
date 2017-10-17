@@ -1,15 +1,59 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "suzuki/prpc"
 )
 type COM_BattlePlayer struct{
+  sync.Mutex
   Player COM_Player  //0
   MaxPoint int32  //1
   CurPoint int32  //2
   BattlePosition []COM_BattlePosition  //3
 }
+func (this *COM_BattlePlayer)SetPlayer(value COM_Player) {
+  this.Lock()
+  defer this.Unlock()
+  this.Player = value
+}
+func (this *COM_BattlePlayer)GetPlayer() COM_Player {
+  this.Lock()
+  defer this.Unlock()
+  return this.Player
+}
+func (this *COM_BattlePlayer)SetMaxPoint(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.MaxPoint = value
+}
+func (this *COM_BattlePlayer)GetMaxPoint() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.MaxPoint
+}
+func (this *COM_BattlePlayer)SetCurPoint(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.CurPoint = value
+}
+func (this *COM_BattlePlayer)GetCurPoint() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.CurPoint
+}
+func (this *COM_BattlePlayer)SetBattlePosition(value []COM_BattlePosition) {
+  this.Lock()
+  defer this.Unlock()
+  this.BattlePosition = value
+}
+func (this *COM_BattlePlayer)GetBattlePosition() []COM_BattlePosition {
+  this.Lock()
+  defer this.Unlock()
+  return this.BattlePosition
+}
 func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(true) //Player
@@ -65,6 +109,8 @@ func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattlePlayer)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

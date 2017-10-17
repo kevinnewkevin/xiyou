@@ -133,7 +133,7 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition, skillid
 	return nil
 } // 5
 
-func (this *Session)RequestChapterData(chapterId int32) error {
+func (this *Session) RequestChapterData(chapterId int32) error {
 	if this.player == nil {
 		return nil
 	}
@@ -142,7 +142,7 @@ func (this *Session)RequestChapterData(chapterId int32) error {
 	return nil
 }
 
-func (this *Session)ChallengeSmallChapter(smallChapterId int32) error {
+func (this *Session) ChallengeSmallChapter(smallChapterId int32) error {
 	if this.player == nil {
 		return nil
 	}
@@ -152,7 +152,7 @@ func (this *Session)ChallengeSmallChapter(smallChapterId int32) error {
 	return nil
 }
 
-func (this *Session)SetBattleUnit(instId int64, groupId int32, isBattle bool) error {
+func (this *Session) SetBattleUnit(instId int64, groupId int32, isBattle bool) error {
 	if this.player == nil {
 		return nil
 	}
@@ -162,7 +162,7 @@ func (this *Session)SetBattleUnit(instId int64, groupId int32, isBattle bool) er
 	return nil
 }
 
-func (this *Session)DelUnitGroup(groupId int32) error {
+func (this *Session) DelUnitGroup(groupId int32) error {
 	if this.player == nil {
 		return nil
 	}
@@ -170,7 +170,7 @@ func (this *Session)DelUnitGroup(groupId int32) error {
 	return nil
 }
 
-func  (this *Session)StartMatching(groupId int32 ) error  {
+func  (this *Session) StartMatching(groupId int32 ) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -178,7 +178,7 @@ func  (this *Session)StartMatching(groupId int32 ) error  {
 	return nil
 }
 
-func (this *Session)StopMatching() error {
+func (this *Session) StopMatching() error {
 	if this.player == nil {
 		return nil
 	}
@@ -186,7 +186,7 @@ func (this *Session)StopMatching() error {
 	return nil
 }
 
-func (this *Session)DeleteItem(instId int64, stack int32 ) error  {
+func (this *Session) DeleteItem(instId int64, stack int32 ) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -194,7 +194,7 @@ func (this *Session)DeleteItem(instId int64, stack int32 ) error  {
 	return nil
 }
 
-func (this *Session)PromoteUnit(instId int64) error  {
+func (this *Session) PromoteUnit(instId int64) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -202,7 +202,7 @@ func (this *Session)PromoteUnit(instId int64) error  {
 	return nil
 }
 
-func (this *Session)RequestChapterStarReward(chapterId int32, star int32 ) error  {
+func (this *Session) RequestChapterStarReward(chapterId int32, star int32 ) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -210,7 +210,7 @@ func (this *Session)RequestChapterStarReward(chapterId int32, star int32 ) error
 	return nil
 }
 
-func (this *Session)EquipSkill(skillinfo prpc.COM_LearnSkill) error  {
+func (this *Session) EquipSkill(skillinfo prpc.COM_LearnSkill) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -218,7 +218,7 @@ func (this *Session)EquipSkill(skillinfo prpc.COM_LearnSkill) error  {
 	return nil
 }
 
-func (this *Session)SkillUpdate(skillindex int32, skillId int32) error  {
+func (this *Session) SkillUpdate(skillindex int32, skillId int32) error  {
 	if this.player == nil {
 		return nil
 	}
@@ -226,7 +226,7 @@ func (this *Session)SkillUpdate(skillindex int32, skillId int32) error  {
 	return nil
 }
 
-func (this *Session)BuyShopItem(shopId int32 ) error  {
+func (this *Session) BuyShopItem(shopId int32 ) error  {
 	if this.player == nil {
 		return nil
 	}

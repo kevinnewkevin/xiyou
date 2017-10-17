@@ -1,13 +1,37 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "suzuki/prpc"
 )
 type COM_BattlePosition struct{
+  sync.Mutex
   InstId int64  //0
   Position int32  //1
 }
+func (this *COM_BattlePosition)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_BattlePosition)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_BattlePosition)SetPosition(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Position = value
+}
+func (this *COM_BattlePosition)GetPosition() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Position
+}
 func (this *COM_BattlePosition)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -39,6 +63,8 @@ func (this *COM_BattlePosition)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattlePosition)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
