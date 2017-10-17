@@ -1,48 +1,14 @@
 package prpc
 import(
   "bytes"
-  "sync"
   "suzuki/prpc"
 )
 type COM_ThrowCard struct{
-  sync.Mutex
   InstId int64  //0
   EntityId int32  //1
   Level int32  //2
 }
-func (this *COM_ThrowCard)SetInstId(value int64) {
-  this.Lock()
-  defer this.Unlock()
-  this.InstId = value
-}
-func (this *COM_ThrowCard)GetInstId() int64 {
-  this.Lock()
-  defer this.Unlock()
-  return this.InstId
-}
-func (this *COM_ThrowCard)SetEntityId(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.EntityId = value
-}
-func (this *COM_ThrowCard)GetEntityId() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.EntityId
-}
-func (this *COM_ThrowCard)SetLevel(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.Level = value
-}
-func (this *COM_ThrowCard)GetLevel() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.Level
-}
 func (this *COM_ThrowCard)Serialize(buffer *bytes.Buffer) error {
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -84,8 +50,6 @@ func (this *COM_ThrowCard)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_ThrowCard)Deserialize(buffer *bytes.Buffer) error{
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

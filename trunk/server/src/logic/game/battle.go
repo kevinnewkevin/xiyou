@@ -595,30 +595,30 @@ func (this *BattleRoom) SetBattleUnits() {
 }
 
 func (this *BattleRoom) showReport()  {
-	std.LogInfo("第", this.Round + 1,"回合")
+	std.Log("第", this.Round + 1,"回合")
 	for idx, re := range this.ReportOne.ActionList{
-		std.LogInfo("第", idx + 1, "条动作单元")
-		std.LogInfo("行动的卡牌ID ", re.InstId)
-		std.LogInfo("身上的buff变更 ", re.BuffList)
+		std.Log("第", idx + 1, "条动作单元")
+		std.Log("行动的卡牌ID ", re.InstId)
+		std.Log("身上的buff变更 ", re.BuffList)
 
 		//std.LogInfo("\tbuff", re.BuffList)
 		//std.LogInfo("\tBUFF变更", re.BuffList)
 		//std.LogInfo("\t本卡是否因为buff死亡", re.BuffList)
 
-		std.LogInfo("使用的技能 ", re.SkillId)
-		std.LogInfo("技能自带的buff ", re.SkillBuff)
-		std.LogInfo("技能释放的目标信息为")
+		std.Log("使用的技能 ", re.SkillId)
+		std.Log("技能自带的buff ", re.SkillBuff)
+		std.Log("技能释放的目标信息为")
 		for idx1, l := range re.TargetList {
-			std.LogInfo("\t第", idx1 + 1, "个目标")
-			std.LogInfo("\t目标实例ID为", l.InstId)
-			std.LogInfo("\t目标受击类型", l.ActionType)
-			std.LogInfo("\t目标伤害", l.ActionParam)
-			std.LogInfo("\t目标额外信息", l.ActionParamExt)
-			std.LogInfo("\t目标是否死亡", l.Dead)
-			std.LogInfo("\t目标中的buff", l.BuffAdd)
-			std.LogInfo("\n")
+			std.Log("\t第", idx1 + 1, "个目标")
+			std.Log("\t目标实例ID为", l.InstId)
+			std.Log("\t目标受击类型", l.ActionType)
+			std.Log("\t目标伤害", l.ActionParam)
+			std.Log("\t目标额外信息", l.ActionParamExt)
+			std.Log("\t目标是否死亡", l.Dead)
+			std.Log("\t目标中的buff", l.BuffAdd)
+			std.Log("\n")
 		}
-		std.LogInfo("\n")
+		std.Log("\n")
 	}
 }
 
