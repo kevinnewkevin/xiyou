@@ -22,7 +22,7 @@ SkillId,Name,Level,Type,Feel,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,T
 141,玲珑塔,,1,,敌方单体2回合无法行动，并对目标造成法术强度的伤害。,icon/icon_skill_linglongta,10,,,,,,0,magic4,Effect/lijing_skill04_1,1,Effect/lijing_skill04,,,1.2,1.2,2.5,MT_Target,,TPT_None,1,SK_302_Action,
 142,水攻,,1,,对敌方造成伤害。,icon/icon_skill_shuizushanghaitigao,10,,,,,,0,magic1,Effect/guichengxiang_skill01_1,1,Effect/guichengxiang_skill01,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_317_Action,
 143,放下屠刀,,1,,对一个敌方目标造成法术强度的伤害，并降低目标40%的物理强度和法术强度，将其转移给离自己最近的一个友方目标。持续1回合,icon/icon_skill_fangxiatudao,10,,,,,,0,magic1,Effect/guanyin_skill01_1,1,Effect/guanyin_skill01,,,1.2,1.2,3,MT_Target,,TPT_None,,SK_305_Action,
-144,大慈大悲,,1,,驱散我方全体所有负面效果，并且减少伤害20%，持续1回合。,icon/icon_skill_dacidabei,10,,,,,,0,magic3,Effect/guanyin_skill02_1,1,Effect/guanyin_skill02,,Effect/guanyin_skill02,1.5,1.5,4,MT_Target,,TPT_None,,SK_306_Action,
+144,大慈大悲,,1,,驱散我方全体所有负面效果，并且减少伤害20%，持续1回合。,icon/icon_skill_dacidabei,10,,,,,,0,magic3,Effect/guanyin_skill02_1,1,,,Effect/guanyin_skill02,1.5,1.5,4,MT_Target,,TPT_None,,SK_306_Action,
 145,厚皮,,1,,下3次受到的伤害降低40%。,icon/icon_skill_houpi,10,,,,,,0,magic3,Effect/huangyalaoxiang_skill01_1,1,,,,,,4,MT_Self,,TPT_None,,SK_307_Action,
 146,神力,,1,,强制一个目标普通攻击自己，持续2回合，优先后排对面，然后是两侧，然后是前排。,icon/icon_skill_shenli,10,,,,,,0,magic2,Effect/huangyalaoxiang_skill02_1,1,,,Effect/huangyalaoxiang_skill02,0.5,0.5,3,MT_Target,,TPT_None,,SK_308_Action,
 147,化身三千,,1,,召唤2个分身和自己同时攻击对面三个前排目标，造成150%伤害并减少对方双防15%，持续2回合。,icon/icon_skill_huashensanqian,10,,,,,,0,magic2,Effect/sunwukong_skill02_1,1.5,Effect/sunwukong_skill02,,,1.5,1.5,3,MT_Target,1,TPT_All,,SK_295_Action,
