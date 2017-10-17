@@ -85,7 +85,11 @@ function baowu_OnExit(context)
 		UIManager.Show("jiehun");
 		Window:Hide();			
 	else
-		SceneLoader.LoadScene("main");
+		--SceneLoader.LoadScene("main");
+		if GamePlayer.showNewCard == true then
+			UIManager.Show("huoderenwu");
+			GamePlayer.showNewCard = false;
+		end
 	end
 	Proxy4Lua.UnloadAsset(boxEff);
 	boxEff = "";
@@ -155,11 +159,16 @@ function baowu:OnUpdate()
 		readyOutDrop.count = readyOutDrop.count + 1;
 		if readyOutDrop.count >= readyOutDrop.max then
 			dropList.visible = true;
+
+
+
 			openTrans:Play();
 			readyOutDrop = nil;
 			canExit = {};
 			canExit.max = 20;
 			canExit.count = 0;
+
+
 		end
 	end
 
@@ -168,6 +177,7 @@ function baowu:OnUpdate()
 		if canExit.count >= canExit.max then
 			hitNextLbl.visible = true;
 			hitNextBtn.enabled = true;
+
 			canExit = nil;
 		end
 	end
