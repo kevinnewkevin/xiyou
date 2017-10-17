@@ -42,6 +42,8 @@ function huoderenwu:OnUpdate()
 end
 
 function baowu_OnExit(context)
+	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
 	SceneLoader.LoadScene("main");
 end
 function huoderenwu:OnTick()
@@ -65,7 +67,11 @@ function huoderenwu_FlushData()
     local card = GamePlayer.newCard;
     local displayData = GamePlayer.GetDisplayDataByInstID(card.InstId);
     modelRes = displayData._AssetPath;
-    holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true));
+
+    local wrapper = Proxy4Lua.GetAssetGameObject(modelRes, true);
+    local anim = wrapper.wrapTarget.GetComponent("Animation");
+    anim.Play("attack");
+    holder:SetNativeObject(wrapper);
 
     local entityData = GamePlayer.GetEntityDataByInstID(card.InstId);
     needPower.text = entityData._Cost;
