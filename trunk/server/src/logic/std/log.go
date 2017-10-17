@@ -216,6 +216,10 @@ func LogInfo(format string, a ...interface{}){
 	defaultLogger.Info(format, a...)
 }
 
+func Log(a ...interface{}){
+	defaultLogger.Debug("%s",fmt.Sprint(a...))
+}
+
 func LogBackup(){
 	defaultLogger.Backup()
 }
