@@ -62,6 +62,8 @@ extern int __AddMyUnitEnergy(void*);
 extern int __ThrowCard(void*);
 extern int __Throw(void*);
 
+extern int __setEnvString(void*);
+extern int __setEnvInt(void*);
 */
 import "C"
 import (
@@ -71,11 +73,15 @@ import (
 	"time"
 	"logic/prpc"
 	"logic/std"
+	"fmt"
 )
 
 var (
 	_L *lua.LuaState
 	_R string
+
+	EnvIntegers		= make(map[string]int)
+	EnvStrings		= make(map[string]string)
 )
 
 func InitLua(r string){
@@ -146,11 +152,51 @@ func InitLua(r string){
 	_L.LoadApi(C.__TargetOn,"TargetOn","Battle")
 
 	_L.LoadApi(C.__GetTime,"GetTime","os")
-	_L.LoadFile(_R + "main.lua")
 
+	_L.LoadApi(C.__setEnvString, "setEnvString",  	"Env")
+	_L.LoadApi(C.__setEnvInt, "setEnvInt",  	 	"Env")
+
+	_L.LoadFile(_R + "main.lua")
+	_L.LoadFile(_R + "env.lua")
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
 
+//export __setEnvString
+func __setEnvString(p unsafe.Pointer) C.int {
+	L := lua.GetLuaState(p)
+	idx := 1
+	s1 := L.ToString(idx)
+	idx++
+	s2 := L.ToString(idx)
+	fmt.Println("Test Env Set String ===>",s1,s2)
+	EnvStrings[s1] = s2
+
+	return 0
+}
+
+//export __setEnvInt
+func __setEnvInt(p unsafe.Pointer) C.int {
+	L := lua.GetLuaState(p)
+	idx := 1
+	s1 := L.ToString(idx)
+	idx++
+	s2 := L.ToInteger(idx)
+	fmt.Println("Test Env Set Int ===>",s1,s2)
+	EnvIntegers[s1] = s2
+
+	return 0
+}
+
+func GetEnvString(val string) string {
+	return EnvStrings[val]
+}
+
+func GetEnvInt(val string) int {
+	return EnvIntegers[val]
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 //export __loadfile
 func __loadfile(p unsafe.Pointer) C.int {
