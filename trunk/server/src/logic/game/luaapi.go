@@ -169,7 +169,7 @@ func __setEnvString(p unsafe.Pointer) C.int {
 	s1 := L.ToString(idx)
 	idx++
 	s2 := L.ToString(idx)
-	fmt.Println("Test Env Set String ===>",s1,s2)
+	//fmt.Println("Test Env Set String ===>",s1,s2)
 	EnvStrings[s1] = s2
 
 	return 0
@@ -182,7 +182,7 @@ func __setEnvInt(p unsafe.Pointer) C.int {
 	s1 := L.ToString(idx)
 	idx++
 	s2 := L.ToInteger(idx)
-	fmt.Println("Test Env Set Int ===>",s1,s2)
+	//fmt.Println("Test Env Set Int ===>",s1,s2)
 	EnvIntegers[s1] = s2
 
 	return 0
