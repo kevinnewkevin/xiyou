@@ -73,7 +73,6 @@ import (
 	"time"
 	"logic/prpc"
 	"logic/std"
-	"fmt"
 )
 
 var (
