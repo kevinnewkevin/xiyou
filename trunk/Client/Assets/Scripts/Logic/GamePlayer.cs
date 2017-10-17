@@ -79,6 +79,22 @@ public class GamePlayer {
         UIManager.SetDirty("zhujiemian");
     }
 
+    static public void AddCard(COM_Unit card)
+    {
+        EntityData eData = EntityData.GetData(card.UnitId);
+        if(!_CardsByFee.ContainsKey(eData._Cost))
+            _CardsByFee.Add(eData._Cost, new List<COM_Unit>());
+        _CardsByFee [eData._Cost].Add(card);
+
+        if(!_CardsByType.ContainsKey(eData.ToString()))
+            _CardsByType.Add(eData.ToString(), new List<COM_Unit>());
+        _CardsByType [eData.ToString()].Add(card);
+
+        if(!_CardsByFee.ContainsKey(0))
+            _CardsByFee.Add(0, new List<COM_Unit>());
+        _CardsByFee [0].Add(card);
+    }
+
     static public void UpdateEquipedSkill(int idx, int skillid)
     {
         if (_Data == null)
