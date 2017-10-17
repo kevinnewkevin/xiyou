@@ -7,6 +7,8 @@ import (
 	"path"
 	"fmt"
 	"sync"
+	"runtime"
+	"strings"
 )
 
 const (
@@ -17,11 +19,15 @@ const (
 	LFatal
 	LInformation
 
-	allLevels = LDebug | LWarning | LError | LFatal | LInformation
+	LLongFile
+
+	LShortFile
+
+	allLevels = LDebug | LWarning | LError | LFatal  | LInformation
 
 	LConsole
 
-	allFlags = allLevels | LConsole
+	allFlags = allLevels | LShortFile | LConsole
 
 	LDefaultFlags = allFlags
 
@@ -66,7 +72,33 @@ func (this* Logger) sprintf(l int, t time.Time , f string, a ...interface{}) str
 		"info",
 	}
 
-	return fmt.Sprintf("%s|%s|%s\n",t.String(),s[l],fmt.Sprintf(f,a...))
+	var(
+		file string
+		line int
+		ok bool
+	)
+
+	if this.flags & (LLongFile|LShortFile) != 0 {
+
+		_, file, line, ok = runtime.Caller(4)
+
+		if !ok {
+			file = "???"
+			line = 0
+		}else {
+			if this.flags & LShortFile !=0 {
+				i := strings.LastIndex(file, "/")
+				if i == -1 {
+					i = strings.LastIndex(file, "\\")
+				}
+				if i != -1{
+					file = file[i+1:]
+				}
+			}
+		}
+	}
+
+	return fmt.Sprintf("%s|%s|%s [%s:%d]\n",t.String(),s[l],fmt.Sprintf(f,a...),file,line)
 
 
 }
