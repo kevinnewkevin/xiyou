@@ -160,5 +160,10 @@ public class DragDrop {
             AssetLoader.UnloadAsset(_AssetPath);
             _AssetPath = "";
         }
+
+        //傻逼的代码by nick
+        UIWindow win = UIManager.GetUI("BattlePanel");
+        if(win != null)
+            win.Call("NormalCard");
     }
 }
