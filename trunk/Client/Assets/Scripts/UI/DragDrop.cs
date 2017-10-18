@@ -131,8 +131,10 @@ public class DragDrop {
             }
         }
 
+        bool clearSelectActor = false;
         if (_AgentGraph.parent != null)
         {
+            clearSelectActor = _AgentGraph.visible;
             _AgentGraph.visible = true;
             GRoot.inst.RemoveChild(_AgentGraph);
 
@@ -166,7 +168,7 @@ public class DragDrop {
         if(win != null)
             win.Call("NormalCard");
 
-        if (dragAgentGraph != null && dragAgentGraph.visible)
+        if (clearSelectActor)
             Battle._SelectedHandCardInstID = 0;
     }
 }
