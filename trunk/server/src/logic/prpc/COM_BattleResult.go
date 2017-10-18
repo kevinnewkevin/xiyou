@@ -1,11 +1,9 @@
 package prpc
 import(
   "bytes"
-  "sync"
   "suzuki/prpc"
 )
 type COM_BattleResult struct{
-  sync.Mutex
   Win int32  //0
   Money int32  //1
   Exp int32  //2
@@ -14,79 +12,7 @@ type COM_BattleResult struct{
   MySelfDeathNum int32  //5
   BattleItems []COM_ItemInst  //6
 }
-func (this *COM_BattleResult)SetWin(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.Win = value
-}
-func (this *COM_BattleResult)GetWin() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.Win
-}
-func (this *COM_BattleResult)SetMoney(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.Money = value
-}
-func (this *COM_BattleResult)GetMoney() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.Money
-}
-func (this *COM_BattleResult)SetExp(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.Exp = value
-}
-func (this *COM_BattleResult)GetExp() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.Exp
-}
-func (this *COM_BattleResult)SetKillMonsters(value []int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.KillMonsters = value
-}
-func (this *COM_BattleResult)GetKillMonsters() []int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.KillMonsters
-}
-func (this *COM_BattleResult)SetBattleRound(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.BattleRound = value
-}
-func (this *COM_BattleResult)GetBattleRound() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.BattleRound
-}
-func (this *COM_BattleResult)SetMySelfDeathNum(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.MySelfDeathNum = value
-}
-func (this *COM_BattleResult)GetMySelfDeathNum() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.MySelfDeathNum
-}
-func (this *COM_BattleResult)SetBattleItems(value []COM_ItemInst) {
-  this.Lock()
-  defer this.Unlock()
-  this.BattleItems = value
-}
-func (this *COM_BattleResult)GetBattleItems() []COM_ItemInst {
-  this.Lock()
-  defer this.Unlock()
-  return this.BattleItems
-}
 func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.Win!=0)
@@ -180,8 +106,6 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

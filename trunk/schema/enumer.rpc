@@ -91,3 +91,18 @@ enum ShopType{
 	SHT_BuyCopper,
 	SHT_Max,
 };
+
+//Item类型
+enum ItemMainType
+{
+	IMT_None,
+	IMT_Quest,		//任务道具
+	IMT_Consumables, //消耗品
+	IMT_Equip,       //装备 
+	IMT_Employee,    //伙伴卡
+	IMT_EmployeeEquip,    //伙伴装备
+	IMT_Debris,    //碎片
+	IMT_FuWen,    //符文
+	IMT_BabyEquip, //宠物装备
+	IMT_Max,
+};

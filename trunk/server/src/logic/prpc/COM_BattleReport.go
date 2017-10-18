@@ -1,48 +1,14 @@
 package prpc
 import(
   "bytes"
-  "sync"
   "suzuki/prpc"
 )
 type COM_BattleReport struct{
-  sync.Mutex
   BattleID int32  //0
   UnitList []COM_BattleUnit  //1
   ActionList []COM_BattleAction  //2
 }
-func (this *COM_BattleReport)SetBattleID(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.BattleID = value
-}
-func (this *COM_BattleReport)GetBattleID() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.BattleID
-}
-func (this *COM_BattleReport)SetUnitList(value []COM_BattleUnit) {
-  this.Lock()
-  defer this.Unlock()
-  this.UnitList = value
-}
-func (this *COM_BattleReport)GetUnitList() []COM_BattleUnit {
-  this.Lock()
-  defer this.Unlock()
-  return this.UnitList
-}
-func (this *COM_BattleReport)SetActionList(value []COM_BattleAction) {
-  this.Lock()
-  defer this.Unlock()
-  this.ActionList = value
-}
-func (this *COM_BattleReport)GetActionList() []COM_BattleAction {
-  this.Lock()
-  defer this.Unlock()
-  return this.ActionList
-}
 func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.BattleID!=0)
@@ -96,8 +62,6 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
-  this.Lock()
-  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

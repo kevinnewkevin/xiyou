@@ -10,6 +10,7 @@ import (
 type (
 	ItemData struct {
 		ItemId			int32
+		ItemMainType	int
 		MaxCount		int32
 		GloAction		string
 	}
