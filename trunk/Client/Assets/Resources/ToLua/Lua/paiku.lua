@@ -249,13 +249,7 @@ function paiku_OnCardItem(context)
 		doubleClickTicker.max = 0.2;
 	else
 		if doubleClickTicker.crt <= doubleClickTicker.max then
-			local max = GamePlayer.IsGroupMax(crtGroupIdx);
-			if max then
-				local MessageBox = UIManager.ShowMessageBox();
-				MessageBox:SetData("提示", "卡组已满", true);
-			else
-				paiku_OnMessageConfirm();
-			end
+			paiku_OnMessageConfirm();
 			doubleClickTicker = nil;
 		else
 			doubleClickTicker = {};
@@ -297,12 +291,12 @@ function paiku_OnDropCard(context)
 		return;
 	end
 
-	if onGroupArea and GamePlayer.IsGroupMax(crtGroupIdx) then
-		local MessageBox = UIManager.ShowMessageBox();
-		MessageBox:SetData("提示", "卡组已满", true);
-		UIManager.SetDirty("paiku");
-		return;
-	end
+--	if onGroupArea and GamePlayer.IsGroupMax(crtGroupIdx) then
+--		local MessageBox = UIManager.ShowMessageBox();
+--		MessageBox:SetData("提示", "卡组已满", true);
+--		UIManager.SetDirty("paiku");
+--		return;
+--	end
 
 	paiku_OnMessageConfirm();
 --	--[[local MessageBox = UIManager.ShowMessageBox();
@@ -318,9 +312,14 @@ function paiku_OnMessageConfirm()
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
 	else
-		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
+		local max = GamePlayer.IsGroupMax(crtGroupIdx);
+		if max then
+			local MessageBox = UIManager.ShowMessageBox();
+			MessageBox:SetData("提示", "卡组已满", true);
+		else
+			GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
+		end
 	end
-	--UIManager.HideMessageBox();
 	UIManager.SetDirty("paiku");
 end
 

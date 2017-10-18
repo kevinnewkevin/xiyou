@@ -175,20 +175,17 @@ function xiangxiziliao_OnMessageConfirm()
 	local crtCardInstID = UIManager.GetWindow("paiku").GetCrtCard();
 	local crtGroupIdx = UIManager.GetWindow("paiku").GetCrtGroup();
 
-	if GamePlayer.IsGroupMax(crtGroupIdx) then
-		local MessageBox = UIManager.ShowMessageBox();
-		MessageBox:SetData("提示", "卡组已满", true);
-		UIManager.SetDirty("paiku");
-		return;
-	end
-
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
 	else
-		GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
+		if GamePlayer.IsGroupMax(crtGroupIdx) then
+			local MessageBox = UIManager.ShowMessageBox();
+			MessageBox:SetData("提示", "卡组已满", true);
+		else
+			GamePlayer.PutInCard(crtCardInstID, crtGroupIdx);
+		end
 	end
-	--UIManager.HideMessageBox();
 	UIManager.Hide("xiangxiziliao");
 	UIManager.SetDirty("paiku");
 end
