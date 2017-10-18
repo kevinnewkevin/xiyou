@@ -43,14 +43,16 @@ public class ActorRotate : MonoBehaviour {
 
             if (gameObject != null)
             {
-                float rotV = currentX_ > originX_ ? -1f : 1f;
-                gameObject.transform.Rotate(Vector3.up, Mathf.Rad2Deg * 0.05f * Mathf.PI * rotV);
+//                float rotV = currentX_ > originX_ ? -1f : 1f;
+//                gameObject.transform.Rotate(Vector3.up, Mathf.Rad2Deg * 0.02f * Mathf.PI * rotV);
+                gameObject.transform.Rotate(Vector3.up, (originX_ - currentX_) % 360f * 0.3f);
             }
             else
             {
                 Stage.inst.onTouchBegin.Remove(OnPress);
                 Stage.inst.onTouchEnd.Remove(OnEnd);
             }
+            originX_ = currentX_;
         }
 	}
 
