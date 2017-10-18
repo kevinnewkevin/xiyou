@@ -662,6 +662,7 @@ public class Battle {
             DisplayData displayData = DisplayData.GetData(eData._DisplayId);
             AddActor(AssetLoader.LoadAsset(displayData._AssetPath), pos, _SelectedHandCardInstID, 100, 100, eData._UnitId, entity.IProperties[9]);
             RemoveHandCard(_SelectedHandCardInstID);
+            _SelectedHandCardInstID = 0;
             CostFee(eData._Cost);
         }
 

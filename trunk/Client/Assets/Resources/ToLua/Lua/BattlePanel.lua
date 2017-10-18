@@ -491,7 +491,7 @@ function BattlePanel:NormalCard()
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
 	end
-	Battle._SelectedHandCardInstID = 0;
+--	Battle._SelectedHandCardInstID = 0;
 end
 
 function BattlePanel_OnAutoBtn()
