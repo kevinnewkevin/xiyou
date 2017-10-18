@@ -165,5 +165,8 @@ public class DragDrop {
         UIWindow win = UIManager.GetUI("BattlePanel");
         if(win != null)
             win.Call("NormalCard");
+
+        if (dragAgentGraph != null && dragAgentGraph.visible)
+            Battle._SelectedHandCardInstID = 0;
     }
 }
