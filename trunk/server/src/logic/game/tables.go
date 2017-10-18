@@ -283,7 +283,6 @@ func LoadPromoteTable(filename string) error {
 
 
 	}
-	fmt.Println("PromoteTable", PromoteTable)
 	return nil
 }
 
