@@ -566,7 +566,7 @@ public class Battle {
                 if (_ActorInScene [j] == null)
                     continue;
 
-                if (_ActorInScene [j]._RealPosInScene == i)
+                if (_ActorInScene [j]._RealPosInScene == i && _ActorInScene [j].InstID != 0)
                 {
                     emptyPos = -1;
                     break;
