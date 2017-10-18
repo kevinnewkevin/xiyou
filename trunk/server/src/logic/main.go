@@ -34,6 +34,8 @@ func main() {
 
 	}()
 
+
+
 	app := application.NewApp()
 	app.Run()
 

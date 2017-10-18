@@ -123,6 +123,13 @@ func (this *App) Run() {
 
 	go func() {
 		for {
+			defer func() {
+
+				if r := recover(); r != nil {
+					std.LogError("main panic %s",fmt.Sprint(r))
+				}
+
+			}()
 			conn, err = this.l.AcceptTCP()
 			if err != nil {
 				fmt.Println(err.Error())
@@ -133,6 +140,8 @@ func (this *App) Run() {
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)
 			//
+
+
 			go client.Update()
 		}
 	}()

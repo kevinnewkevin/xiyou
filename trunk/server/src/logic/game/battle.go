@@ -9,6 +9,7 @@ import (
 	"sort"
 	"encoding/json"
 	"logic/std"
+	"fmt"
 )
 
 type UnitList []*GameUnit
@@ -275,6 +276,15 @@ func (this *BattleRoom) BattleUpdate() {
 	now_start := time.Now().Unix()
 	//Round_start := time.Now().Unix()
 	checkindex := 0
+
+	defer func() {
+
+		if r := recover(); r != nil {
+			std.LogError("main panic %s",fmt.Sprint(r))
+		}
+
+	}()
+
 	for this.Status == kUsed {
 
 		now := time.Now().Unix()

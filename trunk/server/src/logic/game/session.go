@@ -5,6 +5,7 @@ import (
 	"logic/socket"
 	"encoding/json"
 	"logic/std"
+	"fmt"
 )
 
 type Session struct {
@@ -239,6 +240,13 @@ func (this *Session) BuyShopItem(shopId int32 ) error  {
 func (this *Session) Update() {
 
 	for {
+		defer func() {
+
+			if r := recover(); r != nil {
+				std.LogError("main panic %s",fmt.Sprint(r))
+			}
+
+		}()
 		err := this.peer.HandleSocket()
 		if err != nil {
 			std.LogInfo("", err)
