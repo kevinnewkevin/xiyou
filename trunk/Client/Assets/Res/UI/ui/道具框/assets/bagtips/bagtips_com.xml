@@ -10,16 +10,9 @@
     <image id="n6_hjqe" name="n6" src="hjqea" xy="718,744" size="417,4"/>
     <image id="n7_hjqe" name="n7" src="hjqe7" xy="615,751"/>
     <image id="n8_hjqe" name="n8" src="hjqe5" xy="785,301" size="289,50"/>
-    <component id="n15_tpyu" name="n15" src="tpyue" xy="1127,610"/>
-    <image id="n18_tpyu" name="n18" src="hjqe6" xy="1185,585"/>
-    <component id="n14_tpyu" name="n14" src="hjqeb" xy="1127,469"/>
-    <component id="n27_ud0j" name="n27" src="ud0ju" xy="1127,469"/>
-    <image id="n17_tpyu" name="n17" src="hjqe6" xy="1186,446"/>
     <text id="n9_hjqe" name="n9" xy="817,309" size="226,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="啦啦啦啦啦啦啦"/>
     <component id="n10_bo3u" name="n10" src="bo3uc" xy="727,364"/>
-    <component id="n11_tpyu" name="n11" src="tpyud" xy="1127,331"/>
     <image id="n25_tpyu" name="n25" src="tpyuf" xy="725,587" size="407,153"/>
-    <image id="n16_tpyu" name="n16" src="hjqe6" xy="1186,308"/>
     <text id="n19_tpyu" name="n19" xy="893,397" size="73,41" font="方正楷体_GBK" fontSize="34" color="#f4d997" strokeColor="#855504" strokeSize="2" text="等级"/>
     <text id="n20_tpyu" name="n20" xy="894,451" size="73,41" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" strokeColor="#061a5c" strokeSize="2" text="类型"/>
     <text id="n21_tpyu" name="n21" xy="983,396" size="90,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="2" text="20"/>
@@ -27,5 +20,11 @@
     <text id="n23_tpyu" name="n23" xy="740,543" size="143,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="2" text="道具详情"/>
     <text id="n24_tpyu" name="n24" xy="736,607" size="382,119" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="2" text="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦"/>
     <component id="n26_ud0j" name="n26" src="ud0jl" xy="0,0" hideByEditor="true"/>
+    <list id="n28_jlx4" name="n28" xy="1105,326" size="179,594" layout="flow_vt" lineGap="7" align="center" renderOrder="descent">
+      <item url="ui://mist3dcktpyud"/>
+      <item url="ui://mist3dckhjqeb"/>
+      <item url="ui://mist3dckud0ju"/>
+      <item url="ui://mist3dcktpyue"/>
+    </list>
   </displayList>
 </component>
