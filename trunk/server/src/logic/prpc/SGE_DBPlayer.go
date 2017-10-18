@@ -1,6 +1,7 @@
 package prpc
 import(
   "bytes"
+  "encoding/json"
   "suzuki/prpc"
 )
 type SGE_DBPlayer struct{
@@ -117,4 +118,12 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   return nil
+}
+func (this *SGE_DBPlayer)String() string{
+  b, e := json.Marshal(this)
+  if e != nil{
+    return e.Error()
+  }else{
+    return string(b)
+  }
 }

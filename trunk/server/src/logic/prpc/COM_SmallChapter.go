@@ -1,6 +1,7 @@
 package prpc
 import(
   "bytes"
+  "encoding/json"
   "suzuki/prpc"
 )
 type COM_SmallChapter struct{
@@ -62,4 +63,12 @@ func (this *COM_SmallChapter)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Star3
   this.Star3 = mask.ReadBit();
   return nil
+}
+func (this *COM_SmallChapter)String() string{
+  b, e := json.Marshal(this)
+  if e != nil{
+    return e.Error()
+  }else{
+    return string(b)
+  }
 }

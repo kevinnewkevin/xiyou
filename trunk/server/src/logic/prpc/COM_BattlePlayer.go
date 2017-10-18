@@ -1,6 +1,7 @@
 package prpc
 import(
   "bytes"
+  "encoding/json"
   "suzuki/prpc"
 )
 type COM_BattlePlayer struct{
@@ -107,4 +108,12 @@ func (this *COM_BattlePlayer)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   return nil
+}
+func (this *COM_BattlePlayer)String() string{
+  b, e := json.Marshal(this)
+  if e != nil{
+    return e.Error()
+  }else{
+    return string(b)
+  }
 }
