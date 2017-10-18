@@ -1,10 +1,12 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "encoding/json"
   "suzuki/prpc"
 )
 type COM_BattleRoom struct{
+  sync.Mutex
   InstId int64  //0
   Status int32  //1
   PlayerList []COM_BattlePlayer  //2
@@ -13,7 +15,79 @@ type COM_BattleRoom struct{
   TurnMove int32  //5
   NextPlayer COM_BattlePlayer  //6
 }
+func (this *COM_BattleRoom)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_BattleRoom)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_BattleRoom)SetStatus(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Status = value
+}
+func (this *COM_BattleRoom)GetStatus() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Status
+}
+func (this *COM_BattleRoom)SetPlayerList(value []COM_BattlePlayer) {
+  this.Lock()
+  defer this.Unlock()
+  this.PlayerList = value
+}
+func (this *COM_BattleRoom)GetPlayerList() []COM_BattlePlayer {
+  this.Lock()
+  defer this.Unlock()
+  return this.PlayerList
+}
+func (this *COM_BattleRoom)SetTarget(value COM_BattlePlayer) {
+  this.Lock()
+  defer this.Unlock()
+  this.Target = value
+}
+func (this *COM_BattleRoom)GetTarget() COM_BattlePlayer {
+  this.Lock()
+  defer this.Unlock()
+  return this.Target
+}
+func (this *COM_BattleRoom)SetBout(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Bout = value
+}
+func (this *COM_BattleRoom)GetBout() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Bout
+}
+func (this *COM_BattleRoom)SetTurnMove(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.TurnMove = value
+}
+func (this *COM_BattleRoom)GetTurnMove() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.TurnMove
+}
+func (this *COM_BattleRoom)SetNextPlayer(value COM_BattlePlayer) {
+  this.Lock()
+  defer this.Unlock()
+  this.NextPlayer = value
+}
+func (this *COM_BattleRoom)GetNextPlayer() COM_BattlePlayer {
+  this.Lock()
+  defer this.Unlock()
+  return this.NextPlayer
+}
 func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -97,6 +171,8 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleRoom)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

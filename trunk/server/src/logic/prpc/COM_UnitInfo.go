@@ -1,10 +1,12 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "encoding/json"
   "suzuki/prpc"
 )
 type COM_UnitInfo struct{
+  sync.Mutex
   InstId int64  //0
   UnitId int32  //1
   Level int32  //2
@@ -15,7 +17,99 @@ type COM_UnitInfo struct{
   MATK int32  //7
   MDEF int32  //8
 }
+func (this *COM_UnitInfo)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_UnitInfo)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_UnitInfo)SetUnitId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.UnitId = value
+}
+func (this *COM_UnitInfo)GetUnitId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.UnitId
+}
+func (this *COM_UnitInfo)SetLevel(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Level = value
+}
+func (this *COM_UnitInfo)GetLevel() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Level
+}
+func (this *COM_UnitInfo)SetHP(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.HP = value
+}
+func (this *COM_UnitInfo)GetHP() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.HP
+}
+func (this *COM_UnitInfo)SetAGILE(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.AGILE = value
+}
+func (this *COM_UnitInfo)GetAGILE() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.AGILE
+}
+func (this *COM_UnitInfo)SetATK(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.ATK = value
+}
+func (this *COM_UnitInfo)GetATK() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.ATK
+}
+func (this *COM_UnitInfo)SetDEF(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.DEF = value
+}
+func (this *COM_UnitInfo)GetDEF() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.DEF
+}
+func (this *COM_UnitInfo)SetMATK(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.MATK = value
+}
+func (this *COM_UnitInfo)GetMATK() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.MATK
+}
+func (this *COM_UnitInfo)SetMDEF(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.MDEF = value
+}
+func (this *COM_UnitInfo)GetMDEF() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.MDEF
+}
 func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(2)
   mask.WriteBit(this.InstId!=0)
@@ -117,6 +211,8 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_UnitInfo)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,2);
   if err != nil{

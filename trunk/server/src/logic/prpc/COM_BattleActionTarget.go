@@ -1,10 +1,12 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "encoding/json"
   "suzuki/prpc"
 )
 type COM_BattleActionTarget struct{
+  sync.Mutex
   InstId int64  //0
   ActionType int  //1
   ActionParam int32  //2
@@ -13,7 +15,79 @@ type COM_BattleActionTarget struct{
   ThrowCard COM_ThrowCard  //5
   BuffAdd []COM_BattleBuff  //6
 }
+func (this *COM_BattleActionTarget)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_BattleActionTarget)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_BattleActionTarget)SetActionType(value int) {
+  this.Lock()
+  defer this.Unlock()
+  this.ActionType = value
+}
+func (this *COM_BattleActionTarget)GetActionType() int {
+  this.Lock()
+  defer this.Unlock()
+  return this.ActionType
+}
+func (this *COM_BattleActionTarget)SetActionParam(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.ActionParam = value
+}
+func (this *COM_BattleActionTarget)GetActionParam() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.ActionParam
+}
+func (this *COM_BattleActionTarget)SetActionParamExt(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.ActionParamExt = value
+}
+func (this *COM_BattleActionTarget)GetActionParamExt() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.ActionParamExt
+}
+func (this *COM_BattleActionTarget)SetDead(value bool) {
+  this.Lock()
+  defer this.Unlock()
+  this.Dead = value
+}
+func (this *COM_BattleActionTarget)GetDead() bool {
+  this.Lock()
+  defer this.Unlock()
+  return this.Dead
+}
+func (this *COM_BattleActionTarget)SetThrowCard(value COM_ThrowCard) {
+  this.Lock()
+  defer this.Unlock()
+  this.ThrowCard = value
+}
+func (this *COM_BattleActionTarget)GetThrowCard() COM_ThrowCard {
+  this.Lock()
+  defer this.Unlock()
+  return this.ThrowCard
+}
+func (this *COM_BattleActionTarget)SetBuffAdd(value []COM_BattleBuff) {
+  this.Lock()
+  defer this.Unlock()
+  this.BuffAdd = value
+}
+func (this *COM_BattleActionTarget)GetBuffAdd() []COM_BattleBuff {
+  this.Lock()
+  defer this.Unlock()
+  return this.BuffAdd
+}
 func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -91,6 +165,8 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_BattleActionTarget)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

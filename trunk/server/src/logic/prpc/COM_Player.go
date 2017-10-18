@@ -1,10 +1,12 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "encoding/json"
   "suzuki/prpc"
 )
 type COM_Player struct{
+  sync.Mutex
   InstId int64  //0
   Name string  //1
   Unit COM_Unit  //2
@@ -14,7 +16,89 @@ type COM_Player struct{
   TianTiVal int32  //6
   SkillBase []COM_SkillBase  //7
 }
+func (this *COM_Player)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_Player)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
+}
+func (this *COM_Player)SetName(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.Name = value
+}
+func (this *COM_Player)GetName() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.Name
+}
+func (this *COM_Player)SetUnit(value COM_Unit) {
+  this.Lock()
+  defer this.Unlock()
+  this.Unit = value
+}
+func (this *COM_Player)GetUnit() COM_Unit {
+  this.Lock()
+  defer this.Unlock()
+  return this.Unit
+}
+func (this *COM_Player)SetEmployees(value []COM_Unit) {
+  this.Lock()
+  defer this.Unlock()
+  this.Employees = value
+}
+func (this *COM_Player)GetEmployees() []COM_Unit {
+  this.Lock()
+  defer this.Unlock()
+  return this.Employees
+}
+func (this *COM_Player)SetChapters(value []COM_Chapter) {
+  this.Lock()
+  defer this.Unlock()
+  this.Chapters = value
+}
+func (this *COM_Player)GetChapters() []COM_Chapter {
+  this.Lock()
+  defer this.Unlock()
+  return this.Chapters
+}
+func (this *COM_Player)SetUnitGroup(value []COM_UnitGroup) {
+  this.Lock()
+  defer this.Unlock()
+  this.UnitGroup = value
+}
+func (this *COM_Player)GetUnitGroup() []COM_UnitGroup {
+  this.Lock()
+  defer this.Unlock()
+  return this.UnitGroup
+}
+func (this *COM_Player)SetTianTiVal(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.TianTiVal = value
+}
+func (this *COM_Player)GetTianTiVal() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.TianTiVal
+}
+func (this *COM_Player)SetSkillBase(value []COM_SkillBase) {
+  this.Lock()
+  defer this.Unlock()
+  this.SkillBase = value
+}
+func (this *COM_Player)GetSkillBase() []COM_SkillBase {
+  this.Lock()
+  defer this.Unlock()
+  return this.SkillBase
+}
 func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.InstId!=0)
@@ -126,6 +210,8 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{

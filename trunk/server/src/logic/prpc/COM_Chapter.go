@@ -1,15 +1,49 @@
 package prpc
 import(
   "bytes"
+  "sync"
   "encoding/json"
   "suzuki/prpc"
 )
 type COM_Chapter struct{
+  sync.Mutex
   ChapterId int32  //0
   SmallChapters []COM_SmallChapter  //1
   StarReward []int32  //2
 }
+func (this *COM_Chapter)SetChapterId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.ChapterId = value
+}
+func (this *COM_Chapter)GetChapterId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.ChapterId
+}
+func (this *COM_Chapter)SetSmallChapters(value []COM_SmallChapter) {
+  this.Lock()
+  defer this.Unlock()
+  this.SmallChapters = value
+}
+func (this *COM_Chapter)GetSmallChapters() []COM_SmallChapter {
+  this.Lock()
+  defer this.Unlock()
+  return this.SmallChapters
+}
+func (this *COM_Chapter)SetStarReward(value []int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.StarReward = value
+}
+func (this *COM_Chapter)GetStarReward() []int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.StarReward
+}
 func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.ChapterId!=0)
@@ -63,6 +97,8 @@ func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
   return nil
 }
 func (this *COM_Chapter)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
   //field mask
   mask, err:= prpc.NewMask0(buffer,1);
   if err != nil{
