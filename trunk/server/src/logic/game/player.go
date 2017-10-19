@@ -281,7 +281,11 @@ func (this* GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer{
 	data.LoginTime			= this.LoginTime
 	data.LogoutTime			= this.LogoutTime
 	data.BagItemList		= items
-	data.BlackMarketData	= *this.BlackMarketData
+
+	if this.BlackMarketData != nil {
+		data.BlackMarketData	= *this.BlackMarketData
+	}
+
 	return data
 }
 
