@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="106,124" extention="Button">
-  <controller name="button" pages="0,up,1,down" selected="1"/>
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
     <image id="n1" name="n1" src="rvp5e" xy="0,0" size="106,124">
       <gearDisplay controller="button" pages="1"/>
@@ -10,8 +10,8 @@
       <gearDisplay controller="button" pages="0"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n3_zlcj" name="n3" xy="19,31" size="61,55" font="方正楷体_GBK" fontSize="36" color="#ffffff" align="center" vAlign="middle" leading="0" autoSize="none" strokeColor="#000000" text="1">
-      <gearXY controller="button" pages="0,1" values="19,31|19,31"/>
+    <text id="n3_zlcj" name="n3" xy="17,32" size="61,55" font="ui://y2r47n1idgfb26" fontSize="36" color="#ffffff" align="center" vAlign="middle" leading="0" autoSize="none" text="1">
+      <gearXY controller="button" pages="0,1" values="17,32|19,31"/>
       <relation target="n1" sidePair="left-left,top-top"/>
     </text>
     <image id="n4_t6vc" name="n4" src="t6vc1j" xy="-27,-31"/>
