@@ -1358,7 +1358,7 @@ func CheckMyBlackMarkte()  {
 	}
 }
 
-func (this *GamePlayer)OpenSubSystem(level int32)  {
+func (this *GamePlayer)OpenSubSystem()  {
 	if this.BlackMarketData == nil && this.MyUnit.GetIProperty(prpc.IPT_PROMOTE) >= 1 {
 		this.InitMyBlackMarket()
 	}
