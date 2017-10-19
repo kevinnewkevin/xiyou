@@ -21,7 +21,10 @@ public class AssetLoader {
 #if EDITOR_MODE
         Object obj = Resources.Load(path);
         if (obj == null)
+        {
+            Debug.LogError("资源: " + path + " 未找到!");
             return null;
+        }
         return GameObject.Instantiate(obj) as GameObject;
 #else
         if(_Manifest == null)
