@@ -601,6 +601,7 @@ func (this *GamePlayer)SyncBag()  {
 	}
 
 	if this.session != nil {
+		std.LogInfo("InitBagItems OK")
 		this.session.InitBagItems(items)
 	}
 }
