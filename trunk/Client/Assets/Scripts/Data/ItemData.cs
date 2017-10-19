@@ -11,6 +11,7 @@ public class ItemData {
 	public string _Name;
 	public string _Desc;
 	public string _EntityID;
+	public int _Price;
     public static Dictionary<int, ItemData> metaData;
 
     static public void ParseData(string content, string fileName)
@@ -36,6 +37,7 @@ public class ItemData {
 			data._Name = parser.GetString (i, "Name");
 			data._Desc = parser.GetString (i, "Desc");
 			data._EntityID = parser.GetString (i, "entityID");
+			data._Price = parser.GetInt(i, "Price");
             
 			if(metaData.ContainsKey(data._Id))
             {
