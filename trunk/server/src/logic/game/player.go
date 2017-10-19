@@ -176,7 +176,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 			p.SkillBase[ID] = 0
 		}
 	}
-
+	p.InitMyBlackMarket()
 	return &p
 
 }
@@ -303,7 +303,9 @@ func (this *GamePlayer)PassZeroHour()  {
 
 func (this *GamePlayer)PlayerLogin()  {
 	this.SyncBag()
-	this.session.SycnBlackMarkte(*this.BlackMarketData)
+	if this.BlackMarketData != nil {
+		this.session.SycnBlackMarkte(*this.BlackMarketData)
+	}
 	this.LoginTime = time.Now().Unix()
 
 	loginDT 	:= time.Unix(this.LoginTime,0)
