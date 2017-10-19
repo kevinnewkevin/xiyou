@@ -27,9 +27,9 @@ function SK_319_Action(battleid, casterid)
 		Battle.TargetOn(battleid)
 		
 		local truedamage = Player.GetMagicDamage(battleid, casterid, v)
-		sys.log("九头蛇 群蛇乱舞对目标   "..t.. " 造成 法术伤害  "..truedamage )
+		sys.log("九头蛇 酸雾喷吐对目标   "..v.. " 造成 法术伤害  "..truedamage )
 		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
-		sys.log("九头蛇群蛇乱舞对目标   "..t.. " 造成 最终法术伤害  "..damage )
+		sys.log("九头蛇 酸雾喷吐对目标   "..v.. " 造成 最终法术伤害  "..damage )
 		if damage <= 0 then
 			damage = 0
 		end
