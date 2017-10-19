@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="b3g08xjy" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="nhtz0" name="fenjie_com.xml" path="/" exported="true"/>
+    <image id="nhtz1" name="tsk_01.png" path="/" exported="true" scale="9grid" scale9grid="149,172,7,2"/>
+    <image id="nhtz2" name="tsk_02.png" path="/" exported="true" scale="9grid" scale9grid="119,16,8,32"/>
+    <image id="nhtz3" name="tsk_05.png" path="/" exported="true"/>
+    <image id="nhtz4" name="zhuangshi2.png" path="/" exported="true"/>
+    <component id="nhtz5" name="daoju_com.xml" path="/" exported="true"/>
+    <image id="nhtz6" name="fj_2.png" path="/" exported="true" scale="9grid" scale9grid="28,24,10,4"/>
+    <component id="nhtz7" name="jia_Button.xml" path="/" exported="true"/>
+    <image id="nhtz8" name="fj_1.png" path="/" exported="true"/>
+    <component id="nhtz9" name="jian_Button.xml" path="/" exported="true"/>
+    <image id="nhtza" name="tck_fengexian.png" path="/" exported="true" scale="9grid" scale9grid="76,1,7,2"/>
+    <image id="nhtzb" name="zhandou_shuzitiao.png" path="/" exported="true"/>
+    <component id="nhtzc" name="queding_Button.xml" path="/" exported="true"/>
+    <image id="nhtzd" name="anniu1.png" path="/" exported="true"/>
+    <component id="nhtze" name="quxiao_Button.xml" path="/" exported="true"/>
+    <image id="nhtzf" name="anniuhong.png" path="/" exported="true"/>
+  </resources>
+  <publish name="fenjie" maxAtlasSize="1024" extractAlpha="true">
+    <atlas name="默认" index="0"/>
+  </publish>
+</packageDescription>

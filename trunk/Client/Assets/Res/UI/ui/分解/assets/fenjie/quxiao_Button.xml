@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="249,100" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="nhtzf" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_ud0j" name="n2" xy="106,16" size="81,41" font="方正楷体_GBK" fontSize="34" bold="true" text="取消"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
