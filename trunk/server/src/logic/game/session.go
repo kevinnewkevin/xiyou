@@ -55,7 +55,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	this.LoginOK(infoext)
 
 	if this.player != nil{
-		this.player.SyncBag()
+		this.player.PlayerLogin()
 	}
 
 	return nil
@@ -76,7 +76,6 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r.COM_Player)
 
-	this.player.SyncBag()
 	std.LogInfo(string(tempId), "CreatePlayer", &r)
 	b,_ := json.Marshal(r)
 	std.LogInfo(string(b))
@@ -232,6 +231,22 @@ func (this *Session) BuyShopItem(shopId int32 ) error  {
 		return nil
 	}
 	this.player.BuyShopItem(shopId)
+	return nil
+}
+
+func (this *Session)ResolveItem(instId int64, num int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.CardDebrisResolve(instId,num)
+	return nil
+}
+
+func (this *Session)RefreshBlackMarkte() error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.RefreshMyBlackMarket(true)
 	return nil
 }
 

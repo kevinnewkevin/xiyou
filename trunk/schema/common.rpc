@@ -189,10 +189,22 @@ struct COM_LearnSkill{
 	int32	SkillID;
 };
 
-struct SGE_DBPlayer : COM_Player {
-	int64 PlayerId;
-	string Username;
-	int32 BattleGroupIdx;
-	COM_ItemInst[] BagItemList;
+//黑市
+struct COM_BlackMarket{
+	int64		RefreshTime;
+	int32		RefreshNum;	
+	int32[]		ShopItems;
 };
+
+struct SGE_DBPlayer : COM_Player {
+	int64 				PlayerId;
+	string 				Username;
+	int64				LoginTime;
+	int64				LogoutTime;
+	int32 				BattleGroupIdx;
+	COM_ItemInst[] 		BagItemList;
+	COM_BlackMarket		BlackMarketData;
+};
+
+
 

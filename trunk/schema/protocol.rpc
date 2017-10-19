@@ -19,6 +19,8 @@ service COM_ClientToServer{
 	EquipSkill(COM_LearnSkill skillInfo);					//技能学习
 	SkillUpdate(int32 skillIndex, int32 skillID);			//技能学习 技能升级
 	BuyShopItem(int32 shopId);
+	ResolveItem(int64 instId,int32 num);
+	RefreshBlackMarkte();
 };
 
 service COM_ServerToClient{
@@ -45,4 +47,5 @@ service COM_ServerToClient{
 	SkillUpdateOK(int32 skillIndex, int32 skillID, int32 skillpos);		//技能学习完成
 	BuyShopItemOK(COM_ItemInst[] items);
 	AddNewUnit(COM_Unit unit);
+	SycnBlackMarkte(COM_BlackMarket data);
 };

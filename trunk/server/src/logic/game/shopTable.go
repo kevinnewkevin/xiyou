@@ -18,6 +18,7 @@ type (
 		CurrenciesKind		int32
 		Price				int32
 		Copper				int32
+		ShopItemId			int32
 	}
 	CardPondData struct {
 		PondId				int32
@@ -35,6 +36,8 @@ type (
 var (
 	ShopTableData  		= map[int32]*ShopData{}
 	CardPondTableData  	= map[int32]*CardPondData{}
+	BlackMarket			[]int32
+	BlackMarketSize	int = 6
 )
 
 func LoadShopTable(filename string) error {
@@ -57,6 +60,14 @@ func LoadShopTable(filename string) error {
 		c.CurrenciesKind		= int32(prpc.ToId_IPropertyType(kind))
 		c.Price					= csv.GetInt32(r,"Price")
 		c.Copper				= csv.GetInt32(r,"COPPER")
+		c.ShopItemId			= csv.GetInt32(r,"ItemID")
+
+		if c.ShopType == prpc.SHT_BlackMarket {
+			if GetItemTableDataById(c.ShopItemId) == nil {
+				return fmt.Errorf("LoadShopTable Can not find itemId=%d",c.ShopItemId)
+			}
+			BlackMarket = append(BlackMarket,c.ShopId)
+		}
 
 		ShopTableData[c.ShopId] = &c
 	}
@@ -65,6 +76,18 @@ func LoadShopTable(filename string) error {
 
 func GetShopDataById(id int32) *ShopData {
 	return ShopTableData[id]
+}
+
+func GetBlackMarketShopItems() []int32 {
+	var temp []int32
+	var index int  = 0
+	var rr = rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i:=0; i<BlackMarketSize; i++{
+		index = rr.Intn(len(BlackMarket))
+		temp = append(temp,BlackMarket[index])
+	}
+
+	return temp
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

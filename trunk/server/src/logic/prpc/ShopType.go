@@ -4,12 +4,14 @@ const(
   SHT_Min = 0
   SHT_Card = 1
   SHT_BuyCopper = 2
-  SHT_Max = 3
+  SHT_BlackMarket = 3
+  SHT_Max = 4
 )
 const( 
   K_SHT_Min = "SHT_Min"
   K_SHT_Card = "SHT_Card"
   K_SHT_BuyCopper = "SHT_BuyCopper"
+  K_SHT_BlackMarket = "SHT_BlackMarket"
   K_SHT_Max = "SHT_Max"
 )
 func ToName_ShopType( id int )string{
@@ -20,6 +22,8 @@ func ToName_ShopType( id int )string{
       return "SHT_Card"
     case SHT_BuyCopper:
       return "SHT_BuyCopper"
+    case SHT_BlackMarket:
+      return "SHT_BlackMarket"
     case SHT_Max:
       return "SHT_Max"
     default:
@@ -34,6 +38,8 @@ func ToId_ShopType( name string ) int {
       return SHT_Card
     case "SHT_BuyCopper":
       return SHT_BuyCopper
+    case "SHT_BlackMarket":
+      return SHT_BlackMarket
     case "SHT_Max":
       return SHT_Max
     default:

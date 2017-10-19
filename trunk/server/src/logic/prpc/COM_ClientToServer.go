@@ -61,6 +61,10 @@ type COM_ClientToServer_SkillUpdate struct{
 type COM_ClientToServer_BuyShopItem struct{
   shopId int32  //0
 }
+type COM_ClientToServer_ResolveItem struct{
+  instId int64  //0
+  num int32  //1
+}
 type COM_ClientToServerStub struct{
   Sender prpc.StubSender
 }
@@ -83,6 +87,8 @@ type COM_ClientToServerProxy interface{
   EquipSkill(skillInfo COM_LearnSkill ) error // 15
   SkillUpdate(skillIndex int32, skillID int32 ) error // 16
   BuyShopItem(shopId int32 ) error // 17
+  ResolveItem(instId int64, num int32 ) error // 18
+  RefreshBlackMarkte() error // 19
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -810,6 +816,59 @@ func (this *COM_ClientToServer_BuyShopItem)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_ResolveItem)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.instId!=0)
+  mask.WriteBit(this.num!=0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instId
+  {
+    if(this.instId!=0){
+      err := prpc.Write(buffer,this.instId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize num
+  {
+    if(this.num!=0){
+      err := prpc.Write(buffer,this.num)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_ResolveItem)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instId
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.instId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize num
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.num)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1113,6 +1172,35 @@ func(this* COM_ClientToServerStub)BuyShopItem(shopId int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)ResolveItem(instId int64, num int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(18))
+  if err != nil{
+    return err
+  }
+  _18 := COM_ClientToServer_ResolveItem{}
+  _18.instId = instId;
+  _18.num = num;
+  err = _18.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)RefreshBlackMarkte() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(19))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1355,6 +1443,29 @@ func Bridging_COM_ClientToServer_BuyShopItem(buffer *bytes.Buffer, p COM_ClientT
   }
   return p.BuyShopItem(_17.shopId)
 }
+func Bridging_COM_ClientToServer_ResolveItem(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _18 := COM_ClientToServer_ResolveItem{}
+  err := _18.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ResolveItem(_18.instId,_18.num)
+}
+func Bridging_COM_ClientToServer_RefreshBlackMarkte(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  return p.RefreshBlackMarkte()
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1404,6 +1515,10 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_SkillUpdate(buffer,p);
     case 17 :
       return Bridging_COM_ClientToServer_BuyShopItem(buffer,p);
+    case 18 :
+      return Bridging_COM_ClientToServer_ResolveItem(buffer,p);
+    case 19 :
+      return Bridging_COM_ClientToServer_RefreshBlackMarkte(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

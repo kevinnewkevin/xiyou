@@ -6,6 +6,7 @@ import (
 	"strings"
 	"strconv"
 	"logic/std"
+	"time"
 )
 
 const (
@@ -16,8 +17,10 @@ const (
 
 type GamePlayer struct {
 	session        			*Session    		//链接
-	PlayerId 			int64			//角色ID
-	Username 			string 			//账户名
+	PlayerId 				int64			//角色ID
+	Username 				string 			//账户名
+	LoginTime				int64
+	LogoutTime				int64
 	MyUnit         			*GameUnit   		//自己的卡片
 	UnitList       			[]*GameUnit 		//拥有的卡片
 	BattleUnitList 			[]int64     		//默认出战卡片
@@ -45,6 +48,8 @@ type GamePlayer struct {
 	Exp 					int32
 	//主角可学习技能
 	SkillBase				map[int32]int32
+	//黑市
+	BlackMarketData			*prpc.COM_BlackMarket
 }
 
 var (
@@ -127,13 +132,22 @@ func PlayerTick(dt float64)  {
 			continue
 		}
 		p.CaleMyEnergy(dt)
+		p.CheckMyBlackMarkte()
+	}
+}
+
+func OnlinePlayerPassZeroHour()  {
+	for _, p :=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		p.PassZeroHour()
 	}
 }
 
 func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
 }
-
 
 func CreatePlayer(tid int32, name string) *GamePlayer {
 	p := GamePlayer{}
@@ -245,11 +259,14 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 
 func( this* GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer){
 	this.SetPlayerCOM(&p.COM_Player)
-	this.PlayerId = p.PlayerId
-	this.Username = p.Username
+	this.PlayerId 		= p.PlayerId
+	this.Username 		= p.Username
+	this.LoginTime		= p.LoginTime
+	this.LogoutTime		= p.LogoutTime
 	for _, a := range p.BagItemList{
 		this.BagItems = append(this.BagItems,&a)
 	}
+	this.BlackMarketData = &p.BlackMarketData
 }
 
 func (this* GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer{
@@ -257,7 +274,16 @@ func (this* GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer{
 	for _, a := range this.BagItems{
 		items = append(items,*a)
 	}
-	return prpc.SGE_DBPlayer{COM_Player:this.GetPlayerCOM(),PlayerId:this.PlayerId,Username:this.Username ,BagItemList:items}
+
+	data := prpc.SGE_DBPlayer{}
+	data.COM_Player 		= this.GetPlayerCOM()
+	data.PlayerId			= this.PlayerId
+	data.Username			= this.Username
+	data.LoginTime			= this.LoginTime
+	data.LogoutTime			= this.LogoutTime
+	data.BagItemList		= items
+	data.BlackMarketData	= *this.BlackMarketData
+	return data
 }
 
 func (this *GamePlayer)IsBattle() bool {
@@ -265,6 +291,24 @@ func (this *GamePlayer)IsBattle() bool {
 		return false
 	}
 	return true
+}
+
+func (this *GamePlayer)PassZeroHour()  {
+	this.BlackMarketData.RefreshNum = int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
+	this.session.SycnBlackMarkte(*this.BlackMarketData)
+}
+
+func (this *GamePlayer)PlayerLogin()  {
+	this.SyncBag()
+	this.session.SycnBlackMarkte(*this.BlackMarketData)
+	this.LoginTime = time.Now().Unix()
+
+	loginDT 	:= time.Unix(this.LoginTime,0)
+	logoutDT	:= time.Unix(this.LogoutTime,0)
+
+	if loginDT.Day() != logoutDT.Day() || loginDT.Month() != logoutDT.Month() || loginDT.Year() != logoutDT.Year() {
+		this.PassZeroHour()
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -795,6 +839,20 @@ func (this *GamePlayer)AddGold(val int32)  {
 	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
 }
 
+func (this *GamePlayer)AddSoulCur(val int32)  {
+	oldSoul := this.MyUnit.GetIProperty(prpc.IPT_SOULCUR)
+	curSoul := oldSoul + val
+	if curSoul < 0  {
+		curSoul=0
+	}
+	if curSoul>CopperMax {
+		curSoul=CopperMax
+	}
+	this.MyUnit.SetIProperty(prpc.IPT_SOULCUR,curSoul)
+
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old MySoulCur=",oldSoul,"curSoulCur=",curSoul)
+}
+
 func (this *GamePlayer) ClearAllBuff ()  {
 	std.LogInfo("ClearAllBuff")
 	this.MyUnit.ClearAllbuff()
@@ -1118,6 +1176,15 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 		std.LogInfo("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
 	}
 
+	if shopData.CurrenciesKind == prpc.IPT_SOULCUR {
+		mySoul := this.MyUnit.GetIProperty(prpc.IPT_SOULCUR)
+		if mySoul < shopData.Price {
+			return
+		}
+		this.AddSoulCur(-shopData.Price)
+		std.LogInfo("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
+	}
+
 	if shopData.ShopType == prpc.SHT_BuyCopper {
 		if shopData.Copper > 0 {
 			this.AddCopper(shopData.Copper)
@@ -1126,6 +1193,18 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 			}
 		}else {
 			std.LogInfo("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
+		}
+	}
+
+	if shopData.ShopType == prpc.SHT_BlackMarket {
+		this.AddBagItemByItemId(shopData.ShopItemId,1)
+		itemInsts := []prpc.COM_ItemInst{}
+		item := prpc.COM_ItemInst{}
+		item.ItemId = shopData.ShopItemId
+		item.Stack	= 1
+		itemInsts = append(itemInsts,item)
+		if this.session != nil {
+			this.session.BuyShopItemOK(itemInsts)
 		}
 	}
 }
@@ -1194,6 +1273,10 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 func (this *GamePlayer) Logout(){
 
 	std.LogInfo("Logout","PlayerName=",this.MyUnit.InstName)
+
+	this.LogoutTime = time.Now().Unix()
+
+
 	//清理战斗信息
 	this.LeftBattle_strong()
 	
@@ -1210,6 +1293,66 @@ func (this* GamePlayer)Save(){
 	UpdatePlayer(this.GetPlayerSGE())
 }
 
+func (this *GamePlayer)CardDebrisResolve(itemInstId int64,num int32) {
+	item := this.GetBagItemByInstId(itemInstId)
+	if item == nil {
+		return
+	}
+
+	if item.Stack < num {
+		return
+	}
+
+	itemData := GetItemTableDataById(item.ItemId)
+	if itemData == nil {
+		return
+	}
+	if itemData.ItemMainType == prpc.IMT_Debris {
+		this.AddSoulCur(itemData.SoulVal * num)
+	}
+}
+
+func (this *GamePlayer)InitMyBlackMarket()  {
+	tempData := prpc.COM_BlackMarket{}
+	tempData.RefreshTime 	= time.Now().Unix()
+	tempData.RefreshNum		= int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
+	tempData.ShopItems = GetBlackMarketShopItems()
+	this.BlackMarketData = &tempData
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
+	if this.session != nil {
+		this.session.SycnBlackMarkte(*this.BlackMarketData)
+	}
+}
+
+func (this *GamePlayer)RefreshMyBlackMarket(isActive bool)  {
+	if this.BlackMarketData == nil {
+		return 
+	}
+	if isActive {
+		need := GetGlobalInt("C_BlackMarkteRefreshSpeed")
+		if this.MyUnit.GetIProperty(prpc.IPT_SOULCUR) < int32(need) {
+			return
+		}
+		this.AddSoulCur(-int32(need))
+		this.BlackMarketData.RefreshNum--
+	}else {
+		this.BlackMarketData.RefreshTime = time.Now().Unix()
+	}
+	this.BlackMarketData.ShopItems = GetBlackMarketShopItems()
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","RefreshMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
+	if this.session != nil {
+		this.session.SycnBlackMarkte(*this.BlackMarketData)
+	}
+}
+
+func (this *GamePlayer)CheckMyBlackMarkte()  {
+	cd := time.Now().Unix()-this.BlackMarketData.RefreshTime
+	if cd < int64(GetGlobalInt("C_BlackMarkteTimer")) {
+		return
+	}
+	this.RefreshMyBlackMarket(false)
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1222,8 +1365,11 @@ func TestPlayer() {
 	for i:=0;i<len(P1.BagItems) ;i++  {
 		std.LogInfo("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
 	}
+	P1.InitMyBlackMarket()
 	P1.TestItem()
 }
+
+
 
 func (this *GamePlayer)TestItem()  {
 	//for i := 1; i < 9 ; i++ {	//测试用

@@ -13,6 +13,7 @@ type (
 		ItemMainType	int
 		MaxCount		int32
 		GloAction		string
+		SoulVal			int32			//卡牌碎片分解的魂值
 	}
 )
 
@@ -41,8 +42,13 @@ func LoadItemTable(filename string) error {
 		}
 		item := ItemData{}
 		item.ItemId			= itemId
+
+		itemtype 			:= csv.GetString(r,"ItemType")
+		item.ItemMainType	= prpc.ToId_ItemMainType(itemtype)
+
 		item.MaxCount		= csv.GetInt32(r,"MaxCount")
 		item.GloAction		= csv.GetString(r,"GloAction")
+		item.SoulVal		= csv.GetInt32(r,"Price")
 
 		ItemTableData[item.ItemId] = &item
 	}

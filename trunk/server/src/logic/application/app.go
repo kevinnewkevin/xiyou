@@ -7,6 +7,7 @@ import (
 	"logic/socket"
 	"net"
 	"logic/std"
+	"github.com/astaxie/beego/toolbox"
 )
 
 type App struct {
@@ -113,6 +114,9 @@ func (this *App) Run() {
 
 	//game.InitGlobalLuaState()
 	game.InitTianTi()
+	game.InitGameTask()
+	toolbox.StartTask()
+	defer toolbox.StopTask()
 	//game.TestPlayer()
 	this.l, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("0.0.0.0"),10999,"ipv4"})
 	if err != nil {

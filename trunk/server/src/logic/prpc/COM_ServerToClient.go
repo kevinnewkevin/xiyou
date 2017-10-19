@@ -74,6 +74,9 @@ type COM_ServerToClient_BuyShopItemOK struct{
 type COM_ServerToClient_AddNewUnit struct{
   unit COM_Unit  //0
 }
+type COM_ServerToClient_SycnBlackMarkte struct{
+  data COM_BlackMarket  //0
+}
 type COM_ServerToClientStub struct{
   Sender prpc.StubSender
 }
@@ -101,6 +104,7 @@ type COM_ServerToClientProxy interface{
   SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error // 20
   BuyShopItemOK(items []COM_ItemInst ) error // 21
   AddNewUnit(unit COM_Unit ) error // 22
+  SycnBlackMarkte(data COM_BlackMarket ) error // 23
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1030,6 +1034,40 @@ func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) erro
   }
   return nil
 }
+func (this *COM_ServerToClient_SycnBlackMarkte)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(true) //data
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize data
+  {
+    err := this.data.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_SycnBlackMarkte)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize data
+  if mask.ReadBit() {
+    err := this.data.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1413,6 +1451,23 @@ func(this* COM_ServerToClientStub)AddNewUnit(unit COM_Unit ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)SycnBlackMarkte(data COM_BlackMarket ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  err := prpc.Write(buffer,uint16(23))
+  if err != nil{
+    return err
+  }
+  _23 := COM_ServerToClient_SycnBlackMarkte{}
+  _23.data = data;
+  err = _23.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(prpc.NoneBufferError)
@@ -1720,6 +1775,20 @@ func Bridging_COM_ServerToClient_AddNewUnit(buffer *bytes.Buffer, p COM_ServerTo
   }
   return p.AddNewUnit(_22.unit)
 }
+func Bridging_COM_ServerToClient_SycnBlackMarkte(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(prpc.NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(prpc.NoneProxyError)
+  }
+  _23 := COM_ServerToClient_SycnBlackMarkte{}
+  err := _23.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SycnBlackMarkte(_23.data)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(prpc.NoneBufferError)
@@ -1779,6 +1848,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_BuyShopItemOK(buffer,p);
     case 22 :
       return Bridging_COM_ServerToClient_AddNewUnit(buffer,p);
+    case 23 :
+      return Bridging_COM_ServerToClient_SycnBlackMarkte(buffer,p);
     default:
       return errors.New(prpc.NoneDispatchMatchError)
   }

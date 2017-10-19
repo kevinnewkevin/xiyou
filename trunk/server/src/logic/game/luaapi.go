@@ -64,6 +64,8 @@ extern int __Throw(void*);
 
 extern int __setEnvString(void*);
 extern int __setEnvInt(void*);
+extern int __setGlobalString(void*);
+extern int __setGlobalInt(void*);
 */
 import "C"
 import (
@@ -79,8 +81,10 @@ var (
 	_L *lua.LuaState
 	_R string
 
-	EnvIntegers		= make(map[string]int)
-	EnvStrings		= make(map[string]string)
+	EnvIntegers			= make(map[string]int)
+	EnvStrings			= make(map[string]string)
+	GlobalIntegers		= make(map[string]int)
+	GlobalStrings		= make(map[string]string)
 )
 
 func InitLua(r string){
@@ -154,9 +158,12 @@ func InitLua(r string){
 
 	_L.LoadApi(C.__setEnvString, "setEnvString",  	"Env")
 	_L.LoadApi(C.__setEnvInt, "setEnvInt",  	 	"Env")
+	_L.LoadApi(C.__setGlobalString, "setGlobalString",  	"Global")
+	_L.LoadApi(C.__setGlobalInt, "setGlobalInt",  	 	"Global")
 
 	_L.LoadFile(_R + "main.lua")
 	_L.LoadFile(_R + "env.lua")
+	_L.LoadFile(_R + "serGlobal.lua")
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -187,12 +194,44 @@ func __setEnvInt(p unsafe.Pointer) C.int {
 	return 0
 }
 
+//export __setGlobalString
+func __setGlobalString(p unsafe.Pointer) C.int {
+	L := lua.GetLuaState(p)
+	idx := 1
+	s1 := L.ToString(idx)
+	idx++
+	s2 := L.ToString(idx)
+	GlobalStrings[s1] = s2
+
+	return 0
+}
+
+//export __setGlobalInt
+func __setGlobalInt(p unsafe.Pointer) C.int {
+	L := lua.GetLuaState(p)
+	idx := 1
+	s1 := L.ToString(idx)
+	idx++
+	s2 := L.ToInteger(idx)
+	GlobalIntegers[s1] = s2
+
+	return 0
+}
+
 func GetEnvString(val string) string {
 	return EnvStrings[val]
 }
 
 func GetEnvInt(val string) int {
 	return EnvIntegers[val]
+}
+
+func GetGlobalString(val string) string {
+	return GlobalStrings[val]
+}
+
+func GetGlobalInt(val string) int {
+	return GlobalIntegers[val]
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

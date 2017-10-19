@@ -8,8 +8,11 @@ type SGE_DBPlayer struct{
   COM_Player
   PlayerId int64  //0
   Username string  //1
-  BattleGroupIdx int32  //2
-  BagItemList []COM_ItemInst  //3
+  LoginTime int64  //2
+  LogoutTime int64  //3
+  BattleGroupIdx int32  //4
+  BagItemList []COM_ItemInst  //5
+  BlackMarketData COM_BlackMarket  //6
 }
 func (this *SGE_DBPlayer)SetPlayerId(value int64) {
   this.Lock()
@@ -31,6 +34,26 @@ func (this *SGE_DBPlayer)GetUsername() string {
   defer this.Unlock()
   return this.Username
 }
+func (this *SGE_DBPlayer)SetLoginTime(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.LoginTime = value
+}
+func (this *SGE_DBPlayer)GetLoginTime() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.LoginTime
+}
+func (this *SGE_DBPlayer)SetLogoutTime(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.LogoutTime = value
+}
+func (this *SGE_DBPlayer)GetLogoutTime() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.LogoutTime
+}
 func (this *SGE_DBPlayer)SetBattleGroupIdx(value int32) {
   this.Lock()
   defer this.Unlock()
@@ -51,6 +74,16 @@ func (this *SGE_DBPlayer)GetBagItemList() []COM_ItemInst {
   defer this.Unlock()
   return this.BagItemList
 }
+func (this *SGE_DBPlayer)SetBlackMarketData(value COM_BlackMarket) {
+  this.Lock()
+  defer this.Unlock()
+  this.BlackMarketData = value
+}
+func (this *SGE_DBPlayer)GetBlackMarketData() COM_BlackMarket {
+  this.Lock()
+  defer this.Unlock()
+  return this.BlackMarketData
+}
 func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   {
     err := this.COM_Player.Serialize(buffer);
@@ -64,8 +97,11 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   mask := prpc.NewMask1(1)
   mask.WriteBit(this.PlayerId!=0)
   mask.WriteBit(len(this.Username) != 0)
+  mask.WriteBit(this.LoginTime!=0)
+  mask.WriteBit(this.LogoutTime!=0)
   mask.WriteBit(this.BattleGroupIdx!=0)
   mask.WriteBit(len(this.BagItemList) != 0)
+  mask.WriteBit(true) //BlackMarketData
   {
     err := prpc.Write(buffer,mask.Bytes())
     if err != nil {
@@ -86,6 +122,24 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
     err := prpc.Write(buffer,this.Username)
     if err != nil {
       return err
+    }
+  }
+  // serialize LoginTime
+  {
+    if(this.LoginTime!=0){
+      err := prpc.Write(buffer,this.LoginTime)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize LogoutTime
+  {
+    if(this.LogoutTime!=0){
+      err := prpc.Write(buffer,this.LogoutTime)
+      if err != nil{
+        return err
+      }
     }
   }
   // serialize BattleGroupIdx
@@ -110,6 +164,13 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
       if err != nil {
         return err
       }
+    }
+  }
+  // serialize BlackMarketData
+  {
+    err := this.BlackMarketData.Serialize(buffer)
+    if err != nil{
+      return err
     }
   }
   return nil
@@ -139,6 +200,20 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
+  // deserialize LoginTime
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.LoginTime)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize LogoutTime
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.LogoutTime)
+    if err != nil{
+      return err
+    }
+  }
   // deserialize BattleGroupIdx
   if mask.ReadBit() {
     err := prpc.Read(buffer,&this.BattleGroupIdx)
@@ -159,6 +234,13 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
       if err != nil{
         return err
       }
+    }
+  }
+  // deserialize BlackMarketData
+  if mask.ReadBit() {
+    err := this.BlackMarketData.Deserialize(buffer)
+    if err != nil{
+      return err
     }
   }
   return nil
