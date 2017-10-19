@@ -1313,6 +1313,7 @@ func (this *GamePlayer)CardDebrisResolve(itemInstId int64,num int32) {
 	if itemData.ItemMainType == prpc.IMT_Debris {
 		this.AddSoulCur(itemData.SoulVal * num)
 	}
+	this.DelItemByInstId(itemInstId,num)
 }
 
 func (this *GamePlayer)InitMyBlackMarket()  {
