@@ -39,6 +39,11 @@ public class Proxy4Lua {
         NetWoking.S.RequestChapterStarReward(chapterId, star);
     }
 
+	static public void ResolveItem(long instId,int num)
+	{
+		NetWoking.S.ResolveItem(instId, num);
+	}
+
     static public void  PromoteUnit(long instId)
     {
         NetWoking.S.PromoteUnit(instId);
@@ -120,7 +125,7 @@ public class Proxy4Lua {
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
-        go.SetActive(true);
+		go.SetActive(true);
         return new FairyGUI.GoWrapper(go);
     }
 
