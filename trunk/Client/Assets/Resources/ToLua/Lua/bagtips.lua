@@ -10,6 +10,10 @@ local icon;
 local iconBack;
 local stackLab;
 local iteminst;
+local useBtn;
+local useAllBtn;
+local delBtn;
+local unlockBtn;
 function bagtips:OnEntry()
 	Window = bagtips.New();
 	Window:Show();
@@ -24,9 +28,7 @@ function bagtips:OnInit()
 	self:Center();
 	self.modal = true;
 	self.onClick:Add(bagtips_OnHide);
-	self.closeButton = self.contentPane:GetChild("n11");
-	local useBtn = self.contentPane:GetChild("n11");
-	useBtn.visible = false;
+	--self.closeButton = self.contentPane:GetChild("n11");
 	nameLab = self.contentPane:GetChild("n9");
 	descLab= self.contentPane:GetChild("n24");
 	levelLab= self.contentPane:GetChild("n21");
@@ -36,11 +38,17 @@ function bagtips:OnInit()
 	icon = itemIcon:GetChild("n1");
 	iconBack = itemIcon:GetChild("n0");
 	stackLab = itemIcon:GetChild("n2");
-	local allUseBtn = self.contentPane:GetChild("n14");
-	allUseBtn.visible = false;
-	local delBtn = self.contentPane:GetChild("n15");
-	delBtn.onClick:Add(bagtips_OnDelItem);
 
+	local btns = self.contentPane:GetChild("n28").asList;
+
+	useBtn = btns:GetChildAt(0);
+	useBtn.visible = false;
+	useAllBtn = btns:GetChildAt(1);
+	useAllBtn.visible = false;
+	delBtn = btns:GetChildAt(3);
+	delBtn.onClick:Add(bagtips_OnDelItem);
+	unlockBtn = btns:GetChildAt(2);
+	unlockBtn.onClick:Add(bagtips_OnUnlockBtn);
 	bagtips_FlushData();
 end
 
@@ -89,6 +97,10 @@ end
 function bagtips_OnDelItem(context)
 	Proxy4Lua.DeleteItem(iteminst.InstId,iteminst.Stack);
 	UIManager.Hide("bagtips");
+end
+
+function bagtips_OnUnlockBtn(context)
+	UIManager.Show("fenjie");
 end
 
 function bagtips_OnHide(context)

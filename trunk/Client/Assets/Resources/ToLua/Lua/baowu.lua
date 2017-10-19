@@ -91,14 +91,14 @@ function baowu_OnExit(context)
 		else
 			SceneLoader.LoadScene("main");
 		end
-	end
+	end 
 	Proxy4Lua.UnloadAsset(boxEff);
 	boxEff = "";
 	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 end
 
 function baowu_FlushData()
-	local dropItem;
+	local dropItem; 
 	local dropItemCount;
 	local itemInst;
 	local stack;
