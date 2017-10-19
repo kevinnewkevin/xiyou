@@ -132,7 +132,6 @@ func PlayerTick(dt float64)  {
 			continue
 		}
 		p.CaleMyEnergy(dt)
-		p.CheckMyBlackMarkte()
 	}
 }
 
@@ -1345,12 +1344,13 @@ func (this *GamePlayer)RefreshMyBlackMarket(isActive bool)  {
 	}
 }
 
-func (this *GamePlayer)CheckMyBlackMarkte()  {
-	cd := time.Now().Unix()-this.BlackMarketData.RefreshTime
-	if cd < int64(GetGlobalInt("C_BlackMarkteTimer")) {
-		return
+func CheckMyBlackMarkte()  {
+	for _, p :=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		p.RefreshMyBlackMarket(false)
 	}
-	this.RefreshMyBlackMarket(false)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
