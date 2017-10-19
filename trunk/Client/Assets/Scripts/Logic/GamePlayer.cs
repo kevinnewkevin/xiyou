@@ -24,7 +24,7 @@ public class GamePlayer {
 
     static public List<string> _IPropDirty = new List<string>();
     static public List<string> _CPropDirty = new List<string>();
-	static public bool showNewCard; 
+	static public bool showNewCard;
 	static public COM_Unit newCard;
     static public void Init(COM_Player player)
     {

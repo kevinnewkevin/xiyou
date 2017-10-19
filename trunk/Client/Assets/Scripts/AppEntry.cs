@@ -20,6 +20,7 @@ public class AppEntry : MonoBehaviour {
         UIManager.Init();
         Define.Init();
         CameraEffect.Init();
+        BagSystem.Init();
 //        WeatherSystem.Init();
         UIManager.Show("denglu");
         DataLoader.BeginLoad();

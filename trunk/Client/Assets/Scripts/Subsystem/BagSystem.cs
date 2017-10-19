@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BagSystem {
 
-    public static Dictionary<int, List<COM_ItemInst>> _ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
+    public static Dictionary<int, List<COM_ItemInst>> _ItemsByType;
 
-	public static void Init(COM_ItemInst[] items)
+	public static void Init(COM_ItemInst[] items = null)
     {
+		_ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 		List<COM_ItemInst> itemList = new List<COM_ItemInst> ();
 
         if ( items != null )
@@ -17,11 +18,14 @@ public class BagSystem {
                 itemList.Add(items[i]);
             }
         }
-        
-		_ItemsByType.Add(0, itemList);
+
+        if (!_ItemsByType.ContainsKey(0))
+            _ItemsByType.Add(0, itemList);
+        else
+            _ItemsByType [0] = itemList;
 
        // _ItemsByType [0].Sort(Sort);
-        ItemData iData = null;
+//        ItemData iData = null;
 		
 	/*	for(int i=0; i < items.Length; ++i)
         {
