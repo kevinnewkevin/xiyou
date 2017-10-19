@@ -63,9 +63,9 @@ function SK_305_Action(battleid, casterid)
 
 	local  p = Player.GetFriend(battleid,casterid)  --获取目标 
 	Battle.Cure(battleid,p,0,0)
-	sys.log("观音对目标  增加己方"..p.."   40%法术强度 ".. mag_pro)
+	sys.log("观音对目标  增加己方"..p.."   40%物理强度 ".. mag_pro)
 	Battle.AddBuff(battleid,casterid, p,146, mag_pro)
-	sys.log("观音对目标  增加己方"..p.."   40%物理强度 ".. atk_pro)
+	sys.log("观音对目标  增加己方"..p.."   40%法术强度 ".. atk_pro)
 	Battle.AddBuff(battleid,casterid, p,147, atk_pro)
 	sys.log("观音对目标  增加己方"..p.."   40%法术 法术强度 物理强度  强度完成")
 	--Battle.AddBuff(battleid,casterid, t, 115,caster_attack*0.4)     --降低目标40%物理强度

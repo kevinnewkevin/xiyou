@@ -25,12 +25,12 @@ function SK_320_Action(battleid, casterid)
 	
 	local magic_damage=Player.GetMagicDamage(battleid,casterid,t)
 	
-	local  true_damage = magic_damage*9
+	local  true_damage = magic_damage
 	
-	sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..t.. " 造成 法术伤害  "..true_damage )
+	sys.log("九头蛇 群蛇乱舞对目标   "..t.. " 造成 法术伤害  "..true_damage )
 	
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,true_damage)
-	sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..t.. " 造成 最终法术伤害  "..damage )
+	sys.log("九头蛇 群蛇乱舞对目标   "..t.. " 造成 最终法术伤害  "..damage )
 	
 	--判断伤害
 	if damage <= 0 then
@@ -40,7 +40,7 @@ function SK_320_Action(battleid, casterid)
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	local mag_damage = damage*0.3*9
+	local mag_damage = damage*2.7
 	
 	local  sudu_del = sudu*0.1
 	sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..t.. " 造成 法术伤害的30%  "..mag_damage )
