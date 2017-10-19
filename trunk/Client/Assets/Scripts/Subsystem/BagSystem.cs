@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BagSystem {
 
-    public static Dictionary<int, List<COM_ItemInst>> _ItemsByType;
+    public static Dictionary<int, List<COM_ItemInst>> _ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 
 	public static void Init(COM_ItemInst[] items)
     {
-		_ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 		List<COM_ItemInst> itemList = new List<COM_ItemInst> ();
 
         if ( items != null )
