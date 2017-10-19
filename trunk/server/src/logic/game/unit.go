@@ -744,7 +744,7 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 		exp -= exp_info
 		exp_info = GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
 		this.Level += 1
-
+		this.Owner.OpenSubSystem()			//临时用的
 		this.Owner.CheckSkillBase()
 	}
 

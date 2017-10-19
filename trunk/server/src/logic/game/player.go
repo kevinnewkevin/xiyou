@@ -1357,6 +1357,12 @@ func CheckMyBlackMarkte()  {
 	}
 }
 
+func (this *GamePlayer)OpenSubSystem(level int32)  {
+	if this.BlackMarketData == nil && this.MyUnit.GetIProperty(prpc.IPT_PROMOTE) >= 1 {
+		this.InitMyBlackMarket()
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1369,7 +1375,7 @@ func TestPlayer() {
 	for i:=0;i<len(P1.BagItems) ;i++  {
 		std.LogInfo("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
 	}
-	P1.InitMyBlackMarket()
+	//P1.InitMyBlackMarket()
 	P1.TestItem()
 }
 
