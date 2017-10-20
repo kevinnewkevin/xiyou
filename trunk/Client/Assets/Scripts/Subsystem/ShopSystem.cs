@@ -8,6 +8,7 @@ public class ShopSystem
 	public static List<COM_ItemInst> _ShowBuyItems = new List<COM_ItemInst> ();
 	public static COM_BlackMarket _BlackMarket;
 
+	public static List<int> _blackItems = new List<int> ();
 
 	public static COM_ItemInst[] BuyItems
 	{
@@ -43,7 +44,14 @@ public class ShopSystem
 	{
 		if (indx > _BlackMarket.ShopItems.Length)
 			return 0;
-		return _BlackMarket.ShopItems [indx];
+		return _BlackMarket.ShopItems [indx].ItemId;
+	}
+
+	public static bool GetBlackMarketIsBuy(int indx)
+	{
+		if (indx > _BlackMarket.ShopItems.Length)
+			return false;
+		return _BlackMarket.ShopItems [indx].IsBuy;
 	}
 
 	public static int GetBlackRefreshNum()
@@ -68,6 +76,9 @@ public class ShopSystem
 			_ShowBuyItems.Remove(_ShowBuyItems [0]);
 		}
 	}
+
+
+
 }
 
 
