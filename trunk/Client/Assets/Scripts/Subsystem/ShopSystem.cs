@@ -5,8 +5,10 @@ public class ShopSystem
 {
 	public static int buyType; 	
 	public static COM_ItemInst[] _buyItems;
-		public static List<COM_ItemInst> _ShowBuyItems = new List<COM_ItemInst> ();
-	
+	public static List<COM_ItemInst> _ShowBuyItems = new List<COM_ItemInst> ();
+	public static COM_BlackMarket _BlackMarket;
+
+
 	public static COM_ItemInst[] BuyItems
 	{
 		set
@@ -24,24 +26,49 @@ public class ShopSystem
 		}
 	}
 
-
-		public static COM_ItemInst GetShowItem()
+	public static COM_BlackMarket BlackMarket
+	{
+		set
 		{
-				if (_ShowBuyItems.Count > 0) 
-				{
-						return _ShowBuyItems [0];
-				}
-
-				return null;
-		}
+			_BlackMarket = value;
 			
-		public static void DelShowItem()
-		{
-				if (_ShowBuyItems.Count > 0) 
-				{
-					_ShowBuyItems.Remove(_ShowBuyItems [0]);
-				}
-
 		}
+		get
+		{ 
+			return _BlackMarket;
+		}
+	}
+
+	public static int GetBlackMarketId(int indx)
+	{
+		if (indx > _BlackMarket.ShopItems.Length)
+			return 0;
+		return _BlackMarket.ShopItems [indx];
+	}
+
+	public static int GetBlackRefreshNum()
+	{
+		return _BlackMarket.RefreshNum;
+	}
+
+	public static COM_ItemInst GetShowItem()
+	{
+		if (_ShowBuyItems.Count > 0) 
+		{
+			return _ShowBuyItems [0];
+		}
+
+		return null;
+	}
+		
+	public static void DelShowItem()
+	{
+		if (_ShowBuyItems.Count > 0) 
+		{
+			_ShowBuyItems.Remove(_ShowBuyItems [0]);
+		}
+	}
 }
+
+
 
