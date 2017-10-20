@@ -69,7 +69,7 @@ function yemiantishi:OnDispose()
 end
 
 function yemiantishi:OnHide()
-	Window:Hide();
+	--Window:Hide();
 end
 
 function yemiantishi_FlushData()
