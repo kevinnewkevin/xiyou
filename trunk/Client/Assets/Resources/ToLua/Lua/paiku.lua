@@ -5,6 +5,7 @@ local Window;
 
 local allCardList;
 local allCardGroupList;
+local total;
 
 local cardItemUrl = "ui://paiku/touxiangkuang_Label";
 local cardItemGapUrl = "ui://paiku/kong_com";
@@ -37,13 +38,13 @@ function paiku:OnInit()
 
 	self.closeButton = self.contentPane:GetChild("n7").asButton;
 
-
 	local leftPart = self.contentPane:GetChild("n6").asCom;
 	allCardList = leftPart:GetChild("n27").asList;
 	allCardList:SetVirtual();
 	allCardList.itemRenderer = paiku_RenderListItem;
 	allCardList.onDrop:Add(paiku_OnDropCard);
 	allCardList.data = 0;
+	total = leftPart:GetChild("n33").asTextField;
 
 	local feeList = leftPart:GetChild("n34").asList;
 	local feeMax = feeList.numItems;
@@ -180,6 +181,7 @@ function paiku:OnHide()
 end
 
 function paiku_FlushData()
+	total.text = "(数量:" .. GamePlayer.CardsByFee(0).Count .. ")";
 	local cards = 0;
 	if GamePlayer.CardsByFee(crtCardsFee) ~= nil then
 		cards = GamePlayer.CardsByFee(crtCardsFee).Count;
