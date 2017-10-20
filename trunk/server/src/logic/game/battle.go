@@ -871,11 +871,12 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 
 		u_list = append(u_list, u.InstId)
 	}
-
+	std.Log("1, ", u_list)
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
 
+	std.Log("2, ", u_list)
 	if len(u_list) == 0{
 		if this.Round == 0 {
 			for _, p := range this.PlayerList {
@@ -887,7 +888,7 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 		return -1
 	}
 
-	index := len(u_list) - 1
+	index := len(u_list)
 
 	std.LogInfo("目标索引",index)
 	idx := rand.Intn(index)
