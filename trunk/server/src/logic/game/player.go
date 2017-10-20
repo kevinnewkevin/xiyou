@@ -1399,6 +1399,10 @@ func (this *GamePlayer)IsBuyBlackMarketItem(shopId int32) bool {
 	}
 	for _,item := range this.BlackMarketData.ShopItems {
 		if item.ItemId == shopId && item.IsBuy {
+			item.IsBuy = false
+			if this.session != nil {
+				this.session.SycnBlackMarkte(*this.BlackMarketData)
+			}
 			return true
 		}
 	}
