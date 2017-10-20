@@ -281,6 +281,8 @@ function cangbaoge_OnRefreshBtn(context)
 		return;
 	end
 	Proxy4Lua.RefreshBlackMarkte();
+	Proxy4Lua.PopMsg("刷新成功");
+
 end 
 
 function cangbaoge_OnBlackBuyClick(context)
