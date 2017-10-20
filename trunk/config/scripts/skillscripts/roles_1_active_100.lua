@@ -24,7 +24,7 @@ function SK_100_Action(battleid, casterid)
 		--判断伤害
 		if damage <= 0 then 
 		
-			damage = 1
+			damage = 0
 		
 		end
 		

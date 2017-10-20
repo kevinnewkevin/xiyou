@@ -22,8 +22,6 @@ function SK_297_Action(battleid, casterid)
 	
 	--local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	
-	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
 		local mtk = Player.GetUnitMtk(battleid,v)

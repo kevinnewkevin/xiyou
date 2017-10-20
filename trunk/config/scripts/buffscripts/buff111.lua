@@ -6,7 +6,8 @@ sys.log("buff111")
 function buff_111_add(battleid, unitid, buffinstid) 
 	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_AOE")  --加必定溅射
 	
-	sys.log("buff_111_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_111_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_111_add  添加必定溅射buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_111_update(battleid, buffinstid, unitid)	
@@ -14,7 +15,8 @@ function buff_111_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_111_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_111_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_111_update  更新必定溅射buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -22,6 +24,7 @@ function buff_106_delete(battleid, unitid, buffinstid)
 
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_AOE")   --减必定溅射
 	
-	sys.log("buff_111_delete "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_111_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_111_delete  删除必定溅射buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

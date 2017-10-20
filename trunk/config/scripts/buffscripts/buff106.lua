@@ -9,7 +9,8 @@ function buff_106_add(battleid, unitid, buffinstid,data)
 	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_UNDEAD")  --加眩晕免除一次造成死亡的伤害
 
 	
-	sys.log("buff_106_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_106_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_106_add  添加免死buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_106_update(battleid, buffinstid, unitid)	
@@ -17,7 +18,7 @@ function buff_106_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_106_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_106_update  更新免死buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -25,7 +26,7 @@ function buff_106_delete(battleid, unitid, buffinstid,data)
 
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_UNDEAD")   --减眩晕免除一次造成死亡的伤害
 	
-	sys.log("buff_106_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_106_delete  删除免死buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end
 

@@ -4,7 +4,7 @@
 sys.log("buff101")
 
 function buff_101_add(battleid, unitid, buffinstid) 
-	sys.log("buff_101_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_101_add 加血buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -13,7 +13,7 @@ function buff_101_update(battleid, buffinstid, unitid)
 	
 	Battle.BuffCureHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_101_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_101_update 加血buff "..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 	
 end
@@ -23,6 +23,6 @@ function buff_101_delete(battleid, unitid, buffinstid, data)
 	-- Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_ATK") 	-- 修改属性
 	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减去护盾
 	
-	sys.log("buff_101_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_101_delete 加血buff "..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 
 end

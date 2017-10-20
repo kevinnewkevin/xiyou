@@ -4,22 +4,23 @@
 sys.log("buff102")
 
 function buff_102_add(battleid, unitid, buffinstid, data) 
-	sys.log("buff_102_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_102_add  添加加物理属性buff "..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	Player.ChangeUnitProperty(battleid, unitid, data, "CPT_ATK")  --加属性值  物理
+	sys.log("buff_102_add "..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_102_update(battleid, buffinstid, unitid)	
 	buff_id = 102 --配置表中的buffid
-	sys.log("buff_102_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_102_update  更新加物理属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 end
 
 function buff_102_delete(battleid, unitid, buffinstid, data)
 
-	 sys.log("buff_102_delete"..battleid..unitid..data)
+	 sys.log("buff_102_delete 加物理属性, battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是.."..data)
 
 	Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_ATK")
 	-- Player.ChangeSheld(battleid, unit, -data)						 	-- 减属性值 物理
 
-	sys.log("buff_102_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_102_delete  删除增加物理属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 	
 end

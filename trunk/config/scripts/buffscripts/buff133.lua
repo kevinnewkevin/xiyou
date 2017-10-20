@@ -7,7 +7,8 @@ sys.log("buff133")
 function buff_133_add(battleid, unitid, buffinstid,data)
 	Player.ChangeUnitProperty(battleid, unitid,data,"CPT_REFLEX") 
 	 
-	sys.log("buff_133_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_133_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_133_add  添加 增加荆棘反射属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_133_update(battleid, buffinstid, unitid)	
@@ -15,7 +16,8 @@ function buff_133_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_133_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_133_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_133_update  更新增加荆棘反射属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -24,6 +26,7 @@ function buff_133_delete(battleid, unitid, buffinstid,data)
 	Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_REFLEX") 
 	
 	
-	sys.log("buff_133_delete "..","..battleid..","..buffinstid..","..data)
+	--sys.log("buff_133_delete "..","..battleid..","..buffinstid..","..data)
+	sys.log("buff_133_delete  删除 增加荆棘反射属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

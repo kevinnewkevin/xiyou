@@ -230,7 +230,8 @@ function ClacDamageByAllBuff(battleid,casterid,targetid,damage)
 	end
 	
 	--最终伤害
-	
+
+	sys.log("ClacDamageByAllBuff 护盾值" .. sheld)
 	damage = damage - sheld
 	
 	sys.log("ClacDamageByAllBuff 最终" .. damage)

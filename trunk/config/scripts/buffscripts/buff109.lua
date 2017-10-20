@@ -9,7 +9,8 @@ function buff_109_add(battleid, unitid, buffinstid,data)
 	 
 	 Player.ChangeUnitProperty(battleid, unitid, data, "CPT_AGILE") --加 速
 	
-	sys.log("buff_109_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_109_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_109_add  添加加 速buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_109_update(battleid, buffinstid, unitid)	
@@ -17,7 +18,8 @@ function buff_109_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_109_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_109_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_109_update  更新加 速buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -27,6 +29,7 @@ function buff_109_delete(battleid, unitid, buffinstid,data)
 	
 	 Player.ChangeUnitProperty(battleid, unitid, -data, "CPT_AGILE")--减 速
 	
-	sys.log("buff_109_delete "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_109_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_109_delete  删除加 速buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

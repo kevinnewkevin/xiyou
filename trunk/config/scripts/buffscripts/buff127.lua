@@ -25,7 +25,8 @@ function buff_127_add(battleid, unitid, buffinstid,data)
  
 	Player.ChangeIptProperty(battleid, unitid,-data,"IPT_HP")  
 	
-	sys.log("buff_127_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_127_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_127_add  添加 减所有属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_127_update(battleid, buffinstid, unitid)	
@@ -33,7 +34,8 @@ function buff_127_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_127_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_127_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_127_update  更新减所有属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -61,6 +63,7 @@ function buff_127_delete(battleid, unitid, buffinstid,data)
 	Player.ChangeIptProperty(battleid, unitid,data,"IPT_HP")  
 	 
 	
-	sys.log("buff_126_delete "..","..battleid..","..buffinstid..","..data)
+	--sys.log("buff_126_delete "..","..battleid..","..buffinstid..","..data)
+	sys.log("buff_127_delete  删除 减所有属性 buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

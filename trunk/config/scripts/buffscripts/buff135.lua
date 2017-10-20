@@ -6,7 +6,8 @@ sys.log("buff135")
 
 function buff_135_add(battleid, unitid, buffinstid,data)
 	Player.ChangeUnitProperty(battleid, unitid,data,"CPT_CHP")  
-	sys.log("buff_135_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_135_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_135_add  添加 增加生命值属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_135_update(battleid, buffinstid, unitid)	
@@ -14,7 +15,8 @@ function buff_135_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_135_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_135_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_135_update  更新增加生命值属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -23,6 +25,7 @@ function buff_135_delete(battleid, unitid, buffinstid,data)
 	Player.ChangeUnitProperty(battleid, unitid,-data,"CPT_CHP")  
 	 
 	
-	sys.log("buff_135_delete "..","..battleid..","..buffinstid..","..data)
+	--sys.log("buff_135_delete "..","..battleid..","..buffinstid..","..data)
+	sys.log("buff_135_delete  删除 增加生命值属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

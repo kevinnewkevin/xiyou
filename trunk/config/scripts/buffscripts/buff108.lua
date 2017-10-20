@@ -8,7 +8,8 @@ function buff_108_add(battleid, unitid, buffinstid,data)
 	 Player.ChangeSpecial(battleid, unitid, buffinstid,"BF_COMBO")  --加必定连击
 
 	
-	sys.log("buff_108_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_108_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_108_add  添加必定溅射|必定连击buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_108_update(battleid, buffinstid, unitid)	
@@ -16,7 +17,8 @@ function buff_108_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_108_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_108_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_108_update  更新必定溅射|必定连击buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -25,6 +27,7 @@ function buff_108_delete(battleid, unitid, buffinstid,data)
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_AOE")   --减必定溅射
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_COMBO")   --减必定连击
 	
-	sys.log("buff_108_delete "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_108_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_108_delete  删除必定溅射|必定连击buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end

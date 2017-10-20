@@ -5,7 +5,8 @@ sys.log("buff103")
 
 function buff_103_add(battleid, unitid, buffinstid,data) 
 	Player.AddSheld(battleid, unitid, buffinstid)  --加护盾
-	sys.log("buff_103_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_103_add "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_103_add  加护盾buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_103_update(battleid, buffinstid, unitid)	
@@ -13,7 +14,8 @@ function buff_103_update(battleid, buffinstid, unitid)
 	
 	--Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_103_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_103_update 2回合 加护盾"..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_103_update  更新护盾buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 
 	
 end
@@ -21,7 +23,8 @@ end
 function buff_103_delete(battleid, unitid, buffinstid,data)
 
 	-- Player.PopSheld(battleid, unitid, buffinstid)						 	-- 减去护盾
-	sys.log("buff_103_delete "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_103_delete 2回合 加护盾"..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_103_delete 删除加护盾buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 	
 	
 end

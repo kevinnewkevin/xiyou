@@ -6,8 +6,9 @@
 sys.log("buff121")
 
 function buff_121_add(battleid, unitid, buffinstid,data) 
-	sys.log("buff_121_add "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_121_add "..","..battleid..","..buffinstid..","..unitid)
 	 Player.ChangeSpecial(battleid, unitid,buffinstid, "BF_CURE")  --受伤后 回血
+	 sys.log("buff_121_add  添加 受伤后 回血buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_121_update(battleid, buffinstid, unitid)	
@@ -15,7 +16,8 @@ function buff_121_update(battleid, buffinstid, unitid)
 	
 	Battle.BuffCureHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_121_update "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_121_update "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_121_update  更新受伤后 回血buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 end
 
 function buff_121_delete(battleid, unitid, buffinstid,data)
@@ -25,6 +27,7 @@ function buff_121_delete(battleid, unitid, buffinstid,data)
 	 Player.ChangeSpecial(battleid, unitid,buffinstid, "BF_WFHFSM")-- -受伤后 回血
 	-- Player.ChangeSheld(battleid, unit, -data)						 	
 
-	sys.log("buff_121_delete "..","..battleid..","..buffinstid..","..unitid)
+	--sys.log("buff_121_delete "..","..battleid..","..buffinstid..","..unitid)
+	sys.log("buff_121_delete  删除 受伤后 回血buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 	
 end
