@@ -1411,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1832300967198670
 GameObject:
   m_ObjectHideFlags: 1
@@ -3397,7 +3397,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1055799815
+  randomSeed: 1454445399
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3517,7 +3517,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 0.08635899, g: 0, b: 0.09558821, a: 1}
-      maxColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
+      maxColor: {r: 0.43944633, g: 0.4564133, b: 0.4705882, a: 1}
     startSize:
       minMaxState: 3
       scalar: 9
@@ -4130,7 +4130,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.2901961}
-        key1: {r: 1, g: 1, b: 1, a: 0.44313726}
+        key1: {r: 1, g: 1, b: 1, a: 0.21568628}
         key2: {r: 0.6862745, g: 1, b: 0, a: 0}
         key3: {r: 0, g: 1, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6971,8 +6971,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.2901961}
-        key1: {r: 1, g: 1, b: 1, a: 0.67058825}
-        key2: {r: 0.6862745, g: 1, b: 0, a: 0.4862745}
+        key1: {r: 1, g: 1, b: 1, a: 0.27450982}
+        key2: {r: 0.6862745, g: 1, b: 0, a: 0.30980393}
         key3: {r: 0, g: 1, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -35514,7 +35514,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2136792484
+  randomSeed: 2108291077
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -56565,7 +56565,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1490303055
+  randomSeed: -2109516254
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -57298,7 +57298,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.2901961}
-        key1: {r: 1, g: 1, b: 1, a: 0.44313726}
+        key1: {r: 1, g: 1, b: 1, a: 0.11372549}
         key2: {r: 0.6862745, g: 1, b: 0, a: 0}
         key3: {r: 0, g: 1, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
