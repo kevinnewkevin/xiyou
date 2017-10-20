@@ -254,6 +254,7 @@ end
 function cangbaoge_OnRefreshBtn(context)
 	local refreshNum = ShopSystem.GetBlackRefreshNum();
 	if refreshNum <= 0 then
+		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "刷新次数不够", true);
 		return;
 	end
