@@ -7,10 +7,9 @@
     </text>
   </displayList>
   <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n0_nk8s" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="Alpha" target="n1_nk8s" value="0"/>
-    <item time="6" type="Alpha" target="n1_nk8s" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="54" type="Alpha" target="n0_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
-    <item time="60" type="Alpha" target="n1_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="Alpha" target="n1_nk8s" value="1"/>
+    <item time="0" type="Alpha" target="n0_nk8s" value="1"/>
+    <item time="36" type="Alpha" target="n0_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+    <item time="36" type="Alpha" target="n1_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
   </transition>
 </component>
