@@ -13,6 +13,7 @@ local isInGroup;
 local gold;
 local chopper;
 local stamaPoint;
+local hunBi;
 local boxInfo;
 local infoMoneyLab;
 local infoBoxNameLab;
@@ -28,6 +29,14 @@ local orangeImg;
 local buyShopId;
 local infoBuyBtnLab;
 local infoBuyBoxImg;
+
+
+local blackList;
+local blackRefreshBtn;
+local hunMoneyLab;
+local refreshNumLab;
+local refreshTimeLab;
+
 function cangbaoge:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = cangbaoge.New();
@@ -68,7 +77,6 @@ function cangbaoge:OnInit()
 	local feeMax = shopList.numItems;
 	local feeItem;
 	feeItem = shopList:GetChildAt(0);
-
 	local shopBtn0 = feeItem:GetChild("n9");
 	local itemLab0 = feeItem:GetChild("n6");
 	local moenyLab0 = shopBtn0 :GetChild("n3");
@@ -100,8 +108,23 @@ function cangbaoge:OnInit()
 	gold = moneyGroup:GetChild("n5");
 	chopper = moneyGroup:GetChild("n7");
 	stamaPoint = moneyGroup:GetChild("n12");
+	hunBi = moneyGroup:GetChild("n16");
+
+
+	local black = shopList:GetChildAt(1);
+	blackList =  black:GetChild("n42").asList;
+	--blackList:SetVirtual();
+	blackList.itemRenderer = cangbaoge_RenderListItem;
+	blackRefreshBtn = black:GetChild("n34");
+	hunMoneyLab = black:GetChild("n38");
+	refreshNumLab = black:GetChild("n39");
+	refreshTimeLab = black:GetChild("n41");
+
+	blackRefreshBtn.onClick:Add(cangbaoge_OnRefreshBtn);
+
 	cangbaoge_FlushData();
 end
+
 
 
 
@@ -133,7 +156,28 @@ function cangbaoge_FlushData()
 	gold.text = GamePlayer._Data.IProperties[8];
 	chopper.text = GamePlayer._Data.IProperties[6];
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
+	hunBi.text = GamePlayer._Data.IProperties[11];
+	local blackMarket = ShopSystem.BlackMarket;
+	blackList.numItems = 6;
+	-- blackMarket:ShopItems.length;
+	hunMoneyLab.text = GamePlayer._Data.IProperties[11] ;
+	local refreshNum = ShopSystem.GetBlackRefreshNum();
+	refreshNumLab.text =  "还可刷新 " .. refreshNum .. " 次(消耗1魂币)";
+end
 
+
+function cangbaoge_RenderListItem(index, obj)
+	local name =  obj:GetChild("n4");
+	local price =  obj:GetChild("n3");
+	local icon = obj:GetChild("n2");
+	local shopId = ShopSystem.GetBlackMarketId(index);
+	local shopData = ShopData.GetData(shopId);
+	name.text = "" .. shopData._Name;
+	price.text = "" .. shopData._Price;
+	obj.onClick:Add(cangbaoge_OnBlackBuyClick);
+	obj.data = shopData._ShopId;
+	itemdata = ItemData.GetData(shopData._itemId);
+	icon.asLoader.url = "ui://" .. itemdata._Icon;
 end
 
 function cangbaoge_OnBuyClick(context)
@@ -205,4 +249,37 @@ function cangbaoge_UpdateInfo()
 		infoBuyBoxImg.asLoader.url  = "ui://cangbaoge/tianxian";
 	end
 
+end
+
+function cangbaoge_OnRefreshBtn(context)
+	local refreshNum = ShopSystem.GetBlackRefreshNum();
+	if refreshNum <= 0 then
+		MessageBox:SetData("提示", "刷新次数不够", true);
+		return;
+	end
+	if GamePlayer._Data.IProperties[11] < 1 then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "魂币不够", true);
+		return;
+	end
+	Proxy4Lua.RefreshBlackMarkte();
+end 
+
+function cangbaoge_OnBlackBuyClick(context)
+	buyShopId = context.sender.data;
+	local shopData = ShopData.GetData(buyShopId);
+	if shopData._Price > GamePlayer._Data.IProperties[11] then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "魂币不够", true);
+		return;
+	end
+
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否花费 " .. shopData._Price .. " 魂币?", false, cangbaoge_OnBuyBlack);
+end 
+
+function cangbaoge_OnBuyBlack(context)
+	UIManager.HideMessageBox();
+	ShopSystem.buyType = buyShopId;
+	Proxy4Lua.BuyShopItem(buyShopId);
 end
