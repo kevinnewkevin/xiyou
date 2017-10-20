@@ -91,7 +91,10 @@ public class Actor {
         _EntityID = entityid;
         EntityData eData = EntityData.GetData(entityid);
         if (eData != null)
+        {
             _DisplayID = eData._DisplayId;
+            _Name = eData._Name;
+        }
         _ActorObj.transform.position = _Pos.position;
         _ActorObj.transform.rotation = _Pos.rotation;
         Init();
