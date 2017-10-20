@@ -96,6 +96,7 @@ function paiku_RenderListItem(index, obj)
 	local feeImg = obj:GetChild("n3");
 	local radImg = obj:GetChild("n10");
 	img.asLoader.url = "ui://" .. displayData._HeadIcon;
+	obj:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
 	obj.onClick:Add(paiku_OnCardItem);
 	local instId = GamePlayer.GetInstID(crtCardsFee, index);
 	obj.data = instId;
@@ -200,6 +201,7 @@ function paiku_FlushData()
 		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
 		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
+		itemBtn:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
 		local fee = itemBtn:GetChild("n7");
 		fee.text = entityData._Cost
 		local radImg = itemBtn:GetChild("n10");
