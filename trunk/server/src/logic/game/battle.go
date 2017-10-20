@@ -871,12 +871,10 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 
 		u_list = append(u_list, u.InstId)
 	}
-	std.Log("1, ", u_list)
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
 
-	std.Log("2, ", u_list)
 	if len(u_list) == 0{
 		if this.Round == 0 {
 			for _, p := range this.PlayerList {
@@ -895,6 +893,8 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 
 	return u_list[idx]
 }
+
+
 func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 	rand.Seed(time.Now().UnixNano())
 	unit := this.SelectOneUnit(instid)
@@ -1009,6 +1009,57 @@ func GetNearFriend(pos int32) []int32 {
 	}
 	return []int32{}
 }
+
+func (this *BattleRoom) SelectRandomTarget(instid int64, targetnum int32) []int64 {
+	unit := this.SelectOneUnit(instid)
+	u_list := []int64{}
+	r := []int64{}
+
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead() {
+			continue
+		}
+		if u.Camp == unit.Camp {
+			continue
+		}
+
+		u_list = append(u_list, u.InstId)
+	}
+	if len(u_list) == 1 {
+		for i := 0; i < int(targetnum); i++ {
+			r = append(r, u_list[0])
+		}
+		return r
+	}
+
+	if len(u_list) == 0{
+		if this.Round == 0 {
+			for _, p := range this.PlayerList {
+				if p.BattleCamp != unit.Camp {
+					for i := 0; i < int(targetnum); i++ {
+						r = append(r, p.MyUnit.InstId)
+					}
+					return r
+				}
+			}
+		}
+		return r
+	}
+
+	index := len(u_list)
+
+	std.LogInfo("目标索引",index)
+	for i := 0; i < int(targetnum); i++ {
+		idx := rand.Intn(index)
+		r = append(r, u_list[idx])
+	}
+
+	return r
+}
+
 
 func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	unit := this.SelectOneUnit(instid)

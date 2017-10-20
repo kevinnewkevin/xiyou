@@ -970,19 +970,13 @@ func __GetTargetsRandom(p unsafe.Pointer) C.int {  //溅射目标
 
 	battle := FindBattle(int64(battleid))
 
-	ls := []int{}
-
-	for i := 0; i < targetnum; i++ {
-		t := battle.SelectOneTarget(int64(unitid))
-		ls = append(ls, int(t))
-
-	}
-
+	ls := battle.SelectRandomTarget(int64(unitid), int32(targetnum))
+	//std.LogInfo("4444444444",ls)
 	L.NewTable()
 
 	for i :=0; i < len(ls); i++ {
 		L.PushInteger(i + 1)
-		L.PushInteger(ls[i])
+		L.PushInteger(int(ls[i]))
 		L.SetTable(-3)
 	}
 
