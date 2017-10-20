@@ -22,8 +22,14 @@ function SK_320_Action(battleid, casterid)
 	local t = Player.GetTargetsRandom(battleid, casterid,9)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	--local t = Player.GetTargetsRandom(battleid, casterid,9)
 	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
+
 	for i,v in ipairs(t) do
-	
+		local IsDead  = Player.CheckUnitDead(battleid,v)
+
+		if IsDead == 1 then
+			v =  Player.RandomTarget(battleid, casterid)
+		end
+
 		Battle.TargetOn(battleid)
 	
 		local magic_damage=Player.GetMagicDamage(battleid,casterid,v)
@@ -43,7 +49,7 @@ function SK_320_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local mag_damage = damage*2.7
+		local mag_damage = damage*0.3
 		
 		local  sudu_del = sudu*0.1
 
