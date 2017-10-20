@@ -181,7 +181,8 @@ function cangbaoge_RenderListItem(index, obj)
 	local bIsBuy = ShopSystem.GetBlackMarketIsBuy(index);
 	if bIsBuy == false then
 		isBuy.visible = true; 
-		obj.enabled = false;
+		--obj.enabled = false;
+		obj.onClick:Remove(cangbaoge_OnBlackBuyClick);
 	else
 		isBuy.visible = false; 
 		obj.enabled = true;
