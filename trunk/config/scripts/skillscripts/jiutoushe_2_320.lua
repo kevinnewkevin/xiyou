@@ -14,42 +14,48 @@ sys.log("九头蛇 SK_320_Action 开始")
 -- 增加速度视作buff
 
 function SK_320_Action(battleid, casterid)
-	Battle.TargetOn(battleid)
+	
 	local skillid = 320		-- 技能id
 	local skillAttack = 10	-- 技能攻击
 	--local attackNum = 0		-- 攻击个数
 
-	local t = Player.GetMainTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
-	
+	local t = Player.GetTargetsRandom(battleid, casterid,9)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
+	--local t = Player.GetTargetsRandom(battleid, casterid,9)
 	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
+	for i,v in ipairs(t) do
 	
-	local magic_damage=Player.GetMagicDamage(battleid,casterid,t)
+		Battle.TargetOn(battleid)
 	
-	local  true_damage = magic_damage
-	
-	sys.log("九头蛇 群蛇乱舞对目标   "..t.. " 造成 法术伤害  "..true_damage )
-	
-	local damage = ClacDamageByAllBuff(battleid,casterid,t,true_damage)
-	sys.log("九头蛇 群蛇乱舞对目标   "..t.. " 造成 最终法术伤害  "..damage )
-	
-	--判断伤害
-	if damage <= 0 then
+		local magic_damage=Player.GetMagicDamage(battleid,casterid,v)
 		
-		damage = 0
+		local  true_damage = magic_damage
 		
-	end
-	local crit = Battle.GetCrit(skillid)   --是否暴击
-	
-	local mag_damage = damage*2.7
-	
-	local  sudu_del = sudu*0.1
-	sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..t.. " 造成 法术伤害的30%  "..mag_damage )
-	Battle.Attack(battleid,casterid,t,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-	
-	Battle.AddBuff(battleid,casterid,t,145,sudu_del)  --每次都到伤害降低10%速度
+		sys.log("九头蛇 群蛇乱舞对目标   "..v.. " 造成 法术伤害  "..true_damage )
+		
+		local damage = ClacDamageByAllBuff(battleid,casterid,v,true_damage)
+		sys.log("九头蛇 群蛇乱舞对目标   "..v.. " 造成 最终法术伤害  "..damage )
+		
+		--判断伤害
+		if damage <= 0 then
+			
+			damage = 0
+			
+		end
+		local crit = Battle.GetCrit(skillid)   --是否暴击
+		
+		local mag_damage = damage*2.7
+		
+		local  sudu_del = sudu*0.1
 
-	
-	Battle.TargetOver(battleid)
+		sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..v.. " 造成 法术伤害的30%  "..mag_damage )
+
+		Battle.Attack(battleid,casterid,v,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+		
+		Battle.AddBuff(battleid,casterid,v,145,sudu_del)  --每次都到伤害降低10%速度
+
+		
+		Battle.TargetOver(battleid)
+	end
 	
 	return 1
 end
