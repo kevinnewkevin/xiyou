@@ -1,0 +1,139 @@
+package prpc
+import(
+  "bytes"
+  "sync"
+  "encoding/json"
+  "suzuki/prpc"
+)
+type COM_BlackMarket struct{
+  sync.Mutex
+  RefreshTime int64  //0
+  RefreshNum int32  //1
+  ShopItems []COM_MlackMarketItemData  //2
+}
+func (this *COM_BlackMarket)SetRefreshTime(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.RefreshTime = value
+}
+func (this *COM_BlackMarket)GetRefreshTime() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.RefreshTime
+}
+func (this *COM_BlackMarket)SetRefreshNum(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.RefreshNum = value
+}
+func (this *COM_BlackMarket)GetRefreshNum() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.RefreshNum
+}
+func (this *COM_BlackMarket)SetShopItems(value []COM_MlackMarketItemData) {
+  this.Lock()
+  defer this.Unlock()
+  this.ShopItems = value
+}
+func (this *COM_BlackMarket)GetShopItems() []COM_MlackMarketItemData {
+  this.Lock()
+  defer this.Unlock()
+  return this.ShopItems
+}
+func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
+  this.Lock()
+  defer this.Unlock()
+  //field mask
+  mask := prpc.NewMask1(1)
+  mask.WriteBit(this.RefreshTime!=0)
+  mask.WriteBit(this.RefreshNum!=0)
+  mask.WriteBit(len(this.ShopItems) != 0)
+  {
+    err := prpc.Write(buffer,mask.Bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize RefreshTime
+  {
+    if(this.RefreshTime!=0){
+      err := prpc.Write(buffer,this.RefreshTime)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize RefreshNum
+  {
+    if(this.RefreshNum!=0){
+      err := prpc.Write(buffer,this.RefreshNum)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize ShopItems
+  if len(this.ShopItems) != 0{
+    {
+      err := prpc.Write(buffer,uint(len(this.ShopItems)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.ShopItems {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_BlackMarket)Deserialize(buffer *bytes.Buffer) error{
+  this.Lock()
+  defer this.Unlock()
+  //field mask
+  mask, err:= prpc.NewMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize RefreshTime
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.RefreshTime)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize RefreshNum
+  if mask.ReadBit() {
+    err := prpc.Read(buffer,&this.RefreshNum)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize ShopItems
+  if mask.ReadBit() {
+    var size uint
+    err := prpc.Read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.ShopItems = make([]COM_MlackMarketItemData,size)
+    for i,_ := range this.ShopItems{
+      err := this.ShopItems[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_BlackMarket)String() string{
+  b, e := json.Marshal(this)
+  if e != nil{
+    return e.Error()
+  }else{
+    return string(b)
+  }
+}
