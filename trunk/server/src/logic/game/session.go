@@ -76,6 +76,10 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r.COM_Player)
 
+	if this.player != nil{
+		this.player.PlayerLogin()
+	}
+
 	std.LogInfo(string(tempId), "CreatePlayer", &r)
 	b,_ := json.Marshal(r)
 	std.LogInfo(string(b))

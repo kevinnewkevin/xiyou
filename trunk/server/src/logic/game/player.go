@@ -176,7 +176,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 			p.SkillBase[ID] = 0
 		}
 	}
-	p.InitMyBlackMarket()
+
 	return &p
 
 }
@@ -302,10 +302,6 @@ func (this *GamePlayer)PassZeroHour()  {
 }
 
 func (this *GamePlayer)PlayerLogin()  {
-	this.SyncBag()
-	if this.BlackMarketData != nil {
-		this.session.SycnBlackMarkte(*this.BlackMarketData)
-	}
 	this.LoginTime = time.Now().Unix()
 
 	loginDT 	:= time.Unix(this.LoginTime,0)
@@ -313,6 +309,13 @@ func (this *GamePlayer)PlayerLogin()  {
 
 	if loginDT.Day() != logoutDT.Day() || loginDT.Month() != logoutDT.Month() || loginDT.Year() != logoutDT.Year() {
 		this.PassZeroHour()
+	}
+
+	this.SyncBag()
+	if this.BlackMarketData != nil {
+		this.session.SycnBlackMarkte(*this.BlackMarketData)
+	}else {
+		this.InitMyBlackMarket()
 	}
 }
 
@@ -1327,6 +1330,7 @@ func (this *GamePlayer)InitMyBlackMarket()  {
 	this.BlackMarketData = &tempData
 	std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
 	if this.session != nil {
+		std.LogInfo("11111111111111111111111111111111111111111111111111111111111111")
 		this.session.SycnBlackMarkte(*this.BlackMarketData)
 	}
 }
