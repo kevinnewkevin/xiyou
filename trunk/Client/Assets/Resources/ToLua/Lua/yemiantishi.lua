@@ -25,6 +25,7 @@ function yemiantishi:OnInit()
 	self:Center();
 
 	contentList = self.contentPane:GetChild("n2").asList;
+	contentList.touchable = false;
 
 	checkTime = {};
 	checkTime.crt = 0;
