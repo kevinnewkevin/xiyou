@@ -763,6 +763,10 @@ func (this *BattleRoom) SelectLineTraget(unitid int64) []int64 {
 		return targetList
 	}
 
+	if targetunit.IsDead() {
+		return targetList
+	}
+
 	targetList = append(targetList, targetunit.InstId)
 
 	return targetList
