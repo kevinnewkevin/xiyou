@@ -118,8 +118,8 @@ function cangbaoge:OnInit()
 	blackRefreshBtn = black:GetChild("n34");
 	hunMoneyLab = black:GetChild("n38");
 	refreshNumLab = black:GetChild("n39");
-	refreshTimeLab = black:GetChild("n41");
-
+	--refreshTimeLab = black:GetChild("n41");
+	--refreshTimeLab.text = "每天00:00 6:00 12:00 18:00刷新" 
 	blackRefreshBtn.onClick:Add(cangbaoge_OnRefreshBtn);
 
 	cangbaoge_FlushData();
