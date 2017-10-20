@@ -77,6 +77,7 @@ function yemiantishi_FlushData()
 	if Proxy4Lua.Message.Count > 0 then
 		local msg = Proxy4Lua.Message:Dequeue();
 		local msgCom = contentList:AddItemFromPool(itemUrl);
+		msgCom.touchable = false;
 		local trans = msgCom:GetTransition("t0");
 		trans:Play();
 		local msgt = msgCom:GetChild("n1").asTextField;
