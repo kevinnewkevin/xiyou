@@ -6,6 +6,7 @@ public class DisplayData {
 
     public int _Id;
     public string _AssetPath;
+    public string _Quality;
 	public string _Race;
     public string _AssetPathDetail;
     public string _HeadIcon;
@@ -35,6 +36,7 @@ public class DisplayData {
             data = new DisplayData ();
             data._Id = parser.GetInt (i, "ID");
             data._AssetPath = parser.GetString(i, "AssetsPath");
+            data._Quality = parser.GetString(i, "Quality");
 			data._Race = parser.GetString(i, "Race");
             data._AssetPathDetail = parser.GetString(i, "AssetsPath2");
             data._HeadIcon = parser.GetString(i, "HeadIcon");
