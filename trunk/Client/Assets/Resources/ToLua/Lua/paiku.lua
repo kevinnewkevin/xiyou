@@ -44,6 +44,7 @@ function paiku:OnInit()
 	allCardList.itemRenderer = paiku_RenderListItem;
 	allCardList.onDrop:Add(paiku_OnDropCard);
 	allCardList.data = 0;
+	allCardList.scrollItemToViewOnClick = false;
 	total = leftPart:GetChild("n33").asTextField;
 
 	local feeList = leftPart:GetChild("n34").asList;
