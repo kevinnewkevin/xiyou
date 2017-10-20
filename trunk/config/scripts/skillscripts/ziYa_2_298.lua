@@ -24,7 +24,7 @@ function SK_298_Action(battleid, casterid)
 	
 	local hp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")	-- 获取到攻击者的属性
 	
-	local damage = hp * 0.08
+	local damage = hp * 0.2
 	
 	Battle.Cure(battleid, t, 0, 0)
 	
