@@ -75,6 +75,7 @@ function tanchukuang:OnDispose()
 end
 
 function tanchukuang:OnHide()
+	self.closeButton = _Cancel;
 	Window:Hide();
 end
 
