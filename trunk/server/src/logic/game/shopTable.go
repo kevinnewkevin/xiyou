@@ -19,6 +19,7 @@ type (
 		Price				int32
 		Copper				int32
 		ShopItemId			int32
+		ShopItemNum			int32
 	}
 	CardPondData struct {
 		PondId				int32
@@ -61,6 +62,7 @@ func LoadShopTable(filename string) error {
 		c.Price					= csv.GetInt32(r,"Price")
 		c.Copper				= csv.GetInt32(r,"COPPER")
 		c.ShopItemId			= csv.GetInt32(r,"ItemID")
+		c.ShopItemNum			= csv.GetInt32(r,"Num")
 
 		if c.ShopType == prpc.SHT_BlackMarket {
 			if GetItemTableDataById(c.ShopItemId) == nil {

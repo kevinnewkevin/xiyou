@@ -190,10 +190,15 @@ struct COM_LearnSkill{
 };
 
 //黑市
+struct COM_MlackMarketItemData{
+	bool		IsBuy;
+	int32		ItemId;
+};
+
 struct COM_BlackMarket{
 	int64		RefreshTime;
 	int32		RefreshNum;	
-	int32[]		ShopItems;
+	COM_MlackMarketItemData[]		ShopItems;
 };
 
 struct SGE_DBPlayer : COM_Player {

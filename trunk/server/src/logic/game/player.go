@@ -1208,14 +1208,18 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 	}
 
 	if shopData.ShopType == prpc.SHT_BlackMarket {
-		this.AddBagItemByItemId(shopData.ShopItemId,1)
-		itemInsts := []prpc.COM_ItemInst{}
-		item := prpc.COM_ItemInst{}
-		item.ItemId = shopData.ShopItemId
-		item.Stack	= 1
-		itemInsts = append(itemInsts,item)
-		if this.session != nil {
-			this.session.BuyShopItemOK(itemInsts)
+		if this.IsBuyBlackMarketItem(shopData.ShopId) {
+			this.AddBagItemByItemId(shopData.ShopItemId,shopData.ShopItemNum)
+			itemInsts := []prpc.COM_ItemInst{}
+			item := prpc.COM_ItemInst{}
+			item.ItemId = shopData.ShopItemId
+			item.Stack	= shopData.ShopItemNum
+			itemInsts = append(itemInsts,item)
+			if this.session != nil {
+				this.session.BuyShopItemOK(itemInsts)
+			}
+		}else {
+			std.LogInfo("Player[",this.MyUnit.InstName,"]","IsBuyBlackMarketItem==false","BuyShopItem ShopId=",shopId)
 		}
 	}
 }
@@ -1328,8 +1332,18 @@ func (this *GamePlayer)InitMyBlackMarket()  {
 	tempData := prpc.COM_BlackMarket{}
 	tempData.RefreshTime 	= time.Now().Unix()
 	tempData.RefreshNum		= int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
-	tempData.ShopItems = GetBlackMarketShopItems()
+
+	items := GetBlackMarketShopItems()
+	for i:=0;i<len(items) ;i++  {
+		item := prpc.COM_MlackMarketItemData{}
+		item.ItemId = items[i]
+		item.IsBuy	= true
+		tempData.ShopItems = append(tempData.ShopItems,item)
+	}
+
 	this.BlackMarketData = &tempData
+
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
 
 	if this.session != nil {
 		std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
@@ -1342,17 +1356,29 @@ func (this *GamePlayer)RefreshMyBlackMarket(isActive bool)  {
 		return 
 	}
 	if isActive {
-		need := GetGlobalInt("C_BlackMarkteRefreshSpeed")
-		if this.MyUnit.GetIProperty(prpc.IPT_SOULCUR) < int32(need) {
-			return
-		}
-		this.AddSoulCur(-int32(need))
+		//need := GetGlobalInt("C_BlackMarkteRefreshSpeed")
+		//if this.MyUnit.GetIProperty(prpc.IPT_SOULCUR) < int32(need) {
+		//	return
+		//}
+		//this.AddSoulCur(-int32(need))
 		this.BlackMarketData.RefreshNum--
 	}else {
 		this.BlackMarketData.RefreshTime = time.Now().Unix()
 	}
-	this.BlackMarketData.ShopItems = GetBlackMarketShopItems()
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","RefreshMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
+
+	tempData := prpc.COM_BlackMarket{}
+	tempData.RefreshNum = this.BlackMarketData.RefreshNum
+	tempData.RefreshTime = this.BlackMarketData.RefreshTime
+	items := GetBlackMarketShopItems()
+	for i:=0;i<len(items) ;i++  {
+		item := prpc.COM_MlackMarketItemData{}
+		item.ItemId = items[i]
+		item.IsBuy	= true
+		tempData.ShopItems = append(tempData.ShopItems,item)
+	}
+	this.BlackMarketData = &tempData
+
+	std.LogInfo("Player[",this.MyUnit.InstName,"]","RefreshMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
 	if this.session != nil {
 		this.session.SycnBlackMarkte(*this.BlackMarketData)
 	}
@@ -1367,18 +1393,26 @@ func CheckMyBlackMarkte()  {
 	}
 }
 
+func (this *GamePlayer)IsBuyBlackMarketItem(shopId int32) bool {
+	if this.BlackMarketData == nil {
+		return false
+	}
+	for _,item := range this.BlackMarketData.ShopItems {
+		if item.ItemId == shopId && item.IsBuy {
+			return true
+		}
+	}
+	return false
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-	P1.BuyShopItem(1000)
-	P1.BuyShopItem(1001)
-	P1.BuyShopItem(1002)
-	for i:=0;i<len(P1.BagItems) ;i++  {
-		std.LogInfo("BagItems ItemId=",P1.BagItems[i].ItemId,"ItemNum=",P1.BagItems[i].Stack)
-	}
+	P1.InitMyBlackMarket()
+	P1.RefreshMyBlackMarket(false)
 	P1.TestItem()
 }
 
