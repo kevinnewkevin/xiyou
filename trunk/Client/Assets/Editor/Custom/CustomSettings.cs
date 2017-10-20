@@ -242,6 +242,7 @@ public static class CustomSettings
         _GT(typeof(ReportBase)),
         _GT(typeof(ReportBase.RBType)),
         _GT(typeof(List<ReportBase>)),
+        _GT(typeof(Queue<string>)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
