@@ -53,6 +53,7 @@ function cangbaoge:OnInit()
 
 	self.closeButton = self.contentPane:GetChild("n2").asButton;
 	local shopList = self.contentPane:GetChild("n5").asList;
+	shopList.scrollItemToViewOnClick = false;
 
 	boxInfo = self.contentPane:GetChild("n8");
 	boxInfo.visible = false;
