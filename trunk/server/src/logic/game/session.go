@@ -70,15 +70,15 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 	this.player.SetSession(this)
 	this.player.Username = this.username
 
+	if this.player != nil{
+		this.player.PlayerLogin()
+	}
+
 	r := this.player.GetPlayerSGE()
 
 	InsertPlayer(r)
 
 	this.CreatePlayerOK(r.COM_Player)
-
-	if this.player != nil{
-		this.player.PlayerLogin()
-	}
 
 	std.LogInfo(string(tempId), "CreatePlayer", &r)
 	b,_ := json.Marshal(r)
