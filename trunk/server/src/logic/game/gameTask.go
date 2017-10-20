@@ -14,6 +14,11 @@ func BlackMarkteRefreshTask() error {
 	return nil
 }
 
+func PlayerSave() error {
+	Save()
+	return nil
+}
+
 func InitGameTask()  {
 	passzerohourTimer := GetGlobalString("C_PassZeroHour")
 	passzerohourTask := toolbox.NewTask("Passzerohour",passzerohourTimer,PassZeroHourTask)
@@ -21,4 +26,7 @@ func InitGameTask()  {
 	blackMarketTimer := GetGlobalString("C_BlackMarkteRefresh")
 	blackMarketTask := toolbox.NewTask("BlackMarkteRefresh",blackMarketTimer,BlackMarkteRefreshTask)
 	toolbox.AddTask("BlackMarkteRefresh",blackMarketTask)
+	playerSaveTimer := GetGlobalString("C_SaveDataToDB")
+	playerSaveTask := toolbox.NewTask("PlayerSaveToDB",playerSaveTimer,PlayerSave)
+	toolbox.AddTask("PlayerSaveToDB",playerSaveTask)
 }

@@ -1297,15 +1297,24 @@ func (this *GamePlayer) Logout(){
 	
 	//
 
-	this.Save()
+	this.GamePlayerSave()
 
 	//
 	RemovePlayer(this)
 }
 
-func (this* GamePlayer)Save(){
+func (this* GamePlayer)GamePlayerSave()  {
 	std.LogInfo("SAVE ")
 	UpdatePlayer(this.GetPlayerSGE())
+}
+
+func Save(){
+	for _,p:=range PlayerStore{
+		if p == nil {
+			continue
+		}
+		p.GamePlayerSave()
+	}
 }
 
 func (this *GamePlayer)CardDebrisResolve(itemInstId int64,num int32) {
