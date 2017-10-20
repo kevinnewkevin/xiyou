@@ -973,8 +973,8 @@ func __GetTargetsRandom(p unsafe.Pointer) C.int {  //溅射目标
 	ls := []int{}
 
 	for i := 0; i < targetnum; i++ {
-		t := battle.SelectOneUnit(int64(unitid))
-		ls = append(ls, int(t.InstId))
+		t := battle.SelectOneTarget(int64(unitid))
+		ls = append(ls, int(t))
 
 	}
 
