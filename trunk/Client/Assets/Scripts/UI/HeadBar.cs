@@ -94,14 +94,18 @@ public class HeadBar {
         BuffData data;
         if (_Root.BuffList != null)
         {
-            int line = (_Root.BuffList.Count / 6) + ((_Root.BuffList.Count % 6) > 0? 1: 0);
-            for(int i=0; i < _Root.BuffList.Count; ++i)
+            int line = (_Root.BuffList.Count / 6) + ((_Root.BuffList.Count % 6) > 0 ? 1 : 0);
+            for (int i = 0; i < _Root.BuffList.Count; ++i)
             {
                 item = _BuffList.AddItemFromPool(_BuffLoaderUrl);
-                data = BuffData.GetData(_Root.BuffList[i]);
+                data = BuffData.GetData(_Root.BuffList [i]);
                 item.asCom.GetChild("n0").asLoader.url = string.Format("ui://{0}", data._Icon);
             }
             _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust + (line - 1) * 0.245f, 0f);
+        }
+        else
+        {
+            _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust, 0f);
         }
 
         _BloodBar.TweenValue(((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
