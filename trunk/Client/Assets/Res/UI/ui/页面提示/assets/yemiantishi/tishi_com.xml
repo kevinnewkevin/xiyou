@@ -6,10 +6,11 @@
       <relation target="n0_nk8s" sidePair="center-center,middle-middle"/>
     </text>
   </displayList>
-  <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n1_nk8s" value="1"/>
-    <item time="0" type="Alpha" target="n0_nk8s" value="1"/>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n0_nk8s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="0" type="Alpha" target="n1_nk8s" value="0"/>
+    <item time="4" type="Alpha" target="n1_nk8s" tween="true" startValue="0" endValue="1" duration="7"/>
     <item time="36" type="Alpha" target="n0_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
-    <item time="36" type="Alpha" target="n1_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+    <item time="41" type="Alpha" target="n1_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
   </transition>
 </component>
