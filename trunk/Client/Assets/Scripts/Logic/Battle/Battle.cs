@@ -434,6 +434,10 @@ public class Battle {
                 for (int i = 0; i < _ReportAction [0].TargetList.Length; ++i)
                 {
                     target = GetActor(_ReportAction [0].TargetList [i].InstId);
+                    if (target == null)
+                    {
+                        Debug.LogError("施法者： " + _CrtActor._Name + " 释放技能： " + _ReportAction [0].SkillId + " 目标ID： " + _ReportAction [0].TargetList [i].InstId + " 为空!");
+                    }
                     _CrtTargets.Add(target);
                 }
             }
@@ -451,6 +455,7 @@ public class Battle {
         {
             return;
         }
+
 
         // cast skill
         if (_CrtSkill == null)
