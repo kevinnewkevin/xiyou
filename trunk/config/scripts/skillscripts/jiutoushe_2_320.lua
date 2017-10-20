@@ -30,6 +30,10 @@ function SK_320_Action(battleid, casterid)
 			v =  Player.RandomTarget(battleid, casterid)
 		end
 
+		if v == -1 then 
+			break
+		end
+
 		Battle.TargetOn(battleid)
 	
 		local magic_damage=Player.GetMagicDamage(battleid,casterid,v)
