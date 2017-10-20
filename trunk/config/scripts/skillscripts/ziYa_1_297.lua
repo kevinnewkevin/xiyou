@@ -34,7 +34,7 @@ function SK_297_Action(battleid, casterid)
 		local mtk_damage = mtk * per
 		local atk_damage = atk * per
 		sys.log("子牙杏黄旗给友军加buff")
-		Battle.cure(battleid, v, 0, 0)
+		Battle.Cure(battleid, v, 0, 0)
 		sys.log("子牙杏黄旗给友军加物理攻击")
 		Battle.AddBuff(battleid,casterid,v,102,atk_damage)
 		sys.log("子牙杏黄旗给友军加法术攻击")

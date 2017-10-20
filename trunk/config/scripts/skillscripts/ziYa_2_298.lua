@@ -26,7 +26,7 @@ function SK_298_Action(battleid, casterid)
 	
 	local damage = hp * 0.08
 	
-	Battle.cure(battleid, t, 0, 0)
+	Battle.Cure(battleid, t, 0, 0)
 	
 	local buffid = 103
 	
