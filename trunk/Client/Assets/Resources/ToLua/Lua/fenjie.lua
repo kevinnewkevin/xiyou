@@ -14,7 +14,7 @@ local moneyName;
 local moneyIcon;
 local moneyIconBack;
 local moneyNum;
-
+local inputLab;
 
 local okBtn;
 local cancelBtn;
@@ -60,7 +60,7 @@ function fenjie:OnInit()
 	okBtn.onClick:Add(fenjie_OnOk);
 	cancelBtn = self.contentPane:GetChild("n19");
 	cancelBtn.onClick:Add(fenjie_OnCancelBtn);
-    delNum = 0;
+    delNum = 1;
 	fenjie_FlushData();
 end
 
@@ -69,6 +69,27 @@ function fenjie:OnUpdate()
 		fenjie_FlushData();
 		UIManager.ClearDirty("fenjie");
 	end
+
+	if numLab.text == nil or numLab.text == "" then
+		return;
+	end
+
+
+	local num = numLab.text;
+	local dNum = tonumber(num);	
+	if dNum >iteminst.Stack then
+		dNum = iteminst.Stack;
+	end
+
+	if dNum <1 then
+		dNum = 1;
+	end
+
+	delNum = dNum; 
+	numLab.text = "" .. delNum;
+	moneyNum.text = "" .. delNum * changeNum;
+
+	
 end
 
 function fenjie:OnTick()
@@ -114,24 +135,24 @@ end
 function fenjie_OnOk(context)
 	Proxy4Lua.ResolveItem(iteminst.InstId,delNum);
 	UIManager.Hide("fenjie");
-    delNum = 0;
+    delNum = 1;
 end
 
 function fenjie_OnCancelBtn(context)
     UIManager.Hide("fenjie");
-    delNum = 0;
+    delNum = 1;
 end
 
 
 
 function fenjie_OnMinusBtn(context)
-    if delNum <=0 then
-        delNum  = 0;
+    if delNum <=1 then
+        delNum  = 1;
     else
         delNum = delNum-1;
     end
     numLab.text = "" .. delNum;
-    itemNum.text ="" .. iteminst.Stack - delNum;
+   -- itemNum.text ="" .. iteminst.Stack - delNum;
     moneyNum.text = "" .. delNum * changeNum;
 end
 
@@ -142,7 +163,7 @@ function fenjie_OnAddBtn(context)
         delNum = delNum+1;
     end
     numLab.text = "" .. delNum;
-    itemNum.text ="" .. iteminst.Stack - delNum;
+   -- itemNum.text ="" .. iteminst.Stack - delNum;
     moneyNum.text = "" .. delNum * changeNum;
 end
 
