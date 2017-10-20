@@ -9,9 +9,11 @@ extern int __GetMainFriend(void*);
 extern int __GetFriends(void*);
 extern int __GetTarget(void*);
 extern int __GetMainTarget(void*);
+extern int __GetRandomTarget(void*);
 extern int __CheckUnitDead(void*);
 extern int __GetTargets(void*);
 extern int __GetTargetsAround(void*);
+extern int __GetTargetsRandom(void*);
 extern int __GetUnitProperty(void*);
 extern int __ChangeCptProperty(void*);
 extern int __ChangeIptProperty(void*);
@@ -102,8 +104,10 @@ func InitLua(r string){
 	_L.LoadApi(C.__GetFriends,"GetFriends","Player")
 	_L.LoadApi(C.__GetTarget,"GetTarget","Player")
 	_L.LoadApi(C.__GetMainTarget,"GetMainTarget","Player")
+	_L.LoadApi(C.__GetRandomTarget,"RandomTarget","Player")
 	_L.LoadApi(C.__GetTargets,"GetTargets","Player")
 	_L.LoadApi(C.__GetTargetsAround,"GetTargetsAround","Player")
+	_L.LoadApi(C.__GetTargetsRandom,"GetTargetsRandom","Player")
 	_L.LoadApi(C.__GetUnitProperty,"GetUnitProperty","Player")
 	_L.LoadApi(C.__ChangeCptProperty,"ChangeUnitProperty","Player")
 	_L.LoadApi(C.__ChangeIptProperty,"ChangeIptProperty","Player")
@@ -323,6 +327,33 @@ func __GetMainTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
 
 	return 1
 }
+
+//export __GetRandomTarget
+func __GetRandomTarget(p unsafe.Pointer) C.int {// 获取 敌方主角目标
+
+	std.LogInfo("__GetRandomTarget")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	uid := L.ToInteger(idx)
+
+	//std.LogInfo(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+
+	var t_id int64
+	t_id = battle.SelectOneTarget(int64(uid))
+
+	std.LogInfo("__GetMainTarget end ,", t_id)
+
+	L.PushInteger(int(t_id))
+
+	return 1
+}
+
+
 //export __CheckUnitDead
 func __CheckUnitDead(p unsafe.Pointer) C.int {//判断是否死亡
 
@@ -915,6 +946,43 @@ func __GetTargetsAround(p unsafe.Pointer) C.int {  //溅射目标
 	for i :=0; i < len(ls); i++ {
 		L.PushInteger(i + 1)
 		L.PushInteger(int(ls[i]))
+		L.SetTable(-3)
+	}
+
+	return 1
+}
+
+//export __GetTargetsRandom
+func __GetTargetsRandom(p unsafe.Pointer) C.int {  //溅射目标
+
+	//std.LogInfo("__GetTargetsRandom")
+
+	L := lua.GetLuaState(p)
+	idx := 1
+	battleid := L.ToInteger(idx)
+	idx ++
+	unitid := L.ToInteger(idx)
+	idx ++
+	targetnum := L.ToInteger(idx)
+
+
+	////std.LogInfo("4444444444", battleid, unitid, num)
+
+	battle := FindBattle(int64(battleid))
+
+	ls := []int{}
+
+	for i := 0; i < targetnum; i++ {
+		t := battle.SelectOneUnit(int64(unitid))
+		ls = append(ls, int(t.InstId))
+
+	}
+
+	L.NewTable()
+
+	for i :=0; i < len(ls); i++ {
+		L.PushInteger(i + 1)
+		L.PushInteger(ls[i])
 		L.SetTable(-3)
 	}
 
