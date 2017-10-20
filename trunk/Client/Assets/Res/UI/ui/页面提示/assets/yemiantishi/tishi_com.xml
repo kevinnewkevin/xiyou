@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="803,83">
+  <displayList>
+    <image id="n0_nk8s" name="n0" src="nk8s1" xy="-1,-1" size="803,83"/>
+    <text id="n1_nk8s" name="n1" xy="398,42" pivot="0.5,0.5" anchor="true" size="685,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" text="啦啦啦啦啦啊啦啦啦啦啦啦啦啦啦啊啦啦啦啦">
+      <relation target="n0_nk8s" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+  <transition name="t0" autoPlay="true">
+    <item time="0" type="Alpha" target="n0_nk8s" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="Alpha" target="n1_nk8s" value="0"/>
+    <item time="6" type="Alpha" target="n1_nk8s" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
+    <item time="54" type="Alpha" target="n0_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+    <item time="60" type="Alpha" target="n1_nk8s" tween="true" startValue="1" endValue="0" duration="12" ease="Circ.InOut"/>
+  </transition>
+</component>
