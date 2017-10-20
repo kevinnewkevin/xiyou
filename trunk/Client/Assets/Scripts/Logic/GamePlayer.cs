@@ -162,7 +162,15 @@ public class GamePlayer {
 
         if (_InstID == instId)
         {
+			if (type == 11) 
+			{
+				if (vaule > _Data.IProperties [type]) 
+				{
+					Proxy4Lua.PopMsg("获得魂币" + (vaule-_Data.IProperties [type]));	
+				}
+			}
             _Data.IProperties [type] = vaule;
+
         }
 
         for(int i=0; i < _IPropDirty.Count; ++i)

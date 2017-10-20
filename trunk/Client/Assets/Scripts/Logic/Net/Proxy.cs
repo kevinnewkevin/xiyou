@@ -163,12 +163,13 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		ShopSystem.BuyItems = items;
 		UIManager.SetDirty("cangbaoge");
-		
-				if (ShopSystem.buyType == 1000 || ShopSystem.buyType == 1001 || ShopSystem.buyType == 1002)
-						UIManager.Show ("kaikabao");
-				else 
-				{
-				}
+	
+			if (ShopSystem.buyType == 1000 || ShopSystem.buyType == 1001 || ShopSystem.buyType == 1002)
+					UIManager.Show ("kaikabao");
+			else 
+			{
+					Proxy4Lua.PopMsg("购买成功");
+			}
 
 		return true;
 	}
