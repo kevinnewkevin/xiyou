@@ -41,13 +41,13 @@ function bagtips:OnInit()
 
 	local btns = self.contentPane:GetChild("n28").asList;
 
-	useBtn = btns:GetChildAt(0);
+	useBtn = btns:GetChildAt(2);
 	useBtn.visible = false;
-	useAllBtn = btns:GetChildAt(1);
+	useAllBtn = btns:GetChildAt(3);
 	useAllBtn.visible = false;
-	delBtn = btns:GetChildAt(3);
+	delBtn = btns:GetChildAt(1);
 	delBtn.onClick:Add(bagtips_OnDelItem);
-	unlockBtn = btns:GetChildAt(2);
+	unlockBtn = btns:GetChildAt(0);
 	unlockBtn.onClick:Add(bagtips_OnUnlockBtn);
 	bagtips_FlushData();
 end

@@ -181,14 +181,16 @@ function cangbaoge_RenderListItem(index, obj)
 	local bIsBuy = ShopSystem.GetBlackMarketIsBuy(index);
 	if bIsBuy == false then
 		isBuy.visible = true; 
+		obj.enabled = false;
 	else
 		isBuy.visible = false; 
+		obj.enabled = true;
 		obj.onClick:Add(cangbaoge_OnBlackBuyClick);
 	end
 	local shopData = ShopData.GetData(shopId);
 	name.text = "" .. shopData._Name;
 	price.text = "" .. shopData._Price;
-	itemNum.text = "" .. shopData._Num;
+	itemNum.text = "X" .. shopData._Num;
 	obj.data = shopData._ShopId;
 	itemdata = ItemData.GetData(shopData._itemId);
 	icon.asLoader.url = "ui://" .. itemdata._Icon;

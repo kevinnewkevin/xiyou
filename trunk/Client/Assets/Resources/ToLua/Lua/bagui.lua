@@ -24,7 +24,6 @@ end
 function bagui:OnInit()
 	self.contentPane = UIPackage.CreateObject("bagui", "beibao_com").asCom;
 	self:Center();
-	self.modal = true;
 
 	self.closeButton = self.contentPane:GetChild("n6");
 
