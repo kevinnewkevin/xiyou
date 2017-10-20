@@ -170,11 +170,25 @@ function cangbaoge_RenderListItem(index, obj)
 	local name =  obj:GetChild("n4");
 	local price =  obj:GetChild("n3");
 	local icon = obj:GetChild("n2");
+	local isBuy = obj:GetChild("n10");
+	local itemNum = obj:GetChild("n11");
+
+	local back = obj:GetChild("n5");
+	local sBack = obj:GetChild("n6");
+	sBack.visible = false; 
+	back.visible = false; 
 	local shopId = ShopSystem.GetBlackMarketId(index);
+	local bIsBuy = ShopSystem.GetBlackMarketIsBuy(index);
+	if bIsBuy == false then
+		isBuy.visible = true; 
+	else
+		isBuy.visible = false; 
+		obj.onClick:Add(cangbaoge_OnBlackBuyClick);
+	end
 	local shopData = ShopData.GetData(shopId);
 	name.text = "" .. shopData._Name;
 	price.text = "" .. shopData._Price;
-	obj.onClick:Add(cangbaoge_OnBlackBuyClick);
+	itemNum.text = "" .. shopData._Num;
 	obj.data = shopData._ShopId;
 	itemdata = ItemData.GetData(shopData._itemId);
 	icon.asLoader.url = "ui://" .. itemdata._Icon;
