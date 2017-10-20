@@ -12,6 +12,7 @@ public class ShopData {
 	public string _PayType;
 	public int _Price;
 	public int _copper;
+	public int _itemId;
 	public static Dictionary<int, ShopData > metaData;
 
     static public void ParseData(string content, string fileName)
@@ -38,6 +39,7 @@ public class ShopData {
 			data._PayType = parser.GetString (i, "ShopPayType");
 			data._Price = parser.GetInt(i, "Price");
 			data._copper = parser.GetInt(i, "COPPER");
+			data._itemId = parser.GetInt(i, "ItemID");
 			if(metaData.ContainsKey(data._ShopId))
             {
 				Debug.LogError("ShopData ID重复");
