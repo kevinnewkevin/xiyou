@@ -101,11 +101,9 @@ public class HeadBar {
                 data = BuffData.GetData(_Root.BuffList [i]);
                 item.asCom.GetChild("n0").asLoader.url = string.Format("ui://{0}", data._Icon);
             }
+            if (line <= 0)
+                line = 1;
             _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust + (line - 1) * 0.245f, 0f);
-        }
-        else
-        {
-            _Headbar.transform.localPosition = new Vector3(0f, _HeightAdjust, 0f);
         }
 
         _BloodBar.TweenValue(((float)_Root._CrtValue / (float)_Root._MaxValue * 100), 0.5f);
