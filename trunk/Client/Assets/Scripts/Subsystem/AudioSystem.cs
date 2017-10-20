@@ -9,8 +9,8 @@ public class AudioSystem {
 
     static Dictionary<string, AudioClip> _ClipPool;
 
-    static float _MusicVolum;
-    static float _SoundVolum;
+    static float _MusicVolum = 1f;
+    static float _SoundVolum = 1f;
 
     static public void Init()
     {
