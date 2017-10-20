@@ -48,7 +48,8 @@ function NetWorkReconnect()
 end
 
 function ErrorMessage(errCode)
-	
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", errCode, true);
 end
 
 function RegGlobalValue()

@@ -23,6 +23,7 @@ public class AssetLoader {
         if (obj == null)
         {
             Debug.LogError("资源: " + path + " 未找到!");
+            LuaManager.Call("global.lua", "ErrorMessage", "资源: " + path + " 未找到!");
             return null;
         }
         return GameObject.Instantiate(obj) as GameObject;
