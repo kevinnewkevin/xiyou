@@ -163,13 +163,17 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		ShopSystem.BuyItems = items;
 		UIManager.SetDirty("cangbaoge");
-		UIManager.Show("kaikabao");
+		
+		if(ShopSystem.buyType == 1000 || ShopSystem.buyType == 1001||ShopSystem.buyType == 1002 )
+			UIManager.Show("kaikabao");
 
 		return true;
 	}
 
 	public bool	SycnBlackMarkte(ref COM_BlackMarket black)
 	{
+		ShopSystem.BlackMarket = black;
+		UIManager.SetDirty("cangbaoge");
 		return true;
 	}
 }

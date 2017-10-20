@@ -87,6 +87,13 @@ public class Proxy4Lua {
         ls.Position = idx;
         NetWoking.S.EquipSkill(ls);
     }
+	
+	static public void RefreshBlackMarkte()
+	{
+		NetWoking.S.RefreshBlackMarkte ();
+	}
+
+
 
     #endregion
 
