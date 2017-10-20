@@ -76,7 +76,9 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r.COM_Player)
 
-	this.player.InitMyBlackMarket()
+	if this.player != nil{
+		this.player.PlayerLogin()
+	}
 
 	std.LogInfo(string(tempId), "CreatePlayer", &r)
 	b,_ := json.Marshal(r)

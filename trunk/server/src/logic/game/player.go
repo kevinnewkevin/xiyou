@@ -297,8 +297,10 @@ func (this *GamePlayer)IsBattle() bool {
 }
 
 func (this *GamePlayer)PassZeroHour()  {
-	this.BlackMarketData.RefreshNum = int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
-	this.session.SycnBlackMarkte(*this.BlackMarketData)
+	if this.BlackMarketData != nil {
+		this.BlackMarketData.RefreshNum = int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
+		this.session.SycnBlackMarkte(*this.BlackMarketData)
+	}
 }
 
 func (this *GamePlayer)PlayerLogin()  {
@@ -1328,9 +1330,9 @@ func (this *GamePlayer)InitMyBlackMarket()  {
 	tempData.RefreshNum		= int32(GetGlobalInt("C_BlackMarkteRefreshNum"))
 	tempData.ShopItems = GetBlackMarketShopItems()
 	this.BlackMarketData = &tempData
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
+
 	if this.session != nil {
-		std.LogInfo("11111111111111111111111111111111111111111111111111111111111111")
+		std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
 		this.session.SycnBlackMarkte(*this.BlackMarketData)
 	}
 }
