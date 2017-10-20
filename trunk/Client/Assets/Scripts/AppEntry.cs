@@ -22,9 +22,9 @@ public class AppEntry : MonoBehaviour {
         CameraEffect.Init();
         BagSystem.Init();
 //        WeatherSystem.Init();
+        UIManager.Show("yemiantishi");
         UIManager.Show("denglu");
         DataLoader.BeginLoad();
-
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 	}
 
@@ -51,4 +51,4 @@ public class AppEntry : MonoBehaviour {
         if(Stage.inst.y != -1000)
             Stage.inst.SetXY(0f, -1000f);
 	}
-}
+    }

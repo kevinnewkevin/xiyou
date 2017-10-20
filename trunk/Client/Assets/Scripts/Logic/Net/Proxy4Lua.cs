@@ -372,5 +372,11 @@ public class Proxy4Lua {
         }
     }
 
+    static public System.Collections.Generic.Queue<string> Message = new Queue<string>();
+    static public void PopMsg(string msg)
+    {
+        Message.Enqueue(msg);
+    }
+
     #endregion
 }
