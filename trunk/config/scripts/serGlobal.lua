@@ -37,6 +37,7 @@ Global.setGlobalInt("C_BlackMarkteRefreshNum", 1);				--//菜偏返強泡仟肝方
 //	0 2 8-20/3 * * *　　　　　　             8:02, 11:02, 14:02, 17:02, 20:02
 //	0 30 5 1,15 * *　　　　　　              5:30 on the 1st day and 15th day of month
 ]]--
+Global.setGlobalString("C_SaveDataToDB","0 */2 * * * *");
 Global.setGlobalString("C_PassZeroHour","0 0 0 * * *");
 Global.setGlobalString("C_BlackMarkteRefresh","0 0 0,6,12,18 * * *");
 
