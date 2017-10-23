@@ -373,8 +373,8 @@ function BattlePanel_FlushData()
 --			BattlePanel_FlushData();
 --		end
 --	else 
-		stateIcon.enabled = true;
-		selectMainRolePos.visible = false;
+--		stateIcon.enabled = true;
+--		selectMainRolePos.visible = false;
 --	end
 
 	for i=1, 10 do
@@ -477,6 +477,9 @@ function BattlePanel_OnReturnBtn()
 end
 
 function BattlePanel_OnTurnOver()
+	if Battle._CurrentState ~= Battle.BattleState.BS_Oper then
+		return;
+	end
 --	if Battle._Turn == 1 and mainActor == nil then
 --		Battle.PutCardInBattle();
 --	else
