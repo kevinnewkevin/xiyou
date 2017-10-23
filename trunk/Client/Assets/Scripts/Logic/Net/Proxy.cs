@@ -46,6 +46,7 @@ class Proxy : ICOM_ServerToClientProxy
         }
         else
         {
+            Proxy4Lua._ReadyToJoinBattle = true;
             delaySide = side;
             delayBattleId = battleid;
             delayOppo = opponentCards;

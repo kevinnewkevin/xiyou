@@ -99,6 +99,17 @@ public class Proxy4Lua {
 
     #region 内部接口
 
+    static public bool _ReadyToJoinBattle = false;
+    static public bool ReadyToJoinBattle
+    {
+        get
+        {
+            bool tmp = _ReadyToJoinBattle;
+            _ReadyToJoinBattle = false;
+            return tmp;
+        }
+    }
+
     static public bool ReconnectServer()
     {
         return NetWoking.ReConnect();
