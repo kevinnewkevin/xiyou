@@ -20,7 +20,7 @@ local battleTeamId = 0;
 local okTrans; 
 local anim;
 local pipeiOk;
-
+local nameArr;
 function qiecuo:OnEntry()
 	Window = qiecuo.New();
 	Window:Show();
@@ -43,7 +43,7 @@ function qiecuo:OnInit()
 	--crtCardName = cardGroup:GetChild("n23");
 	cardGroupList = cardGroup:GetChild("n27").asList;
 	local setBattleBtn = cardGroup:GetChild("n29").asButton;
-	setBattleBtn.onClick:Add(paiku_OnSetBattle);
+	setBattleBtn.onClick:Add(qiecuo_OnSetBattle);
 	local delBtn = cardGroup:GetChild("n24").asButton;
 	delBtn.visible = false;
 	starting = self.contentPane:GetChild("n9").asCom;
@@ -53,6 +53,33 @@ function qiecuo:OnInit()
 	pipeiOk = starting:GetChild("n13");
 	anim = starting:GetChild("n14");
 	okTrans = pipeiOk:GetTransition("t1");
+
+	local name0 = pipeiOk:GetChild("n24");
+	local name1 = pipeiOk:GetChild("n23");
+	local name2 = pipeiOk:GetChild("n22");
+	local name3 = pipeiOk:GetChild("n21");
+	local name4 = pipeiOk:GetChild("n19");
+	local name5 = pipeiOk:GetChild("n18");
+	local name6 = pipeiOk:GetChild("n17");
+	local name7 = pipeiOk:GetChild("n16");
+	local name8 = pipeiOk:GetChild("n15");
+	local name9 = pipeiOk:GetChild("n14");
+	local name10 = pipeiOk:GetChild("n13");
+	nameArr ={};
+	nameArr[0] = name0;
+	nameArr[1] = name1;
+	nameArr[2] = name2;
+	nameArr[3] = name3;
+	nameArr[4] = name4;
+	nameArr[5] = name5;
+	nameArr[6] = name6;
+	nameArr[7] = name7;
+	nameArr[8] = name8;
+	nameArr[9] = name9;
+	nameArr[10] = name10;
+
+
+
 	for i=1, 5 do
 		local groupItem = allCardGroupList:AddItemFromPool(cardGroupUrl);
 		groupItem.onClick:Add(qiecuo_OnSelectGroup);
@@ -205,6 +232,7 @@ function qiecuo_OnStart(context)
 	Proxy4Lua.NextBattleDelay = 3;
 	Proxy4Lua.StartMatching(GamePlayer._CrtBattleGroupIdx+1);
 	starting.visible = true;
+	qiecuo_RandName();
 	qiecuo_FlushData();
 end
 
@@ -222,14 +250,21 @@ function qiecuo_OnCancel(context)
 	Proxy4Lua._CancelMatch = true;
 end
 
-function paiku_OnSetBattle(context)
+function qiecuo_OnSetBattle(context)
 	local MessageBox = UIManager.ShowMessageBox();
-	MessageBox:SetData("提示", "是否设置当前卡组为出战卡组？", false, paiku_OnSet);
+	MessageBox:SetData("提示", "是否设置当前卡组为出战卡组？", false, qiecuo_OnSet);
 end
 
-function paiku_OnSet(context)
+function qiecuo_OnSet(context)
 	GamePlayer._CrtBattleGroupIdx = crtGroupIdx;
 	battleTeamId = crtGroupIdx;
 	UIManager.HideMessageBox();
 	UIManager.SetDirty("qiecuo");
+end
+
+function qiecuo_RandName()
+
+	for i=1, 11 do
+	nameArr[i -1].text = RandNameData.Rand(); 
+	end
 end
