@@ -30314,13 +30314,13 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 337888896
+  randomSeed: 425214117
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 2.4
+      scalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -30848,7 +30848,7 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -30924,8 +30924,13 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - time: 0
+      minCount: 1
+      maxCount: 1
+      cycleCount: 1
+      repeatInterval: 0.01
   SizeModule:
     enabled: 1
     curve:
@@ -31174,15 +31179,15 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0.13333334, g: 0, b: 0, a: 0.78756684}
-        key2: {r: 0.13333334, g: 0, b: 0, a: 0.80784315}
+        key1: {r: 0.83686274, g: 0.8117647, b: 0.8117647, a: 0.78756684}
+        key2: {r: 0.13333334, g: 0, b: 0, a: 0.8235294}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
+        ctime1: 54934
         ctime2: 65535
         ctime3: 0
         ctime4: 0
@@ -31190,7 +31195,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 22359
+        atime1: 13300
         atime2: 46067
         atime3: 65535
         atime4: 0
@@ -31198,7 +31203,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 3
         m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
@@ -36441,7 +36446,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b5ed3d1ce5f6c604fa0aa0bfa044535d, type: 2}
+  - {fileID: 2100000, guid: 3c22a021ddcc6524aba3421300d48dad, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
