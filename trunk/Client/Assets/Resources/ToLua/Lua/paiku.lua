@@ -15,6 +15,7 @@ local cardGroupList;
 local crtGroupIdx = 0;
 local crtCardInstID = 0;
 local crtCardsFee = 0;
+local crtCardsType = 0;
 local crtCardName;
 
 local doubleClickTicker;
@@ -57,6 +58,16 @@ function paiku:OnInit()
 	end
 	feeList.selectedIndex = crtCardsFee;
 
+	local typeList = leftPart:GetChild("n35").asList;
+	local typeMax = typeList.numItems;
+	local typeItem;
+	for i=1, typeMax do
+		typeItem = typeList:GetChildAt(i-1);
+		typeItem.data = i-1;
+		typeItem.onClick:Add(paiku_OnTypeItemClick);
+	end
+	typeList.selectedIndex = crtCardsType;
+
 	local rightPart = self.contentPane:GetChild("n5").asCom;
 	local bg = rightPart:GetChild("n3");
 	allCardGroupList = bg:GetChild("n5").asList;
@@ -91,16 +102,21 @@ function paiku_OnFeeItemClick(context)
 	UIManager.SetDirty("paiku");
 end
 
+function paiku_OnTypeItemClick(context)
+	crtCardsType = context.sender.data;
+	UIManager.SetDirty("paiku");
+end
+
 function paiku_RenderListItem(index, obj)
-	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, index);
-	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, index);
+	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, crtCardsType, index);
+	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, crtCardsType, index);
 	local img = obj:GetChild("n5");
 	local feeImg = obj:GetChild("n3");
 	local radImg = obj:GetChild("n10");
 	img.asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
 	obj.onClick:Add(paiku_OnCardItem);
-	local instId = GamePlayer.GetInstID(crtCardsFee, index);
+	local instId = GamePlayer.GetInstID(crtCardsFee, crtCardsType, index);
 	obj.data = instId;
 	obj.onDragStart:Add(paiku_OnDragCard);
 	local fee = obj:GetChild("n7");
@@ -182,10 +198,10 @@ function paiku:OnHide()
 end
 
 function paiku_FlushData()
-	total.text = "(数量:" .. GamePlayer.CardsByFee(0).Count .. ")";
+	total.text = "(数量:" .. GamePlayer.CardsByFeeAndType(0, 0).Count .. ")";
 	local cards = 0;
-	if GamePlayer.CardsByFee(crtCardsFee) ~= nil then
-		cards = GamePlayer.CardsByFee(crtCardsFee).Count;
+	if GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType) ~= nil then
+		cards = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType).Count;
 	end
 	allCardList.numItems = cards;
 	cardGroupList:RemoveChildrenToPool(); 

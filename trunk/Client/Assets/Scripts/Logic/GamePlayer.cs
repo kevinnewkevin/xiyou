@@ -11,9 +11,7 @@ public class GamePlayer {
 
     static public COM_Unit _Data;
 
-    static public Dictionary<int, List<COM_Unit>> _CardsByFee = new Dictionary<int, List<COM_Unit>>();
-
-    static public Dictionary<string, List<COM_Unit>> _CardsByType = new Dictionary<string, List<COM_Unit>>();
+    static public Dictionary<string, List<COM_Unit>> _Cards = new Dictionary<string, List<COM_Unit>>();
 
     static public List<List<long>> _CardGroup = new List<List<long>>();
     static public List<string> _CardGroupName = new List<string>();
@@ -55,17 +53,22 @@ public class GamePlayer {
         for(int i=0; i < player.Employees.Length; ++i)
         {
             eData = EntityData.GetData(player.Employees[i].UnitId);
-            if(!_CardsByFee.ContainsKey(eData._Cost))
-                _CardsByFee.Add(eData._Cost, new List<COM_Unit>());
-            _CardsByFee [eData._Cost].Add(player.Employees [i]);
+            string costTypeKey = eData._Cost + "_" + eData._Type;
+            if(!_Cards.ContainsKey(costTypeKey))
+                _Cards.Add(costTypeKey, new List<COM_Unit>());
+            _Cards [costTypeKey].Add(player.Employees [i]);
 
-            if(!_CardsByType.ContainsKey(eData.ToString()))
-                _CardsByType.Add(eData.ToString(), new List<COM_Unit>());
-            _CardsByType [eData.ToString()].Add(player.Employees [i]);
+            if(!_Cards.ContainsKey("0_0"))
+                _Cards.Add("0_0", new List<COM_Unit>());
+            _Cards ["0_0"].Add(player.Employees [i]);
 
-            if(!_CardsByFee.ContainsKey(0))
-                _CardsByFee.Add(0, new List<COM_Unit>());
-            _CardsByFee [0].Add(player.Employees [i]);
+            if(!_Cards.ContainsKey("0_" + eData._Type))
+                _Cards.Add("0_" + eData._Type, new List<COM_Unit>());
+            _Cards ["0_" + eData._Type].Add(player.Employees [i]);
+
+            if(!_Cards.ContainsKey(eData._Cost + "_0"))
+                _Cards.Add(eData._Cost + "_0", new List<COM_Unit>());
+            _Cards [eData._Cost + "_0"].Add(player.Employees [i]);
         
         }
 
@@ -83,17 +86,14 @@ public class GamePlayer {
     static public void AddCard(COM_Unit card)
     {
         EntityData eData = EntityData.GetData(card.UnitId);
-        if(!_CardsByFee.ContainsKey(eData._Cost))
-            _CardsByFee.Add(eData._Cost, new List<COM_Unit>());
-        _CardsByFee [eData._Cost].Add(card);
+        string costTypeKey = eData._Cost + "_" + eData._Type;
+        if(!_Cards.ContainsKey(costTypeKey))
+            _Cards.Add(costTypeKey, new List<COM_Unit>());
+        _Cards [costTypeKey].Add(card);
 
-        if(!_CardsByType.ContainsKey(eData.ToString()))
-            _CardsByType.Add(eData.ToString(), new List<COM_Unit>());
-        _CardsByType [eData.ToString()].Add(card);
-
-        if(!_CardsByFee.ContainsKey(0))
-            _CardsByFee.Add(0, new List<COM_Unit>());
-        _CardsByFee [0].Add(card);
+        if(!_Cards.ContainsKey("0_0"))
+            _Cards.Add("0_0", new List<COM_Unit>());
+        _Cards ["0_0"].Add(card);
     }
 
     static public void UpdateEquipedSkill(int idx, int skillid)
@@ -129,10 +129,10 @@ public class GamePlayer {
         if (_InstID == instid)
             return _Data;
         
-        for(int i=0; i < _CardsByFee [0].Count; ++i)
+        for(int i=0; i < _Cards ["0_0"].Count; ++i)
         {
-            if (_CardsByFee [0] [i].InstId == instid)
-                return _CardsByFee [0] [i];
+            if (_Cards ["0_0"] [i].InstId == instid)
+                return _Cards ["0_0"] [i];
         }
         return null;
     }
@@ -140,23 +140,22 @@ public class GamePlayer {
 
 	static public COM_Unit GetCardByEntityID(int unitId)
 	{
-
-			for(int i=0; i < _CardsByFee [0].Count; ++i)
-			{
-				if (_CardsByFee [0] [i].UnitId== unitId)
-					return _CardsByFee [0] [i];
-			}
-			return null;
+        for(int i=0; i < _Cards ["0_0"].Count; ++i)
+		{
+            if (_Cards ["0_0"] [i].UnitId== unitId)
+                return _Cards ["0_0"] [i];
+		}
+		return null;
 	}
 
 
     static public void UpdateUnitIProperty(long instId, int type, int vaule)
     {
-        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
-            if (_CardsByFee[0][i].InstId == instId)
+            if (_Cards ["0_0"][i].InstId == instId)
             {
-                _CardsByFee[0][i].IProperties[type] = vaule;
+                _Cards ["0_0"][i].IProperties[type] = vaule;
             }
         }
 
@@ -181,11 +180,11 @@ public class GamePlayer {
 
     static public void UpdateUnitCProperty(long instId, int type, float vaule)
     {
-        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
-            if (_CardsByFee[0][i].InstId == instId)
+            if (_Cards ["0_0"][i].InstId == instId)
             {
-                _CardsByFee[0][i].CProperties[type] = vaule;
+                _Cards ["0_0"][i].CProperties[type] = vaule;
             }
         }
 
@@ -215,9 +214,9 @@ public class GamePlayer {
         if (_InstID == instid)
             return true;
         
-        for(int i=0; i < _CardsByFee [0].Count; ++i)
+        for(int i=0; i < _Cards ["0_0"].Count; ++i)
         {
-            if (_CardsByFee [0] [i].InstId == instid)
+            if (_Cards ["0_0"] [i].InstId == instid)
                 return true;
         }
 
@@ -271,29 +270,15 @@ public class GamePlayer {
     }
 
     //通过索引获得卡牌形象
-    static public DisplayData GetDisplayDataByIndex(int idx)
+    static public DisplayData GetDisplayDataByIndex(int fee, int type, int idx)
     {
-        if (idx < 0 || idx >= _CardsByFee [0].Count)
+        if (!_Cards.ContainsKey(fee + "_" + type))
             return null;
 
-        EntityData edata = EntityData.GetData(_CardsByFee [0][idx].UnitId);
-        if (edata == null)
+        if (idx < 0 || idx >= _Cards[fee + "_" + type].Count)
             return null;
 
-        DisplayData ddata = DisplayData.GetData(edata._DisplayId);
-        return ddata;
-    }
-
-    //通过索引获得卡牌形象
-    static public DisplayData GetDisplayDataByIndex(int fee, int idx)
-    {
-        if (!_CardsByFee.ContainsKey(fee))
-            return null;
-
-        if (idx < 0 || idx >= _CardsByFee[fee].Count)
-            return null;
-
-        EntityData edata = EntityData.GetData(_CardsByFee[fee][idx].UnitId);
+        EntityData edata = EntityData.GetData(_Cards[fee + "_" + type][idx].UnitId);
         if (edata == null)
             return null;
 
@@ -303,11 +288,11 @@ public class GamePlayer {
 
     static public DisplayData GetDisplayDataByInstID(long instid)
     {
-        for(int i=0; i < _CardsByFee [0].Count; ++i)
+        for(int i=0; i < _Cards ["0_0"].Count; ++i)
         {
-            if (_CardsByFee [0] [i].InstId == instid)
+            if (_Cards ["0_0"] [i].InstId == instid)
             {
-                EntityData edata = EntityData.GetData(_CardsByFee [0] [i].UnitId);
+                EntityData edata = EntityData.GetData(_Cards ["0_0"] [i].UnitId);
                 if (edata == null)
                     return null;
 
@@ -318,24 +303,15 @@ public class GamePlayer {
         return null;
     }
 
-    static public EntityData GetEntityDataByIndex(int idx)
+    static public EntityData GetEntityDataByIndex(int fee, int type, int idx)
     {
-        if (idx < 0 || idx >= _CardsByFee[0].Count)
+        if (!_Cards.ContainsKey(fee + "_" + type))
             return null;
 
-        EntityData edata = EntityData.GetData(_CardsByFee[0][idx].UnitId);
-        return edata;
-    }
-
-    static public EntityData GetEntityDataByIndex(int fee, int idx)
-    {
-        if (!_CardsByFee.ContainsKey(fee))
+        if (idx < 0 || idx >= _Cards[fee + "_" + type].Count)
             return null;
 
-        if (idx < 0 || idx >= _CardsByFee[fee].Count)
-            return null;
-
-        EntityData edata = EntityData.GetData(_CardsByFee[fee][idx].UnitId);
+        EntityData edata = EntityData.GetData(_Cards[fee + "_" + type][idx].UnitId);
         return edata;
     }
 
@@ -344,11 +320,11 @@ public class GamePlayer {
         if (instid == _InstID)
             return GetMyEntityData();
         
-        for (int i = 0; i < _CardsByFee[0].Count; ++i)
+        for (int i = 0; i < _Cards["0_0"].Count; ++i)
         {
-            if (_CardsByFee[0][i].InstId == instid)
+            if (_Cards["0_0"][i].InstId == instid)
             {
-                EntityData edata = EntityData.GetData(_CardsByFee[0][i].UnitId);
+                EntityData edata = EntityData.GetData(_Cards["0_0"][i].UnitId);
                 return edata;
             }
         }
@@ -425,25 +401,16 @@ public class GamePlayer {
         return skills.ToArray();
     }
 
-    //通过索引获得卡牌UnitID
-    static public int GetUnitIDInMyCards(int idx)
-    {
-        if (idx < 0 || idx >= _CardsByFee [0].Count)
-            return 0;
-        
-        return _CardsByFee [0][idx].UnitId;
-    }
-
     //通过索引获得卡牌InstID
-    static public long GetInstID(int fee, int idx)
+    static public long GetInstID(int fee, int type, int idx)
     {
-        if (!_CardsByFee.ContainsKey(fee))
+        if (!_Cards.ContainsKey(fee + "_" + type))
             return 0;
         
-        if (idx < 0 || idx >= _CardsByFee [fee].Count)
+        if (idx < 0 || idx >= _Cards [fee + "_" + type].Count)
             return 0;
 
-        return _CardsByFee [fee][idx].InstId;
+        return _Cards [fee + "_" + type][idx].InstId;
     }
 
     //通过索引获得卡组中卡牌InstID
@@ -507,11 +474,11 @@ public class GamePlayer {
         return new List<long>(_CardGroup [_CrtBattleGroupIdx]);
     }
 
-    static public List<COM_Unit> CardsByFee(int fee)
+    static public List<COM_Unit> CardsByFeeAndType(int fee, int type)
     {
-        if (!_CardsByFee.ContainsKey(fee))
+        if (!_Cards.ContainsKey(fee + "_" + type))
             return null;
-        return _CardsByFee[fee];
+        return _Cards[fee + "_" + type];
     }
 
 	static public int GetTianTiLevel()
@@ -543,16 +510,11 @@ public class GamePlayer {
 
     static public void Clear()
     {
-        foreach(List<COM_Unit> list in _CardsByFee.Values)
+        foreach(List<COM_Unit> list in _Cards.Values)
         {
             list.Clear();
         }
-        foreach(List<COM_Unit> list in _CardsByType.Values)
-        {
-            list.Clear();
-        }
-        _CardsByFee.Clear();
-        _CardsByType.Clear();
+        _Cards.Clear();
         _CardGroup.Clear();
     }
 }

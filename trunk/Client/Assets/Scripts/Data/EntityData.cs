@@ -7,6 +7,7 @@ public class EntityData {
     public int _UnitId;
     public int _DisplayId;
     public int _Cost;
+    public int _Type;
     public string _Name;
     public int[] _Skills;
     public string _Desc;
@@ -32,6 +33,7 @@ public class EntityData {
             data._UnitId = parser.GetInt (i, "UnitId");
             data._DisplayId = parser.GetInt(i, "DisplayId");
             data._Cost = parser.GetInt(i, "Cost");
+            data._Type = parser.GetInt(i, "type");
             data._Name = parser.GetString(i, "Name");
             data._Desc = parser.GetString(i, "Desc");
             data._Skills = new int[4];

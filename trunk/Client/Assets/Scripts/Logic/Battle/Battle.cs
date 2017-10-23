@@ -929,11 +929,13 @@ public class Battle {
         {
             rb._Targets = new COM_BattleActionTarget[report.TargetList.Length];
             rb._TargetEntityID = new int[report.TargetList.Length];
+            rb._TargetSelf = new bool[report.TargetList.Length];
             for(int i=0; i < rb._Targets.Length; ++i)
             {
                 rb._Targets [i] = new COM_BattleActionTarget();
                 actor = GetActor(report.TargetList [i].InstId);
                 rb._TargetEntityID [i] = actor._EntityID;
+                rb._TargetSelf[i] = actor._RealPosInScene < 6;
                 rb._Targets [i].ActionType = report.TargetList [i].ActionType;
                 rb._Targets [i].ActionParam = report.TargetList [i].ActionParam;
                 rb._Targets [i].ActionParamExt = report.TargetList [i].ActionParamExt;
@@ -1063,4 +1065,5 @@ public class ReportBase
     public COM_BattleBuff[] _Buffs;
     public COM_BattleActionTarget[] _Targets;
     public int[] _TargetEntityID;
+    public bool[] _TargetSelf;
 }
