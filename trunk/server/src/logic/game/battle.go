@@ -9,7 +9,8 @@ import (
 	"sort"
 	"encoding/json"
 	"logic/std"
-	"fmt"
+	//"fmt"
+
 )
 
 type UnitList []*GameUnit
@@ -239,7 +240,7 @@ func (this *BattleRoom) SendReportFirst() {
 func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
 	li := []int32{}
 	for _, p := range this.PlayerList {
-		if p == nil {
+		if p == nil{
 			continue
 		}
 
@@ -277,13 +278,13 @@ func (this *BattleRoom) BattleUpdate() {
 	//Round_start := time.Now().Unix()
 	checkindex := 0
 
-	defer func() {
-
-		if r := recover(); r != nil {
-			std.LogError("main panic %s",fmt.Sprint(r))
-		}
-
-	}()
+	//defer func() {
+	//
+	//	if r := recover(); r != nil {
+	//		std.LogError("main panic %s",fmt.Sprint(r))
+	//	}
+	//
+	//}()
 
 	for this.Status == kUsed {
 
@@ -897,6 +898,7 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 
 	index := len(u_list)
 
+
 	std.LogInfo("目标索引",index)
 	idx := rand.Intn(index)
 
@@ -1079,12 +1081,28 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 		return this.SelectOneTarget(unit.InstId)
 	}
 
+	buff_lis,ok:= unit.Special[prpc.BF_FRIENDLOCK]  //检测有无选择锁定随机己方的目标buff
+	std.LogInfo("目标 111",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
+	if ok {
+		if len(buff_lis) > 0 {
+			std.LogInfo("目标 222",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
+			return this.SelectOneFriend(unit.InstId)
+		}
+	}
 	for _, pos := range near_pos{
 		if this.Units[pos] == nil{
 			continue
 		}
 		if this.Units[pos].IsDead() {
 			continue
+		}
+		buff_list,ok:= this.Units[pos].Special[prpc.BF_FRIENDLOCK]
+
+		if ok {
+			if len(buff_list) > 0 {
+				std.LogInfo("目标  333",this.Units[pos].InstId,"己方随机目标buff ,", this.Units[pos].Special[prpc.BF_FRIENDLOCK])
+				return this.SelectOneFriend(this.Units[pos].InstId)
+			}
 		}
 		return this.Units[pos].InstId
 	}
@@ -1100,7 +1118,6 @@ func (this *BattleRoom) SelectNearFriend(instid int64) int64 {
 	if near_pos == nil || len(near_pos) == 0 {
 		return this.SelectOneFriend(unit.InstId)
 	}
-
 	for _, pos := range near_pos{
 		if this.Units[pos] == nil{
 			continue
@@ -1227,6 +1244,7 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 		if u.InstId == instid {
 			return u
 		}
+
 	}
 
 	for _, p := range this.PlayerList {
@@ -1454,6 +1472,14 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	for _, debuff := range unit.Buff {
 		std.LogInfo("debuff", debuff)
+	}
+
+	_bf, _ok := unit.Special[prpc.BF_UNDAMAGE] //检测免伤
+
+	if _ok {
+		if len(_bf) > 0 {
+			damage = 0
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////
