@@ -42,7 +42,11 @@ class Proxy : ICOM_ServerToClientProxy
         if (delayTime == 0f)
         {
             Battle.Init(side, battleid, opponentCards, units);
-            SceneLoader.LoadScene(Define.SCENE_BATTLE);
+            BattleData bd = BattleData.GetData(battleid);
+            if (bd != null)
+                SceneLoader.LoadScene(bd._SceneName);
+            else
+                SceneLoader.LoadScene(Define.RandomBattleScene);
         }
         else
         {
@@ -57,7 +61,11 @@ class Proxy : ICOM_ServerToClientProxy
                 delayBattleId = 0;
                 delayOppo = null;
                 delayUnits = null;
-                SceneLoader.LoadScene(Define.SCENE_BATTLE);
+                BattleData bd = BattleData.GetData(delayBattleId);
+                if (bd != null)
+                    SceneLoader.LoadScene(bd._SceneName);
+                else
+                    SceneLoader.LoadScene(Define.RandomBattleScene);
             });
         }
         return true;

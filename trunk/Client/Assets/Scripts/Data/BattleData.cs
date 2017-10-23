@@ -7,6 +7,7 @@ public class BattleData {
     public int _Id;
     public int[] _Animations;
     public int[] _Monsters;
+    public string _SceneName;
 
     static Dictionary<int, BattleData> metaData;
 
@@ -42,6 +43,7 @@ public class BattleData {
                 data._Monsters [j] = int.Parse(smallMonster [j - 1]);
             }
 
+            data._SceneName = parser.GetString(i, "BattleScene");
             if(metaData.ContainsKey(data._Id))
             {
                 Debug.LogError("BattleData ID重复");
