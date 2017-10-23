@@ -34,9 +34,9 @@ function SK_297_Action(battleid, casterid)
 		sys.log("子牙杏黄旗给友军加buff")
 		Battle.Cure(battleid, v, 0, 0)
 		sys.log("子牙杏黄旗给友军加物理攻击")
-		Battle.AddBuff(battleid,casterid,v,102,atk_damage)
+		Battle.AddBuff(battleid,casterid,v,154,atk_damage)
 		sys.log("子牙杏黄旗给友军加法术攻击")
-		Battle.AddBuff(battleid,casterid,v,105,mtk_damage)
+		Battle.AddBuff(battleid,casterid,v,155,mtk_damage)
 		
 		Battle.TargetOver(battleid)
 		
