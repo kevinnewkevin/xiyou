@@ -8,12 +8,44 @@ using SevenZip.Compression.LZMA;
 using SevenZip;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using UnityEditor.SceneManagement;
 
 public class Tools {
+
+    static void RefreshScene()
+    {
+        List<string> dirs = new List<string>();
+        GetDirs(Application.dataPath + "/Scenes/", ref dirs);
+        EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[dirs.Count];
+        for(int i=0; i < scenes.Length; ++i)
+        {
+            scenes [i] = new EditorBuildSettingsScene(dirs[i], true);
+        }
+        EditorBuildSettings.scenes = scenes;
+        AssetDatabase.SaveAssets();
+        EditorSceneManager.OpenScene("Assets/Scenes/Scene/Login.unity");
+    }
+
+    private static void GetDirs(string dirPath, ref List<string> dirs)
+    {
+        foreach (string path in Directory.GetFiles(dirPath))
+        {
+            if(System.IO.Path.GetExtension(path) == ".unity") 
+            {
+                dirs.Add(path.Substring(path.IndexOf("Assets/")));
+            }
+        }
+        if (Directory.GetDirectories(dirPath).Length > 0)
+        {
+            foreach (string path in Directory.GetDirectories(dirPath))
+                GetDirs(path,ref dirs);
+        }
+    }
 
     [MenuItem("Tools/每次更新后执行", false, 1)]
     static void AfterUpdate()
     {
+        RefreshScene();
         ToLuaMenu.ClearLuaWraps();
         CopyTableAndScripts();
         GenRPC();
@@ -43,10 +75,12 @@ public class Tools {
     [MenuItem("Tools/2.打资源包/PC", false, 3)]
     static public void BuildAssetBundlePC()
     {
+        SetScene();
         SetPlayer();
         SetEffect();
         SetUI();
         SetAnim();
+        SetAudio();
         SetTable();
         SetLua();
 
@@ -60,10 +94,12 @@ public class Tools {
     [MenuItem("Tools/2.打资源包/Android", false, 3)]
     static public void BuildAssetBundleAndroid()
     {
+        SetScene();
         SetPlayer();
         SetEffect();
         SetUI();
         SetAnim();
+        SetAudio();
         SetTable();
         SetLua();
 
@@ -77,10 +113,12 @@ public class Tools {
     [MenuItem("Tools/2.打资源包/iOS", false, 3)]
     static public void BuildAssetBundleiOS()
     {
+        SetScene();
         SetPlayer();
         SetEffect();
         SetUI();
         SetAnim();
+        SetAudio();
         SetTable();
         SetLua();
 
@@ -94,6 +132,9 @@ public class Tools {
     [MenuItem("Tools/3.删除临时资源", false, 4)]
     static void DeleteTempFiles()
     {
+        EditorBuildSettings.scenes = new EditorBuildSettingsScene[1]{ new EditorBuildSettingsScene("Assets/Scenes/Scene/Login.unity", true) };
+        AssetDatabase.SaveAssets();
+
         Process p = new Process();
         p.StartInfo.FileName = Application.dataPath + "/../../tools/removeResources.bat";
         p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
@@ -279,6 +320,88 @@ public class Tools {
             AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
             string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
             aimport.assetBundleName = PathDefine.ANIM_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
+            string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
+            for(int j=0; j < deps.Length; ++j)
+            {
+                deps [j] = deps [j].ToLower();
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+
+                if (deps [j].Equals(_assetPath))
+                    continue;
+
+                if (_AllDependences.Contains(deps [j]))
+                    continue;
+
+                _AllDependences.Add(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
+            }
+        }
+        for(int i=0; i < _AllDependences.Count; ++i)
+        {
+            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
+            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.ASSET_EXT;
+        }
+        _AllFiles.Clear();
+        _AllDirectories.Clear();
+        _AllDependences.Clear();
+    }
+
+    static void SetAudio()
+    {
+        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Resources/" + PathDefine.AUDIO_ASSET_PATH));
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
+            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
+            aimport.assetBundleName = PathDefine.AUDIO_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
+            string[] deps = AssetDatabase.GetDependencies(_assetPath);
+            _assetPath = _assetPath.ToLower();
+            for(int j=0; j < deps.Length; ++j)
+            {
+                deps [j] = deps [j].ToLower();
+                if (deps [j].IndexOf(".js") != -1)
+                    continue;
+
+                if (deps [j].IndexOf(".cs") != -1)
+                    continue;
+
+                if (deps [j].Equals(_assetPath))
+                    continue;
+
+                if (_AllDependences.Contains(deps [j]))
+                    continue;
+
+                _AllDependences.Add(deps[j]);
+                UnityEngine.Debug.Log(_assetPath + " depands on: " + deps[j]);
+            }
+        }
+        for(int i=0; i < _AllDependences.Count; ++i)
+        {
+            AssetImporter aimport = AssetImporter.GetAtPath(_AllDependences[i]);
+            aimport.assetBundleName = PathDefine.COMMON_ASSET_PATH + AssetDatabase.AssetPathToGUID(_AllDependences[i]) + Define.ASSET_EXT;
+        }
+        _AllFiles.Clear();
+        _AllDirectories.Clear();
+        _AllDependences.Clear();
+    }
+
+    static void SetScene()
+    {
+        CollectAllFiles(string.Format("{0}/{1}", Application.dataPath, "Scenes/" + PathDefine.SCENE_ASSET_PATH));
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            string _assetPath = "Assets" + _AllFiles[i].Substring (Application.dataPath.Length);
+            _assetPath = _assetPath.Replace("\\", "/");
+            AssetImporter aimport = AssetImporter.GetAtPath(_assetPath);
+            string shortPath = _assetPath.Substring(_assetPath.LastIndexOf("/") + 1);
+            aimport.assetBundleName = PathDefine.SCENE_ASSET_PATH + shortPath.Remove(shortPath.IndexOf(".")) + Define.ASSET_EXT;
             string[] deps = AssetDatabase.GetDependencies(_assetPath);
             _assetPath = _assetPath.ToLower();
             for(int j=0; j < deps.Length; ++j)
@@ -599,3 +722,67 @@ public class Tools {
        return str;
     }
 }
+
+public class FindMissingScriptsRecursively : EditorWindow   
+{  
+    static int go_count = 0, components_count = 0, missing_count = 0;  
+
+    [MenuItem("Window/FindMissingScriptsRecursively")]  
+    public static void ShowWindow()  
+    {  
+        EditorWindow.GetWindow(typeof(FindMissingScriptsRecursively));  
+    }  
+
+    public void OnGUI()  
+    {  
+        if (GUILayout.Button("Find Missing Scripts in selected GameObjects"))  
+        {  
+            FindInSelected();  
+        }  
+    }  
+    private static void FindInSelected()  
+    {  
+        GameObject[] go = Selection.gameObjects;  
+        go_count = 0;  
+        components_count = 0;  
+        missing_count = 0;  
+        foreach (GameObject g in go)  
+        {  
+            FindInGO(g);  
+        }  
+        UnityEngine.Debug.Log(string.Format("Searched {0} GameObjects, {1} components, found {2} missing", go_count, components_count, missing_count));  
+    }  
+
+    private static void FindInGO(GameObject g)  
+    {  
+        go_count++;  
+        Component[] components = g.GetComponents<Component>();  
+        for (int i = 0; i < components.Length; i++)  
+        {  
+            components_count++;  
+            if (components[i] == null)  
+            {  
+                SerializedObject so = new SerializedObject(g);
+                SerializedProperty sp = so.FindProperty("m_Component");
+                sp.DeleteArrayElementAtIndex(i);
+                missing_count++;  
+                string s = g.name;  
+                Transform t = g.transform;  
+                while (t.parent != null)   
+                {  
+                    s = t.parent.name +"/"+s;  
+                    t = t.parent;  
+                }  
+                UnityEngine.Debug.Log (s + " has an empty script attached in position: " + i, g);  
+                so.ApplyModifiedProperties();
+                EditorUtility.SetDirty(g);
+            }  
+        }  
+        // Now recurse through each child GO (if there are any):  
+        foreach (Transform childT in g.transform)  
+        {  
+            //Debug.Log("Searching " + childT.name  + " " );  
+            FindInGO(childT.gameObject);  
+        }  
+    }
+}  
