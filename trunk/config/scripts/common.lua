@@ -14,9 +14,9 @@ function sys_log(val)
 end
 
 function set_random_seed()
-	local time = os.GetTime()
+	local time = sys.GetTime()
 	sys.log("percent gettime ".. time)
-	math.randomseed(tostring(time):reverse():sub(1, 7))
+	math.randomseed(time)
 end
 
 function percent()
