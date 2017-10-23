@@ -24,7 +24,7 @@ public class Proxy4Lua {
 		NetWoking.S.ChallengeSmallChapter(id);
 	}
 	
-	static bool _CancelMatch = false;
+	static public bool _CancelMatch = false;
 	static public void StartMatching(int teamId)
 	{
 		new Timer ().Start (3f, delegate {
