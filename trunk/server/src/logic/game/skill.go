@@ -69,7 +69,7 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	r := []interface{}{0}
 
 
-	_L.CallFuncEx(this.LuaScprit, v, &r)
+	CallLuaFunc(this.LuaScprit, v, &r)
 
 	//this.ActionByLua(caster)
 
@@ -122,7 +122,7 @@ func TestActionByLua() {
 
 	v := []interface{}{9999999999, 1}
 	r := []interface{}{false}
-	_L.CallFuncEx("SK_1_Action", v, &r)
+	CallLuaFunc("SK_1_Action", v, &r)
 	fmt.Println("TestActionByLua", r)
 
 	return

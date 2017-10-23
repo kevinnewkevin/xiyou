@@ -62,7 +62,7 @@ func (this *Buff) AddProperty() {
 	buff_t := GetBuffRecordById(this.BuffId)
 	fmt.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId, buff_t.AddLua)
 
-	_L.CallFuncEx(buff_t.AddLua, v, &r)
+	CallLuaFunc(buff_t.AddLua, v, &r)
 }
 
 func (this *Buff) DeleteProperty() {
@@ -75,7 +75,7 @@ func (this *Buff) DeleteProperty() {
 	buff_t := GetBuffRecordById(this.BuffId)
 
 	fmt.Println(buff_t.PopLua, this.Owner.InstId, this.InstId)
-	_L.CallFuncEx(buff_t.PopLua, v, &r)
+	CallLuaFunc(buff_t.PopLua, v, &r)
 }
 
 
@@ -108,7 +108,7 @@ func (this *Buff) Update(round int32) bool {
 		buff_t := GetBuffRecordById(this.BuffId)
 
 		fmt.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
-		_L.CallFuncEx(buff_t.UpdateLua, v, &r)
+		CallLuaFunc(buff_t.UpdateLua, v, &r)
 		//testBattleBuff(this, this.IsOver(round))
 
 		return needDel
@@ -124,7 +124,7 @@ func (this *Buff) MustUpdate()  {
 	buff_t := GetBuffRecordById(this.BuffId)
 
 	fmt.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "unitID为:", this.Owner.InstId)
-	_L.CallFuncEx(buff_t.UpdateLua, v, &r)
+	CallLuaFunc(buff_t.UpdateLua, v, &r)
 }
 
 func (this *Buff) IsOver(round int32) bool {

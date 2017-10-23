@@ -1,31 +1,23 @@
 package lua
 
-/*
-#include <stdlib.h>
-*/
-import "C"
 import (
 	"fmt"
 	"unsafe"
+	"github.com/yuin/gopher-lua"
 )
 
-var _CLua2GLua map[uintptr]*LuaState = map[uintptr]*LuaState{}
 
-func GetLuaState(clua unsafe.Pointer) *LuaState {
-	return _CLua2GLua[uintptr(clua)]
-}
 
 type LuaState struct {
-	luaState uintptr
+	//luaState uintptr
+	L *lua.LState
 }
 
 func (this *LuaState) Open() {
-	this.luaState = luaL_newstate()
-	_CLua2GLua[this.luaState] = this
+	this.L = lua.NewState()
 }
 func (this *LuaState) Close() {
-	_CLua2GLua[this.luaState] = nil
-	lua_close(this.luaState)
+	this.L.Close()
 }
 
 func (this *LuaState) Pop(n int)             { this.SetTop(-n - 1) }

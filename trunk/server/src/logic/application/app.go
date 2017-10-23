@@ -127,6 +127,7 @@ func (this *App) Run() {
 
 	go func() {
 		for {
+
 			defer func() {
 
 				if r := recover(); r != nil {
@@ -136,7 +137,7 @@ func (this *App) Run() {
 			}()
 			conn, err = this.l.AcceptTCP()
 			if err != nil {
-				fmt.Println(err.Error())
+				std.LogDebug(err.Error())
 				endRunning <- true
 			}
 			std.LogDebug("Has one connect ")

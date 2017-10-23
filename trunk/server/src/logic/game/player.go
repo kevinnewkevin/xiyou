@@ -754,7 +754,7 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 	usestack := 0
 
 	for i := 0; i < int(useNum) ; i++ {
-		_L.CallFuncEx(itemData.GloAction, v, &r)
+		CallLuaFunc(itemData.GloAction, v, &r)
 		errorNo := r[0]
 		if errorNo != "" {
 			errorId := prpc.ToId_ErrorNo(errorNo.(string))
