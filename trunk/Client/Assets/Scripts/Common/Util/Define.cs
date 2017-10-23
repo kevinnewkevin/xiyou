@@ -14,6 +14,7 @@ public class Define {
     public const string SCENE_MAIN = "main";
     public const string SCENE_CREATE = "createRole";
     public const string SCENE_BATTLE = "haidizhandou";
+    public static string[] _BattleScenes = null;
 
     public const string ANIMATION_PLAYER_ACTION_RUN = "run";
     public const string ANIMATION_PLAYER_ACTION_WALK = "walk";
@@ -50,6 +51,8 @@ public class Define {
     {
         globalValues = new Dictionary<string, object>();
         LuaManager.Call("global.lua", "RegGlobalValue");
+
+        _BattleScenes = GetStr("BattleScenePool").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
     }
 
     public static int GetInt(string key)
@@ -85,5 +88,15 @@ public class Define {
         }
 
         globalValues [key] = val;
+    }
+
+    public static string RandomBattleScene
+    {
+        get
+        {
+            if (_BattleScenes == null)
+                return SCENE_BATTLE;
+            return _BattleScenes [Random.Range(0, _BattleScenes.Length)];
+        }
     }
 }
