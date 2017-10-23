@@ -1291,15 +1291,11 @@ func (this *GamePlayer) Logout(){
 
 	this.LogoutTime = time.Now().Unix()
 
-
 	//清理战斗信息
 	this.LeftBattle_strong()
-	
-	//
 
 	this.GamePlayerSave()
 
-	//
 	RemovePlayer(this)
 }
 

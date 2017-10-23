@@ -100,7 +100,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	p.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
-	go room.BattleUpdate()
+	//go room.BattleUpdate()
 
 	return &room
 }
@@ -289,8 +289,10 @@ func (this *BattleRoom) BattleUpdate() {
 
 		now := time.Now().Unix()
 
-		if now-kTimeSleep < now_start { //每隔5S檢測一次
-			continue
+		if this.Type == prpc.BT_PVP {
+			if now-kTimeSleep < now_start { //每隔5S檢測一次
+				continue
+			}
 		}
 
 		if now-kTimeMax >= start { //超時直接結束 並且沒有勝負方
@@ -318,6 +320,9 @@ func (this *BattleRoom) BattleUpdate() {
 		this.Update()
 		now_start = time.Now().Unix()
 		checkindex += 1
+		if this.Type == prpc.BT_PVE{	//pve只执行一次就跳出
+			break
+		}
 	}
 }
 
@@ -1882,6 +1887,9 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	p.BattlePoint -= needPoint
 	p.MyUnit.ChoiceSKill = skillid
 
+	if this.Type == prpc.BT_PVE {
+		this.BattleUpdate()
+	}
 	//std.LogInfo("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
 }
 
