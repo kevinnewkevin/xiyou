@@ -87,6 +87,8 @@ function BattlePanel:OnInit()
 		cards[i]["card"] = self.contentPane:GetChild("n" .. (16 + i)).asCom;
 		cards[i]["card"].draggable = true;
 		cards[i]["card"].onDragStart:Add(BattlePanel_OnDragStart);
+		cards[i]["selected"] = cards[i]["card"]:GetChild("n5");
+		cards[i]["selected"].visible = false;
 		cards[i]["power"] = cards[i]["card"]:GetChild("power");
 		cards[i]["cost"] = cards[i]["card"]:GetChild("cost");
 		cards[i]["icon"] = cards[i]["card"]:GetChild("card").asLoader;
@@ -468,6 +470,7 @@ function BattlePanel_OnCardClick(context)
 	end
 
 	for i=1, 5 do
+		cards[i]["selected"].visible = context.sender.data == i;
 		cards[i]["card"]:SetScale(0.5, 0.5);
 	end
 end
@@ -486,6 +489,7 @@ function BattlePanel_OnTurnOver()
 		Proxy4Lua.BattleSetup();
 --	end
 	for i=1, 5 do
+		cards[i]["selected"].visible = false;
 		cards[i]["card"]:SetScale(1, 1);
 	end
 	Battle.SwitchPoint(false);
@@ -494,6 +498,7 @@ end
 
 function BattlePanel:NormalCard()
 	for i=1, 5 do
+		cards[i]["selected"].visible = false;
 		cards[i]["card"]:SetScale(1, 1);
 	end
 --	Battle._SelectedHandCardInstID = 0;
@@ -503,6 +508,7 @@ function BattlePanel_OnAutoBtn()
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
 	UIManager.SetDirty("BattlePanel")
 	for i=1, 5 do
+		cards[i]["selected"].visible = false;
 		cards[i]["card"]:SetScale(1, 1);
 	end
 end

@@ -361,7 +361,6 @@ public class Actor {
 
     void AdjustHeadBarScale()
     {
-        return;
         if(_ActorObj == null)
             return;
         
@@ -371,7 +370,7 @@ public class Actor {
         float dis = Vector3.Distance(Camera.main.transform.position, _ActorObj.transform.position);
         // 14 ===> 1
 
-        float adjScale = dis / 20 * 0.01f;
+        float adjScale = dis * 0.0005f;
         _Headbar._Headbar.transform.localScale = new Vector3(adjScale, adjScale, adjScale);
     }
 

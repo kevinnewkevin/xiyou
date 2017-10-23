@@ -25,6 +25,8 @@ public class HeadBar {
 
     GLoader _QuestIcon;
 
+    GLoader _Turn;
+
     Actor _Root;
 
     GList _BuffList;
@@ -64,6 +66,7 @@ public class HeadBar {
         _Title = labelCom.GetChild("n1").asTextField;
         _HeadIconCom = _HeadBarCom.GetChild("n9").asCom;
         _QuestIcon = _HeadIconCom.GetChild("n4").asLoader;
+        _Turn = _HeadBarCom.GetChild("n10").asLoader;
         _HeadBarCom.GetController("xuetiao").selectedIndex = state;
         //_Transition = _HeadBarCom.GetTransition("t0");
         //_SkillName = _HeadBarCom.GetChild("n11").asTextField;
@@ -92,6 +95,17 @@ public class HeadBar {
         _BuffList.RemoveChildrenToPool();
         GObject item;
         BuffData data;
+
+        string tail = "";
+        int gapTurn = (Battle._Turn - _Root._BornTurn) % 3;
+        if (gapTurn == 0)
+            tail = "weiba_yi";
+        else if(gapTurn == 1)
+            tail = "weiba_er";
+        else
+            tail = "weiba_san";
+        _Turn.url = "ui://xuetiao/" + tail;
+
         if (_Root.BuffList != null)
         {
             int line = (_Root.BuffList.Count / 6) + ((_Root.BuffList.Count % 6) > 0 ? 1 : 0);
