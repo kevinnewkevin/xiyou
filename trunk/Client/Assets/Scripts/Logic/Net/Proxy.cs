@@ -29,10 +29,36 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
+    int delaySide = 0;
+    int delayBattleId = 0;
+    int[] delayOppo = null;
+    COM_BattleUnit[] delayUnits = null;
     public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units)
     {
-        Battle.Init(side, battleid, opponentCards, units);
-        SceneLoader.LoadScene(Define.SCENE_BATTLE);
+        if (delayBattleId != 0)
+            return true;
+
+        float delayTime = Proxy4Lua.NextBattleDelay;
+        if (delayTime == 0f)
+        {
+            Battle.Init(side, battleid, opponentCards, units);
+            SceneLoader.LoadScene(Define.SCENE_BATTLE);
+        }
+        else
+        {
+            delaySide = side;
+            delayBattleId = battleid;
+            delayOppo = opponentCards;
+            delayUnits = units;
+            new Timer().Start(delayTime, delegate {
+                Battle.Init(delaySide, delayBattleId, delayOppo, delayUnits);
+                delaySide = 0;
+                delayBattleId = 0;
+                delayOppo = null;
+                delayUnits = null;
+                SceneLoader.LoadScene(Define.SCENE_BATTLE);
+            });
+        }
         return true;
     }
 

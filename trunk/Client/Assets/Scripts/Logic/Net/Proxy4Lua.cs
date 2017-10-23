@@ -378,5 +378,20 @@ public class Proxy4Lua {
         Message.Enqueue(msg);
     }
 
+    static float _JoinBattleDelay = 0f;
+    static public float NextBattleDelay
+    {
+        set
+        {
+            _JoinBattleDelay = value;
+        }
+        get
+        {
+            float tmp = _JoinBattleDelay;
+            _JoinBattleDelay = 0f;
+            return tmp;
+        }
+    }
+
     #endregion
 }
