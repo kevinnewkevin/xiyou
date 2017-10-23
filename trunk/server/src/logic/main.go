@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"os/exec"
 	"fmt"
-	"logic/std"
+	"logic/log"
 )
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 	defer func() {
 
 		if r := recover(); r != nil {
-			std.LogError("main panic %s",fmt.Sprint(r))
+			log.Error("main panic %s",fmt.Sprint(r))
 		}
 
 	}()

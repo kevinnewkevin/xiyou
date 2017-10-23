@@ -1,4 +1,4 @@
-package std
+package log
 
 import (
 
@@ -184,8 +184,8 @@ func New(outpath string, flags int) (*Logger, error){
 
 var defaultLogger ,_ = New("../",LDefaultFlags)
 
-func LogPrintln(level int, format string, a ...interface{}){
-	defaultLogger.Println(level,format,a...)
+func Println(a ...interface{}){
+	defaultLogger.Debug("%s",fmt.Sprint(a...))
 }
 
 func SetLogFlags(flags int){
@@ -196,29 +196,27 @@ func GetLogFlags()int {
 	return  defaultLogger.GetFlags()
 }
 
-func LogDebug(format string, a ...interface{}){
+func Debug(format string, a ...interface{}){
 	defaultLogger.Debug(format, a...)
 }
 
-func LogWarning(format string, a ...interface{}){
+func Warning(format string, a ...interface{}){
 	defaultLogger.Warning(format, a...)
 }
 
-func LogError(format string, a ...interface{}){
+func Error(format string, a ...interface{}){
 	defaultLogger.Error(format, a...)
 }
 
-func LogFatal(format string, a ...interface{}){
+func Fatal(format string, a ...interface{}){
 	defaultLogger.Fatal(format, a...)
 }
 
-func LogInfo(format string, a ...interface{}){
+func Info(format string, a ...interface{}){
 	defaultLogger.Info(format, a...)
 }
 
-func Log(a ...interface{}){
-	defaultLogger.Debug("%s",fmt.Sprint(a...))
-}
+
 
 func LogBackup(){
 	defaultLogger.Backup()

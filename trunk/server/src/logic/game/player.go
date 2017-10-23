@@ -5,7 +5,7 @@ import (
 	"logic/prpc"
 	"strings"
 	"strconv"
-	"logic/std"
+	"logic/log"
 	"time"
 )
 
@@ -108,7 +108,7 @@ func RemovePlayerByInstName(instName string){
 			PlayerStore = append(PlayerStore[:i],PlayerStore[i+1:]...)
 		}
 	}
-	std.LogInfo("RemovePlayerByInstName Name= %s PlayerStore len= %d",instName,len(PlayerStore))
+	log.Info("RemovePlayerByInstName Name= %s PlayerStore len= %d",instName,len(PlayerStore))
 }
 
 func RemovePlayer(player *GamePlayer)  {
@@ -155,7 +155,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit.IsMain = true
 	p.Exp = 0
 
-	std.LogInfo("createplayer %s", string(DefaultUnits))
+	log.Info("createplayer %s", string(DefaultUnits))
 	for _, e_id := range DefaultUnits {
 		p.NewGameUnit(e_id)
 	}
@@ -165,7 +165,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.InitUnitGroup()
 
 	for _,u := range p.UnitList{
-		std.LogInfo("Myself Unit InstId %d InstName %s",u.InstId,u.InstName)
+		log.Info("Myself Unit InstId %d InstName %s",u.InstId,u.InstName)
 	}
 	p.SkillBase = map[int32]int32{}
 
@@ -364,7 +364,7 @@ func (this *GamePlayer) HasUnitByTableId(tableId int32) bool{
 
 func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) error {
 	if skillpos >= 2 {
-		std.Log("技能位置錯誤")
+		log.Println("技能位置錯誤")
 		return errors.New("技能位置錯誤")
 	}
 	unit := this.GetUnit(UnitID)
@@ -400,7 +400,7 @@ func (this *GamePlayer) JoinBattle() {
 
 		battlePlayerList = battlePlayerList[:0]
 	}
-	std.LogInfo("JoinBattle %s", battlePlayerList)
+	log.Info("JoinBattle %s", battlePlayerList)
 }
 
 func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
@@ -409,7 +409,7 @@ func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
 
 	CreatePvE(battlePlayerList[0], 1)
 
-	std.LogInfo("JoinBattlePvE %s", battlePlayerList)
+	log.Info("JoinBattlePvE %s", battlePlayerList)
 }
 
 
@@ -437,7 +437,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 		return //在出战设置你妹
 	}
 	this.BattleUnitList = append(this.BattleUnitList, instId)
-	std.LogInfo("SetBattleUnit  %s", this.BattleUnitList)
+	log.Info("SetBattleUnit  %s", this.BattleUnitList)
 }
 
 func (this *GamePlayer)InitUnitGroup()  {
@@ -455,16 +455,16 @@ func (this *GamePlayer)SetBattleUnitGroup(instId int64, groupId int32, isBattle 
 	if this.GetUnit(instId) == nil {
 		return
 	}
-	std.LogInfo("SetBattleUnitGroup InstId",instId,"GroupID",groupId,"IsBattle",isBattle)
+	log.Info("SetBattleUnitGroup InstId",instId,"GroupID",groupId,"IsBattle",isBattle)
 	if isBattle {
 		addError := this.AddUnitToGroup(instId,groupId)
 		if addError != 0{
-			std.LogInfo("AddUnitToGroup Error",addError)
+			log.Info("AddUnitToGroup Error",addError)
 		}
 	}else {
 		addError := this.RemoveUnitToGroup(instId,groupId)
 		if addError != 0{
-			std.LogInfo("RemoveUnitToGroup Error",addError)
+			log.Info("RemoveUnitToGroup Error",addError)
 		}
 	}
 }
@@ -551,7 +551,7 @@ func (this *GamePlayer)DeleteUnitGroup(groupId int32)  {
 func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition , skillid int32) error { //卡牌上阵	每次回合之前
 	//this.Lock()
 	//defer this.Unlock()
-	//std.LogInfo("SetupBattle", pos)
+	//log.Info("SetupBattle", pos)
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息
@@ -567,9 +567,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition , skillid int3
 		//错误消息
 		return nil
 	}
-	std.LogInfo("SetupBattle 1 ", battleRoom.Units)
+	log.Info("SetupBattle 1 ", battleRoom.Units)
 	battleRoom.SetupPosition(this, pos, skillid)
-	std.LogInfo("SetupBattle 2 ", battleRoom.Units)
+	log.Info("SetupBattle 2 ", battleRoom.Units)
 
 	this.session.SetupBattleOK()
 
@@ -604,11 +604,11 @@ func (this *GamePlayer)SyncBag()  {
 	}
 
 	for _,item := range items{
-		std.LogInfo("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
+		log.Info("To Client Item TableId=",item.ItemId,"Stack=",item.Stack,"InstId=",item.InstId)
 	}
 
 	if this.session != nil {
-		std.LogInfo("InitBagItems OK")
+		log.Info("InitBagItems OK")
 		this.session.InitBagItems(items)
 	}
 }
@@ -616,7 +616,7 @@ func (this *GamePlayer)SyncBag()  {
 func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 	itemData := GetItemTableDataById(itemId)
 	if itemData==nil {
-		std.LogInfo("ItemTable Not Find This ItemId=",itemId)
+		log.Info("ItemTable Not Find This ItemId=",itemId)
 		return
 	}
 	for _,itemInst := range this.BagItems{
@@ -664,7 +664,7 @@ func (this *GamePlayer)AddBagItemByItemId(itemId int32,itemCount int32)  {
 func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 	itemInst := this.GetBagItemByInstId(instid)
 	if itemInst == nil {
-		std.LogInfo("Not Find Item In The Bag",instid)
+		log.Info("Not Find Item In The Bag",instid)
 		return
 	}
 	for i:=0;i<len(this.BagItems) ;i++  {
@@ -692,7 +692,7 @@ func (this *GamePlayer)DelItemByInstId(instid int64,stack int32)  {
 func (this *GamePlayer)DelItemByTableId(tableId int32,delNum int32)  {
 	items := this.GetBagItemByTableId(tableId)
 	if len(items) == 0 {
-		std.LogInfo("Can Not Find Item In Bag By TableId =",tableId)
+		log.Info("Can Not Find Item In Bag By TableId =",tableId)
 		return
 	}
 	for _,item := range items{
@@ -761,7 +761,7 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 			if this.session != nil {
 				this.session.ErrorMessage(errorId)
 			}
-			std.LogInfo("useItem errorId=",errorId,"itemId=",itemData.ItemId)
+			log.Info("useItem errorId=",errorId,"itemId=",itemData.ItemId)
 			break
 		}
 		usestack++
@@ -769,13 +769,13 @@ func (this *GamePlayer)UseItem(instId int64,useNum int32)  {
 	if usestack != 0 {
 		this.DelItemByInstId(instId,int32(usestack))
 	}
-	std.LogInfo("123123123123",r,len(r),r[0],usestack)
+	log.Info("123123123123",r,len(r),r[0],usestack)
 }
 
 func (this *GamePlayer)GiveDrop(dropId int32)  {
 	drop := GetDropById(dropId)
 	if drop==nil {
-		std.LogInfo("Can Not Find Drop By DropId=",dropId)
+		log.Info("Can Not Find Drop By DropId=",dropId)
 		return
 	}
 	if drop.Exp != 0 {
@@ -787,17 +787,17 @@ func (this *GamePlayer)GiveDrop(dropId int32)  {
 	if len(drop.Items) != 0 {
 		for _,item := range drop.Items{
 			this.AddBagItemByItemId(item.ItemId,item.ItemNum)
-			std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+			log.Info("PlayerName=",this.MyUnit.InstName,"GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 		}
 	}
 	if drop.Hero != 0 {
 		if this.HasUnitByTableId(drop.Hero) {
 			//有这个卡就不给了
-			std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
+			log.Info("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
 		}else {
 			unit := this.NewGameUnit(drop.Hero)
 			if unit!=nil {
-				std.LogInfo("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+				log.Info("PlayerName=",this.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
 				temp := unit.GetUnitCOM()
 				if this.session != nil {
 					this.session.AddNewUnit(temp)
@@ -819,7 +819,7 @@ func (this *GamePlayer)AddExp(val int32)  {
 
 	this.MyUnit.SetIProperty(prpc.IPT_EXPERIENCE,curExp)
 
-	std.LogInfo("append EXP",val,"all EXP",curExp)
+	log.Info("append EXP",val,"all EXP",curExp)
 }
 
 func (this *GamePlayer)AddCopper(val int32)  {
@@ -833,7 +833,7 @@ func (this *GamePlayer)AddCopper(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER,curCopper)
 
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old Copper=",oldCopper,"curCopper=",curCopper)
+	log.Info("Player[",this.MyUnit.InstName,"]","Old Copper=",oldCopper,"curCopper=",curCopper)
 }
 
 func (this *GamePlayer)AddGold(val int32)  {
@@ -847,7 +847,7 @@ func (this *GamePlayer)AddGold(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_GOLD,curGold)
 
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
+	log.Info("Player[",this.MyUnit.InstName,"]","Old MyGold=",oldGold,"curGold=",curGold)
 }
 
 func (this *GamePlayer)AddSoulCur(val int32)  {
@@ -861,11 +861,11 @@ func (this *GamePlayer)AddSoulCur(val int32)  {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_SOULCUR,curSoul)
 
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","Old MySoulCur=",oldSoul,"curSoulCur=",curSoul)
+	log.Info("Player[",this.MyUnit.InstName,"]","Old MySoulCur=",oldSoul,"curSoulCur=",curSoul)
 }
 
 func (this *GamePlayer) ClearAllBuff ()  {
-	std.LogInfo("ClearAllBuff")
+	log.Info("ClearAllBuff")
 	this.MyUnit.ClearAllbuff()
 
 	for _, unit := range this.UnitList {
@@ -878,7 +878,7 @@ func (this *GamePlayer) ClearAllBuff ()  {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer) PromoteUnit (unitid int64)  {
-	std.LogInfo("PromoteUnit", unitid)
+	log.Info("PromoteUnit", unitid)
 	unit := this.GetUnit(unitid)
 	if unit == nil {
 		return
@@ -898,7 +898,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	items := this.GetBagItemByTableId(level_info.ItemId)
 
 	if items == nil || len(items) <= 0{
-		std.LogInfo("cant find item, this id is ", level_info.ItemId)
+		log.Info("cant find item, this id is ", level_info.ItemId)
 		return
 	}
 
@@ -908,7 +908,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 	}
 
 	if num < level_info.ItemNum {
-		std.LogInfo("数量不足, this id is ", level_info.ItemId, "need itemnum is ", level_info.ItemNum, "i have num is ", num)
+		log.Info("数量不足, this id is ", level_info.ItemId, "need itemnum is ", level_info.ItemNum, "i have num is ", num)
 		return
 	}
 
@@ -923,7 +923,7 @@ func (this *GamePlayer) PromoteUnit (unitid int64)  {
 func (this *GamePlayer) MyUnitLevelUp()  {
 
 	LevelUp_info := GetPromoteRecordById(1)
-	std.LogInfo("MyUnitLevelUp 1", LevelUp_info)
+	log.Info("MyUnitLevelUp 1", LevelUp_info)
 
 	if LevelUp_info == nil {
 		return
@@ -937,7 +937,7 @@ func (this *GamePlayer) MyUnitLevelUp()  {
 
 	this.MyUnit.Promote(level_info)
 	this.MyUnit.Level = level_info.Level
-	std.LogInfo("MyUnitLevelUp 2", level_info)
+	log.Info("MyUnitLevelUp 2", level_info)
 
 	for ID, info := range RoleSkillTable {
 		if this.MyUnit.Level < info.OpenLv {
@@ -980,7 +980,7 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 	}
 
 	this.MyUnit.SetIProperty(prpc.IPT_ENERGY, myEnergy)
-	std.LogInfo("SetMyEnergy Val=",val,"CurmyEnergy=",myEnergy)
+	log.Info("SetMyEnergy Val=",val,"CurmyEnergy=",myEnergy)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -989,7 +989,7 @@ func (this *GamePlayer)SetMyEnergy(val int32,isAdd bool) {
 
 func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
-	std.LogInfo("EquipSkill", skillinfo)
+	log.Info("EquipSkill", skillinfo)
 
 	skill := GetRoleSkillRecordById(skillinfo.SkillID)
 	if skill == nil {
@@ -1012,17 +1012,17 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 	switch skillinfo.Position {
 		case 0:
 			if skill.Type != 0{
-				std.LogInfo("EquipSkill skill.Type wrong", 0)
+				log.Info("EquipSkill skill.Type wrong", 0)
 				return
 			}
 		case 1, 2:
 			if skill.Type != 1{
-				std.LogInfo("EquipSkill skill.Type wrong", 1, 2)
+				log.Info("EquipSkill skill.Type wrong", 1, 2)
 				return
 			}
 		case 3:
 			if skill.Type != 2 {
-				std.LogInfo("EquipSkill skill.Type wrong", 3)
+				log.Info("EquipSkill skill.Type wrong", 3)
 				return
 			}
 	}
@@ -1031,7 +1031,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 
 	var idx int32 = -1
 	for index, skill_ := range this.MyUnit.Skill {
-		std.LogInfo("skill", skill_, &skill_)
+		log.Info("skill", skill_, &skill_)
 		if skill_ == nil {
 			continue
 		}
@@ -1048,10 +1048,10 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 		this.MyUnit.Skill[idx] = nil
 	}
 
-	std.LogInfo("skillall", this.MyUnit.Skill)
+	log.Info("skillall", this.MyUnit.Skill)
 
 	this.session.EquipSkillOK(skillinfo.Position, learnSkill.SkillID)
-	std.LogInfo("EquipSkillOK", skillinfo.Position, learnSkill.SkillID)
+	log.Info("EquipSkillOK", skillinfo.Position, learnSkill.SkillID)
 
 	//如果是被动技能 需要修改buff
 
@@ -1059,7 +1059,7 @@ func (this *GamePlayer) EquipSkill(skillinfo prpc.COM_LearnSkill) {
 }
 
 func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
-	std.LogInfo("SkillUpdate", skillindex, skillId)
+	log.Info("SkillUpdate", skillindex, skillId)
 	if this.SkillBase[skillindex] == 0 {
 		return
 	}
@@ -1119,8 +1119,8 @@ func (this * GamePlayer)SkillUpdate(skillindex int32, skillId int32) {
 	this.SkillBase[skillindex] = updateInfo.NextID
 
 	this.session.SkillUpdateOK(skillindex, updateInfo.NextID, skillpos)
-	std.LogInfo("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
-	std.LogInfo("SkillUpdateOK 1", this.SkillBase)
+	log.Info("SkillUpdateOK", skillindex, updateInfo.NextID, skillpos)
+	log.Info("SkillUpdateOK 1", this.SkillBase)
 
 }
 
@@ -1184,7 +1184,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 			return
 		}
 		this.AddGold(-shopData.Price)
-		std.LogInfo("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
+		log.Info("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
 	}
 
 	if shopData.CurrenciesKind == prpc.IPT_SOULCUR {
@@ -1193,7 +1193,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 			return
 		}
 		this.AddSoulCur(-shopData.Price)
-		std.LogInfo("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
+		log.Info("Player[",this.MyUnit.InstName,"]","BuyShopItem ShopId=",shopId,"Shoping Spend=",shopData.Price)
 	}
 
 	if shopData.ShopType == prpc.SHT_BuyCopper {
@@ -1203,7 +1203,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 				this.OpenTreasureBox(shopData.CardPondId)
 			}
 		}else {
-			std.LogInfo("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
+			log.Info("Player[",this.MyUnit.InstName,"]","shopData.Copper A wrong number","BuyShopItem ShopId=",shopId)
 		}
 	}
 
@@ -1219,7 +1219,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 				this.session.BuyShopItemOK(itemInsts)
 			}
 		}else {
-			std.LogInfo("Player[",this.MyUnit.InstName,"]","IsBuyBlackMarketItem==false","BuyShopItem ShopId=",shopId)
+			log.Info("Player[",this.MyUnit.InstName,"]","IsBuyBlackMarketItem==false","BuyShopItem ShopId=",shopId)
 		}
 	}
 }
@@ -1227,7 +1227,7 @@ func (this *GamePlayer)BuyShopItem(shopId int32)  {
 func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 	data := GetCardPondTableDataById(pondId)
 	if data==nil {
-		std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GetCardPondTableDataById Can Not Find pondId=",pondId)
+		log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GetCardPondTableDataById Can Not Find pondId=",pondId)
 		return false
 	}
 
@@ -1240,19 +1240,19 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 	for _,itemId := range greenItems{
 		items = append(items,itemId)
-		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
+		//log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox GreenItem itemId",itemId)
 	}
 	for _,itemId := range buleItems{
 		items = append(items,itemId)
-		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
+		//log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox BuleItem itemId",itemId)
 	}
 	for _,itemId := range purplenItems{
 		items = append(items,itemId)
-		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
+		//log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox PurlenItem itemId",itemId)
 	}
 	for _,itemId := range orangeItems{
 		items = append(items,itemId)
-		//std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
+		//log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox OrangeItem itemId",itemId)
 	}
 
 	itemInsts := []prpc.COM_ItemInst{}
@@ -1275,7 +1275,7 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 	for _,item := range itemInsts{
 		this.AddBagItemByItemId(item.ItemId,item.Stack)
-		std.LogInfo("Player[",this.MyUnit.InstName,"]","OpenTreasureBox AddItem ID=",item.ItemId,"Num=",item.Stack)
+		log.Info("Player[",this.MyUnit.InstName,"]","OpenTreasureBox AddItem ID=",item.ItemId,"Num=",item.Stack)
 	}
 
 	if this.session != nil {
@@ -1287,7 +1287,7 @@ func (this *GamePlayer)OpenTreasureBox(pondId int32) bool {
 
 func (this *GamePlayer) Logout(){
 
-	std.LogInfo("Logout","PlayerName=",this.MyUnit.InstName)
+	log.Info("Logout","PlayerName=",this.MyUnit.InstName)
 
 	this.LogoutTime = time.Now().Unix()
 
@@ -1300,7 +1300,7 @@ func (this *GamePlayer) Logout(){
 }
 
 func (this* GamePlayer)GamePlayerSave()  {
-	std.LogInfo("SAVE ")
+	log.Info("SAVE ")
 	UpdatePlayer(this.GetPlayerSGE())
 }
 
@@ -1348,10 +1348,10 @@ func (this *GamePlayer)InitMyBlackMarket()  {
 
 	this.BlackMarketData = &tempData
 
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
+	log.Info("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
 
 	if this.session != nil {
-		std.LogInfo("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
+		log.Info("Player[",this.MyUnit.InstName,"]","InitMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum)
 		this.session.SycnBlackMarkte(*this.BlackMarketData)
 	}
 }
@@ -1383,7 +1383,7 @@ func (this *GamePlayer)RefreshMyBlackMarket(isActive bool)  {
 	}
 	this.BlackMarketData = &tempData
 
-	std.LogInfo("Player[",this.MyUnit.InstName,"]","RefreshMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
+	log.Info("Player[",this.MyUnit.InstName,"]","RefreshMyBlackMarket ",this.BlackMarketData.ShopItems,this.BlackMarketData.RefreshTime,this.BlackMarketData.RefreshNum,len(this.BlackMarketData.ShopItems))
 	if this.session != nil {
 		this.session.SycnBlackMarkte(*this.BlackMarketData)
 	}
@@ -1437,6 +1437,6 @@ func (this *GamePlayer)TestItem()  {
 	this.GiveDrop(1000)
 
 	for _,u := range this.UnitList{
-		std.LogInfo("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+		log.Info("Myself Unit InstId",u.InstId,"InstName",u.InstName)
 	}
 }

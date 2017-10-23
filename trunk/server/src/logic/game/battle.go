@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"sort"
 	"encoding/json"
-	"logic/std"
+	"logic/log"
 	//"fmt"
 
 )
@@ -88,7 +88,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Point = 1
 	room.BattleID = battleid
 
-	std.LogInfo("CreatePvE", &room)
+	log.Info("CreatePvE", &room)
 	BattleRoomList[room.InstId] = &room
 
 	room.Monster = CreateMonster(battleid, room.InstId)
@@ -112,7 +112,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable(t.MainId)
-	std.LogInfo("adasdas", battleid, t.MainId, m.MainUnit)
+	log.Info("adasdas", battleid, t.MainId, m.MainUnit)
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
 	//m.MainUnit.Camp = prpc.CT_BLUE
@@ -157,7 +157,7 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	//p1.BattleCamp = prpc.CT_BLUE
 
 	BattleRoomList[room.InstId] = &room
-	std.LogInfo("CreatePvP", &room)
+	log.Info("CreatePvP", &room)
 
 	p0.SetProprty(&room, prpc.CT_RED)
 	p1.SetProprty(&room, prpc.CT_BLUE)
@@ -192,7 +192,7 @@ func (this *BattleRoom) BattleStart() {
 		if unit == nil {
 			continue
 		}
-		std.LogInfo("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+		log.Info("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		ul = append(ul, unit.GetBattleUnitCOM())
 	}
 
@@ -202,7 +202,7 @@ func (this *BattleRoom) BattleStart() {
 			continue
 		}
 		targetList := this.findCardsByTarget(p.BattleCamp)
-		std.LogInfo("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
+		log.Info("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
 		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList, ul)
 	}
 }
@@ -281,7 +281,7 @@ func (this *BattleRoom) BattleUpdate() {
 	//defer func() {
 	//
 	//	if r := recover(); r != nil {
-	//		std.LogError("main panic %s",fmt.Sprint(r))
+	//		log.Error("main panic %s",fmt.Sprint(r))
 	//	}
 	//
 	//}()
@@ -317,7 +317,7 @@ func (this *BattleRoom) BattleUpdate() {
 		//	Round_start = time.Now().Unix()
 		//}
 
-		std.LogInfo("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
+		log.Info("BattleUpdate, roomId is ", this.InstId, "index is", checkindex)
 		this.Update()
 		now_start = time.Now().Unix()
 		checkindex += 1
@@ -358,7 +358,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			if dropId != 0 {
 				drop := GetDropById(dropId)
 				if drop==nil {
-					std.LogInfo("PVE Can Not Find Drop By DropId=",dropId)
+					log.Info("PVE Can Not Find Drop By DropId=",dropId)
 					return
 				}
 				if drop.Exp != 0 {
@@ -372,7 +372,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if len(drop.Items) != 0 {
 					for _,item := range drop.Items{
 						p.AddBagItemByItemId(item.ItemId,item.ItemNum)
-						std.LogInfo("PVE GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+						log.Info("PVE GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 						itemInst := prpc.COM_ItemInst{}
 						itemInst.ItemId = item.ItemId
 						itemInst.Stack = item.ItemNum
@@ -382,11 +382,11 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if drop.Hero != 0 {
 					if p.HasUnitByTableId(drop.Hero) {
 						//有这个卡就不给了
-						std.LogInfo("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
+						log.Info("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit Have not to UnitId=",drop.Hero)
 					}else {
 						unit := p.NewGameUnit(drop.Hero)
 						if unit!=nil {
-							std.LogInfo("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+							log.Info("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
 							temp := unit.GetUnitCOM()
 							if p.session != nil {
 								p.session.AddNewUnit(temp)
@@ -395,7 +395,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 					}
 				}
 			}
-			std.LogInfo("Battle Over PVE DropId=",dropId)
+			log.Info("Battle Over PVE DropId=",dropId)
 		}
 		if this.Type == prpc.BT_PVP {
 			for _,once := range this.PlayerList{
@@ -413,7 +413,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if dropId != 0 {
 					drop := GetDropById(dropId)
 					if drop==nil {
-						std.LogInfo("PVP Can Not Find Drop By DropId=",dropId)
+						log.Info("PVP Can Not Find Drop By DropId=",dropId)
 						return
 					}
 					if drop.Exp != 0 {
@@ -427,7 +427,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 					if len(drop.Items) != 0 {
 						for _,item := range drop.Items{
 							p.AddBagItemByItemId(item.ItemId,item.ItemNum)
-							std.LogInfo("PVP GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+							log.Info("PVP GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
 							itemInst := prpc.COM_ItemInst{}
 							itemInst.ItemId = item.ItemId
 							itemInst.Stack = item.ItemNum
@@ -443,11 +443,11 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		if p.session != nil {
 			p.session.BattleExit(result)
 		}
-		std.LogInfo("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "wincampis ", camp, "winis", win)
+		log.Info("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "wincampis ", camp, "winis", win)
 		p.BattleCamp = prpc.CT_MAX
 	}
 
-	std.LogInfo("BattleRoomOver, winner is ", camp)
+	log.Info("BattleRoomOver, winner is ", camp)
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -470,7 +470,7 @@ func (this *BattleRoom) Update() {
 
 	//顺序排序
 
-	std.LogInfo("站前回合为 ", this.Round)
+	log.Info("站前回合为 ", this.Round)
 
 	this.ReportOne = prpc.COM_BattleReport{}
 	this.Dead = []*GameUnit{}
@@ -482,7 +482,7 @@ func (this *BattleRoom) Update() {
 		if unit == nil {
 			continue
 		}
-		std.LogInfo("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+		log.Info("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 	}
 
@@ -491,8 +491,8 @@ func (this *BattleRoom) Update() {
 			if u == nil {
 				continue
 			}
-			std.LogInfo("卡牌敏捷 2 : ", u.GetCProperty(prpc.CPT_AGILE))
-			//std.LogInfo("report.UnitList, append", u)
+			log.Info("卡牌敏捷 2 : ", u.GetCProperty(prpc.CPT_AGILE))
+			//log.Info("report.UnitList, append", u)
 			//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
 			if u.IsDead() { // 非主角死亡跳過
@@ -521,18 +521,18 @@ func (this *BattleRoom) Update() {
 
 			this.ReportOne.ActionList = append(this.ReportOne.ActionList, this.AcctionList)
 
-			//std.LogInfo("BattleAcction", u.InstId, "acction", this.AcctionList)
-			//std.LogInfo("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
+			//log.Info("BattleAcction", u.InstId, "acction", this.AcctionList)
+			//log.Info("BattleAcction", u.InstId, "ReportOne", this.ReportOne)
 			if this.calcWinner() == true {
 				for _, a := range this.AcctionList.TargetList {
 					unit := this.SelectOneUnit(a.InstId)
 					if unit == nil {
 						continue
 					}
-					//std.LogInfo("append", unit)
+					//log.Info("append", unit)
 					//this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 				}
-				//std.LogInfo("this.Winner", this.Winner)
+				//log.Info("this.Winner", this.Winner)
 
 				this.Round += 1
 				this.SendReport(this.ReportOne)
@@ -543,15 +543,15 @@ func (this *BattleRoom) Update() {
 			}
 		}
 	//}
-	std.LogInfo("Battle report battleid is ", this.ReportOne.BattleID)
-	std.LogInfo("Battle report unitlist is ", this.ReportOne.UnitList)
-	std.LogInfo("Battle report acctionlist is ", this.ReportOne.ActionList)
+	log.Info("Battle report battleid is ", this.ReportOne.BattleID)
+	log.Info("Battle report unitlist is ", this.ReportOne.UnitList)
+	log.Info("Battle report acctionlist is ", this.ReportOne.ActionList)
 
 	this.showReport()
 
 	this.SetBattleUnits()
 
-	std.LogInfo("Battle status ", this.Status)
+	log.Info("Battle status ", this.Status)
 
 	for _, p := range this.PlayerList { //戰鬥結束之後要重置屬性
 		p.IsActive = false
@@ -563,7 +563,7 @@ func (this *BattleRoom) Update() {
 		this.SendReport(this.ReportOne)
 	}
 
-	std.LogInfo("站后回合为 ", this.Round)
+	log.Info("站后回合为 ", this.Round)
 
 	this.ReportAll = append(this.ReportAll, this.ReportOne)
 
@@ -588,7 +588,7 @@ func (this *BattleRoom) calcWinner() bool {
 }
 
 func (this *BattleRoom) CheckPlayerIsMove() {
-	std.LogInfo("CheckPlayerIsMove 1", this.Units)
+	log.Info("CheckPlayerIsMove 1", this.Units)
 	for _, p := range this.PlayerList {
 		if p == nil || p.session == nil {
 			continue
@@ -601,7 +601,7 @@ func (this *BattleRoom) CheckPlayerIsMove() {
 		p.MyUnit.Position = int32(pos)
 		this.Units[pos] = p.MyUnit
 	}
-	std.LogInfo("CheckPlayerIsMove 1", this.Units)
+	log.Info("CheckPlayerIsMove 1", this.Units)
 }
 
 func (this *BattleRoom) SetBattleUnits() {
@@ -611,35 +611,35 @@ func (this *BattleRoom) SetBattleUnits() {
 }
 
 func (this *BattleRoom) showReport()  {
-	std.Log("第", this.Round + 1,"回合")
+	log.Println("第", this.Round + 1,"回合")
 	for idx, re := range this.ReportOne.ActionList{
-		std.Log("第", idx + 1, "条动作单元")
-		std.Log("行动的卡牌ID ", re.InstId)
-		std.Log("身上的buff变更 ", re.BuffList)
+		log.Println("第", idx + 1, "条动作单元")
+		log.Println("行动的卡牌ID ", re.InstId)
+		log.Println("身上的buff变更 ", re.BuffList)
 
-		//std.LogInfo("\tbuff", re.BuffList)
-		//std.LogInfo("\tBUFF变更", re.BuffList)
-		//std.LogInfo("\t本卡是否因为buff死亡", re.BuffList)
+		//log.PrintlnInfo("\tbuff", re.BuffList)
+		//log.PrintlnInfo("\tBUFF变更", re.BuffList)
+		//log.PrintlnInfo("\t本卡是否因为buff死亡", re.BuffList)
 
-		std.Log("使用的技能 ", re.SkillId)
-		std.Log("技能自带的buff ", re.SkillBuff)
-		std.Log("技能释放的目标信息为")
+		log.Println("使用的技能 ", re.SkillId)
+		log.Println("技能自带的buff ", re.SkillBuff)
+		log.Println("技能释放的目标信息为")
 		for idx1, l := range re.TargetList {
-			std.Log("\t第", idx1 + 1, "个目标")
-			std.Log("\t目标实例ID为", l.InstId)
-			std.Log("\t目标受击类型", l.ActionType)
-			std.Log("\t目标伤害", l.ActionParam)
-			std.Log("\t目标额外信息", l.ActionParamExt)
-			std.Log("\t目标是否死亡", l.Dead)
-			std.Log("\t目标中的buff", l.BuffAdd)
-			std.Log("\n")
+			log.Println("\t第", idx1 + 1, "个目标")
+			log.Println("\t目标实例ID为", l.InstId)
+			log.Println("\t目标受击类型", l.ActionType)
+			log.Println("\t目标伤害", l.ActionParam)
+			log.Println("\t目标额外信息", l.ActionParamExt)
+			log.Println("\t目标是否死亡", l.Dead)
+			log.Println("\t目标中的buff", l.BuffAdd)
+			log.Println("\n")
 		}
-		std.Log("\n")
+		log.Println("\n")
 	}
 }
 
 func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
-	std.LogInfo("UpdateBuffState", bufflist)
+	log.Info("UpdateBuffState", bufflist)
 	for _, buffid := range bufflist {
 		buffCOM := prpc.COM_BattleBuffAction{}
 		buffCOM.BuffChange.BuffId = buffid
@@ -656,7 +656,7 @@ func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
 
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 	b,_ := json.Marshal(report)
-	std.LogInfo(string(b))
+	log.Info(string(b))
 	for _, p := range this.PlayerList {
 		if p == nil || p.session == nil {
 			continue
@@ -818,7 +818,7 @@ func (this *BattleRoom) SelectAroundTraget(unitid int64) []int64 {
 
 //取得全部目标
 func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
-	std.LogInfo("targets start = ", num)
+	log.Info("targets start = ", num)
 	unit := this.SelectOneUnit(instid)
 
 	targets := []int64{}
@@ -840,7 +840,7 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 		targets = append(targets, u.InstId)
 	}
 
-	std.LogInfo("targets length1 = ", len(targets))
+	log.Info("targets length1 = ", len(targets))
 
 	if num > 0 && int(num) < int(len(targets)){
 		rand.Seed(time.Now().UnixNano())
@@ -848,7 +848,7 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 		tmp := map[int64]int{}
 		var uid int64 = 0
 		for len(tmp) < num {
-			std.LogInfo("len(tmp)", len(tmp), num)
+			log.Info("len(tmp)", len(tmp), num)
 			_, ok := tmp[uid]
 			for !ok {
 				//这里从targets里面随机选择
@@ -858,7 +858,7 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 			}
 		}
 	}
-	std.LogInfo("targets length2 = ", len(targets))
+	log.Info("targets length2 = ", len(targets))
 	return targets
 }
 
@@ -899,7 +899,7 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	index := len(u_list)
 
 
-	std.LogInfo("目标索引",index)
+	log.Info("目标索引",index)
 	idx := rand.Intn(index)
 
 	return u_list[idx]
@@ -928,7 +928,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 		u_list = append(u_list, u.InstId)
 	}
 
-	std.LogInfo("友方目标",u_list)
+	log.Info("友方目标",u_list)
 	if len(u_list) == 1 {
 		return u_list[0]
 	}
@@ -949,7 +949,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 	idx := rand.Intn(index)
 	//idx := rand.Intn(5)
 
-	std.LogInfo("一个友方目标", u_list[idx], "index", idx)
+	log.Info("一个友方目标", u_list[idx], "index", idx)
 
 	return u_list[idx]
 }
@@ -1065,7 +1065,7 @@ func (this *BattleRoom) SelectRandomTarget(instid int64, targetnum int32) []int6
 
 	index := len(u_list)
 
-	std.LogInfo("目标索引",index)
+	log.Info("目标索引",index)
 	for i := 0; i < int(targetnum); i++ {
 		idx := rand.Intn(index)
 		r = append(r, u_list[idx])
@@ -1085,10 +1085,10 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	}
 
 	buff_lis,ok:= unit.Special[prpc.BF_FRIENDLOCK]  //检测有无选择锁定随机己方的目标buff
-	std.LogInfo("目标 111",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
+	log.Info("目标 111",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
 	if ok {
 		if len(buff_lis) > 0 {
-			std.LogInfo("目标 222",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
+			log.Info("目标 222",unit.InstId,"己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
 			return this.SelectOneFriend(unit.InstId)
 		}
 	}
@@ -1161,7 +1161,7 @@ func (this *BattleRoom) SelectMoreFriend(instid int64, num int) []int64 {
 	//		}
 	//	}
 	//}
-	std.LogInfo("friends length = ", len(friends))
+	log.Info("friends length = ", len(friends))
 	return friends
 }
 
@@ -1206,7 +1206,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32, int32) {
 		}
 	}
 
-	std.LogInfo("can throw all cards", canThrow)
+	log.Info("can throw all cards", canThrow)
 
 	if len(canThrow) == 0{
 		return 0, 0, 0
@@ -1226,7 +1226,7 @@ func (this *BattleRoom) SelectThrowCard(instid int64)  (int64, int32, int32) {
 	del_card = canThrow[idx]
 	del_unit := units[idx]
 
-	std.LogInfo("throw one card", del_card)
+	log.Info("throw one card", del_card)
 
 	return del_card, del_unit.UnitId, del_unit.IProperties[prpc.IPT_PROMOTE]
 }
@@ -1293,7 +1293,7 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 		}
 	}
 
-	std.LogInfo("selectMainUnit end ", 0)
+	log.Info("selectMainUnit end ", 0)
 
 	return 0
 }
@@ -1303,7 +1303,7 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) PlayerMove() {
-	std.LogInfo("PlayerMove 1", this.Units)
+	log.Info("PlayerMove 1", this.Units)
 	p := this.PlayerList[0]
 	if this.Round == 0 {
 		pos := this.positionMiddle(p.BattleCamp)
@@ -1316,7 +1316,7 @@ func (this *BattleRoom) PlayerMove() {
 		//this.Monster.BattleUnitList = this.Monster.BattleUnitList[1:]
 	}
 
-	std.LogInfo("PlayerMove 2", this.Units)
+	log.Info("PlayerMove 2", this.Units)
 
 	return
 }
@@ -1326,7 +1326,7 @@ func (this *BattleRoom) PlayerMove() {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) MonsterMove() {
-	std.LogInfo("MonsterMove 1", this.Units)
+	log.Info("MonsterMove 1", this.Units)
 	if this.Round == 0 {
 		pos := this.positionMiddle(this.Monster.BattleCamp)
 		this.Units[pos] = this.Monster.MainUnit
@@ -1341,10 +1341,10 @@ func (this *BattleRoom) MonsterMove() {
 		}
 		for index, m:= range this.Monster.BattleUnitList{
 			if m.OutBattle{
-				std.LogInfo("outbattle", m.InstId)
+				log.Info("outbattle", m.InstId)
 				continue
 			}
-			std.LogInfo("outbattle1111111 ", m.InstId)
+			log.Info("outbattle1111111 ", m.InstId)
 			this.Units[pos] = m
 			m.Position = int32(pos)
 			this.Monster.BattleUnitList = this.Monster.BattleUnitList[index + 1:]
@@ -1354,7 +1354,7 @@ func (this *BattleRoom) MonsterMove() {
 
 	this.Monster.MainUnit.ChoiceSKill = this.Monster.MainUnit.SelectSkill(this.Round).SkillID
 
-	std.LogInfo("MonsterMove 2", this.Units)
+	log.Info("MonsterMove 2", this.Units)
 
 	return
 }
@@ -1401,7 +1401,7 @@ func (this *BattleRoom) GetUnitProperty(instid int64, property string) int {
 	return int(pro)
 }
 func (this *BattleRoom) ChangeCptProperty(instid int64, data int32, property string) {//CPT
-	std.LogInfo("增加攻击力,目标为 ", instid, data)
+	log.Info("增加攻击力,目标为 ", instid, data)
 	p_d := prpc.ToId_CPropertyType(property)
 
 	unit := this.SelectOneUnit(instid)
@@ -1419,16 +1419,16 @@ func (this *BattleRoom) ChangeCptProperty(instid int64, data int32, property str
 			}
 		}
 	}
-	std.LogInfo("属性修改前", unit.CProperties[p_d], data)
+	log.Info("属性修改前", unit.CProperties[p_d], data)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
-	std.LogInfo("属性修改后", unit.CProperties[p_d], data)
+	log.Info("属性修改后", unit.CProperties[p_d], data)
 
 	return
 }
 
 func (this *BattleRoom) ChangeIptProperty(instid int64, data int32, property string) { //IPT
-	std.LogInfo("增加攻击力,目标为 ", instid, data)
+	log.Info("增加攻击力,目标为 ", instid, data)
 	p_d := prpc.ToId_IPropertyType(property)
 
 	unit := this.SelectOneUnit(instid)
@@ -1446,10 +1446,10 @@ func (this *BattleRoom) ChangeIptProperty(instid int64, data int32, property str
 			}
 		}
 	}
-	std.LogInfo("属性修改前", unit.CProperties[p_d], data)
+	log.Info("属性修改前", unit.CProperties[p_d], data)
 
 	unit.CProperties[p_d] = unit.CProperties[p_d] + float32(data)
-	std.LogInfo("属性修改后", unit.CProperties[p_d], data)
+	log.Info("属性修改后", unit.CProperties[p_d], data)
 
 	return
 }
@@ -1463,11 +1463,11 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	}
 
 	for _, debuff := range unit.Debuff {
-		std.LogInfo("debuff", debuff)
+		log.Info("debuff", debuff)
 	}
 
 	for _, debuff := range unit.Buff {
-		std.LogInfo("debuff", debuff)
+		log.Info("debuff", debuff)
 	}
 
 	_bf, _ok := unit.Special[prpc.BF_UNDAMAGE] //检测免伤
@@ -1515,7 +1515,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		}
 
 		if len(true_list) > 0 {
-			std.LogInfo("免死触发")
+			log.Info("免死触发")
 			damage = 0
 			if len(true_list) == 1 {			// 只有一个就删除掉这个效果
 				delete(unit.Special, prpc.BF_UNDEAD)
@@ -1549,10 +1549,10 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
 	this.NewAction = false
 
-	//std.LogInfo("MintsHp", target, damage, t)
+	//log.Info("MintsHp", target, damage, t)
 
-	std.LogInfo("攻擊  catserid ", casterid, this.AcctionList.TargetList)
-	std.LogInfo("MintsHp 1  ", this.TargetCOM)
+	log.Info("攻擊  catserid ", casterid, this.AcctionList.TargetList)
+	log.Info("MintsHp 1  ", this.TargetCOM)
 
 	if unit.IsDead() {
 		unit.OutBattle = true
@@ -1631,8 +1631,8 @@ func (this *BattleRoom) AddHp (target int64, damage int32, crit int32) {
 	this.TargetCOM.BuffAdd = []prpc.COM_BattleBuff{}
 	this.NewAction = false
 
-	std.LogInfo("加血  catserid ", target, this.AcctionList.TargetList)
-	std.LogInfo("AddHp 1  ", this.TargetCOM)
+	log.Info("加血  catserid ", target, this.AcctionList.TargetList)
+	log.Info("AddHp 1  ", this.TargetCOM)
 
 	//this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 }
@@ -1648,7 +1648,7 @@ func (this *BattleRoom) ReduceSpell (target int64, damage int32, crit int32) {
 
 	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] - float32(damage)
 
-	std.LogInfo("实例ID为", target, "的卡牌在第", this.Round + 1, "法术降到",unit.CProperties[prpc.CPT_MAGIC_ATK],"降低了",damage )
+	log.Info("实例ID为", target, "的卡牌在第", this.Round + 1, "法术降到",unit.CProperties[prpc.CPT_MAGIC_ATK],"降低了",damage )
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
@@ -1670,7 +1670,7 @@ func (this *BattleRoom) IncreaseSpell (target int64, damage int32, crit int32) {
 
 	unit.CProperties[prpc.CPT_MAGIC_ATK] = unit.CProperties[prpc.CPT_MAGIC_ATK] + float32(damage)
 
-	std.LogInfo("实例ID为", target, "的卡牌在第", this.Round + 1, "法术增加到",unit.CProperties[prpc.CPT_MAGIC_ATK],"增加了",damage )
+	log.Info("实例ID为", target, "的卡牌在第", this.Round + 1, "法术增加到",unit.CProperties[prpc.CPT_MAGIC_ATK],"增加了",damage )
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
 	this.TargetCOM.InstId = target
@@ -1712,10 +1712,10 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 
 	buff.AddProperty()
 
-	std.LogInfo("bufflen front", this.TargetCOM)
+	log.Info("bufflen front", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
-	std.LogInfo("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
-	std.LogInfo("bufflen back", this.TargetCOM)
+	log.Info("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	log.Info("bufflen back", this.TargetCOM)
 
 }
 
@@ -1732,15 +1732,15 @@ func (this *BattleRoom) DeleteBuff(target int64, buffinstid int32, data int32) {
 	buffCOM.BuffId = buff.BuffId
 	buffCOM.Change = 0
 
-	std.LogInfo("bufflen front", this.TargetCOM)
+	log.Info("bufflen front", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
-	std.LogInfo("实例ID为", target, "的卡牌在第", this.Round + 1, "回合失去了id为", buff.InstId, "的buff, buff表中的ID为", buff.BuffId, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
-	std.LogInfo("bufflen back", this.TargetCOM)
+	log.Info("实例ID为", target, "的卡牌在第", this.Round + 1, "回合失去了id为", buff.InstId, "的buff, buff表中的ID为", buff.BuffId, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	log.Info("bufflen back", this.TargetCOM)
 
 }
 
 func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, data int32, over bool) {
-	std.LogInfo("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
+	log.Info("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
 	unit := this.SelectOneUnit(target)
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(data)
@@ -1772,7 +1772,7 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 }
 
 func (this *BattleRoom) BuffAddHp(target int64, buffid int32, data int32, over bool) {
-	std.LogInfo("BuffMintsHp", " buff 给id为", target, "的卡牌增加了", data, "点血量, over", over)
+	log.Info("BuffMintsHp", " buff 给id为", target, "的卡牌增加了", data, "点血量, over", over)
 	unit := this.SelectOneUnit(target)
 
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] + float32(data)
@@ -1828,7 +1828,7 @@ func IsCrit(skillid int32) int {
 	}
 
 	per := rand.Intn(100)
-	//std.LogInfo("IsCrit", skill.Crit)
+	//log.Info("IsCrit", skill.Crit)
 
 	if per <= int(skill.Crit) {
 		return 1
@@ -1843,14 +1843,14 @@ func IsCrit(skillid int32) int {
 
 func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePosition, skillid int32) {
 
-	std.LogInfo("SetupPosition.start", posList, p.BattleCamp)
+	log.Info("SetupPosition.start", posList, p.BattleCamp)
 	//if this.Round == 0 { //第一回合 必须设置主角卡
 	//	for _, pos := range posList {
-	//		//std.LogInfo("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
+	//		//log.Info("SetupPosition, set ", pos.InstId, p.MyUnit.InstId)
 	//		if pos.InstId == p.MyUnit.InstId {
 	//			goto setup_check_success
 	//		}
-	//		std.LogInfo("SetupPosition.error no main")
+	//		log.Info("SetupPosition.error no main")
 	//		return //没有主角卡
 	//	}
 	//}
@@ -1859,17 +1859,17 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	for i := 0; i < len(posList)-1; i++ {
 		for j := i + 1; j < len(posList); j++ {
 			if posList[i].InstId == posList[j].InstId {
-				std.LogInfo("SetupPosition.error card same")
+				log.Info("SetupPosition.error card same")
 				return //有重复卡牌设置
 			}
 			if posList[i].Position == posList[j].Position {
-				std.LogInfo("SetupPosition.error pos same")
+				log.Info("SetupPosition.error pos same")
 				return //有重复位置设置
 			}
 			unit := p.GetUnit(posList[i].InstId)
 
 			if unit.IsDead() {
-				std.LogInfo("SetupPosition.error card is dead")
+				log.Info("SetupPosition.error card is dead")
 				return
 			}
 			needPoint += unit.Cost
@@ -1879,7 +1879,7 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	needPoint += 0 // 主角技能应该有消耗
 
 	if needPoint > p.BattlePoint {
-		std.LogInfo("SetupPosition.error point less", needPoint, p.BattlePoint)
+		log.Info("SetupPosition.error point less", needPoint, p.BattlePoint)
 		return //能量点不足
 	}
 
@@ -1889,13 +1889,13 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 				continue
 			}
 			if u.InstId == pos.InstId {
-				std.LogInfo("SetupPosition.error pos same 2")
+				log.Info("SetupPosition.error pos same 2")
 				return //已经上场
 			}
 		}
 
 		if this.Units[pos.Position] != nil {
-			std.LogInfo("SetupPosition.error pos same 3")
+			log.Info("SetupPosition.error pos same 3")
 			return //这个位置上有人
 		}
 	}
@@ -1912,7 +1912,7 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	if this.Type == prpc.BT_PVE {
 		this.BattleUpdate()
 	}
-	//std.LogInfo("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
+	//log.Info("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
 }
 
 ////////////////////////////////////////////////////////////////////////

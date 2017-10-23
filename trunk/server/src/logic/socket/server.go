@@ -2,7 +2,7 @@ package socket
 
 import (
 	"net"
-	"logic/std"
+	"logic/log"
 	"fmt"
 )
 
@@ -32,16 +32,16 @@ func (this *TCPServer)Run(){
 			defer func() {
 
 				if r := recover(); r != nil {
-					std.LogError("Tcp server panic %s",fmt.Sprint(r))
+					log.Error("Tcp server panic %s",fmt.Sprint(r))
 				}
 
 			}()
 			con, err := this.ln.AcceptTCP()
 			if err != nil {
-				std.LogDebug("Tcp socket error %s ", err.Error())
+				log.Debug("Tcp socket error %s ", err.Error())
 				this.running = false
 			}
-			std.LogDebug("One socket connect %s <==> %s", con.LocalAddr(), con.RemoteAddr())
+			log.Debug("One socket connect %s <==> %s", con.LocalAddr(), con.RemoteAddr())
 
 			tcpcon := NewTcpConnection(con,this.PendingWriteNum)
 

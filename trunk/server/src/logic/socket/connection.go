@@ -3,7 +3,7 @@ package socket
 import (
 	"net"
 	"sync"
-	"logic/std"
+	"logic/log"
 )
 
 type Connection interface{
@@ -52,7 +52,7 @@ func (this* TcpConnection) Close(){
 func (this* TcpConnection) doWrite(b []byte){
 
 	if len(this.writeChan) == cap(this.writeChan) {
-		std.Log("close conn: channel full")
+		log.Println("close conn: channel full")
 		this.doDestroy()
 		return
 	}

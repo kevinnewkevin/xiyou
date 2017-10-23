@@ -6,7 +6,7 @@ import (
 
 	"logic/socket"
 	"net"
-	"logic/std"
+	"logic/log"
 	"github.com/astaxie/beego/toolbox"
 )
 
@@ -23,90 +23,90 @@ func (this *App) Run() {
 
 	err = game.LoadUnitTable("../../../config/tables/entity.csv")
 	if err != nil {
-		std.LogDebug("LoadUnitTable %s ", err.Error())
+		log.Debug("LoadUnitTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadSkillTable("../../../config/tables/skill.csv")
 	if err != nil {
-		std.LogDebug("LoadSkillTable %s ", err.Error())
+		log.Debug("LoadSkillTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadBuffTable("../../../config/tables/buff.csv")
 	if err != nil {
-		std.LogDebug("LoadBuffTable %s ", err.Error())
+		log.Debug("LoadBuffTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadBattleTable("../../../config/tables/Battle.csv")
 	if err != nil {
-		std.LogDebug("LoadBattleTable %s ", err.Error())
+		log.Debug("LoadBattleTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadStoryChapterTable("../../../config/tables/HeroStroy.csv")
 	if err != nil {
-		std.LogDebug("LoadStoryTable %s ", err.Error())
+		log.Debug("LoadStoryTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadSmallChapterTable("../../../config/tables/Checkpoint.csv")
 	if err != nil {
-		std.LogDebug("LoadSmallChapterTable %s ", err.Error())
+		log.Debug("LoadSmallChapterTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadItemTable("../../../config/tables/Item.csv")
 	if err != nil {
-		std.LogDebug("LoadItemTable", err.Error())
+		log.Debug("LoadItemTable", err.Error())
 		return
 	}
 
 	err = game.LoadDropTable("../../../config/tables/Drop.csv")
 	if err != nil {
-		std.LogDebug("LoadDropTable %s ", err.Error())
+		log.Debug("LoadDropTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadPromoteTable("../../../config/tables/Strengthen.csv")
 	if err != nil {
-		std.LogDebug("LoadPromoteTable %s ", err.Error())
+		log.Debug("LoadPromoteTable %s ", err.Error())
 		return
 	}
 	err = game.LoadExpTable("../../../config/tables/Exp.csv")
 	if err != nil {
-		std.LogDebug("LoadExpTable %s ", err.Error())
+		log.Debug("LoadExpTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadTianTiTable("../../../config/tables/Ladder.csv")
 	if err != nil {
-		std.LogDebug("LoadTianTiTable %s ", err.Error())
+		log.Debug("LoadTianTiTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadRoleSkillTable("../../../config/tables/RoleSkill.csv")
 	if err != nil {
-		std.LogDebug("LoadRoleSkillTable %s ", err.Error())
+		log.Debug("LoadRoleSkillTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadRoleSkillUpdateTable("../../../config/tables/RoleSkillUpdate.csv")
 	if err != nil {
-		std.LogDebug("LoadRoleSkillUpdateTable %s ", err.Error())
+		log.Debug("LoadRoleSkillUpdateTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadShopTable("../../../config/tables/ShopData.csv")
 	if err != nil {
-		std.LogDebug("LoadShopTable %s ", err.Error())
+		log.Debug("LoadShopTable %s ", err.Error())
 		return
 	}
 
 	err = game.LoadCardPondTable("../../../config/tables/Cardclose.csv")
 	if err != nil {
-		std.LogDebug("LoadCardPondTable %s ", err.Error())
+		log.Debug("LoadCardPondTable %s ", err.Error())
 		return
 	}
 
@@ -120,7 +120,7 @@ func (this *App) Run() {
 	//game.TestPlayer()
 	this.l, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("0.0.0.0"),10999,"ipv4"})
 	if err != nil {
-		std.LogFatal(err.Error())
+		log.Fatal(err.Error())
 		return
 	}
 
@@ -131,16 +131,16 @@ func (this *App) Run() {
 			defer func() {
 
 				if r := recover(); r != nil {
-					std.LogError("main panic %s",fmt.Sprint(r))
+					log.Error("main panic %s",fmt.Sprint(r))
 				}
 
 			}()
 			conn, err = this.l.AcceptTCP()
 			if err != nil {
-				std.LogDebug(err.Error())
+				log.Debug(err.Error())
 				endRunning <- true
 			}
-			std.LogDebug("Has one connect ")
+			log.Debug("Has one connect ")
 
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)

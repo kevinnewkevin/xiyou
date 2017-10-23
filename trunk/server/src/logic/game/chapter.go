@@ -2,7 +2,7 @@ package game
 
 import (
 	"logic/prpc"
-	"logic/std"
+	"logic/log"
 )
 
 func OpenChapter(player *GamePlayer,cid int32)  {
@@ -50,7 +50,7 @@ func (player *GamePlayer)GetMyChapterDataById(chapterId int32) *prpc.COM_Chapter
 	}
 	for i:=0 ; i< len(player.Chapters) ;i++  {
 		if player.Chapters[i] == nil {
-			std.LogInfo("GetMyChapterDataById player.Chapters[i] == nil")
+			log.Info("GetMyChapterDataById player.Chapters[i] == nil")
 			continue
 		}
 		if player.Chapters[i].ChapterId == chapterId {
@@ -77,7 +77,7 @@ func (player *GamePlayer)SycnMyChapterDataById(chapterId int32)  {
 	}
 
 	for _,temp := range onceChapter.SmallChapters{
-		std.LogInfo("SyncChapter ChapterId=",onceChapter.ChapterId,"SmallChapterId=",temp.SmallChapterId,"Star1=",temp.Star1,"Star2=",temp.Star2,"Star3=",temp.Star3)
+		log.Info("SyncChapter ChapterId=",onceChapter.ChapterId,"SmallChapterId=",temp.SmallChapterId,"Star1=",temp.Star1,"Star2=",temp.Star2,"Star3=",temp.Star3)
 	}
 
 	player.session.SycnChapterData(*onceChapter)
@@ -101,42 +101,42 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if player==nil {
 		return
 	}
-	std.LogInfo("2");
+	log.Info("2");
 	small := player.GetMySmallChapterDataById(smallchapterid)
 	if small == nil {
 		return
 	}
-	std.LogInfo("3");
+	log.Info("3");
 	smallData := GetSmallChapterById(small.SmallChapterId)
 	if smallData == nil {
 		return
 	}
-	std.LogInfo("4");
+	log.Info("4");
 	chapterData := GetChapterById(smallData.SmallChapterType)
 	myUnitLevel := player.MyUnit.GetIProperty(prpc.IPT_LEVEL)
 	if chapterData == nil {
 		return
 	}
-	std.LogInfo("5");
-	std.LogInfo("AttackChapter smallchapterid=",smallchapterid,"smallData.SmallChapterType=",smallData.SmallChapterType,"chapterData.ChapterType",chapterData.ChapterType)
+	log.Info("5");
+	log.Info("AttackChapter smallchapterid=",smallchapterid,"smallData.SmallChapterType=",smallData.SmallChapterType,"chapterData.ChapterType",chapterData.ChapterType)
 
 	myEnergy := player.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
 	if smallData.EnergyExpend > myEnergy {
 		return
 	}
-	std.LogInfo("2");
+	log.Info("2");
 
 	if chapterData.ChapterType == 1 {
 		for _,id :=  range smallData.UnLockId{
 			//
 			checksmall := player.GetMySmallChapterDataById(id)
 			if checksmall == nil {
-				std.LogInfo("AttackChapter General checksmall==nil smallchapterid=",id)
+				log.Info("AttackChapter General checksmall==nil smallchapterid=",id)
 				return
 			}
 			if !checksmall.Star1 {
-				std.LogInfo("AttackChapter checksmall.Star1==false")
+				log.Info("AttackChapter checksmall.Star1==false")
 				return
 			}
 		}
@@ -148,7 +148,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 			//
 			checksmall := player.GetMySmallChapterDataById(id)
 			if checksmall == nil {
-				std.LogInfo("AttackChapter Difficulty checksmall==nil smallchapterid=",id)
+				log.Info("AttackChapter Difficulty checksmall==nil smallchapterid=",id)
 				return
 			}
 			if !checksmall.Star1 {
@@ -182,7 +182,7 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 		return 0
 	}
 	if player.ChapterID == 0 {
-		std.LogInfo("CalcSmallChapterStar player.ChapterID == 0")
+		log.Info("CalcSmallChapterStar player.ChapterID == 0")
 		return 0
 	}
 	if battledata.Win==0 {
@@ -190,41 +190,41 @@ func (player *GamePlayer)CalcSmallChapterStar(battledata prpc.COM_BattleResult) 
 	}
 	small := player.GetMySmallChapterDataById(player.ChapterID)
 	if small == nil {
-		std.LogInfo("CalcSmallChapterStar small == nil")
+		log.Info("CalcSmallChapterStar small == nil")
 		return 0
 	}
 	smallData := GetSmallChapterById(player.ChapterID)
 	if smallData == nil {
-		std.LogInfo("CalcSmallChapterStar smallData == nil")
+		log.Info("CalcSmallChapterStar smallData == nil")
 		return 0
 	}
 
 	if !small.Star1 {
 		for i:=0;i<len(battledata.KillMonsters) ;i++  {
-			std.LogInfo("battledata.KillMonsters monsterId=",battledata.KillMonsters[i],"Star1TargetId=",smallData.SmallChapterCase1)
+			log.Info("battledata.KillMonsters monsterId=",battledata.KillMonsters[i],"Star1TargetId=",smallData.SmallChapterCase1)
 			if battledata.KillMonsters[i] == smallData.SmallChapterCase1 {
 				small.Star1 = true
-				std.LogInfo("SmallChapter=",small.SmallChapterId,"Star1 Succeed")
+				log.Info("SmallChapter=",small.SmallChapterId,"Star1 Succeed")
 			}
 		}
 	}
 
 	if !small.Star2 {
-		std.LogInfo("CheckChapterStar3 TableCase=",smallData.SmallChapterCase2,"BattleVal=",battledata.BattleRound)
+		log.Info("CheckChapterStar3 TableCase=",smallData.SmallChapterCase2,"BattleVal=",battledata.BattleRound)
 		if smallData.SmallChapterCase2 >= battledata.BattleRound {
 			small.Star2 = true
-			std.LogInfo("SmallChapter=",small.SmallChapterId,"Star2 Succeed")
+			log.Info("SmallChapter=",small.SmallChapterId,"Star2 Succeed")
 		}
 	}
 
 	if !small.Star3 {
-		std.LogInfo("CheckChapterStar3 TableCase=",smallData.SmallChapterCase3,"BattleVal=",battledata.MySelfDeathNum)
+		log.Info("CheckChapterStar3 TableCase=",smallData.SmallChapterCase3,"BattleVal=",battledata.MySelfDeathNum)
 		if smallData.SmallChapterCase3 >= battledata.MySelfDeathNum {
 			small.Star3 = true
-			std.LogInfo("SmallChapter=",small.SmallChapterId,"Star3 Succeed")
+			log.Info("SmallChapter=",small.SmallChapterId,"Star3 Succeed")
 		}
 	}
-	std.LogInfo("CalcSmallChapterStar DropId = ",smallData.DropID)
+	log.Info("CalcSmallChapterStar DropId = ",smallData.DropID)
 	player.SycnMyChapterDataById(smallData.SmallChapterType)
 	return smallData.DropID
 }
@@ -240,10 +240,10 @@ func (player *GamePlayer)GetChapterStarReward(chapterId int32,star int32)  {
 	}
 
 	var myStar int32 = player.GetChapterStarById(chapterId)
-	std.LogInfo("chapter ",chapterId," Star ",myStar,"StarReward",myChapter.StarReward)
+	log.Info("chapter ",chapterId," Star ",myStar,"StarReward",myChapter.StarReward)
 
 	if myStar < star {
-		std.LogInfo("Lacking Star",chapterId,star)
+		log.Info("Lacking Star",chapterId,star)
 		return
 	}
 
@@ -255,12 +255,12 @@ func (player *GamePlayer)GetChapterStarReward(chapterId int32,star int32)  {
 		}
 	}
 	if index == -1 {
-		std.LogInfo("chapter Without this reward star=",star)
+		log.Info("chapter Without this reward star=",star)
 		return
 	}
 	for _,s := range myChapter.StarReward{
 		if s == star {
-			std.LogInfo("chapter reward have been received star",star)
+			log.Info("chapter reward have been received star",star)
 			return
 		}
 	}
