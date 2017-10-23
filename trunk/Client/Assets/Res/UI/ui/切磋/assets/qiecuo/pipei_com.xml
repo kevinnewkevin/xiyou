@@ -1,35 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1920,1080">
   <displayList>
-    <graph id="n10_xivh" name="n10" xy="0,0" size="1916,1080" alpha="0.7" type="rect" fillColor="#ff000000"/>
-    <image id="n0_k4t1" name="n0" src="k4t128" xy="-1,342" size="1922,272"/>
-    <image id="n1_k4t1" name="n1" src="k4t12a" xy="-2,360" size="1924,228"/>
-    <image id="n3_k4t1" name="n3" src="k4t12c" xy="420,385" size="1054,180" alpha="0.67"/>
-    <image id="n4_k4t1" name="n4" src="k4t12b" xy="610,388"/>
-    <image id="n5_k4t1" name="n5" src="k4t126" xy="989,464"/>
-    <image id="n6_k4t1" name="n6" src="k4t126" xy="1075,465"/>
-    <image id="n7_k4t1" name="n7" src="k4t126" xy="1161,464"/>
-    <component id="n8_k4t1" name="n8" src="k4t12e" xy="822,919" pivot="0.5,0.5"/>
-    <text id="n9_k4t1" name="n9" xy="748,1024" size="398,53" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="正在为您匹配对手"/>
+    <graph id="n10_xivh" name="n10" xy="0,-1" size="1916,1080" alpha="0.7" type="rect" fillColor="#ff000000"/>
+    <component id="n8_k4t1" name="n8" src="k4t12e" xy="823,947" pivot="0.5,0.5"/>
+    <image id="n12_xpjt" name="n12" src="nfl12v" xy="710,292"/>
+    <component id="n13_xpjt" name="n13" src="xpjt3h" xy="715,311"/>
+    <component id="n14_xpjt" name="n14" src="tr4h3i" xy="708,270"/>
+    <image id="n11_xpjt" name="n11" src="nfl12u" xy="548,122"/>
+    <text id="n16_tr4h" name="n16" xy="838,198" size="274,51" font="方正楷体_GBK" fontSize="40" color="#fff2d3" align="center" vAlign="middle" autoSize="none" bold="true" text="搜索对手"/>
+    <text id="n9_k4t1" name="n9" xy="624,836" size="692,53" font="方正楷体_GBK" fontSize="34" color="#3b1f02" align="center" vAlign="middle" autoSize="none" bold="true" text="正在为您搜索实力相当的对手"/>
+    <image id="n17_tr4h" name="n17" src="tr4h3k" xy="-316,1380"/>
   </displayList>
-  <transition name="t0" autoPlay="true" autoPlayRepeat="100">
-    <item time="0" type="Alpha" target="n7_k4t1" value="0"/>
-    <item time="0" type="Alpha" target="n6_k4t1" value="0.01"/>
-    <item time="0" type="Alpha" target="n5_k4t1" tween="true" startValue="0" endValue="1" duration="12" ease="Cubic.InOut"/>
-    <item time="0" type="Alpha" target="n0_k4t1" tween="true" startValue="1" endValue="0" duration="16" ease="Cubic.InOut"/>
-    <item time="12" type="Alpha" target="n7_k4t1" value="0"/>
-    <item time="12" type="Alpha" target="n6_k4t1" value="0.01"/>
-    <item time="16" type="Alpha" target="n0_k4t1" tween="true" startValue="0" endValue="1" duration="16" ease="Quad.InOut"/>
-    <item time="18" type="Alpha" target="n6_k4t1" tween="true" startValue="0.01" endValue="1" duration="12" ease="Cubic.InOut"/>
-    <item time="18" type="Alpha" target="n7_k4t1" value="0"/>
-    <item time="24" type="Alpha" target="n5_k4t1" value="1"/>
-    <item time="32" type="Alpha" target="n0_k4t1" tween="true" startValue="1" endValue="0" duration="14"/>
-    <item time="36" type="Alpha" target="n6_k4t1" value="1"/>
-    <item time="42" type="Alpha" target="n7_k4t1" tween="true" startValue="0" endValue="1" duration="12" ease="Cubic.InOut"/>
-    <item time="43" type="Alpha" target="n5_k4t1" value="1"/>
-    <item time="46" type="Alpha" target="n0_k4t1" tween="true" startValue="0" endValue="1" duration="14"/>
-    <item time="60" type="Alpha" target="n7_k4t1" value="1"/>
-    <item time="60" type="Alpha" target="n6_k4t1" value="1"/>
-    <item time="60" type="Alpha" target="n5_k4t1" value="1"/>
-  </transition>
 </component>

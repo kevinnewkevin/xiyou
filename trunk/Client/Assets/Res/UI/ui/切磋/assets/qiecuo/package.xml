@@ -76,25 +76,22 @@
     <image id="igix2o" name="kazu3.png" path="/" exported="true"/>
     <image id="igix2p" name="kazu4.png" path="/" exported="true"/>
     <font id="igix2q" name="kazu_Font.fnt" path="/" exported="true"/>
-    <image id="nfl12r" name="n1.png" path="/"/>
-    <component id="nfl12s" name="000_com.xml" path="/"/>
-    <image id="nfl12t" name="zhuan3.png" path="/"/>
-    <image id="nfl12u" name="pp_1.png" path="/"/>
-    <image id="nfl12v" name="pp_2.png" path="/"/>
-    <image id="nfl12w" name="shuye1.png" path="/"/>
-    <image id="nfl12x" name="shuye2.png" path="/"/>
-    <image id="nfl12y" name="shuye3.png" path="/"/>
-    <image id="nfl12z" name="shuye4.png" path="/"/>
-    <image id="nfl130" name="tiao.png" path="/" scale="9grid" scale9grid="53,21,21,42"/>
-    <image id="nfl131" name="zhuan1.png" path="/"/>
-    <image id="nfl132" name="zhuan2.png" path="/"/>
-    <movieclip id="nfl133" name="shuye_MovieClip.jta" path="/"/>
-    <movieclip id="nfl134" name="zhuan_MovieClip.jta" path="/"/>
-    <image id="nfl135" name="guang.png" path="/"/>
-    <component id="nfl136" name="donghua_1.xml" path="/"/>
-    <component id="nfl137" name="duishou_1.xml" path="/"/>
+    <image id="nfl12r" name="n1.png" path="/" exported="true"/>
+    <component id="nfl12s" name="000_com.xml" path="/" exported="true"/>
+    <image id="nfl12u" name="pp_1.png" path="/" exported="true"/>
+    <image id="nfl12v" name="pp_2.png" path="/" exported="true"/>
+    <image id="nfl12z" name="shuye4.png" path="/" exported="true"/>
+    <image id="nfl130" name="tiao.png" path="/" exported="true" scale="9grid" scale9grid="53,21,21,42"/>
+    <movieclip id="nfl133" name="shuye_MovieClip.jta" path="/" exported="true"/>
+    <movieclip id="nfl134" name="zhuan_MovieClip.jta" path="/" exported="true"/>
+    <image id="nfl135" name="guang.png" path="/" exported="true"/>
+    <component id="nfl136" name="donghua_1.xml" path="/" exported="true"/>
+    <image id="iora39" name="01.png" path="/" exported="true"/>
+    <component id="xpjt3h" name="diren_com.xml" path="/" exported="true"/>
+    <component id="tr4h3i" name="pipeidonghua_com.xml" path="/" exported="true"/>
+    <image id="tr4h3k" name="zhuangshi6.png" path="/" exported="true"/>
   </resources>
-  <publish name="qiecuo" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="qiecuo" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

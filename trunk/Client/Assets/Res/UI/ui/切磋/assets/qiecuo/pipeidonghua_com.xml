@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="513,557">
+  <displayList>
+    <movieclip id="n14_xpjt" name="n14" src="nfl134" xy="68,0" size="391,557"/>
+    <movieclip id="n15_xpjt" name="n15" src="nfl133" xy="-10,272" size="533,174"/>
+    <image id="n16_tr4h" name="n16" src="nfl135" xy="90,34" size="25,336"/>
+    <image id="n17_tr4h" name="n17" src="nfl135" xy="284,270" size="25,271"/>
+    <image id="n18_tr4h" name="n18" src="nfl135" xy="240,-53" size="25,352"/>
+    <image id="n19_tr4h" name="n19" src="nfl135" xy="346,43" size="25,211"/>
+    <image id="n20_tr4h" name="n20" src="nfl135" xy="186,97" size="25,362"/>
+    <image id="n21_tr4h" name="n21" src="nfl135" xy="388,305" size="25,226"/>
+    <image id="n22_tr4h" name="n22" src="nfl135" xy="144,206" size="25,334"/>
+    <image id="n23_tr4h" name="n23" src="tr4h3k" xy="34,120"/>
+    <image id="n24_tr4h" name="n24" src="tr4h3k" xy="493,115" skew="0,-180"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n16_tr4h" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="0" type="Alpha" target="n20_tr4h" value="0"/>
+    <item time="0" type="Alpha" target="n18_tr4h" value="0"/>
+    <item time="0" type="Alpha" target="n17_tr4h" value="0"/>
+    <item time="0" type="Alpha" target="n22_tr4h" value="0"/>
+    <item time="0" type="Alpha" target="n19_tr4h" value="0"/>
+    <item time="0" type="Alpha" target="n21_tr4h" value="0"/>
+    <item time="0" type="XY" target="n22_tr4h" value="144,206"/>
+    <item time="0" type="XY" target="n19_tr4h" value="346,43"/>
+    <item time="0" type="XY" target="n18_tr4h" value="240,-53"/>
+    <item time="0" type="XY" target="n17_tr4h" value="284,270"/>
+    <item time="0" type="XY" target="n24_tr4h" tween="true" startValue="493,115" endValue="503,115" duration="6" ease="Bounce.Out"/>
+    <item time="0" type="XY" target="n16_tr4h" tween="true" startValue="90,34" endValue="222,31" duration="11" ease="Bounce.Out"/>
+    <item time="0" type="XY" target="n20_tr4h" value="186,97"/>
+    <item time="0" type="XY" target="n21_tr4h" value="388,305"/>
+    <item time="0" type="XY" target="n23_tr4h" tween="true" startValue="34,120" endValue="9,120" duration="6" ease="Bounce.Out"/>
+    <item time="6" type="Alpha" target="n16_tr4h" tween="true" startValue="1" endValue="0" duration="8"/>
+    <item time="6" type="XY" target="n23_tr4h" tween="true" startValue="9,120" endValue="34,120" duration="6" ease="Bounce.Out"/>
+    <item time="6" type="XY" target="n24_tr4h" tween="true" startValue="503,115" endValue="493,115" duration="6" ease="Bounce.Out"/>
+    <item time="8" type="Alpha" target="n22_tr4h" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="8" type="XY" target="n22_tr4h" tween="true" startValue="144,206" endValue="254,207" duration="9" ease="Bounce.Out"/>
+    <item time="12" type="XY" target="n24_tr4h" tween="true" startValue="493,115" endValue="503,115" duration="6" ease="Bounce.Out"/>
+    <item time="12" type="XY" target="n23_tr4h" tween="true" startValue="34,120" endValue="9,120" duration="6" ease="Bounce.Out"/>
+    <item time="15" type="Alpha" target="n18_tr4h" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="15" type="XY" target="n18_tr4h" tween="true" startValue="240,-53" endValue="152,-56" duration="9" ease="Bounce.Out"/>
+    <item time="16" type="Alpha" target="n22_tr4h" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="18" type="XY" target="n23_tr4h" tween="true" startValue="9,120" endValue="34,120" duration="6" ease="Bounce.Out"/>
+    <item time="18" type="XY" target="n24_tr4h" tween="true" startValue="503,115" endValue="493,115" duration="6" ease="Bounce.Out"/>
+    <item time="20" type="Alpha" target="n19_tr4h" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="20" type="XY" target="n19_tr4h" tween="true" startValue="346,43" endValue="246,23" duration="12"/>
+    <item time="21" type="Alpha" target="n18_tr4h" tween="true" startValue="1" endValue="0" duration="8"/>
+    <item time="22" type="Alpha" target="n17_tr4h" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="22" type="XY" target="n17_tr4h" tween="true" startValue="284,270" endValue="360,282" duration="10" ease="Bounce.Out"/>
+    <item time="24" type="XY" target="n24_tr4h" tween="true" startValue="493,115" endValue="503,115" duration="6" ease="Bounce.Out"/>
+    <item time="24" type="XY" target="n23_tr4h" tween="true" startValue="34,120" endValue="9,120" duration="6" ease="Bounce.Out"/>
+    <item time="26" type="Alpha" target="n21_tr4h" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="26" type="XY" target="n21_tr4h" tween="true" startValue="388,305" endValue="272,307" duration="12" ease="Bounce.Out"/>
+    <item time="27" type="Alpha" target="n19_tr4h" tween="true" startValue="1" endValue="0" duration="11"/>
+    <item time="30" type="Alpha" target="n17_tr4h" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="30" type="XY" target="n23_tr4h" tween="true" startValue="9,120" endValue="34,120" duration="6" ease="Bounce.Out"/>
+    <item time="30" type="XY" target="n24_tr4h" tween="true" startValue="503,115" endValue="493,115" duration="6" ease="Bounce.Out"/>
+    <item time="36" type="Alpha" target="n21_tr4h" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="36" type="XY" target="n23_tr4h" tween="true" startValue="34,120" endValue="9,120" duration="6" ease="Bounce.Out"/>
+    <item time="36" type="XY" target="n24_tr4h" tween="true" startValue="493,115" endValue="503,115" duration="6" ease="Bounce.Out"/>
+    <item time="42" type="XY" target="n23_tr4h" tween="true" startValue="9,120" endValue="34,120" duration="6" ease="Bounce.Out"/>
+    <item time="42" type="XY" target="n24_tr4h" tween="true" startValue="503,115" endValue="493,115" duration="6" ease="Bounce.Out"/>
+  </transition>
+</component>
