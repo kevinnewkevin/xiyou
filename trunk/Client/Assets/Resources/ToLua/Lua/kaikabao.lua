@@ -208,6 +208,10 @@ end
 
 
 function kaikabao_OnBoxBtn(context)
+	if openCom.isVisible == false then
+		return;
+	end
+	 
 	print("kaikabao_OnBoxBtn");
 	outCom.visible = true;
 	openCom.visible = false;
@@ -349,7 +353,7 @@ function initItemList()
 end
 
 function setItemInfo()
-	local itemInst = ShopSystem.GetShowItem();
+	local itemInst = ShopSystem.GetShowItem(); 
 	if itemInst ~= nil then
 		local iData = ItemData.GetData(itemInst.ItemId);
 		local eData = EntityData.GetData(iData._EntityID);
@@ -371,6 +375,8 @@ function setItemInfo()
 			itemInfoIconDebris.visible= true; 
 			itemInfoIconNum.text =  "" .. itemInst.Stack;
 			itemInfoIconlevel.text = "0";
+			itemInfoIconPower.text = eData._Cost;
+			itemInfoIcon_Icon.asLoader.url = "ui://" .. iData._Icon;
 		end
 
 		ShopSystem.DelShowItem();
