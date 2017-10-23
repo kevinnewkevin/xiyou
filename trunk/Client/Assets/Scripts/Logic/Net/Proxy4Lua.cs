@@ -23,14 +23,20 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ChallengeSmallChapter(id);
 	}
-
+	
+	static bool _CancelMatch = false;
 	static public void StartMatching(int teamId)
 	{
-		NetWoking.S.StartMatching(teamId);
+		new Timer ().Start (3f, delegate {
+			if(!_CancelMatch)
+				NetWoking.S.StartMatching(teamId);
+			_CancelMatch = false;
+		});
 	}
 
 	static public void StopMatching()
 	{
+		_CancelMatch = true;
 		NetWoking.S.StopMatching();
 	}
 
