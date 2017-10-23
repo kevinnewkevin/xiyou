@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_SmallChapter struct{
   sync.Mutex
@@ -56,13 +55,13 @@ func (this *COM_SmallChapter)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.SmallChapterId!=0)
   mask.WriteBit(this.Star1)
   mask.WriteBit(this.Star2)
   mask.WriteBit(this.Star3)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -70,7 +69,7 @@ func (this *COM_SmallChapter)Serialize(buffer *bytes.Buffer) error {
   // serialize SmallChapterId
   {
     if(this.SmallChapterId!=0){
-      err := prpc.Write(buffer,this.SmallChapterId)
+      err := Write(buffer,this.SmallChapterId)
       if err != nil{
         return err
       }
@@ -91,13 +90,13 @@ func (this *COM_SmallChapter)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize SmallChapterId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.SmallChapterId)
+    err := Read(buffer,&this.SmallChapterId)
     if err != nil{
       return err
     }

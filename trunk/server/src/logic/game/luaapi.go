@@ -271,7 +271,6 @@ func InitLua(r string){
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-//export __setEnvString
 func __setEnvString(L* lua.LState) int {
 	idx := 1
 	s1 := L.ToString(idx)
@@ -283,7 +282,6 @@ func __setEnvString(L* lua.LState) int {
 	return 0
 }
 
-//export __setEnvInt
 func __setEnvInt(L* lua.LState) int {
 	idx := 1
 	s1 := L.ToString(idx)
@@ -295,7 +293,6 @@ func __setEnvInt(L* lua.LState) int {
 	return 0
 }
 
-//export __setGlobalString
 func __setGlobalString(L* lua.LState) int {
 	
 	idx := 1
@@ -307,7 +304,6 @@ func __setGlobalString(L* lua.LState) int {
 	return 0
 }
 
-//export __setGlobalInt
 func __setGlobalInt(L* lua.LState) int {
 	
 	idx := 1
@@ -337,7 +333,6 @@ func GetGlobalInt(val string) int {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-//export __loadfile
 func __loadfile(L* lua.LState) int {
 
 	
@@ -346,7 +341,6 @@ func __loadfile(L* lua.LState) int {
 	return 0
 }
 
-//export __GetStrings
 func __GetStrings(L* lua.LState) int {
 
 	
@@ -361,7 +355,6 @@ func __GetStrings(L* lua.LState) int {
 	return 0
 }
 
-//export __DefineCards
 func __DefineCards(L* lua.LState) int {
 
 	
@@ -375,7 +368,6 @@ func __DefineCards(L* lua.LState) int {
 	return 0
 }
 
-//export __GetTarget
 func __GetTarget(L* lua.LState) int { //获取 敌方单个目标
 
 	std.LogInfo("__GetTarget")
@@ -400,7 +392,6 @@ func __GetTarget(L* lua.LState) int { //获取 敌方单个目标
 	return 1
 }
 
-//export __GetMainTarget
 func __GetMainTarget(L* lua.LState) int {// 获取 敌方主角目标
 
 	std.LogInfo("__GetMainTarget")
@@ -425,7 +416,6 @@ func __GetMainTarget(L* lua.LState) int {// 获取 敌方主角目标
 	return 1
 }
 
-//export __GetRandomTarget
 func __GetRandomTarget(L* lua.LState) int {// 获取 敌方主角目标
 
 	std.LogInfo("__GetRandomTarget")
@@ -450,8 +440,6 @@ func __GetRandomTarget(L* lua.LState) int {// 获取 敌方主角目标
 	return 1
 }
 
-
-//export __CheckUnitDead
 func __CheckUnitDead(L* lua.LState) int {//判断是否死亡
 
 	std.LogInfo("__CheckUnitDead")
@@ -478,7 +466,7 @@ func __CheckUnitDead(L* lua.LState) int {//判断是否死亡
 
 	return 1
 }
-//export __GetMainFriend
+
 func __GetMainFriend(L* lua.LState) int {  //友方主角
 	std.LogInfo("__GetMainFriend")
 
@@ -502,7 +490,6 @@ func __GetMainFriend(L* lua.LState) int {  //友方主角
 	return 1
 }
 
-//export __GetFriend
 func __GetFriend(L* lua.LState) int {//友方单个目标
 
 	//std.LogInfo("__GetFriend")
@@ -525,7 +512,6 @@ func __GetFriend(L* lua.LState) int {//友方单个目标
 	return 1
 }
 
-//export __GetUnitProperty
 func __GetUnitProperty(L* lua.LState) int {//获取属性值
 
 	//std.LogInfo("__GetUnitProperty")
@@ -549,7 +535,6 @@ func __GetUnitProperty(L* lua.LState) int {//获取属性值
 	return 1
 }
 
-//export __ChangeCptProperty
 func __ChangeCptProperty(L* lua.LState) int {   //加Cpt减属性值
 
 	//std.LogInfo("__ChangeCptProperty")
@@ -572,7 +557,7 @@ func __ChangeCptProperty(L* lua.LState) int {   //加Cpt减属性值
 
 	return 0
 }
-//export __ChangeIptProperty
+
 func __ChangeIptProperty(L* lua.LState) int {   //加 IPT减属性值
 
 	//std.LogInfo("__ChangeIptProperty")
@@ -595,7 +580,7 @@ func __ChangeIptProperty(L* lua.LState) int {   //加 IPT减属性值
 
 	return 0
 }
-//export __AddSheld
+
 func __AddSheld(L* lua.LState) int {   //加护盾
 
 	std.LogInfo("__AddSheld")
@@ -621,7 +606,6 @@ func __AddSheld(L* lua.LState) int {   //加护盾
 	return 0
 }
 
-//export __PopSheld
 func __PopSheld(L* lua.LState) int {   //减护盾
 
 	std.LogInfo("__PopSheld")
@@ -649,7 +633,6 @@ func __PopSheld(L* lua.LState) int {   //减护盾
 	return 0
 }
 
-//export __DamageSheld
 func __DamageSheld(L* lua.LState) int {   //减護盾值
 
 	std.LogInfo("__DamageSheld")
@@ -694,7 +677,6 @@ func __DamageSheld(L* lua.LState) int {   //减護盾值
 	return 0
 }
 
-//export __ClacSheld
 func __ClacSheld(L* lua.LState) int {   //减伤
 
 	std.LogInfo("__ClacSheld")
@@ -719,7 +701,6 @@ func __ClacSheld(L* lua.LState) int {   //减伤
 	return 1
 }
 
-//export __ClacStrongPer
 func __ClacStrongPer(L* lua.LState) int {   //增输出伤比
 
 	std.LogInfo("__ClacStrongPer")
@@ -742,7 +723,7 @@ func __ClacStrongPer(L* lua.LState) int {   //增输出伤比
 
 	return 1
 }
-//export __ClacWeakPer
+
 func __ClacWeakPer(L* lua.LState) int {   //增承受伤比
 
 	std.LogInfo("__ClacStrongPer")
@@ -766,7 +747,6 @@ func __ClacWeakPer(L* lua.LState) int {   //增承受伤比
 	return 1
 }
 
-//export __ChangeSpecial
 func __ChangeSpecial(L* lua.LState) int {  //判断有无这个属性，有替换，么加上
 
 	std.LogInfo("__ChangeSpecial")
@@ -788,7 +768,7 @@ func __ChangeSpecial(L* lua.LState) int {  //判断有无这个属性，有替�
 
 	return 0
 }
-//export __PopSpec
+
 func __PopSpec(L* lua.LState) int {  //删除buff
 
 	std.LogInfo("__PopSpec")
@@ -814,7 +794,7 @@ func __PopSpec(L* lua.LState) int {  //删除buff
 
 	return 0
 }
-//export __GetSpecial
+
 func  __GetSpecial(L* lua.LState) int { //獲取spec相对应的buffid
 
 	std.LogInfo("__GetSpecial")
@@ -845,7 +825,7 @@ func  __GetSpecial(L* lua.LState) int { //獲取spec相对应的buffid
 	return 1
 
 }
-//export __GetOneSpecial
+
 func  __GetOneSpecial(L* lua.LState) int { //獲取spec相对应的buffid  实例id
 
 	std.LogInfo("__GetOneSpecial")
@@ -871,7 +851,6 @@ func  __GetOneSpecial(L* lua.LState) int { //獲取spec相对应的buffid  实�
 
 }
 
-//export __GetSpecialData
 func  __GetSpecialData(L* lua.LState) int { //獲取spec相对应的buffid s数值
 
 	std.LogInfo("__GetSpecialData")
@@ -908,7 +887,6 @@ func  __GetSpecialData(L* lua.LState) int { //獲取spec相对应的buffid s数�
 
 }
 
-//export __GetCheckSpec
 func __GetCheckSpec(L* lua.LState) int { //是否有特殊效果的buff
 
 	std.LogInfo("__GetCheckSpec")
@@ -941,7 +919,6 @@ func __GetCheckSpec(L* lua.LState) int { //是否有特殊效果的buff
 	
 }
 
-//export __GetBuffLockId
 func __GetBuffLockId(L* lua.LState) int { //是否有特殊效果的buff
 
 	std.LogInfo("__GetBuffLockId")
@@ -981,7 +958,6 @@ func __GetBuffLockId(L* lua.LState) int { //是否有特殊效果的buff
 
 }
 
-//export __GetTargets
 func __GetTargets(L* lua.LState) int {  //获取敌方多个目标
 
 	//std.LogInfo("__GetTargets")
@@ -1011,7 +987,7 @@ func __GetTargets(L* lua.LState) int {  //获取敌方多个目标
 
 	return 1
 }
-//export __GetTargetsAround
+
 func __GetTargetsAround(L* lua.LState) int {  //溅射目标
 
 	//std.LogInfo("__GetTargetsAround")
@@ -1044,7 +1020,6 @@ func __GetTargetsAround(L* lua.LState) int {  //溅射目标
 	return 1
 }
 
-//export __GetTargetsRandom
 func __GetTargetsRandom(L* lua.LState) int {  //溅射目标
 
 	//std.LogInfo("__GetTargetsRandom")
@@ -1075,7 +1050,6 @@ func __GetTargetsRandom(L* lua.LState) int {  //溅射目标
 	return 1
 }
 
-//export __GetFriends
 func __GetFriends(L* lua.LState) int {
 
 	//std.LogInfo("__GetTargets")
@@ -1106,7 +1080,6 @@ func __GetFriends(L* lua.LState) int {
 	return 1
 }
 
-//export __FrontTarget
 func __FrontTarget(L* lua.LState) int {		//获取前排人数
 
 	std.LogInfo("__FrontTarget")
@@ -1140,7 +1113,6 @@ func __FrontTarget(L* lua.LState) int {		//获取前排人数
 	return 1
 }
 
-//export __LineTraget
 func __LineTraget(L* lua.LState) int {		//获取纵排人数
 
 	std.LogInfo("__LineTraget")
@@ -1171,7 +1143,6 @@ func __LineTraget(L* lua.LState) int {		//获取纵排人数
 	return 1
 }
 
-//export __BackTarget
 func __BackTarget(L* lua.LState) int {		//获取后排人数
 
 	std.LogInfo("__BackTarget")
@@ -1204,7 +1175,6 @@ func __BackTarget(L* lua.LState) int {		//获取后排人数
 	return 1
 }
 
-//export __Attack
 func __Attack(L* lua.LState) int {
 
 	//std.LogInfo("__Attack battleid")
@@ -1230,7 +1200,6 @@ func __Attack(L* lua.LState) int {
 	return 0
 }
 
-//export __Cure
 func __Cure(L* lua.LState) int {
 
 	std.LogInfo("__Cure")
@@ -1254,7 +1223,6 @@ func __Cure(L* lua.LState) int {
 	return 0
 }
 
-//export __GetCrit
 func __GetCrit(L* lua.LState) int {   //判断暴击
 
 	
@@ -1268,7 +1236,6 @@ func __GetCrit(L* lua.LState) int {   //判断暴击
 	return 1
 }
 
-//export __GetTime
 func __GetTime(L* lua.LState) int {
 
 	//std.LogInfo("__GetTime")
@@ -1282,10 +1249,6 @@ func __GetTime(L* lua.LState) int {
 	return 1
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////
-
-//export __AddBuff
 func __AddBuff(L* lua.LState) int {
 
 	//std.LogInfo("__AddBuff")
@@ -1310,7 +1273,6 @@ func __AddBuff(L* lua.LState) int {
 	return 0
 }
 
-//export __HasBuff
 func __HasBuff(L* lua.LState) int {  //是否有增益buff
 
 	//std.LogInfo("__HasBuff")
@@ -1331,7 +1293,6 @@ func __HasBuff(L* lua.LState) int {  //是否有增益buff
 	return 1
 }
 
-//export __HasDebuff
 func __HasDebuff(L* lua.LState) int { //是否delbuff
 
 	//std.LogInfo("__HasDebuff")
@@ -1353,7 +1314,6 @@ func __HasDebuff(L* lua.LState) int { //是否delbuff
 	return 1
 }
 
-//export __AddSkillBuff
 func __AddSkillBuff(L* lua.LState) int {
 	//std.LogInfo("__AddSkillBuff")
 
@@ -1376,7 +1336,6 @@ func __AddSkillBuff(L* lua.LState) int {
 	return 0
 }
 
-//export __BuffMintsHp
 func __BuffMintsHp(L* lua.LState) int {  //掉血
 
 	std.LogInfo("__BuffMintsHp")

@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BattleBuffAction struct{
   sync.Mutex
@@ -45,12 +44,12 @@ func (this *COM_BattleBuffAction)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.BuffData!=0)
   mask.WriteBit(this.Dead)
   mask.WriteBit(true) //BuffChange
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -58,7 +57,7 @@ func (this *COM_BattleBuffAction)Serialize(buffer *bytes.Buffer) error {
   // serialize BuffData
   {
     if(this.BuffData!=0){
-      err := prpc.Write(buffer,this.BuffData)
+      err := Write(buffer,this.BuffData)
       if err != nil{
         return err
       }
@@ -80,13 +79,13 @@ func (this *COM_BattleBuffAction)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize BuffData
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.BuffData)
+    err := Read(buffer,&this.BuffData)
     if err != nil{
       return err
     }

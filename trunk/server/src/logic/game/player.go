@@ -108,7 +108,7 @@ func RemovePlayerByInstName(instName string){
 			PlayerStore = append(PlayerStore[:i],PlayerStore[i+1:]...)
 		}
 	}
-	std.LogInfo("RemovePlayerByInstName Name=",instName,"PlayerStore len=",len(PlayerStore))
+	std.LogInfo("RemovePlayerByInstName Name= %s PlayerStore len= %d",instName,len(PlayerStore))
 }
 
 func RemovePlayer(player *GamePlayer)  {
@@ -155,7 +155,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit.IsMain = true
 	p.Exp = 0
 
-	std.LogInfo("createplayer", DefaultUnits)
+	std.LogInfo("createplayer %s", string(DefaultUnits))
 	for _, e_id := range DefaultUnits {
 		p.NewGameUnit(e_id)
 	}
@@ -165,7 +165,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.InitUnitGroup()
 
 	for _,u := range p.UnitList{
-		std.LogInfo("Myself Unit InstId",u.InstId,"InstName",u.InstName)
+		std.LogInfo("Myself Unit InstId %d InstName %s",u.InstId,u.InstName)
 	}
 	p.SkillBase = map[int32]int32{}
 
@@ -364,7 +364,7 @@ func (this *GamePlayer) HasUnitByTableId(tableId int32) bool{
 
 func (this *GamePlayer) StudySkill(UnitID int64, skillpos int32, skillid int32) error {
 	if skillpos >= 2 {
-		std.LogInfo("技能位置錯誤")
+		std.Log("技能位置錯誤")
 		return errors.New("技能位置錯誤")
 	}
 	unit := this.GetUnit(UnitID)
@@ -400,7 +400,7 @@ func (this *GamePlayer) JoinBattle() {
 
 		battlePlayerList = battlePlayerList[:0]
 	}
-	std.LogInfo("JoinBattle", battlePlayerList)
+	std.LogInfo("JoinBattle %s", battlePlayerList)
 }
 
 func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
@@ -409,7 +409,7 @@ func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
 
 	CreatePvE(battlePlayerList[0], 1)
 
-	std.LogInfo("JoinBattlePvE", battlePlayerList)
+	std.LogInfo("JoinBattlePvE %s", battlePlayerList)
 }
 
 
@@ -437,7 +437,7 @@ func (this *GamePlayer) SetBattleUnit(instId int64) { //往战斗池里设置出
 		return //在出战设置你妹
 	}
 	this.BattleUnitList = append(this.BattleUnitList, instId)
-	std.LogInfo("SetBattleUnit ", this.BattleUnitList)
+	std.LogInfo("SetBattleUnit  %s", this.BattleUnitList)
 }
 
 func (this *GamePlayer)InitUnitGroup()  {

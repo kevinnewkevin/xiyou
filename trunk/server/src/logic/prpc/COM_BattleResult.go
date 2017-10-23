@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BattleResult struct{
   sync.Mutex
@@ -89,7 +88,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.Win!=0)
   mask.WriteBit(this.Money!=0)
   mask.WriteBit(this.Exp!=0)
@@ -98,7 +97,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.MySelfDeathNum!=0)
   mask.WriteBit(len(this.BattleItems) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -106,7 +105,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Win
   {
     if(this.Win!=0){
-      err := prpc.Write(buffer,this.Win)
+      err := Write(buffer,this.Win)
       if err != nil{
         return err
       }
@@ -115,7 +114,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Money
   {
     if(this.Money!=0){
-      err := prpc.Write(buffer,this.Money)
+      err := Write(buffer,this.Money)
       if err != nil{
         return err
       }
@@ -124,7 +123,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Exp
   {
     if(this.Exp!=0){
-      err := prpc.Write(buffer,this.Exp)
+      err := Write(buffer,this.Exp)
       if err != nil{
         return err
       }
@@ -133,13 +132,13 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize KillMonsters
   if len(this.KillMonsters) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.KillMonsters)))
+      err := Write(buffer,uint(len(this.KillMonsters)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.KillMonsters {
-      err := prpc.Write(buffer,value)
+      err := Write(buffer,value)
       if err != nil {
         return err
       }
@@ -148,7 +147,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleRound
   {
     if(this.BattleRound!=0){
-      err := prpc.Write(buffer,this.BattleRound)
+      err := Write(buffer,this.BattleRound)
       if err != nil{
         return err
       }
@@ -157,7 +156,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize MySelfDeathNum
   {
     if(this.MySelfDeathNum!=0){
-      err := prpc.Write(buffer,this.MySelfDeathNum)
+      err := Write(buffer,this.MySelfDeathNum)
       if err != nil{
         return err
       }
@@ -166,7 +165,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleItems
   if len(this.BattleItems) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.BattleItems)))
+      err := Write(buffer,uint(len(this.BattleItems)))
       if err != nil {
         return err
       }
@@ -184,27 +183,27 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Win
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Win)
+    err := Read(buffer,&this.Win)
     if err != nil{
       return err
     }
   }
   // deserialize Money
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Money)
+    err := Read(buffer,&this.Money)
     if err != nil{
       return err
     }
   }
   // deserialize Exp
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Exp)
+    err := Read(buffer,&this.Exp)
     if err != nil{
       return err
     }
@@ -212,13 +211,13 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
   // deserialize KillMonsters
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
     this.KillMonsters = make([]int32,size)
     for i,_ := range this.KillMonsters{
-      err := prpc.Read(buffer,&this.KillMonsters[i])
+      err := Read(buffer,&this.KillMonsters[i])
       if err != nil{
         return err
       }
@@ -226,14 +225,14 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
   }
   // deserialize BattleRound
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.BattleRound)
+    err := Read(buffer,&this.BattleRound)
     if err != nil{
       return err
     }
   }
   // deserialize MySelfDeathNum
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.MySelfDeathNum)
+    err := Read(buffer,&this.MySelfDeathNum)
     if err != nil{
       return err
     }
@@ -241,7 +240,7 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BattleItems
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

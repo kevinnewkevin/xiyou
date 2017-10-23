@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BattlePlayer struct{
   sync.Mutex
@@ -56,13 +55,13 @@ func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //Player
   mask.WriteBit(this.MaxPoint!=0)
   mask.WriteBit(this.CurPoint!=0)
   mask.WriteBit(len(this.BattlePosition) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -77,7 +76,7 @@ func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize MaxPoint
   {
     if(this.MaxPoint!=0){
-      err := prpc.Write(buffer,this.MaxPoint)
+      err := Write(buffer,this.MaxPoint)
       if err != nil{
         return err
       }
@@ -86,7 +85,7 @@ func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize CurPoint
   {
     if(this.CurPoint!=0){
-      err := prpc.Write(buffer,this.CurPoint)
+      err := Write(buffer,this.CurPoint)
       if err != nil{
         return err
       }
@@ -95,7 +94,7 @@ func (this *COM_BattlePlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize BattlePosition
   if len(this.BattlePosition) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.BattlePosition)))
+      err := Write(buffer,uint(len(this.BattlePosition)))
       if err != nil {
         return err
       }
@@ -113,7 +112,7 @@ func (this *COM_BattlePlayer)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -126,14 +125,14 @@ func (this *COM_BattlePlayer)Deserialize(buffer *bytes.Buffer) error{
   }
   // deserialize MaxPoint
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.MaxPoint)
+    err := Read(buffer,&this.MaxPoint)
     if err != nil{
       return err
     }
   }
   // deserialize CurPoint
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.CurPoint)
+    err := Read(buffer,&this.CurPoint)
     if err != nil{
       return err
     }
@@ -141,7 +140,7 @@ func (this *COM_BattlePlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BattlePosition
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

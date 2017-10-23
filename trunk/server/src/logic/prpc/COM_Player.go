@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_Player struct{
   sync.Mutex
@@ -100,7 +99,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.InstId!=0)
   mask.WriteBit(len(this.Name) != 0)
   mask.WriteBit(true) //Unit
@@ -110,7 +109,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.TianTiVal!=0)
   mask.WriteBit(len(this.SkillBase) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -118,7 +117,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := prpc.Write(buffer,this.InstId)
+      err := Write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -126,7 +125,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Name
   if len(this.Name) != 0{
-    err := prpc.Write(buffer,this.Name)
+    err := Write(buffer,this.Name)
     if err != nil {
       return err
     }
@@ -141,7 +140,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize Employees
   if len(this.Employees) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.Employees)))
+      err := Write(buffer,uint(len(this.Employees)))
       if err != nil {
         return err
       }
@@ -156,7 +155,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize Chapters
   if len(this.Chapters) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.Chapters)))
+      err := Write(buffer,uint(len(this.Chapters)))
       if err != nil {
         return err
       }
@@ -171,7 +170,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitGroup
   if len(this.UnitGroup) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.UnitGroup)))
+      err := Write(buffer,uint(len(this.UnitGroup)))
       if err != nil {
         return err
       }
@@ -186,7 +185,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize TianTiVal
   {
     if(this.TianTiVal!=0){
-      err := prpc.Write(buffer,this.TianTiVal)
+      err := Write(buffer,this.TianTiVal)
       if err != nil{
         return err
       }
@@ -195,7 +194,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillBase
   if len(this.SkillBase) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.SkillBase)))
+      err := Write(buffer,uint(len(this.SkillBase)))
       if err != nil {
         return err
       }
@@ -213,20 +212,20 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize InstId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.InstId)
+    err := Read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Name
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Name)
+    err := Read(buffer,&this.Name)
     if err != nil{
       return err
     }
@@ -241,7 +240,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Employees
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -256,7 +255,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Chapters
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -271,7 +270,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize UnitGroup
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -285,7 +284,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   }
   // deserialize TianTiVal
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.TianTiVal)
+    err := Read(buffer,&this.TianTiVal)
     if err != nil{
       return err
     }
@@ -293,7 +292,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize SkillBase
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

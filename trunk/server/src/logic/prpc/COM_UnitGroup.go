@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_UnitGroup struct{
   sync.Mutex
@@ -34,11 +33,11 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.GroupId!=0)
   mask.WriteBit(len(this.UnitList) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -46,7 +45,7 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   // serialize GroupId
   {
     if(this.GroupId!=0){
-      err := prpc.Write(buffer,this.GroupId)
+      err := Write(buffer,this.GroupId)
       if err != nil{
         return err
       }
@@ -55,13 +54,13 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitList
   if len(this.UnitList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.UnitList)))
+      err := Write(buffer,uint(len(this.UnitList)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.UnitList {
-      err := prpc.Write(buffer,value)
+      err := Write(buffer,value)
       if err != nil {
         return err
       }
@@ -73,13 +72,13 @@ func (this *COM_UnitGroup)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize GroupId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.GroupId)
+    err := Read(buffer,&this.GroupId)
     if err != nil{
       return err
     }
@@ -87,13 +86,13 @@ func (this *COM_UnitGroup)Deserialize(buffer *bytes.Buffer) error{
   // deserialize UnitList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
     this.UnitList = make([]int64,size)
     for i,_ := range this.UnitList{
-      err := prpc.Read(buffer,&this.UnitList[i])
+      err := Read(buffer,&this.UnitList[i])
       if err != nil{
         return err
       }

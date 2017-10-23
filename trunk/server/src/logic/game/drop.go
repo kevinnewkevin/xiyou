@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-	"suzuki/conf"
+	"logic/conf"
 )
 
 //////////////////权重随机////////////////////////////////////////

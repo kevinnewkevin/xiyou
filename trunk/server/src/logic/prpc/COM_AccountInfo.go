@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_AccountInfo struct{
   sync.Mutex
@@ -34,18 +33,18 @@ func (this *COM_AccountInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(len(this.SessionCode) != 0)
   mask.WriteBit(true) //MyPlayer
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
   }
   // serialize SessionCode
   if len(this.SessionCode) != 0{
-    err := prpc.Write(buffer,this.SessionCode)
+    err := Write(buffer,this.SessionCode)
     if err != nil {
       return err
     }
@@ -63,13 +62,13 @@ func (this *COM_AccountInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize SessionCode
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.SessionCode)
+    err := Read(buffer,&this.SessionCode)
     if err != nil{
       return err
     }

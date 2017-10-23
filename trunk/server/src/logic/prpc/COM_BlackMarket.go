@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BlackMarket struct{
   sync.Mutex
@@ -45,12 +44,12 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.RefreshTime!=0)
   mask.WriteBit(this.RefreshNum!=0)
   mask.WriteBit(len(this.ShopItems) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -58,7 +57,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize RefreshTime
   {
     if(this.RefreshTime!=0){
-      err := prpc.Write(buffer,this.RefreshTime)
+      err := Write(buffer,this.RefreshTime)
       if err != nil{
         return err
       }
@@ -67,7 +66,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize RefreshNum
   {
     if(this.RefreshNum!=0){
-      err := prpc.Write(buffer,this.RefreshNum)
+      err := Write(buffer,this.RefreshNum)
       if err != nil{
         return err
       }
@@ -76,7 +75,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize ShopItems
   if len(this.ShopItems) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.ShopItems)))
+      err := Write(buffer,uint(len(this.ShopItems)))
       if err != nil {
         return err
       }
@@ -94,20 +93,20 @@ func (this *COM_BlackMarket)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize RefreshTime
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.RefreshTime)
+    err := Read(buffer,&this.RefreshTime)
     if err != nil{
       return err
     }
   }
   // deserialize RefreshNum
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.RefreshNum)
+    err := Read(buffer,&this.RefreshNum)
     if err != nil{
       return err
     }
@@ -115,7 +114,7 @@ func (this *COM_BlackMarket)Deserialize(buffer *bytes.Buffer) error{
   // deserialize ShopItems
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

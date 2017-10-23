@@ -3,7 +3,7 @@ package game
 import (
 	"logic/prpc"
 	"strconv"
-	"suzuki/conf"
+	"logic/conf"
 	"strings"
 	"fmt"
 )

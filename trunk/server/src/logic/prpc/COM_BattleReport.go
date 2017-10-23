@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BattleReport struct{
   sync.Mutex
@@ -45,12 +44,12 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.BattleID!=0)
   mask.WriteBit(len(this.UnitList) != 0)
   mask.WriteBit(len(this.ActionList) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -58,7 +57,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleID
   {
     if(this.BattleID!=0){
-      err := prpc.Write(buffer,this.BattleID)
+      err := Write(buffer,this.BattleID)
       if err != nil{
         return err
       }
@@ -67,7 +66,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitList
   if len(this.UnitList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.UnitList)))
+      err := Write(buffer,uint(len(this.UnitList)))
       if err != nil {
         return err
       }
@@ -82,7 +81,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize ActionList
   if len(this.ActionList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.ActionList)))
+      err := Write(buffer,uint(len(this.ActionList)))
       if err != nil {
         return err
       }
@@ -100,13 +99,13 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize BattleID
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.BattleID)
+    err := Read(buffer,&this.BattleID)
     if err != nil{
       return err
     }
@@ -114,7 +113,7 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   // deserialize UnitList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -129,7 +128,7 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   // deserialize ActionList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

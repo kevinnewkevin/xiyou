@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_UnitInfo struct{
   sync.Mutex
@@ -111,7 +110,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(2)
+  mask := NewMask1(2)
   mask.WriteBit(this.InstId!=0)
   mask.WriteBit(this.UnitId!=0)
   mask.WriteBit(this.Level!=0)
@@ -122,7 +121,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(this.MATK!=0)
   mask.WriteBit(this.MDEF!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -130,7 +129,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := prpc.Write(buffer,this.InstId)
+      err := Write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -139,7 +138,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitId
   {
     if(this.UnitId!=0){
-      err := prpc.Write(buffer,this.UnitId)
+      err := Write(buffer,this.UnitId)
       if err != nil{
         return err
       }
@@ -148,7 +147,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize Level
   {
     if(this.Level!=0){
-      err := prpc.Write(buffer,this.Level)
+      err := Write(buffer,this.Level)
       if err != nil{
         return err
       }
@@ -157,7 +156,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize HP
   {
     if(this.HP!=0){
-      err := prpc.Write(buffer,this.HP)
+      err := Write(buffer,this.HP)
       if err != nil{
         return err
       }
@@ -166,7 +165,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize AGILE
   {
     if(this.AGILE!=0){
-      err := prpc.Write(buffer,this.AGILE)
+      err := Write(buffer,this.AGILE)
       if err != nil{
         return err
       }
@@ -175,7 +174,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize ATK
   {
     if(this.ATK!=0){
-      err := prpc.Write(buffer,this.ATK)
+      err := Write(buffer,this.ATK)
       if err != nil{
         return err
       }
@@ -184,7 +183,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize DEF
   {
     if(this.DEF!=0){
-      err := prpc.Write(buffer,this.DEF)
+      err := Write(buffer,this.DEF)
       if err != nil{
         return err
       }
@@ -193,7 +192,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize MATK
   {
     if(this.MATK!=0){
-      err := prpc.Write(buffer,this.MATK)
+      err := Write(buffer,this.MATK)
       if err != nil{
         return err
       }
@@ -202,7 +201,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize MDEF
   {
     if(this.MDEF!=0){
-      err := prpc.Write(buffer,this.MDEF)
+      err := Write(buffer,this.MDEF)
       if err != nil{
         return err
       }
@@ -214,69 +213,69 @@ func (this *COM_UnitInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,2);
+  mask, err:= NewMask0(buffer,2);
   if err != nil{
     return err
   }
   // deserialize InstId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.InstId)
+    err := Read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize UnitId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.UnitId)
+    err := Read(buffer,&this.UnitId)
     if err != nil{
       return err
     }
   }
   // deserialize Level
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Level)
+    err := Read(buffer,&this.Level)
     if err != nil{
       return err
     }
   }
   // deserialize HP
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.HP)
+    err := Read(buffer,&this.HP)
     if err != nil{
       return err
     }
   }
   // deserialize AGILE
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.AGILE)
+    err := Read(buffer,&this.AGILE)
     if err != nil{
       return err
     }
   }
   // deserialize ATK
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.ATK)
+    err := Read(buffer,&this.ATK)
     if err != nil{
       return err
     }
   }
   // deserialize DEF
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.DEF)
+    err := Read(buffer,&this.DEF)
     if err != nil{
       return err
     }
   }
   // deserialize MATK
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.MATK)
+    err := Read(buffer,&this.MATK)
     if err != nil{
       return err
     }
   }
   // deserialize MDEF
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.MDEF)
+    err := Read(buffer,&this.MDEF)
     if err != nil{
       return err
     }

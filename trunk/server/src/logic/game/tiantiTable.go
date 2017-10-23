@@ -1,7 +1,7 @@
 package game
 
 import (
-	"suzuki/conf"
+	"logic/conf"
 )
 
 type (

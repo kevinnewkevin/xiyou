@@ -2,7 +2,6 @@ package prpc
 import(
   "bytes"
   "encoding/json"
-  "suzuki/prpc"
 )
 type SGE_DBPlayer struct{
   COM_Player
@@ -94,7 +93,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.PlayerId!=0)
   mask.WriteBit(len(this.Username) != 0)
   mask.WriteBit(this.LoginTime!=0)
@@ -103,7 +102,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   mask.WriteBit(len(this.BagItemList) != 0)
   mask.WriteBit(true) //BlackMarketData
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -111,7 +110,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize PlayerId
   {
     if(this.PlayerId!=0){
-      err := prpc.Write(buffer,this.PlayerId)
+      err := Write(buffer,this.PlayerId)
       if err != nil{
         return err
       }
@@ -119,7 +118,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Username
   if len(this.Username) != 0{
-    err := prpc.Write(buffer,this.Username)
+    err := Write(buffer,this.Username)
     if err != nil {
       return err
     }
@@ -127,7 +126,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize LoginTime
   {
     if(this.LoginTime!=0){
-      err := prpc.Write(buffer,this.LoginTime)
+      err := Write(buffer,this.LoginTime)
       if err != nil{
         return err
       }
@@ -136,7 +135,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize LogoutTime
   {
     if(this.LogoutTime!=0){
-      err := prpc.Write(buffer,this.LogoutTime)
+      err := Write(buffer,this.LogoutTime)
       if err != nil{
         return err
       }
@@ -145,7 +144,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleGroupIdx
   {
     if(this.BattleGroupIdx!=0){
-      err := prpc.Write(buffer,this.BattleGroupIdx)
+      err := Write(buffer,this.BattleGroupIdx)
       if err != nil{
         return err
       }
@@ -154,7 +153,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize BagItemList
   if len(this.BagItemList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.BagItemList)))
+      err := Write(buffer,uint(len(this.BagItemList)))
       if err != nil {
         return err
       }
@@ -182,41 +181,41 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize PlayerId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.PlayerId)
+    err := Read(buffer,&this.PlayerId)
     if err != nil{
       return err
     }
   }
   // deserialize Username
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Username)
+    err := Read(buffer,&this.Username)
     if err != nil{
       return err
     }
   }
   // deserialize LoginTime
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.LoginTime)
+    err := Read(buffer,&this.LoginTime)
     if err != nil{
       return err
     }
   }
   // deserialize LogoutTime
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.LogoutTime)
+    err := Read(buffer,&this.LogoutTime)
     if err != nil{
       return err
     }
   }
   // deserialize BattleGroupIdx
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.BattleGroupIdx)
+    err := Read(buffer,&this.BattleGroupIdx)
     if err != nil{
       return err
     }
@@ -224,7 +223,7 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BagItemList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

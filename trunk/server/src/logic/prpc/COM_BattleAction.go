@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_BattleAction struct{
   sync.Mutex
@@ -67,14 +66,14 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.InstId!=0)
   mask.WriteBit(len(this.BuffList) != 0)
   mask.WriteBit(this.SkillId!=0)
   mask.WriteBit(len(this.SkillBuff) != 0)
   mask.WriteBit(len(this.TargetList) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -82,7 +81,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := prpc.Write(buffer,this.InstId)
+      err := Write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -91,7 +90,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize BuffList
   if len(this.BuffList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.BuffList)))
+      err := Write(buffer,uint(len(this.BuffList)))
       if err != nil {
         return err
       }
@@ -106,7 +105,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillId
   {
     if(this.SkillId!=0){
-      err := prpc.Write(buffer,this.SkillId)
+      err := Write(buffer,this.SkillId)
       if err != nil{
         return err
       }
@@ -115,7 +114,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillBuff
   if len(this.SkillBuff) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.SkillBuff)))
+      err := Write(buffer,uint(len(this.SkillBuff)))
       if err != nil {
         return err
       }
@@ -130,7 +129,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize TargetList
   if len(this.TargetList) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.TargetList)))
+      err := Write(buffer,uint(len(this.TargetList)))
       if err != nil {
         return err
       }
@@ -148,13 +147,13 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize InstId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.InstId)
+    err := Read(buffer,&this.InstId)
     if err != nil{
       return err
     }
@@ -162,7 +161,7 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BuffList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -176,7 +175,7 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   }
   // deserialize SkillId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.SkillId)
+    err := Read(buffer,&this.SkillId)
     if err != nil{
       return err
     }
@@ -184,7 +183,7 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   // deserialize SkillBuff
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -199,7 +198,7 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   // deserialize TargetList
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }

@@ -2,7 +2,6 @@ package prpc
 import(
   "bytes"
   "errors"
-  "suzuki/prpc"
 )
 type COM_ServerToClient_ErrorMessage struct{
   id int  //0
@@ -78,7 +77,7 @@ type COM_ServerToClient_SycnBlackMarkte struct{
   data COM_BlackMarket  //0
 }
 type COM_ServerToClientStub struct{
-  Sender prpc.StubSender
+  Sender StubSender
 }
 type COM_ServerToClientProxy interface{
   ErrorMessage(id int ) error // 0
@@ -108,10 +107,10 @@ type COM_ServerToClientProxy interface{
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.id!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -119,7 +118,7 @@ func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) erro
   // serialize id
   {
     if(this.id!=0){
-      err := prpc.Write(buffer,this.id)
+      err := Write(buffer,this.id)
       if err != nil{
         return err
       }
@@ -129,13 +128,13 @@ func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_ErrorMessage)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize id
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.id)
+    err := Read(buffer,&this.id)
     if err != nil{
       return err
     }
@@ -144,10 +143,10 @@ func (this *COM_ServerToClient_ErrorMessage)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_LoginOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //info
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -163,7 +162,7 @@ func (this *COM_ServerToClient_LoginOK)Serialize(buffer *bytes.Buffer) error {
 }
 func (this *COM_ServerToClient_LoginOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -178,10 +177,10 @@ func (this *COM_ServerToClient_LoginOK)Deserialize(buffer *bytes.Buffer) error{
 }
 func (this *COM_ServerToClient_CreatePlayerOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //player
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -197,7 +196,7 @@ func (this *COM_ServerToClient_CreatePlayerOK)Serialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_CreatePlayerOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -212,13 +211,13 @@ func (this *COM_ServerToClient_CreatePlayerOK)Deserialize(buffer *bytes.Buffer) 
 }
 func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.Camp!=0)
   mask.WriteBit(this.battleid!=0)
   mask.WriteBit(len(this.targetcards) != 0)
   mask.WriteBit(len(this.MainUnit) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -226,7 +225,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize Camp
   {
     if(this.Camp!=0){
-      err := prpc.Write(buffer,this.Camp)
+      err := Write(buffer,this.Camp)
       if err != nil{
         return err
       }
@@ -235,7 +234,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize battleid
   {
     if(this.battleid!=0){
-      err := prpc.Write(buffer,this.battleid)
+      err := Write(buffer,this.battleid)
       if err != nil{
         return err
       }
@@ -244,13 +243,13 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize targetcards
   if len(this.targetcards) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.targetcards)))
+      err := Write(buffer,uint(len(this.targetcards)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.targetcards {
-      err := prpc.Write(buffer,value)
+      err := Write(buffer,value)
       if err != nil {
         return err
       }
@@ -259,7 +258,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize MainUnit
   if len(this.MainUnit) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.MainUnit)))
+      err := Write(buffer,uint(len(this.MainUnit)))
       if err != nil {
         return err
       }
@@ -275,20 +274,20 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Camp
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.Camp)
+    err := Read(buffer,&this.Camp)
     if err != nil{
       return err
     }
   }
   // deserialize battleid
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.battleid)
+    err := Read(buffer,&this.battleid)
     if err != nil{
       return err
     }
@@ -296,13 +295,13 @@ func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) er
   // deserialize targetcards
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
     this.targetcards = make([]int32,size)
     for i,_ := range this.targetcards{
-      err := prpc.Read(buffer,&this.targetcards[i])
+      err := Read(buffer,&this.targetcards[i])
       if err != nil{
         return err
       }
@@ -311,7 +310,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) er
   // deserialize MainUnit
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -327,10 +326,10 @@ func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.instId!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -338,7 +337,7 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) e
   // serialize instId
   {
     if(this.instId!=0){
-      err := prpc.Write(buffer,this.instId)
+      err := Write(buffer,this.instId)
       if err != nil{
         return err
       }
@@ -348,13 +347,13 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SetBattleUnitOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.instId)
+    err := Read(buffer,&this.instId)
     if err != nil{
       return err
     }
@@ -363,10 +362,10 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_BattleReport)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //report
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -382,7 +381,7 @@ func (this *COM_ServerToClient_BattleReport)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -397,10 +396,10 @@ func (this *COM_ServerToClient_BattleReport)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_BattleExit)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //result
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -416,7 +415,7 @@ func (this *COM_ServerToClient_BattleExit)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_BattleExit)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -431,10 +430,10 @@ func (this *COM_ServerToClient_BattleExit)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_OpenChapter)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //data
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -450,7 +449,7 @@ func (this *COM_ServerToClient_OpenChapter)Serialize(buffer *bytes.Buffer) error
 }
 func (this *COM_ServerToClient_OpenChapter)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -465,10 +464,10 @@ func (this *COM_ServerToClient_OpenChapter)Deserialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_SycnChapterData)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //data
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -484,7 +483,7 @@ func (this *COM_ServerToClient_SycnChapterData)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SycnChapterData)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -499,10 +498,10 @@ func (this *COM_ServerToClient_SycnChapterData)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(len(this.items) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -510,7 +509,7 @@ func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) erro
   // serialize items
   if len(this.items) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.items)))
+      err := Write(buffer,uint(len(this.items)))
       if err != nil {
         return err
       }
@@ -526,14 +525,14 @@ func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_InitBagItems)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize items
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -549,10 +548,10 @@ func (this *COM_ServerToClient_InitBagItems)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_AddBagItem)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //item
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -568,7 +567,7 @@ func (this *COM_ServerToClient_AddBagItem)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_AddBagItem)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -583,10 +582,10 @@ func (this *COM_ServerToClient_AddBagItem)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_UpdateBagItem)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //item
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -602,7 +601,7 @@ func (this *COM_ServerToClient_UpdateBagItem)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -617,10 +616,10 @@ func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.instId!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -628,7 +627,7 @@ func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) erro
   // serialize instId
   {
     if(this.instId!=0){
-      err := prpc.Write(buffer,this.instId)
+      err := Write(buffer,this.instId)
       if err != nil{
         return err
       }
@@ -638,13 +637,13 @@ func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_DeleteItemOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.instId)
+    err := Read(buffer,&this.instId)
     if err != nil{
       return err
     }
@@ -653,10 +652,10 @@ func (this *COM_ServerToClient_DeleteItemOK)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.curVal!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -664,7 +663,7 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) e
   // serialize curVal
   {
     if(this.curVal!=0){
-      err := prpc.Write(buffer,this.curVal)
+      err := Write(buffer,this.curVal)
       if err != nil{
         return err
       }
@@ -674,13 +673,13 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize curVal
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.curVal)
+    err := Read(buffer,&this.curVal)
     if err != nil{
       return err
     }
@@ -689,12 +688,12 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.instid!=0)
   mask.WriteBit(this.iType!=0)
   mask.WriteBit(this.value!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -702,7 +701,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize instid
   {
     if(this.instid!=0){
-      err := prpc.Write(buffer,this.instid)
+      err := Write(buffer,this.instid)
       if err != nil{
         return err
       }
@@ -711,7 +710,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize iType
   {
     if(this.iType!=0){
-      err := prpc.Write(buffer,this.iType)
+      err := Write(buffer,this.iType)
       if err != nil{
         return err
       }
@@ -720,7 +719,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize value
   {
     if(this.value!=0){
-      err := prpc.Write(buffer,this.value)
+      err := Write(buffer,this.value)
       if err != nil{
         return err
       }
@@ -730,27 +729,27 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
 }
 func (this *COM_ServerToClient_UpdateUnitIProperty)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instid
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.instid)
+    err := Read(buffer,&this.instid)
     if err != nil{
       return err
     }
   }
   // deserialize iType
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.iType)
+    err := Read(buffer,&this.iType)
     if err != nil{
       return err
     }
   }
   // deserialize value
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.value)
+    err := Read(buffer,&this.value)
     if err != nil{
       return err
     }
@@ -759,12 +758,12 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Deserialize(buffer *bytes.Buf
 }
 func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.instid!=0)
   mask.WriteBit(this.cType!=0)
   mask.WriteBit(this.value!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -772,7 +771,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize instid
   {
     if(this.instid!=0){
-      err := prpc.Write(buffer,this.instid)
+      err := Write(buffer,this.instid)
       if err != nil{
         return err
       }
@@ -781,7 +780,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize cType
   {
     if(this.cType!=0){
-      err := prpc.Write(buffer,this.cType)
+      err := Write(buffer,this.cType)
       if err != nil{
         return err
       }
@@ -790,7 +789,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize value
   {
     if(this.value!=0){
-      err := prpc.Write(buffer,this.value)
+      err := Write(buffer,this.value)
       if err != nil{
         return err
       }
@@ -800,27 +799,27 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
 }
 func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instid
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.instid)
+    err := Read(buffer,&this.instid)
     if err != nil{
       return err
     }
   }
   // deserialize cType
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.cType)
+    err := Read(buffer,&this.cType)
     if err != nil{
       return err
     }
   }
   // deserialize value
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.value)
+    err := Read(buffer,&this.value)
     if err != nil{
       return err
     }
@@ -829,11 +828,11 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buf
 }
 func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.skillIndex!=0)
   mask.WriteBit(this.skillID!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -841,7 +840,7 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
   // serialize skillIndex
   {
     if(this.skillIndex!=0){
-      err := prpc.Write(buffer,this.skillIndex)
+      err := Write(buffer,this.skillIndex)
       if err != nil{
         return err
       }
@@ -850,7 +849,7 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
   // serialize skillID
   {
     if(this.skillID!=0){
-      err := prpc.Write(buffer,this.skillID)
+      err := Write(buffer,this.skillID)
       if err != nil{
         return err
       }
@@ -860,20 +859,20 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_EquipSkillOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize skillIndex
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.skillIndex)
+    err := Read(buffer,&this.skillIndex)
     if err != nil{
       return err
     }
   }
   // deserialize skillID
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.skillID)
+    err := Read(buffer,&this.skillID)
     if err != nil{
       return err
     }
@@ -882,12 +881,12 @@ func (this *COM_ServerToClient_EquipSkillOK)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.skillIndex!=0)
   mask.WriteBit(this.skillID!=0)
   mask.WriteBit(this.skillpos!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -895,7 +894,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillIndex
   {
     if(this.skillIndex!=0){
-      err := prpc.Write(buffer,this.skillIndex)
+      err := Write(buffer,this.skillIndex)
       if err != nil{
         return err
       }
@@ -904,7 +903,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillID
   {
     if(this.skillID!=0){
-      err := prpc.Write(buffer,this.skillID)
+      err := Write(buffer,this.skillID)
       if err != nil{
         return err
       }
@@ -913,7 +912,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillpos
   {
     if(this.skillpos!=0){
-      err := prpc.Write(buffer,this.skillpos)
+      err := Write(buffer,this.skillpos)
       if err != nil{
         return err
       }
@@ -923,27 +922,27 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize skillIndex
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.skillIndex)
+    err := Read(buffer,&this.skillIndex)
     if err != nil{
       return err
     }
   }
   // deserialize skillID
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.skillID)
+    err := Read(buffer,&this.skillID)
     if err != nil{
       return err
     }
   }
   // deserialize skillpos
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.skillpos)
+    err := Read(buffer,&this.skillpos)
     if err != nil{
       return err
     }
@@ -952,10 +951,10 @@ func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(len(this.items) != 0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -963,7 +962,7 @@ func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) err
   // serialize items
   if len(this.items) != 0{
     {
-      err := prpc.Write(buffer,uint(len(this.items)))
+      err := Write(buffer,uint(len(this.items)))
       if err != nil {
         return err
       }
@@ -979,14 +978,14 @@ func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize items
   if mask.ReadBit() {
     var size uint
-    err := prpc.Read(buffer,&size)
+    err := Read(buffer,&size)
     if err != nil{
       return err
     }
@@ -1002,10 +1001,10 @@ func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_AddNewUnit)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //unit
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -1021,7 +1020,7 @@ func (this *COM_ServerToClient_AddNewUnit)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -1036,10 +1035,10 @@ func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_SycnBlackMarkte)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(true) //data
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -1055,7 +1054,7 @@ func (this *COM_ServerToClient_SycnBlackMarkte)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SycnBlackMarkte)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -1071,9 +1070,9 @@ func (this *COM_ServerToClient_SycnBlackMarkte)Deserialize(buffer *bytes.Buffer)
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(0))
+  err := Write(buffer,uint16(0))
   if err != nil{
     return err
   }
@@ -1088,9 +1087,9 @@ func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
 func(this* COM_ServerToClientStub)LoginOK(info COM_AccountInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(1))
+  err := Write(buffer,uint16(1))
   if err != nil{
     return err
   }
@@ -1105,9 +1104,9 @@ func(this* COM_ServerToClientStub)LoginOK(info COM_AccountInfo ) error {
 func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(2))
+  err := Write(buffer,uint16(2))
   if err != nil{
     return err
   }
@@ -1122,9 +1121,9 @@ func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
 func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targetcards []int32, MainUnit []COM_BattleUnit ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(3))
+  err := Write(buffer,uint16(3))
   if err != nil{
     return err
   }
@@ -1142,9 +1141,9 @@ func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targe
 func(this* COM_ServerToClientStub)SetupBattleOK() error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(4))
+  err := Write(buffer,uint16(4))
   if err != nil{
     return err
   }
@@ -1153,9 +1152,9 @@ func(this* COM_ServerToClientStub)SetupBattleOK() error {
 func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(5))
+  err := Write(buffer,uint16(5))
   if err != nil{
     return err
   }
@@ -1170,9 +1169,9 @@ func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
 func(this* COM_ServerToClientStub)BattleReport(report COM_BattleReport ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(6))
+  err := Write(buffer,uint16(6))
   if err != nil{
     return err
   }
@@ -1187,9 +1186,9 @@ func(this* COM_ServerToClientStub)BattleReport(report COM_BattleReport ) error {
 func(this* COM_ServerToClientStub)BattleExit(result COM_BattleResult ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(7))
+  err := Write(buffer,uint16(7))
   if err != nil{
     return err
   }
@@ -1204,9 +1203,9 @@ func(this* COM_ServerToClientStub)BattleExit(result COM_BattleResult ) error {
 func(this* COM_ServerToClientStub)OpenChapter(data COM_Chapter ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(8))
+  err := Write(buffer,uint16(8))
   if err != nil{
     return err
   }
@@ -1221,9 +1220,9 @@ func(this* COM_ServerToClientStub)OpenChapter(data COM_Chapter ) error {
 func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(9))
+  err := Write(buffer,uint16(9))
   if err != nil{
     return err
   }
@@ -1238,9 +1237,9 @@ func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
 func(this* COM_ServerToClientStub)InitBagItems(items []COM_ItemInst ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(10))
+  err := Write(buffer,uint16(10))
   if err != nil{
     return err
   }
@@ -1255,9 +1254,9 @@ func(this* COM_ServerToClientStub)InitBagItems(items []COM_ItemInst ) error {
 func(this* COM_ServerToClientStub)AddBagItem(item COM_ItemInst ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(11))
+  err := Write(buffer,uint16(11))
   if err != nil{
     return err
   }
@@ -1272,9 +1271,9 @@ func(this* COM_ServerToClientStub)AddBagItem(item COM_ItemInst ) error {
 func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(12))
+  err := Write(buffer,uint16(12))
   if err != nil{
     return err
   }
@@ -1289,9 +1288,9 @@ func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
 func(this* COM_ServerToClientStub)DeleteItemOK(instId int64 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(13))
+  err := Write(buffer,uint16(13))
   if err != nil{
     return err
   }
@@ -1306,9 +1305,9 @@ func(this* COM_ServerToClientStub)DeleteItemOK(instId int64 ) error {
 func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(14))
+  err := Write(buffer,uint16(14))
   if err != nil{
     return err
   }
@@ -1323,9 +1322,9 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
 func(this* COM_ServerToClientStub)UpdateUnitIProperty(instid int64, iType int32, value int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(15))
+  err := Write(buffer,uint16(15))
   if err != nil{
     return err
   }
@@ -1342,9 +1341,9 @@ func(this* COM_ServerToClientStub)UpdateUnitIProperty(instid int64, iType int32,
 func(this* COM_ServerToClientStub)UpdateUnitCProperty(instid int64, cType int32, value float32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(16))
+  err := Write(buffer,uint16(16))
   if err != nil{
     return err
   }
@@ -1361,9 +1360,9 @@ func(this* COM_ServerToClientStub)UpdateUnitCProperty(instid int64, cType int32,
 func(this* COM_ServerToClientStub)PromoteUnitOK() error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(17))
+  err := Write(buffer,uint16(17))
   if err != nil{
     return err
   }
@@ -1372,9 +1371,9 @@ func(this* COM_ServerToClientStub)PromoteUnitOK() error {
 func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(18))
+  err := Write(buffer,uint16(18))
   if err != nil{
     return err
   }
@@ -1383,9 +1382,9 @@ func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
 func(this* COM_ServerToClientStub)EquipSkillOK(skillIndex int32, skillID int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(19))
+  err := Write(buffer,uint16(19))
   if err != nil{
     return err
   }
@@ -1401,9 +1400,9 @@ func(this* COM_ServerToClientStub)EquipSkillOK(skillIndex int32, skillID int32 )
 func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32, skillpos int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(20))
+  err := Write(buffer,uint16(20))
   if err != nil{
     return err
   }
@@ -1420,9 +1419,9 @@ func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32,
 func(this* COM_ServerToClientStub)BuyShopItemOK(items []COM_ItemInst ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(21))
+  err := Write(buffer,uint16(21))
   if err != nil{
     return err
   }
@@ -1437,9 +1436,9 @@ func(this* COM_ServerToClientStub)BuyShopItemOK(items []COM_ItemInst ) error {
 func(this* COM_ServerToClientStub)AddNewUnit(unit COM_Unit ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(22))
+  err := Write(buffer,uint16(22))
   if err != nil{
     return err
   }
@@ -1454,9 +1453,9 @@ func(this* COM_ServerToClientStub)AddNewUnit(unit COM_Unit ) error {
 func(this* COM_ServerToClientStub)SycnBlackMarkte(data COM_BlackMarket ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
-  err := prpc.Write(buffer,uint16(23))
+  err := Write(buffer,uint16(23))
   if err != nil{
     return err
   }
@@ -1470,10 +1469,10 @@ func(this* COM_ServerToClientStub)SycnBlackMarkte(data COM_BlackMarket ) error {
 }
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _0 := COM_ServerToClient_ErrorMessage{}
   err := _0.Deserialize(buffer)
@@ -1484,10 +1483,10 @@ func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_LoginOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _1 := COM_ServerToClient_LoginOK{}
   err := _1.Deserialize(buffer)
@@ -1498,10 +1497,10 @@ func Bridging_COM_ServerToClient_LoginOK(buffer *bytes.Buffer, p COM_ServerToCli
 }
 func Bridging_COM_ServerToClient_CreatePlayerOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _2 := COM_ServerToClient_CreatePlayerOK{}
   err := _2.Deserialize(buffer)
@@ -1512,10 +1511,10 @@ func Bridging_COM_ServerToClient_CreatePlayerOK(buffer *bytes.Buffer, p COM_Serv
 }
 func Bridging_COM_ServerToClient_JoinBattleOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _3 := COM_ServerToClient_JoinBattleOk{}
   err := _3.Deserialize(buffer)
@@ -1526,19 +1525,19 @@ func Bridging_COM_ServerToClient_JoinBattleOk(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_SetupBattleOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   return p.SetupBattleOK()
 }
 func Bridging_COM_ServerToClient_SetBattleUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _5 := COM_ServerToClient_SetBattleUnitOK{}
   err := _5.Deserialize(buffer)
@@ -1549,10 +1548,10 @@ func Bridging_COM_ServerToClient_SetBattleUnitOK(buffer *bytes.Buffer, p COM_Ser
 }
 func Bridging_COM_ServerToClient_BattleReport(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _6 := COM_ServerToClient_BattleReport{}
   err := _6.Deserialize(buffer)
@@ -1563,10 +1562,10 @@ func Bridging_COM_ServerToClient_BattleReport(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_BattleExit(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _7 := COM_ServerToClient_BattleExit{}
   err := _7.Deserialize(buffer)
@@ -1577,10 +1576,10 @@ func Bridging_COM_ServerToClient_BattleExit(buffer *bytes.Buffer, p COM_ServerTo
 }
 func Bridging_COM_ServerToClient_OpenChapter(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _8 := COM_ServerToClient_OpenChapter{}
   err := _8.Deserialize(buffer)
@@ -1591,10 +1590,10 @@ func Bridging_COM_ServerToClient_OpenChapter(buffer *bytes.Buffer, p COM_ServerT
 }
 func Bridging_COM_ServerToClient_SycnChapterData(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _9 := COM_ServerToClient_SycnChapterData{}
   err := _9.Deserialize(buffer)
@@ -1605,10 +1604,10 @@ func Bridging_COM_ServerToClient_SycnChapterData(buffer *bytes.Buffer, p COM_Ser
 }
 func Bridging_COM_ServerToClient_InitBagItems(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _10 := COM_ServerToClient_InitBagItems{}
   err := _10.Deserialize(buffer)
@@ -1619,10 +1618,10 @@ func Bridging_COM_ServerToClient_InitBagItems(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_AddBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _11 := COM_ServerToClient_AddBagItem{}
   err := _11.Deserialize(buffer)
@@ -1633,10 +1632,10 @@ func Bridging_COM_ServerToClient_AddBagItem(buffer *bytes.Buffer, p COM_ServerTo
 }
 func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _12 := COM_ServerToClient_UpdateBagItem{}
   err := _12.Deserialize(buffer)
@@ -1647,10 +1646,10 @@ func Bridging_COM_ServerToClient_UpdateBagItem(buffer *bytes.Buffer, p COM_Serve
 }
 func Bridging_COM_ServerToClient_DeleteItemOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _13 := COM_ServerToClient_DeleteItemOK{}
   err := _13.Deserialize(buffer)
@@ -1661,10 +1660,10 @@ func Bridging_COM_ServerToClient_DeleteItemOK(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _14 := COM_ServerToClient_UpdateTiantiVal{}
   err := _14.Deserialize(buffer)
@@ -1675,10 +1674,10 @@ func Bridging_COM_ServerToClient_UpdateTiantiVal(buffer *bytes.Buffer, p COM_Ser
 }
 func Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _15 := COM_ServerToClient_UpdateUnitIProperty{}
   err := _15.Deserialize(buffer)
@@ -1689,10 +1688,10 @@ func Bridging_COM_ServerToClient_UpdateUnitIProperty(buffer *bytes.Buffer, p COM
 }
 func Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _16 := COM_ServerToClient_UpdateUnitCProperty{}
   err := _16.Deserialize(buffer)
@@ -1703,28 +1702,28 @@ func Bridging_COM_ServerToClient_UpdateUnitCProperty(buffer *bytes.Buffer, p COM
 }
 func Bridging_COM_ServerToClient_PromoteUnitOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   return p.PromoteUnitOK()
 }
 func Bridging_COM_ServerToClient_RequestChapterStarRewardOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   return p.RequestChapterStarRewardOK()
 }
 func Bridging_COM_ServerToClient_EquipSkillOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _19 := COM_ServerToClient_EquipSkillOK{}
   err := _19.Deserialize(buffer)
@@ -1735,10 +1734,10 @@ func Bridging_COM_ServerToClient_EquipSkillOK(buffer *bytes.Buffer, p COM_Server
 }
 func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _20 := COM_ServerToClient_SkillUpdateOK{}
   err := _20.Deserialize(buffer)
@@ -1749,10 +1748,10 @@ func Bridging_COM_ServerToClient_SkillUpdateOK(buffer *bytes.Buffer, p COM_Serve
 }
 func Bridging_COM_ServerToClient_BuyShopItemOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _21 := COM_ServerToClient_BuyShopItemOK{}
   err := _21.Deserialize(buffer)
@@ -1763,10 +1762,10 @@ func Bridging_COM_ServerToClient_BuyShopItemOK(buffer *bytes.Buffer, p COM_Serve
 }
 func Bridging_COM_ServerToClient_AddNewUnit(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _22 := COM_ServerToClient_AddNewUnit{}
   err := _22.Deserialize(buffer)
@@ -1777,10 +1776,10 @@ func Bridging_COM_ServerToClient_AddNewUnit(buffer *bytes.Buffer, p COM_ServerTo
 }
 func Bridging_COM_ServerToClient_SycnBlackMarkte(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   _23 := COM_ServerToClient_SycnBlackMarkte{}
   err := _23.Deserialize(buffer)
@@ -1791,13 +1790,13 @@ func Bridging_COM_ServerToClient_SycnBlackMarkte(buffer *bytes.Buffer, p COM_Ser
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
-    return errors.New(prpc.NoneBufferError)
+    return errors.New(NoneBufferError)
   }
   if p == nil {
-    return errors.New(prpc.NoneProxyError)
+    return errors.New(NoneProxyError)
   }
   pid := uint16(0XFFFF)
-  err := prpc.Read(buffer,&pid)
+  err := Read(buffer,&pid)
   if err != nil{
     return err
   }
@@ -1851,6 +1850,6 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 23 :
       return Bridging_COM_ServerToClient_SycnBlackMarkte(buffer,p);
     default:
-      return errors.New(prpc.NoneDispatchMatchError)
+      return errors.New(NoneDispatchMatchError)
   }
 }

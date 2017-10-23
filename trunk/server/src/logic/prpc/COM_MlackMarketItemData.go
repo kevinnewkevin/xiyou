@@ -3,7 +3,6 @@ import(
   "bytes"
   "sync"
   "encoding/json"
-  "suzuki/prpc"
 )
 type COM_MlackMarketItemData struct{
   sync.Mutex
@@ -34,11 +33,11 @@ func (this *COM_MlackMarketItemData)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := prpc.NewMask1(1)
+  mask := NewMask1(1)
   mask.WriteBit(this.IsBuy)
   mask.WriteBit(this.ItemId!=0)
   {
-    err := prpc.Write(buffer,mask.Bytes())
+    err := Write(buffer,mask.Bytes())
     if err != nil {
       return err
     }
@@ -49,7 +48,7 @@ func (this *COM_MlackMarketItemData)Serialize(buffer *bytes.Buffer) error {
   // serialize ItemId
   {
     if(this.ItemId!=0){
-      err := prpc.Write(buffer,this.ItemId)
+      err := Write(buffer,this.ItemId)
       if err != nil{
         return err
       }
@@ -61,7 +60,7 @@ func (this *COM_MlackMarketItemData)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= prpc.NewMask0(buffer,1);
+  mask, err:= NewMask0(buffer,1);
   if err != nil{
     return err
   }
@@ -69,7 +68,7 @@ func (this *COM_MlackMarketItemData)Deserialize(buffer *bytes.Buffer) error{
   this.IsBuy = mask.ReadBit();
   // deserialize ItemId
   if mask.ReadBit() {
-    err := prpc.Read(buffer,&this.ItemId)
+    err := Read(buffer,&this.ItemId)
     if err != nil{
       return err
     }
