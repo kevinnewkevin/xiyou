@@ -33,18 +33,18 @@ func (this *COM_AccountInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(len(this.SessionCode) != 0)
-  mask.WriteBit(true) //MyPlayer
+  mask := newMask1(1)
+  mask.writeBit(len(this.SessionCode) != 0)
+  mask.writeBit(true) //MyPlayer
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
   }
   // serialize SessionCode
   if len(this.SessionCode) != 0{
-    err := Write(buffer,this.SessionCode)
+    err := write(buffer,this.SessionCode)
     if err != nil {
       return err
     }
@@ -62,19 +62,19 @@ func (this *COM_AccountInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize SessionCode
-  if mask.ReadBit() {
-    err := Read(buffer,&this.SessionCode)
+  if mask.readBit() {
+    err := read(buffer,&this.SessionCode)
     if err != nil{
       return err
     }
   }
   // deserialize MyPlayer
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.MyPlayer.Deserialize(buffer)
     if err != nil{
       return err

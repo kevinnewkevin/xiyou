@@ -88,16 +88,16 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.Status!=0)
-  mask.WriteBit(len(this.PlayerList) != 0)
-  mask.WriteBit(true) //Target
-  mask.WriteBit(this.Bout!=0)
-  mask.WriteBit(this.TurnMove!=0)
-  mask.WriteBit(true) //NextPlayer
+  mask := newMask1(1)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(this.Status!=0)
+  mask.writeBit(len(this.PlayerList) != 0)
+  mask.writeBit(true) //Target
+  mask.writeBit(this.Bout!=0)
+  mask.writeBit(this.TurnMove!=0)
+  mask.writeBit(true) //NextPlayer
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -105,7 +105,7 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -114,7 +114,7 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   // serialize Status
   {
     if(this.Status!=0){
-      err := Write(buffer,this.Status)
+      err := write(buffer,this.Status)
       if err != nil{
         return err
       }
@@ -123,7 +123,7 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   // serialize PlayerList
   if len(this.PlayerList) != 0{
     {
-      err := Write(buffer,uint(len(this.PlayerList)))
+      err := write(buffer,uint(len(this.PlayerList)))
       if err != nil {
         return err
       }
@@ -145,7 +145,7 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   // serialize Bout
   {
     if(this.Bout!=0){
-      err := Write(buffer,this.Bout)
+      err := write(buffer,this.Bout)
       if err != nil{
         return err
       }
@@ -154,7 +154,7 @@ func (this *COM_BattleRoom)Serialize(buffer *bytes.Buffer) error {
   // serialize TurnMove
   {
     if(this.TurnMove!=0){
-      err := Write(buffer,this.TurnMove)
+      err := write(buffer,this.TurnMove)
       if err != nil{
         return err
       }
@@ -173,28 +173,28 @@ func (this *COM_BattleRoom)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Status
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Status)
+  if mask.readBit() {
+    err := read(buffer,&this.Status)
     if err != nil{
       return err
     }
   }
   // deserialize PlayerList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -207,28 +207,28 @@ func (this *COM_BattleRoom)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize Target
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.Target.Deserialize(buffer)
     if err != nil{
       return err
     }
   }
   // deserialize Bout
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Bout)
+  if mask.readBit() {
+    err := read(buffer,&this.Bout)
     if err != nil{
       return err
     }
   }
   // deserialize TurnMove
-  if mask.ReadBit() {
-    err := Read(buffer,&this.TurnMove)
+  if mask.readBit() {
+    err := read(buffer,&this.TurnMove)
     if err != nil{
       return err
     }
   }
   // deserialize NextPlayer
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.NextPlayer.Deserialize(buffer)
     if err != nil{
       return err

@@ -99,17 +99,17 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(len(this.Name) != 0)
-  mask.WriteBit(true) //Unit
-  mask.WriteBit(len(this.Employees) != 0)
-  mask.WriteBit(len(this.Chapters) != 0)
-  mask.WriteBit(len(this.UnitGroup) != 0)
-  mask.WriteBit(this.TianTiVal!=0)
-  mask.WriteBit(len(this.SkillBase) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(len(this.Name) != 0)
+  mask.writeBit(true) //Unit
+  mask.writeBit(len(this.Employees) != 0)
+  mask.writeBit(len(this.Chapters) != 0)
+  mask.writeBit(len(this.UnitGroup) != 0)
+  mask.writeBit(this.TianTiVal!=0)
+  mask.writeBit(len(this.SkillBase) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -117,7 +117,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -125,7 +125,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Name
   if len(this.Name) != 0{
-    err := Write(buffer,this.Name)
+    err := write(buffer,this.Name)
     if err != nil {
       return err
     }
@@ -140,7 +140,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize Employees
   if len(this.Employees) != 0{
     {
-      err := Write(buffer,uint(len(this.Employees)))
+      err := write(buffer,uint(len(this.Employees)))
       if err != nil {
         return err
       }
@@ -155,7 +155,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize Chapters
   if len(this.Chapters) != 0{
     {
-      err := Write(buffer,uint(len(this.Chapters)))
+      err := write(buffer,uint(len(this.Chapters)))
       if err != nil {
         return err
       }
@@ -170,7 +170,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitGroup
   if len(this.UnitGroup) != 0{
     {
-      err := Write(buffer,uint(len(this.UnitGroup)))
+      err := write(buffer,uint(len(this.UnitGroup)))
       if err != nil {
         return err
       }
@@ -185,7 +185,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize TianTiVal
   {
     if(this.TianTiVal!=0){
-      err := Write(buffer,this.TianTiVal)
+      err := write(buffer,this.TianTiVal)
       if err != nil{
         return err
       }
@@ -194,7 +194,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillBase
   if len(this.SkillBase) != 0{
     {
-      err := Write(buffer,uint(len(this.SkillBase)))
+      err := write(buffer,uint(len(this.SkillBase)))
       if err != nil {
         return err
       }
@@ -212,35 +212,35 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Name
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Name)
+  if mask.readBit() {
+    err := read(buffer,&this.Name)
     if err != nil{
       return err
     }
   }
   // deserialize Unit
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.Unit.Deserialize(buffer)
     if err != nil{
       return err
     }
   }
   // deserialize Employees
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -253,9 +253,9 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize Chapters
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -268,9 +268,9 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize UnitGroup
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -283,16 +283,16 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize TianTiVal
-  if mask.ReadBit() {
-    err := Read(buffer,&this.TianTiVal)
+  if mask.readBit() {
+    err := read(buffer,&this.TianTiVal)
     if err != nil{
       return err
     }
   }
   // deserialize SkillBase
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

@@ -55,13 +55,13 @@ func (this *COM_SmallChapter)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.SmallChapterId!=0)
-  mask.WriteBit(this.Star1)
-  mask.WriteBit(this.Star2)
-  mask.WriteBit(this.Star3)
+  mask := newMask1(1)
+  mask.writeBit(this.SmallChapterId!=0)
+  mask.writeBit(this.Star1)
+  mask.writeBit(this.Star2)
+  mask.writeBit(this.Star3)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -69,7 +69,7 @@ func (this *COM_SmallChapter)Serialize(buffer *bytes.Buffer) error {
   // serialize SmallChapterId
   {
     if(this.SmallChapterId!=0){
-      err := Write(buffer,this.SmallChapterId)
+      err := write(buffer,this.SmallChapterId)
       if err != nil{
         return err
       }
@@ -90,23 +90,23 @@ func (this *COM_SmallChapter)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize SmallChapterId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.SmallChapterId)
+  if mask.readBit() {
+    err := read(buffer,&this.SmallChapterId)
     if err != nil{
       return err
     }
   }
   // deserialize Star1
-  this.Star1 = mask.ReadBit();
+  this.Star1 = mask.readBit();
   // deserialize Star2
-  this.Star2 = mask.ReadBit();
+  this.Star2 = mask.readBit();
   // deserialize Star3
-  this.Star3 = mask.ReadBit();
+  this.Star3 = mask.readBit();
   return nil
 }
 func (this *COM_SmallChapter)String() string{

@@ -88,16 +88,16 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.UnitId!=0)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.Level!=0)
-  mask.WriteBit(len(this.IProperties) != 0)
-  mask.WriteBit(len(this.CProperties) != 0)
-  mask.WriteBit(len(this.Equipments) != 0)
-  mask.WriteBit(len(this.Skills) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.UnitId!=0)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(this.Level!=0)
+  mask.writeBit(len(this.IProperties) != 0)
+  mask.writeBit(len(this.CProperties) != 0)
+  mask.writeBit(len(this.Equipments) != 0)
+  mask.writeBit(len(this.Skills) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -105,7 +105,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitId
   {
     if(this.UnitId!=0){
-      err := Write(buffer,this.UnitId)
+      err := write(buffer,this.UnitId)
       if err != nil{
         return err
       }
@@ -114,7 +114,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -123,7 +123,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize Level
   {
     if(this.Level!=0){
-      err := Write(buffer,this.Level)
+      err := write(buffer,this.Level)
       if err != nil{
         return err
       }
@@ -132,13 +132,13 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize IProperties
   if len(this.IProperties) != 0{
     {
-      err := Write(buffer,uint(len(this.IProperties)))
+      err := write(buffer,uint(len(this.IProperties)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.IProperties {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -147,13 +147,13 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize CProperties
   if len(this.CProperties) != 0{
     {
-      err := Write(buffer,uint(len(this.CProperties)))
+      err := write(buffer,uint(len(this.CProperties)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.CProperties {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -162,7 +162,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize Equipments
   if len(this.Equipments) != 0{
     {
-      err := Write(buffer,uint(len(this.Equipments)))
+      err := write(buffer,uint(len(this.Equipments)))
       if err != nil {
         return err
       }
@@ -177,7 +177,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   // serialize Skills
   if len(this.Skills) != 0{
     {
-      err := Write(buffer,uint(len(this.Skills)))
+      err := write(buffer,uint(len(this.Skills)))
       if err != nil {
         return err
       }
@@ -195,65 +195,65 @@ func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize UnitId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.UnitId)
+  if mask.readBit() {
+    err := read(buffer,&this.UnitId)
     if err != nil{
       return err
     }
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Level
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Level)
+  if mask.readBit() {
+    err := read(buffer,&this.Level)
     if err != nil{
       return err
     }
   }
   // deserialize IProperties
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.IProperties = make([]int32,size)
     for i,_ := range this.IProperties{
-      err := Read(buffer,&this.IProperties[i])
+      err := read(buffer,&this.IProperties[i])
       if err != nil{
         return err
       }
     }
   }
   // deserialize CProperties
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.CProperties = make([]float32,size)
     for i,_ := range this.CProperties{
-      err := Read(buffer,&this.CProperties[i])
+      err := read(buffer,&this.CProperties[i])
       if err != nil{
         return err
       }
     }
   }
   // deserialize Equipments
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -266,9 +266,9 @@ func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize Skills
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

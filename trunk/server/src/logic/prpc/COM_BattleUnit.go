@@ -88,16 +88,16 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.UnitId!=0)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.Position!=0)
-  mask.WriteBit(this.HP!=0)
-  mask.WriteBit(this.CHP!=0)
-  mask.WriteBit(this.Level!=0)
-  mask.WriteBit(len(this.Name) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.UnitId!=0)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(this.Position!=0)
+  mask.writeBit(this.HP!=0)
+  mask.writeBit(this.CHP!=0)
+  mask.writeBit(this.Level!=0)
+  mask.writeBit(len(this.Name) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -105,7 +105,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitId
   {
     if(this.UnitId!=0){
-      err := Write(buffer,this.UnitId)
+      err := write(buffer,this.UnitId)
       if err != nil{
         return err
       }
@@ -114,7 +114,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -123,7 +123,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize Position
   {
     if(this.Position!=0){
-      err := Write(buffer,this.Position)
+      err := write(buffer,this.Position)
       if err != nil{
         return err
       }
@@ -132,7 +132,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize HP
   {
     if(this.HP!=0){
-      err := Write(buffer,this.HP)
+      err := write(buffer,this.HP)
       if err != nil{
         return err
       }
@@ -141,7 +141,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize CHP
   {
     if(this.CHP!=0){
-      err := Write(buffer,this.CHP)
+      err := write(buffer,this.CHP)
       if err != nil{
         return err
       }
@@ -150,7 +150,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   // serialize Level
   {
     if(this.Level!=0){
-      err := Write(buffer,this.Level)
+      err := write(buffer,this.Level)
       if err != nil{
         return err
       }
@@ -158,7 +158,7 @@ func (this *COM_BattleUnit)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Name
   if len(this.Name) != 0{
-    err := Write(buffer,this.Name)
+    err := write(buffer,this.Name)
     if err != nil {
       return err
     }
@@ -169,55 +169,55 @@ func (this *COM_BattleUnit)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize UnitId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.UnitId)
+  if mask.readBit() {
+    err := read(buffer,&this.UnitId)
     if err != nil{
       return err
     }
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Position
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Position)
+  if mask.readBit() {
+    err := read(buffer,&this.Position)
     if err != nil{
       return err
     }
   }
   // deserialize HP
-  if mask.ReadBit() {
-    err := Read(buffer,&this.HP)
+  if mask.readBit() {
+    err := read(buffer,&this.HP)
     if err != nil{
       return err
     }
   }
   // deserialize CHP
-  if mask.ReadBit() {
-    err := Read(buffer,&this.CHP)
+  if mask.readBit() {
+    err := read(buffer,&this.CHP)
     if err != nil{
       return err
     }
   }
   // deserialize Level
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Level)
+  if mask.readBit() {
+    err := read(buffer,&this.Level)
     if err != nil{
       return err
     }
   }
   // deserialize Name
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Name)
+  if mask.readBit() {
+    err := read(buffer,&this.Name)
     if err != nil{
       return err
     }

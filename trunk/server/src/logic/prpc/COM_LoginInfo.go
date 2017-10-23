@@ -33,25 +33,25 @@ func (this *COM_LoginInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(len(this.Username) != 0)
-  mask.WriteBit(len(this.Password) != 0)
+  mask := newMask1(1)
+  mask.writeBit(len(this.Username) != 0)
+  mask.writeBit(len(this.Password) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
   }
   // serialize Username
   if len(this.Username) != 0{
-    err := Write(buffer,this.Username)
+    err := write(buffer,this.Username)
     if err != nil {
       return err
     }
   }
   // serialize Password
   if len(this.Password) != 0{
-    err := Write(buffer,this.Password)
+    err := write(buffer,this.Password)
     if err != nil {
       return err
     }
@@ -62,20 +62,20 @@ func (this *COM_LoginInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Username
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Username)
+  if mask.readBit() {
+    err := read(buffer,&this.Username)
     if err != nil{
       return err
     }
   }
   // deserialize Password
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Password)
+  if mask.readBit() {
+    err := read(buffer,&this.Password)
     if err != nil{
       return err
     }

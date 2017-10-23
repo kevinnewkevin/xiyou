@@ -110,18 +110,18 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(2)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.UnitId!=0)
-  mask.WriteBit(this.Level!=0)
-  mask.WriteBit(this.HP!=0)
-  mask.WriteBit(this.AGILE!=0)
-  mask.WriteBit(this.ATK!=0)
-  mask.WriteBit(this.DEF!=0)
-  mask.WriteBit(this.MATK!=0)
-  mask.WriteBit(this.MDEF!=0)
+  mask := newMask1(2)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(this.UnitId!=0)
+  mask.writeBit(this.Level!=0)
+  mask.writeBit(this.HP!=0)
+  mask.writeBit(this.AGILE!=0)
+  mask.writeBit(this.ATK!=0)
+  mask.writeBit(this.DEF!=0)
+  mask.writeBit(this.MATK!=0)
+  mask.writeBit(this.MDEF!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -129,7 +129,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -138,7 +138,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitId
   {
     if(this.UnitId!=0){
-      err := Write(buffer,this.UnitId)
+      err := write(buffer,this.UnitId)
       if err != nil{
         return err
       }
@@ -147,7 +147,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize Level
   {
     if(this.Level!=0){
-      err := Write(buffer,this.Level)
+      err := write(buffer,this.Level)
       if err != nil{
         return err
       }
@@ -156,7 +156,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize HP
   {
     if(this.HP!=0){
-      err := Write(buffer,this.HP)
+      err := write(buffer,this.HP)
       if err != nil{
         return err
       }
@@ -165,7 +165,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize AGILE
   {
     if(this.AGILE!=0){
-      err := Write(buffer,this.AGILE)
+      err := write(buffer,this.AGILE)
       if err != nil{
         return err
       }
@@ -174,7 +174,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize ATK
   {
     if(this.ATK!=0){
-      err := Write(buffer,this.ATK)
+      err := write(buffer,this.ATK)
       if err != nil{
         return err
       }
@@ -183,7 +183,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize DEF
   {
     if(this.DEF!=0){
-      err := Write(buffer,this.DEF)
+      err := write(buffer,this.DEF)
       if err != nil{
         return err
       }
@@ -192,7 +192,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize MATK
   {
     if(this.MATK!=0){
-      err := Write(buffer,this.MATK)
+      err := write(buffer,this.MATK)
       if err != nil{
         return err
       }
@@ -201,7 +201,7 @@ func (this *COM_UnitInfo)Serialize(buffer *bytes.Buffer) error {
   // serialize MDEF
   {
     if(this.MDEF!=0){
-      err := Write(buffer,this.MDEF)
+      err := write(buffer,this.MDEF)
       if err != nil{
         return err
       }
@@ -213,69 +213,69 @@ func (this *COM_UnitInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,2);
+  mask, err:= newMask0(buffer,2);
   if err != nil{
     return err
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize UnitId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.UnitId)
+  if mask.readBit() {
+    err := read(buffer,&this.UnitId)
     if err != nil{
       return err
     }
   }
   // deserialize Level
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Level)
+  if mask.readBit() {
+    err := read(buffer,&this.Level)
     if err != nil{
       return err
     }
   }
   // deserialize HP
-  if mask.ReadBit() {
-    err := Read(buffer,&this.HP)
+  if mask.readBit() {
+    err := read(buffer,&this.HP)
     if err != nil{
       return err
     }
   }
   // deserialize AGILE
-  if mask.ReadBit() {
-    err := Read(buffer,&this.AGILE)
+  if mask.readBit() {
+    err := read(buffer,&this.AGILE)
     if err != nil{
       return err
     }
   }
   // deserialize ATK
-  if mask.ReadBit() {
-    err := Read(buffer,&this.ATK)
+  if mask.readBit() {
+    err := read(buffer,&this.ATK)
     if err != nil{
       return err
     }
   }
   // deserialize DEF
-  if mask.ReadBit() {
-    err := Read(buffer,&this.DEF)
+  if mask.readBit() {
+    err := read(buffer,&this.DEF)
     if err != nil{
       return err
     }
   }
   // deserialize MATK
-  if mask.ReadBit() {
-    err := Read(buffer,&this.MATK)
+  if mask.readBit() {
+    err := read(buffer,&this.MATK)
     if err != nil{
       return err
     }
   }
   // deserialize MDEF
-  if mask.ReadBit() {
-    err := Read(buffer,&this.MDEF)
+  if mask.readBit() {
+    err := read(buffer,&this.MDEF)
     if err != nil{
       return err
     }

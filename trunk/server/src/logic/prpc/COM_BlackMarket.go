@@ -44,12 +44,12 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.RefreshTime!=0)
-  mask.WriteBit(this.RefreshNum!=0)
-  mask.WriteBit(len(this.ShopItems) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.RefreshTime!=0)
+  mask.writeBit(this.RefreshNum!=0)
+  mask.writeBit(len(this.ShopItems) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -57,7 +57,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize RefreshTime
   {
     if(this.RefreshTime!=0){
-      err := Write(buffer,this.RefreshTime)
+      err := write(buffer,this.RefreshTime)
       if err != nil{
         return err
       }
@@ -66,7 +66,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize RefreshNum
   {
     if(this.RefreshNum!=0){
-      err := Write(buffer,this.RefreshNum)
+      err := write(buffer,this.RefreshNum)
       if err != nil{
         return err
       }
@@ -75,7 +75,7 @@ func (this *COM_BlackMarket)Serialize(buffer *bytes.Buffer) error {
   // serialize ShopItems
   if len(this.ShopItems) != 0{
     {
-      err := Write(buffer,uint(len(this.ShopItems)))
+      err := write(buffer,uint(len(this.ShopItems)))
       if err != nil {
         return err
       }
@@ -93,28 +93,28 @@ func (this *COM_BlackMarket)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize RefreshTime
-  if mask.ReadBit() {
-    err := Read(buffer,&this.RefreshTime)
+  if mask.readBit() {
+    err := read(buffer,&this.RefreshTime)
     if err != nil{
       return err
     }
   }
   // deserialize RefreshNum
-  if mask.ReadBit() {
-    err := Read(buffer,&this.RefreshNum)
+  if mask.readBit() {
+    err := read(buffer,&this.RefreshNum)
     if err != nil{
       return err
     }
   }
   // deserialize ShopItems
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

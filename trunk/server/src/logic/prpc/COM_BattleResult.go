@@ -88,16 +88,16 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.Win!=0)
-  mask.WriteBit(this.Money!=0)
-  mask.WriteBit(this.Exp!=0)
-  mask.WriteBit(len(this.KillMonsters) != 0)
-  mask.WriteBit(this.BattleRound!=0)
-  mask.WriteBit(this.MySelfDeathNum!=0)
-  mask.WriteBit(len(this.BattleItems) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.Win!=0)
+  mask.writeBit(this.Money!=0)
+  mask.writeBit(this.Exp!=0)
+  mask.writeBit(len(this.KillMonsters) != 0)
+  mask.writeBit(this.BattleRound!=0)
+  mask.writeBit(this.MySelfDeathNum!=0)
+  mask.writeBit(len(this.BattleItems) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -105,7 +105,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Win
   {
     if(this.Win!=0){
-      err := Write(buffer,this.Win)
+      err := write(buffer,this.Win)
       if err != nil{
         return err
       }
@@ -114,7 +114,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Money
   {
     if(this.Money!=0){
-      err := Write(buffer,this.Money)
+      err := write(buffer,this.Money)
       if err != nil{
         return err
       }
@@ -123,7 +123,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize Exp
   {
     if(this.Exp!=0){
-      err := Write(buffer,this.Exp)
+      err := write(buffer,this.Exp)
       if err != nil{
         return err
       }
@@ -132,13 +132,13 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize KillMonsters
   if len(this.KillMonsters) != 0{
     {
-      err := Write(buffer,uint(len(this.KillMonsters)))
+      err := write(buffer,uint(len(this.KillMonsters)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.KillMonsters {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -147,7 +147,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleRound
   {
     if(this.BattleRound!=0){
-      err := Write(buffer,this.BattleRound)
+      err := write(buffer,this.BattleRound)
       if err != nil{
         return err
       }
@@ -156,7 +156,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize MySelfDeathNum
   {
     if(this.MySelfDeathNum!=0){
-      err := Write(buffer,this.MySelfDeathNum)
+      err := write(buffer,this.MySelfDeathNum)
       if err != nil{
         return err
       }
@@ -165,7 +165,7 @@ func (this *COM_BattleResult)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleItems
   if len(this.BattleItems) != 0{
     {
-      err := Write(buffer,uint(len(this.BattleItems)))
+      err := write(buffer,uint(len(this.BattleItems)))
       if err != nil {
         return err
       }
@@ -183,64 +183,64 @@ func (this *COM_BattleResult)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Win
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Win)
+  if mask.readBit() {
+    err := read(buffer,&this.Win)
     if err != nil{
       return err
     }
   }
   // deserialize Money
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Money)
+  if mask.readBit() {
+    err := read(buffer,&this.Money)
     if err != nil{
       return err
     }
   }
   // deserialize Exp
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Exp)
+  if mask.readBit() {
+    err := read(buffer,&this.Exp)
     if err != nil{
       return err
     }
   }
   // deserialize KillMonsters
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.KillMonsters = make([]int32,size)
     for i,_ := range this.KillMonsters{
-      err := Read(buffer,&this.KillMonsters[i])
+      err := read(buffer,&this.KillMonsters[i])
       if err != nil{
         return err
       }
     }
   }
   // deserialize BattleRound
-  if mask.ReadBit() {
-    err := Read(buffer,&this.BattleRound)
+  if mask.readBit() {
+    err := read(buffer,&this.BattleRound)
     if err != nil{
       return err
     }
   }
   // deserialize MySelfDeathNum
-  if mask.ReadBit() {
-    err := Read(buffer,&this.MySelfDeathNum)
+  if mask.readBit() {
+    err := read(buffer,&this.MySelfDeathNum)
     if err != nil{
       return err
     }
   }
   // deserialize BattleItems
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

@@ -107,10 +107,10 @@ type COM_ServerToClientProxy interface{
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.id!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.id!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -118,7 +118,7 @@ func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) erro
   // serialize id
   {
     if(this.id!=0){
-      err := Write(buffer,this.id)
+      err := write(buffer,this.id)
       if err != nil{
         return err
       }
@@ -128,13 +128,13 @@ func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_ErrorMessage)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize id
-  if mask.ReadBit() {
-    err := Read(buffer,&this.id)
+  if mask.readBit() {
+    err := read(buffer,&this.id)
     if err != nil{
       return err
     }
@@ -143,10 +143,10 @@ func (this *COM_ServerToClient_ErrorMessage)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_LoginOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //info
+  mask := newMask1(1)
+  mask.writeBit(true) //info
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -162,12 +162,12 @@ func (this *COM_ServerToClient_LoginOK)Serialize(buffer *bytes.Buffer) error {
 }
 func (this *COM_ServerToClient_LoginOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize info
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.info.Deserialize(buffer)
     if err != nil{
       return err
@@ -177,10 +177,10 @@ func (this *COM_ServerToClient_LoginOK)Deserialize(buffer *bytes.Buffer) error{
 }
 func (this *COM_ServerToClient_CreatePlayerOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //player
+  mask := newMask1(1)
+  mask.writeBit(true) //player
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -196,12 +196,12 @@ func (this *COM_ServerToClient_CreatePlayerOK)Serialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_CreatePlayerOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize player
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.player.Deserialize(buffer)
     if err != nil{
       return err
@@ -211,13 +211,13 @@ func (this *COM_ServerToClient_CreatePlayerOK)Deserialize(buffer *bytes.Buffer) 
 }
 func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.Camp!=0)
-  mask.WriteBit(this.battleid!=0)
-  mask.WriteBit(len(this.targetcards) != 0)
-  mask.WriteBit(len(this.MainUnit) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.Camp!=0)
+  mask.writeBit(this.battleid!=0)
+  mask.writeBit(len(this.targetcards) != 0)
+  mask.writeBit(len(this.MainUnit) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -225,7 +225,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize Camp
   {
     if(this.Camp!=0){
-      err := Write(buffer,this.Camp)
+      err := write(buffer,this.Camp)
       if err != nil{
         return err
       }
@@ -234,7 +234,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize battleid
   {
     if(this.battleid!=0){
-      err := Write(buffer,this.battleid)
+      err := write(buffer,this.battleid)
       if err != nil{
         return err
       }
@@ -243,13 +243,13 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize targetcards
   if len(this.targetcards) != 0{
     {
-      err := Write(buffer,uint(len(this.targetcards)))
+      err := write(buffer,uint(len(this.targetcards)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.targetcards {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -258,7 +258,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   // serialize MainUnit
   if len(this.MainUnit) != 0{
     {
-      err := Write(buffer,uint(len(this.MainUnit)))
+      err := write(buffer,uint(len(this.MainUnit)))
       if err != nil {
         return err
       }
@@ -274,43 +274,43 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Camp
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Camp)
+  if mask.readBit() {
+    err := read(buffer,&this.Camp)
     if err != nil{
       return err
     }
   }
   // deserialize battleid
-  if mask.ReadBit() {
-    err := Read(buffer,&this.battleid)
+  if mask.readBit() {
+    err := read(buffer,&this.battleid)
     if err != nil{
       return err
     }
   }
   // deserialize targetcards
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.targetcards = make([]int32,size)
     for i,_ := range this.targetcards{
-      err := Read(buffer,&this.targetcards[i])
+      err := read(buffer,&this.targetcards[i])
       if err != nil{
         return err
       }
     }
   }
   // deserialize MainUnit
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -326,10 +326,10 @@ func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.instId!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.instId!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -337,7 +337,7 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) e
   // serialize instId
   {
     if(this.instId!=0){
-      err := Write(buffer,this.instId)
+      err := write(buffer,this.instId)
       if err != nil{
         return err
       }
@@ -347,13 +347,13 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SetBattleUnitOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.instId)
+  if mask.readBit() {
+    err := read(buffer,&this.instId)
     if err != nil{
       return err
     }
@@ -362,10 +362,10 @@ func (this *COM_ServerToClient_SetBattleUnitOK)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_BattleReport)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //report
+  mask := newMask1(1)
+  mask.writeBit(true) //report
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -381,12 +381,12 @@ func (this *COM_ServerToClient_BattleReport)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize report
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.report.Deserialize(buffer)
     if err != nil{
       return err
@@ -396,10 +396,10 @@ func (this *COM_ServerToClient_BattleReport)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_BattleExit)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //result
+  mask := newMask1(1)
+  mask.writeBit(true) //result
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -415,12 +415,12 @@ func (this *COM_ServerToClient_BattleExit)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_BattleExit)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize result
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.result.Deserialize(buffer)
     if err != nil{
       return err
@@ -430,10 +430,10 @@ func (this *COM_ServerToClient_BattleExit)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_OpenChapter)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //data
+  mask := newMask1(1)
+  mask.writeBit(true) //data
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -449,12 +449,12 @@ func (this *COM_ServerToClient_OpenChapter)Serialize(buffer *bytes.Buffer) error
 }
 func (this *COM_ServerToClient_OpenChapter)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize data
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.data.Deserialize(buffer)
     if err != nil{
       return err
@@ -464,10 +464,10 @@ func (this *COM_ServerToClient_OpenChapter)Deserialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_SycnChapterData)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //data
+  mask := newMask1(1)
+  mask.writeBit(true) //data
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -483,12 +483,12 @@ func (this *COM_ServerToClient_SycnChapterData)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SycnChapterData)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize data
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.data.Deserialize(buffer)
     if err != nil{
       return err
@@ -498,10 +498,10 @@ func (this *COM_ServerToClient_SycnChapterData)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(len(this.items) != 0)
+  mask := newMask1(1)
+  mask.writeBit(len(this.items) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -509,7 +509,7 @@ func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) erro
   // serialize items
   if len(this.items) != 0{
     {
-      err := Write(buffer,uint(len(this.items)))
+      err := write(buffer,uint(len(this.items)))
       if err != nil {
         return err
       }
@@ -525,14 +525,14 @@ func (this *COM_ServerToClient_InitBagItems)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_InitBagItems)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize items
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -548,10 +548,10 @@ func (this *COM_ServerToClient_InitBagItems)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_AddBagItem)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //item
+  mask := newMask1(1)
+  mask.writeBit(true) //item
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -567,12 +567,12 @@ func (this *COM_ServerToClient_AddBagItem)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_AddBagItem)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize item
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.item.Deserialize(buffer)
     if err != nil{
       return err
@@ -582,10 +582,10 @@ func (this *COM_ServerToClient_AddBagItem)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_UpdateBagItem)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //item
+  mask := newMask1(1)
+  mask.writeBit(true) //item
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -601,12 +601,12 @@ func (this *COM_ServerToClient_UpdateBagItem)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize item
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.item.Deserialize(buffer)
     if err != nil{
       return err
@@ -616,10 +616,10 @@ func (this *COM_ServerToClient_UpdateBagItem)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.instId!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.instId!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -627,7 +627,7 @@ func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) erro
   // serialize instId
   {
     if(this.instId!=0){
-      err := Write(buffer,this.instId)
+      err := write(buffer,this.instId)
       if err != nil{
         return err
       }
@@ -637,13 +637,13 @@ func (this *COM_ServerToClient_DeleteItemOK)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_DeleteItemOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.instId)
+  if mask.readBit() {
+    err := read(buffer,&this.instId)
     if err != nil{
       return err
     }
@@ -652,10 +652,10 @@ func (this *COM_ServerToClient_DeleteItemOK)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.curVal!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.curVal!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -663,7 +663,7 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) e
   // serialize curVal
   {
     if(this.curVal!=0){
-      err := Write(buffer,this.curVal)
+      err := write(buffer,this.curVal)
       if err != nil{
         return err
       }
@@ -673,13 +673,13 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize curVal
-  if mask.ReadBit() {
-    err := Read(buffer,&this.curVal)
+  if mask.readBit() {
+    err := read(buffer,&this.curVal)
     if err != nil{
       return err
     }
@@ -688,12 +688,12 @@ func (this *COM_ServerToClient_UpdateTiantiVal)Deserialize(buffer *bytes.Buffer)
 }
 func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.instid!=0)
-  mask.WriteBit(this.iType!=0)
-  mask.WriteBit(this.value!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.instid!=0)
+  mask.writeBit(this.iType!=0)
+  mask.writeBit(this.value!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -701,7 +701,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize instid
   {
     if(this.instid!=0){
-      err := Write(buffer,this.instid)
+      err := write(buffer,this.instid)
       if err != nil{
         return err
       }
@@ -710,7 +710,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize iType
   {
     if(this.iType!=0){
-      err := Write(buffer,this.iType)
+      err := write(buffer,this.iType)
       if err != nil{
         return err
       }
@@ -719,7 +719,7 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
   // serialize value
   {
     if(this.value!=0){
-      err := Write(buffer,this.value)
+      err := write(buffer,this.value)
       if err != nil{
         return err
       }
@@ -729,27 +729,27 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Serialize(buffer *bytes.Buffe
 }
 func (this *COM_ServerToClient_UpdateUnitIProperty)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instid
-  if mask.ReadBit() {
-    err := Read(buffer,&this.instid)
+  if mask.readBit() {
+    err := read(buffer,&this.instid)
     if err != nil{
       return err
     }
   }
   // deserialize iType
-  if mask.ReadBit() {
-    err := Read(buffer,&this.iType)
+  if mask.readBit() {
+    err := read(buffer,&this.iType)
     if err != nil{
       return err
     }
   }
   // deserialize value
-  if mask.ReadBit() {
-    err := Read(buffer,&this.value)
+  if mask.readBit() {
+    err := read(buffer,&this.value)
     if err != nil{
       return err
     }
@@ -758,12 +758,12 @@ func (this *COM_ServerToClient_UpdateUnitIProperty)Deserialize(buffer *bytes.Buf
 }
 func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.instid!=0)
-  mask.WriteBit(this.cType!=0)
-  mask.WriteBit(this.value!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.instid!=0)
+  mask.writeBit(this.cType!=0)
+  mask.writeBit(this.value!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -771,7 +771,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize instid
   {
     if(this.instid!=0){
-      err := Write(buffer,this.instid)
+      err := write(buffer,this.instid)
       if err != nil{
         return err
       }
@@ -780,7 +780,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize cType
   {
     if(this.cType!=0){
-      err := Write(buffer,this.cType)
+      err := write(buffer,this.cType)
       if err != nil{
         return err
       }
@@ -789,7 +789,7 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
   // serialize value
   {
     if(this.value!=0){
-      err := Write(buffer,this.value)
+      err := write(buffer,this.value)
       if err != nil{
         return err
       }
@@ -799,27 +799,27 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Serialize(buffer *bytes.Buffe
 }
 func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize instid
-  if mask.ReadBit() {
-    err := Read(buffer,&this.instid)
+  if mask.readBit() {
+    err := read(buffer,&this.instid)
     if err != nil{
       return err
     }
   }
   // deserialize cType
-  if mask.ReadBit() {
-    err := Read(buffer,&this.cType)
+  if mask.readBit() {
+    err := read(buffer,&this.cType)
     if err != nil{
       return err
     }
   }
   // deserialize value
-  if mask.ReadBit() {
-    err := Read(buffer,&this.value)
+  if mask.readBit() {
+    err := read(buffer,&this.value)
     if err != nil{
       return err
     }
@@ -828,11 +828,11 @@ func (this *COM_ServerToClient_UpdateUnitCProperty)Deserialize(buffer *bytes.Buf
 }
 func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.skillIndex!=0)
-  mask.WriteBit(this.skillID!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.skillIndex!=0)
+  mask.writeBit(this.skillID!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -840,7 +840,7 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
   // serialize skillIndex
   {
     if(this.skillIndex!=0){
-      err := Write(buffer,this.skillIndex)
+      err := write(buffer,this.skillIndex)
       if err != nil{
         return err
       }
@@ -849,7 +849,7 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
   // serialize skillID
   {
     if(this.skillID!=0){
-      err := Write(buffer,this.skillID)
+      err := write(buffer,this.skillID)
       if err != nil{
         return err
       }
@@ -859,20 +859,20 @@ func (this *COM_ServerToClient_EquipSkillOK)Serialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_EquipSkillOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize skillIndex
-  if mask.ReadBit() {
-    err := Read(buffer,&this.skillIndex)
+  if mask.readBit() {
+    err := read(buffer,&this.skillIndex)
     if err != nil{
       return err
     }
   }
   // deserialize skillID
-  if mask.ReadBit() {
-    err := Read(buffer,&this.skillID)
+  if mask.readBit() {
+    err := read(buffer,&this.skillID)
     if err != nil{
       return err
     }
@@ -881,12 +881,12 @@ func (this *COM_ServerToClient_EquipSkillOK)Deserialize(buffer *bytes.Buffer) er
 }
 func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.skillIndex!=0)
-  mask.WriteBit(this.skillID!=0)
-  mask.WriteBit(this.skillpos!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.skillIndex!=0)
+  mask.writeBit(this.skillID!=0)
+  mask.writeBit(this.skillpos!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -894,7 +894,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillIndex
   {
     if(this.skillIndex!=0){
-      err := Write(buffer,this.skillIndex)
+      err := write(buffer,this.skillIndex)
       if err != nil{
         return err
       }
@@ -903,7 +903,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillID
   {
     if(this.skillID!=0){
-      err := Write(buffer,this.skillID)
+      err := write(buffer,this.skillID)
       if err != nil{
         return err
       }
@@ -912,7 +912,7 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
   // serialize skillpos
   {
     if(this.skillpos!=0){
-      err := Write(buffer,this.skillpos)
+      err := write(buffer,this.skillpos)
       if err != nil{
         return err
       }
@@ -922,27 +922,27 @@ func (this *COM_ServerToClient_SkillUpdateOK)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize skillIndex
-  if mask.ReadBit() {
-    err := Read(buffer,&this.skillIndex)
+  if mask.readBit() {
+    err := read(buffer,&this.skillIndex)
     if err != nil{
       return err
     }
   }
   // deserialize skillID
-  if mask.ReadBit() {
-    err := Read(buffer,&this.skillID)
+  if mask.readBit() {
+    err := read(buffer,&this.skillID)
     if err != nil{
       return err
     }
   }
   // deserialize skillpos
-  if mask.ReadBit() {
-    err := Read(buffer,&this.skillpos)
+  if mask.readBit() {
+    err := read(buffer,&this.skillpos)
     if err != nil{
       return err
     }
@@ -951,10 +951,10 @@ func (this *COM_ServerToClient_SkillUpdateOK)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(len(this.items) != 0)
+  mask := newMask1(1)
+  mask.writeBit(len(this.items) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -962,7 +962,7 @@ func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) err
   // serialize items
   if len(this.items) != 0{
     {
-      err := Write(buffer,uint(len(this.items)))
+      err := write(buffer,uint(len(this.items)))
       if err != nil {
         return err
       }
@@ -978,14 +978,14 @@ func (this *COM_ServerToClient_BuyShopItemOK)Serialize(buffer *bytes.Buffer) err
 }
 func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize items
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -1001,10 +1001,10 @@ func (this *COM_ServerToClient_BuyShopItemOK)Deserialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_AddNewUnit)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //unit
+  mask := newMask1(1)
+  mask.writeBit(true) //unit
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -1020,12 +1020,12 @@ func (this *COM_ServerToClient_AddNewUnit)Serialize(buffer *bytes.Buffer) error 
 }
 func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize unit
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.unit.Deserialize(buffer)
     if err != nil{
       return err
@@ -1035,10 +1035,10 @@ func (this *COM_ServerToClient_AddNewUnit)Deserialize(buffer *bytes.Buffer) erro
 }
 func (this *COM_ServerToClient_SycnBlackMarkte)Serialize(buffer *bytes.Buffer) error {
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(true) //data
+  mask := newMask1(1)
+  mask.writeBit(true) //data
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -1054,12 +1054,12 @@ func (this *COM_ServerToClient_SycnBlackMarkte)Serialize(buffer *bytes.Buffer) e
 }
 func (this *COM_ServerToClient_SycnBlackMarkte)Deserialize(buffer *bytes.Buffer) error{
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize data
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.data.Deserialize(buffer)
     if err != nil{
       return err
@@ -1072,7 +1072,7 @@ func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(0))
+  err := write(buffer,uint16(0))
   if err != nil{
     return err
   }
@@ -1089,7 +1089,7 @@ func(this* COM_ServerToClientStub)LoginOK(info COM_AccountInfo ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(1))
+  err := write(buffer,uint16(1))
   if err != nil{
     return err
   }
@@ -1106,7 +1106,7 @@ func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(2))
+  err := write(buffer,uint16(2))
   if err != nil{
     return err
   }
@@ -1123,7 +1123,7 @@ func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targe
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(3))
+  err := write(buffer,uint16(3))
   if err != nil{
     return err
   }
@@ -1143,7 +1143,7 @@ func(this* COM_ServerToClientStub)SetupBattleOK() error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(4))
+  err := write(buffer,uint16(4))
   if err != nil{
     return err
   }
@@ -1154,7 +1154,7 @@ func(this* COM_ServerToClientStub)SetBattleUnitOK(instId int64 ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(5))
+  err := write(buffer,uint16(5))
   if err != nil{
     return err
   }
@@ -1171,7 +1171,7 @@ func(this* COM_ServerToClientStub)BattleReport(report COM_BattleReport ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(6))
+  err := write(buffer,uint16(6))
   if err != nil{
     return err
   }
@@ -1188,7 +1188,7 @@ func(this* COM_ServerToClientStub)BattleExit(result COM_BattleResult ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(7))
+  err := write(buffer,uint16(7))
   if err != nil{
     return err
   }
@@ -1205,7 +1205,7 @@ func(this* COM_ServerToClientStub)OpenChapter(data COM_Chapter ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(8))
+  err := write(buffer,uint16(8))
   if err != nil{
     return err
   }
@@ -1222,7 +1222,7 @@ func(this* COM_ServerToClientStub)SycnChapterData(data COM_Chapter ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(9))
+  err := write(buffer,uint16(9))
   if err != nil{
     return err
   }
@@ -1239,7 +1239,7 @@ func(this* COM_ServerToClientStub)InitBagItems(items []COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(10))
+  err := write(buffer,uint16(10))
   if err != nil{
     return err
   }
@@ -1256,7 +1256,7 @@ func(this* COM_ServerToClientStub)AddBagItem(item COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(11))
+  err := write(buffer,uint16(11))
   if err != nil{
     return err
   }
@@ -1273,7 +1273,7 @@ func(this* COM_ServerToClientStub)UpdateBagItem(item COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(12))
+  err := write(buffer,uint16(12))
   if err != nil{
     return err
   }
@@ -1290,7 +1290,7 @@ func(this* COM_ServerToClientStub)DeleteItemOK(instId int64 ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(13))
+  err := write(buffer,uint16(13))
   if err != nil{
     return err
   }
@@ -1307,7 +1307,7 @@ func(this* COM_ServerToClientStub)UpdateTiantiVal(curVal int32 ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(14))
+  err := write(buffer,uint16(14))
   if err != nil{
     return err
   }
@@ -1324,7 +1324,7 @@ func(this* COM_ServerToClientStub)UpdateUnitIProperty(instid int64, iType int32,
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(15))
+  err := write(buffer,uint16(15))
   if err != nil{
     return err
   }
@@ -1343,7 +1343,7 @@ func(this* COM_ServerToClientStub)UpdateUnitCProperty(instid int64, cType int32,
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(16))
+  err := write(buffer,uint16(16))
   if err != nil{
     return err
   }
@@ -1362,7 +1362,7 @@ func(this* COM_ServerToClientStub)PromoteUnitOK() error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(17))
+  err := write(buffer,uint16(17))
   if err != nil{
     return err
   }
@@ -1373,7 +1373,7 @@ func(this* COM_ServerToClientStub)RequestChapterStarRewardOK() error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(18))
+  err := write(buffer,uint16(18))
   if err != nil{
     return err
   }
@@ -1384,7 +1384,7 @@ func(this* COM_ServerToClientStub)EquipSkillOK(skillIndex int32, skillID int32 )
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(19))
+  err := write(buffer,uint16(19))
   if err != nil{
     return err
   }
@@ -1402,7 +1402,7 @@ func(this* COM_ServerToClientStub)SkillUpdateOK(skillIndex int32, skillID int32,
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(20))
+  err := write(buffer,uint16(20))
   if err != nil{
     return err
   }
@@ -1421,7 +1421,7 @@ func(this* COM_ServerToClientStub)BuyShopItemOK(items []COM_ItemInst ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(21))
+  err := write(buffer,uint16(21))
   if err != nil{
     return err
   }
@@ -1438,7 +1438,7 @@ func(this* COM_ServerToClientStub)AddNewUnit(unit COM_Unit ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(22))
+  err := write(buffer,uint16(22))
   if err != nil{
     return err
   }
@@ -1455,7 +1455,7 @@ func(this* COM_ServerToClientStub)SycnBlackMarkte(data COM_BlackMarket ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := Write(buffer,uint16(23))
+  err := write(buffer,uint16(23))
   if err != nil{
     return err
   }
@@ -1796,7 +1796,7 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     return errors.New(NoneProxyError)
   }
   pid := uint16(0XFFFF)
-  err := Read(buffer,&pid)
+  err := read(buffer,&pid)
   if err != nil{
     return err
   }

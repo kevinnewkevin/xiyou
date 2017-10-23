@@ -33,11 +33,11 @@ func (this *COM_MlackMarketItemData)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.IsBuy)
-  mask.WriteBit(this.ItemId!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.IsBuy)
+  mask.writeBit(this.ItemId!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -48,7 +48,7 @@ func (this *COM_MlackMarketItemData)Serialize(buffer *bytes.Buffer) error {
   // serialize ItemId
   {
     if(this.ItemId!=0){
-      err := Write(buffer,this.ItemId)
+      err := write(buffer,this.ItemId)
       if err != nil{
         return err
       }
@@ -60,15 +60,15 @@ func (this *COM_MlackMarketItemData)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize IsBuy
-  this.IsBuy = mask.ReadBit();
+  this.IsBuy = mask.readBit();
   // deserialize ItemId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.ItemId)
+  if mask.readBit() {
+    err := read(buffer,&this.ItemId)
     if err != nil{
       return err
     }

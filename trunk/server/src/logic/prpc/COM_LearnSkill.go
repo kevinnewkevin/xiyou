@@ -33,11 +33,11 @@ func (this *COM_LearnSkill)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.Position!=0)
-  mask.WriteBit(this.SkillID!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.Position!=0)
+  mask.writeBit(this.SkillID!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -45,7 +45,7 @@ func (this *COM_LearnSkill)Serialize(buffer *bytes.Buffer) error {
   // serialize Position
   {
     if(this.Position!=0){
-      err := Write(buffer,this.Position)
+      err := write(buffer,this.Position)
       if err != nil{
         return err
       }
@@ -54,7 +54,7 @@ func (this *COM_LearnSkill)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillID
   {
     if(this.SkillID!=0){
-      err := Write(buffer,this.SkillID)
+      err := write(buffer,this.SkillID)
       if err != nil{
         return err
       }
@@ -66,20 +66,20 @@ func (this *COM_LearnSkill)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize Position
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Position)
+  if mask.readBit() {
+    err := read(buffer,&this.Position)
     if err != nil{
       return err
     }
   }
   // deserialize SkillID
-  if mask.ReadBit() {
-    err := Read(buffer,&this.SkillID)
+  if mask.readBit() {
+    err := read(buffer,&this.SkillID)
     if err != nil{
       return err
     }

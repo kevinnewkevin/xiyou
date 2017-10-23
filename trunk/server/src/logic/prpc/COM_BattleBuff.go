@@ -33,11 +33,11 @@ func (this *COM_BattleBuff)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.BuffId!=0)
-  mask.WriteBit(this.Change!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.BuffId!=0)
+  mask.writeBit(this.Change!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -45,7 +45,7 @@ func (this *COM_BattleBuff)Serialize(buffer *bytes.Buffer) error {
   // serialize BuffId
   {
     if(this.BuffId!=0){
-      err := Write(buffer,this.BuffId)
+      err := write(buffer,this.BuffId)
       if err != nil{
         return err
       }
@@ -54,7 +54,7 @@ func (this *COM_BattleBuff)Serialize(buffer *bytes.Buffer) error {
   // serialize Change
   {
     if(this.Change!=0){
-      err := Write(buffer,this.Change)
+      err := write(buffer,this.Change)
       if err != nil{
         return err
       }
@@ -66,20 +66,20 @@ func (this *COM_BattleBuff)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize BuffId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.BuffId)
+  if mask.readBit() {
+    err := read(buffer,&this.BuffId)
     if err != nil{
       return err
     }
   }
   // deserialize Change
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Change)
+  if mask.readBit() {
+    err := read(buffer,&this.Change)
     if err != nil{
       return err
     }

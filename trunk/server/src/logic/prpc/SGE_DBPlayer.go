@@ -93,16 +93,16 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.PlayerId!=0)
-  mask.WriteBit(len(this.Username) != 0)
-  mask.WriteBit(this.LoginTime!=0)
-  mask.WriteBit(this.LogoutTime!=0)
-  mask.WriteBit(this.BattleGroupIdx!=0)
-  mask.WriteBit(len(this.BagItemList) != 0)
-  mask.WriteBit(true) //BlackMarketData
+  mask := newMask1(1)
+  mask.writeBit(this.PlayerId!=0)
+  mask.writeBit(len(this.Username) != 0)
+  mask.writeBit(this.LoginTime!=0)
+  mask.writeBit(this.LogoutTime!=0)
+  mask.writeBit(this.BattleGroupIdx!=0)
+  mask.writeBit(len(this.BagItemList) != 0)
+  mask.writeBit(true) //BlackMarketData
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -110,7 +110,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize PlayerId
   {
     if(this.PlayerId!=0){
-      err := Write(buffer,this.PlayerId)
+      err := write(buffer,this.PlayerId)
       if err != nil{
         return err
       }
@@ -118,7 +118,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   }
   // serialize Username
   if len(this.Username) != 0{
-    err := Write(buffer,this.Username)
+    err := write(buffer,this.Username)
     if err != nil {
       return err
     }
@@ -126,7 +126,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize LoginTime
   {
     if(this.LoginTime!=0){
-      err := Write(buffer,this.LoginTime)
+      err := write(buffer,this.LoginTime)
       if err != nil{
         return err
       }
@@ -135,7 +135,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize LogoutTime
   {
     if(this.LogoutTime!=0){
-      err := Write(buffer,this.LogoutTime)
+      err := write(buffer,this.LogoutTime)
       if err != nil{
         return err
       }
@@ -144,7 +144,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleGroupIdx
   {
     if(this.BattleGroupIdx!=0){
-      err := Write(buffer,this.BattleGroupIdx)
+      err := write(buffer,this.BattleGroupIdx)
       if err != nil{
         return err
       }
@@ -153,7 +153,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   // serialize BagItemList
   if len(this.BagItemList) != 0{
     {
-      err := Write(buffer,uint(len(this.BagItemList)))
+      err := write(buffer,uint(len(this.BagItemList)))
       if err != nil {
         return err
       }
@@ -181,49 +181,49 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize PlayerId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.PlayerId)
+  if mask.readBit() {
+    err := read(buffer,&this.PlayerId)
     if err != nil{
       return err
     }
   }
   // deserialize Username
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Username)
+  if mask.readBit() {
+    err := read(buffer,&this.Username)
     if err != nil{
       return err
     }
   }
   // deserialize LoginTime
-  if mask.ReadBit() {
-    err := Read(buffer,&this.LoginTime)
+  if mask.readBit() {
+    err := read(buffer,&this.LoginTime)
     if err != nil{
       return err
     }
   }
   // deserialize LogoutTime
-  if mask.ReadBit() {
-    err := Read(buffer,&this.LogoutTime)
+  if mask.readBit() {
+    err := read(buffer,&this.LogoutTime)
     if err != nil{
       return err
     }
   }
   // deserialize BattleGroupIdx
-  if mask.ReadBit() {
-    err := Read(buffer,&this.BattleGroupIdx)
+  if mask.readBit() {
+    err := read(buffer,&this.BattleGroupIdx)
     if err != nil{
       return err
     }
   }
   // deserialize BagItemList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -236,7 +236,7 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize BlackMarketData
-  if mask.ReadBit() {
+  if mask.readBit() {
     err := this.BlackMarketData.Deserialize(buffer)
     if err != nil{
       return err

@@ -44,12 +44,12 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.BattleID!=0)
-  mask.WriteBit(len(this.UnitList) != 0)
-  mask.WriteBit(len(this.ActionList) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.BattleID!=0)
+  mask.writeBit(len(this.UnitList) != 0)
+  mask.writeBit(len(this.ActionList) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -57,7 +57,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize BattleID
   {
     if(this.BattleID!=0){
-      err := Write(buffer,this.BattleID)
+      err := write(buffer,this.BattleID)
       if err != nil{
         return err
       }
@@ -66,7 +66,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitList
   if len(this.UnitList) != 0{
     {
-      err := Write(buffer,uint(len(this.UnitList)))
+      err := write(buffer,uint(len(this.UnitList)))
       if err != nil {
         return err
       }
@@ -81,7 +81,7 @@ func (this *COM_BattleReport)Serialize(buffer *bytes.Buffer) error {
   // serialize ActionList
   if len(this.ActionList) != 0{
     {
-      err := Write(buffer,uint(len(this.ActionList)))
+      err := write(buffer,uint(len(this.ActionList)))
       if err != nil {
         return err
       }
@@ -99,21 +99,21 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize BattleID
-  if mask.ReadBit() {
-    err := Read(buffer,&this.BattleID)
+  if mask.readBit() {
+    err := read(buffer,&this.BattleID)
     if err != nil{
       return err
     }
   }
   // deserialize UnitList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -126,9 +126,9 @@ func (this *COM_BattleReport)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize ActionList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

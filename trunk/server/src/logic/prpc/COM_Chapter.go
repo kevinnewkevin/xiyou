@@ -44,12 +44,12 @@ func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.ChapterId!=0)
-  mask.WriteBit(len(this.SmallChapters) != 0)
-  mask.WriteBit(len(this.StarReward) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.ChapterId!=0)
+  mask.writeBit(len(this.SmallChapters) != 0)
+  mask.writeBit(len(this.StarReward) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -57,7 +57,7 @@ func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
   // serialize ChapterId
   {
     if(this.ChapterId!=0){
-      err := Write(buffer,this.ChapterId)
+      err := write(buffer,this.ChapterId)
       if err != nil{
         return err
       }
@@ -66,7 +66,7 @@ func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
   // serialize SmallChapters
   if len(this.SmallChapters) != 0{
     {
-      err := Write(buffer,uint(len(this.SmallChapters)))
+      err := write(buffer,uint(len(this.SmallChapters)))
       if err != nil {
         return err
       }
@@ -81,13 +81,13 @@ func (this *COM_Chapter)Serialize(buffer *bytes.Buffer) error {
   // serialize StarReward
   if len(this.StarReward) != 0{
     {
-      err := Write(buffer,uint(len(this.StarReward)))
+      err := write(buffer,uint(len(this.StarReward)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.StarReward {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -99,21 +99,21 @@ func (this *COM_Chapter)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize ChapterId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.ChapterId)
+  if mask.readBit() {
+    err := read(buffer,&this.ChapterId)
     if err != nil{
       return err
     }
   }
   // deserialize SmallChapters
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -126,15 +126,15 @@ func (this *COM_Chapter)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize StarReward
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.StarReward = make([]int32,size)
     for i,_ := range this.StarReward{
-      err := Read(buffer,&this.StarReward[i])
+      err := read(buffer,&this.StarReward[i])
       if err != nil{
         return err
       }

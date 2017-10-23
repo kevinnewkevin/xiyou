@@ -33,11 +33,11 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.GroupId!=0)
-  mask.WriteBit(len(this.UnitList) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.GroupId!=0)
+  mask.writeBit(len(this.UnitList) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -45,7 +45,7 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   // serialize GroupId
   {
     if(this.GroupId!=0){
-      err := Write(buffer,this.GroupId)
+      err := write(buffer,this.GroupId)
       if err != nil{
         return err
       }
@@ -54,13 +54,13 @@ func (this *COM_UnitGroup)Serialize(buffer *bytes.Buffer) error {
   // serialize UnitList
   if len(this.UnitList) != 0{
     {
-      err := Write(buffer,uint(len(this.UnitList)))
+      err := write(buffer,uint(len(this.UnitList)))
       if err != nil {
         return err
       }
     }
     for _, value := range this.UnitList {
-      err := Write(buffer,value)
+      err := write(buffer,value)
       if err != nil {
         return err
       }
@@ -72,27 +72,27 @@ func (this *COM_UnitGroup)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize GroupId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.GroupId)
+  if mask.readBit() {
+    err := read(buffer,&this.GroupId)
     if err != nil{
       return err
     }
   }
   // deserialize UnitList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
     this.UnitList = make([]int64,size)
     for i,_ := range this.UnitList{
-      err := Read(buffer,&this.UnitList[i])
+      err := read(buffer,&this.UnitList[i])
       if err != nil{
         return err
       }

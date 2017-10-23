@@ -66,14 +66,14 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(len(this.BuffList) != 0)
-  mask.WriteBit(this.SkillId!=0)
-  mask.WriteBit(len(this.SkillBuff) != 0)
-  mask.WriteBit(len(this.TargetList) != 0)
+  mask := newMask1(1)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(len(this.BuffList) != 0)
+  mask.writeBit(this.SkillId!=0)
+  mask.writeBit(len(this.SkillBuff) != 0)
+  mask.writeBit(len(this.TargetList) != 0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -81,7 +81,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -90,7 +90,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize BuffList
   if len(this.BuffList) != 0{
     {
-      err := Write(buffer,uint(len(this.BuffList)))
+      err := write(buffer,uint(len(this.BuffList)))
       if err != nil {
         return err
       }
@@ -105,7 +105,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillId
   {
     if(this.SkillId!=0){
-      err := Write(buffer,this.SkillId)
+      err := write(buffer,this.SkillId)
       if err != nil{
         return err
       }
@@ -114,7 +114,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize SkillBuff
   if len(this.SkillBuff) != 0{
     {
-      err := Write(buffer,uint(len(this.SkillBuff)))
+      err := write(buffer,uint(len(this.SkillBuff)))
       if err != nil {
         return err
       }
@@ -129,7 +129,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   // serialize TargetList
   if len(this.TargetList) != 0{
     {
-      err := Write(buffer,uint(len(this.TargetList)))
+      err := write(buffer,uint(len(this.TargetList)))
       if err != nil {
         return err
       }
@@ -147,21 +147,21 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize BuffList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -174,16 +174,16 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize SkillId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.SkillId)
+  if mask.readBit() {
+    err := read(buffer,&this.SkillId)
     if err != nil{
       return err
     }
   }
   // deserialize SkillBuff
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }
@@ -196,9 +196,9 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
     }
   }
   // deserialize TargetList
-  if mask.ReadBit() {
+  if mask.readBit() {
     var size uint
-    err := Read(buffer,&size)
+    err := read(buffer,&size)
     if err != nil{
       return err
     }

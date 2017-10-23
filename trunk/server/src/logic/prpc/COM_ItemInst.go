@@ -44,12 +44,12 @@ func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := NewMask1(1)
-  mask.WriteBit(this.ItemId!=0)
-  mask.WriteBit(this.InstId!=0)
-  mask.WriteBit(this.Stack!=0)
+  mask := newMask1(1)
+  mask.writeBit(this.ItemId!=0)
+  mask.writeBit(this.InstId!=0)
+  mask.writeBit(this.Stack!=0)
   {
-    err := Write(buffer,mask.Bytes())
+    err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
@@ -57,7 +57,7 @@ func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
   // serialize ItemId
   {
     if(this.ItemId!=0){
-      err := Write(buffer,this.ItemId)
+      err := write(buffer,this.ItemId)
       if err != nil{
         return err
       }
@@ -66,7 +66,7 @@ func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
   // serialize InstId
   {
     if(this.InstId!=0){
-      err := Write(buffer,this.InstId)
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -75,7 +75,7 @@ func (this *COM_ItemInst)Serialize(buffer *bytes.Buffer) error {
   // serialize Stack
   {
     if(this.Stack!=0){
-      err := Write(buffer,this.Stack)
+      err := write(buffer,this.Stack)
       if err != nil{
         return err
       }
@@ -87,27 +87,27 @@ func (this *COM_ItemInst)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= NewMask0(buffer,1);
+  mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
   // deserialize ItemId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.ItemId)
+  if mask.readBit() {
+    err := read(buffer,&this.ItemId)
     if err != nil{
       return err
     }
   }
   // deserialize InstId
-  if mask.ReadBit() {
-    err := Read(buffer,&this.InstId)
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
   }
   // deserialize Stack
-  if mask.ReadBit() {
-    err := Read(buffer,&this.Stack)
+  if mask.readBit() {
+    err := read(buffer,&this.Stack)
     if err != nil{
       return err
     }
