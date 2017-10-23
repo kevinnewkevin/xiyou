@@ -9,12 +9,12 @@ function buff_154_add(battleid, unitid, buffinstid, data)
 	sys.log("buff_154_add "..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
-function buff_102_update(battleid, buffinstid, unitid)	
-	buff_id = 102 --配置表中的buffid
+function buff_154_update(battleid, buffinstid, unitid)	
+	buff_id = 154 --配置表中的buffid
 	sys.log("buff_154_update  更新加物理属性buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 end
 
-function buff_102_delete(battleid, unitid, buffinstid, data)
+function buff_154_delete(battleid, unitid, buffinstid, data)
 
 	 sys.log("buff_154_delete 加物理属性, battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是.."..data)
 
