@@ -28,13 +28,13 @@
     <image id="h8fpp" name="touxiangdengji.png" path="/" exported="true"/>
     <component id="h8fpq" name="kazu_Component.xml" path="/" exported="true"/>
     <component id="h8fpr" name="kapai_Component.xml" path="/" exported="true"/>
-    <image id="o31ms" name="paizi.png" path="/" exported="true" scale="9grid" scale9grid="16,13,16,26"/>
+    <image id="o31ms" name="paizi.png" path="/" exported="true" scale="" scale9grid="16,13,16,26"/>
     <component id="o31mu" name="pk_anniu2_Button.xml" path="/" exported="true"/>
     <component id="o31mv" name="pk_anniu3_Button.xml" path="/" exported="true"/>
     <component id="o31mw" name="pk_anniu4_Button.xml" path="/" exported="true"/>
     <component id="o31mx" name="pk_anniu5_Button.xml" path="/" exported="true"/>
     <image id="o31my" name="dinglan.png" path="/" exported="true" scale="9grid" scale9grid="22,18,13,28"/>
-    <image id="o31mz" name="xiaotiao.png" path="/" exported="true" scale="9grid" scale9grid="1,16,2,8"/>
+    <image id="o31mz" name="xiaotiao.png" path="/" exported="true" scale="9grid" scale9grid="16,29,18,18"/>
     <image id="qu1s11" name="dinglananniu.png" path="/" exported="true" scale="9grid" scale9grid="2,2,6,6"/>
     <component id="qu1s12" name="paikuanniu_1_Button.xml" path="/" exported="true"/>
     <component id="qu1s13" name="paikuanniu_2_Button.xml" path="/" exported="true"/>
@@ -68,13 +68,14 @@
     <image id="eg4f1x" name="jiazi.png" path="/" exported="true" scale="9grid" scale9grid="75,31,35,62"/>
     <image id="eg4f1y" name="kkkk.png" path="/" exported="true"/>
     <component id="thjm1z" name="kong_com.xml" path="/" exported="true"/>
-    <image id="iqx820" name="nezha_head.png" path="/"/>
+    <image id="iqx820" name="nezha_head.png" path="/" exported="true"/>
     <image id="dgfb21" name="kazu5.png" path="/" exported="true"/>
     <image id="dgfb22" name="kazu1.png" path="/" exported="true"/>
     <image id="dgfb23" name="kazu2.png" path="/" exported="true"/>
     <image id="dgfb24" name="kazu3.png" path="/" exported="true"/>
     <image id="dgfb25" name="kazu4.png" path="/" exported="true"/>
     <font id="dgfb26" name="kazu_Font.fnt" path="/" exported="true"/>
+    <image id="f15l27" name="dinglan2.png" path="/" exported="true"/>
   </resources>
   <publish name="paiku" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>
