@@ -43,7 +43,7 @@ function SK_329_Action(battleid, casterid)
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	if percent() <= 20 then 
 
-			Battle.AddBuff(battleid,casterid,v,148,0)
+			Battle.AddBuff(battleid,casterid,t,148,0)
 
 		end 
 	Battle.TargetOver(battleid)
