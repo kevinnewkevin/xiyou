@@ -1365,11 +1365,11 @@ func (this *GamePlayer)RefreshMyBlackMarket(isActive bool)  {
 		return 
 	}
 	if isActive {
-		//need := GetGlobalInt("C_BlackMarkteRefreshSpeed")
-		//if this.MyUnit.GetIProperty(prpc.IPT_SOULCUR) < int32(need) {
-		//	return
-		//}
-		//this.AddSoulCur(-int32(need))
+		need := GetGlobalInt("C_BlackMarkteRefreshSpeed")
+		if this.MyUnit.GetIProperty(prpc.IPT_SOULCUR) < int32(need) {
+			return
+		}
+		this.AddSoulCur(-int32(need))
 		this.BlackMarketData.RefreshNum--
 	}else {
 		this.BlackMarketData.RefreshTime = time.Now().Unix()
