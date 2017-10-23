@@ -72,6 +72,7 @@ function RegGlobalValue()
 	Define.Set("CreateSelectPos", "-1.52,-0.09,0.9"); --选中位置
 	Define.Set("CreateDefaultClip", "stand"); --默认动画
 	Define.Set("CreateSelectClip", "attack"); --选中动画
+	Define.Set("BattleScenePool", ""); --战斗场景随机库
 end
 
 function RegUIResMap()
