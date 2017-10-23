@@ -169,6 +169,9 @@ public class DragDrop {
             win.Call("NormalCard");
 
         if (clearSelectActor)
+        {
             Battle._SelectedHandCardInstID = 0;
+            Battle.SwitchPoint(false);
+        }
     }
 }

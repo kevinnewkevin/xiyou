@@ -611,9 +611,13 @@ public class Battle {
 
     static public void SwitchPoint(bool on)
     {
+        Actor actor = null;
+        int localPos = 0;
         for(int i=0; i < 6; ++i)
         {
-            if (_PosInScene [i] != null)
+            localPos = (_Side == 0? i : ConvertedPos(i));
+            actor = GetActorByPos(localPos);
+            if (_PosInScene [i] != null || (actor != null && actor.IsPlay(Define.ANIMATION_PLAYER_ACTION_DEAD)))
             {
                 if(IsEmptyPos(i) && on)
                     _PosInScene [i].gameObject.SetActive(on);

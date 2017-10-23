@@ -485,6 +485,8 @@ function BattlePanel_OnTurnOver()
 	for i=1, 5 do
 		cards[i]["card"]:SetScale(1, 1);
 	end
+	Battle.SwitchPoint(false);
+	Battle._SelectedHandCardInstID = 0;
 end
 
 function BattlePanel:NormalCard()
