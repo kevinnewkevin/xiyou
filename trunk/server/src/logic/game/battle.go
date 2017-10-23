@@ -921,6 +921,9 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 		if u.Camp != unit.Camp {
 			continue
 		}
+		if u.InstId == instid{
+			continue
+		}
 
 		u_list = append(u_list, u.InstId)
 	}
