@@ -17,6 +17,10 @@ local tiantiFen0;
 local tiantiFen1;
 local levelImg;
 local battleTeamId = 0;
+local okTrans; 
+local anim;
+local pipeiOk;
+
 function qiecuo:OnEntry()
 	Window = qiecuo.New();
 	Window:Show();
@@ -46,7 +50,9 @@ function qiecuo:OnInit()
 	cancelBtn = starting:GetChild("n8").asButton;
 	cancelBtn.onClick:Add(qiecuo_OnCancel);
 	starting.visible = false;
-
+	pipeiOk = starting:GetChild("n13");
+	anim = starting:GetChild("n14");
+	okTrans = pipeiOk:GetTransition("t1");
 	for i=1, 5 do
 		local groupItem = allCardGroupList:AddItemFromPool(cardGroupUrl);
 		groupItem.onClick:Add(qiecuo_OnSelectGroup);
@@ -89,6 +95,14 @@ function qiecuo:OnUpdate()
 		qiecuo_FlushData();
 		UIManager.ClearDirty("qiecuo");
 	end
+
+	if Proxy4Lua.ReadyToJoinBattle == true then
+		anim.visible = false;
+		cancelBtn.enabled = false;
+		okTrans:Play();
+	end
+
+
 end
 
 function qiecuo:OnTick()
@@ -105,6 +119,8 @@ end
 
 function qiecuo:OnHide()
 	starting.visible = false;
+	anim.visible = true;
+	cancelBtn.enabled = true;
 	Window:Hide();
 end
 
@@ -186,7 +202,7 @@ function qiecuo_OnStart(context)
 	if groupCards == nil then
 		return;
 	end
-
+	Proxy4Lua.NextBattleDelay = 3;
 	Proxy4Lua.StartMatching(GamePlayer._CrtBattleGroupIdx+1);
 	starting.visible = true;
 	qiecuo_FlushData();
@@ -202,6 +218,8 @@ end
 function qiecuo_OnCancel(context)
 	Proxy4Lua.StopMatching();
 	starting.visible = false;
+	Proxy4Lua.NextBattleDelay = 0;
+	Proxy4Lua._CancelMatch = true;
 end
 
 function paiku_OnSetBattle(context)
