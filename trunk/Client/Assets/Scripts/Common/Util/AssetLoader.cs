@@ -232,7 +232,7 @@ public class AssetLoader {
         ab = AssetCounter.GetBundle(assetPath);
 
         string assetName = path.Substring(path.LastIndexOf("/") + 1);
-        AnimationClip clip = ab.LoadAsset<AudioClip>(assetName);
+            AudioClip clip = ab.LoadAsset<AudioClip>(assetName);
         return clip;
         }
         catch(System.Exception e)
