@@ -52,6 +52,8 @@ public class Actor {
 
     Vector3 _ForwardPlus;
 
+    public int _BornTurn;
+
     public delegate void CallBackHandler();
 
     public Actor(GameObject go, Vector3 pos, long instid, string name, string title, int[] questes, int displayid)
@@ -111,6 +113,8 @@ public class Actor {
         MOVE_SPEED_WORLD = Define.GetFloat("MoveSpeed_InWorld");
 
         AdjustHeadBarScale();
+
+        _BornTurn = Battle._Turn;
     }
 
     public void UpdateValue(int value, int maxValue)
