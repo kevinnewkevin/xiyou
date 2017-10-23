@@ -26,13 +26,9 @@ function SK_305_Action(battleid, casterid)
 	local  caster_magic = Player.GetUnitMtk(battleid,casterid)  --获取攻击者属性   法术
 	
 	--local defender_def = Player.GetCalcMagicDef(battleid, t)  --获取防御属性
-	
-	
 	local  truedamage  = Player.GetMagicDamage(battleid,casterid,t)    --伤害 公式（）
 	
 	sys.log("观音对目标造成的法术伤害   ".. truedamage)
-	
-	
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 	sys.log("观音对目标造成的最终法术伤害   ".. damage)
 	
@@ -60,7 +56,6 @@ function SK_305_Action(battleid, casterid)
 	Battle.TargetOver(battleid)
 
 	Battle.TargetOn(battleid)
-
 	local  p = Player.GetFriend(battleid,casterid)  --获取目标 
 	Battle.Cure(battleid,p,0,0)
 	sys.log("观音对目标  增加己方"..p.."   40%物理强度 ".. mag_pro)

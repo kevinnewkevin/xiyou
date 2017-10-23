@@ -15,7 +15,6 @@ function SK_331_Action(battleid, casterid)
 	Battle.TargetOn(battleid)
 	local skillid = 331
 	local t = Player.GetTarget(battleid,casterid)
-
 	local  truedamage  = Player.GetUnitDamage(battleid,casterid,t)    --伤害 公式（）
 	
 	sys.log("翠云 碧云决对目标造成的法术伤害   ".. truedamage)
@@ -23,23 +22,17 @@ function SK_331_Action(battleid, casterid)
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 
 	sys.log("翠云 碧云决对目标造成的最终法术伤害   ".. damage)
-	
 	--判断伤害
 	if damage <= 0 then 
-	
 		damage = 0
-	
 	end
-	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-
 	damage = damage * 1.5
-
 	Battle.Attack(battleid,casterid,t,damage,crit)
+
+	--掉当前血量的10%
 	local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
-
 	local hp_damage = hp * 0.1
-
 	Battle.AddBuff(battleid,casterid,t,150,hp_damage)
 
 	Battle.TargetOver(battleid)

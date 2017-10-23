@@ -47,11 +47,11 @@ function SK_337_Action(battleid, casterid)
 	local attackNum = 0
 
 
-	local  p = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
+	local  p = Player.GetFriends(battleid,casterid,attackNum)  --获取友方所有目标
 	all_337_skill(battleid,casterid,p,skillid)
 
 
-	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
+	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取地方所有目标
 	all_337_skill(battleid,casterid,t,skillid)
 	
 	

@@ -21,15 +21,11 @@ function SK_311_Action(battleid, casterid)
 	local attackNum = 0		-- 攻击个数
 	
 	local  t = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
-	
-	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")
+	local sudu = Player.GetUnitProperty(battleid, casterid, "CPT_AGILE")--获取速度
 	
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid)
-		
-		sys.log("龙王  1111")
-		
 		local  truedamage  = Player.GetMagicDamage(battleid,casterid,v)
 		sys.log("龙王 布雨对目标  "..v..  "造成法术伤害"..truedamage)
 		
@@ -44,12 +40,13 @@ function SK_311_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
+		--50%的伤害
 		local mag_damage = damage*0.5
-		
-		local sudu_del = sudu*0.2
 		sys.log("龙王 布雨对目标  "..v .. "造成最终法术伤害的50%"..mag_damage)
 		Battle.Attack(battleid,casterid,v,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
+		--减少20的速度
+		local sudu_del = sudu*0.2
 		Battle.AddBuff(battleid,casterid,v,117,sudu_del)    -- 减少20%的速度
 		
 		Battle.TargetOver(battleid)

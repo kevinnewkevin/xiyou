@@ -6,7 +6,6 @@ function All_3_Skill(battleid,casterid,attackNum,level)
 	local  t = Player.GetFriends(battleid,casterid,attackNum)  --获取目标
 
 	for i,v in ipairs(t) do
-	
 		Battle.TargetOn(battleid) -- 清空数据
 		local  atkdamage  = Player.GetUnitDamage(battleid,casterid,v)       --伤害 公式（）
 		local  magdamage  = Player.GetMagicDamage(battleid,casterid,v)       --伤害 公式（）

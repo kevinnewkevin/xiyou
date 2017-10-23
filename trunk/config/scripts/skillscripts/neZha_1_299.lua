@@ -18,18 +18,12 @@ function mulatk(atk)
 end 
 
 function dotarget(battle,caster, target)
-	
-	
 	local  damage = Player.GetUnitDamage(battle,caster,target)  --获取物理伤害
-	
 	sys.log("哪吒对主角目标"..target.."造成的物理伤害"..damage)
-	
-		
 	damage = ClacDamageByAllBuff(battle,caster,target,damage)
 	sys.log("哪吒对主角目标"..target.."造成的最终物理伤害"..damage)
 	
 	damage = mul(damage,0.5)
-	
 	--判断伤害
 	if damage <= 0 then 
 	
@@ -46,9 +40,6 @@ function dotarget(battle,caster, target)
 	atk = mul(atk,0.1)
 	
 	Battle.AddBuff(battle,caster,caster,110,atk)
-	
-	
-
 end
 
 function SK_299_Action(battle, caster)

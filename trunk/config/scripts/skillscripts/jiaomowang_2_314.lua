@@ -25,25 +25,24 @@ function SK_314_Action(battleid, casterid)
 	sys.log("蛟魔王 孽龙 给自己   加buff122")
 	Battle.AddSkillBuff(battleid,casterid, casterid, 122,30)  -- 受到的伤害提升30%
 	sys.log("蛟魔王 孽龙 给自己  加buff完成")
+
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标
-	local atk = Player.GetUnitAtk(battleid,casterid)
-	local atk_damage = atk * 0.1
 	local damage = Player.GetUnitDamage(battleid,casterid,t)  -- 获取伤害
 	sys.log("蛟魔王 孽龙 给目标  " ..t.. " 造成 物理伤害  "..damage)
 	local caster_damage = ClacDamageByAllBuff(battleid,casterid,t,damage)
 	sys.log("蛟魔王 孽龙 给目标  " ..t.. " 造成 法术最终伤害  "..caster_damage)
 	--判断伤害
 	if caster_damage <= 0 then 
-	
 		caster_damage = 0
-	
 	end
-	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-	
-	
 	Battle.Attack(battleid,casterid,t,caster_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
+	
+	--增加10%的伤害
+	local atk = Player.GetUnitAtk(battleid,casterid)
+	local atk_damage = atk * 0.1
 	Battle.AddBuff(battleid,casterid,t,110,atk_damage)
+
 	Battle.TargetOver(battleid)
 	
 	return  true

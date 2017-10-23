@@ -21,30 +21,19 @@ function SK_315_Action(battleid, casterid)
 	local skillid = 315		-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
-
-	
 	local  true_damage = Player.GetUnitDamage(battleid,casterid,t)
-	
-	--local  caster_attack = Player.GetUnitAtk(battleid,casterid)  --获取攻击者属性
-		
-	--local defender_def = Player.GetCalcDef(battleid,t)   -- 防御
-	
 	sys.log("铁剪蟹将技能 的伤害"..t.."造成物理伤害"..true_damage)
-	
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,true_damage)
 	sys.log("铁剪蟹将技能 的伤害"..t.."造成最终物理伤害"..damage)
-
 	--判断伤害
 	if damage <= 0 then 
-		
 		damage = 0
-		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-	
-	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	sys.log("铁剪蟹将 被动技能连击   伤害    "   ..  damage)
+
+	--被动技能连击 
 	Battle.Attack(battleid,casterid,t,damage,crit)
 	Battle.TargetOver(battleid)
 		

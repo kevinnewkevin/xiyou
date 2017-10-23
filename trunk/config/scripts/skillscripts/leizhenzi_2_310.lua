@@ -15,8 +15,6 @@ sys.log("雷震子 SK_310_Action 开始")
 
 function SK_310_Action(battleid, casterid)
 
-	
-
 	local skillid = 310		-- 技能id
 	
 	local  p = Player.GetTarget(battleid,casterid)  --获取目标
@@ -26,9 +24,7 @@ function SK_310_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid)
-	
-		local  truedamage  =Player.GetMagicDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）
-		
+		local  truedamage  =Player.GetMagicDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）		
 		sys.log("雷震子  落雷对目标   "..v.. " 造成 法术伤害  "..truedamage )
 		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)
 		sys.log("雷震子  落雷对目标   "..v.. " 造成 最终法术伤害  "..damage )
@@ -39,9 +35,13 @@ function SK_310_Action(battleid, casterid)
 		
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
+
+		--被动技能 额外伤害 (当前血量10%)
 		local Bhp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")
 		local  hp_pro= Bhp*0.1
 		sys.log("雷震子  落雷对目标   "..v.. " 增加法术伤害  "..   hp_pro )
+
+		--加被动buff的最终伤害
 		damege = damage + hp_pro
 		sys.log("雷震子  落雷对目标   "..v.. " 增加法术伤害以后最终伤害  "..   damege )
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）

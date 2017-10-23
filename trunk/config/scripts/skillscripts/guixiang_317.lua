@@ -28,20 +28,15 @@ function SK_317_Action(battleid, casterid)
 	sys.log("万年龟相给目标  " ..t.. " 造成 最终物理伤害  "..damage)	
 	--判断伤害
 	if damage <= 0 then 
-		
 		damage = 0
-		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-
 	local per = 0.2
 	sys.log("万年龟相给目标  " ..t.. " 增加的伤害  "..     damage * per)	
 	damage = damage + damage * per
 	sys.log("万年龟相给目标  " ..t.. " 增加的伤害 以后最终伤害  "..     damage)
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	Battle.TargetOver(battleid)
-		
-	
 	return  true
 	 
 end

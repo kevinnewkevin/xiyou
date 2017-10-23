@@ -18,17 +18,13 @@ function SK_297_Action(battleid, casterid)
 	local skillAttack = 10	-- 技能攻击
 	local attackNum = 0		-- 攻击个数
 	
-	local t = Player.GetFriends(battleid, casterid, attackNum)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
-	
+	local t = Player.GetFriends(battleid, casterid, attackNum)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择	
 	--local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
-	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
 		local mtk = Player.GetUnitMtk(battleid,v)
 		local atk = Player.GetUnitAtk(battleid,v)
-		
 		local per = 0.2
-		
 		local mtk_damage = mtk * per
 		local atk_damage = atk * per
 		sys.log("子牙杏黄旗给友军加buff")
@@ -39,8 +35,6 @@ function SK_297_Action(battleid, casterid)
 		Battle.AddBuff(battleid,casterid,v,155,mtk_damage)
 		
 		Battle.TargetOver(battleid)
-		
-
 	end
 	sys.log("子牙杏黄旗")
 	return 1

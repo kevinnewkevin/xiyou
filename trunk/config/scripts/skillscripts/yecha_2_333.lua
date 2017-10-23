@@ -15,9 +15,7 @@ sys.log(" 夜叉 SK_333_Action 开始")
 function SK_333_Action(battleid,casterid)
 	Battle.TargetOn(battleid)
 	local skillid = 333
-
 	local t = Player.GetTarget(battleid,casterid)
-
 	local truedamage = Player.GetUnitDamage(battleid,casterid,t)
 
 	sys.log("夜叉 2号技能  对目标  "..t..  "造成的伤害"..truedamage)
@@ -27,21 +25,18 @@ function SK_333_Action(battleid,casterid)
 	sys.log("夜叉 2号技能  对目标  "..t..  "造成的最终伤害"..truedamage)
 
 	if damage <= 0 then 
-
 		damage = 0
-
 	end
 
-	local crit = Battle.GetCrit(skillid)
-
 	damage = damage * 1.2 
-
+	local crit = Battle.GetCrit(skillid)
 	Battle.Attack(battleid,casterid,t,damage,crit)
+	Battle.TargetOver(battleid)
 
+	--回血值为伤害的50%
+	Battle.TargetOn(battleid)
 	hp_damage = damage * 0.5
-
 	Battle.Cure(battleid,casterid,hp_damage,crit)
-
 	Battle.TargetOver(battleid)
 
 	return true 

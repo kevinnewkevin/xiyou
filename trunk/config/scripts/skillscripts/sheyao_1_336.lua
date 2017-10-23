@@ -22,9 +22,7 @@ function SK_336_Action(battleid, casterid)
 	local  p = Player.GetTargets(battleid,casterid,attackNum)  --获取目标
 	
 	for i,v in ipairs(p) do
-	
 		Battle.TargetOn(battleid)
-	
 		local  truedamage  =Player.GetMagicDamage(battleid,casterid,v)  --伤害 公式（物理伤害 减 防御 ）
 		
 		sys.log("蛇妖 1号技能 对目标   "..v.. " 造成 法术伤害  "..truedamage )
@@ -36,27 +34,16 @@ function SK_336_Action(battleid, casterid)
 			damage = 0
 		
 		end
-		local crit = Battle.GetCrit(skillid)   --是否暴击
-		
 		damege = damage * 0.5
-		
+		local crit = Battle.GetCrit(skillid)   --是否暴击
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
-		
-		Battle.AddBuff(battleid,casterid,v,153,0)
-
-		local hp = Player.GetUnitProperty(battleid, v, "CPT_CHP")
-
+		local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
 		local hp_damage = hp * 0.2
-
-		Battle.Cure(battleid,casterid,hp_damage,crit)
-
+		Battle.AddBuff(battleid,casterid,v,150,0)
 		Battle.TargetOver(battleid)
 	
-		
 	end
-	
 	return  true
-	 
 end
 
 sys.log("蛇妖 SK_336_Action 结束")

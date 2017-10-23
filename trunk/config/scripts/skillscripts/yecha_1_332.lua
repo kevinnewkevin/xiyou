@@ -36,6 +36,7 @@ function SK_332_Action(battleid,casterid)
 
 	Battle.Attack(battleid,casterid,t,damage,crit)
 
+	--50%的几率无法行动
 	if percent() <= 50 then
 
 		Battle.AddBuff(battleid,casterid,t,104,0)

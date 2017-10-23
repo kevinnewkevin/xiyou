@@ -22,11 +22,9 @@ function SK_295_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
-		local defender_atk = Player.GetUnitProperty(battleid, v, "CPT_DEF")
-		local defender_mtk = Player.GetUnitProperty(battleid, v, "CPT_MAGIC_DEF")
+		
 		--local damage = caster_attack * 2.3 - defender_def		-- 伤害公式
 		local truedamage = Player.GetUnitDamage(battleid, casterid, v)
 		
@@ -42,20 +40,37 @@ function SK_295_Action(battleid, casterid)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
-		local atk_damage = damage*1
+		--local atk_damage = damage*1
+
+		------------------------------------------------------------------------------------
+		--buff 数据
+		------------------------------------------------------------------------------------
+		local defender_atk = Player.GetUnitProperty(battleid, v, "CPT_DEF")
+		local defender_mtk = Player.GetUnitProperty(battleid, v, "CPT_MAGIC_DEF")
 		
 		local per = 0.15
 		
 		local defender_def = defender_atk * per
 		
 		local defender_mag = defender_mtk * per
+
+		-------------------------------------------------------------------------------------
+		-------------------------------------------------------------------------------------
 		
-		Battle.Attack(battleid, casterid, v, atk_damage, crit)
+		Battle.Attack(battleid, casterid, v, damage, crit)
+
+		-------------------------------------------------------------------------------------
+		--buff  引用添加接口
+		-------------------------------------------------------------------------------------
 		Battle.AddBuff(battleid, casterid, v, 112,defender_def )
 		Battle.AddBuff(battleid, casterid, v, 119,defender_mag )
+		-------------------------------------------------------------------------------------
+		--被动技能buff
+		-------------------------------------------------------------------------------------
 		if crit == 1 then 
 			Battle.AddSkillBuff(battleid,casterid,casterid,138,50)
 		end
+		-------------------------------------------------------------------------------------
 		
 		Battle.TargetOver(battleid)
 		

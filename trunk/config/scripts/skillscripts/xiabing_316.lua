@@ -20,25 +20,20 @@ function SK_316_Action(battleid, casterid)
 	local skillid = 316	-- 技能id
 	
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标 
-	
 	local  true_damage =Player.GetUnitDamage(battleid,casterid,t)
-	
 	sys.log("水晶虾兵技能 的伤害"..t.."造成物理伤害"..true_damage)
 	local  damage = ClacDamageByAllBuff(battleid,casterid,t,true_damage)
 	sys.log("水晶虾兵技能 的伤害"..t.."造成最终物理伤害"..damage)
-	
 	--判断伤害
 	if damage <= 0 then 
-		
 		damage = 0
-		
 	end
 	local crit = Battle.GetCrit(skillid)   --是否暴击
-		
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	sys.log("水晶虾兵技能 的伤害"..t.."造成最终物理伤害"..damage)
+	
+	--被动技能溅射
 	local  aroud_target = Player.GetTargetsAround(battleid,t)
-		
 	for i,v in ipairs(aroud_target) do
 		sys.log("水晶虾兵 被动技能 的伤害"..v.."造成最终物理伤害"..damage)
 		Battle.Attack(battleid,casterid,v,damage,crit)  

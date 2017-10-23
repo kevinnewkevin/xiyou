@@ -35,17 +35,22 @@ function SK_309_Action(battleid, casterid)
 	
 	local crit = Battle.GetCrit(skillid)   --是否暴击
 	
-	local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
-	local Bhp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")
-	local pvalue = 0.4
-	local hp_damage = hp*pvalue
-	local  hp_pro= Bhp*0.1
 
+	local pvalue = 0.4
+
+	--技能掉血buff(当前血量40%)
+	local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
+	local hp_damage = hp*pvalue
+
+	--被动技能 额外加的伤害  (最大血量的10%)
+	local Bhp = Player.GetUnitProperty(battleid, casterid, "CPT_HP")
+	local  hp_pro= Bhp*0.1
 	sys.log("雷震子 雷击对目标   "..t.. "加被动技能  伤害   "..   hp_pro)
 	
 	damege = damage + hp_pro
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器   （伤害）(战斗者，释放者，承受者，伤害，暴击）
 	sys.log("雷震子 雷击对目标   "..t.. "加掉血buff" )
+	
 	Battle.AddBuff(battleid,casterid, t,100, hp_damage)     --每回合掉当前生命值40%血量
 	
 	Battle.TargetOver(battleid)

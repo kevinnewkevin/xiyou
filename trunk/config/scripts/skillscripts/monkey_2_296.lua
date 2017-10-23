@@ -10,7 +10,7 @@ sys.log("猴子 SK_296_Action 开始")
 --  计算伤害数值
 --  计算是否暴击
 --  攻击
--- 猴子 2号 大闹天宫 召唤金箍棒变大从天砸下，对敌方全体目标造成230%的伤害并有20%几率眩晕对方1回合，并有20%几率造成双倍伤害。
+-- 猴子 2号 大闹天宫 召唤金箍棒变大从天砸下，对敌方全体目标造成80%的伤害并有20%几率眩晕对方1回合，并有20%几率造成双倍伤害。
 -- 增加速度视作buff
 set_random_seed()
 function SK_296_Action(battleid, casterid)
@@ -22,11 +22,9 @@ function SK_296_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
-		--local defender_def = Player.GetUnitProperty(battleid, v, "CPT_DEF")
-		--local damage = caster_attack * 2.3 - defender_def		-- 伤害公式
+		
 		local truedamage = Player.GetUnitDamage(battleid, casterid, v)
 		
 		sys.log("猴子 大闹天宫的物理伤害   "..truedamage)
@@ -52,6 +50,10 @@ function SK_296_Action(battleid, casterid)
 		if percent() <= 20 then 						-- 眩晕对方1回合
 			Battle.AddBuff(battleid, casterid, v, 104, 0)
 		end
+		
+		------------------------------------------------------------------
+		--被动 技能
+		------------------------------------------------------------------
 		if crit == 1 then 
 			Battle.AddSkillBuff(battleid,casterid,casterid,138,50)
 		end

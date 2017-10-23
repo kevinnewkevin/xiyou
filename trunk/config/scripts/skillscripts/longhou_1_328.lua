@@ -32,20 +32,15 @@ function SK_328_Action(battleid, casterid)
 		sys.log("龙后  寒冰对目标   "..v.. " 造成 最终法术伤害  "..damage )
 		--判断伤害
 		if damage <= 0 then 
-		
 			damage = 0
-		
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
-		
 		damege = damage * 0.7
-		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
+		--20%几率冰冻
 		if percent() <= 20 then 
-
 			Battle.AddBuff(battleid,casterid,v,149,0)
-
 		end 
 		Battle.TargetOver(battleid)
 	

@@ -42,26 +42,21 @@ function SK_312_Action(battleid, casterid)
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
+		--判断有无负面buff  及返回的个数
 		debuffnum = Player.PopAllBuffByDebuff(battleid,v)
 		sys.log("龙王 消灾对目标  "..v..  "清除所有负向状态, debuff数量为："..debuffnum)
 		local pvalue = 0.5
-	
 		if debuffnum >0 then 
-			
 			local demage = magic_damage*pvalue  --额外造成50%法术强度的伤害
 			mag_damage = 0
 			for a=1,debuffnum,1 do
-			
 				mag_damage = mag_damage + demage
-	
 			end
 			trueDamage = trueDamage*pvalue + mag_damage
 			
 			sys.log("龙王 消灾对目标  "..v .. "清除所有负向状态的伤害"..trueDamage)
 		else 
-		
 			trueDamage = trueDamage*pvalue
-			
 		end
 		sys.log("龙王 消灾对目标  "..v .. " 伤害 "..trueDamage)
 		

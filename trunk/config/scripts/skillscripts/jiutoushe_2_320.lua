@@ -54,13 +54,11 @@ function SK_320_Action(battleid, casterid)
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
 		local mag_damage = damage*0.3
-		
-		local  sudu_del = sudu*0.1
-
 		sys.log("九头蛇 群蛇乱舞对目标9次攻击   "..v.. " 造成 法术伤害的30%  "..mag_damage )
-
 		Battle.Attack(battleid,casterid,v,mag_damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
+		--降低105的速度
+		local  sudu_del = sudu*0.1
 		Battle.AddBuff(battleid,casterid,v,145,sudu_del)  --每次都到伤害降低10%速度
 
 		
