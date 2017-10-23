@@ -183,9 +183,11 @@ function zhanbao_FlushData()
 		if Battle._ReportTips[Battle._SelectReportIdx]._Targets ~= nil then
 			local target;
 			local tEid;
+			local tSelf;
 			for i=0, Battle._ReportTips[Battle._SelectReportIdx]._Targets.Length - 1 do
 				target = Battle._ReportTips[Battle._SelectReportIdx]._Targets[i];
 				tEid = Battle._ReportTips[Battle._SelectReportIdx]._TargetEntityID[i];
+				tSelf = Battle._ReportTips[Battle._SelectReportIdx]._TargetSelf[i];
 				if target ~= nil then
 					local targetItem = targetList:AddItemFromPool(targetListItemUrl);
 					local tivalbar = targetItem:GetChild("n19");
@@ -197,6 +199,9 @@ function zhanbao_FlushData()
 					local buffList = targetItem:GetChild("n25").asList;
 					local dmg = targetItem:GetChild("n20").asTextField;
 					local addhp = targetItem:GetChild("n22").asTextField;
+					tiside.url = "";
+					tiqua.url = "";
+					tiicon.url = "";
 					tivalbar.visible = false;
 					if target.ActionParam > 0 then
 						addhp.text = "+" .. target.ActionParam;
@@ -219,7 +224,7 @@ function zhanbao_FlushData()
 					tichada.visible = target.ThrowCard.EntityId ~= 0;
 
 					local sideStr = "";
-					if Battle._ReportTips[i]._Self then
+					if tSelf then
 						sideStr = "ui://BattlePanel/zb_wo";
 					else
 						sideStr = "ui://BattlePanel/zb_di";
