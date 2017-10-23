@@ -840,6 +840,8 @@ func  __GetSpecial(L* lua.LState) int { //獲取spec相对应的buffid
 		table.Insert(i,lua.LNumber(buffid[i]))
 	}
 
+	L.Push(table)
+
 	return 1
 
 }
@@ -1005,6 +1007,8 @@ func __GetTargets(L* lua.LState) int {  //获取敌方多个目标
 		table.Insert(i+1,lua.LNumber(ls[i]))
 	}
 
+	L.Push(table)
+
 	return 1
 }
 //export __GetTargetsAround
@@ -1035,6 +1039,8 @@ func __GetTargetsAround(L* lua.LState) int {  //溅射目标
 		table.Insert(i+1,lua.LNumber(ls[i]))
 	}
 
+	L.Push(table)
+
 	return 1
 }
 
@@ -1064,6 +1070,8 @@ func __GetTargetsRandom(L* lua.LState) int {  //溅射目标
 		table.Insert(i+1,lua.LNumber(ls[i]))
 	}
 
+	L.Push(table)
+
 	return 1
 }
 
@@ -1092,6 +1100,8 @@ func __GetFriends(L* lua.LState) int {
 	for i:=0;i<len(ls);i++{
 		table.Insert(i+1,lua.LNumber(ls[i]))
 	}
+
+	L.Push(table)
 
 	return 1
 }
@@ -1124,6 +1134,9 @@ func __FrontTarget(L* lua.LState) int {		//获取前排人数
 	for i:=0;i<len(FrontTarget);i++{
 		table.Insert(i+1,lua.LNumber(FrontTarget[i]))
 	}
+
+	L.Push(table)
+
 	return 1
 }
 
@@ -1152,6 +1165,8 @@ func __LineTraget(L* lua.LState) int {		//获取纵排人数
 	for i:=0;i<len(lineTraget);i++{
 		table.Insert(i+1,lua.LNumber(lineTraget[i]))
 	}
+
+	L.Push(table)
 
 	return 1
 }
@@ -1184,6 +1199,7 @@ func __BackTarget(L* lua.LState) int {		//获取后排人数
 		table.Insert(i+1,lua.LNumber(BackTarget[i]))
 	}
 
+	L.Push(table)
 
 	return 1
 }
