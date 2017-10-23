@@ -1096,14 +1096,7 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 		if this.Units[pos].IsDead() {
 			continue
 		}
-		buff_list,ok:= this.Units[pos].Special[prpc.BF_FRIENDLOCK]
 
-		if ok {
-			if len(buff_list) > 0 {
-				std.LogInfo("目标  333",this.Units[pos].InstId,"己方随机目标buff ,", this.Units[pos].Special[prpc.BF_FRIENDLOCK])
-				return this.SelectOneFriend(this.Units[pos].InstId)
-			}
-		}
 		return this.Units[pos].InstId
 	}
 
