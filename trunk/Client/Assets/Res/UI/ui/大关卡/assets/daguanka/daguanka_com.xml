@@ -4,12 +4,17 @@
     <image id="n1_63w5" name="n1" src="63w51" xy="0,0"/>
     <component id="n3_63w5" name="n3" src="63w53" xy="1784,8"/>
     <component id="n4_63w5" name="n4" src="63w59" xy="1489,615" pivot="0.5,0.5" anchor="true" size="470,550" hideByEditor="true"/>
-    <component id="n5_63w5" name="n5" src="63w5i" xy="72,522"/>
-    <component id="n6_63w5" name="n6" src="63w5j" xy="1740,522"/>
+    <component id="n5_63w5" name="n5" src="63w5i" xy="64,522"/>
+    <component id="n6_63w5" name="n6" src="63w5j" xy="1732,522"/>
     <component id="n7_63w5" name="n7" src="63w5l" xy="16,918"/>
-    <graph id="n8_63w5" name="n8" xy="988,872" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
-    <graph id="n9_63w5" name="n9" xy="1501,672" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
-    <graph id="n10_63w5" name="n10" xy="495,672" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
+    <list id="n11_63w5" name="n11" xy="268,98" size="1508,994" layout="row" overflow="scroll" scroll="horizontal" margin="143,0,0,0" colGap="135" defaultItem="ui://fgvkimqn63w5m" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
   <transition name="t0">
     <item time="0" type="Scale" target="n4_63w5" tween="true" startValue="0.9,0.9" endValue="1.05,1.05" duration="6" ease="Circ.InOut"/>
