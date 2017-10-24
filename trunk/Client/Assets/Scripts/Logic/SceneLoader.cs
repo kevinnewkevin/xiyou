@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader
 {
     static AsyncOperation asyncOper;
+    #if !EDITOR_MODE
     static string _PreScene = "";
+    #endif
     static public void LoadScene(string sceneName)
     {
         CameraEffect.Fade(delegate{
