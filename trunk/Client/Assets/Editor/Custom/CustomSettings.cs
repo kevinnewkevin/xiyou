@@ -153,6 +153,7 @@ public static class CustomSettings
         _GT(typeof(UnityEngine.UI.InputField)),
         _GT(typeof(UnityEngine.UI.Button.ButtonClickedEvent)),
         _GT(typeof(DataLoader)),
+        _GT(typeof(ResourceUpdate)),
         _GT(typeof(SceneLoader)),
         _GT(typeof(Proxy4Lua)),
         _GT(typeof(COM_BattlePosition)),

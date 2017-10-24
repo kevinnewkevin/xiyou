@@ -12,6 +12,8 @@ local accountGroup;
 local account;
 local password;
 
+local finalized;
+
 function denglu:OnEntry()
 	Window = denglu.New();
 	Window:Show();
@@ -40,8 +42,7 @@ function denglu:OnInit()
 	account = accountGroup:GetChild("n11").asTextField;
 	password = accountGroup:GetChild("n12").asTextField;
 
-	--读表
-	DataLoader.BeginLoad();
+	finalized = false;
 
 	denglu_FlushData();
 end
@@ -66,11 +67,36 @@ function denglu:OnDispose()
 end
 
 function denglu:OnHide()
+	finalized = false;
 	Window:Hide();
 end
 
 function denglu_FlushData()
-	enterBtn.enabled = not DataLoader._IsLoading;
+	enterBtn.enabled = not DataLoader._IsLoading and Proxy4Lua.ResUpdate._UpdateFinish;
+
+	if finalized then
+		print("finalized");
+		return;
+	end
+
+	if DataLoader._LoadFinish then
+		finalized = true;
+		DataLoader._LoadFinish = false;
+		Proxy4Lua.ResUpdate._UpdateFinish = false;
+		return;
+	end
+
+	if Proxy4Lua.ResUpdate._UpdateFinish and not DataLoader._IsLoading then
+		--读表
+		DataLoader.BeginLoad();
+		print("读表");
+	end
+
+	if Proxy4Lua.ResUpdate._IsDoing == false and not Proxy4Lua.ResUpdate._UpdateFinish then
+		--监测更新
+		Proxy4Lua.ResUpdate:Init();
+		print("监测更新");
+	end
 end
 
 function denglu_OnShowServ()

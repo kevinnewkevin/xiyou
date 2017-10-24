@@ -11,6 +11,7 @@ public class Define {
     public const int MALE_ID = 1;
     public const int FEMALE_ID = 2;
 
+    public const string SCENE_LOGIN = "Login";
     public const string SCENE_MAIN = "main";
     public const string SCENE_CREATE = "createRole";
     public const string SCENE_BATTLE = "haidizhandou";

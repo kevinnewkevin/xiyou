@@ -11,17 +11,15 @@ public class ResourceUpdate : MonoBehaviour {
 
     int _CrtDownload = 0;
 
-    bool _UpdateFinish = false;
+    public bool _UpdateFinish = false;
+
+    public bool _IsDoing = false;
 
     string _RemoteMd5Content = "";
 
-    void Start()
-    {
-
-    }
-
     public void Init()
     {
+        _IsDoing = true;
         _UpdateFinish = false;
         _CenterServer = Define.GetStr("CenterServer");
         CheckNew();
@@ -64,7 +62,11 @@ public class ResourceUpdate : MonoBehaviour {
         {
             if (!string.IsNullOrEmpty(www.error))
             {
-                LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                //LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                //请求cdn md5时 有个开关 代表是否跳过热更（cdn服务器有问题时的解决方案）
+                _UpdateFinish = true;
+                _IsDoing = false;
+                UIManager.SetDirty("denglu");
             }
             else
             {
@@ -96,6 +98,8 @@ public class ResourceUpdate : MonoBehaviour {
         {
             File.WriteAllText(Application.persistentDataPath + "/md5.txt", _RemoteMd5Content);
             _UpdateFinish = true;
+            _IsDoing = false;
+            UIManager.SetDirty("denglu");
             return;
         }
 

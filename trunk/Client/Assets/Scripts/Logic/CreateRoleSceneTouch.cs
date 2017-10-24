@@ -20,7 +20,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 	void Start () {
         _SelectRole = -1;
         Stage.inst.onTouchBegin.Add(OnTouchBegin);
-        UIManager.Show("xuanren");
 
         string[] posStr = Define.GetStr("CreateMalePos").Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
         _MalePos = new Vector3(float.Parse(posStr[0]), float.Parse(posStr[1]), float.Parse(posStr[2]));

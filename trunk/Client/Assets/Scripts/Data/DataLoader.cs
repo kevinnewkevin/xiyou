@@ -13,6 +13,8 @@ public class DataLoader {
 
     public static bool _IsLoading;
 
+    public static bool _LoadFinish;
+
     class TableInfo
     {
         public string _Name;
@@ -48,6 +50,7 @@ public class DataLoader {
 
     static public void Init()
     {
+        _LoadFinish = false;
         RegistTables("DisPlay", DisplayData.ParseData);
         RegistTables("Npc", NpcData.ParseData);
         RegistTables("Scene", SceneData.ParseData);
@@ -119,6 +122,7 @@ public class DataLoader {
         _Request = null;
         _LoadingTable = null;
         _IsLoading = false;
+        _LoadFinish = true;
         UIManager.SetDirty("denglu");
     }
 }

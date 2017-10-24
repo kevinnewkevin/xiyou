@@ -410,5 +410,24 @@ public class Proxy4Lua {
         }
     }
 
+    static public ResourceUpdate ResUpdate
+    {
+        get
+        {
+            ResourceUpdate ru = GameObject.FindObjectOfType<ResourceUpdate>();
+            if (ru == null)
+            {
+                GameObject go = new GameObject();
+                ru = go.AddComponent<ResourceUpdate>();
+            }
+            return ru;
+        }
+    }
+
+    static public void ReturnToLogin()
+    {
+        SceneLoader.LoadScene(Define.SCENE_LOGIN);
+    }
+
     #endregion
 }
