@@ -6,23 +6,22 @@ using UnityEngine.SceneManagement;
 public class SceneLoader
 {
     static AsyncOperation asyncOper;
-    #if !EDITOR_MODE
+#if !EDITOR_MODE
     static string _PreScene = "";
-    #endif
+#endif
     static public void LoadScene(string sceneName)
     {
         CameraEffect.Fade(delegate{
             #if !EDITOR_MODE
-            if(!string.IsNullOrEmpty(_PreScene) || (!string.IsNullOrEmpty(_PreScene) && !_PreScene.Equals(sceneName)))
-            AssetLoader.UnloadAsset("Scene/" + _PreScene);
-            #endif
+                if(!string.IsNullOrEmpty(_PreScene) || (!string.IsNullOrEmpty(_PreScene) && !_PreScene.Equals(sceneName)))
+                    AssetLoader.UnloadAsset("Scene/" + _PreScene);
 
-            UIManager.HideAll();
-            #if !EDITOR_MODE
                 if(string.IsNullOrEmpty(_PreScene) || !_PreScene.Equals(sceneName))
                     AssetLoader.LoadAsset("Scene/" + sceneName);
                 _PreScene = sceneName;
             #endif
+
+            UIManager.HideAll();
             asyncOper = SceneManager.LoadSceneAsync(sceneName);
             if(Battle.InBattle && Battle.CurrentState != Battle.BattleState.BS_Init)
                 Battle.Fini();
