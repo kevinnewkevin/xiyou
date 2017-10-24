@@ -7,14 +7,7 @@
     <component id="n5_63w5" name="n5" src="63w5i" xy="64,522"/>
     <component id="n6_63w5" name="n6" src="63w5j" xy="1732,522"/>
     <component id="n7_63w5" name="n7" src="63w5l" xy="16,918"/>
-    <list id="n11_63w5" name="n11" xy="268,98" size="1508,994" layout="row" overflow="scroll" scroll="horizontal" margin="143,0,0,0" colGap="135" defaultItem="ui://fgvkimqn63w5m" align="center" vAlign="middle">
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-    </list>
+    <component id="n11_63w5" name="n11" src="taren" xy="268,50"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="Scale" target="n4_63w5" tween="true" startValue="0.9,0.9" endValue="1.05,1.05" duration="6" ease="Circ.InOut"/>
