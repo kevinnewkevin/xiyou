@@ -13,6 +13,7 @@ type (
 		Id     int32
 		DispId int32
 		Cost   int32
+		Race   int32
 		IProp  []int32
 		CProp  []float32
 		Skills []int32
@@ -70,6 +71,10 @@ type (
 		NextID 		int32
 		NeedMoney 	int32
 	}
+	RaceRecord struct {
+		Exercise	int32
+		Quotiety	int32
+	}
 )
 
 var (
@@ -84,6 +89,7 @@ var (
 	PromoteTable = map[int32][]*PromoteInfo{}
 	RoleSkillTable = map[int32]*RoleSkill{}
 	RoleSkillUpdateTable = map[int32]*RoleSkillUpdate{}
+	RaceTable = map[int32]*RaceRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -97,6 +103,7 @@ func LoadUnitTable(filename string) error {
 		u.Id = int32(csv.GetInt(r, "UnitId"))
 		u.DispId = int32(csv.GetInt(r, "DisplayId"))
 		u.Cost = int32(csv.GetInt(r, "Cost"))
+		u.Race = int32(csv.GetInt(r, "Race"))
 		u.IProp = make([]int32, prpc.IPT_MAX)
 		u.CProp = make([]float32, prpc.CPT_MAX)
 		u.BaseName = csv.GetString(r, "Name")
@@ -356,6 +363,28 @@ func LoadRoleSkillUpdateTable(filename string) error {
 
 func GetRoleSkillUpdateRecordById(ID int32) *RoleSkillUpdate {
 	return RoleSkillUpdateTable[ID]
+}
+
+func LoadRaceTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+
+		s := RaceRecord{}
+		ID := csv.GetInt32(r, "ID")
+		s.Exercise = csv.GetInt32(r, "Exercise")
+		s.Quotiety = csv.GetInt32(r, "Quotiety")
+
+		RaceTable[ID] = &s
+	}
+	return nil
+}
+
+func GetRaceRecordById(ID int32) *RaceRecord {
+	return RaceTable[ID]
 }
 
 

@@ -109,6 +109,11 @@ func (this *App) Run() {
 		log.Debug("LoadCardPondTable %s ", err.Error())
 		return
 	}
+	err = game.LoadRaceTable("../../../config/tables/Race.csv")
+	if err != nil {
+		log.Debug("LoadRaceTable %s ", err.Error())
+		return
+	}
 
 	game.InitLua("../../../config/scripts/")
 
@@ -123,7 +128,6 @@ func (this *App) Run() {
 		log.Fatal(err.Error())
 		return
 	}
-
 
 	go func() {
 		for {

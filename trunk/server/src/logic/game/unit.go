@@ -23,6 +23,7 @@ type GameUnit struct {
 	IProperties []int32
 	CProperties []float32
 	Cost 		int32
+	Race 		int32
 	Skill       map[int32]*Skill
 
 	//战斗的实际信息
@@ -55,6 +56,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	u.Level = u.IProperties[prpc.IPT_PROMOTE]
 	u.InstName = t.BaseName
 	u.Cost = t.Cost
+	u.Race = t.Race
 	u.IsMain = false
 	for i := 0; i < len(t.Skills); i++ {
 		skill := InitSkillFromTable(t.Skills[i])

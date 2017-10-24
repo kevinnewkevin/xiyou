@@ -1384,6 +1384,7 @@ func (this *BattleRoom) MonsterMove() {
 	this.Monster.MainUnit.ChoiceSKill = this.Monster.MainUnit.SelectSkill(this.Round).SkillID
 
 	log.Info("MonsterMove 2", this.Units)
+	log.Info("MonsterMove 2.1 ", this.Monster.MainUnit.ChoiceSKill)
 
 	return
 }
@@ -1525,6 +1526,18 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 	//////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////////////////
+
+	caster := this.SelectOneUnit(casterid)
+
+	exercise := GetRaceRecordById(caster.Race)
+
+	if unit.Race == exercise.Exercise{
+		log.Info("unit.Race == exercise.Exercise 1", damage)
+		damage_q := damage * exercise.Quotiety / 100
+		damage += damage_q
+		log.Info("unit.Race == exercise.Exercise 2", damage)
+	}
+
 	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
 		bf, ok := unit.Special[prpc.BF_UNDEAD]
 		true_list := []int32{}
@@ -1590,7 +1603,6 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		if unit.Owner != nil{
 			unit.Owner.MyDeathNum += 1
 		}
-		caster := this.SelectOneUnit(casterid)
 		if caster.Owner != nil {
 			caster.Owner.KillUnits = append(caster.Owner.KillUnits, unit.UnitId)
 		}
