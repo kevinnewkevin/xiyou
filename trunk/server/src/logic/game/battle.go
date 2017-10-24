@@ -105,6 +105,36 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 
 	return &room
 }
+func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
+	room := BattleRoom{}
+
+	room.Status = kUsed
+	room.InstId = atomic.AddInt64(&roomInstId, 1)
+	room.Round = 0
+	room.Winner = prpc.CT_MAX
+	room.Units = make([]*GameUnit, prpc.BP_MAX)
+	room.PlayerList = append(room.PlayerList, p)
+	room.Type = prpc.BT_PVR
+	room.Point = 1
+	room.BattleID = battleid
+
+	log.Info("CreatePvE", &room)
+	BattleRoomList[room.InstId] = &room
+
+	room.Monster = CreateMonster(battleid, room.InstId)
+	p.SetProprty(&room, prpc.CT_RED)
+
+	room.Units[prpc.BP_BLUE_5] = room.Monster.MainUnit
+	room.Monster.MainUnit.Position = prpc.BP_BLUE_5
+
+	room.Units[prpc.BP_RED_5] = p.MyUnit
+	p.MyUnit.Position = prpc.BP_RED_5
+
+	room.BattleStart()
+	//go room.BattleUpdate()
+
+	return &room
+}
 
 func CreateMonster(battleid int32, roomid int64) *Monster{
 	t := GetBattleRecordById(battleid)
@@ -112,7 +142,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable(t.MainId)
-	log.Info("adasdas", battleid, t.MainId, m.MainUnit)
+	//log.Info("adasdas", battleid, t.MainId, m.MainUnit)
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
 	//m.MainUnit.Camp = prpc.CT_BLUE
@@ -321,7 +351,7 @@ func (this *BattleRoom) BattleUpdate() {
 		this.Update()
 		now_start = time.Now().Unix()
 		checkindex += 1
-		if this.Type == prpc.BT_PVE{	//pve只执行一次就跳出
+		if this.Type == prpc.BT_PVE || this.Type == prpc.BT_PVR {	//pve只执行一次就跳出
 			break
 		}
 	}
@@ -461,7 +491,7 @@ func (this *BattleRoom) Update() {
 		}
 	}
 
-	if this.Type == 2 {
+	if this.Type != prpc.BT_PVP {
 		this.MonsterMove()
 		//this.PlayerMove()
 	}
@@ -1909,7 +1939,7 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	p.BattlePoint -= needPoint
 	p.MyUnit.ChoiceSKill = skillid
 
-	if this.Type == prpc.BT_PVE {
+	if this.Type == prpc.BT_PVE || this.Type == prpc.BT_PVR {
 		this.BattleUpdate()
 	}
 	//log.Info("SetupPosition", this.Units, p.BattleCamp, p.IsActive)
