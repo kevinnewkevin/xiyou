@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="160,70" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n4_63w5" name="n4" src="63w5b" xy="0,1" size="160,64" aspect="true"/>
+    <text id="n5_63w5" name="n5" xy="59,7" size="67,37" font="方正楷体_GBK" fontSize="30" color="#2e0000" bold="true" text="挑战"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
