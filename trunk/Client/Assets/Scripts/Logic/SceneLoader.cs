@@ -9,11 +9,12 @@ public class SceneLoader
     static string _PreScene = "";
     static public void LoadScene(string sceneName)
     {
-        #if !EDITOR_MODE
-            if(!string.IsNullOrEmpty(_PreScene) || (!string.IsNullOrEmpty(_PreScene) && !_PreScene.Equals(sceneName)))
-                AssetLoader.UnloadAsset("Scene/" + _PreScene);
-        #endif
         CameraEffect.Fade(delegate{
+            #if !EDITOR_MODE
+            if(!string.IsNullOrEmpty(_PreScene) || (!string.IsNullOrEmpty(_PreScene) && !_PreScene.Equals(sceneName)))
+            AssetLoader.UnloadAsset("Scene/" + _PreScene);
+            #endif
+
             UIManager.HideAll();
             #if !EDITOR_MODE
                 if(string.IsNullOrEmpty(_PreScene) || !_PreScene.Equals(sceneName))
