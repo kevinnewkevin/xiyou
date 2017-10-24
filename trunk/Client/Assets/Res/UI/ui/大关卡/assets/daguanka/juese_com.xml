@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1508,994" overflow="hidden">
+<component size="1508,994" overflow="hidden" scroll="horizontal" mask="n13_tare">
   <displayList>
     <list id="n11_63w5" name="n11" xy="0,0" size="1508,994" layout="row" overflow="scroll" scroll="horizontal" margin="143,0,0,0" colGap="135" defaultItem="ui://fgvkimqn63w5m" align="center" vAlign="middle">
       <item/>
@@ -9,5 +9,6 @@
       <item/>
       <item/>
     </list>
+    <graph id="n13_tare" name="n13" xy="2,0" size="1506,994" type="rect"/>
   </displayList>
 </component>
