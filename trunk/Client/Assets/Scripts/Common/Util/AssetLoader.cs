@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class AssetLoader {
 
@@ -8,9 +9,17 @@ public class AssetLoader {
     //读取总Common表
     static public void InitCommonList()
     {
-        AssetBundle bundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath +  "/" + Define.PackageVersion + "/" + Define.PackageVersion);
+        string tpath = Application.persistentDataPath +  "/" + Define.PackageVersion + "/" + Define.PackageVersion;
+        SmartPath(ref tpath);
+        AssetBundle bundle = AssetBundle.LoadFromFile(tpath);
         _Manifest = (AssetBundleManifest)bundle.LoadAsset("AssetBundleManifest");
         bundle.Unload(false);
+    }
+
+    static public void SmartPath(ref string path)
+    {
+        if (!File.Exists(path))
+            path = path.Replace(Application.persistentDataPath, Application.streamingAssetsPath);
     }
 
 	static public GameObject LoadAsset(string path)
@@ -37,21 +46,23 @@ public class AssetLoader {
             string assetPath;
             for(int i=0; i < dep.Length; ++i)
             {
-            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-            if(!AssetCounter.Excist(assetPath))
-            AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
-            else
-            AssetCounter.GetBundle(assetPath);
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
+                if(!AssetCounter.Excist(assetPath))
+                    AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+                else
+                    AssetCounter.GetBundle(assetPath);
             }
-            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            SmartPath(ref assetPath);
             AssetBundle ab = null;
             if(!AssetCounter.Excist(assetPath))
             {
-            ab = AssetBundle.LoadFromFile(assetPath);
-            AssetCounter.AddRef(assetPath, ab);
+                ab = AssetBundle.LoadFromFile(assetPath);
+                AssetCounter.AddRef(assetPath, ab);
             }
             else
-            ab = AssetCounter.GetBundle(assetPath);
+                ab = AssetCounter.GetBundle(assetPath);
 
             string assetName = path.Substring(path.LastIndexOf("/") + 1);
             Object o = ab.LoadAsset(assetName);
@@ -127,13 +138,15 @@ public class AssetLoader {
             string assetPath;
             for(int i=0; i < dep.Length; ++i)
             {
-                assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
                 if(!AssetCounter.Excist(assetPath))
                     AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
                 else
                     AssetCounter.GetBundle(assetPath);
             }
-            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            SmartPath(ref assetPath);
             if(!AssetCounter.Excist(assetPath))
                 AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
             else
@@ -163,34 +176,36 @@ public class AssetLoader {
 
         try
         {
-        string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
-        string assetPath;
-        for(int i=0; i < dep.Length; ++i)
-        {
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-        if(!AssetCounter.Excist(assetPath))
-        AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
-        else
-        AssetCounter.GetBundle(assetPath);
-        }
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
-        AssetBundle ab = null;
-        if(!AssetCounter.Excist(assetPath))
-        {
-        ab = AssetBundle.LoadFromFile(assetPath);
-        AssetCounter.AddRef(assetPath, ab);
-        }
-        else
-        ab = AssetCounter.GetBundle(assetPath);
+            string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+            string assetPath;
+            for(int i=0; i < dep.Length; ++i)
+            {
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
+                if(!AssetCounter.Excist(assetPath))
+                    AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+                else
+                    AssetCounter.GetBundle(assetPath);
+            }
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            SmartPath(ref assetPath);
+            AssetBundle ab = null;
+            if(!AssetCounter.Excist(assetPath))
+            {
+                ab = AssetBundle.LoadFromFile(assetPath);
+                AssetCounter.AddRef(assetPath, ab);
+            }
+            else
+                ab = AssetCounter.GetBundle(assetPath);
 
-        string assetName = path.Substring(path.LastIndexOf("/") + 1);
-        AnimationClip clip = ab.LoadAsset<AnimationClip>(assetName);
-        return clip;
+            string assetName = path.Substring(path.LastIndexOf("/") + 1);
+            AnimationClip clip = ab.LoadAsset<AnimationClip>(assetName);
+            return clip;
         }
         catch(System.Exception e)
         {
-        Debug.LogWarning("AssetPath: " + path + " is not excist!");
-        return null;
+            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            return null;
         }
         #endif
     }
@@ -211,34 +226,36 @@ public class AssetLoader {
 
         try
         {
-        string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
-        string assetPath;
-        for(int i=0; i < dep.Length; ++i)
-        {
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
-        if(!AssetCounter.Excist(assetPath))
-        AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
-        else
-        AssetCounter.GetBundle(assetPath);
-        }
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
-        AssetBundle ab = null;
-        if(!AssetCounter.Excist(assetPath))
-        {
-        ab = AssetBundle.LoadFromFile(assetPath);
-        AssetCounter.AddRef(assetPath, ab);
-        }
-        else
-        ab = AssetCounter.GetBundle(assetPath);
+            string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+            string assetPath;
+            for(int i=0; i < dep.Length; ++i)
+            {
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
+                if(!AssetCounter.Excist(assetPath))
+                    AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+                else
+                    AssetCounter.GetBundle(assetPath);
+            }
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            SmartPath(ref assetPath);
+            AssetBundle ab = null;
+            if(!AssetCounter.Excist(assetPath))
+            {
+                ab = AssetBundle.LoadFromFile(assetPath);
+                AssetCounter.AddRef(assetPath, ab);
+            }
+            else
+                ab = AssetCounter.GetBundle(assetPath);
 
-        string assetName = path.Substring(path.LastIndexOf("/") + 1);
-            AudioClip clip = ab.LoadAsset<AudioClip>(assetName);
-        return clip;
+            string assetName = path.Substring(path.LastIndexOf("/") + 1);
+                AudioClip clip = ab.LoadAsset<AudioClip>(assetName);
+            return clip;
         }
         catch(System.Exception e)
         {
-        Debug.LogWarning("AssetPath: " + path + " is not excist!");
-        return null;
+            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            return null;
         }
         #endif
     }
@@ -263,10 +280,12 @@ public class AssetLoader {
         string assetPath;
         for(int i=0; i < dep.Length; ++i)
         {
-            assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+            SmartPath(ref assetPath);
             AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
         }
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        SmartPath(ref assetPath);
         return AssetBundle.LoadFromFileAsync(assetPath);
     }
 #endif
@@ -299,12 +318,14 @@ public class AssetLoader {
         {
             for(int i=0; i < dep.Length; ++i)
             {
-                assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + dep[i];
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
                 AssetCounter.DelRef(assetPath);
             }
         }
 
-        assetPath = Application.streamingAssetsPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        SmartPath(ref assetPath);
         if (destroyObj)
             AssetCounter.Dispose(assetPath);
         else
