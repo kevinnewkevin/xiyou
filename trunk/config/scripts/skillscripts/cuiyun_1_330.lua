@@ -35,7 +35,7 @@ function SK_330_Action(battleid, casterid)
 
 	Battle.Attack(battleid,casterid,t,damage,crit)
 
-	Battle.AddBuff(battleid,casterid,t,112,50)
+	Battle.AddBuff(battleid,casterid,t,157,50)
 
 	Battle.TargetOver(battleid)
 

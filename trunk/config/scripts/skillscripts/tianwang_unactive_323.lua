@@ -33,7 +33,7 @@ function SK_323_Action(battleid, casterid)
 		
 		Battle.Cure(battleid,casterid,0,0)
 		
-		Battle.AddBuff(battleid,v,casterid,140,mag_atk)
+		Battle.AddBuff(battleid,v,casterid,159,mag_atk)
 			
 		Battle.TargetOver(battleid)
 	

@@ -38,7 +38,7 @@ function SK_327_Action(battleid, casterid)
 		local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
 		local hp_damage = hp * 0.1
 		if percent() <= 20 then 
-			Battle.AddBuff(battleid,casterid,v,100,hp_damage)
+			Battle.AddBuff(battleid,casterid,v,162,hp_damage)
 		end
 
 		Battle.TargetOver(battleid)

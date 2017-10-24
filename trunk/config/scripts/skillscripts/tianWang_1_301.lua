@@ -43,7 +43,7 @@ function SK_301_Action(battleid, casterid)
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
 		if percent() <= 30 then 						
-			Battle.AddBuff(battleid,casterid,v,104,0)  --30%概率可以使击中的目标无法行动1回合
+			Battle.AddBuff(battleid,casterid,v,165,0)  --30%概率可以使击中的目标无法行动1回合
 		end
 	
 		

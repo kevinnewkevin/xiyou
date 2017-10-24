@@ -28,7 +28,6 @@ function SK_303_Action(battleid, casterid)
 	
 	for i,v in ipairs(t) do
 		Battle.TargetOn(battleid)
-	
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		sys.log("女娲对目标回复的血量   "..mag_atk)
 		Battle.Cure(battleid,v,mag_atk,crit)

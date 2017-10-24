@@ -18,7 +18,7 @@ function All_5_Skill(battleid,casterid,level)
 	
 	Battle.Cure(battleid, casterid, 0, 0)
 	
-	local buffid = 103
+	local buffid = 156
 	
 	Battle.AddBuff(battleid,casterid,casterid,buffid,damage)  --给zishen提供一个盾牌
 

@@ -22,10 +22,8 @@ function SK_319_Action(battleid, casterid)
 	
 	local caster_attack = Player.GetUnitProperty(battleid, casterid, "CPT_ATK")	-- 获取到攻击者的属性
 	
-	
 	for i,v in ipairs(t)	do
 		Battle.TargetOn(battleid)
-		
 		local truedamage = Player.GetMagicDamage(battleid, casterid, v)
 		sys.log("九头蛇 酸雾喷吐对目标   "..v.. " 造成 法术伤害  "..truedamage )
 		local damage = ClacDamageByAllBuff(battleid,casterid,v,truedamage)

@@ -39,7 +39,7 @@ function SK_336_Action(battleid, casterid)
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		local hp = Player.GetUnitProperty(battleid, casterid, "CPT_CHP")
 		local hp_damage = hp * 0.2
-		Battle.AddBuff(battleid,casterid,v,150,0)
+		Battle.AddBuff(battleid,casterid,v,158,0)
 		Battle.TargetOver(battleid)
 	
 	end

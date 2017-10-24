@@ -28,12 +28,9 @@ function SK_318_Action(battleid, casterid)
 	sys.log("鲨将军对目标造成的最终物理伤害    "..damage)
 	--判断伤害
 	if damage <= 0 then 
-		
 		damage = 0
-		
 	end
 	local crit = 1
-	
 	Battle.Attack(battleid,casterid,t,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
 	Battle.TargetOver(battleid)
