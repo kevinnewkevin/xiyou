@@ -115,6 +115,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadRobotTable("../../../config/tables/AI.csv")
+	if err != nil {
+		log.Debug("LoadRobotTable %s ", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

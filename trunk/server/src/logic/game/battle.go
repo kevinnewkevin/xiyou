@@ -142,7 +142,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster{
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable(t.MainId)
-	//log.Info("adasdas", battleid, t.MainId, m.MainUnit)
+	log.Info("adasdas", battleid, t.MainId, m.MainUnit)
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
 	//m.MainUnit.Camp = prpc.CT_BLUE
@@ -463,6 +463,34 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 							itemInst.Stack = item.ItemNum
 							result.BattleItems = append(result.BattleItems,itemInst)
 						}
+					}
+				}
+			}
+		}
+		if this.Type == prpc.BT_PVR {
+			dropId := CaleTiantiPVR(p,camp)
+			if dropId != 0 {
+				drop := GetDropById(dropId)
+				if drop==nil {
+					log.Info("PVP Can Not Find Drop By DropId=",dropId)
+					return
+				}
+				if drop.Exp != 0 {
+					p.AddExp(drop.Exp)
+					result.Exp = drop.Exp
+				}
+				if drop.Money != 0 {
+					p.AddCopper(drop.Money)
+					result.Money = drop.Money
+				}
+				if len(drop.Items) != 0 {
+					for _,item := range drop.Items{
+						p.AddBagItemByItemId(item.ItemId,item.ItemNum)
+						log.Info("PVP GiveDrop AddItem ItemId=",item.ItemId,"ItemNum=",item.ItemNum)
+						itemInst := prpc.COM_ItemInst{}
+						itemInst.ItemId = item.ItemId
+						itemInst.Stack = item.ItemNum
+						result.BattleItems = append(result.BattleItems,itemInst)
 					}
 				}
 			}

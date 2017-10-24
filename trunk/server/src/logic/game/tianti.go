@@ -2,8 +2,8 @@ package game
 
 import (
 	"time"
-	"fmt"
-	"logic/prpc"
+	"logic/conf"
+	"logic/log"
 )
 
 const (
@@ -16,9 +16,50 @@ type (
 		TianTiVal		int32
 		MatchingTime	float64
 	}
+	RobotTableData struct {
+		RobotId			int32
+		RobotScoreL		int32			//积分区间
+		RobotScoreH		int32
+		RobotBattleId	int32
+		RobotIntegral	int32
+	}
 )
 
-var TianTiStore		[]*OncePlayer
+var (
+	TianTiStore		[]*OncePlayer
+	Robot	=map[int32]*RobotTableData{}
+)
+
+func LoadRobotTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		c := RobotTableData{}
+
+		c.RobotId 		= int32(csv.GetInt(r,"ID"))
+		c.RobotScoreL	= csv.GetInt32(r,"ScoreL")
+		c.RobotScoreH	= csv.GetInt32(r,"ScoreH")
+		c.RobotIntegral	= csv.GetInt32(r,"Integral")
+		c.RobotBattleId	= csv.GetInt32(r,"BalltID")
+
+		Robot[c.RobotId] = &c
+	}
+	return nil
+}
+
+func GetRobotData(tiantiV int32) *RobotTableData {
+	for _,r := range Robot{
+		if r.RobotScoreL <= tiantiV && r.RobotScoreH >= tiantiV {
+			return r
+		}
+	}
+	return nil
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func InitTianTi()  {
 	go func() {
@@ -51,24 +92,26 @@ func Tick(dt float64)  {
 func CheckMatching(oncePlayer *OncePlayer, dt float64)  {
 	oncePlayer.MatchingTime += dt
 	for _,t := range TianTiStore{
-		if t.PlayerInstId == oncePlayer.PlayerInstId {
-			continue
-		}
-		if oncePlayer.MatchingTime > 300{
-			player := FindPlayerByInstId(oncePlayer.PlayerInstId)
-			StopMatching(player)
-
-			if player.session != nil {
-				player.session.ErrorMessage(prpc.EN_TIANTI_MATCHING_TIMEOUT)
+		if oncePlayer.MatchingTime > 20{
+			robot := GetRobotData(oncePlayer.TianTiVal)
+			if robot==nil {
+				log.Info("Can Not Find Robot PlayerId=",oncePlayer.PlayerInstId,"TiantiV=",oncePlayer.TianTiVal);
+				continue
 			}
-			
-			fmt.Println("Matching TimeOut ----> RemoveMatching",oncePlayer.PlayerInstId)
+			myself := FindPlayerByInstId(oncePlayer.PlayerInstId)
+			RemoveMatching(oncePlayer.PlayerInstId)
+			if CreatePvR(myself,robot.RobotBattleId) == nil {
+				log.Info("Tianti CreatePvR Loser PlayerId=",oncePlayer.PlayerInstId,"RobotBattleId=",robot.RobotBattleId);
+			}
 			return
 		}
 
-		tempV := (int32(oncePlayer.MatchingTime/30) +1)*50
+		tempV := (int32(oncePlayer.MatchingTime/10) +1)*50
 
 		if oncePlayer.TianTiVal >= (t.TianTiVal - tempV) && oncePlayer.TianTiVal <= (t.TianTiVal + tempV) {
+			if t.PlayerInstId == oncePlayer.PlayerInstId {
+				continue
+			}
 			//fmt.Println("Matching InstId=",oncePlayer.PlayerInstId,"MyTiantiVal",oncePlayer.TianTiVal,"tempV=",tempV,"[",(t.TianTiVal - tempV),(t.TianTiVal + tempV),"]","MatchingTime",
 			//	oncePlayer.MatchingTime)
 			myself := FindPlayerByInstId(oncePlayer.PlayerInstId)
@@ -76,9 +119,9 @@ func CheckMatching(oncePlayer *OncePlayer, dt float64)  {
 			RemoveMatching(oncePlayer.PlayerInstId)
 			RemoveMatching(t.PlayerInstId)
 			if CreatePvP(myself,rival) != nil {
-				fmt.Println("Matching Succeed")
+				log.Info("Matching Succeed")
 			}else {
-				fmt.Println("Tianti CreatePvP Loser",oncePlayer.PlayerInstId,t.PlayerInstId)
+				log.Info("Tianti CreatePvP Loser",oncePlayer.PlayerInstId,t.PlayerInstId)
 			}
 
 		}
@@ -91,7 +134,7 @@ func StartMatching(player *GamePlayer,groupId int32)  {
 	}
 
 	if player.GetUnitGroupById(groupId) == nil {
-		fmt.Println("Can Not Find UnitGroup GroupId=",groupId)
+		log.Info("Can Not Find UnitGroup GroupId=",groupId)
 		return
 	}
 
@@ -102,7 +145,7 @@ func StartMatching(player *GamePlayer,groupId int32)  {
 	tmp.TianTiVal	 = player.TianTiVal
 	TianTiStore = append(TianTiStore,&tmp)
 
-	fmt.Println("StartMatching OK InstId=",tmp.PlayerInstId,"TianTiVal=",tmp.TianTiVal)
+	log.Info("StartMatching OK InstId=",tmp.PlayerInstId,"TianTiVal=",tmp.TianTiVal)
 }
 
 func StopMatching(player *GamePlayer)  {
@@ -118,7 +161,7 @@ func RemoveMatching(instId int64) bool {
 	for i:=0;i<len(TianTiStore) ;i++  {
 		if instId == TianTiStore[i].PlayerInstId {
 			TianTiStore = append(TianTiStore[:i], TianTiStore[i+1:]...)
-			fmt.Println("RemoveMatching...",instId)
+			log.Info("RemoveMatching...",instId)
 			return true
 		}
 	}
@@ -147,7 +190,7 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int) int32 {
 	tableId := GetTianTiIdByVal(player1.TianTiVal)
 	ttData := GetTianTiTableDataById(tableId)
 	if ttData == nil {
-		fmt.Println("Can Not Find TianTiTableData By TableId=",tableId)
+		log.Info("Can Not Find TianTiTableData By TableId=",tableId)
 		return 0
 	}
 
@@ -155,11 +198,53 @@ func CaleTianTiVal(player1 *GamePlayer,player2 *GamePlayer,winCamp int) int32 {
 
 	if player1.BattleCamp == winCamp {
 		dropId = ttData.WinDrop
-		fmt.Println("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.WinDrop)
+		log.Info("Tianti Battle Over CaleVal Winer Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.WinDrop)
 	}else {
 		dropId = ttData.LoseDop
-		fmt.Println("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.LoseDop)
+		log.Info("Tianti Battle Over CaleVal Loser Player[",player1.MyUnit.InstId,"]","TianTiVal[",player1.TianTiVal,"]","DropId=",ttData.LoseDop)
 	}
 
+	return dropId
+}
+
+func CaleTiantiPVR(player *GamePlayer,winCamp int) int32 {
+	if player==nil {
+		return 0
+	}
+
+	robot := GetRobotData(player.TianTiVal)
+
+	coef := int32((player.TianTiVal - robot.RobotIntegral)/5)
+
+	if player.BattleCamp == winCamp {
+		player.TianTiVal += (30-coef*2)
+	}else {
+		if player.TianTiVal > 400 && player.TianTiVal <= 1000 {
+			player.TianTiVal = player.TianTiVal - (15-coef)
+		}else if player.TianTiVal > 1000 {
+			player.TianTiVal = player.TianTiVal - (30-coef*2)
+		}
+	}
+
+	if player.session != nil {
+		player.session.UpdateTiantiVal(player.TianTiVal)
+	}
+
+	tableId := GetTianTiIdByVal(player.TianTiVal)
+	ttData := GetTianTiTableDataById(tableId)
+	if ttData == nil {
+		log.Info("Can Not Find TianTiTableData By TableId=",tableId)
+		return 0
+	}
+
+	var dropId int32 = 0;
+
+	if player.BattleCamp == winCamp {
+		dropId = ttData.WinDrop
+		log.Info("Tianti PVR Battle Over CaleVal Winer Player[",player.MyUnit.InstId,"]","TianTiVal[",player.TianTiVal,"]","DropId=",ttData.WinDrop)
+	}else {
+		dropId = ttData.LoseDop
+		log.Info("Tianti PVR Battle Over CaleVal Loser Player[",player.MyUnit.InstId,"]","TianTiVal[",player.TianTiVal,"]","DropId=",ttData.LoseDop)
+	}
 	return dropId
 }
