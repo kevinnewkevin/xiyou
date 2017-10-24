@@ -1559,11 +1559,13 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	exercise := GetRaceRecordById(caster.Race)
 
-	if unit.Race == exercise.Exercise{
-		log.Info("unit.Race == exercise.Exercise 1", damage)
-		damage_q := damage * exercise.Quotiety / 100
-		damage += damage_q
-		log.Info("unit.Race == exercise.Exercise 2", damage)
+	if exercise != nil {
+		if unit.Race == exercise.Exercise{
+			log.Info("unit.Race == exercise.Exercise 1", damage)
+			damage_q := damage * exercise.Quotiety / 100
+			damage += damage_q
+			log.Info("unit.Race == exercise.Exercise 2", damage)
+		}
 	}
 
 	if float32(damage) >= unit.CProperties[prpc.CPT_CHP] {			//检测免死
