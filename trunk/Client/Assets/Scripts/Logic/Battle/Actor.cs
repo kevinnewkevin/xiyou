@@ -151,7 +151,7 @@ public class Actor {
             }
         }
 
-        if (_ActorObj != null && Battle._BattleTouch.IsMoving)
+        if (_ActorObj != null && (Battle._BattleTouch.IsMoving || _IsRunning))
         {
             AdjustHeadBarScale();
         }

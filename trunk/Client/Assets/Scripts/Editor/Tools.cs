@@ -87,7 +87,8 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows64);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.StandaloneWindows64);
+        CreateMD5File();
         AssetDatabase.Refresh();
     }
 
@@ -106,7 +107,8 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.Android);
+        CreateMD5File();
         AssetDatabase.Refresh();
     }
 
@@ -125,7 +127,8 @@ public class Tools {
         string resPkgPath = Application.streamingAssetsPath + "/" + Define.PackageVersion;
         if (!Directory.Exists(resPkgPath))
             Directory.CreateDirectory(resPkgPath);
-        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.iOS);
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.iOS);
+        CreateMD5File();
         AssetDatabase.Refresh();
     }
 
@@ -711,6 +714,21 @@ public class Tools {
 //        }
 //    }
 //    #endregion
+
+    [MenuItem("Tools/生成资源MD5文件", false, 5)]
+    static public void CreateMD5File()
+    {
+        CollectAllFiles(Application.streamingAssetsPath + "/" + Define.PackageVersion);
+        string resMd5 = "";
+        for(int i=0; i < _AllFiles.Count; ++i)
+        {
+            resMd5 += _AllFiles[i].Remove(0, _AllFiles[i].IndexOf(Define.PackageVersion) + Define.PackageVersion.Length + 1) + ":" + GetMD5WithFilePath(_AllFiles[i]);
+            resMd5 += "\n";
+        }
+        File.WriteAllText(Application.streamingAssetsPath + "/md5.txt", resMd5);
+        UnityEngine.Debug.Log("MD5 File Created.");
+        AssetDatabase.Refresh();
+    }
 
     static public string GetMD5WithFilePath(string filePath)
     {

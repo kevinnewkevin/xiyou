@@ -40,6 +40,9 @@ function denglu:OnInit()
 	account = accountGroup:GetChild("n11").asTextField;
 	password = accountGroup:GetChild("n12").asTextField;
 
+	--读表
+	DataLoader.BeginLoad();
+
 	denglu_FlushData();
 end
 
