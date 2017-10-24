@@ -133,6 +133,11 @@ public class BattleSceneTouch : MonoBehaviour {
         }
     }
 
+    public bool IsMoving
+    {
+        get{ return _IsPress; }
+    }
+
     void OnDestroy()
     {
         Stage.inst.onTouchBegin.Remove(OnTouchBegin);

@@ -69,6 +69,8 @@ public class Battle {
 
     static public BattleCamera _BattleCamera;
 
+    static public BattleSceneTouch _BattleTouch;
+
     static public int[] _OpponentCards;
 
     static public int _CasterDisplayID;
@@ -320,6 +322,9 @@ public class Battle {
         if(_BattleCamera == null)
             _BattleCamera = Camera.main.gameObject.AddComponent<BattleCamera>();
 
+        if(_BattleTouch == null)
+            _BattleTouch = GameObject.FindObjectOfType<BattleSceneTouch>();
+
         if(op == null)
             op = GameObject.Find("OpraSystem").GetComponent<OpraSystem>();
 
@@ -351,7 +356,7 @@ public class Battle {
             _OriginUnits = null;
         }
 
-        return _IsStagePointInitSuc && _BattleCamera != null && op != null;
+        return _IsStagePointInitSuc && _BattleCamera != null && op != null && _BattleTouch != null;
     }
 
     static int ConvertedPos(int pos)
