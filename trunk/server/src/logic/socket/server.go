@@ -3,7 +3,7 @@ package socket
 import (
 	"net"
 	"logic/log"
-	"fmt"
+
 )
 
 type TCPServer struct {
@@ -32,7 +32,7 @@ func (this *TCPServer)Run(){
 			defer func() {
 
 				if r := recover(); r != nil {
-					log.Error("Tcp server panic %s",fmt.Sprint(r))
+					log.Error("Tcp server panic %s",r)
 				}
 
 			}()

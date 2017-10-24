@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"net"
 	"sync"
+	"logic/log"
 )
 
 type Peer struct {
@@ -24,6 +25,8 @@ func (this *Peer) MethodEnd() error {
 	if e != nil {
 		return e
 	}
+
+	log.Info("func (this *Peer) MethodEnd() %d",c)
 	this.OutgoingBuffer.Reset()
 	this.TotalOutgoing += c
 	return nil

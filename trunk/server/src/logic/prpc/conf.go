@@ -25,8 +25,8 @@ type(
 func (this *mask) writeBit(b bool) {
   if b{
     this.m[this.p>>kFieldMaskOffset] |= (kFieldMaskMasker >> (this.p & kFieldMaskMagic))
-  this.p++
   }
+  this.p++
 }
 func (this *mask) readBit() bool {
   p := this.p

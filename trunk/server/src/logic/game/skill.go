@@ -1,7 +1,7 @@
 package game
 
 import (
-	"fmt"
+	"logic/log"
 	"logic/prpc"
 )
 
@@ -30,7 +30,7 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 	actionList := []prpc.COM_BattleActionTarget{}
 	OwnerDead := false
 	for i := 0; i < len(targetList); i++ {
-		fmt.Println(i, "Action", targetList[i], "		")
+		log.Println(i, "Action", targetList[i], "		")
 		finl := int32(targetList[i].CProperties[prpc.CPT_CHP]) - this.Damage
 		if finl <= 0 {
 			finl = 0
@@ -67,7 +67,6 @@ func (this *Skill) ActionBylua(battleid int64, casterid int64) {
 	//actionList := []prpc.COM_BattleActionTarget{}
 	v := []interface{}{int(battleid), int(casterid)}
 	r := []interface{}{0}
-
 
 	CallLuaFunc(this.LuaScprit, v, &r)
 
@@ -123,7 +122,7 @@ func TestActionByLua() {
 	v := []interface{}{9999999999, 1}
 	r := []interface{}{false}
 	CallLuaFunc("SK_1_Action", v, &r)
-	fmt.Println("TestActionByLua", r)
+	log.Println("TestActionByLua", r)
 
 	return
 }
