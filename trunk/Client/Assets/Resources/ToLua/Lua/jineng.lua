@@ -255,8 +255,6 @@ function jineng_OnlyLeftFlushData()
 					if iData ~= nil then
 						itemQua.url = "ui://" .. iData._IconBack;
 						itemIcon.url = "ui://" .. iData._Icon;
-						print("ui://" .. iData._IconBack);
-						print("ui://" .. iData._Icon);
 						local has = BagSystem.GetItemMaxNum(iData._Id);
 						itemNum.text = has;
 						itemBar.value = has / rsuData._NeedNum * 100;
