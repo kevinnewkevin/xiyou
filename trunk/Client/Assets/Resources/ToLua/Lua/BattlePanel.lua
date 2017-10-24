@@ -481,6 +481,8 @@ function BattlePanel_OnReturnBtn()
 end
 
 function BattlePanel_OnReturn()
+	UIManager.HideMessageBox();
+	Proxy4Lua.PopMsg("你逃不出我的魔掌");
 	--SceneLoader.LoadScene("main");
 end
 
