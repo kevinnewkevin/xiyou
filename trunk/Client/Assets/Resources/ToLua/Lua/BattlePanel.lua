@@ -476,7 +476,12 @@ function BattlePanel_OnCardClick(context)
 end
 
 function BattlePanel_OnReturnBtn()
-	print("OnReturnBtn");
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否退出战斗？", false, BattlePanel_OnReturn);
+end
+
+function BattlePanel_OnReturn()
+	--SceneLoader.LoadScene("main");
 end
 
 function BattlePanel_OnTurnOver()
