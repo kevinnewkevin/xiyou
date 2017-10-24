@@ -2,7 +2,7 @@ package game
 
 import (
 	"fmt"
-	"leaf/log"
+	"logic/log"
 	"logic/conf"
 	"math/rand"
 	"time"

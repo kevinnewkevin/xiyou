@@ -662,9 +662,8 @@ func (this *BattleRoom) showReport()  {
 			log.Println("\t目标额外信息", l.ActionParamExt)
 			log.Println("\t目标是否死亡", l.Dead)
 			log.Println("\t目标中的buff", l.BuffAdd)
-			log.Println("\n")
+
 		}
-		log.Println("\n")
 	}
 }
 
