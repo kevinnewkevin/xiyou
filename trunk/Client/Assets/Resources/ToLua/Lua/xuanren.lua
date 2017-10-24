@@ -5,6 +5,7 @@ local Window;
 
 local name;
 local createBtn;
+local returnBtn;
 local selectList;
 local randNameBtn;
 local descCom;
@@ -27,6 +28,7 @@ function xuanren:OnInit()
 
 	name = self.contentPane:GetChild("n9");
 	createBtn = self.contentPane:GetChild("n7");
+	returnBtn = self.contentPane:GetChild("n6");
 	selectList = self.contentPane:GetChild("n10");
 	randNameBtn = self.contentPane:GetChild("n4");
 	randNameBtn.onClick:Add(xuanren_RandName);
@@ -43,6 +45,7 @@ function xuanren:OnInit()
 	name.text = RandNameData.Rand();
 
 	createBtn.onClick:Add(xuanren_OnCreate);
+	returnBtn.onClick:Add(xuanren_OnBack);
 end
 
 function xuanren_RandName()
@@ -97,6 +100,10 @@ end
 
 function xuanren:OnHide()
 	Window:Hide();
+end
+
+function xuanren_OnBack()
+	Proxy4Lua.ReturnToLogin();
 end
 
 function xuanren_OnCreate()
