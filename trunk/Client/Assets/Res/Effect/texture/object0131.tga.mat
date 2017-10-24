@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: fireball03
+  m_Name: object0131.tga
   m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -18,11 +18,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dbe9cd339f04a0640bc51e5b38ae4203, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0c6d43aaf6d15ea48a6a4951357ddac2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _InvFade: 1
     m_Colors:
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _TintColor: {r: 1, g: 0.125, b: 0.125, a: 0.5019608}
+    - _TintColor: {r: 0.625, g: 0.40086207, b: 0, a: 0.5019608}
