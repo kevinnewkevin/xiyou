@@ -56,8 +56,34 @@ function jiehun:OnInit()
 	feeList.selectedIndex = crtTab-1;
 	local teamBtn = self.contentPane:GetChild("n7");
 	teamBtn.onClick:Add(jiehun_OnTeamBtn);
+
+
+	cardGroupList.scrollPane.onScroll:Add(DoSpecialEffect);
+
+	DoSpecialEffect();
+
 	jiehun_FlushData();
 end
+
+
+
+function DoSpecialEffect()
+		local midX = cardGroupList.scrollPane.posX + cardGroupList.viewWidth / 2;
+		local cnt = cardGroupList.numChildren;
+		for  i = 1, cnt do
+			local obj = cardGroupList:GetChildAt(i-1);
+			local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
+			if dist > obj.width then
+				obj:SetScale(1, 1);
+			else
+				local ss = 1 + (1 - dist / obj.width) * 0.24;
+				obj:SetScale(ss, ss);
+			end
+		end
+		--_mainView.GetChild("n3").text = "" + ((cardGroupList.GetFirstChildInView() + 1) % cardGroupList.numItems);
+	end
+
+
 
 function jiehun:GetWindow()
 	return Window;
@@ -75,9 +101,9 @@ end
 function jiehun_RenderListItem(index, obj)
 	local comData;
 	if crtTab == 1 then
-		comData  = JieHunSystem.instance.ChapterEasyDataList[index];
+		comData  = JieHunSystem.instance.ChapterEasyDataList[0];
 	else
-		comData  = JieHunSystem.instance.ChapterHardDataList[index];
+		comData  = JieHunSystem.instance.ChapterHardDataList[0];
 	end
 
 	local objBack= obj:GetChild("n34");
@@ -86,7 +112,7 @@ function jiehun_RenderListItem(index, obj)
 	objIcon.onClick:Add(jiehun_OnSelectGroup);
 	objIcon.data =comData.ChapterId;
 	local data = HeroStroyData.GetData(comData.ChapterId);
-	objBack.data =comData.ChapterId;
+	objBack.data =comData .ChapterId;
 	local name = obj:GetChild("n9");
 	name.text = data.Name_;
 	local desc = obj:GetChild("n14");
@@ -330,9 +356,9 @@ end
 
 function jiehun_FlushData()
 		if crtTab == 1 then
-		cardGroupList.numItems =  JieHunSystem.instance.ChapterEasyDataList.Count;
+		cardGroupList.numItems = 10;-- JieHunSystem.instance.ChapterEasyDataList.Count;
 	else
-		cardGroupList.numItems =  JieHunSystem.instance.ChapterHardDataList.Count;
+		cardGroupList.numItems = 10;-- JieHunSystem.instance.ChapterHardDataList.Count;
 	end
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
 	updateReward();

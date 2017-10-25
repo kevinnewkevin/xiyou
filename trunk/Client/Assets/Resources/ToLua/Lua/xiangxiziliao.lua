@@ -63,6 +63,9 @@ local needItem;
 local needItemBar;
 local levelUpRad;
 
+local levelRadBtn;
+
+
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
 	Window:Show();
@@ -98,6 +101,7 @@ function xiangxiziliao:OnInit()
 			levelUpRad = btnItem:GetChild("n5");
 		end
 	end
+	levelRadBtn = btnList:GetChildAt(btnMax-1);
 	rightInfo.visible = true;
 	rightLevelUp.visible = false;
 	local moveLab=  self.contentPane:GetChild("n84");
@@ -247,6 +251,12 @@ function xiangxiziliao_OnSkillBtn(context)
 end
 
 function xiangxiziliao_FlushData()
+	local showBoos = UIParamHolder.Get("showBoos");
+	if showBoos == true then
+		xiangxiziliao_BoosInfo();
+		return;
+	end
+
 	local instId = UIParamHolder.Get("qiecuo1");
 	local hideBtn = UIParamHolder.Get("qiecuo2");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
@@ -315,7 +325,7 @@ function xiangxiziliao_FlushData()
 	local itemdata = ItemData.GetData(levelData._ItemId);
 	needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
 	needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
-	
+	levelRadBtn.visible = true;
 	if itemNum >= levelData._ItemNum   then
 		levelUpBtn.enabled  = true;
 		levelUpRad.visible = true;
@@ -338,4 +348,55 @@ function xiangxiziliao_FlushData()
 			lv.text = "";
 		end
 	end
+end
+
+
+function xiangxiziliao_BoosInfo()
+	local showBoos = UIParamHolder.Get("showBoos");
+	local boosId = UIParamHolder.Get("showBoosId");
+	local entityData = EntityData.GetData(boosId);
+	local displayData =  DisplayData.GetData(entityData._DisplayId);
+	modelRes = displayData._AssetPath;
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true));
+	race.asLoader.url = "ui://" .. displayData._Race;
+	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
+
+	addGroupBtn.visible = false;
+	levelRadBtn.visible = false;
+
+	fee.text = entityData._Cost;
+	name.text = entityData._Name;
+
+	level.text =  entityData.IPT_LEVEL .. "";
+	hp.text = entityData.CPT_HP .. "";
+	agility.text = entityData.CPT_AGILE .. "";
+	atk.text = entityData.CPT_ATK .. "";
+	def.text = entityData.CPT_DEF .. "";
+	matk.text = entityData.CPT_MAGIC_ATK .. "";
+	mdef.text = entityData.CPT_MAGIC_DEF .. "";
+	crit.text = entityData.CPT_CRIT .. "";
+	--critdmg.text = entityData.;
+	--combo.text = entityData.;
+	--split.text = entityData.;
+	--rec.text = entityData.;
+	--reflect.text = entityData.;
+	--suck.text = entityData.;
+
+
+	for i=1, 4 do
+		local skill = skillList:GetChildAt(i - 1);
+		local sData = SkillData.GetData(entityData._Skills[i-1]);
+		local loader = skill:GetChild("n8").asLoader;
+		local lv = skill:GetChild("n7").asTextField;
+		if sData ~= nil then
+			loader.url = "ui://" .. sData._Icon;
+			lv.text = sData._Level;
+			skill.data = sData._Id;
+		else
+			loader.url = "";
+			lv.text = "";
+		end
+	end
+
+
 end

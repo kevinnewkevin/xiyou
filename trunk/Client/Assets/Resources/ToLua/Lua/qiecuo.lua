@@ -240,6 +240,7 @@ function qiecuo_OnCardInGroup(context)
 	crtCardInstID = context.sender.data;
 	UIParamHolder.Set("qiecuo1", crtCardInstID);
 	UIParamHolder.Set("qiecuo2", true);
+	UIParamHolder.Set("showBoos",false);
 	UIManager.Show("xiangxiziliao");
 end
 

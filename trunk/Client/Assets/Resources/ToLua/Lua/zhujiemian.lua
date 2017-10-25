@@ -115,7 +115,8 @@ function zhujiemian_OnCardCargo()
 end
 
 function zhujiemian_OnTaskBtn()
-	UIManager.Show("jiehun");
+	--UIManager.Show("jiehun");
+	UIManager.Show("daguanka");
 end
 
 function zhujiemian_OnSkillBtn()

@@ -283,6 +283,7 @@ end
 function paiku_ExcuteOnCardItem()
 	UIParamHolder.Set("qiecuo1", crtCardInstID);
 	UIParamHolder.Set("qiecuo2", false);
+	UIParamHolder.Set("showBoos",false);
 	UIManager.Show("xiangxiziliao");
 end
 
