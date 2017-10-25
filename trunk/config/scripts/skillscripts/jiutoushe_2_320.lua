@@ -26,13 +26,15 @@ function SK_320_Action(battleid, casterid)
 	for i,v in ipairs(t) do
 		local IsDead  = Player.CheckUnitDead(battleid,v)
 
-		if IsDead == 1 then
+		if IsDead == true then
+
 			v =  Player.RandomTarget(battleid, casterid)
 		end
-
+		sys.log("mubiao ".. v.."  "..i)
 		if v == -1 then 
 			break
 		end
+		sys.log("mubiao 1111     ".. v.."  "..i)
 
 		Battle.TargetOn(battleid)
 	
