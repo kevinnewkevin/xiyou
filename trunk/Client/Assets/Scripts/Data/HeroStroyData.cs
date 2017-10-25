@@ -12,6 +12,7 @@ public class HeroStroyData
 	public string Name_;
 	public string Icon_;
 	public string Desc_;
+	public int EntityID_;
 
 	static public Dictionary<int, HeroStroyData> metaData;
 	
@@ -52,6 +53,7 @@ public class HeroStroyData
 			data.Name_ = parser.GetString (i, "Name");
 			data.Icon_ = parser.GetString (i, "Icon");
   			data.Desc_ = parser.GetString (i, "Desc"); 
+			data.EntityID_ = parser.GetInt(i, "EntityID");
 			
 			if(metaData.ContainsKey(data.Id_))
 			{

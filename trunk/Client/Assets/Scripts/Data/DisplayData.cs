@@ -16,6 +16,7 @@ public class DisplayData {
     public float _BattleSkillScale;
     public float _BattleSkillHeight;
 
+
     static Dictionary<int, DisplayData> metaData;
 
     static public void ParseData(string content, string fileName)
@@ -45,7 +46,7 @@ public class DisplayData {
             data._HeadBarHeight = parser.GetFloat(i, "HeadBarHeight");
             data._BattleSkillScale = parser.GetFloat(i, "ScaleInBattleSkill");
             data._BattleSkillHeight = parser.GetFloat(i, "HeightInBattleSkill");
-
+					
             if(metaData.ContainsKey(data._Id))
             {
                 Debug.LogError("DisplayData ID重复");
