@@ -7,7 +7,7 @@ function All_6_Skill(battleid, casterid,attackNum,level,skillid)
 	for i,v in ipairs(t) do
 	
 		Battle.TargetOn(battleid) -- 清空数据
-		local  truedamage  = Player.GetMagicDamage(battleid,casterid,v)       --伤害 公式（）
+		local  truedamage  = Player.GetUnitMtk(battleid,casterid)       --伤害 公式（）
 		local per = level * 0.05
 		truedamage = truedamage + truedamage * per
 		local crit = Battle.GetCrit(skillid)   --是否暴击
