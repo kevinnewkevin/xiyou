@@ -55,6 +55,7 @@ end
 function RegGlobalValue()
 	Define.Set("DebugServerAddress", "127.0.0.1");
 	Define.Set("DebugServerPort", 10999);
+	Define.Set("CenterServer", "");
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
 	Define.Set("MoveSpeed_InBattle", 8);
