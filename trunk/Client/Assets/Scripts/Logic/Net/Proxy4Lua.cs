@@ -149,7 +149,7 @@ public class Proxy4Lua {
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
-		go.SetActive(true);
+        go.SetActive(true);
         return new FairyGUI.GoWrapper(go);
     }
 
@@ -174,6 +174,14 @@ public class Proxy4Lua {
             return;
 
         AssetLoader.UnloadAsset(assetPath);
+    }
+
+    static public void ForceUnloadAsset(string assetPath)
+    {
+        if (string.IsNullOrEmpty(assetPath))
+            return;
+
+        AssetLoader.UnloadAsset(assetPath, true);
     }
 
     static public int[] GetTalk()
