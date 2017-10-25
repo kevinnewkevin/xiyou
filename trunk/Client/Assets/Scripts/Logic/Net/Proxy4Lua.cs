@@ -429,5 +429,19 @@ public class Proxy4Lua {
         SceneLoader.LoadScene(Define.SCENE_LOGIN);
     }
 
+    static public string _ServerIP;
+    static public List<string> _ServList;
+    static public void CheckServer()
+    {
+        _ServList = new List<string>();
+        string servers = Define.GetStr("DebugServerAddress");
+        string[] servs = servers.Split(new char[]{'|'}, System.StringSplitOptions.RemoveEmptyEntries);
+        for(int i=0; i < servs.Length; ++i)
+        {
+            _ServList.Add(servs[i]);
+        }
+        UIManager.SetDirty("denglu");
+    }
+
     #endregion
 }

@@ -4,9 +4,15 @@ denglu = fgui.window_class(WindowBase)
 local Window;
 
 local selectInfo;
+local loginBtn;
 local enterBtn;
 local selectServ;
 local selectServCloseBtn;
+
+local crtServer;
+local crtServerText;
+local serverList;
+local serverItem = "ui://denglu/xuanfu_Button";
 
 local accountGroup;
 local account;
@@ -37,10 +43,20 @@ function denglu:OnInit()
 	selectServ.visible = false;
 	selectServCloseBtn = selectServ:GetChild("n5").asButton;
 	selectServCloseBtn.onClick:Add(denglu_OnCloseServ);
+	serverList = selectServ:GetChild("n10").asList;
+	crtServer = self.contentPane:GetChild("n13").asButton;
+	crtServer.onClick:Add(denglu_OnShowServ);
+	crtServerText = crtServer:GetChild("n3");
+	crtServer.visible = false;
 
 	accountGroup = self.contentPane:GetChild("n10").asCom;
 	account = accountGroup:GetChild("n11").asTextField;
 	password = accountGroup:GetChild("n12").asTextField;
+	loginBtn = accountGroup:GetChild("n13").asButton;
+	loginBtn.onClick:Add(denglu_OnLogin);
+
+	enterBtn.enabled = false;
+	loginBtn.enabled = false;
 
 	finalized = false;
 
@@ -67,22 +83,44 @@ function denglu:OnDispose()
 end
 
 function denglu:OnHide()
+	accountGroup.visible = true;
+	acc = "";
+	crtServer.visible = false;
 	finalized = false;
 	Window:Hide();
 end
 
+function denglu_ServerSelect(context)
+	Proxy4Lua._ServerIP = Proxy4Lua._ServList[context.sender.data];
+	crtServerText.text = Proxy4Lua._ServerIP;
+	selectServ.visible = false;
+end
+
 function denglu_FlushData()
-	if finalized then
-		print("finalized");
-		return;
+	if Proxy4Lua._ServerIP == nil or Proxy4Lua._ServerIP == "" then
+		crtServerText.text = "选择服务器";
+	end
+	if Proxy4Lua._ServList ~= nil then
+		serverList:RemoveChildrenToPool();
+		for i=0, Proxy4Lua._ServList.Count - 1 do
+			local si = serverList:AddItemFromPool(serverItem);
+			si:GetChild("n3").text = "";
+			si:GetChild("n4").text = Proxy4Lua._ServList[i];
+			si.data = i;
+			si.onClick:Add(denglu_ServerSelect);
+		end
 	end
 
+	if finalized == true then
+		return;
+	end
 	if DataLoader._LoadFinish then
-		finalized = true;
 		DataLoader._LoadFinish = false;
 		Proxy4Lua.ResUpdate._UpdateFinish = false;
 		print("_LoadFinish");
 		enterBtn.enabled = true;
+		loginBtn.enabled = true;
+		finalized = true;
 		return;
 	end
 
@@ -107,14 +145,25 @@ function denglu_OnCloseServ()
 	selectServ.visible = false;
 end
 
-function denglu_OnEnterGame()
+local acc;
+function denglu_OnLogin()
 	if account.text == nil or account.text == "" then
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "输入账号", true);
 		return;
 	end
+
+	acc = account.text;
+	accountGroup.visible = false;
+	selectServ.visible = true;
+	Proxy4Lua.CheckServer();
+	crtServer.visible = true;
+end
+
+function denglu_OnEnterGame()
 	if Proxy4Lua.ReconnectServer() == true then
-		Proxy4Lua.Login(account.text, password.text);
+		Proxy4Lua.Login(acc, password.text);
 		enterBtn.enabled = false;
+		loginBtn.enabled = false;
 	end
 end

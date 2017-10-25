@@ -114,7 +114,7 @@ public class NetWoking
     {
         if (socket_ != null && socket_.RemoteEndPoint != null)
             Close();
-        string ipadd = Define.GetStr("DebugServerAddress");
+        string ipadd = Proxy4Lua._ServerIP;//Define.GetStr("DebugServerAddress");
         int port = Define.GetInt("DebugServerPort");
         return Open(ipadd, port);
     }
