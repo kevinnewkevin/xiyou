@@ -168,6 +168,38 @@ public class Proxy4Lua {
         return new FairyGUI.GoWrapper(go);
     }
 
+    static public void BlackGameObject(FairyGUI.GGraph holder)
+    {
+        if (holder.displayObject == null)
+            return;
+
+        if (holder.displayObject.gameObject == null)
+            return;
+
+        SkinnedMeshRenderer[] smr = holder.displayObject.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        for(int i=0; i < smr.Length; ++i)
+        {
+            if (smr [i].sharedMaterial != null)
+                smr [i].sharedMaterial.SetColor("_Color", Color.black);
+        }
+    }
+
+    static public void WhiteGameObject(FairyGUI.GGraph holder)
+    {
+        if (holder.displayObject == null)
+            return;
+
+        if (holder.displayObject.gameObject == null)
+            return;
+
+        SkinnedMeshRenderer[] smr = holder.displayObject.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        for(int i=0; i < smr.Length; ++i)
+        {
+            if (smr [i].sharedMaterial != null)
+                smr [i].sharedMaterial.SetColor("_Color", Color.white);
+        }
+    }
+
     static public void UnloadAsset(string assetPath)
     {
         if (string.IsNullOrEmpty(assetPath))
