@@ -72,8 +72,6 @@ function denglu:OnHide()
 end
 
 function denglu_FlushData()
-	enterBtn.enabled = not DataLoader._IsLoading and Proxy4Lua.ResUpdate._UpdateFinish;
-
 	if finalized then
 		print("finalized");
 		return;
@@ -83,6 +81,8 @@ function denglu_FlushData()
 		finalized = true;
 		DataLoader._LoadFinish = false;
 		Proxy4Lua.ResUpdate._UpdateFinish = false;
+		print("_LoadFinish");
+		enterBtn.enabled = true;
 		return;
 	end
 
