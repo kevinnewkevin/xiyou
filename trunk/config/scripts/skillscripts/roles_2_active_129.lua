@@ -22,9 +22,15 @@ function All_2_Skill(battleid,casterid,attackNum,level,skillid)
 		
 		end
 
+		sys.log("zhujue 2 333"  ..  damage)
+
 		local per = 0.05 * level
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
+
+		damage = damage + damage *per
+
+		sys.log("zhujue 2 444"  ..  damage)
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
