@@ -19,10 +19,21 @@ public class ResourceUpdate : MonoBehaviour {
 
     public void Init()
     {
-        _IsDoing = true;
-        _UpdateFinish = false;
-        _CenterServer = Define.GetStr("CenterServer");
-        CheckNew();
+        #if EDITOR_MODE
+            _UpdateFinish = true;
+            StartCoroutine(SkipUpdate());
+        #else
+            _IsDoing = true;
+            _UpdateFinish = false;
+            _CenterServer = Define.GetStr("CenterServer");
+            CheckNew();
+        #endif
+    }
+
+    IEnumerator SkipUpdate()
+    {
+        yield return true;
+        UIManager.SetDirty("denglu");
     }
 
     public void CheckNew()
@@ -30,7 +41,7 @@ public class ResourceUpdate : MonoBehaviour {
         string localMd5 = Application.persistentDataPath + "/md5.txt";
         if (!File.Exists(localMd5))
         {
-            WWW www = new WWW("file://" + Application.streamingAssetsPath + "/md5.txt");
+            WWW www = new WWW(Application.streamingAssetsPath + "/md5.txt");
             while(true)
             {
                 if (www.isDone)
