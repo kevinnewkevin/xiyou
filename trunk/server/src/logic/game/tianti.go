@@ -92,7 +92,7 @@ func Tick(dt float64)  {
 func CheckMatching(oncePlayer *OncePlayer, dt float64)  {
 	oncePlayer.MatchingTime += dt
 	for _,t := range TianTiStore{
-		if oncePlayer.MatchingTime > 20{
+		if oncePlayer.MatchingTime > 60{
 			robot := GetRobotData(oncePlayer.TianTiVal)
 			if robot==nil {
 				log.Info("Can Not Find Robot PlayerId=",oncePlayer.PlayerInstId,"TiantiV=",oncePlayer.TianTiVal);
