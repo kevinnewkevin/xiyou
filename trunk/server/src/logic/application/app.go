@@ -162,8 +162,6 @@ func (this *App) Run() {
 	}()
 
 	<-endRunning
-
-
 }
 
 func NewApp() *App {
