@@ -32,10 +32,10 @@ public class Define {
         #if EDITOR_MODE
             FairyGUI.UIPackage.AddPackage(PathDefine.UI_ASSET_PATH + uiName);
         #else
-            string path = string.Format("{0}/{1}/{2}{3}{4}{5}", Application.streamingAssetsPath, Define.PackageVersion, PathDefine.UI_ASSET_PATH, uiName, "_desc", Define.ASSET_EXT);
-            AssetBundle descBundle = AssetBundle.LoadFromFile(path);
-            path = string.Format("{0}/{1}/{2}{3}{4}{5}", Application.streamingAssetsPath, Define.PackageVersion, PathDefine.UI_ASSET_PATH, uiName, "_res", Define.ASSET_EXT);
-            AssetBundle resBundle = AssetBundle.LoadFromFile(path);
+            string path = string.Format("{0}/{1}_desc", PathDefine.UI_ASSET_PATH, uiName);
+            AssetBundle descBundle = AssetLoader.LoadAssetBundle(path);
+            path = string.Format("{0}/{1}_res", PathDefine.UI_ASSET_PATH, uiName);
+            AssetBundle resBundle = AssetLoader.LoadAssetBundle(path);
             FairyGUI.UIPackage.AddPackage(descBundle, resBundle);
         #endif
     }

@@ -77,6 +77,26 @@ public class AssetLoader {
 #endif
     }
 
+#if !EDITOR_MODE
+    static public AssetBundle LoadAssetBundle(string path)
+    {
+        if(_Manifest == null)
+            InitCommonList();
+        try
+        {
+            string assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            SmartPath(ref assetPath);
+            AssetBundle ab = AssetBundle.LoadFromFile(assetPath);
+            return ab;
+        }
+        catch(System.Exception e)
+        {
+            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            return null;
+        }
+    }
+#endif
+
     static public void LaunchBundle(int entityid)
     {
         EntityData eData = EntityData.GetData(entityid);
