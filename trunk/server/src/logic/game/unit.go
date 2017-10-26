@@ -1,11 +1,11 @@
 package game
 
 import (
+	"errors"
+	"logic/log"
 	"logic/prpc"
 	"sync"
 	"sync/atomic"
-	"errors"
-	"logic/log"
 )
 
 var genInstId int64 = 1
@@ -13,33 +13,34 @@ var genInstId int64 = 1
 type GameUnit struct {
 	sync.Mutex
 	Owner       *GamePlayer //所有者
-	IsMain		bool
-	Camp		int
+	IsMain      bool
+	Camp        int
 	UnitId      int32
 	InstId      int64
 	InstName    string
 	DisPlay     int32
-	Level     	int32
+	Level       int32
 	IProperties []int32
 	CProperties []float32
-	Cost 		int32
-	Race 		int32
+	Cost        int32
+	Race        int32
 	Skill       map[int32]*Skill
 
 	//战斗的实际信息
-	ChoiceSKill	int32
-	Position 	int32 //prpc.BattlePosition
-	Buff 		[]*Buff //增益状态
-	Debuff 		[]*Buff //负面状态
-	Allbuff		[]*Buff	//全体buff
-	DelBuff		[]*Buff	//需要刪除的buff
-	BattleId	int64	//zhandou id
-	MoveStage	int32	//行动信息
+	ChoiceSKill int32
+	Position    int32   //prpc.BattlePosition
+	Buff        []*Buff //增益状态
+	Debuff      []*Buff //负面状态
+	Allbuff     []*Buff //全体buff
+	DelBuff     []*Buff //需要刪除的buff
+	BattleId    int64   //zhandou id
+	MoveStage   int32   //行动信息
 	//战斗 buff需要的数据
-	VirtualHp	int32	//护盾数值
-	Special 	map[int32][]int32	//特殊属性效果
-	OutBattle	bool	//脱离战斗
+	VirtualHp int32             //护盾数值
+	Special   map[int32][]int32 //特殊属性效果
+	OutBattle bool              //脱离战斗
 }
+
 //如果是创建怪物卡牌的话 player = 你来
 func CreateUnitFromTable(id int32) *GameUnit {
 	t := GetUnitRecordById(id)
@@ -107,7 +108,7 @@ func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
 	log.Info("PopSpec 11111,", this.Special)
 	bufflist, ok := this.Special[int32(spe)]
 	if ok {
-		if len(bufflist) > 0{
+		if len(bufflist) > 0 {
 			delete(this.Special, int32(spe))
 		} else {
 			tmpList := []int32{}
@@ -124,7 +125,7 @@ func (this *GameUnit) PopSpec(spec string, buffinstid int32) {
 	return
 }
 
-func (this *GameUnit) GetSpecial(spec string) []int32 {		//获取对应sepce枚举对应的buffid 可能为空
+func (this *GameUnit) GetSpecial(spec string) []int32 { //获取对应sepce枚举对应的buffid 可能为空
 	tmp := []int32{}
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
@@ -139,7 +140,7 @@ func (this *GameUnit) GetSpecial(spec string) []int32 {		//获取对应sepce枚�
 	return tmp
 }
 
-func (this *GameUnit) GetOneSpecial(spec string, round int32) int32 {		//获取对应sepce枚举对应的实力id 可能为空
+func (this *GameUnit) GetOneSpecial(spec string, round int32) int32 { //获取对应sepce枚举对应的实力id 可能为空
 	var tmp int32
 	spe := prpc.ToId_BuffSpecial(spec)
 	bufflist, ok := this.Special[int32(spe)]
@@ -151,7 +152,7 @@ func (this *GameUnit) GetOneSpecial(spec string, round int32) int32 {		//获取�
 
 	for _, buff_id := range bufflist {
 		buff := this.SelectBuff(buff_id)
-		if buff.IsOver(round){
+		if buff.IsOver(round) {
 			continue
 		}
 		tmp = buff_id
@@ -184,7 +185,7 @@ func (this *GameUnit) CheckSpec(spec string, round int32) bool { //unit.checkspe
 	return false
 }
 
-func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
+func (this *GameUnit) ClacSheldPer(round int32) float32 { //计算百分比减伤 所有buff的百分比减伤加起来 有个最大值
 	maxPer := 75
 
 	bl, ok := this.Special[prpc.BF_SHELD]
@@ -212,7 +213,7 @@ func (this *GameUnit) ClacSheldPer(round int32) float32 {			//计算百分比减
 	return per
 }
 
-func (this *GameUnit) ClacStrongPer(round int32) float32 {			//计算百分比增加输出伤 所有buff的百分比减伤加起来 有个最大值
+func (this *GameUnit) ClacStrongPer(round int32) float32 { //计算百分比增加输出伤 所有buff的百分比减伤加起来 有个最大值
 	maxPer := 75
 
 	bl, ok := this.Special[prpc.BF_STRONG]
@@ -240,7 +241,7 @@ func (this *GameUnit) ClacStrongPer(round int32) float32 {			//计算百分比�
 	return per
 }
 
-func (this *GameUnit) ClacWeakPer(round int32) float32 {			//计算百分比增加承受伤 所有buff的百分比减伤加起来 有个最大值
+func (this *GameUnit) ClacWeakPer(round int32) float32 { //计算百分比增加承受伤 所有buff的百分比减伤加起来 有个最大值
 	maxPer := 75
 
 	bl, ok := this.Special[prpc.BF_WEAK]
@@ -268,15 +269,15 @@ func (this *GameUnit) ClacWeakPer(round int32) float32 {			//计算百分比增�
 	return per
 }
 
-func (this* GameUnit) SetUnitCOM(u *prpc.COM_Unit) {
+func (this *GameUnit) SetUnitCOM(u *prpc.COM_Unit) {
 	this.UnitId = u.UnitId
 	this.InstId = u.InstId
 	this.Level = u.Level
 	this.Race = u.Race
-	this.IProperties =  u.IProperties
+	this.IProperties = u.IProperties
 	this.CProperties = u.CProperties
 
-	this.Skill =  map[int32]*Skill{}
+	this.Skill = map[int32]*Skill{}
 	for _, sk := range u.Skills {
 		this.Skill[sk.Pos] = InitSkillFromTable(sk.SkillId)
 	}
@@ -300,7 +301,6 @@ func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 			unit_skill.SkillId = skill.SkillID
 		}
 
-
 		u.Skills = append(u.Skills, unit_skill)
 	}
 	return u
@@ -317,7 +317,6 @@ func (this *GameUnit) GetBattleUnitCOM() prpc.COM_BattleUnit {
 	u.Name = this.InstName
 	u.Level = this.IProperties[prpc.IPT_PROMOTE]
 
-
 	return u
 }
 
@@ -330,7 +329,7 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 	}
 	this.MoveStage += 1
 
-	if this.Skill[idx + 1] == nil {
+	if this.Skill[idx+1] == nil {
 		for _, skill := range this.Skill {
 			if skill == nil {
 				continue
@@ -339,7 +338,7 @@ func (this *GameUnit) SelectSkill(round int32) *Skill {
 		}
 	}
 
-	return this.Skill[idx + 1]
+	return this.Skill[idx+1]
 }
 
 func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
@@ -356,7 +355,7 @@ func (this *GameUnit) CastSkill(battle *BattleRoom) bool {
 				if sk == nil {
 					continue
 				}
-				if sk.SkillID == this.ChoiceSKill{
+				if sk.SkillID == this.ChoiceSKill {
 					skill = sk
 					break
 				}
@@ -450,7 +449,7 @@ func (this *GameUnit) isBack() bool {
 	return false
 }
 
-func (this *GameUnit) ClearAllbuff()  {
+func (this *GameUnit) ClearAllbuff() {
 
 	log.Info("ClearAllbuff, unitid:", this.InstId)
 	for _, buff := range this.Allbuff {
@@ -460,7 +459,7 @@ func (this *GameUnit) ClearAllbuff()  {
 	return
 }
 
-func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
+func (this *GameUnit) ResetBattle(camp int, ismain bool, battleid int64) {
 	this.CProperties[prpc.CPT_HP] = float32(this.IProperties[prpc.IPT_HP])
 	this.CProperties[prpc.CPT_CHP] = float32(this.IProperties[prpc.IPT_HP])
 	this.Buff = []*Buff{}
@@ -476,16 +475,16 @@ func (this *GameUnit)ResetBattle(camp int, ismain bool, battleid int64) {
 	this.OutBattle = false
 }
 
-func (this *GameUnit)CheckBuff (round int32){
+func (this *GameUnit) CheckBuff(round int32) {
 	//检测那些有行为的buff 比如定时增加血量的那种
 
 }
 
-func (this *GameUnit)CheckDebuff (round int32){
+func (this *GameUnit) CheckDebuff(round int32) {
 	//检测那些有行为的debuff 比如定时损血
 
 }
-func (this *GameUnit) MustUpdateBuff (spe string, round int32){
+func (this *GameUnit) MustUpdateBuff(spe string, round int32) {
 	special := prpc.ToId_BuffSpecial(spe)
 	bufflist, _ := this.Special[int32(special)]
 
@@ -499,7 +498,7 @@ func (this *GameUnit) MustUpdateBuff (spe string, round int32){
 
 }
 
-func (this *GameUnit)SelectBuff (instid int32) *Buff {
+func (this *GameUnit) SelectBuff(instid int32) *Buff {
 	for _, buff := range this.Allbuff {
 		if buff.InstId == instid {
 			return buff
@@ -509,31 +508,31 @@ func (this *GameUnit)SelectBuff (instid int32) *Buff {
 	return nil
 }
 
-func (this *GameUnit)CheckAllBuff (round int32) []int32 {
-	log.Info(string(this.InstId), "checkallBuff round is ", round)			//檢測buff效果
+func (this *GameUnit) CheckAllBuff(round int32) []int32 {
+	log.Info(string(this.InstId), "checkallBuff round is ", round) //檢測buff效果
 	needDelete := map[*Buff]int{}
 	this.DelBuff = []*Buff{}
 
-	for _, buff := range this.Allbuff{
-		if this.IsDead() {		//buff執行中玩家卡牌可能死掉
+	for _, buff := range this.Allbuff {
+		if this.IsDead() { //buff執行中玩家卡牌可能死掉
 			break
 		}
 		if buff.Update(round) {
 			log.Info("CheckAllBuff one", buff.InstId, buff.Round)
 			needDelete[buff] = 1
-			this.DelBuff = append(this.DelBuff, buff)		//這個是給戰鬥房間用的 用來寫入戰報
+			this.DelBuff = append(this.DelBuff, buff) //這個是給戰鬥房間用的 用來寫入戰報
 		}
 	}
 
 	need := this.deletBuff(needDelete)
 
-	log.Info(string(this.InstId), "checkallBuff over 1", len(needDelete))			//檢測buff效果
-	log.Info(string(this.InstId), "checkallBuff over 2", need)			//檢測buff效果
+	log.Info(string(this.InstId), "checkallBuff over 1", len(needDelete)) //檢測buff效果
+	log.Info(string(this.InstId), "checkallBuff over 2", need)            //檢測buff效果
 
 	return need
 }
 
-func (this *GameUnit) deletBuff (need map[*Buff]int) []int32 {
+func (this *GameUnit) deletBuff(need map[*Buff]int) []int32 {
 	newList := []*Buff{}
 	delete_id := []int32{}
 	for _, buff := range this.Allbuff {
@@ -553,12 +552,12 @@ func (this *GameUnit) deletBuff (need map[*Buff]int) []int32 {
 	return delete_id
 }
 
-func erase(arr []interface{} , idx int) []interface{}{
-	return	append(arr[:idx], arr[idx+1:]...)
+func erase(arr []interface{}, idx int) []interface{} {
+	return append(arr[:idx], arr[idx+1:]...)
 }
 
 func (this *GameUnit) PopAllBuffByDebuff() int {
-//删除卡牌身上所有的debuff
+	//删除卡牌身上所有的debuff
 	tmp := map[*Buff]int{}
 
 	if len(this.Allbuff) == 0 || this.Allbuff == nil {
@@ -571,7 +570,7 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 		if buff == nil {
 			continue
 		}
-		if buff.BuffType == kTypeBuff{
+		if buff.BuffType == kTypeBuff {
 			continue
 		}
 		tmp[buff] = 1
@@ -595,12 +594,12 @@ func (this *GameUnit) PopAllBuffByDebuff() int {
 	return len(tmp)
 }
 
-func (this *GameUnit) PopAllBuffByBuff() int{
-//删除卡牌身上的buff
+func (this *GameUnit) PopAllBuffByBuff() int {
+	//删除卡牌身上的buff
 	tmp := map[*Buff]int{}
 
 	for _, buff := range this.Allbuff {
-		if buff.BuffType == kTypeDebuff{
+		if buff.BuffType == kTypeDebuff {
 			continue
 		}
 		tmp[buff] = 1
@@ -658,7 +657,7 @@ func (this *GameUnit) ChangeBuffTimes(round int32) {
 
 func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 
-	if iType <=prpc.IPT_MIN || iType >= prpc.IPT_MAX {
+	if iType <= prpc.IPT_MIN || iType >= prpc.IPT_MAX {
 		return errors.New("error iType")
 	}
 
@@ -676,7 +675,7 @@ func (this *GameUnit) UpdateIProperty(iType int32, value int32) error {
 
 func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 
-	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
+	if cType <= prpc.CPT_MIN || cType >= prpc.CPT_MAX {
 		return errors.New("error cType")
 	}
 
@@ -693,7 +692,7 @@ func (this *GameUnit) UpdateCProperty(cType int32, value float32) error {
 }
 func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 
-	if iType <=prpc.IPT_MIN || iType >= prpc.IPT_MAX {
+	if iType <= prpc.IPT_MIN || iType >= prpc.IPT_MAX {
 		return errors.New("error iType")
 	}
 
@@ -708,7 +707,7 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 	if this.Owner.session == nil {
 		return nil
 	}
-	
+
 	this.Owner.session.UpdateUnitIProperty(this.InstId, iType, value)
 
 	return nil
@@ -716,7 +715,7 @@ func (this *GameUnit) SetIProperty(iType int32, value int32) error {
 
 func (this *GameUnit) SetCProperty(cType int32, value float32) error {
 
-	if cType <=prpc.CPT_MIN || cType >= prpc.CPT_MAX {
+	if cType <= prpc.CPT_MIN || cType >= prpc.CPT_MAX {
 		return errors.New("error cType")
 	}
 
@@ -753,8 +752,8 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 		}
 		promote := GetPromoteRecordById(this.UnitId)
 		log.Info("this.IProperties[prpc.IPT_PROMOTE]", this.IProperties[prpc.IPT_PROMOTE])
-		log.Info("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
-		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE] - 1])
+		log.Info("this.Promote", promote[this.IProperties[prpc.IPT_PROMOTE]-1])
+		this.Promote(promote[this.IProperties[prpc.IPT_PROMOTE]-1])
 
 		exp -= exp_info
 		exp_info = GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
@@ -766,7 +765,6 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 
 	return exp
 }
-
 
 func (this *GameUnit) Promote(info *PromoteInfo) error {
 

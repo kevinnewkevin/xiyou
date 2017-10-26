@@ -1311,7 +1311,6 @@ func (this *GamePlayer) Logout() {
 }
 
 func (this *GamePlayer) GamePlayerSave() {
-	log.Info("SAVE ")
 	UpdatePlayer(this.GetPlayerSGE())
 }
 

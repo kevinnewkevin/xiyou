@@ -3,7 +3,6 @@ package game
 import (
 	"logic/prpc"
 	"logic/socket"
-	"encoding/json"
 	"logic/log"
 	"fmt"
 )
@@ -44,8 +43,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 				PlayerStore = append(PlayerStore,this.player)
 			}
 			infoext.MyPlayer = p.COM_Player
-			log.Info("%s", infoext.MyPlayer.UnitGroup)
-			log.Info("%s", p.Employees)
+
+			log.Info("Query player %s", p)
 		}
 	}else{
 		this.player.SetSession(this)
@@ -79,9 +78,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r.COM_Player)
 
-	log.Info(string(tempId), "CreatePlayer", &r)
-	b,_ := json.Marshal(r)
-	log.Info(string(b))
+	log.Info("CreatePlayer %s", r)
 
 	return nil
 } // 1
@@ -131,7 +128,6 @@ func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition, skillid
 	}
 
 	this.SetupBattleOK()
-	//log.Info("SetupBattleOK", positionList)
 
 	return nil
 } // 5

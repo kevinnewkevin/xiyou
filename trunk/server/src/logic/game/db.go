@@ -2,7 +2,7 @@ package game
 
 import (
 	"database/sql"
-	"log"
+	"logic/log"
 	"logic/prpc"
 
 	"bytes"
@@ -90,7 +90,7 @@ func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
 	p.Serialize(&b)
 
-	_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `PlayerId` = ?", b.Bytes(), p.PlayerId)
+	_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `Username` = ?", b.Bytes(), p.Username)
 
 	if e != nil {
 		log.Println(e.Error())
