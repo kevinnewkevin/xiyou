@@ -158,7 +158,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit.IsMain = true
 	p.Exp = 0
 
-	log.Info("createplayer %s", string(DefaultUnits))
+	log.Println("createplayer ", DefaultUnits)
 	for _, e_id := range DefaultUnits {
 		p.NewGameUnit(e_id)
 	}
@@ -1298,7 +1298,7 @@ func (this *GamePlayer) OpenTreasureBox(pondId int32) bool {
 
 func (this *GamePlayer) Logout() {
 
-	log.Info("Logout", "PlayerName=", this.MyUnit.InstName)
+	log.Println("Logout", "PlayerName=", this.MyUnit.InstName)
 
 	this.LogoutTime = time.Now().Unix()
 

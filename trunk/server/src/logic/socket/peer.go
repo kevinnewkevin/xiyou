@@ -5,6 +5,8 @@ import (
 	"net"
 	"sync"
 	"logic/log"
+	"runtime"
+	"strings"
 )
 
 type Peer struct {
@@ -25,8 +27,23 @@ func (this *Peer) MethodEnd() error {
 	if e != nil {
 		return e
 	}
+	_, file, line, ok := runtime.Caller(2)
 
-	log.Info("func (this *Peer) MethodEnd() %d",c)
+	if !ok {
+		file = "???"
+		line = 0
+	}else {
+
+			i := strings.LastIndex(file, "/")
+			if i == -1 {
+				i = strings.LastIndex(file, "\\")
+			}
+			if i != -1{
+				file = file[i+1:]
+			}
+
+	}
+	log.Info("CALL %s:%d MethodEnd() %d ",file,line, c)
 	this.OutgoingBuffer.Reset()
 	this.TotalOutgoing += c
 	return nil
@@ -38,6 +55,7 @@ func (this *Peer) HandleSocket() error {
 
 		c, e := this.Connection.Read(bs)
 		if e != nil {
+			log.Error("Incoming error %s",e.Error())
 			return e
 		}
 		this.IncomingBuffer.Write(bs[:c])
@@ -47,6 +65,8 @@ func (this *Peer) HandleSocket() error {
 	{
 		c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
 		if e != nil {
+			log.Error("Outgoing error %s",e.Error())
+
 			return e
 		}
 		this.TotalOutgoing += c
@@ -56,5 +76,6 @@ func (this *Peer) HandleSocket() error {
 
 
 func NewPeer(conn *net.TCPConn) *Peer {
+	conn.SetNoDelay(true)
 	return &Peer{IncomingBuffer: bytes.NewBuffer(nil), OutgoingBuffer: bytes.NewBuffer(nil), Connection: conn}
 }

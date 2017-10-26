@@ -150,7 +150,9 @@ func (this *App) Run() {
 				log.Debug(err.Error())
 				endRunning <- true
 			}
-			log.Debug("Has one connect ")
+			log.Info("Client connected %s ",conn.RemoteAddr().String())
+
+
 
 			peer := socket.NewPeer(conn)
 			client := game.NewClient(peer)

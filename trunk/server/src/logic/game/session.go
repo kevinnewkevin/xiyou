@@ -15,7 +15,7 @@ type Session struct {
 }
 
 func (this *Session) Login(info prpc.COM_LoginInfo) error {
-	log.Info("Login %s", info)
+	log.Println("Login ", info)
 	infoext := prpc.COM_AccountInfo{}
 	infoext.SessionCode = info.Username + info.Password
 
@@ -44,7 +44,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			}
 			infoext.MyPlayer = p.COM_Player
 
-			log.Info("Query player %s", p)
+			log.Println("Query player ", p)
 		}
 	}else{
 		this.player.SetSession(this)
@@ -78,7 +78,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	this.CreatePlayerOK(r.COM_Player)
 
-	log.Info("CreatePlayer %s", r)
+	log.Println("CreatePlayer ", r)
 
 	return nil
 } // 1
@@ -269,7 +269,7 @@ func (this *Session) Update() {
 		if this.peer.IncomingBuffer.Len() >= 2 {
 			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
 			if err != nil {
-				log.Info("err", err)
+				log.Error("err", err)
 				goto endLoop
 			}
 		}

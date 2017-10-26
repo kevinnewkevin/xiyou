@@ -78,7 +78,7 @@ func InsertPlayer(p prpc.SGE_DBPlayer) {
 
 func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
-	log.Println(p.UnitGroup)
+	//log.Println(p.UnitGroup)
 
 	c, e := ConnectDB()
 	if e != nil {
