@@ -26,13 +26,13 @@ function AllSkill(battleid,casterid,attackNum,level,skillid)
 		
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 
-		sya.log("主角造成的伤害111    ".. damage)
+		sys.log("主角造成的伤害111    ".. damage)
 
 		local per = 0.05 * level
 
 		damage = damage + damage *per
 
-		sya.log("主角造成的伤害222     ".. damage)
+		sys.log("主角造成的伤害222     ".. damage)
 		
 		Battle.Attack(battleid,casterid,v,damage,crit)   --调用服务器 （伤害）(战斗者，释放者，承受者，伤害，暴击）
 		
