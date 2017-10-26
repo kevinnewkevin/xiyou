@@ -540,7 +540,7 @@ func (this *BattleRoom) Update() {
 		if unit == nil {
 			continue
 		}
-		log.Info("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+		//log.Info("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		this.ReportOne.UnitList = append(this.ReportOne.UnitList, unit.GetBattleUnitCOM())
 	}
 
@@ -549,13 +549,15 @@ func (this *BattleRoom) Update() {
 			if u == nil {
 				continue
 			}
-			log.Info("卡牌敏捷 2 : ", u.GetCProperty(prpc.CPT_AGILE))
+			//log.Info("卡牌敏捷 2 : ", u.GetCProperty(prpc.CPT_AGILE))
 			//log.Info("report.UnitList, append", u)
 			//this.ReportOne.UnitList = append(this.ReportOne.UnitList, u.GetBattleUnitCOM())
 
 			if u.IsDead() { // 非主角死亡跳過
 				continue
 			}
+
+			//log.Info("行动的卡牌信息: ", u.InstName)
 
 			this.AcctionList = prpc.COM_BattleAction{}
 			//this.TargetOn()
@@ -573,7 +575,10 @@ func (this *BattleRoom) Update() {
 			}
 
 			u.CastSkill(this)
+
+			//log.Info("行动的卡牌信息 11 : ", u.InstName, u.ChoiceSKill)
 			u.ChoiceSKill = 0
+
 
 			//this.TargetOver()
 
@@ -1393,19 +1398,18 @@ func (this *BattleRoom) MonsterMove() {
 		if pos == prpc.BP_MAX {
 			return
 		}
-		if len(this.Monster.BattleUnitList) == 0 {
-			return
-		}
-		for index, m:= range this.Monster.BattleUnitList{
-			if m.OutBattle{
-				log.Info("outbattle", m.InstId)
-				continue
+		if len(this.Monster.BattleUnitList) > 0 {
+			for index, m:= range this.Monster.BattleUnitList{
+				if m.OutBattle{
+					log.Info("outbattle", m.InstId)
+					continue
+				}
+				log.Info("outbattle1111111 ", m.InstId)
+				this.Units[pos] = m
+				m.Position = int32(pos)
+				this.Monster.BattleUnitList = this.Monster.BattleUnitList[index + 1:]
+				break
 			}
-			log.Info("outbattle1111111 ", m.InstId)
-			this.Units[pos] = m
-			m.Position = int32(pos)
-			this.Monster.BattleUnitList = this.Monster.BattleUnitList[index + 1:]
-			break
 		}
 	}
 
