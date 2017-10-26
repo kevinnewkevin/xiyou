@@ -767,7 +767,7 @@ public class FindMissingScriptsRecursively : EditorWindow
         foreach (GameObject g in go)  
         {  
             FindInGO(g);  
-        }  
+        }
         UnityEngine.Debug.Log(string.Format("Searched {0} GameObjects, {1} components, found {2} missing", go_count, components_count, missing_count));  
     }  
 
@@ -802,5 +802,21 @@ public class FindMissingScriptsRecursively : EditorWindow
             //Debug.Log("Searching " + childT.name  + " " );  
             FindInGO(childT.gameObject);  
         }  
+    }
+
+    [MenuItem("Tools/删除场景中的空动画控制器")]
+    public static void FindEmptyAnimator()
+    {
+        int total = 0;
+        Animator[] animators = GameObject.FindObjectsOfType<Animator>();
+        for (int i = 0; i < animators.Length; ++i)
+        {
+            if (animators[i].runtimeAnimatorController == null)
+            {
+                total++;
+                GameObject.DestroyImmediate(animators[i]);
+            }
+        }
+        UnityEngine.Debug.Log("Destroy " + total + " null Animators.");
     }
 }  
