@@ -25,7 +25,6 @@ public class Battle {
     static Actor[] _ActorInScene = new Actor[12/*BP_Max*/];
     static Transform[] _PosInScene = new Transform[12/*BP_Max*/];
     static GameObject _SceneConfig;
-    static Dictionary<int, SkillData> skillAssets;
 
     static public BattleState _CurrentState = BattleState.BS_Max;
     static public COM_BattleResult _Result = null;
