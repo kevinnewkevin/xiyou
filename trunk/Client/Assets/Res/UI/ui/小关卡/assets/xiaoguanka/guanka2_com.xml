@@ -17,18 +17,20 @@
     <item time="0" type="Alpha" target="n0_ghbx" tween="true" startValue="0.5" endValue="1" duration="12" ease="Circ.InOut"/>
     <item time="0" type="Alpha" target="n3_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n2_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n7_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n7_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n8_ghbx" value="0"/>
     <item time="0" type="Size" target="n0_ghbx" tween="true" startValue="613,600" endValue="437,427" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n8_ghbx" value="222,-2288"/>
     <item time="8" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
     <item time="8" type="Scale" target="n6_ghbx" tween="true" startValue="1,0" endValue="1,1" duration="6" ease="Circ.InOut"/>
-    <item time="12" type="Alpha" target="n8_ghbx" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="12" type="Alpha" target="n2_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="10" type="XY" target="n8_ghbx" value="222,416"/>
     <item time="12" type="Alpha" target="n4_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n2_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n8_ghbx" tween="true" startValue="0" endValue="0" duration="6"/>
+    <item time="12" type="Alpha" target="n5_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n3_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n7_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="12" type="Alpha" target="n5_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
   </transition>
 </component>
