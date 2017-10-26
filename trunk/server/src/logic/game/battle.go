@@ -1628,6 +1628,7 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 
 	if unit.IsDead() {
 		unit.OutBattle = true
+		unit.PopAllBuffByDead(this)
 		this.isDeadOwner(casterid, target)
 		this.Dead = append(this.Dead, unit)
 		if unit.Owner != nil{
@@ -1830,6 +1831,7 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 
 	if unit.IsDead() {
 		unit.OutBattle = true
+		unit.PopAllBuffByDead(this)
 		this.isDeadOwner(casterid, target)
 		this.Dead = append(this.Dead, unit)
 		if unit.Owner != nil{

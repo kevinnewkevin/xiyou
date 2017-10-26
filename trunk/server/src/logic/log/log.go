@@ -98,7 +98,7 @@ func (this* Logger) sprintf(l int, t time.Time , f string, a ...interface{}) str
 		}
 	}
 
-	return fmt.Sprintf("%s|%s|%s [%s:%d]\n",t.String(),s[l],fmt.Sprintf(f,a...),file,line)
+	return fmt.Sprintf("%s|%s|%s %s:%d\n",t.String(),s[l],fmt.Sprintf(f,a...),file,line)
 
 
 }

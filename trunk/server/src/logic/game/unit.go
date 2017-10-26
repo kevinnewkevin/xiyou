@@ -628,9 +628,28 @@ func (this *GameUnit) ClearBuffByDead(ownerid int64, buffids []int32) {
 
 }
 
-func (this *GameUnit) PopAllBuffByDead() {
+func (this *GameUnit) PopAllBuffByDead(battle *BattleRoom) {
 	if this.UnitId != 19 {
 		return
+	}
+	for _, unit := range battle.Units {
+		if unit == nil {
+			continue
+		}
+
+		if unit.IsDead() {
+			continue
+		}
+
+		if unit.Camp != this.Camp {
+			continue
+		}
+
+		for _, buff := range unit.Allbuff {
+			if buff.CasterId == this.InstId {
+				buff.Over = true
+			}
+		}
 	}
 
 }
