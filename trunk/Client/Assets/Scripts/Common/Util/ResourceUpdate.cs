@@ -48,7 +48,7 @@ public class ResourceUpdate : MonoBehaviour {
                 {
                     if (!string.IsNullOrEmpty(www.error))
                     {
-                        LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                        //LuaManager.Call("global.lua", "ErrorMessage", www.error);
                         break;
                     }
                     else

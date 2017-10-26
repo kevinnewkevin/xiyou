@@ -184,5 +184,13 @@ public class CreateRoleSceneTouch : MonoBehaviour {
     void OnDestroy()
     {
         _SelectRole = -1;
+
+        EntityData eData = EntityData.GetData(Define.MALE_ID);
+        DisplayData dData = DisplayData.GetData(eData._DisplayId);
+        AssetLoader.UnloadAsset(dData._AssetPathDetail, true);
+
+        eData = EntityData.GetData(Define.FEMALE_ID);
+        dData = DisplayData.GetData(eData._DisplayId);
+        AssetLoader.UnloadAsset(dData._AssetPathDetail, true);
     }
 }

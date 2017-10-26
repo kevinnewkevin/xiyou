@@ -463,7 +463,7 @@ public class Skill {
             {
                 if (_Actions [i].BuffAdd == null)
                 {
-                    Debug.LogWarning(" _Actions [i].BuffAdd is null!");
+                    Debug.Log(" _Actions [i].BuffAdd is null!");
                 }
                 else
                 {

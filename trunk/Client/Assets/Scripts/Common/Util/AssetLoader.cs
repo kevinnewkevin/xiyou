@@ -75,7 +75,7 @@ public class AssetLoader {
         }
         catch(System.Exception e)
         {
-            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            Debug.LogError("AssetPath: " + path + " is not excist!");
             return null;
         }
 
@@ -96,7 +96,7 @@ public class AssetLoader {
         }
         catch(System.Exception e)
         {
-            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            Debug.LogError("AssetPath: " + path + " is not excist!");
             return null;
         }
     }
@@ -179,7 +179,7 @@ public class AssetLoader {
         }
         catch(System.Exception e)
         {
-            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            Debug.LogError("AssetPath: " + path + " is not excist!");
         }
 
         #endif
@@ -229,7 +229,7 @@ public class AssetLoader {
         }
         catch(System.Exception e)
         {
-            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            Debug.LogError("AssetPath: " + path + " is not excist!");
             return null;
         }
         #endif
@@ -279,7 +279,7 @@ public class AssetLoader {
         }
         catch(System.Exception e)
         {
-            Debug.LogWarning("AssetPath: " + path + " is not excist!");
+            Debug.LogError("AssetPath: " + path + " is not excist!");
             return null;
         }
         #endif
