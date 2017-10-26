@@ -12,6 +12,11 @@ public class AssetLoader {
         string tpath = Application.persistentDataPath +  "/" + Define.PackageVersion + "/" + Define.PackageVersion;
         SmartPath(ref tpath);
         AssetBundle bundle = AssetBundle.LoadFromFile(tpath);
+        if (bundle == null)
+        {
+            Debug.LogError("资源包不完整, 请检查后重新打包");
+            return;
+        }
         _Manifest = (AssetBundleManifest)bundle.LoadAsset("AssetBundleManifest");
         bundle.Unload(false);
     }
@@ -329,11 +334,12 @@ public class AssetLoader {
         InitCommonList();
 
         string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
-        string assetPath;
+        string assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+        SmartPath(ref assetPath);
 
         int refCount = 1;
         if(destroyObj)
-            refCount = AssetCounter.GetRef(path);
+            refCount = AssetCounter.GetRef(assetPath);
         for(int j = 0; j < refCount; ++j)
         {
             for(int i=0; i < dep.Length; ++i)
