@@ -5,12 +5,14 @@ using UnityEngine;
 public class AudioSystem {
 
     static AudioSource _BackgroundSound;
+    static AudioSource _VoiceSound;
     static List<EffectSound> _EffectSoundPool;
 
     static Dictionary<string, AudioClip> _ClipPool;
 
     static float _MusicVolum = 1f;
     static float _SoundVolum = 1f;
+    static float _VoiceVolum = 1f;
 
     static public void Init()
     {
@@ -37,6 +39,27 @@ public class AudioSystem {
         _BackgroundSound.pitch = 1f;
         _BackgroundSound.volume = _MusicVolum;
         _BackgroundSound.Play();
+    }
+
+    static public void PlayVoice(string voice)
+    {
+        if (_VoiceSound == null)
+        {
+            GameObject go = new GameObject();
+            _VoiceSound = go.AddComponent<AudioSource>();
+            MonoBehaviour.DontDestroyOnLoad(go);
+        }
+        else
+        {
+            _VoiceSound.Stop();
+            _VoiceSound.clip = null;
+        }
+
+        _VoiceSound.clip = GetClip(voice);
+        _VoiceSound.loop = true;
+        _VoiceSound.pitch = 1f;
+        _VoiceSound.volume = _MusicVolum;
+        _VoiceSound.Play();
     }
 
     static public void PlayEffect(string effect)
@@ -95,6 +118,20 @@ public class AudioSystem {
                 if(_EffectSoundPool [i] != null)
                     _EffectSoundPool [i].Volum(_SoundVolum);
             }
+        }
+    }
+
+    static public float VoiceVolum
+    {
+        get
+        {
+            return _VoiceVolum;
+        }
+        set
+        {
+            _VoiceVolum = value;
+            if (_VoiceSound != null)
+                _VoiceSound.volume = _VoiceVolum;
         }
     }
 }
