@@ -27,6 +27,8 @@ function yemiantishi:OnInit()
 	contentList = self.contentPane:GetChild("n2").asList;
 	contentList.touchable = false;
 
+	self.sortingOrder = 2147482647;
+
 	checkTime = {};
 	checkTime.crt = 0;
 	checkTime.max = 0.5;
