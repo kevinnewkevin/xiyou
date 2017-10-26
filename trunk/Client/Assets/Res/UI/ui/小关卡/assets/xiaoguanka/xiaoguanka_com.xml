@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080" initName="1">
+  <displayList>
+    <graph id="n29_prtz" name="n29" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
+    <image id="n2_ghbx" name="n2" src="ghbx3" xy="966,553" pivot="0.5,0.5" anchor="true" size="1654,852"/>
+    <image id="n3_ghbx" name="n3" src="ghbx1" xy="141,188" size="1626,742" aspect="true" alpha="0.95"/>
+    <image id="n0_ghbx" name="n0" src="ghbx8" xy="8,16"/>
+    <image id="n1_ghbx" name="n1" src="ghbx8" xy="1910,16" skew="0,180"/>
+    <image id="n5_ghbx" name="n5" src="ghbx9" xy="64,368"/>
+    <text id="n6_ghbx" name="n6" xy="87,400" size="40,257" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" bold="true" strokeColor="#000000" strokeSize="2" text="啦啦啦啦啦啦"/>
+    <component id="n19_ghbx" name="n19" src="ghbxy" xy="1632,0"/>
+    <component id="n20_ghbx" name="n20" src="ghbx10" xy="1612,450"/>
+    <component id="n21_ghbx" name="n21" src="ghbx11" xy="170,438"/>
+    <component id="n22_ghbx" name="n22" src="ghbx13" xy="245,94"/>
+    <component id="n23_ghbx" name="n23" src="ghbx13" xy="583,432"/>
+    <component id="n24_ghbx" name="n24" src="ghbx13" xy="868,92"/>
+    <component id="n25_ghbx" name="n25" src="ghbx13" xy="1202,446"/>
+    <component id="n26_ghbx" name="n26" src="ghbx14" xy="341,604"/>
+    <image id="n27_ghbx" name="n27" src="ghbxd" xy="606,314"/>
+    <loader id="n28_ghbx" name="n28" xy="647,328" size="93,93" aspect="true" url="ui://fysg4ddtghbx17" fill="scale"/>
+    <component id="n4_ghbx" name="n4" src="ghbx18" xy="1760,218"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n29_prtz" tween="true" startValue="0" endValue="0.6" duration="6"/>
+    <item time="0" type="Alpha" target="n28_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n27_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n26_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n25_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n24_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n23_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n22_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n21_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n19_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n6_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n20_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n1_ghbx" value="0.99"/>
+    <item time="0" type="Alpha" target="n0_ghbx" value="1"/>
+    <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n2_ghbx" value="1"/>
+    <item time="0" type="Alpha" target="n3_ghbx" value="0"/>
+    <item time="0" type="Size" target="n2_ghbx" tween="true" startValue="144,852" endValue="1646,852" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n1_ghbx" tween="true" startValue="1116,16" endValue="1910,16" duration="12" ease="Circ.InOut"/>
+    <item time="0" type="XY" target="n0_ghbx" tween="true" startValue="793,16" endValue="8,16" duration="12" ease="Circ.InOut"/>
+    <item time="12" type="Alpha" target="n2_ghbx" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n1_ghbx" tween="true" startValue="0.99" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n0_ghbx" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n22_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n23_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n24_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n25_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n26_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n27_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n3_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n5_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n28_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="12" type="Size" target="n2_ghbx" tween="true" startValue="1646,852" endValue="1646,852" duration="6"/>
+    <item time="17" type="Alpha" target="n21_ghbx" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="17" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="17" type="Alpha" target="n20_ghbx" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="17" type="Alpha" target="n19_ghbx" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="17" type="Alpha" target="n4_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="18" type="XY" target="n0_ghbx" value="8,16"/>
+    <item time="18" type="XY" target="n1_ghbx" value="1910,16"/>
+  </transition>
+</component>

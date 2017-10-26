@@ -2,7 +2,6 @@
 <component size="1920,1080">
   <displayList>
     <image id="n1_63w5" name="n1" src="63w51" xy="0,0" size="1920,1080"/>
-    <component id="n3_63w5" name="n3" src="63w53" xy="1784,8"/>
     <component id="n11_63w5" name="n12" src="taren" xy="208,71"/>
     <image id="n12_tare" name="n14" src="tareo" xy="0,0" size="1920,1080"/>
     <image id="n13_tare" name="n13" src="tarep" xy="518,94" size="978,956" aspect="true"/>
@@ -10,6 +9,9 @@
     <component id="n5_63w5" name="n5" src="63w5i" xy="521,522"/>
     <component id="n6_63w5" name="n6" src="63w5j" xy="1272,522"/>
     <component id="n7_63w5" name="n7" src="63w5l" xy="14,852"/>
+    <component id="n3_63w5" name="n3" src="63w53" xy="1631,1" pivot="1,0"/>
+    <image id="n15_sssk" name="n15" src="sssks" xy="116,0" alpha="0.6"/>
+    <image id="n14_sssk" name="n14" src="ssskt" xy="133,147" pivot="0.5,0.5" anchor="true" alpha="0.6"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="Alpha" target="n4_63w5" tween="true" startValue="0" endValue="1" duration="8" ease="Circ.InOut"/>
@@ -17,5 +19,13 @@
   </transition>
   <transition name="t1">
     <item time="0" type="Alpha" target="n4_63w5" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
+  </transition>
+  <transition name="t2">
+    <item time="0" type="Alpha" target="n15_sssk" tween="true" startValue="0.6" endValue="0" duration="9"/>
+    <item time="0" type="Alpha" target="n14_sssk" tween="true" startValue="0.6" endValue="1" duration="3"/>
+    <item time="0" type="Scale" target="n14_sssk" tween="true" startValue="1,1" endValue="2,2" duration="15"/>
+    <item time="0" type="XY" target="n14_sssk" tween="true" startValue="133,147" endValue="959,502" duration="9"/>
+    <item time="3" type="Alpha" target="n14_sssk" tween="true" startValue="1" endValue="0.7" duration="12"/>
+    <item time="15" type="Alpha" target="n14_sssk" tween="true" startValue="0.7" endValue="0" duration="3"/>
   </transition>
 </component>

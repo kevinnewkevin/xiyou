@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="132,133" extention="Button">
+<component size="289,87" extention="Button">
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="63w52" xy="0,0">
+    <image id="n1" name="n1" src="63w52" xy="0,0" size="289,89">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
+    <image id="n2_ijh7" name="n2" src="ijh7r" xy="160,10"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>
