@@ -34,7 +34,7 @@ function guanka:OnInit()
 	smallList:SetVirtual();
 	smallList.itemRenderer = guakan_RenderListItem;
 	stamaPoint = self.contentPane:GetChild("n19");
-	guankaID = UIManager.GetWindow("daguanka").GetGuankaId();
+	guankaID = UIManager.GetWindow("jiehun").GetGuankaId();
 	local smalldata = CheckpointData.GetData(guankaID);
 	smallId = smalldata[0]._ID;
 	guanka_FlushData();
@@ -82,7 +82,7 @@ function guanka:OnHide()
 end
 
 function guanka_FlushData()
-	guankaID = UIManager.GetWindow("daguanka").GetGuankaId();
+	guankaID = UIManager.GetWindow("jiehun").GetGuankaId();
 	
 	 local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
 	smallChapters = chapterData.SmallChapters;
@@ -149,7 +149,7 @@ function guakan_RenderListItem(index, obj)
 		starNum = starNum +1;
 	  end
 
-	 obj.visible  = true;
+	 obj.visible  = true; 
 	 if index ~= 0 then
 		if smallChapters[index -1].Star1 == true or smallChapters[index -1].Star2 == true or smallChapters[index -1].Star3 == true  then    
 			 obj.visible  = true;
