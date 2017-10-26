@@ -20,7 +20,7 @@
     <loader id="n28_ghbx" name="n28" xy="647,328" size="93,93" aspect="true" url="ui://fysg4ddtghbx17" fill="scale"/>
     <component id="n4_ghbx" name="n4" src="ghbx18" xy="1760,218"/>
   </displayList>
-  <transition name="t0">
+  <transition name="t0" autoPlay="true">
     <item time="0" type="Alpha" target="n2_ghbx" value="1"/>
     <item time="0" type="Alpha" target="n28_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n27_ghbx" value="0"/>
