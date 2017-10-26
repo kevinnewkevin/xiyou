@@ -9,10 +9,11 @@ type COM_Unit struct{
   UnitId int32  //0
   InstId int64  //1
   Level int32  //2
-  IProperties []int32  //3
-  CProperties []float32  //4
-  Equipments []COM_ItemInst  //5
-  Skills []COM_UnitSkill  //6
+  Race int32  //3
+  IProperties []int32  //4
+  CProperties []float32  //5
+  Equipments []COM_ItemInst  //6
+  Skills []COM_UnitSkill  //7
 }
 func (this *COM_Unit)SetUnitId(value int32) {
   this.Lock()
@@ -43,6 +44,16 @@ func (this *COM_Unit)GetLevel() int32 {
   this.Lock()
   defer this.Unlock()
   return this.Level
+}
+func (this *COM_Unit)SetRace(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.Race = value
+}
+func (this *COM_Unit)GetRace() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Race
 }
 func (this *COM_Unit)SetIProperties(value []int32) {
   this.Lock()
@@ -92,6 +103,7 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.UnitId!=0)
   mask.writeBit(this.InstId!=0)
   mask.writeBit(this.Level!=0)
+  mask.writeBit(this.Race!=0)
   mask.writeBit(len(this.IProperties) != 0)
   mask.writeBit(len(this.CProperties) != 0)
   mask.writeBit(len(this.Equipments) != 0)
@@ -124,6 +136,15 @@ func (this *COM_Unit)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.Level!=0){
       err := write(buffer,this.Level)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize Race
+  {
+    if(this.Race!=0){
+      err := write(buffer,this.Race)
       if err != nil{
         return err
       }
@@ -216,6 +237,13 @@ func (this *COM_Unit)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Level
   if mask.readBit() {
     err := read(buffer,&this.Level)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize Race
+  if mask.readBit() {
+    err := read(buffer,&this.Race)
     if err != nil{
       return err
     }

@@ -272,6 +272,7 @@ func (this* GameUnit) SetUnitCOM(u *prpc.COM_Unit) {
 	this.UnitId = u.UnitId
 	this.InstId = u.InstId
 	this.Level = u.Level
+	this.Race = u.Race
 	this.IProperties =  u.IProperties
 	this.CProperties = u.CProperties
 
@@ -286,6 +287,7 @@ func (this *GameUnit) GetUnitCOM() prpc.COM_Unit {
 	u.UnitId = this.UnitId
 	u.InstId = this.InstId
 	u.Level = this.Level
+	u.Race = this.Race
 	u.IProperties = append(u.IProperties, this.IProperties...)
 	u.CProperties = append(u.CProperties, this.CProperties...)
 
@@ -621,6 +623,17 @@ func (this *GameUnit) PopAllBuffByBuff() int{
 	log.Info("allbuff 3", this.Allbuff)
 	log.Info(string(len(tmp)), tmp)
 	return len(tmp)
+}
+
+func (this *GameUnit) ClearBuffByDead(ownerid int64, buffids []int32) {
+
+}
+
+func (this *GameUnit) PopAllBuffByDead() {
+	if this.UnitId != 19 {
+		return
+	}
+
 }
 
 func (this *GameUnit) ChangeBuffTimes(round int32) {

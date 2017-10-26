@@ -25,6 +25,7 @@ struct COM_Unit{
 	int32			UnitId;
 	int64			InstId;
 	int32			Level;
+	int32			Race;
 	int32[] 		IProperties;
 	float[]			CProperties;
 	COM_ItemInst[]	Equipments;

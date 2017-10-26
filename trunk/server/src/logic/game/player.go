@@ -50,6 +50,9 @@ type GamePlayer struct {
 	SkillBase map[int32]int32
 	//黑市
 	BlackMarketData *prpc.COM_BlackMarket
+
+	//状态标记 时间戳
+	LockTime	int64
 }
 
 var (
@@ -550,6 +553,11 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition, skillid int32
 	//this.Lock()
 	//defer this.Unlock()
 	//log.Info("SetupBattle", pos)
+
+	if this.IsActive {
+		return nil
+	}
+
 	for _, p := range pos {
 		//if this.GetBattleUnit(int64(p.InstId)) == nil {
 		//	return nil //错误消息
@@ -877,6 +885,12 @@ func (this *GamePlayer) ClearAllBuff() {
 
 func (this *GamePlayer) PromoteUnit(unitid int64) {
 	log.Info("PromoteUnit", unitid)
+
+	if this.IsLock() {
+		log.Info("toooooo fast")
+		return
+	}
+
 	unit := this.GetUnit(unitid)
 	if unit == nil {
 		return
@@ -914,6 +928,7 @@ func (this *GamePlayer) PromoteUnit(unitid int64) {
 
 	unit.Promote(level_info)
 
+	log.Info("PromoteUnitOK", unitid)
 	this.session.PromoteUnitOK()
 }
 
@@ -1407,6 +1422,27 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 			return true
 		}
 	}
+	return false
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer) IsLock() bool {
+	//if this.LockTime == 0 {
+	//	this.LockTime = time.Now().Unix()
+	//	return false
+	//}
+	//
+	//Now := time.Now().Unix()
+	//
+	//if Now - this.LockTime < 1 {
+	//	return true
+	//}
+	//
+	//this.LockTime = Now
+
 	return false
 }
 

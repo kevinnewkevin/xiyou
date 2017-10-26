@@ -1125,7 +1125,7 @@ func __BackTarget(L *lua.LState) int { //获取后排人数
 
 func __Attack(L *lua.LState) int {
 
-	//log.Info("__Attack battleid")
+	log.Info("__Attack")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1142,7 +1142,7 @@ func __Attack(L *lua.LState) int {
 
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	//log.Info("55555555555555", battleid, caster, target, crit, damage)
+	log.Info("55555555555555", battleid, caster, target, crit, damage)
 
 	return 0
 }
