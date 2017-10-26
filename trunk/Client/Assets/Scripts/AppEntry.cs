@@ -16,7 +16,13 @@ public class AppEntry : MonoBehaviour {
         UIConfig.defaultFont = "方正楷体_GBK";
         //UIConfig.buttonSound = AssetLoader.LoadAudio("Audio/effect");
         Application.logMessageReceived += (condition, stackTrace, type) => {
-            context += condition + "\n" + stackTrace + "\n" + type;
+            if(type == LogType.Log)
+                return;
+            
+            context = condition + "\n" + stackTrace + "\n" + type;
+            WWWForm form = new WWWForm();
+            form.AddField("log", context);
+            WWW www = new WWW("http://106.75.78.151:8080/log", form);
         };
         AudioSystem.Init();
         DataLoader.Init();
@@ -89,4 +95,4 @@ public class AppEntry : MonoBehaviour {
 //        if (GUILayout.Button("PlayBackground2"))
 //            AudioSystem.PlayBackground("Audio/background2");
 //    }
-}
+    }
