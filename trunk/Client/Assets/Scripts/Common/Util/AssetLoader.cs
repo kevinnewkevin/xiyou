@@ -105,7 +105,7 @@ public class AssetLoader {
                     AssetCounter.GetBundle(assetPath);
             }
 
-            string assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
+            assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
             SmartPath(ref assetPath);
             AssetBundle ab;
 
