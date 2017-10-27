@@ -8,6 +8,7 @@ using FairyGUI;
 public class AppEntry : MonoBehaviour {
 
     string context;
+    string logUrl = "";
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
@@ -16,13 +17,13 @@ public class AppEntry : MonoBehaviour {
         UIConfig.defaultFont = "方正楷体_GBK";
         //UIConfig.buttonSound = AssetLoader.LoadAudio("Audio/effect");
         Application.logMessageReceived += (condition, stackTrace, type) => {
-            if(type == LogType.Log)
+            if(type == LogType.Log || string.IsNullOrEmpty(logUrl))
                 return;
             
             context = condition + "\n" + stackTrace + "\n" + type;
             WWWForm form = new WWWForm();
             form.AddField("log", context);
-            WWW www = new WWW("http://106.75.78.151:8080/log", form);
+            WWW www = new WWW(logUrl, form);
         };
         AudioSystem.Init();
         DataLoader.Init();
@@ -33,6 +34,10 @@ public class AppEntry : MonoBehaviour {
 //        WeatherSystem.Init();
         UIManager.Show("yemiantishi");
         UIManager.Show("denglu");
+
+        logUrl = Define.GetStr("LogUrl");
+        if (string.IsNullOrEmpty(logUrl))
+            logUrl = "http://106.75.78.151:8080/log";
 
 //        UIPackage.AddPackage("UI/ModalWaiting");
 //        UIConfig.globalModalWaiting = "ui://ModalWaiting/GlobalModalWaiting";
