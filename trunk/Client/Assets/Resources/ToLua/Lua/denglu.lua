@@ -46,7 +46,7 @@ function denglu:OnInit()
 	serverList = selectServ:GetChild("n10").asList;
 	crtServer = self.contentPane:GetChild("n13").asButton;
 	crtServer.onClick:Add(denglu_OnShowServ);
-	crtServerText = crtServer:GetChild("n3");
+	crtServerText = crtServer:GetChild("n6");
 	crtServer.visible = false;
 
 	accountGroup = self.contentPane:GetChild("n10").asCom;
