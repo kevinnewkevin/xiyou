@@ -1548,12 +1548,11 @@ func (this *BattleRoom) MintsHp (casterid int64, target int64, damage int32, cri
 		log.Info("debuff", debuff)
 	}
 
-	_bf, _ok := unit.Special[prpc.BF_UNDAMAGE] //检测免伤
-
-	if _ok {
-		if len(_bf) > 0 {
-			damage = 0
-		}
+	isover := unit.CheckSpec("BF_UNDAMAGE", this.Round)
+	log.Info("BF_UNDAMAGE out ", isover, unit.InstName, unit.Special[prpc.BF_UNDAMAGE])
+	if isover {
+		log.Info("BF_UNDAMAGE", damage, unit.InstName)
+		damage = 0
 	}
 
 	//////////////////////////////////////////////////////////////////////////

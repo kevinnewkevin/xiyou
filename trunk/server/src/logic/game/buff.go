@@ -131,7 +131,7 @@ func (this *Buff) IsOver(round int32) bool {
 
 	if this.Over {
 		o = true
-	} else if this.Round+this.BuffUntil <= round {
+	} else if this.Round+this.BuffUntil < round {
 		o = true
 	}
 
