@@ -42,6 +42,7 @@ function huoderenwu:OnUpdate()
 end
 
 function baowu_OnExit(context)
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
 	SceneLoader.LoadScene("main");
@@ -59,6 +60,9 @@ function huoderenwu:OnDispose()
 end
 
 function huoderenwu:OnHide()
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
+	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
 	Window:Hide();
 end
 
