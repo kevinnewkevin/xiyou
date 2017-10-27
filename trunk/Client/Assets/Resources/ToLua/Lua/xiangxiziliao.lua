@@ -64,7 +64,7 @@ local needItemBar;
 local levelUpRad;
 
 local levelRadBtn;
-
+local raceHelp;
 
 function xiangxiziliao:OnEntry()
 	Window = xiangxiziliao.New();
@@ -111,7 +111,12 @@ function xiangxiziliao:OnInit()
 	fee = self.contentPane:GetChild("n58");
 	name = self.contentPane:GetChild("n60");
 	race = self.contentPane:GetChild("n79");
+	race.onClick:Add(xiangxiziliao_OnRace);
 	raceBack = self.contentPane:GetChild("n85");
+	raceHelp = self.contentPane:GetChild("n87");
+	raceHelpCloseBtn = raceHelp:GetChild("n1").asButton;
+	raceHelpCloseBtn.onClick:Add(xiangxiziliao_OnRaceClose);
+	raceHelp.visible = false;
 	skillList = rightInfo:GetChild("n237").asList;
 	hp = rightInfo:GetChild("n242");
 	agility = rightInfo:GetChild("n246");
@@ -222,6 +227,7 @@ function xiangxiziliao:OnHide()
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
+	raceHelp.visible = false;
 	Window:Hide();
 end
 
@@ -350,6 +356,13 @@ function xiangxiziliao_FlushData()
 	end
 end
 
+function xiangxiziliao_OnRace()
+	raceHelp.visible = true;
+end
+
+function xiangxiziliao_OnRaceClose()
+	raceHelp.visible = false;
+end
 
 function xiangxiziliao_BoosInfo()
 	local showBoos = UIParamHolder.Get("showBoos");
