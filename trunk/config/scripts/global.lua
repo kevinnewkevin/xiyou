@@ -53,7 +53,7 @@ function ErrorMessage(errCode)
 end
 
 function RegGlobalValue()
-	Define.Set("DebugServerAddress", "127.0.0.1|106.75.78.151");
+	Define.Set("DebugServerAddress", "本机#127.0.0.1|外网#106.75.78.151");
 	Define.Set("DebugServerPort", 10999);
 	Define.Set("CenterServer", "");
 	Define.Set("UIModelScale", 200);

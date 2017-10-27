@@ -91,8 +91,9 @@ function denglu:OnHide()
 end
 
 function denglu_ServerSelect(context)
-	Proxy4Lua._ServerIP = Proxy4Lua._ServList[context.sender.data];
-	crtServerText.text = Proxy4Lua._ServerIP;
+	local servInfo = Proxy4Lua._ServList[context.sender.data];
+	Proxy4Lua._ServerIP = servInfo.serverIP;
+	crtServerText.text = servInfo.serverName;
 	selectServ.visible = false;
 end
 
@@ -104,8 +105,8 @@ function denglu_FlushData()
 		serverList:RemoveChildrenToPool();
 		for i=0, Proxy4Lua._ServList.Count - 1 do
 			local si = serverList:AddItemFromPool(serverItem);
-			si:GetChild("n3").text = "";
-			si:GetChild("n4").text = Proxy4Lua._ServList[i];
+			si:GetChild("n3").text = Proxy4Lua._ServList[i].serverName;
+			si:GetChild("n4").text = Proxy4Lua._ServList[i].serverIP;
 			si.data = i;
 			si.onClick:Add(denglu_ServerSelect);
 		end
