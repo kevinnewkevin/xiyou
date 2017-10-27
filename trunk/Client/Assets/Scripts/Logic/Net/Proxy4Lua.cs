@@ -517,6 +517,23 @@ public class Proxy4Lua {
     }
 
     #endregion
+
+    static public List<string> _AssetToDelete = new List<string>();
+    static public void AddToDelete(string url)
+    {
+        if (_AssetToDelete.Contains(url))
+            return;
+
+        _AssetToDelete.Add(url);
+    }
+
+    static public void ClearToDeleteAsset()
+    {
+        for(int i=0; i < _AssetToDelete.Count; ++i)
+        {
+            AssetLoader.UnloadAsset(_AssetToDelete[i], true);
+        }
+    }
 }
 
 public class ServInfo
