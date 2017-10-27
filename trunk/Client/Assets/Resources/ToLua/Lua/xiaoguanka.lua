@@ -33,6 +33,12 @@ local rewardBox1;
 local rewardBox2;
 local showRewardStar;
 local showRewardId;
+local rewardShow;
+local rewardList;
+local getRewardBtn;
+local closeRewardBtn
+local rewardNeedNum;
+local rewardOkBtn;
 function xiaoguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = xiaoguanka.New();
@@ -58,6 +64,8 @@ function xiaoguanka:OnInit()
     playerPos = self.contentPane:GetChild("n27");
     rewardBarPanel = self.contentPane:GetChild("n4");
 	rewardBar = rewardBarPanel:GetChild("n4");
+	rewardShow = self.contentPane:GetChild("n38");
+	rewardList = rewardShow:GetChild("n12");
 	rewardStarNum = rewardBarPanel:GetChild("n14");
 	rewardStar0 = rewardBarPanel:GetChild("n16");
 	rewardStar1 = rewardBarPanel:GetChild("n17");
@@ -65,10 +73,17 @@ function xiaoguanka:OnInit()
 	rewardBox0 = rewardBarPanel:GetChild("n10");
 	rewardBox1 = rewardBarPanel:GetChild("n11");
 	rewardBox2 = rewardBarPanel:GetChild("n12");
+	getRewardBtn = rewardShow:GetChild("n18");
+	closeRewardBtn = rewardShow:GetChild("n19");
+	rewardNeedNum = rewardShow:GetChild("n15");
+	rewardOkBtn = rewardShow:GetChild("n17");
 	rewardBox0.onClick:Add(xiaoguanka_OnBox);
 	rewardBox1.onClick:Add(xiaoguanka_OnBox1);
 	rewardBox2.onClick:Add(xiaoguanka_OnBox2);
 	teamBtn.onClick:Add(xiaoguanka_OnTeamBtn);
+	closeRewardBtn.onClick:Add(xiaoguanka_OnRewardOkBtn);
+	getRewardBtn.onClick:Add(xiaoguanka_OnGetRewardBtn);
+	rewardOkBtn.onClick:Add(xiaoguanka_OnRewardOkBtn);
     challengePanel = self.contentPane:GetChild("n26");
     challengePanel.visible = false;
     challengeBtn = challengePanel:GetChild("n2");
@@ -78,7 +93,7 @@ function xiaoguanka:OnInit()
     fuben1.onClick:Add(xiaoguanka_OnfunbenTwo);
     fuben2.onClick:Add(xiaoguanka_OnfunbenThree);
     fuben3.onClick:Add(xiaoguanka_OnfunbenFour);
-
+    rewardShow.visible= false;
     fubenArr = {};
     fubenArr[0] = fuben0;
     fubenArr[1] = fuben1;
@@ -232,6 +247,17 @@ function xiaoguanka_OnBox2(context)
 	showRewardStar =2;
 	rewardShow.visible= true;
 	updateReward();
+end
+
+
+function xiaoguanka_OnGetRewardBtn(context)
+	local data = HeroStroyData.GetData(showRewardId);
+	Proxy4Lua.RequestChapterStarReward(showRewardId,data.Star_[showRewardStar]);
+	rewardShow.visible= false;
+end
+
+function xiaoguanka_OnRewardOkBtn(context)
+	rewardShow.visible= false;
 end
 
 

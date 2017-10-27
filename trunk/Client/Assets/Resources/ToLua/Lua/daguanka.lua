@@ -9,13 +9,17 @@ local infoName;
 local infoDesc;
 local leftBtn;
 local rightBtn;
-local teamBtn;
+local playerName;
 local boosInfoBtn;
 local starBtn;
 local rewardIcon;
 local crtTab;
 local guankaId = 0;
 local assetArr;
+local ready;
+local Trans0;
+local Trans1;
+local Trans2;
 
 function daguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
@@ -27,6 +31,7 @@ function daguanka:OnInit()
 	self.contentPane = UIPackage.CreateObject("daguanka", "daguanka_com").asCom;
 	self:Center();
 	self.modal = true;
+	crtTab = 1;
 	assetArr = {};
 	self.closeButton = self.contentPane:GetChild("n3").asButton;
 	infoPanel = self.contentPane:GetChild("n4");
@@ -37,13 +42,17 @@ function daguanka:OnInit()
 	rightBtn = self.contentPane:GetChild("n6");
 	leftBtn.onClick:Add(daguanka_OnLeftBtn);
 	rightBtn.onClick:Add(daguanka_OnRightBtn);
-	teamBtn = self.contentPane:GetChild("n7");
-	teamBtn.onClick:Add(daguanka_OnTeamBtn);
+	playerName = self.contentPane:GetChild("n17");
 	boosInfoBtn.onClick:Add(daguanka_OnBoosInfo);
 	rewardIcon = infoPanel:GetChild("n16");
 	starBtn = infoPanel:GetChild("n3");
 	starBtn.onClick:Add(daguanka_OnStart);
 	infoPanel.visible  = false;
+
+	Trans0 = self.contentPane:GetTransition("t0");
+	Trans1 = self.contentPane:GetTransition("t1");
+	Trans2 = self.contentPane:GetTransition("t2");
+
 	local dList = self.contentPane:GetChild("n12");
 	cardGroupList = dList:GetChild("n11").asList;
 	cardGroupList:SetVirtualAndLoop();
@@ -52,6 +61,7 @@ function daguanka:OnInit()
 	cardGroupList.onTouchBegin:Add(daguanka_ListTouchBegin);
 	daguanka_FlushData();
 	DoSpecialEffect();
+	cardGroupList.selectedIndex = 0;
 end
 
 
@@ -64,12 +74,22 @@ function DoSpecialEffect()
 			local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
 			if dist > obj.width then
 				obj:SetScale(1, 1);
-
+				Proxy4Lua.BlackGameObject(obj:GetChild("n8"));
+				obj.onClick:Remove(daguanka_OnSelectGroup);
 			else
 				local ss = 1 + (1 - dist / obj.width) * 0.5;
 				obj:SetScale(ss, ss);
 
-				--obj:Center();
+				local data = HeroStroyData.GetData(obj.data);
+				local entityData = EntityData.GetData(data.EntityID_);
+				playerName.text = entityData._Name;
+				obj.onClick:Set(daguanka_OnSelectGroup);
+				local cData = JieHunSystem.instance:GetChapterData(obj.data);
+				if  cData == nil then
+					Proxy4Lua.ColorGameObject(obj:GetChild("n8"),0.3,0.3,0.3);
+				else
+					Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
+				end 
 			end
 		end
 		--_mainView.GetChild("n3").text = "" + ((cardGroupList.GetFirstChildInView() + 1) % cardGroupList.numItems);
@@ -86,36 +106,46 @@ function daguanka:OnUpdate()
 		daguanka_FlushData();
 		UIManager.ClearDirty("daguanka");
 	end
+
+
+
 end
 
 
 
 function daguanka_RenderListItem(index, obj)
 	local comData;
-	if crtTab == 1 then
-		comData  = JieHunSystem.instance.ChapterEasyDataList[0];
+	--if crtTab == 1 then
+	--	comData  = JieHunSystem.instance.ChapterEasyDataList[index];
+	--else
+	--	comData  = JieHunSystem.instance.ChapterHardDataList[index];
+	--end
+	if index == 0 then
+		index = 1;
 	else
-		comData  = JieHunSystem.instance.ChapterHardDataList[0];
-	end
+		if index == 1 then
+			index = 0;
+		end
+	end 
 
-	local data = HeroStroyData.GetData(comData.ChapterId);
+
+	local data = HeroStroyData.easyList[index]; --HeroStroyData.GetData(comData.ChapterId);
 	local entityData = EntityData.GetData(data.EntityID_);
 	local displayData = DisplayData.GetData(entityData._DisplayId);
 	obj:SetPivot(0.5, 0.5);
 	local mode = obj:GetChild("n8");
 	local modelRes = displayData._AssetPath;
 	mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
-	obj.data = comData .ChapterId;
-	obj.onClick:Set(daguanka_OnSelectGroup);
+	obj.data = data.Id_;-- comData.ChapterId;
+	--obj.onClick:Set(daguanka_OnSelectGroup);
 	if assetArr ~= nil then
 		assetArr[index] = modelRes;
+		print(assetArr[index]);
 	end
 end
 
 function daguanka_OnSelectGroup(context)
 	guankaId = context.sender.data;
-	--Proxy4Lua.RequestChapterData(guankaId );
-	--UIManager.Show("guanka");
 	local data = HeroStroyData.GetData(guankaId);
 	infoPanel.visible  = true;
 	infoName.text = data.Name_;
@@ -123,7 +153,12 @@ function daguanka_OnSelectGroup(context)
 	local entityData = EntityData.GetData(data.EntityID_);
 	local displayData = DisplayData.GetData(entityData._DisplayId);
 	rewardIcon.asLoader.url = "ui://" .. displayData._HeadIcon;
-
+	local cData = JieHunSystem.instance:GetChapterData(guankaId);
+	if  cData == nil then
+		starBtn.visible = false;
+	else
+		starBtn.visible = true;
+	end 
 
 	daguanka_FlushData();
 end
@@ -154,15 +189,16 @@ function daguanka_OnBoosInfo(context)
 	UIManager.Show("xiangxiziliao");
 end
 
-function daguanka_OnTeamBtn(context)
-	Window:Hide();
-	UIManager.Show("paiku");
-end
-
 
 function daguanka_OnStart(context)
 	Proxy4Lua.RequestChapterData(guankaId );
-	UIManager.Show("guanka");
+
+	ready = {};
+	ready.max = 1;
+	ready.count = 0;
+
+	Trans2:Play();
+	--UIManager.Show("xiaoguanka");
 end
 
 function daguanka_ListTouchBegin(context)
@@ -174,7 +210,13 @@ function daguanka:GetGuankaId()
 end
 
 function daguanka:OnTick()
-	
+	if ready ~= nil and ready.count < ready.max  then
+		ready.count = ready.count + 1;
+		if ready.count >= ready.max then
+			--Window:Hide();
+			UIManager.Show("xiaoguanka");
+		end
+	end
 end
 
 function daguanka:isShow()
@@ -189,11 +231,15 @@ function daguanka:OnHide()
 	infoPanel.visible  = false;
 	local k;
 	local v;
+
+	if assetArr == nil then
+		return;
+	end
+
 	for k,v in ipairs(assetArr) do
 		Proxy4Lua.ForceUnloadAsset(v);
 	end
 	assetArr = nil;
-	print('del  assetArr');
 	Window:Hide();
 end
 
@@ -201,12 +247,11 @@ function daguanka_FlushData()
 	if assetArr == nil then
 		assetArr = {};	
 	end
-	local a = cardGroupList.scrollPane.scrollStep ;
-	if crtTab == 1 then
-		cardGroupList.numItems = 10;-- JieHunSystem.instance.ChapterEasyDataList.Count;
-	else
-		cardGroupList.numItems = 10;-- JieHunSystem.instance.ChapterHardDataList.Count;
-	end
+	--if crtTab == 1 then
+		cardGroupList.numItems = HeroStroyData.GetEasyListNum();
+	--else
+		--cardGroupList.numItems = JieHunSystem.instance.ChapterHardDataList.Count;
+	--end
 end
 
 
