@@ -33,7 +33,7 @@ function SK_306_Action(battleid, casterid)
 		
 		Battle.AddBuff(battleid,casterid,v,124, 20)  --公式(减少20%的伤害）
 		sys.log(" 观音 大慈大悲 one")
-		Battle.AddBuff(battleid,casterid,v,161,mag_atk) --每当有人获得治疗，增加观音10%法术强度，可叠加。
+		Battle.AddBuff(battleid,casterid,casterid,161,mag_atk) --每当有人获得治疗，增加观音10%法术强度，可叠加。
 		sys.log(v.."获得了观音的治疗，增加观音法术的10%-    "..  mag_atk)
 		Battle.TargetOver(battleid)
 	

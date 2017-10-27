@@ -38,8 +38,8 @@ function SK_313_Action(battleid, casterid)
 	--被动技能 
 	local atk = Player.GetUnitAtk(battleid,casterid)--物理强度
 	local atk_damage = atk * 0.1
-	sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  110")
-	Battle.AddBuff(battleid,casterid,target,110,atk_damage)
+	sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  164")
+	Battle.AddBuff(battleid,casterid,target,164,atk_damage)
 
 	Battle.TargetOver(battleid)
 
@@ -55,7 +55,7 @@ function SK_313_Action(battleid, casterid)
 		Battle.Attack(battleid,casterid,t,Damage,crit)
 
 		sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  110")
-		Battle.AddBuff(battleid,casterid,target,163,atk_damage)
+		Battle.AddBuff(battleid,casterid,target,164,atk_damage)
 		Battle.TargetOver(battleid)
 		p = Player.CheckUnitDead(battleid,t)-- 判断是否死亡
 	end
