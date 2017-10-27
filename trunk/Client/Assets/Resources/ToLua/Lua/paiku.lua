@@ -36,7 +36,7 @@ function paiku:OnInit()
 
 	self.contentPane = UIPackage.CreateObject("paiku", "paiku_com").asCom;
 	self:Center();
-
+	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n7").asButton;
 
 	local leftPart = self.contentPane:GetChild("n6").asCom;
