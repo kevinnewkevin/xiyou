@@ -49,7 +49,7 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ResolveItem(instId, num);
 	}
-
+		 
     static public void  PromoteUnit(long instId)
     {
         NetWoking.S.PromoteUnit(instId);
@@ -180,9 +180,25 @@ public class Proxy4Lua {
         for(int i=0; i < smr.Length; ++i)
         {
             if (smr [i].sharedMaterial != null)
-                smr [i].sharedMaterial.SetColor("_Color", Color.black);
+				smr [i].sharedMaterial.SetColor("_Color", Color.black);
         }
     }
+
+	static public void ColorGameObject(FairyGUI.GGraph holder,float R,float G,float B)
+	{
+		if (holder.displayObject == null)
+			return;
+
+		if (holder.displayObject.gameObject == null)
+			return;
+
+		SkinnedMeshRenderer[] smr = holder.displayObject.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+		for(int i=0; i < smr.Length; ++i)
+		{
+			if (smr [i].sharedMaterial != null)
+				smr [i].sharedMaterial.SetColor("_Color", new Color(R,G,B));
+		}
+	}
 
     static public void WhiteGameObject(FairyGUI.GGraph holder)
     {

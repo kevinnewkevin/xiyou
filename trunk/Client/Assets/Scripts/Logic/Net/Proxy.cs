@@ -177,7 +177,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		UIParamHolder.Set("showChaptersDrop", true);
 		JieHunSystem.instance.UpdataChapterRewardData (JieHunSystem.instance.chapterID, JieHunSystem.instance.chapterBox);
-		UIManager.Hide("jiehun");
+		UIManager.Hide("xiaoguanka");
 		UIManager.Show("baowu");
 		return true;
 	}
