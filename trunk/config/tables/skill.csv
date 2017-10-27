@@ -42,7 +42,7 @@ SkillId,Name,Level,Type,Feel,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,T
 161,楚楚可怜,,1,,楚楚可怜，使自己该回合不受到伤害，免疫一切攻击,icon/icon_skill_chuchukelian,10,,,,,,0,magic2,Effect/yaofei_skill01_1,1.5,,,,1.2,1.2,2,MT_Self,,TPT_None,,SK_334_Action,
 162,魅惑,,1,,魅惑目标，使目标下一回合的攻击目标变为己方一个随机目标,icon/icon_skill_meihuo,10,,,,,,0,magic3,Effect/yaofei_skill02_1,1.5,Effect/yaofei_skill02,,,0.8,0.8,1,MT_Target,,TPT_None,,SK_335_Action,
 163,蛇毒,,1,,攻击敌方全体，造成50%法术伤害，并且使目标中毒，每回合拾取蛇妖当前生命值的20%，持续2回合,icon/icon_skill_shedu,10,,,,,,0,magic2,,0,Effect/sheyao_skill01,,,1.2,1.2,3,MT_Target,1,TPT_Center,,SK_336_Action,
-164,恨决意,,1,,对在场的所有目标造成100%的法术伤害（包括己方目标）,icon/icon_skill_henyijue,10,,,,,,0,magic3,Effect/sheyao_skill02_1,0,Effect/sheyao_skill02,,,1.5,1.5,4,MT_Self,1,TPT_Center,,SK_337_Action,
+164,恨决意,,1,,对在场的所有目标造成100%的法术伤害（包括己方目标）,icon/icon_skill_henyijue,10,,,,,,0,magic3,Effect/sheyao_skill02_1,2,Effect/sheyao_skill02,,,1.5,1.5,4,MT_Self,1,TPT_Center,,SK_337_Action,
 165,炼石补天,,1,,为所有友方单位回复相当于法术强度50%的生命值。,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,4,MT_Target,1,TPT_All,1,SK_303_Action,
 166,造物,,1,,"使己方血量最少的单位免疫一回合会导致其死亡的伤害,持续2回合",icon/icon_skill_shenli,10,,,,,,0,magic3,,,Effect/jiangziya_skill02_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_304_Action,
 1000,雷击,,1,,,icon/icon_skill_leiji,10,,,,,,0,magic,Effect/leizhenzhi_skill01_1,1,Effect/leizhenzhi_attack,magic1,,1.5,1.5,2.5,MT_Fly,,TPT_None,,SK_309_Action,
