@@ -563,6 +563,7 @@ func (this *BattleRoom) Update() {
 			//this.TargetOn()
 			this.AcctionList.InstId = u.InstId
 
+
 			u.CheckBuff(this.Round)
 			u.CheckDebuff(this.Round)
 
@@ -687,6 +688,7 @@ func (this *BattleRoom) showReport()  {
 		log.Println("使用的技能 ", re.SkillId)
 		log.Println("技能自带的buff ", re.SkillBuff)
 		log.Println("技能释放的目标信息为")
+		log.Debug("目标链表",re.TargetList)
 		for idx1, l := range re.TargetList {
 			log.Println("\t第", idx1 + 1, "个目标")
 			log.Println("\t目标实例ID为", l.InstId)
@@ -697,7 +699,9 @@ func (this *BattleRoom) showReport()  {
 			log.Println("\t目标中的buff", l.BuffAdd)
 
 		}
+
 	}
+
 }
 
 func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
@@ -884,6 +888,16 @@ func (this *BattleRoom) SelectMoreTarget(instid int64, num int) []int64 {
 	unit := this.SelectOneUnit(instid)
 
 	targets := []int64{}
+
+	_bool,ok := unit.Special[prpc.BF_FRIENDLOCK]
+
+	if ok && len(_bool) > 0{
+
+		friend := this.SelectOneFriend(unit.InstId)
+		if friend != -1 {
+			return []int64{friend}
+		}
+	}
 	idx := 0
 	for _, u := range this.Units {
 		if u == nil {
@@ -1366,6 +1380,8 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 
 func (this *BattleRoom) PlayerMove() {
 	log.Info("PlayerMove 1", this.Units)
+
+
 	p := this.PlayerList[0]
 	if this.Round == 0 {
 		pos := this.positionMiddle(p.BattleCamp)
