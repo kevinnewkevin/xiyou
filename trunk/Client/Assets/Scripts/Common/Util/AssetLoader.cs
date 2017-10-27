@@ -85,6 +85,10 @@ public class AssetLoader {
 #if !EDITOR_MODE
     static public AssetBundle LoadAssetBundle(string path)
     {
+        if (string.IsNullOrEmpty(path))
+            return null;
+        path = path.ToLower();
+
         if(_Manifest == null)
             InitCommonList();
         try
