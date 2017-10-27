@@ -101,31 +101,34 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	if player==nil {
 		return
 	}
-	log.Info("2");
+
 	small := player.GetMySmallChapterDataById(smallchapterid)
 	if small == nil {
+		log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","2");
 		return
 	}
-	log.Info("3");
+
 	smallData := GetSmallChapterById(small.SmallChapterId)
 	if smallData == nil {
+		log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","3");
 		return
 	}
-	log.Info("4");
+
 	chapterData := GetChapterById(smallData.SmallChapterType)
 	myUnitLevel := player.MyUnit.GetIProperty(prpc.IPT_LEVEL)
 	if chapterData == nil {
+		log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","4");
 		return
 	}
-	log.Info("5");
+
 	log.Println("AttackChapter smallchapterid=",smallchapterid," smallData.SmallChapterType=",smallData.SmallChapterType,"chapterData.ChapterType",chapterData.ChapterType)
 
 	myEnergy := player.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
 	if smallData.EnergyExpend > myEnergy {
+		log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","1");
 		return
 	}
-	log.Info("2");
 
 	if chapterData.ChapterType == 1 {
 		for _,id :=  range smallData.UnLockId{
@@ -142,6 +145,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 		}
 	}else {
 		if chapterData.ChapterLevel > myUnitLevel {
+			log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","6");
 			return
 		}
 		for _,id :=  range smallData.UnLockId{
@@ -164,6 +168,7 @@ func (player *GamePlayer)AttackChapter(smallchapterid int32)  {
 	}
 
 	if player.IsBattle() {
+		log.Info("PlayerName",player.MyUnit.InstName,"AttackChapter ErrorNo=","7");
 		return
 	}
 
