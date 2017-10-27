@@ -388,12 +388,12 @@ function xiangxiziliao_BoosInfo()
 	matk.text = entityData.CPT_MAGIC_ATK .. "";
 	mdef.text = entityData.CPT_MAGIC_DEF .. "";
 	crit.text = entityData.CPT_CRIT .. "";
-	--critdmg.text = entityData.;
-	--combo.text = entityData.;
-	--split.text = entityData.;
-	--rec.text = entityData.;
-	--reflect.text = entityData.;
-	--suck.text = entityData.;
+	critdmg.text =  "0";--entityData.;
+	combo.text = "0";--entityData.;
+	split.text = "0";--entityData.;
+	rec.text = "0";--entityData.;
+	reflect.text = "0";--entityData.;
+	suck.text = "0";--entityData.;
 
 
 	for i=1, 4 do

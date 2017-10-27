@@ -51,6 +51,8 @@ function xiaoguanka:OnInit()
 	self.modal = true;
 	assetArr = {};
 	self.closeButton = self.contentPane:GetChild("n19").asButton;
+	local back= self.contentPane:GetChild("n29");
+	back.onClick:Add(xiaoguanka_OnBack);
     leftBtn = self.contentPane:GetChild("n21");
     rightBtn = self.contentPane:GetChild("n20");
     leftBtn.onClick:Add(xiaoguanka_OnLeftBtn);
@@ -156,6 +158,12 @@ function xiaoguanka_OnLeftBtn(context)
     end
      xiaoguanka_UpdataInfo();
 end
+
+
+function xiaoguanka_OnBack(context)
+	challengePanel.visible = false;
+end
+
 
 function xiaoguanka_OnRightBtn(context) 
 	challengePanel.visible = false;
@@ -269,11 +277,12 @@ function xiaoguanka_FlushData()
     smallChapters = chapterData.SmallChapters;
     local len = smallChapters.Length;
     for i = 1, len do
-  	  if i ~= 1 then
-  	 	 if smallChapters[i -1].Star1 == true or smallChapters[i -1].Star2 == true or smallChapters[i -1].Star3 == true  then    
-				playerNum = i-1;
-			end
+ 	 if smallChapters[i -1].Star1 == true or smallChapters[i -1].Star2 == true or smallChapters[i -1].Star3 == true  then    
+			playerNum = i;
 		end
+	end
+	if playerNum == len  then
+	 	playerNum  = len  -1;
 	end
 
 	local starNum = 0;
@@ -324,10 +333,10 @@ function xiaoguanka_UpdataInfo()
 	playerPos.visible = false;
 
 
-	fuben0.onClick:Remove(xiaoguanka_OnfunbenOne);
-    fuben1.onClick:Remove(xiaoguanka_OnfunbenTwo);
-    fuben2.onClick:Remove(xiaoguanka_OnfunbenThree);
-    fuben3.onClick:Remove(xiaoguanka_OnfunbenFour);
+	fuben0.onClick:Set(xiaoguanka_OnBack);
+    fuben1.onClick:Set(xiaoguanka_OnBack);
+    fuben2.onClick:Set(xiaoguanka_OnBack);
+    fuben3.onClick:Set(xiaoguanka_OnBack);
 
     for i =1, 4 do 
     	local bBattle = false;
@@ -347,7 +356,8 @@ function xiaoguanka_UpdataInfo()
             local displayData = DisplayData.GetData(entityData._DisplayId);
             local modelRes = displayData._AssetPath;
             player:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
-            Proxy4Lua.ColorGameObject(player,0.3,0.3,0.3);
+            --Proxy4Lua.ColorGameObject(player,0.3,0.3,0.3);
+            local lock = fubenArr[i-1]:GetChild("n9");
             if assetArr ~= nil then
 				assetArr[i-1] = modelRes;
 			end
@@ -356,29 +366,33 @@ function xiaoguanka_UpdataInfo()
             star0.enabled = false;
             star1.enabled = false;
             star2.enabled = false;
-
+             lock.visible = true;
             if smallData.Star1 == true then 
 		 		star0.enabled = true;
-		 		 Proxy4Lua.WhiteGameObject(player);
+		 		-- Proxy4Lua.WhiteGameObject(player);
 		 		 bBattle = true;
+		 		 lock.visible  = false;
 		  	end
 			if smallData.Star2 == true then 
 		 		star1.enabled = true;
-		 		 Proxy4Lua.WhiteGameObject(player);
+		 		-- Proxy4Lua.WhiteGameObject(player);
 		 		 bBattle = true;
+		 		 lock.visible  = false;
 			  end
 		    if smallData.Star3 == true then 
 		   		star2.enabled = true;
-		   		 Proxy4Lua.WhiteGameObject(player);
+		   		-- Proxy4Lua.WhiteGameObject(player);
 		   		 bBattle = true;
+		   		 lock.visible  = false;
 			end
             local Trans = fubenArr[i-1]:GetTransition("t0");
             Trans:Play();
             if playerNum == showNum +i - 1 then
             	playerPos.visible = true;
             	playerPos:SetXY(fubenArr[i-1].x + 160 ,fubenArr[i-1].y-100 );
-            	Proxy4Lua.WhiteGameObject(player);
+            	--Proxy4Lua.WhiteGameObject(player);
             	bBattle = true;
+            	lock.visible  = false;
             --else
             	--playerPos.visible = false;
             end

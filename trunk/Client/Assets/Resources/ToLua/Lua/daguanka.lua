@@ -74,7 +74,7 @@ function DoSpecialEffect()
 			local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
 			if dist > obj.width then
 				obj:SetScale(1, 1);
-				Proxy4Lua.BlackGameObject(obj:GetChild("n8"));
+				--Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
 				obj.onClick:Remove(daguanka_OnSelectGroup);
 			else
 				local ss = 1 + (1 - dist / obj.width) * 0.5;
@@ -84,12 +84,12 @@ function DoSpecialEffect()
 				local entityData = EntityData.GetData(data.EntityID_);
 				playerName.text = entityData._Name;
 				obj.onClick:Set(daguanka_OnSelectGroup);
-				local cData = JieHunSystem.instance:GetChapterData(obj.data);
-				if  cData == nil then
-					Proxy4Lua.ColorGameObject(obj:GetChild("n8"),0.3,0.3,0.3);
-				else
-					Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
-				end 
+				--local cData = JieHunSystem.instance:GetChapterData(obj.data);
+				--if  cData == nil then
+					--Proxy4Lua.ColorGameObject(obj:GetChild("n8"),0.3,0.3,0.3);
+				--else
+					--Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
+				--end 
 			end
 		end
 		--_mainView.GetChild("n3").text = "" + ((cardGroupList.GetFirstChildInView() + 1) % cardGroupList.numItems);
