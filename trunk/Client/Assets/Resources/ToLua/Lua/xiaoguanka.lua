@@ -322,7 +322,15 @@ function xiaoguanka_UpdataInfo()
 		end
 	end
 	playerPos.visible = false;
+
+
+	fuben0.onClick:Remove(xiaoguanka_OnfunbenOne);
+    fuben1.onClick:Remove(xiaoguanka_OnfunbenTwo);
+    fuben2.onClick:Remove(xiaoguanka_OnfunbenThree);
+    fuben3.onClick:Remove(xiaoguanka_OnfunbenFour);
+
     for i =1, 4 do 
+    	local bBattle = false;
         if showNum +i -1 >= len then
             fubenArr[i-1].visible  = false;
         else
@@ -352,14 +360,17 @@ function xiaoguanka_UpdataInfo()
             if smallData.Star1 == true then 
 		 		star0.enabled = true;
 		 		 Proxy4Lua.WhiteGameObject(player);
+		 		 bBattle = true;
 		  	end
 			if smallData.Star2 == true then 
 		 		star1.enabled = true;
 		 		 Proxy4Lua.WhiteGameObject(player);
+		 		 bBattle = true;
 			  end
 		    if smallData.Star3 == true then 
 		   		star2.enabled = true;
 		   		 Proxy4Lua.WhiteGameObject(player);
+		   		 bBattle = true;
 			end
             local Trans = fubenArr[i-1]:GetTransition("t0");
             Trans:Play();
@@ -367,8 +378,25 @@ function xiaoguanka_UpdataInfo()
             	playerPos.visible = true;
             	playerPos:SetXY(fubenArr[i-1].x + 160 ,fubenArr[i-1].y-100 );
             	Proxy4Lua.WhiteGameObject(player);
+            	bBattle = true;
             --else
             	--playerPos.visible = false;
+            end
+
+            if bBattle == true then
+            	if i == 1 then
+            		fuben0.onClick:Set(xiaoguanka_OnfunbenOne);
+            	end
+            	if i ==2 then
+            	  fuben1.onClick:Set(xiaoguanka_OnfunbenTwo);
+            	end
+            	if i ==3 then
+            	 fuben2.onClick:Set(xiaoguanka_OnfunbenThree);
+            	end
+
+            	if i ==4 then
+            	fuben3.onClick:Set(xiaoguanka_OnfunbenFour);
+            	end
             end
         end
     end
