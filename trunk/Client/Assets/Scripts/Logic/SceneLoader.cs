@@ -17,7 +17,7 @@ public class SceneLoader
                     AssetLoader.UnloadAsset("Scene/" + _PreScene);
 
                 if(string.IsNullOrEmpty(_PreScene) || !_PreScene.Equals(sceneName))
-                    AssetLoader.LoadAsset("Scene/" + sceneName);
+                    AssetLoader.LoadAssetBundle("Scene/" + sceneName);
                 _PreScene = sceneName;
             #endif
 

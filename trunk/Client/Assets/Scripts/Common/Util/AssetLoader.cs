@@ -92,6 +92,7 @@ public class AssetLoader {
             string assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
             SmartPath(ref assetPath);
             AssetBundle ab = AssetBundle.LoadFromFile(assetPath);
+            AssetCounter.AddRef(assetPath, ab);
             return ab;
         }
         catch(System.Exception e)
