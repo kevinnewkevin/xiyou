@@ -1819,6 +1819,10 @@ func (this *BattleRoom) BuffMintsHp(casterid int64, target int64, buffid int32, 
 	log.Info("BuffMintsHp", " buff 给id为", target, "的卡牌造成了", data, "点伤害, over", over)
 	unit := this.SelectOneUnit(target)
 
+	if unit.CheckSpec("BF_UNDAMAGE", this.Round) {
+		data = 0
+	}
+
 	unit.CProperties[prpc.CPT_CHP] = unit.CProperties[prpc.CPT_CHP] - float32(data)
 
 	buffCOM := prpc.COM_BattleBuffAction{}
