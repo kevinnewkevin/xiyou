@@ -12,6 +12,7 @@ public class CheckpointData
 	public int _DropID;
 	public int _Main;
 	public string _Name;
+	public int _EntityID;
 	static public Dictionary<int, List<CheckpointData>> metaData;
     static public Dictionary<int, CheckpointData> metaData2;
 
@@ -41,6 +42,7 @@ public class CheckpointData
 			data._DropID = parser.GetInt (i, "DropID"); 
 			data._Main = parser.GetInt (i, "Main"); 
 			data._Name = parser.GetString(i, "Name");
+			data._EntityID= parser.GetInt(i, "EntityID");
 			if (!metaData.ContainsKey (data._HerID)) 
 			{
                 metaData [data._HerID] = new List<CheckpointData> ();

@@ -13,7 +13,7 @@ public class HeroStroyData
 	public string Icon_;
 	public string Desc_;
 	public int EntityID_;
-
+	static public List<HeroStroyData> easyList = new List<HeroStroyData>(); 
 	static public Dictionary<int, HeroStroyData> metaData;
 	
 	static public void ParseData(string content, string fileName)
@@ -54,7 +54,10 @@ public class HeroStroyData
 			data.Icon_ = parser.GetString (i, "Icon");
   			data.Desc_ = parser.GetString (i, "Desc"); 
 			data.EntityID_ = parser.GetInt(i, "EntityID");
-			
+			if(data.Type_ == 1)
+			{
+				easyList.Add (data); 
+			}
 			if(metaData.ContainsKey(data.Id_))
 			{
 				Debug.LogError("EntityData ID重复");
@@ -73,4 +76,10 @@ public class HeroStroyData
 		
 				return metaData[id];
 	}
+
+		static public int GetEasyListNum()
+		{
+				return easyList.Count;
+		}
+
 }
