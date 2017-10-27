@@ -15,7 +15,6 @@ local starBtn;
 local rewardIcon;
 local crtTab;
 local guankaId = 0;
-local assetArr;
 local ready;
 local Trans0;
 local Trans1;
@@ -33,7 +32,6 @@ function daguanka:OnInit()
 	self:Center();
 	self.modal = true;
 	crtTab = 1;
-	assetArr = {};
 	self.closeButton = self.contentPane:GetChild("n3").asButton;
 	infoPanel = self.contentPane:GetChild("n4");
 	infoName = infoPanel:GetChild("n13");
@@ -139,10 +137,7 @@ function daguanka_RenderListItem(index, obj)
 	mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
 	obj.data = data.Id_;-- comData.ChapterId;
 	--obj.onClick:Set(daguanka_OnSelectGroup);
-	if assetArr ~= nil then
-		assetArr[index] = modelRes;
-		print(assetArr[index]);
-	end
+	Proxy4Lua.AddToDelete(modelRes);
 end
 
 function daguanka_OnSelectGroup(context)
@@ -229,21 +224,11 @@ function daguanka:OnHide()
 	local k;
 	local v;
 
-	if assetArr == nil then
-		return;
-	end
-
-	for k,v in ipairs(assetArr) do
-		Proxy4Lua.ForceUnloadAsset(v);
-	end
-	assetArr = nil;
+	Proxy4Lua.ClearToDeleteAsset();
 	Window:Hide();
 end
 
 function daguanka_FlushData()
-	if assetArr == nil then
-		assetArr = {};	
-	end
 	--if crtTab == 1 then
 		cardGroupList.numItems = HeroStroyData.GetEasyListNum();
 	--else

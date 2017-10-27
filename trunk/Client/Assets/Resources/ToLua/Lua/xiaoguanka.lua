@@ -20,7 +20,6 @@ local smallChapters;
 local fubenArr;
 local showNum;
 local smallId;
-local assetArr;
 local playerNum;
 local rewardBarPanel;
 local rewardBar;
@@ -49,7 +48,6 @@ function xiaoguanka:OnInit()
 	self.contentPane = UIPackage.CreateObject("xiaoguanka", "xiaoguanka_com").asCom;
 	self:Center();
 	self.modal = true;
-	assetArr = {};
 	self.closeButton = self.contentPane:GetChild("n19").asButton;
 	local back= self.contentPane:GetChild("n29");
 	back.onClick:Add(xiaoguanka_OnBack);
@@ -135,15 +133,6 @@ end
 
 function xiaoguanka:OnHide()
 	challengePanel.visible = false;
-	if assetArr == nil then
-		return;
-	end
-	local k;
-	local v;
-	for k,v in ipairs(assetArr) do
-		Proxy4Lua.ForceUnloadAsset(v);
-	end
-	assetArr = nil;
 	Window:Hide();
 end
 
@@ -321,15 +310,6 @@ function xiaoguanka_UpdataInfo()
     local hData = HeroStroyData.GetData(guankaID);
     nameLab.text = hData .Name_;
     local len = smallChapters.Length;
-    if assetArr == nil then
-		assetArr = {};
-	else
-		local k;
-		local v;
-		for k,v in ipairs(assetArr) do
-			Proxy4Lua.ForceUnloadAsset(v);
-		end
-	end
 	playerPos.visible = false;
 
 
@@ -358,9 +338,7 @@ function xiaoguanka_UpdataInfo()
             player:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
             --Proxy4Lua.ColorGameObject(player,0.3,0.3,0.3);
             local lock = fubenArr[i-1]:GetChild("n9");
-            if assetArr ~= nil then
-				assetArr[i-1] = modelRes;
-			end
+            Proxy4Lua.AddToDelete(modelRes);
             fubenArr[i-1].data = data._ID;
 
             star0.enabled = false;
