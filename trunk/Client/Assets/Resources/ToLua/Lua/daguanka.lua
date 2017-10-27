@@ -20,6 +20,7 @@ local ready;
 local Trans0;
 local Trans1;
 local Trans2;
+local crtSelectIdx;
 
 function daguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
@@ -61,7 +62,7 @@ function daguanka:OnInit()
 	cardGroupList.onTouchBegin:Add(daguanka_ListTouchBegin);
 	daguanka_FlushData();
 	DoSpecialEffect();
-	cardGroupList.selectedIndex = 0;
+	crtSelectIdx = 0;
 end
 
 
@@ -165,20 +166,16 @@ end
 
 function  daguanka_OnLeftBtn(context)
 	infoPanel.visible  = false;
-
-	---local midX = cardGroupList.scrollPane.posX + cardGroupList.viewWidth / 2;
-	--local num = (cardGroupList:GetFirstChildInView() + 1) % cardGroupList.numItems;
-	--local obj = cardGroupList:GetChildAt(num);
-	--local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
-
-	cardGroupList.scrollPane:SetPosX(cardGroupList.scrollPane.posX + 535,true);
-	print(cardGroupList.scrollPane.posX );
+	crtSelectIdx = (crtSelectIdx - 1) % cardGroupList.numItems;
+	cardGroupList:ScrollToView(crtSelectIdx, false);
+	print(crtSelectIdx);
 end
 
 function daguanka_OnRightBtn(context) 
 	infoPanel.visible  = false;
-	cardGroupList.scrollPane:SetPosX(cardGroupList.scrollPane.posX - 535,true);
-	print(cardGroupList.scrollPane.posX );
+	crtSelectIdx = (crtSelectIdx + 1) % cardGroupList.numItems;
+	cardGroupList:ScrollToView(crtSelectIdx, false);
+	print(crtSelectIdx);
 end
 
 
