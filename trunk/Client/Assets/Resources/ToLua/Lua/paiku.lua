@@ -108,6 +108,9 @@ function paiku_OnTypeItemClick(context)
 end
 
 function paiku_RenderListItem(index, obj)
+	if obj == nil then
+		return;
+	end
 	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, crtCardsType, index);
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, crtCardsType, index);
 	local img = obj:GetChild("n5");
