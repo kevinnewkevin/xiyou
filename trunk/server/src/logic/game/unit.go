@@ -176,6 +176,7 @@ func (this *GameUnit) CheckSpec(spec string, round int32) bool { //unit.checkspe
 	for _, bfid := range bufflist {
 		buff := this.SelectBuff(bfid)
 		if buff == nil {
+			continue
 		}
 
 		if buff.IsOver(round) {
