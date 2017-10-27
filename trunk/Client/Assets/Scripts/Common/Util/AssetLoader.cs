@@ -93,10 +93,30 @@ public class AssetLoader {
             InitCommonList();
         try
         {
+            string[] dep = _Manifest.GetAllDependencies(path + Define.ASSET_EXT);
+            string assetPath;
+            for(int i=0; i < dep.Length; ++i)
+            {
+                assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + dep[i];
+                SmartPath(ref assetPath);
+                if(!AssetCounter.Excist(assetPath))
+                    AssetCounter.AddRef(assetPath, AssetBundle.LoadFromFile(assetPath));
+                else
+                    AssetCounter.GetBundle(assetPath);
+            }
+
             string assetPath = Application.persistentDataPath + "/" + Define.PackageVersion + "/" + path + Define.ASSET_EXT;
             SmartPath(ref assetPath);
-            AssetBundle ab = AssetBundle.LoadFromFile(assetPath);
-            AssetCounter.AddRef(assetPath, ab);
+            AssetBundle ab;
+
+            if(!AssetCounter.Excist(assetPath))
+            {
+                ab = AssetBundle.LoadFromFile(assetPath);
+                AssetCounter.AddRef(assetPath, ab);
+            }
+            else
+                ab = AssetCounter.GetBundle(assetPath);
+
             return ab;
         }
         catch(System.Exception e)
