@@ -534,6 +534,22 @@ public class Proxy4Lua {
             AssetLoader.UnloadAsset(_AssetToDelete[i], true);
         }
     }
+
+    static public Dictionary<string, List<string>> _SceneUI = new Dictionary<string, List<string>>();
+    static public void RegHoldUI(string sceneName, string[] ui)
+    {
+        if (!_SceneUI.ContainsKey(sceneName))
+            _SceneUI.Add(sceneName, new List<string>());
+        _SceneUI [sceneName].AddRange(ui);
+    }
+
+    static public void ClearHoldUI(string sceneName)
+    {
+        if (!_SceneUI.ContainsKey(sceneName))
+            return;
+        
+        _SceneUI.Remove(sceneName);
+    }
 }
 
 public class ServInfo

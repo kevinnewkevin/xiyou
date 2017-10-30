@@ -87,6 +87,13 @@ public class AppEntry : MonoBehaviour {
             default:
                 break;
         }
+        if (Proxy4Lua._SceneUI.ContainsKey(arg0.name))
+        {
+            for(int i=0; i < Proxy4Lua._SceneUI[arg0.name].Count; ++i)
+            {
+                UIManager.Show(Proxy4Lua._SceneUI[arg0.name][i]);
+            }
+        }
     }
 //
 //    void OnGUI()
