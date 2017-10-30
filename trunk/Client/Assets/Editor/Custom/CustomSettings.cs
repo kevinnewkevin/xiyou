@@ -245,6 +245,7 @@ public static class CustomSettings
         _GT(typeof(List<ReportBase>)),
         _GT(typeof(Queue<string>)),
         _GT(typeof(ServInfo)),
+        _GT(typeof(GuideSystem)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
