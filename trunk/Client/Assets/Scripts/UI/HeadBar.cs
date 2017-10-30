@@ -31,9 +31,14 @@ public class HeadBar {
 
     GList _BuffList;
 
+    GComponent _BuffTip;
+
+    GTextField _BuffContent;
+
     float _HeightAdjust;
 
     string _BuffLoaderUrl = "ui://xuetiao/buff_loader";
+    string _BuffTipUrl = "ui://xuetiao/bufftishi_com";
 
     public bool _IsDirty;
 
@@ -72,6 +77,11 @@ public class HeadBar {
         //_SkillName = _HeadBarCom.GetChild("n11").asTextField;
 
         _IsDirty = true;
+    }
+
+    public void PopBuff(string content)
+    {
+        EmitManager.inst.Emit(_Root._ActorObj.transform, 0, content, true);
     }
 
     public void PopContent(int value, string special)

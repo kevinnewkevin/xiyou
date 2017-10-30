@@ -7,14 +7,17 @@ public class EmitComponent : GComponent
     GLoader _symbolLoader;
     GTextField _numberText_cri;
 	GTextField _numberText_norm;
+    GTextField _numberText_buff;
 	Transform _owner;
 
 	const float OFFSET_ADDITION = 2.5f;
+    const float OFFSET_ADDITION_BUFF = 1.1f;
 	static Vector2 JITTER_FACTOR = new Vector2(80, 80);
 
     GComponent gcom;
     GComponent criCom;
     GComponent normCom;
+    GComponent buffCom;
     GTextField crtTextfield;
 
 	public EmitComponent()
@@ -25,58 +28,56 @@ public class EmitComponent : GComponent
 
         criCom = gcom.GetChild("n0").asCom;
         normCom = gcom.GetChild("n1").asCom;
+        buffCom = gcom.GetChild("n2").asCom;
 
         _numberText_cri = criCom.GetChild("n3").asTextField;
         _numberText_norm = normCom.GetChild("n3").asTextField;
+        _numberText_buff = buffCom.GetChild("n12").asTextField;
 	}
 
-    public void SetHurt(Transform owner, int hurt, string special)
+    public void SetHurt(Transform owner, int hurt, string special, bool isBuff = false)
 	{
 		_owner = owner;
 
-        bool isCritical = special.Equals("BE_Crit");
-
-        crtTextfield = isCritical ? _numberText_cri : _numberText_norm;
-        TextFormat tf = crtTextfield.textFormat;
-        if (hurt < 0)
-            tf.font = EmitManager.inst.hurtFont;
-		else
-            tf.font = EmitManager.inst.recoverFont;
-
-        if (isCritical)
+        if (isBuff == false)
         {
-            tf.font = EmitManager.inst.criticalFont;
-            criCom.visible = true;
-            normCom.visible = false;
+            buffCom.visible = false;
+            bool isCritical = special.Equals("BE_Crit");
+
+            crtTextfield = isCritical ? _numberText_cri : _numberText_norm;
+            TextFormat tf = crtTextfield.textFormat;
+            if (hurt < 0)
+                tf.font = EmitManager.inst.hurtFont;
+            else
+                tf.font = EmitManager.inst.recoverFont;
+
+            if (isCritical)
+            {
+                tf.font = EmitManager.inst.criticalFont;
+                criCom.visible = true;
+                normCom.visible = false;
+            }
+            else
+            {
+                criCom.visible = false;
+                normCom.visible = true;
+            }
+            crtTextfield.textFormat = tf;
+            crtTextfield.text = hurt.ToString();
         }
         else
         {
+            _numberText_buff.text = special;
+            buffCom.visible = true;
             criCom.visible = false;
-            normCom.visible = true;
+            normCom.visible = false;
         }
-        crtTextfield.textFormat = tf;
-        crtTextfield.text = hurt.ToString();
 
-//        if (!string.IsNullOrEmpty(special))
-//            _symbolLoader.url = EmitManager.inst.specialSign + special;
-//        else
-//            _symbolLoader.url = "";
-
-//		UpdateLayout();
-
-//		this.alpha = 1;
-		UpdatePosition(Vector2.zero);
-//		Vector2 rnd = Vector2.Scale(UnityEngine.Random.insideUnitCircle, JITTER_FACTOR);
-//		int toX = (int)rnd.x * 2;
-//		int toY = (int)rnd.y * 2;
-
+        UpdatePosition(Vector2.zero, isBuff);
 		EmitManager.inst.view.AddChild(this);
         new Timer().Start(2f, delegate{
             this.OnCompleted();
         });
-//		DOTween.To(() => Vector2.zero, val => { this.UpdatePosition(val); }, new Vector2(toX, toY), 1f)
-//			.SetTarget(this).OnComplete(this.OnCompleted);
-//		this.TweenFade(0, 0.5f).SetDelay(0.5f);
 	}
 
 	void UpdateLayout()
@@ -87,15 +88,28 @@ public class EmitComponent : GComponent
 		_symbolLoader.y = (this.height - _symbolLoader.height) / 2;
 	}
 
-	void UpdatePosition(Vector2 pos)
+    void UpdatePosition(Vector2 pos, bool isBuff)
 	{
-		Vector3 ownerPos = _owner.position;
-		ownerPos.y += OFFSET_ADDITION;
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(ownerPos);
-        screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
+        if (isBuff)
+        {
+            Vector3 ownerPos = _owner.position;
+            ownerPos.y += OFFSET_ADDITION_BUFF;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(ownerPos);
+            screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
 
-		Vector3 pt = GRoot.inst.GlobalToLocal(screenPos);
-        this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2 + Random.Range(-60f, 60f)), Mathf.RoundToInt(pt.y + pos.y - this.height) + Random.Range(-60f, 60f));
+            Vector3 pt = GRoot.inst.GlobalToLocal(screenPos);
+            this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2), Mathf.RoundToInt(pt.y + pos.y - this.height));
+        }
+        else
+        {
+            Vector3 ownerPos = _owner.position;
+            ownerPos.y += OFFSET_ADDITION;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(ownerPos);
+            screenPos.y = Screen.height - screenPos.y; //convert to Stage coordinates system
+
+            Vector3 pt = GRoot.inst.GlobalToLocal(screenPos);
+            this.SetXY(Mathf.RoundToInt(pt.x + pos.x - this.actualWidth / 2 + Random.Range(-60f, 60f)), Mathf.RoundToInt(pt.y + pos.y - this.height) + Random.Range(-60f, 60f));
+        }
 	}
 
 	void OnCompleted()

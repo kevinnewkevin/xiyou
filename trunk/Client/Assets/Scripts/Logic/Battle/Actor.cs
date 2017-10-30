@@ -311,6 +311,9 @@ public class Actor {
 //        if (!_BuffList.Contains(buffid) /* || 可叠加 读表 */)
             _BuffList.Add(buffid);
 
+        BuffData bd = BuffData.GetData(buffid);
+        if(bd != null)
+            _Headbar.PopBuff(bd._Content);
         _Headbar._IsDirty = true;
     }
 

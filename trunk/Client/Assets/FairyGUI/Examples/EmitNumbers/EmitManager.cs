@@ -35,14 +35,14 @@ public class EmitManager
 		GRoot.inst.AddChild(view);
 	}
 
-	public void Emit(Transform owner, int hurt, string special)
+    public void Emit(Transform owner, int hurt, string special, bool isBuff = false)
 	{
 		EmitComponent ec;
 		if (_componentPool.Count > 0)
 			ec = _componentPool.Pop();
 		else
 			ec = new EmitComponent();
-        ec.SetHurt(owner, hurt, special);
+        ec.SetHurt(owner, hurt, special, isBuff);
 	}
 
 	public void ReturnComponent(EmitComponent com)

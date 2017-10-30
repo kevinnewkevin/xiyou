@@ -11,6 +11,7 @@ public class BuffData {
     public float _AnimTime;
     public float _EffectTime;
     public float _EmitTime;
+    public string _Content;
 
     static Dictionary<int, BuffData> metaData;
 
@@ -32,6 +33,7 @@ public class BuffData {
             data = new BuffData ();
             data._Id = parser.GetInt (i, "BuffId");
             data._Icon = parser.GetString(i, "Icon");
+            data._Content = parser.GetString(i, "Explain");
 
             if(metaData.ContainsKey(data._Id))
             {
