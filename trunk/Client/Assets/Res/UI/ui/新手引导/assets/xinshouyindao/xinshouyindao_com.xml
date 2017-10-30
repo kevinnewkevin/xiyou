@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1920,1080">
   <displayList>
-    <graph id="n0_hvbo" name="n0" xy="0,0" size="1920,1080" alpha="0.7" type="rect" fillColor="#ff000000"/>
-    <component id="n1_hvbo" name="n1" src="hvbo3" xy="1310,862"/>
+    <graph id="n0_hvbo" name="n0" xy="0,0" size="1332,1080" alpha="0.7" type="rect" fillColor="#ff000000">
+      <relation target="n5_hvbo" sidePair="rightext-left,leftext-left"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n2_hvbo" name="n2" xy="1333,0" size="146,846" alpha="0.7" type="rect" fillColor="#ff000000">
+      <relation target="n5_hvbo" sidePair="bottomext-top,leftext-left"/>
+      <relation target="n5_hvbo" sidePair="rightext-right"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n3_hvbo" name="n3" xy="1330,1006" size="150,74" alpha="0.7" type="rect" fillColor="#ff000000">
+      <relation target="n5_hvbo" sidePair="topext-bottom,leftext-left"/>
+      <relation target="n5_hvbo" sidePair="rightext-right"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n4_hvbo" name="n4" xy="1480,0" size="442,1080" alpha="0.7" type="rect" fillColor="#ff000000">
+      <relation target="n5_hvbo" sidePair="leftext-right,rightext-left"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n5_hvbo" name="n5" xy="1330,844" size="150,164" alpha="0" type="rect"/>
+    <component id="n1_hvbo" name="n1" src="hvbo3" xy="1310,862">
+      <relation target="n5_hvbo" sidePair="center-center,middle-middle"/>
+    </component>
   </displayList>
 </component>
