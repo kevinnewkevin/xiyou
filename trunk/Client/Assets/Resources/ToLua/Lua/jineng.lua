@@ -131,6 +131,41 @@ function jineng_OnSkillSelected(context)
 	if rsData == nil then
 		return;
 	end
+	local equipId = Proxy4Lua.GetIndexBySkillID(rsData._SkillId);
+	rsData = RoleSkillData.GetData(crtSelectRoleSkillId);
+	if rsData ~= nil then
+		if crtSelectIsDown == 0 and context.sender.data.down == 1 then
+			local idx = Proxy4Lua.GetIndexBySkillID(rsData._SkillId);
+			if idx == -1 and equipId ~= -1 then
+				if crtSelectRoleSkilltype == rsData._Type then
+					Proxy4Lua.EquipSkill(equipId, crtSelectRoleSkillId);
+					if crtSelectRoleSkilltype == 0 then
+						activeList:SelectNone();
+				--		criticalList:SelectNone();
+					end
+					if crtSelectRoleSkilltype == 1 then
+						passiveList:SelectNone();
+				--		criticalList:SelectNone();
+					end
+					if crtSelectRoleSkilltype == 2 then
+						activeList:SelectNone();
+						passiveList:SelectNone();
+					end
+
+					if context.sender.data.down == 0 then
+						playerSkillList:SelectNone();
+					else
+						activeList:SelectNone();
+						passiveList:SelectNone();
+				--		criticalList:SelectNone();
+					end
+					crtSelectIsDown = context.sender.data.down;
+					jineng_OnlyLeftFlushData();
+					return;
+				end
+			end
+		end
+	end
 
 	crtSelectRoleSkillId = context.sender.data.rsId;
 	crtSelectRoleSkilltype = RoleSkillData.GetData(crtSelectRoleSkillId)._Type;
