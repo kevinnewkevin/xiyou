@@ -67,6 +67,9 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_SelectRole == 0)
             return;
 
+        _Actors [0]._ActorObj.SetActive(true);
+        _Actors [1]._ActorObj.SetActive(false);
+
         Proxy4Lua.FocusSelectRoleObject(0);
 
         if (_Actors [0] == null)
@@ -74,36 +77,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 
         _Actors [0].Play(_SelectAnim);
         _Actors [0].PlayQueue(_DefaultAnim);
-
-//        if (_Actors [0] == null)
-//            return;
-//
-//        if (!_Actors [0].IsPlay(_SelectAnim))
-//        {
-//            _Actors [0].Play(_SelectAnim);
-//        }
-//        _Actors [0].MoveTo(_ToPos, delegate
-//        {
-//            _Actors [0].Stop();
-//            _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
-//        });
-//
-//        if (_Actors [1] == null)
-//            return;
-//
-//        if (Vector3.Distance(_Actors [1]._ActorObj.transform.position, _FemalePos) > 0f)
-//        {
-//            if (!_Actors [1].IsPlay(_SelectAnim))
-//            {
-//                _Actors [1].Play(_SelectAnim);
-//            }
-//            _Actors [1].MoveTo(_FemalePos, delegate
-//            {
-//                _Actors [1].Stop();
-//                _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
-//                _Actors [1]._ActorObj.transform.Rotate(Vector3.up, _FemaleRotY);
-//            });
-//        }
         _SelectRole = 0;
         UIManager.SetDirty("xuanren");
     }
@@ -113,6 +86,9 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         if (_SelectRole == 1)
             return;
 
+        _Actors [1]._ActorObj.SetActive(true);
+        _Actors [0]._ActorObj.SetActive(false);
+
         Proxy4Lua.FocusSelectRoleObject(1);
 
         if (_Actors [1] == null)
@@ -120,35 +96,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
 
         _Actors [1].Play(_SelectAnim);
         _Actors [1].PlayQueue(_DefaultAnim);
-
-//        if (_Actors [1] == null)
-//            return;
-//
-//        if (!_Actors [1].IsPlay(_SelectAnim))
-//        {
-//            _Actors [1].Play(_SelectAnim);
-//        }
-//        _Actors [1].MoveTo(_ToPos, delegate {
-//            _Actors [1].Stop();
-//            _Actors [1]._ActorObj.transform.localRotation = Quaternion.identity;
-//        });
-//
-//        if (_Actors [0] == null)
-//            return;
-//
-//        if (Vector3.Distance(_Actors [0]._ActorObj.transform.position, _MalePos) > 0f)
-//        {
-//            if (!_Actors [0].IsPlay(_SelectAnim))
-//            {
-//                _Actors [0].Play(_SelectAnim);
-//            }
-//            _Actors [0].MoveTo(_MalePos, delegate
-//            {
-//                _Actors [0].Stop();
-//                _Actors [0]._ActorObj.transform.localRotation = Quaternion.identity;
-//                _Actors [0]._ActorObj.transform.Rotate(Vector3.up, _MaleRotY);
-//            });
-//        }
         _SelectRole = 1;
         UIManager.SetDirty("xuanren");
     }
@@ -169,18 +116,6 @@ public class CreateRoleSceneTouch : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-//        if (_Actors != null)
-//        {
-//            for(int i=0; i < _Actors.Length; ++i)
-//            {
-//                if (_Actors [i] != null)
-//                    _Actors [i].Update();
-//            }
-//        }
-	}
-
     void OnDestroy()
     {
         _SelectRole = -1;
