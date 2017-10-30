@@ -57,7 +57,7 @@ function daguanka:OnInit()
 	cardGroupList:SetVirtualAndLoop();
 	cardGroupList.itemRenderer = daguanka_RenderListItem;
 	cardGroupList.scrollPane.onScroll:Add(DoSpecialEffect);
-	cardGroupList.onTouchBegin:Add(daguanka_ListTouchBegin);
+	--cardGroupList.onTouchBegin:Add(daguanka_ListTouchBegin);
 	daguanka_FlushData();
 	DoSpecialEffect();
 	crtSelectIdx = 0;
@@ -73,25 +73,37 @@ function DoSpecialEffect()
 			local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
 			if dist > obj.width then
 				obj:SetScale(1, 1);
-				--Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
 				obj.onClick:Remove(daguanka_OnSelectGroup);
+				obj.visible = false;
 			else
 				local ss = 1 + (1 - dist / obj.width) * 0.5;
 				obj:SetScale(ss, ss);
-
 				local data = HeroStroyData.GetData(obj.data);
 				local entityData = EntityData.GetData(data.EntityID_);
 				playerName.text = entityData._Name;
 				obj.onClick:Set(daguanka_OnSelectGroup);
-				--local cData = JieHunSystem.instance:GetChapterData(obj.data);
-				--if  cData == nil then
-					--Proxy4Lua.ColorGameObject(obj:GetChild("n8"),0.3,0.3,0.3);
-				--else
-					--Proxy4Lua.WhiteGameObject(obj:GetChild("n8"));
-				--end 
+
+				obj.visible = true; 
+				local data = HeroStroyData.GetData(obj.data);
+				local entityData = EntityData.GetData(data.EntityID_);
+				local displayData = DisplayData.GetData(entityData._DisplayId);
+				local mode = obj:GetChild("n8");
+				local modelRes = displayData._AssetPath;
+				mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
+				Proxy4Lua.AddToDelete(modelRes);
+				infoPanel.visible  = true;
+				infoName.text = data.Name_;
+				infoDesc.text = data.Desc_;
+				rewardIcon.asLoader.url = "ui://" .. displayData._HeadIcon;
+				guankaId = obj.data;
+				local cData = JieHunSystem.instance:GetChapterData(guankaId);
+				if  cData == nil then
+					starBtn.visible = false;
+				else
+					starBtn.visible = true;
+				end 
 			end
 		end
-		--_mainView.GetChild("n3").text = "" + ((cardGroupList.GetFirstChildInView() + 1) % cardGroupList.numItems);
 end
 
 
@@ -100,50 +112,40 @@ function daguanka:GetWindow()
 	return Window;
 end
 
-function daguanka:OnUpdate()
+function daguanka:OnUpdate() 
 	if UIManager.IsDirty("daguanka") then
 		daguanka_FlushData();
 		UIManager.ClearDirty("daguanka");
 	end
 
-
-
 end
-
-
+ 
 
 function daguanka_RenderListItem(index, obj)
 	local comData;
-	--if crtTab == 1 then
-	--	comData  = JieHunSystem.instance.ChapterEasyDataList[index];
-	--else
-	--	comData  = JieHunSystem.instance.ChapterHardDataList[index];
-	--end
+
 	if index == 0 then
-		index = 1;
+		index = HeroStroyData.GetEasyListNum() -1;
 	else
-		if index == 1 then
-			index = 0;
-		end
+		index = index -1
 	end 
 
-
-	local data = HeroStroyData.easyList[index]; --HeroStroyData.GetData(comData.ChapterId);
-	local entityData = EntityData.GetData(data.EntityID_);
-	local displayData = DisplayData.GetData(entityData._DisplayId);
+	local data = HeroStroyData.easyList[index]; 
+	--local entityData = EntityData.GetData(data.EntityID_);
+	--local displayData = DisplayData.GetData(entityData._DisplayId);
 	obj:SetPivot(0.5, 0.5);
-	local mode = obj:GetChild("n8");
-	local modelRes = displayData._AssetPath;
-	mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
+--	local mode = obj:GetChild("n8");
+--	local modelRes = displayData._AssetPath;
+	--mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
 	obj.data = data.Id_;-- comData.ChapterId;
-	--obj.onClick:Set(daguanka_OnSelectGroup);
-	Proxy4Lua.AddToDelete(modelRes);
+	--Proxy4Lua.AddToDelete(modelRes);
 end
 
 function daguanka_OnSelectGroup(context)
 	guankaId = context.sender.data;
 	local data = HeroStroyData.GetData(guankaId);
-	infoPanel.visible  = true;
+	--infoPanel.visible  = true;
+	--Trans0:Play();
 	infoName.text = data.Name_;
 	infoDesc.text = data.Desc_;
 	local entityData = EntityData.GetData(data.EntityID_);
@@ -160,14 +162,14 @@ function daguanka_OnSelectGroup(context)
 end
 
 function  daguanka_OnLeftBtn(context)
-	infoPanel.visible  = false;
+	--infoPanel.visible  = false;
 	crtSelectIdx = (crtSelectIdx - 1) % cardGroupList.numItems;
 	cardGroupList:ScrollToView(crtSelectIdx, false);
 	print(crtSelectIdx);
 end
 
 function daguanka_OnRightBtn(context) 
-	infoPanel.visible  = false;
+--	infoPanel.visible  = false;
 	crtSelectIdx = (crtSelectIdx + 1) % cardGroupList.numItems;
 	cardGroupList:ScrollToView(crtSelectIdx, false);
 	print(crtSelectIdx);
@@ -188,13 +190,12 @@ function daguanka_OnStart(context)
 	ready = {};
 	ready.max = 1;
 	ready.count = 0;
-
 	Trans2:Play();
 	--UIManager.Show("xiaoguanka");
 end
 
 function daguanka_ListTouchBegin(context)
-	infoPanel.visible  = false;
+	--infoPanel.visible  = false;
 end
 
 function daguanka:GetGuankaId()
@@ -205,7 +206,6 @@ function daguanka:OnTick()
 	if ready ~= nil and ready.count < ready.max  then
 		ready.count = ready.count + 1;
 		if ready.count >= ready.max then
-			--Window:Hide();
 			UIManager.Show("xiaoguanka");
 		end
 	end
@@ -220,20 +220,13 @@ function daguanka:OnDispose()
 end
 
 function daguanka:OnHide()
-	infoPanel.visible  = false;
-	local k;
-	local v;
-
+	--infoPanel.visible  = false;
 	Proxy4Lua.ClearToDeleteAsset();
 	Window:Hide();
 end
 
 function daguanka_FlushData()
-	--if crtTab == 1 then
 		cardGroupList.numItems = HeroStroyData.GetEasyListNum();
-	--else
-		--cardGroupList.numItems = JieHunSystem.instance.ChapterHardDataList.Count;
-	--end
 end
 
 
