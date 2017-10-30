@@ -36,10 +36,13 @@ function zhujiemian:OnInit()
 	skillBtn.onClick:Add(zhujiemian_OnSkillBtn);
 	local cardCargo = bottomBtnList:GetChildAt(2);
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
-	local taskBtn = self.contentPane:GetChild("n31");
-	taskBtn.onClick:Add(zhujiemian_OnTaskBtn);
-	local qiecuoBtn = self.contentPane:GetChild("n32");
+
+	local listGroup =  self.contentPane:GetChild("n43");
+	local qiecuoBtn = listGroup:GetChildAt("0");
 	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
+	local jiehunBtn = listGroup:GetChildAt("1");
+	jiehunBtn .onClick:Add(zhujiemian_OnTaskBtn);
+
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 
