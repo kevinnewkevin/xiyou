@@ -94,6 +94,7 @@ public class AppEntry : MonoBehaviour {
                 UIManager.Show(Proxy4Lua._SceneUI[arg0.name][i]);
             }
         }
+        Proxy4Lua.ClearHoldUI(arg0.name);
     }
 //
 //    void OnGUI()
