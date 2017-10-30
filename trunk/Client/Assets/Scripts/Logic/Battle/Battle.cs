@@ -498,6 +498,16 @@ public class Battle {
     {
         if (_IsEnding)
             return;
+
+        //check dead anim
+        for(int i=0; i < _ActorInScene.Length; ++i)
+        {
+            if (_ActorInScene [i] == null)
+                continue;
+            
+            if (_ActorInScene [i].IsPlay(Define.ANIMATION_PLAYER_ACTION_DEAD))
+                return;
+        }
         
         if (_BattleReport != null)
         {
