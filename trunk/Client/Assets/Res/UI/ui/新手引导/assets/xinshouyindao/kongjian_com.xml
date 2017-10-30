@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,200">
+  <displayList>
+    <image id="n0_hvbo" name="n0" src="hvbo1" xy="32,-168"/>
+    <image id="n1_hvbo" name="n1" src="hvbo2" xy="38,-170">
+      <relation target="n0_hvbo" sidePair="center-center,middle-middle"/>
+    </image>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n1_hvbo" tween="true" startValue="1" endValue="0.49" duration="13"/>
+    <item time="0" type="XY" target="n0_hvbo" tween="true" startValue="32,-168" endValue="32,-141" duration="13" ease="Circ.InOut"/>
+    <item time="13" type="Alpha" target="n1_hvbo" tween="true" startValue="0.49" endValue="1" duration="12"/>
+    <item time="13" type="XY" target="n0_hvbo" tween="true" startValue="32,-141" endValue="32,-168" duration="12" ease="Circ.InOut"/>
+  </transition>
+</component>
