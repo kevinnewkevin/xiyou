@@ -2,38 +2,16 @@
 <component size="1920,1080" opaque="false">
   <displayList>
     <image id="n38_nfe4" name="n38" src="nfe424" xy="0,0" size="1920,1080"/>
-    <graph id="n39_nfe4" name="n39" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
-    <image id="n40_nfe4" name="n40" src="nfe41v" xy="1372,141" size="374,470"/>
-    <image id="n41_nfe4" name="n41" src="nfe41w" xy="1380,581" size="362,312"/>
-    <image id="n23_tr71" name="n23" src="hbv5k" xy="0,956" size="849,123"/>
-    <image id="n24_tr71" name="n24" src="hbv5k" xy="537,956" size="849,123">
-      <relation target="n23_tr71" sidePair="center-center,middle-middle"/>
-    </image>
-    <image id="n25_tr71" name="n25" src="hbv5k" xy="1075,956" size="849,123">
-      <relation target="n23_tr71" sidePair="center-center,middle-middle"/>
-    </image>
-    <image id="n20_tr71" name="n20" src="hbv5n" xy="0,0" size="674,100">
-      <relation target="n21_tr71" sidePair="center-center,middle-middle"/>
-    </image>
-    <image id="n21_tr71" name="n21" src="hbv5n" xy="623,0" size="674,100"/>
-    <image id="n22_tr71" name="n22" src="hbv5n" xy="1246,0" size="674,100">
-      <relation target="n21_tr71" sidePair="center-center,middle-middle"/>
-    </image>
-    <image id="n19_sv0v" name="n19" src="sv0v1s" xy="0,77"/>
-    <component id="n7_hbv5" name="n7" src="hbv5q" xy="1625,11"/>
-    <component id="n8_hbv5" name="n8" src="hbv5r" xy="1711,11"/>
-    <component id="n15_hbv5" name="n15" src="hbv5y" xy="-2,3"/>
-    <component id="n16_hbv5" name="n16" src="hbv511" xy="699,6"/>
-    <component id="n18_hbv5" name="n18" src="hbv51h" xy="152,805"/>
-    <image id="n27_ud9y" name="n27" src="hbv54" xy="1769,154" size="151,722"/>
-    <image id="n28_nfe4" name="n28" src="hbv5c" xy="0,1013"/>
-    <image id="n29_nfe4" name="n29" src="hbv5c" xy="1920,1014" skew="0,-180"/>
-    <component id="n30_nfe4" name="n30" src="hbv51o" xy="1778,217"/>
-    <component id="n31_nfe4" name="n31" src="hbv51n" xy="961,143"/>
-    <component id="n32_nfe4" name="n32" src="nfe41y" xy="197,141"/>
-    <image id="n35_nfe4" name="n35" src="hbv5b" xy="0,162" size="221,728"/>
-    <component id="n37_nfe4" name="n37" src="nfe423" xy="168,420"/>
-    <list id="n42_m9wd" name="n42" xy="48,233" size="117,595" layout="flow_hz" overflow="scroll" lineGap="15" align="center">
+    <component id="n7_hbv5" name="n7" src="hbv5q" xy="1687,25"/>
+    <component id="n8_hbv5" name="n8" src="hbv5r" xy="1773,25"/>
+    <component id="n15_hbv5" name="n15" src="hbv5y" xy="0,7"/>
+    <component id="n16_hbv5" name="n16" src="hbv511" xy="560,9"/>
+    <component id="n18_hbv5" name="n18" src="hbv51h" xy="1011,938" size="1905,153"/>
+    <image id="n27_ud9y" name="n27" src="hbv54" xy="1751,104" size="187,672"/>
+    <component id="n30_nfe4" name="n30" src="hbv51o" xy="1780,159"/>
+    <image id="n35_nfe4" name="n35" src="hbv5b" xy="0,143" size="183,744"/>
+    <component id="n37_nfe4" name="n37" src="nfe423" xy="140,429"/>
+    <list id="n42_m9wd" name="n42" xy="10,205" size="117,624" layout="flow_hz" overflow="scroll" lineGap="15" align="center">
       <item url="ui://s1sxt36um9wde27"/>
       <item url="ui://s1sxt36um9wde28"/>
       <item url="ui://s1sxt36um9wde27"/>
@@ -42,5 +20,19 @@
       <item url="ui://s1sxt36um9wde28"/>
       <item url="ui://s1sxt36um9wde27"/>
     </list>
+    <list id="n43_y4d0" name="n43" xy="156,88" size="1592,814" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="66" colGap="-218">
+      <item url="ui://s1sxt36unfe41y"/>
+      <item url="ui://s1sxt36uhbv51n"/>
+      <item url="ui://s1sxt36unfe41z"/>
+      <item url="ui://s1sxt36unfe41z"/>
+    </list>
+    <component id="n44_y4d0" name="n44" src="hbv51k" xy="1772,328"/>
+    <component id="n45_y4d0" name="n45" src="hbv51p" xy="1775,498"/>
+    <image id="n46_y4d0" name="n46" src="hbv5d" xy="-2,887"/>
+    <image id="n47_y4d0" name="n47" src="hbv5e" xy="4,1026"/>
+    <image id="n48_y4d0" name="n48" src="mub1e29" xy="8,914"/>
+    <component id="n49_y4d0" name="n49" src="y4d0e2c" xy="420,1023"/>
+    <component id="n50_y4d0" name="n50" src="y4d0e2d" xy="1608,18"/>
+    <image id="n51_y4d0" name="n51" src="nfe41v" xy="1849,22"/>
   </displayList>
 </component>

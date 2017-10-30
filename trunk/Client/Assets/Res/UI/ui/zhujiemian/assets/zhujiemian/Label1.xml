@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="514,200" extention="Label">
   <displayList>
-    <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,7"/>
-    <component id="n8_hbv5" name="n8" src="hbv5z" xy="113,55">
+    <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,0" size="312,74"/>
+    <image id="n18_y4d0" name="n18" src="y4d0e2b" xy="107,72"/>
+    <component id="n8_hbv5" name="n8" src="hbv5z" xy="113,73">
       <ProgressBar value="50" max="100"/>
     </component>
-    <text id="n10_hbv5" name="n10" xy="139,59" size="179,29" font="方正楷体_GBK" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="99999999/9999999&#xA;"/>
-    <text id="n9_hbv5" name="n9" xy="120,19" size="251,45" font="方正楷体_GBK" fontSize="30" color="#ffffff" autoSize="none" strokeColor="#000000" strokeSize="3" text="今晚打老虎啊"/>
-    <image id="n2_hbv5" name="n2" src="hbv5i" xy="-1,6"/>
-    <loader id="n13_g3yx" name="n13" xy="66,65" pivot="0.5,0.5" anchor="true" size="137,145" align="center" vAlign="middle"/>
+    <text id="n10_hbv5" name="n10" xy="138,75" size="179,29" font="方正楷体_GBK" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="99999999/9999999&#xA;"/>
+    <text id="n9_hbv5" name="n9" xy="121,22" size="251,45" font="方正楷体_GBK" fontSize="30" autoSize="none" bold="true" text="今晚打老虎啊"/>
+    <loader id="n13_g3yx" name="n13" xy="68,61" pivot="0.5,0.5" anchor="true" size="99,104" aspect="true" align="center" vAlign="middle" fill="scale"/>
+    <image id="n2_hbv5" name="n2" src="hbv5i" xy="16,6"/>
     <image id="n4_hbv5" name="n4" src="hbv55" xy="363,3">
       <relation target="" sidePair=""/>
     </image>

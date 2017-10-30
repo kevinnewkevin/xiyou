@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="473,771" extention="Button">
+<component size="864,826" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n3_10fre" name="n3" xy="33,22" size="466,766" url="ui://s1sxt36u10fre25"/>
-    <image id="n5_mub1" name="n5" src="mub1e29" xy="19,6" size="435,765"/>
+    <image id="n6_y4d0" name="n6" src="10fre25" xy="0,0"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="0.80"/>
+  <Button downEffect="scale" downEffectValue="0.95"/>
 </component>

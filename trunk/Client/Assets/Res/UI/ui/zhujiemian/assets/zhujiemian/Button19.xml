@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="415,312" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+<component size="864,826" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" src="nfe41w" name="n1" xy="0,0">
-      <relation target="" sidePair="width,height"/>
-    </image>
+    <image id="n2_y4d0" name="n2" src="nfe421" xy="0,0"/>
   </displayList>
+  <Button downEffect="scale" downEffectValue="0.95"/>
 </component>
