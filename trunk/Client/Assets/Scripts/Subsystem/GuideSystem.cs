@@ -9,7 +9,12 @@ public class GuideSystem  {
 
     static public void OpenUI(string ui, Window win)
     {
-        LuaManager.Call("global.lua", "WhenUIOpen", ui, win);
+        LuaManager.Call("guide.lua", "WhenUIOpen", ui, win);
+    }
+
+    static public void SpecialEvt(string type, params object[] par)
+    {
+        LuaManager.Call("guide.lua", "SpecialEvent", type, par);
     }
 
     static public void StartGuide(GObject aim)

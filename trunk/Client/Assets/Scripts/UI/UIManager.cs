@@ -34,6 +34,8 @@ public class UIManager {
             _Windows.Add(uiName, new UIWindow(uiName, null));
         else
             _Windows[uiName].GetWindow().Show();
+
+        GuideSystem.OpenUI(uiName, _Windows[uiName].GetWindow());
         
         if (!_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Add(uiName, true);
