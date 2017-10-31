@@ -28,6 +28,7 @@ public class AppEntry : MonoBehaviour {
         AudioSystem.Init();
         DataLoader.Init();
         UIManager.Init();
+        GuideSystem.Init();
         Define.Init();
         CameraEffect.Init();
         BagSystem.Init();
@@ -73,6 +74,7 @@ public class AppEntry : MonoBehaviour {
 
     public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        GuideSystem.ClearGuide();
         switch(arg0.name)
         {
             case Define.SCENE_LOGIN:
@@ -108,4 +110,4 @@ public class AppEntry : MonoBehaviour {
 //        if (GUILayout.Button("PlayBackground2"))
 //            AudioSystem.PlayBackground("Audio/background2");
 //    }
-    }
+        }
