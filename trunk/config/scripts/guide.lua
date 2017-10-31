@@ -4,7 +4,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--1.进入主界面事件(WhenUIOpen "zhujiemian")指引点击解魂模式(uiWindow.contentPane:GetChild("n43"):GetChildAt(1))
 	if uiName == "zhujiemian" then
 		if GuideSystem.IsNotFinish(1) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1));
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1), 300, 300);
 			GuideSystem.SetFinish(1);
 		end
 	end
@@ -79,7 +79,8 @@ function SpecialEvent(type, param1)
 	end
 	--9.	卡牌上阵事件(SpecialEvent “battle_cardonbattle”)
 	--指引点击结束回合按钮
-	if type == "battle_roleskill" then
+	if type == "battle_cardonbattle" then
+	print("battle_cardonbattle" .. Battle._Turn);
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"));
