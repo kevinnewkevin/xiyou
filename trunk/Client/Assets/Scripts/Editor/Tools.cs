@@ -49,6 +49,9 @@ public class Tools {
         ToLuaMenu.ClearLuaWraps();
         CopyTableAndScripts();
         GenRPC();
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS, "EDITOR_MODE");
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android, "EDITOR_MODE");
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "EDITOR_MODE");
     }
 
     static void GenRPC()
@@ -89,6 +92,7 @@ public class Tools {
             Directory.CreateDirectory(resPkgPath);
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.StandaloneWindows64);
         CreateMD5File();
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "");
         AssetDatabase.Refresh();
     }
 
@@ -109,6 +113,7 @@ public class Tools {
             Directory.CreateDirectory(resPkgPath);
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.Android);
         CreateMD5File();
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android, "");
         AssetDatabase.Refresh();
     }
 
@@ -129,6 +134,7 @@ public class Tools {
             Directory.CreateDirectory(resPkgPath);
         BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/" + Define.PackageVersion, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.iOS);
         CreateMD5File();
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS, "");
         AssetDatabase.Refresh();
     }
 
