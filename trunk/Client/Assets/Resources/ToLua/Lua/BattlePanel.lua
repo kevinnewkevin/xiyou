@@ -475,6 +475,8 @@ function BattlePanel_OnCardClick(context)
 		cards[i]["selected"].visible = context.sender.data == i;
 		cards[i]["card"]:SetScale(0.5, 0.5);
 	end
+
+	GuideSystem.SpecialEvt("battle_selectcard");
 end
 
 function BattlePanel_OnReturnBtn()
