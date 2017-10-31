@@ -189,6 +189,7 @@ function xiaoguanka_OnfunbenOne(context)
 	needPowerLab.text =  data._Main .. "";
     challengePanel.visible = true;
     challengePanel:SetXY(fuben0.x,fuben0.y +365);
+    GuideSystem.SpecialEvt("xiaoguanka_challenge", nil);
 end
 
 function xiaoguanka_OnfunbenTwo(context)

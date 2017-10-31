@@ -421,6 +421,8 @@ function BattlePanel_OnSelectSkill()
 		end
 		BattlePanel_DisableSkills(true);
 --	end
+
+	GuideSystem.SpecialEvt("battle_roleskill", nil);
 end
 
 function BattlePanel_DisableSkills(yes)

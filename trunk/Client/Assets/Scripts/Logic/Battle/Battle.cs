@@ -698,6 +698,7 @@ public class Battle {
         }
 
         SwitchPoint(false);
+        GuideSystem.SpecialEvt("battle_cardonbattle");
     }
 
     static public void SimSetActor(int pos)
