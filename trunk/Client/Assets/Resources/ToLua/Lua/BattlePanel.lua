@@ -555,6 +555,8 @@ function BattlePanel:ShowTurn()
 		turnTrans:Stop();
 	end
 	turnTrans:Play();
+
+	GuideSystem.SpecialEvt("battle_start");
 end
 
 function BattlePanel:ShowSkill()
