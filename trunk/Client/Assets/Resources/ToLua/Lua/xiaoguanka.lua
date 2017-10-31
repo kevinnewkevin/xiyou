@@ -133,6 +133,7 @@ end
 
 function xiaoguanka:OnHide()
 	challengePanel.visible = false;
+	challengeBtn.enabled = true;
 	Window:Hide();
 end
 
@@ -220,7 +221,9 @@ function xiaoguanka_OnChallengeBtn(context)
 		local MessageBox = UIManager.ShowMessageBox();
 		MessageBox:SetData("提示", "体力不够", true);
 	else
+		challengeBtn.enabled = false;
 		Proxy4Lua.ChallengeSmallChapter(smallId);
+		Proxy4Lua.RegHoldUI("main", "daguanka");
 	end
 end
 
