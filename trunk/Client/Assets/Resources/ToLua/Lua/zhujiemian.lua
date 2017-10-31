@@ -72,10 +72,12 @@ function DoSpecialEffect()
 	for  i = 1, cnt do
 		local obj = listGroup:GetChildAt(i-1);
 		local dist = Mathf.Abs(midX - obj.x - obj.width / 2) ;
+		local val = gap / dist;
 		if dist > obj.width then
-			obj:SetScale(1,1);
+			obj:SetScale(1, 1);
 		else
-			obj:SetScale(2, 2);
+			local ss = 1 + (1 - dist / obj.width) * 1;
+			obj:SetScale(ss, ss);
 		end
 	end
 end
