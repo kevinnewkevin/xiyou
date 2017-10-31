@@ -14,7 +14,7 @@ local headIcon;
 
 local stateIcon;
 local stateBar;
-
+local listGroup;
 function zhujiemian:OnEntry()
 	UIManager.RegIDirty("zhujiemian");
 	Define.LaunchUIBundle("icon");
@@ -37,11 +37,7 @@ function zhujiemian:OnInit()
 	local cardCargo = bottomBtnList:GetChildAt(2);
 	cardCargo.onClick:Add(zhujiemian_OnCardCargo);
 
-	local listGroup =  self.contentPane:GetChild("n43");
-	local qiecuoBtn = listGroup:GetChildAt("0");
-	qiecuoBtn.onClick:Add(zhujiemian_OnQieCuoBtn);
-	local jiehunBtn = listGroup:GetChildAt("1");
-	jiehunBtn .onClick:Add(zhujiemian_OnTaskBtn);
+	listGroup =  self.contentPane:GetChild("n43");
 
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
@@ -62,9 +58,31 @@ function zhujiemian:OnInit()
 	gold = moneyGroup:GetChild("n5");
 	chopper = moneyGroup:GetChild("n7");
 	stamaPoint = moneyGroup:GetChild("n12");
-
+	listGroup:SetVirtualAndLoop();
+	listGroup.itemRenderer = zhujiemain_RenderListItem;
+	listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
 	zhujiemian_FlushData();
+	DoSpecialEffect();
 end
+
+
+function DoSpecialEffect()
+	local midX = listGroup.scrollPane.posX + listGroup.viewWidth / 2;
+	local cnt = listGroup.numChildren;
+	for  i = 1, cnt do
+		local obj = listGroup:GetChildAt(i-1);
+		local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
+		if dist > obj.width then
+			--obj:SetScale(1,1);
+			--obj.sortingOrder = 5000;
+		else
+			--local ss = 1 + (1 - dist / obj.width) * 0.2;
+			--obj:SetScale(1.5, 1.5);
+			--obj.sortingOrder = 10000;
+		end
+	end
+end
+
 
 function zhujiemian:GetWindow()
 	return Window;
@@ -106,6 +124,32 @@ function zhujiemian_FlushData()
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
+	listGroup.numItems = 4;
+end
+
+function zhujiemain_RenderListItem(index, obj)
+	obj:SetPivot(0.5, 0.5);
+	local img = obj:GetChild("n5");
+	--img:SetScale(0.5,0.5);
+	if index == 0 then
+		img.url = "ui://zhujiemian/zjm_31";
+
+		obj.onClick:Set(zhujiemian_OnQieCuoBtn);
+	elseif index == 1 then
+		img.url = "ui://zhujiemian/zjm_30";
+		obj.onClick:Set(zhujiemian_OnTaskBtn);
+	elseif index == 2 then
+		img.url = "ui://zhujiemian/zjm_28";
+		obj.onClick:Set(zhujiemian_OnClose);
+	elseif index == 3 then
+		img.url = "ui://zhujiemian/zjm_28";
+		obj.onClick:Set(zhujiemian_OnClose);
+
+	end
+	
+end
+
+function zhujiemian_OnClose()
 end
 
 function zhujiemian_OnFolder()
