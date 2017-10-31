@@ -38,6 +38,8 @@ local getRewardBtn;
 local closeRewardBtn
 local rewardNeedNum;
 local rewardOkBtn;
+local nowCanBattle;
+local oneShow;
 function xiaoguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = xiaoguanka.New();
@@ -103,6 +105,7 @@ function xiaoguanka:OnInit()
     guankaID = UIManager.GetWindow("daguanka").GetGuankaId();
     showNum = 0;
     playerNum = 0;
+    oneShow = false;
 	xiaoguanka_FlushData();
 end
 
@@ -134,6 +137,7 @@ end
 function xiaoguanka:OnHide()
 	challengePanel.visible = false;
 	challengeBtn.enabled = true;
+	oneShow = false; 
 	Window:Hide();
 end
 
@@ -225,6 +229,7 @@ function xiaoguanka_OnChallengeBtn(context)
 		challengeBtn.enabled = false;
 		Proxy4Lua.ChallengeSmallChapter(smallId);
 		Proxy4Lua.RegHoldUI("main", "daguanka");
+		Proxy4Lua.RegHoldUI("main", "xiaoguanka");
 	end
 end
 
@@ -277,19 +282,22 @@ function xiaoguanka_FlushData()
 	if playerNum == len  then
 	 	playerNum  = len  -1;
 	end
-
+	nowCanBattle = 0;
 	local starNum = 0;
 	 for i = 1, len do
   	  if smallChapters[i -1].Star1 == true then
   	  	starNum = starNum +1;
+  	  	nowCanBattle = i -1;
   	  end
 
   	  if smallChapters[i -1].Star2 == true then
   	  	starNum = starNum +1;
+  	  	nowCanBattle = i -1;
   	  end
 
   	  if  smallChapters[i -1].Star3 == true  then    
 		starNum = starNum +1;
+		nowCanBattle = i -1;
 		end
 	end
 	rewardStarNum.text = starNum .. "";
@@ -302,7 +310,12 @@ function xiaoguanka_FlushData()
 	rewardBox1.data = guankaID;
 	rewardBox2.data = guankaID;
 
-    xiaoguanka_UpdataInfo();
+	if oneShow == false then
+		oneShow = true;
+		showNum = nowCanBattle/4*4;
+	end	 
+
+ 	xiaoguanka_UpdataInfo();
     updateReward()
 
 end
