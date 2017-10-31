@@ -33,10 +33,17 @@ public class GuideSystem  {
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect = aim.TransformRect(new Rect(0, 0, aim.width, aim.height), _GuideLayer);
 
+        int plusx = 0;
+        int plusy = 0;
+//        if (aim.pivotX == 0.5f)
+//            plusx = (int)(aim.width / 2);
+//        if (aim.pivotY == 0.5f)
+//            plusy = (int)(aim.height / 2);
+        
         GObject window = _GuideLayer.GetChild("n5");
         window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
 //        window.SetXY((int)rect.position.x, (int)rect.position.y);
-        window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
+        window.TweenMove(new Vector2((int)rect.position.x - plusx, (int)rect.position.y - plusy), 0.5f);
     }
 
     static public void StartGuideInScene(GameObject go, float width, float height)
