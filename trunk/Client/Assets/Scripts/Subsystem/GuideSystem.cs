@@ -5,6 +5,8 @@ public class GuideSystem  {
 
     static GComponent _GuideLayer;
 
+    static ulong _Progress;
+
     static public void Init()
     {
         Define.LaunchUIBundle("xinshouyindao");
@@ -62,11 +64,11 @@ public class GuideSystem  {
 
     static public bool IsNotFinish(int idx)
     {
-        return true;
+        return (_Progress >> idx) % 2 == 0;
     }
 
     static public void SetFinish(int idx)
     {
-        
+        _Progress |= (ulong)1 << idx;
     }
 }
