@@ -71,14 +71,11 @@ function DoSpecialEffect()
 	local cnt = listGroup.numChildren;
 	for  i = 1, cnt do
 		local obj = listGroup:GetChildAt(i-1);
-		local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
+		local dist = Mathf.Abs(midX - obj.x - obj.width / 2) ;
 		if dist > obj.width then
-			--obj:SetScale(1,1);
-			--obj.sortingOrder = 5000;
+			obj:SetScale(1,1);
 		else
-			--local ss = 1 + (1 - dist / obj.width) * 0.2;
-			--obj:SetScale(1.5, 1.5);
-			--obj.sortingOrder = 10000;
+			obj:SetScale(2, 2);
 		end
 	end
 end
@@ -124,13 +121,13 @@ function zhujiemian_FlushData()
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
-	listGroup.numItems = 4;
+	listGroup.numItems = 3;
 end
 
 function zhujiemain_RenderListItem(index, obj)
 	obj:SetPivot(0.5, 0.5);
 	local img = obj:GetChild("n5");
-	--img:SetScale(0.5,0.5);
+	img:SetScale(0.5,0.5);
 	if index == 0 then
 		img.url = "ui://zhujiemian/zjm_31";
 
@@ -144,7 +141,6 @@ function zhujiemain_RenderListItem(index, obj)
 	elseif index == 3 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
-
 	end
 	
 end
