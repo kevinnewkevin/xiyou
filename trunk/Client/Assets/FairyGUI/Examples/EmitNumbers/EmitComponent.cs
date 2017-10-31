@@ -20,6 +20,8 @@ public class EmitComponent : GComponent
     GComponent buffCom;
     GTextField crtTextfield;
 
+    public bool _IsBuff;
+
 	public EmitComponent()
 	{
         gcom = UIPackage.CreateObject("zhandoushuzi", "ziti_com").asCom;
@@ -39,6 +41,7 @@ public class EmitComponent : GComponent
 	{
 		_owner = owner;
 
+        _IsBuff = isBuff;
         if (isBuff == false)
         {
             buffCom.visible = false;
@@ -73,7 +76,7 @@ public class EmitComponent : GComponent
             normCom.visible = false;
         }
 
-        UpdatePosition(Vector2.zero, isBuff);
+        UpdatePosition(new Vector2(0f, EmitManager.inst._BuffCount * buffCom.height));
 		EmitManager.inst.view.AddChild(this);
         new Timer().Start(2f, delegate{
             this.OnCompleted();
@@ -88,9 +91,9 @@ public class EmitComponent : GComponent
 		_symbolLoader.y = (this.height - _symbolLoader.height) / 2;
 	}
 
-    void UpdatePosition(Vector2 pos, bool isBuff)
+    void UpdatePosition(Vector2 pos)
 	{
-        if (isBuff)
+        if (_IsBuff)
         {
             Vector3 ownerPos = _owner.position;
             ownerPos.y += OFFSET_ADDITION_BUFF;

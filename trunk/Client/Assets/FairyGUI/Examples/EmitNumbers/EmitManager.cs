@@ -20,6 +20,8 @@ public class EmitManager
     public string criticalFont;
 	public string specialSign;
 
+    public int _BuffCount;
+
 	public GComponent view { get; private set; }
 
 	private readonly Stack<EmitComponent> _componentPool = new Stack<EmitComponent>();
@@ -30,7 +32,6 @@ public class EmitManager
         recoverFont = "ui://zhandoushuzi/jiaxue";
         criticalFont = "ui://zhandoushuzi/baoji";
         specialSign = "ui://zhandoushuzi/";
-
 		view = new GComponent();
 		GRoot.inst.AddChild(view);
 	}
@@ -43,10 +44,18 @@ public class EmitManager
 		else
 			ec = new EmitComponent();
         ec.SetHurt(owner, hurt, special, isBuff);
+        if (isBuff)
+            _BuffCount++;
 	}
 
 	public void ReturnComponent(EmitComponent com)
 	{
+        if (com._IsBuff)
+        {
+            _BuffCount--;
+            if (_BuffCount < 0)
+                _BuffCount = 0;
+        }
 		_componentPool.Push(com);
 	}
 }
