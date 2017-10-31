@@ -654,7 +654,7 @@ public class Battle {
                 win.Call("NormalCard");
         }
 
-        GuideSystem.SpecialEvt("switchpoint", on);
+        GuideSystem.SpecialEvt("battle_switchpoint", on);
     }
 
     static public Transform GetPoint(int idx)
