@@ -206,7 +206,7 @@ end
 
 function xiaoguanka_OnfunbenThree(context)
 	smallId = context.sender.data;
-	local data = CheckpointData.GetSmallData(guankaID,smallId);
+	local data = CheckpointData.GetSmallData(guankaID,smallId); 
 	needPowerLab.text =  data._Main .. "";
     challengePanel.visible = true;
     challengePanel:SetXY(fuben2.x,fuben2.y + 365);

@@ -74,9 +74,13 @@ function DoSpecialEffect()
 		local dist = Mathf.Abs(midX - obj.x - obj.width / 2) ;
 		if dist > obj.width then
 			obj:SetScale(1, 1);
+			local colorObj = obj:GetChild("n5");
+			colorObj.color = Color.gray;
 		else
 			local ss = 1 + (1 - dist / obj.width) * 1;
 			obj:SetScale(ss, ss);
+			local colorObj = obj:GetChild("n5");
+			colorObj.color = Color.white;
 		end
 	end
 end
