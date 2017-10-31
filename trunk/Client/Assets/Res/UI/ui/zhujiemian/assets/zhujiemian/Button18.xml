@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="864,826" extention="Button">
+<component size="468,780" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n5_hq2o" name="n5" xy="-30,-41" size="920,897" align="center" vAlign="middle"/>
+    <loader id="n5_hq2o" name="n5" xy="4,171" size="920,897" scale="0.5,0.5" url="ui://s1sxt36u10fre25"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="0.95"/>
+  <Button/>
 </component>
