@@ -100,4 +100,14 @@ public class GuideSystem  {
     {
         _Progress |= (ulong)1 << idx;
     }
+
+    static public void SetProgress(ulong progress)
+    {
+        _Progress = progress;
+    }
+
+    static public void SyncProgress()
+    {
+        
+    }
 }
