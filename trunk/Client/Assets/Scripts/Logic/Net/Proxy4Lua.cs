@@ -536,11 +536,13 @@ public class Proxy4Lua {
     }
 
     static public Dictionary<string, List<string>> _SceneUI = new Dictionary<string, List<string>>();
-    static public void RegHoldUI(string sceneName, string[] ui)
+    static public void RegHoldUI(string sceneName, string ui)
     {
         if (!_SceneUI.ContainsKey(sceneName))
             _SceneUI.Add(sceneName, new List<string>());
-        _SceneUI [sceneName].AddRange(ui);
+
+		if(!_SceneUI [sceneName].Contains(ui))
+			_SceneUI [sceneName].Add(ui);
     }
 
     static public void ClearHoldUI(string sceneName)
