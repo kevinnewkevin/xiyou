@@ -24,25 +24,25 @@ function WhenUIOpen(uiName, uiWindow)
 			GuideSystem.SetFinish(3);
 		end
 	end
-	--4.	挑战按钮打开事件(SpecialEvent "xiaoguanka_challenge")
-	--指引点击挑战按钮(uiWindow.contentPane:GetChild("n26"):GetChild("n2"))
-	if uiName == "xiaoguanka_challenge" then
-		if GuideSystem.IsNotFinish(4) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n26"):GetChild("n2"));
-			GuideSystem.SetFinish(4);
-		end
-	end
-	
 end
 
 -- 特殊事件调用
 function SpecialEvent(type, param1)
+	--4.	挑战按钮打开事件(SpecialEvent "xiaoguanka_challenge")
+	--指引点击挑战按钮(uiWindow.contentPane:GetChild("n26"):GetChild("n2"))
+	if type == "xiaoguanka_challenge" then
+		if GuideSystem.IsNotFinish(4) then
+			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n26"):GetChild("n2"));
+			GuideSystem.SetFinish(4);
+		end
+	end
+	
 	--5.	进入战斗事件（需要回合数）(SpecialEvent “battle_start”) Battle._Turn
 	--第一回合指引点击第一个主角技能按钮(uiWindow.contentPane:GetChild(“n50”):GetChildAt(0))
 	if type == "battle_start" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(5) then
-				GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n50"):GetChildAt(0));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0));
 				GuideSystem.SetFinish(5);
 			end
 		end
@@ -52,7 +52,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_roleskill" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(6) then
-				GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n16"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"));
 				GuideSystem.SetFinish(6);
 			end
 		end
@@ -62,7 +62,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
-				GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n17"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"));
 				GuideSystem.SetFinish(7);
 			end
 		end
@@ -82,7 +82,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_roleskill" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
-				GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n16"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"));
 				GuideSystem.SetFinish(9);
 			end
 		end
