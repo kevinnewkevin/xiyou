@@ -31,19 +31,19 @@ public class GuideSystem  {
             return;
         
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
-        Rect rect = aim.TransformRect(new Rect(0, 0, aim.width, aim.height), _GuideLayer);
-
-        int plusx = 0;
-        int plusy = 0;
-//        if (aim.pivotX == 0.5f)
-//            plusx = (int)(aim.width / 2);
-//        if (aim.pivotY == 0.5f)
-//            plusy = (int)(aim.height / 2);
+        Rect rect;
+        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
+            rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, aim.width, aim.height), _GuideLayer);
+        else
+            rect = aim.TransformRect(new Rect(0f, 0f, aim.width, aim.height), _GuideLayer);
+//        Rect rect = new Rect(aim.position.x, aim.position.y, aim.width, aim.height);
         
         GObject window = _GuideLayer.GetChild("n5");
+        window.pivotX = 0f;
+        window.pivotY = 0f;
         window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
 //        window.SetXY((int)rect.position.x, (int)rect.position.y);
-        window.TweenMove(new Vector2((int)rect.position.x - plusx, (int)rect.position.y - plusy), 0.5f);
+        window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
     }
 
     static public void StartGuide(GObject aim, float width, float height)
@@ -52,19 +52,20 @@ public class GuideSystem  {
             return;
 
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
-        Rect rect = aim.TransformRect(new Rect(0, 0, width, height), _GuideLayer);
-
-        int plusx = 0;
-        int plusy = 0;
-        //        if (aim.pivotX == 0.5f)
-        //            plusx = (int)(aim.width / 2);
-        //        if (aim.pivotY == 0.5f)
-        //            plusy = (int)(aim.height / 2);
+        GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
+        Rect rect;
+//        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
+//            rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, width, height), _GuideLayer);
+//        else
+        rect = aim.TransformRect(new Rect((aim.width - width) / 2, (aim.height - height) / 2, width, height), _GuideLayer);
+//        
+//        Rect rect = new Rect(aim.x + aim.width / 2, aim.y + aim.height / 2, width, height);
 
         GObject window = _GuideLayer.GetChild("n5");
+        window.pivot = aim.pivot;
         window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
         //        window.SetXY((int)rect.position.x, (int)rect.position.y);
-        window.TweenMove(new Vector2((int)rect.position.x - plusx, (int)rect.position.y - plusy), 0.5f);
+        window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
     }
 
     static public void StartGuideInScene(GameObject go, float width, float height)
