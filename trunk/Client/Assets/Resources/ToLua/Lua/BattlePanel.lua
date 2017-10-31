@@ -503,6 +503,8 @@ function BattlePanel_OnTurnOver()
 	end
 	Battle.SwitchPoint(false);
 	Battle._SelectedHandCardInstID = 0;
+
+	GuideSystem.ClearGuide();
 end
 
 function BattlePanel:NormalCard()
