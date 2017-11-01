@@ -271,10 +271,11 @@ hbv51.xml|2100|<component size="1920,1080" opaque="false">
     <image id="n2" name="bar" src="hbv5a" xy="3,3" size="238,24"/>
   </displayList>
   <ProgressBar/>
-</component>nfe41y.xml|341|<component size="485,927" extention="Button">
+</component>nfe41y.xml|457|<component size="485,927" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <loader id="n5_hq2o" name="n5" xy="245,464" pivot="0.51,0.51" anchor="true" size="905,845" scale="0.5,0.5" url="ui://s1sxt36u10fre25" fill="scale"/>
+    <graph id="n6_pq8w" name="n6" xy="245,464" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
   </displayList>
   <Button/>
 </component>nfe41z.xml|288|<component size="864,826" extention="Button">
