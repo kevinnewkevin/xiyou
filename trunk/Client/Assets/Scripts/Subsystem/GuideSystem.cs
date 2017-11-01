@@ -108,6 +108,6 @@ public class GuideSystem  {
 
     static public void SyncProgress()
     {
-        
+        NetWoking.S.NewPlayerGuide(_Progress);
     }
 }

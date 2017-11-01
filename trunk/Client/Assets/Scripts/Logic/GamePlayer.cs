@@ -80,6 +80,8 @@ public class GamePlayer {
             }
         }
 
+        GuideSystem.SetProgress(player.Guide);
+
         UIManager.SetDirty("zhujiemian");
     }
 
