@@ -65,7 +65,7 @@ type COM_ClientToServer_ResolveItem struct{
   num int32  //1
 }
 type COM_ClientToServer_NewPlayerGuide struct{
-  Step int64  //0
+  Step uint64  //0
 }
 type COM_ClientToServerStub struct{
   Sender StubSender
@@ -91,7 +91,7 @@ type COM_ClientToServerProxy interface{
   BuyShopItem(shopId int32 ) error // 17
   ResolveItem(instId int64, num int32 ) error // 18
   RefreshBlackMarkte() error // 19
-  NewPlayerGuide(Step int64 ) error // 20
+  NewPlayerGuide(Step uint64 ) error // 20
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1240,7 +1240,7 @@ func(this* COM_ClientToServerStub)RefreshBlackMarkte() error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ClientToServerStub)NewPlayerGuide(Step int64 ) error {
+func(this* COM_ClientToServerStub)NewPlayerGuide(Step uint64 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
