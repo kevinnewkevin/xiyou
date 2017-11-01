@@ -132,20 +132,29 @@ end
 function zhujiemain_RenderListItem(index, obj)
 	obj:SetPivot(0.5, 0.5);
 	local img = obj:GetChild("n5");
+	local effect = obj:GetChild("n6");
+	local effRes = "" ;
 	img:SetScale(0.5,0.5);
 	if index == 0 then
 		img.url = "ui://zhujiemian/zjm_31";
-
 		obj.onClick:Set(zhujiemian_OnQieCuoBtn);
+		effRes = "Effect/sunwukong_ui";
+		effect :SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes, false)); 
+		Proxy4Lua.AddToDelete(effRes);
 	elseif index == 1 then
 		img.url = "ui://zhujiemian/zjm_30";
 		obj.onClick:Set(zhujiemian_OnTaskBtn);
+		effRes = "Effect/xihailongwang_ui";
+		effect :SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes, false));
+		Proxy4Lua.AddToDelete(effRes);
 	elseif index == 2 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
+		effect :SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	elseif index == 3 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
+		effect :SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	end
 	
 end
