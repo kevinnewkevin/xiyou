@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="590,288">
+<component size="716,226">
   <displayList>
-    <component id="n8_mgo5" name="n8" src="mgo59" xy="0,86" pivot="0.5,0.5" anchor="true"/>
-    <image id="n10_mgo5" name="n10" src="mgo5f" xy="112,0" size="478,58"/>
-    <image id="n9_mgo5" name="n9" src="mgo5g" xy="134,69" size="117,48"/>
-    <component id="n11_mgo5" name="n11" src="mgo5j" xy="124,131">
+    <component id="n8_mgo5" name="n8" src="mgo59" xy="104,106" pivot="0.5,0.5" anchor="true"/>
+    <image id="n10_mgo5" name="n10" src="mgo5f" xy="216,20" size="478,58"/>
+    <image id="n9_mgo5" name="n9" src="mgo5g" xy="238,89" size="117,48"/>
+    <component id="n11_mgo5" name="n11" src="mgo5j" xy="228,151">
       <ProgressBar value="50" max="100"/>
     </component>
-    <text id="n12_mgo5" name="n12" xy="230,135" size="178,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" align="center" autoSize="none" bold="true" text="20/20">
+    <text id="n12_mgo5" name="n12" xy="334,155" size="178,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" align="center" autoSize="none" bold="true" text="20/20">
       <relation target="n11_mgo5" sidePair="center-center,middle-middle"/>
     </text>
-    <text id="n13_mgo5" name="n13" xy="133,71" size="122,49" font="方正楷体_GBK" fontSize="42" color="#f4d997" align="center" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="等级">
+    <text id="n13_mgo5" name="n13" xy="237,91" size="122,49" font="方正楷体_GBK" fontSize="42" color="#f4d997" align="center" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="等级">
       <relation target="n9_mgo5" sidePair="center-center,middle-middle"/>
     </text>
-    <text id="n14_mgo5" name="n14" xy="258,70" size="119,51" font="方正楷体_GBK" fontSize="42" color="#f4d997" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="8&#xA;">
+    <text id="n14_mgo5" name="n14" xy="362,90" size="119,51" font="方正楷体_GBK" fontSize="42" color="#f4d997" autoSize="none" bold="true" strokeColor="#371f00" strokeSize="2" text="8&#xA;">
       <relation target="n13_mgo5" sidePair="center-center,middle-middle"/>
     </text>
-    <text id="n15_mgo5" name="n15" xy="122,6" size="450,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" autoSize="none" bold="true" strokeColor="#371f00" text="啦啦啦啦啦啦啦啦啦">
+    <text id="n15_mgo5" name="n15" xy="226,26" size="450,49" font="方正楷体_GBK" fontSize="42" color="#ffffff" autoSize="none" bold="true" strokeColor="#371f00" text="啦啦啦啦啦啦啦啦啦">
       <relation target="n10_mgo5" sidePair=""/>
     </text>
   </displayList>
