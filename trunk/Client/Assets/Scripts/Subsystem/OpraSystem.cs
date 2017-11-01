@@ -118,6 +118,10 @@ public class OpraSystem : MonoBehaviour {
     {
         if(_ActorList == null)
             _ActorList = new List<OpraActor>();
+
+        if (GetActor(data._Asset) != null)
+            return;
+
         GameObject obj = AssetLoader.LoadAsset(data._Asset);
         obj.name = obj.name.Remove(obj.name.IndexOf("(Clone)"));
         obj.transform.parent = transform;
@@ -147,8 +151,8 @@ public class OpraSystem : MonoBehaviour {
         AnimHolder aHolder;
         for(int i=0; i < aData._Actors.Length; ++i)
         {
-            actor = GetActor(aData._Actors[i]);
-            acData = ActorData.GetData(actor._Data._Id);
+            acData = ActorData.GetData(aData._Actors[i]);
+            actor = GetActor(acData._Asset);
             for(int j=0; j < acData._Actions.Length; ++j)
             {
                 aHolder = actor._Go.GetComponent<AnimHolder>();
@@ -159,11 +163,11 @@ public class OpraSystem : MonoBehaviour {
         }
     }
 
-    OpraActor GetActor(int id)
+    OpraActor GetActor(string asset)
     {
         for(int i=0; i < _ActorList.Count; ++i)
         {
-            if (_ActorList [i]._Data._Id == id)
+            if (_ActorList [i]._Data._Asset.Equals(asset))
                 return _ActorList [i];
         }
         return null;
