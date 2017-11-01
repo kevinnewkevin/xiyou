@@ -64,6 +64,9 @@ type COM_ClientToServer_ResolveItem struct{
   instId int64  //0
   num int32  //1
 }
+type COM_ClientToServer_NewPlayerGuide struct{
+  Step int64  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -88,6 +91,7 @@ type COM_ClientToServerProxy interface{
   BuyShopItem(shopId int32 ) error // 17
   ResolveItem(instId int64, num int32 ) error // 18
   RefreshBlackMarkte() error // 19
+  NewPlayerGuide(Step int64 ) error // 20
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -868,6 +872,42 @@ func (this *COM_ClientToServer_ResolveItem)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_NewPlayerGuide)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.Step!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize Step
+  {
+    if(this.Step!=0){
+      err := write(buffer,this.Step)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_NewPlayerGuide)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize Step
+  if mask.readBit() {
+    err := read(buffer,&this.Step)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1200,6 +1240,23 @@ func(this* COM_ClientToServerStub)RefreshBlackMarkte() error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)NewPlayerGuide(Step int64 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(20))
+  if err != nil{
+    return err
+  }
+  _20 := COM_ClientToServer_NewPlayerGuide{}
+  _20.Step = Step;
+  err = _20.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1465,6 +1522,20 @@ func Bridging_COM_ClientToServer_RefreshBlackMarkte(buffer *bytes.Buffer, p COM_
   }
   return p.RefreshBlackMarkte()
 }
+func Bridging_COM_ClientToServer_NewPlayerGuide(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _20 := COM_ClientToServer_NewPlayerGuide{}
+  err := _20.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.NewPlayerGuide(_20.Step)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -1518,6 +1589,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_ResolveItem(buffer,p);
     case 19 :
       return Bridging_COM_ClientToServer_RefreshBlackMarkte(buffer,p);
+    case 20 :
+      return Bridging_COM_ClientToServer_NewPlayerGuide(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

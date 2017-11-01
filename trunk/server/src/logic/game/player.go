@@ -53,6 +53,9 @@ type GamePlayer struct {
 
 	//状态标记 时间戳
 	LockTime	int64
+
+	//新手引導步驟
+	Guide		int64
 }
 
 var (
@@ -157,6 +160,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.MyUnit.InstName = name
 	p.MyUnit.IsMain = true
 	p.Exp = 0
+	p.Guide = 0
 
 	log.Println("createplayer ", DefaultUnits)
 	for _, e_id := range DefaultUnits {
@@ -220,6 +224,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 		this.UnitGroup = append(this.UnitGroup, &p.UnitGroup[i])
 	}
 	this.TianTiVal = p.TianTiVal
+	this.Guide = p.Guide
 
 	this.SkillBase = map[int32]int32{}
 	for _, skb := range p.SkillBase {
@@ -244,6 +249,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 		p.UnitGroup = append(p.UnitGroup, *ug)
 	}
 	p.TianTiVal = this.TianTiVal
+	p.Guide = this.Guide
 
 	for index, skillid := range this.SkillBase {
 		skillbase := prpc.COM_SkillBase{}
@@ -1422,6 +1428,22 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 		}
 	}
 	return false
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//新手引導
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer) NewPlayerGuide(Step int64) {
+	this.Guide = Step
+
+	return
+}
+
+func (this *GamePlayer) NewPlayerGuide_SetOver() {
+	this.Guide = 9999999
+
+	return
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

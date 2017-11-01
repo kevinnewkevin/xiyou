@@ -21,6 +21,7 @@ service COM_ClientToServer{
 	BuyShopItem(int32 shopId);
 	ResolveItem(int64 instId,int32 num);
 	RefreshBlackMarkte();
+	NewPlayerGuide(int64 Step);
 };
 
 service COM_ServerToClient{

@@ -13,7 +13,8 @@ type COM_Player struct{
   Chapters []COM_Chapter  //4
   UnitGroup []COM_UnitGroup  //5
   TianTiVal int32  //6
-  SkillBase []COM_SkillBase  //7
+  Guide int64  //7
+  SkillBase []COM_SkillBase  //8
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -85,6 +86,16 @@ func (this *COM_Player)GetTianTiVal() int32 {
   defer this.Unlock()
   return this.TianTiVal
 }
+func (this *COM_Player)SetGuide(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.Guide = value
+}
+func (this *COM_Player)GetGuide() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.Guide
+}
 func (this *COM_Player)SetSkillBase(value []COM_SkillBase) {
   this.Lock()
   defer this.Unlock()
@@ -99,7 +110,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := newMask1(1)
+  mask := newMask1(2)
   mask.writeBit(this.InstId!=0)
   mask.writeBit(len(this.Name) != 0)
   mask.writeBit(true) //Unit
@@ -107,6 +118,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.Chapters) != 0)
   mask.writeBit(len(this.UnitGroup) != 0)
   mask.writeBit(this.TianTiVal!=0)
+  mask.writeBit(this.Guide!=0)
   mask.writeBit(len(this.SkillBase) != 0)
   {
     err := write(buffer,mask.bytes())
@@ -191,6 +203,15 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize Guide
+  {
+    if(this.Guide!=0){
+      err := write(buffer,this.Guide)
+      if err != nil{
+        return err
+      }
+    }
+  }
   // serialize SkillBase
   if len(this.SkillBase) != 0{
     {
@@ -212,7 +233,7 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= newMask0(buffer,1);
+  mask, err:= newMask0(buffer,2);
   if err != nil{
     return err
   }
@@ -285,6 +306,13 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize TianTiVal
   if mask.readBit() {
     err := read(buffer,&this.TianTiVal)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize Guide
+  if mask.readBit() {
+    err := read(buffer,&this.Guide)
     if err != nil{
       return err
     }
