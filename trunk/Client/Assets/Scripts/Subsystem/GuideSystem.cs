@@ -99,6 +99,7 @@ public class GuideSystem  {
     static public void SetFinish(int idx)
     {
         _Progress |= (ulong)1 << idx;
+        SyncProgress();
     }
 
     static public void SetProgress(ulong progress)
