@@ -13,7 +13,7 @@ type COM_Player struct{
   Chapters []COM_Chapter  //4
   UnitGroup []COM_UnitGroup  //5
   TianTiVal int32  //6
-  Guide int64  //7
+  Guide uint64  //7
   SkillBase []COM_SkillBase  //8
 }
 func (this *COM_Player)SetInstId(value int64) {
@@ -86,12 +86,12 @@ func (this *COM_Player)GetTianTiVal() int32 {
   defer this.Unlock()
   return this.TianTiVal
 }
-func (this *COM_Player)SetGuide(value int64) {
+func (this *COM_Player)SetGuide(value uint64) {
   this.Lock()
   defer this.Unlock()
   this.Guide = value
 }
-func (this *COM_Player)GetGuide() int64 {
+func (this *COM_Player)GetGuide() uint64 {
   this.Lock()
   defer this.Unlock()
   return this.Guide
