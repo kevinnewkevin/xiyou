@@ -36,6 +36,9 @@ public class Define {
             AssetBundle descBundle = AssetLoader.LoadAssetBundle(path);
             path = string.Format("{0}{1}_res", PathDefine.UI_ASSET_PATH, uiName);
             AssetBundle resBundle = AssetLoader.LoadAssetBundle(path);
+            if(descBundle == null || resBundle == null)
+                return;
+        
             FairyGUI.UIPackage.AddPackage(descBundle, resBundle);
         #endif
     }

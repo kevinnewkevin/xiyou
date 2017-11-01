@@ -145,6 +145,7 @@ public class Battle {
                     }
                     else
                     {
+                        LoadOrigin();
                         UIManager.Show("BattlePanel");
                     }
                 }
@@ -330,6 +331,11 @@ public class Battle {
         if (!_IsStagePointInitSuc)
             return false;
 
+        return _IsStagePointInitSuc && _BattleCamera != null && op != null && _BattleTouch != null;
+    }
+
+    static public void LoadOrigin()
+    {
         // 加载角色资源
         if (_OriginUnits != null && _OriginUnits.Length > 0)
         {
@@ -354,8 +360,6 @@ public class Battle {
             }
             _OriginUnits = null;
         }
-
-        return _IsStagePointInitSuc && _BattleCamera != null && op != null && _BattleTouch != null;
     }
 
     static int ConvertedPos(int pos)
