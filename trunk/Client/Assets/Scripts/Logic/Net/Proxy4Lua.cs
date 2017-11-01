@@ -138,6 +138,18 @@ public class Proxy4Lua {
         return Battle._SelectedHandCardInstID == Battle._HandCards [idx].InstId;
     }
 
+    static public FairyGUI.GoWrapper GetEffectAssetGameObject(string assetPath)
+    {
+        if (string.IsNullOrEmpty(assetPath))
+            return new FairyGUI.GoWrapper(new GameObject());
+        GameObject go = AssetLoader.LoadAsset(assetPath);
+        go.transform.position = new Vector3(0f, 0f, 1500f);
+        go.transform.localScale = Vector3.one;
+        go.SetActive(false);
+        go.SetActive(true);
+        return new FairyGUI.GoWrapper(go);
+    }
+
     static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, bool canRot = false)
     {
         if (string.IsNullOrEmpty(assetPath))
