@@ -1,5 +1,6 @@
 sys.log("load main lua")
 sys.DefineCards("3,8,9,11,12,16,17,19,22,23")
+sys.DefineBattleCard(3)
 
 sys.loadfile("common.lua")
 sys.loadfile("test.lua")

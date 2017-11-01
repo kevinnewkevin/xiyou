@@ -61,6 +61,7 @@ type GamePlayer struct {
 var (
 	PlayerStore  []*GamePlayer = []*GamePlayer{}
 	DefaultUnits []int32
+	DefaultBattleUnit int32
 )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,6 +133,12 @@ func SetDefaultUnits(cards string) {
 	}
 }
 
+func SetDefaultBattleUnit(card int32) {
+	DefaultBattleUnit = card
+
+	log.Info("SetDefaultBattleUnit, ", DefaultBattleUnit)
+}
+
 func PlayerTick(dt float64) {
 	for _, p := range PlayerStore {
 		if p == nil {
@@ -162,14 +169,17 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.Exp = 0
 	p.Guide = 0
 
+	p.InitUnitGroup()
 	log.Println("createplayer ", DefaultUnits)
 	for _, e_id := range DefaultUnits {
-		p.NewGameUnit(e_id)
+		u := p.NewGameUnit(e_id)
+		if e_id == DefaultBattleUnit {
+			p.SetBattleUnitGroup(u.InstId, 1, true)
+		}
 	}
 	//p.DefaultUnitGroup = 1
 	p.TianTiVal = 0
 	PlayerStore = append(PlayerStore, &p)
-	p.InitUnitGroup()
 
 	for _, u := range p.UnitList {
 		log.Info("Myself Unit InstId %d InstName %s", u.InstId, u.InstName)

@@ -111,12 +111,13 @@ func __luaFatal(L *lua.LState) int {
 }
 
 var sysMod = map[string]lua.LGFunction{
-	"log":         __luaLog,
-	"err":         __luaError,
-	"fatal":       __luaFatal,
-	"loadfile":    __loadfile,
-	"DefineCards": __DefineCards,
-	"GetTime":     __GetTime,
+	"log":         			__luaLog,
+	"err":         			__luaError,
+	"fatal":       			__luaFatal,
+	"loadfile":    			__loadfile,
+	"DefineCards": 			__DefineCards,
+	"DefineBattleCard": 	__DefineBattleCard,
+	"GetTime":     			__GetTime,
 }
 
 var playerMod = map[string]lua.LGFunction{
@@ -348,6 +349,18 @@ func __DefineCards(L *lua.LState) int {
 
 	cards := L.ToString(idx)
 	SetDefaultUnits(cards)
+
+	//log.Info("__GetStrings")`
+
+	return 0
+}
+
+func __DefineBattleCard(L *lua.LState) int {
+
+	idx := 1
+
+	card := L.ToInt(idx)
+	SetDefaultBattleUnit(int32(card))
 
 	//log.Info("__GetStrings")`
 
