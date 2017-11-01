@@ -249,7 +249,7 @@ func (this *Session)RefreshBlackMarkte() error {
 	return nil
 }
 
-func (this *Session)NewPlayerGuide(Step int64) error {
+func (this *Session)NewPlayerGuide(Step uint64) error {
 	if this.player == nil {
 		return nil
 	}

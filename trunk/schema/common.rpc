@@ -67,7 +67,7 @@ struct COM_Player{
 	COM_Chapter[]		Chapters;
 	COM_UnitGroup[]		UnitGroup;
 	int32				TianTiVal;
-	int64				Guide;
+	uint64				Guide;
 	COM_SkillBase[]		SkillBase;
 };
 

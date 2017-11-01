@@ -55,7 +55,7 @@ type GamePlayer struct {
 	LockTime	int64
 
 	//新手引導步驟
-	Guide		int64
+	Guide		uint64
 }
 
 var (
@@ -1434,7 +1434,7 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 //新手引導
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (this *GamePlayer) NewPlayerGuide(Step int64) {
+func (this *GamePlayer) NewPlayerGuide(Step uint64) {
 	this.Guide = Step
 
 	return
