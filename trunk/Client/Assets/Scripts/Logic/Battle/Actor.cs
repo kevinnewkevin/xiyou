@@ -45,6 +45,9 @@ public class Actor {
     // 身上持有的buff列表
     List<int> _BuffList;
 
+    // 身上持有的buff堆叠列表
+    Dictionary<int, int> _BuffCount;
+
     // 身上持有的任务列表
     List<int> _QuestList;
 
@@ -307,9 +310,19 @@ public class Actor {
     {
         if (_BuffList == null)
             _BuffList = new List<int>();
+
+        if (_BuffCount == null)
+            _BuffCount = new Dictionary<int, int>();
 //
-//        if (!_BuffList.Contains(buffid) /* || 可叠加 读表 */)
+        if (!_BuffList.Contains(buffid))
+        {
             _BuffList.Add(buffid);
+            _BuffCount.Add(buffid, 1);
+        }
+        else
+        {
+            _BuffCount [buffid] = _BuffCount [buffid] + 1;
+        }
 
         BuffData bd = BuffData.GetData(buffid);
         if(bd != null)
@@ -322,10 +335,17 @@ public class Actor {
         if (_BuffList == null)
             return;
 
-        if (_BuffList.Contains(buffid))
-            _BuffList.Remove(buffid);
-
-        _Headbar._IsDirty = true;
+        if (_BuffCount.ContainsKey(buffid))
+        {
+            _BuffCount [buffid] = _BuffCount [buffid] - 1;
+            if (_BuffCount [buffid] <= 0)
+            {
+                if (_BuffList.Contains(buffid))
+                    _BuffList.Remove(buffid);
+                _BuffCount.Remove(buffid);
+            }
+            _Headbar._IsDirty = true;
+        }
     }
 
     public bool HasQuest
