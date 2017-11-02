@@ -137,7 +137,11 @@ end
 function xiaoguanka:OnHide()
 	challengePanel.visible = false;
 	challengeBtn.enabled = true;
+	showNum = 0;
+    playerNum = 0;
 	oneShow = false; 
+	rightBtn.visible = true;
+ 	leftBtn.visible = true;
 	Proxy4Lua.ClearToDeleteAsset("xiaoguanka");
 	Window:Hide();
 end
