@@ -88,7 +88,7 @@ function DoSpecialEffect()
 				local mode = obj:GetChild("n8");
 				local modelRes = displayData._AssetPath;
 				mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
-				Proxy4Lua.AddToDelete(modelRes);
+				Proxy4Lua.AddToDelete("daguanka",modelRes);
 				infoPanel.visible  = true;
 				infoName.text = data.Name_;
 				infoDesc.text = data.Desc_;
@@ -219,7 +219,7 @@ end
 
 function daguanka:OnHide()
 	--infoPanel.visible  = false;
-	Proxy4Lua.ClearToDeleteAsset();
+	Proxy4Lua.ClearToDeleteAsset("daguanka");
 	Window:Hide();
 end
 

@@ -113,7 +113,7 @@ function zhujiemian:OnDispose()
 end
 
 function zhujiemian:OnHide()
-	Proxy4Lua.ClearToDeleteAsset();
+	Proxy4Lua.ClearToDeleteAsset("zhujiemian");
 	Window:Hide();
 end
 
@@ -145,13 +145,13 @@ function zhujiemain_RenderListItem(index, obj)
 		obj.onClick:Set(zhujiemian_OnQieCuoBtn);
 		effRes = "Effect/sunwukong_ui";
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(effRes)); 
-		Proxy4Lua.AddToDelete(effRes);
+		Proxy4Lua.AddToDelete("zhujiemian",effRes);
 	elseif index == 1 then
 		img.url = "ui://zhujiemian/zjm_30";
 		obj.onClick:Set(zhujiemian_OnTaskBtn);
 		effRes = "Effect/xihailongwang_ui";
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(effRes));
-		Proxy4Lua.AddToDelete(effRes);
+		Proxy4Lua.AddToDelete("zhujiemian",effRes);
 	elseif index == 2 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
