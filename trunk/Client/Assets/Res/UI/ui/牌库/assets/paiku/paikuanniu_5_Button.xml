@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="120,64" extention="Button">
-  <controller name="button" pages="0,up,1,down" selected="1"/>
+<component size="132,70" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="qu1s11" xy="-5,-5" size="131,75">
+    <image id="n6_bx2q" name="n6" src="bx2q2g" xy="0,0">
       <gearDisplay controller="button" pages="1"/>
-      <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n4_f15l" name="n4" src="f15l27" xy="-5,-5">
+    <image id="n7_bx2q" name="n7" src="bx2q2h" xy="0,0">
       <gearDisplay controller="button" pages="0"/>
     </image>
-    <text id="n3_qu1s" name="n3" xy="-6,8" size="122,55" font="方正楷体_GBK" fontSize="42" color="#511d1a" align="center" vAlign="middle" autoSize="none" bold="true" text=" 辅助">
-      <gearDisplay controller="button" pages="1"/>
-      <gearColor controller="button" pages="1" values="#511d1a,#000000" default="#511d1a,#000000" tween="true"/>
-    </text>
-    <text id="n5_f15l" name="n5" xy="-6,7" size="122,55" font="方正楷体_GBK" fontSize="42" color="#4a2603" align="center" vAlign="middle" autoSize="none" bold="true" text=" 辅助">
-      <gearDisplay controller="button" pages="0"/>
-      <gearColor controller="button" pages="0,1" values="#333333,#000000|#4a2603,#000000" tween="true"/>
-    </text>
   </displayList>
   <Button mode="Radio"/>
 </component>

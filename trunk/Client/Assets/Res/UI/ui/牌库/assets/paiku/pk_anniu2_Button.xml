@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="130,145" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+<component size="140,195" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <controller name="icon" pages="0,,1," selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="rvp5i" xy="-2,1">
-      <gearDisplay controller="button" pages="0,2"/>
-      <relation target="" sidePair="width-width,height-height"/>
+    <image id="n5_bx2q" name="n5" src="bx2q2m" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
     </image>
-    <image id="n2" name="n2" src="rvp5j" xy="0,0">
-      <gearDisplay controller="button" pages="1,3"/>
-      <relation target="" sidePair="width-width,height-height"/>
+    <image id="n7_bx2q" name="n7" src="bx2q2p" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
     </image>
-    <text id="n4_o31m" name="n4" xy="34,29" size="56,87" font="ui://y2r47n1inlec1v" fontSize="68" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="3" text="2&#xA;"/>
   </displayList>
   <Button mode="Radio"/>
 </component>
