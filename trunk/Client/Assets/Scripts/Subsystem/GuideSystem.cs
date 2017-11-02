@@ -5,7 +5,15 @@ public class GuideSystem  {
 
     static GComponent _GuideLayer;
 
+    static GObject _ContentLayer;
+
+    static GObject _ContentBg;
+
+    static GTextField _TextField;
+
     static ulong _Progress;
+
+    static string _SpecialEvt = "";
 
     static public void Init()
     {
@@ -13,6 +21,10 @@ public class GuideSystem  {
         _GuideLayer = UIPackage.CreateObject("xinshouyindao", "xinshouyindao_com").asCom;
         _GuideLayer.SetSize(GRoot.inst.width, GRoot.inst.height);
         _GuideLayer.AddRelation(GRoot.inst, RelationType.Size);
+
+        _ContentLayer = _GuideLayer.GetChild("n8");
+        _ContentBg = _GuideLayer.GetChild("n6");
+        _TextField = _GuideLayer.GetChild("n7").asTextField;
     }
 
     static public void OpenUI(string ui, Window win)
@@ -25,7 +37,7 @@ public class GuideSystem  {
         LuaManager.Call("guide.lua", "SpecialEvent", type, par);
     }
 
-    static public void StartGuide(GObject aim)
+    static public void StartGuide(GObject aim, string content = "")
     {
         if (aim == null)
             return;
@@ -36,7 +48,6 @@ public class GuideSystem  {
             rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, aim.width, aim.height), _GuideLayer);
         else
             rect = aim.TransformRect(new Rect(0f, 0f, aim.width, aim.height), _GuideLayer);
-//        Rect rect = new Rect(aim.position.x, aim.position.y, aim.width, aim.height);
         
         GObject window = _GuideLayer.GetChild("n5");
         window.pivotX = 0f;
@@ -44,31 +55,29 @@ public class GuideSystem  {
         window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
 //        window.SetXY((int)rect.position.x, (int)rect.position.y);
         window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
+
+        TypeEffectContent(content);
     }
 
-    static public void StartGuide(GObject aim, float width, float height)
+    static public void StartGuide(GObject aim, float width, float height, string content = "")
     {
         if (aim == null)
             return;
 
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
-        GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect;
-//        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
-//            rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, width, height), _GuideLayer);
-//        else
         rect = aim.TransformRect(new Rect((aim.width - width) / 2, (aim.height - height) / 2, width, height), _GuideLayer);
-//        
-//        Rect rect = new Rect(aim.x + aim.width / 2, aim.y + aim.height / 2, width, height);
 
         GObject window = _GuideLayer.GetChild("n5");
         window.pivot = aim.pivot;
         window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
         //        window.SetXY((int)rect.position.x, (int)rect.position.y);
         window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
+
+        TypeEffectContent(content);
     }
 
-    static public void StartGuideInScene(GameObject go, float width, float height)
+    static public void StartGuideInScene(GameObject go, float width, float height, string content = "")
     {
         if (go == null)
             return;
@@ -84,6 +93,65 @@ public class GuideSystem  {
         window.size = new Vector2((int)width, (int)height);
         //        window.SetXY((int)rect.position.x, (int)rect.position.y);
         window.TweenMove(new Vector2((int)pt.x - width / 2, (int)pt.y - height / 2), 0.5f);
+
+        TypeEffectContent(content);
+    }
+
+    static public void StartGuide(GObject aim, string content, string specialevt)
+    {
+        if (aim == null)
+            return;
+
+        GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
+        Rect rect;
+        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
+            rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, aim.width, aim.height), _GuideLayer);
+        else
+            rect = aim.TransformRect(new Rect(0f, 0f, aim.width, aim.height), _GuideLayer);
+
+        GObject window = _GuideLayer.GetChild("n5");
+        window.pivotX = 0f;
+        window.pivotY = 0f;
+        window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
+        //        window.SetXY((int)rect.position.x, (int)rect.position.y);
+        window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
+
+        TypeEffectContent(content);
+        _SpecialEvt = specialevt;
+        Stage.inst.onTouchEnd.Add(OnTouchEnd);
+    }
+
+    static void TypeEffectContent(string content)
+    {
+        if (string.IsNullOrEmpty(content))
+        {
+            _ContentLayer.visible = false;
+            _ContentBg.visible = false;
+            _TextField.visible = false;
+            return;
+        }
+
+        _ContentLayer.visible = true;
+        _ContentBg.visible = true;
+        _TextField.visible = true;
+        TypingEffect te = new TypingEffect(_TextField);
+        _TextField.text = content;
+        te.Start();
+        te.PrintAll(0.05f);
+
+        new Timer().Start(content.Length * 0.05f, delegate
+        {
+            _ContentLayer.visible = false;
+        });
+    }
+
+    static void OnTouchEnd()
+    {
+        ClearGuide();
+        if(!string.IsNullOrEmpty(_SpecialEvt))
+            SpecialEvt(_SpecialEvt);
+        _SpecialEvt = "";
+        Stage.inst.onTouchEnd.Remove(OnTouchEnd);
     }
 
     static public void ClearGuide()
