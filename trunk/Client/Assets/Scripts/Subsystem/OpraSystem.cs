@@ -180,12 +180,16 @@ public class OpraSystem : MonoBehaviour {
         if (_CrtScreen != null)
             UnloadClip(_CrtScreen._Data);
         _CrtScreen = null;
-        for (int i = 0; i < _ActorList.Count; ++i)
-        {
-            UnloadAsset(_ActorList [i]._Data);
-            GameObject.Destroy(_ActorList[i]._Go);
-        }
-        _ActorList.Clear();
+		if(_ActorList != null)
+		{
+			for (int i = 0; i < _ActorList.Count; ++i)
+			{
+				UnloadAsset(_ActorList [i]._Data);
+				GameObject.Destroy(_ActorList[i]._Go);
+			}
+			_ActorList.Clear();
+		}
+        
         CameraEffect.Fade(delegate {
             Battle.LoadOrigin();
             UIManager.Show("BattlePanel");
