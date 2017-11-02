@@ -4,7 +4,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--1.进入主界面事件(WhenUIOpen "zhujiemian")指引点击解魂模式(uiWindow.contentPane:GetChild("n43"):GetChildAt(1))
 	if uiName == "zhujiemian" then
 		if GuideSystem.IsNotFinish(1) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1), 300, 300,"解魂吧，少年");
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1), 300, 300,"欢迎来到小西游，请进入你的解魂世界！",1300,0);
 			GuideSystem.SetFinish(1);
 		end
 	end
@@ -12,7 +12,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--指引点击解魂按钮(uiWindow.contentPane:GetChild("n4"):GetChild("n3"))
 	if uiName == "daguanka" then
 		if GuideSystem.IsNotFinish(2) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"选择一关");
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,559);
 			GuideSystem.SetFinish(2);
 		end
 	end
@@ -20,7 +20,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--指引点击第一小关(uiWindow.contentPane:GetChild("n22"))
 	if uiName == "xiaoguanka" then
 		if GuideSystem.IsNotFinish(3) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n22"),"");
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n22"),"从第一关开始吧！",689,214);
 			GuideSystem.SetFinish(3);
 		end
 	end
@@ -32,7 +32,7 @@ function SpecialEvent(type, param1)
 	--指引点击挑战按钮(uiWindow.contentPane:GetChild("n26"):GetChild("n2"))
 	if type == "xiaoguanka_challenge" then
 		if GuideSystem.IsNotFinish(4) then
-			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n26"):GetChild("n2"),"");
+			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n26"):GetChild("n2"),"让我看看你的实力，挑战！",631,460);
 			GuideSystem.SetFinish(4);
 		end
 	end
@@ -42,7 +42,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(5) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n37"):GetChild("n1"),"","dianji1");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n37"):GetChild("n1"),"每回合你会获得一个魂！","dianji1",1375,525);
 				--GuideSystem.SetFinish(5);
 			end
 		end
@@ -50,7 +50,7 @@ function SpecialEvent(type, param1)
 	if type == "dianji1" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(5) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0),"");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0),"消耗魂可以释放主角技能！",322,329);
 				GuideSystem.SetFinish(5);
 			end
 		end
@@ -62,7 +62,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_roleskill" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(6) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
 				GuideSystem.SetFinish(6);
 			end
 		end
@@ -72,7 +72,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n38"):GetChild("n1"),"","dianji2");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n38"):GetChild("n1"),"第二回合，又增加了一个魂！","dianji2",1375,525);
 				--GuideSystem.SetFinish(5);
 			end
 		end
@@ -80,7 +80,7 @@ function SpecialEvent(type, param1)
 	if type == "dianji2" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"消耗2个魂可以上阵这张卡牌！每张卡牌消耗的魂显示在卡牌右下角！",492,552);
 				GuideSystem.SetFinish(7);
 			end
 		end
@@ -90,7 +90,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_selectcard" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(8) then
-				GuideSystem.StartGuideInScene(Battle.GetPoint(1).gameObject,300,300,"");
+				GuideSystem.StartGuideInScene(Battle.GetPoint(1).gameObject,300,300,"选择卡牌上场的位置！",984,247);
 				GuideSystem.SetFinish(8);
 			end
 		end
@@ -101,7 +101,7 @@ function SpecialEvent(type, param1)
 	print("battle_cardonbattle" .. Battle._Turn);
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
 				GuideSystem.SetFinish(9);
 			end
 		end
