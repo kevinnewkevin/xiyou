@@ -1909,7 +1909,19 @@ func (this *BattleRoom) isDeadOwner (casterid int64, target int64) {
 	}
 
 	caster := this.SelectOneUnit(casterid)
-	this.Winner = caster.Camp
+
+	if casterid == target {
+		if caster.Camp == prpc.CT_RED {
+			this.Winner = prpc.CT_BLUE
+		} else if caster.Camp == prpc.CT_BLUE {
+			this.Winner = prpc.CT_RED
+		} else {
+			this.Winner = prpc.CT_MAX
+		}
+	} else {
+		this.Winner = caster.Camp
+	}
+
 }
 
 ////////////////////////////////////////////////////////////////////////
