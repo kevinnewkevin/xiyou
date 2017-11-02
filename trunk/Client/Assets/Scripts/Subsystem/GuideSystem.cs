@@ -5,9 +5,9 @@ public class GuideSystem  {
 
     static GComponent _GuideLayer;
 
-    static GObject _ContentLayer;
+    static GComponent _ContentCom;
 
-    static GObject _ContentBg;
+//    static GObject _ContentLayer;
 
     static GTextField _TextField;
 
@@ -22,9 +22,9 @@ public class GuideSystem  {
         _GuideLayer.SetSize(GRoot.inst.width, GRoot.inst.height);
         _GuideLayer.AddRelation(GRoot.inst, RelationType.Size);
 
-        _ContentLayer = _GuideLayer.GetChild("n8");
-        _ContentBg = _GuideLayer.GetChild("n6");
-        _TextField = _GuideLayer.GetChild("n7").asTextField;
+//        _ContentLayer = _GuideLayer.GetChild("n8");
+        _ContentCom = _GuideLayer.GetChild("n6").asCom;
+        _TextField = _ContentCom.GetChild("n7").asTextField;
     }
 
     static public void OpenUI(string ui, Window win)
@@ -37,11 +37,12 @@ public class GuideSystem  {
         LuaManager.Call("guide.lua", "SpecialEvent", type, par);
     }
 
-    static public void StartGuide(GObject aim, string content = "")
+    static public void StartGuide(GObject aim, string content, float dialogx, float dialogy)
     {
         if (aim == null)
             return;
-        
+
+        SetDialogXY(dialogx, dialogy);
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect;
         if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
@@ -59,11 +60,12 @@ public class GuideSystem  {
         TypeEffectContent(content);
     }
 
-    static public void StartGuide(GObject aim, float width, float height, string content = "")
+    static public void StartGuide(GObject aim, float width, float height, string content, float dialogx, float dialogy)
     {
         if (aim == null)
             return;
 
+        SetDialogXY(dialogx, dialogy);
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect;
         rect = aim.TransformRect(new Rect((aim.width - width) / 2, (aim.height - height) / 2, width, height), _GuideLayer);
@@ -77,11 +79,12 @@ public class GuideSystem  {
         TypeEffectContent(content);
     }
 
-    static public void StartGuideInScene(GameObject go, float width, float height, string content = "")
+    static public void StartGuideInScene(GameObject go, float width, float height, string content, float dialogx, float dialogy)
     {
         if (go == null)
             return;
-        
+
+        SetDialogXY(dialogx, dialogy);
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
 
         Vector3 ownerPos = go.transform.position;
@@ -97,11 +100,12 @@ public class GuideSystem  {
         TypeEffectContent(content);
     }
 
-    static public void StartGuide(GObject aim, string content, string specialevt)
+    static public void StartGuide(GObject aim, string content, string specialevt, float dialogx, float dialogy)
     {
         if (aim == null)
             return;
 
+        SetDialogXY(dialogx, dialogy);
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect;
 //        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
@@ -121,19 +125,20 @@ public class GuideSystem  {
         Stage.inst.onTouchEnd.Add(OnTouchEnd);
     }
 
+    static void SetDialogXY(float x, float y)
+    {
+        _ContentCom.SetXY(x, y);
+    }
+
     static void TypeEffectContent(string content)
     {
         if (string.IsNullOrEmpty(content))
         {
-            _ContentLayer.visible = false;
-            _ContentBg.visible = false;
-            _TextField.visible = false;
+            _ContentCom.visible = false;
             return;
         }
 
-        _ContentLayer.visible = true;
-        _ContentBg.visible = true;
-        _TextField.visible = true;
+        _ContentCom.visible = true;
         TypingEffect te = new TypingEffect(_TextField);
         _TextField.text = content;
         te.Start();
@@ -141,7 +146,7 @@ public class GuideSystem  {
 
         new Timer().Start(content.Length * 0.05f, delegate
         {
-            _ContentLayer.visible = false;
+            _ContentCom.visible = false;
         });
     }
 
