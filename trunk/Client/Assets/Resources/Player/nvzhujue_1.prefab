@@ -3850,11 +3850,11 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8619608, g: 0.54509807, b: 1, a: 1}
+      key0: {r: 0.8619608, g: 0.54509807, b: 1, a: 0}
       key1: {r: 0.5531437, g: 0, b: 0.7941176, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 1}
-      key3: {r: 0, g: 0, b: 0, a: 1}
-      key4: {r: 0, g: 0, b: 0, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
@@ -3867,16 +3867,16 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 16384
-      atime2: 32768
-      atime3: 49151
+      atime1: 32768
+      atime2: 65535
+      atime3: 65535
       atime4: 65535
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 3
-      m_NumAlphaKeys: 5
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -3940,11 +3940,11 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8619608, g: 0.54509807, b: 1, a: 1}
-      key1: {r: 0.5531437, g: 0, b: 0.7941176, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 1}
-      key3: {r: 0, g: 0, b: 0, a: 1}
-      key4: {r: 0, g: 0, b: 0, a: 1}
+      key0: {r: 0.8619608, g: 0.54509807, b: 1, a: 0}
+      key1: {r: 0.5531437, g: 0, b: 0.7941176, a: 0.85490197}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
@@ -3956,17 +3956,17 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
-      atime1: 16384
-      atime2: 32768
-      atime3: 49151
+      atime0: 1735
+      atime1: 32768
+      atime2: 65535
+      atime3: 65535
       atime4: 65535
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 3
-      m_NumAlphaKeys: 5
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
