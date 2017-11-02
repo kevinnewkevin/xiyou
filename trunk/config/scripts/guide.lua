@@ -42,11 +42,21 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(5) then
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n37"):GetChild("n1"),"","dianji1");
+				--GuideSystem.SetFinish(5);
+			end
+		end
+	end
+	if type == "dianji1" then
+		if Battle._Turn == 1 then
+			if GuideSystem.IsNotFinish(5) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0),"");
 				GuideSystem.SetFinish(5);
 			end
 		end
 	end
+	
+	
 	--6.	点击主角按钮事件(SpecialEvent “battle_roleskill”) 
 	--指引点击结束回合按钮(uiWindow.contentPane:GetChild(“n16”))
 	if type == "battle_roleskill" then
@@ -60,6 +70,14 @@ function SpecialEvent(type, param1)
 	--7.	第二回合开始(SpecialEvent “battle_start”) Battle._Turn
 	--指引点击第一章卡牌(uiWindow.contentPane:GetChild(“n17”))
 	if type == "battle_start" then
+		if Battle._Turn == 2 then
+			if GuideSystem.IsNotFinish(7) then
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n37"):GetChild("n2"),"","dianji2");
+				--GuideSystem.SetFinish(5);
+			end
+		end
+	end
+	if type == "dianji2" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"");
