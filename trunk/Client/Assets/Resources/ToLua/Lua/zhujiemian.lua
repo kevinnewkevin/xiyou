@@ -62,7 +62,7 @@ function zhujiemian:OnInit()
 	listGroup.itemRenderer = zhujiemain_RenderListItem;
 	listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
 	zhujiemian_FlushData();
-	DoSpecialEffect();
+	--DoSpecialEffect();
 end
 
 
@@ -131,6 +131,7 @@ function zhujiemian_FlushData()
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 	listGroup.numItems = 3;
+	DoSpecialEffect();
 end
 
 function zhujiemain_RenderListItem(index, obj)

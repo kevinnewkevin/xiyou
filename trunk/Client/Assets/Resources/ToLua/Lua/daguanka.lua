@@ -59,10 +59,8 @@ function daguanka:OnInit()
 	cardGroupList.scrollPane.onScroll:Add(DoSpecialEffect);
 	--cardGroupList.onTouchBegin:Add(daguanka_ListTouchBegin);
 	daguanka_FlushData();
-	DoSpecialEffect();
 	crtSelectIdx = 0;
 end
-
 
 
 function DoSpecialEffect()
@@ -227,6 +225,7 @@ end
 
 function daguanka_FlushData()
 		cardGroupList.numItems = HeroStroyData.GetEasyListNum();
+		DoSpecialEffect()
 end
 
 
