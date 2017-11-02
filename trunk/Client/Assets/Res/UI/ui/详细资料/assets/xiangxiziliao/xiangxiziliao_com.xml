@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1530,952">
+<component size="1920,1080">
   <displayList>
-    <component id="n4_s5s1" name="n4" src="s5s1f" xy="1434,84"/>
-    <image id="n0_s5s1" name="n0" src="s5s14" xy="2,28" size="1520,920"/>
-    <image id="n1_s5s1" name="n1" src="s5s10" xy="476,2"/>
-    <loader id="n85_pqt7" name="n85" xy="117,65" size="618,835" fill="scale"/>
-    <graph id="n63_i56r" name="n63" xy="433,664" pivot="0.5,1" anchor="true" size="606,571" alpha="0.99" type="rect" lineSize="0" lineColor="#00000000" fillColor="#00ffffff"/>
-    <image id="n86_fm6g" name="n86" src="fm6g1u" xy="115,63" size="634,263"/>
-    <component id="n80_pg7k" name="n80" src="pg7k10" xy="742,85"/>
-    <component id="n81_nnup" name="n81" src="nnup13" xy="742,85" hideByEditor="true"/>
-    <text id="n50_s5s1" name="n50" xy="613,8" size="257,55" font="方正粗楷简体" fontSize="42" color="#482621" align="center" vAlign="middle" autoSize="none" text="详细资料"/>
-    <image id="n51_s5s1" name="n51" src="s5s17" xy="128,155" size="74,557"/>
-    <image id="n52_s5s1" name="n52" src="s5s1a" xy="546,69"/>
-    <image id="n53_s5s1" name="n53" src="s5s1b" xy="106,851"/>
-    <image id="n54_s5s1" name="n54" src="s5s1c" xy="1111,868"/>
-    <image id="n55_s5s1" name="n55" src="s5s1d" xy="600,825"/>
-    <image id="n56_s5s1" name="n56" src="s5s12" xy="120,69"/>
-    <image id="n57_s5s1" name="n57" src="s5s16" xy="664,788"/>
-    <text id="n58_s5s1" name="n58" xy="663,817" size="60,79" font="方正粗楷简体" fontSize="62" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="5"/>
-    <text id="n59_s5s1" name="n59" xy="130,85" size="70,65" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="99"/>
-    <text id="n60_s5s1" name="n60" xy="134,256" size="60,353" font="方正楷体_GBK" fontSize="38" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦"/>
-    <component id="n61_s4kk" name="n61" src="s4kkv" xy="289,796"/>
-    <loader id="n79_xdt5" name="n79" xy="625,63" size="121,111"/>
-    <list id="n82_myec" name="n82" xy="1376,177" size="234,734" lineGap="-42" align="center">
+    <loader id="n85_pqt7" name="n85" xy="0,0" size="1073,1082" url="ui://fyok6i50hvum1x"/>
+    <graph id="n63_i56r" name="n63" xy="481,808" pivot="0.5,1" anchor="true" size="606,799" alpha="0.99" type="rect" lineSize="0" lineColor="#00000000" fillColor="#00ffffff"/>
+    <component id="n80_pg7k" name="n80" src="pg7k10" xy="832,-2"/>
+    <component id="n81_nnup" name="n81" src="nnup13" xy="837,0" hideByEditor="true"/>
+    <image id="n51_s5s1" name="n51" src="s5s17" xy="58,300" size="100,505"/>
+    <image id="n88_hvum" name="n88" src="hvum22" xy="54,0"/>
+    <image id="n56_s5s1" name="n56" src="s5s12" xy="15,35"/>
+    <image id="n57_s5s1" name="n57" src="s5s16" xy="701,669"/>
+    <text id="n58_s5s1" name="n58" xy="739,729" size="60,79" font="方正粗楷简体" fontSize="62" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="5"/>
+    <text id="n59_s5s1" name="n59" xy="76,64" size="70,65" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="99"/>
+    <text id="n60_s5s1" name="n60" xy="72,341" size="60,353" font="方正楷体_GBK" fontSize="38" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啦啦"/>
+    <component id="n61_s4kk" name="n61" src="s4kkv" xy="351,872"/>
+    <list id="n82_myec" name="n82" xy="1730,113" size="234,734" lineGap="-85" align="center">
       <item url="ui://fyok6i50myec1m"/>
       <item url="ui://fyok6i50myec1n"/>
     </list>
-    <image id="n83_sij2" name="n83" src="sij21p" xy="563,910" size="356,36"/>
-    <text id="n84_sij2" name="n84" xy="614,913" size="257,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" text="左右滑动可切换角色">
+    <image id="n83_sij2" name="n83" src="sij21p" xy="303,1005" size="356,36"/>
+    <text id="n84_sij2" name="n84" xy="354,1008" size="257,33" font="方正楷体_GBK" fontSize="27" color="#ffffff" text="左右滑动可切换角色">
       <relation target="n83_sij2" sidePair="middle-middle,center-center"/>
     </text>
     <component id="n87_g57h" name="n87" src="g57h1w" xy="-176,-56" hideByEditor="true"/>
+    <component id="n4_s5s1" name="n4" src="s5s1f" xy="1751,11"/>
+    <loader id="n89_hvum" name="n89" xy="696,36" size="115,121"/>
   </displayList>
 </component>
