@@ -551,21 +551,27 @@ public class Proxy4Lua {
 
     #endregion
 
-    static public List<string> _AssetToDelete = new List<string>();
-    static public void AddToDelete(string url)
+    static public Dictionary<string, List<string>> _AssetToDelete = new Dictionary<string, List<string>>();
+    static public void AddToDelete(string ui, string url)
     {
-        if (_AssetToDelete.Contains(url))
-            return;
+        if (!_AssetToDelete.ContainsKey(ui))
+            _AssetToDelete.Add(ui, new List<string>());
 
-        _AssetToDelete.Add(url);
+        if(!_AssetToDelete [ui].Contains(url))
+            _AssetToDelete [ui].Add(url);
     }
 
-    static public void ClearToDeleteAsset()
+    static public void ClearToDeleteAsset(string ui)
     {
-        for(int i=0; i < _AssetToDelete.Count; ++i)
+        if (!_AssetToDelete.ContainsKey(ui))
+            return;
+        
+        for(int i=0; i < _AssetToDelete[ui].Count; ++i)
         {
-            AssetLoader.UnloadAsset(_AssetToDelete[i], true);
+            AssetLoader.UnloadAsset(_AssetToDelete[ui][i], true);
         }
+        _AssetToDelete [ui].Clear();
+        _AssetToDelete.Remove(ui);
     }
 
     static public Dictionary<string, List<string>> _SceneUI = new Dictionary<string, List<string>>();
