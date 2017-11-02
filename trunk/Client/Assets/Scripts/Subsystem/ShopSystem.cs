@@ -7,7 +7,7 @@ public class ShopSystem
 	public static COM_ItemInst[] _buyItems;
 	public static List<COM_ItemInst> _ShowBuyItems = new List<COM_ItemInst> ();
 	public static COM_BlackMarket _BlackMarket;
-
+		public static int _buyItemsNum;
 	public static List<int> _blackItems = new List<int> ();
 
 	public static COM_ItemInst[] BuyItems
@@ -20,6 +20,7 @@ public class ShopSystem
 			{
 				_ShowBuyItems.Add(_buyItems[i]);
 			}
+			_buyItemsNum = _buyItems.Length;
 		}
 		get
 		{ 
