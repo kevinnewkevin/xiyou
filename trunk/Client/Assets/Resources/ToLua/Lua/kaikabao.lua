@@ -35,7 +35,6 @@ local showOuTCard;
 local topPanel;
 local overPanel;
 local overTrans;
-local overEffect;
 
 local itemInfoName;
 local itemInfolevel;
@@ -50,6 +49,9 @@ local itemInfoIconRed;
 local barLab;
 local itemBar;
 local overShowBox;
+
+local threeTime;
+
 function kaikabao:OnEntry()
 	Define.LaunchUIBundle("icon");
 	Window = kaikabao.New();
@@ -67,7 +69,7 @@ function kaikabao:OnInit()
 	hitNextLbl = self.contentPane:GetChild("l3").asTextField;
 	topPanel = self.contentPane:GetChild("n8");
 	backCom = self.contentPane:GetChild("n23");
-	backCom.onClick:Add(kaikabao_OnBackBtn);
+
 	backCom.enabled = false;
 	hitNextLbl.visible = false;
 	itemInfoName = topPanel:GetChild("n15");
@@ -90,12 +92,7 @@ function kaikabao:OnInit()
 	topPanel.visible= false; 
 
 	overPanel = self.contentPane:GetChild("n22");
-	overShowBox = overPanel:GetChild("n19");
-	overTrans = overPanel:GetTransition("t2");
-	dropList = overPanel:GetChild("n20").asList;
-	hitNextBtn = overPanel:GetChild("n22");
-	overEffect = overPanel:GetChild("n21").asGraph;
-	hitNextBtn.onClick:Add(kaikabao_OnExit);
+	dropList = self.contentPane:GetChild("n24").asList;
 	overPanel.visible= false; 
 
 
@@ -104,10 +101,6 @@ function kaikabao:OnInit()
 	outCom.visible = false;
 	boxEffHolder =  self.contentPane:GetChild("n19").asGraph;
 	openTrans = self.contentPane:GetTransition("t1");
---	outTrans = outCom:GetTransition("t0");
-
-	outCom.onClick:Add(kaikabao_OnBackBtn);
-
 
 	timeOut = {};
 	timeOut.max =2;
@@ -143,7 +136,6 @@ function kaikabao_OnExit(context)
 	Proxy4Lua.UnloadAsset(overEffStr);
 	overEffStr = "";
 	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
-	overEffect:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Window:Hide();			
 
 
@@ -163,17 +155,14 @@ function kaikabao_FlushData()
 	if shopType == 1000 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao1";
 		outCom.asLoader.url  = "ui://kaikabao/kabao1";
-		overShowBox.asLoader.url  = "ui://kaikabao/kabao1";
 	end
 	if shopType == 1001 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao2";
 		outCom.asLoader.url  = "ui://kaikabao/kabao2";
-		overShowBox.asLoader.url  = "ui://kaikabao/kabao2";
 	end
 	if shopType == 1002 then
 		btnImg.asLoader.url  = "ui://kaikabao/kabao3";
 		outCom.asLoader.url  = "ui://kaikabao/kabao3";
-		overShowBox.asLoader.url  = "ui://kaikabao/kabao3";
 	end
 
 
@@ -202,6 +191,7 @@ function kaikabao_FlushData()
 				icon.url = "ui://" .. iData._Icon;
 				quality.url = "ui://" .. iData._IconBack;
 			end
+			dropItem.visible = false;
 		end
 	end
 end
@@ -220,11 +210,7 @@ function kaikabao_OnBoxBtn(context)
 	readyOutDrop.max = 1;
 	readyOutDrop.count = 0;
 	showPayBoxEffect = true;
-
-
 end
-
-
 
 function kaikabao:OnUpdate()
 
@@ -232,8 +218,7 @@ function kaikabao:OnUpdate()
 		kaikabao_FlushData();
 		UIManager.ClearDirty("kaikabao");
 	end
-
-
+ 
 	if readyOutDrop ~= nil and showPayBoxEffect == true then
 		readyOutDrop.count = readyOutDrop.count + 1;
 		if readyOutDrop.count >= readyOutDrop.max then
@@ -252,10 +237,17 @@ function kaikabao:OnUpdate()
 			openTrans:Play();
 			setItemInfo();
 			backCom.enabled = true;
-			hitNextLbl.visible = true;
-
+			--hitNextLbl.visible = true;
+			threeTime = {};
+			threeTime.max = 1;
+			threeTime.count = 0;
 		end
 	end
+
+
+
+
+
 
 
 
@@ -282,11 +274,10 @@ function kaikabao_OnBackBtn(context)
 			showOuTCard = true;
 
 		else
-			showOuTCard = false;
-			overPanel.visible = true;
-			overEffStr = "effect/kaibao_guangquan";
-			overEffect:SetNativeObject(Proxy4Lua.GetAssetGameObject(overEffStr, false));
-			overTrans:Play();
+		--	showOuTCard = false;
+		--	overPanel.visible = true;
+		--	overEffStr = "effect/kaibao_guangquan";
+		--	overTrans:Play();
 		end
 		backCom.enabled = false;
 		hitNextLbl.visible = false;
@@ -307,6 +298,39 @@ function kaikabao:OnTick()
 			showPayBoxEffect = true;
 		end
 	end
+
+
+	if threeTime ~= nil then
+		threeTime.count = threeTime.count + 1;
+		if threeTime.count >= threeTime.max then
+				threeTime = nil;
+				if ShopSystem._ShowBuyItems.Count > 0 then
+					topPanel.visible = false;
+					outCom.visible = false;
+					openCom.visible = true;
+					cardOutDrop = {};
+					cardOutDrop.max = 1;
+					cardOutDrop.count = 0; 
+					showOuTCard = true;
+					local obj = dropList:GetChildAt(ShopSystem._buyItemsNum - ShopSystem._ShowBuyItems.Count-1);
+					obj.visible = true;
+				else
+					local obj1 = dropList:GetChildAt(ShopSystem._buyItemsNum - ShopSystem._ShowBuyItems.Count-1);
+					obj1.visible = true;
+					topPanel.visible = false;
+					outCom.visible = true;
+					openCom.visible = false;
+					backCom.onClick:Add(kaikabao_OnExit);
+					hitNextLbl.visible = true;
+
+			--	showOuTCard = false;
+				--	overPanel.visible = true;
+			--	overEffStr = "effect/kaibao_guangquan";
+			--	overTrans:Play();
+			end
+		end
+	end
+
 
 	--if timeOut ~= nil then
 	--	timeOut.count = timeOut.count + 1;
@@ -332,6 +356,10 @@ function kaikabao:OnHide()
 	openCom.visible = true;
 	outCom.visible = false;
 	isInitItemList = false;
+	 
+	backCom.onClick:Remove(kaikabao_OnExit);
+	hitNextLbl.visible = false;
+
 	cardOutDrop = {};
 	cardOutDrop.max = 1;
 	cardOutDrop.count = 0; 

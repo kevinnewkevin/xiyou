@@ -11,6 +11,7 @@ local modelRes;
 local back;
 local holder;
 local hitNextBtn;
+local infoBtn;
 function huoderenwu:OnEntry()
 	Window = huoderenwu.New();
 	Window:Show();
@@ -30,7 +31,9 @@ function huoderenwu:OnInit()
     needPower = self.contentPane:GetChild("n8");
     holder = self.contentPane:GetChild("n1").asGraph;
     hitNextBtn = self.contentPane:GetChild("n10");
-    hitNextBtn.onClick:Add(baowu_OnExit);
+    infoBtn = self.contentPane:GetChild("n12");
+    hitNextBtn.onClick:Add(huderenwu_OnExit);
+    hitNextBtn.onClick:Add(huderenwu_OnInfo);
 	huoderenwu_FlushData();
 end
 
@@ -41,12 +44,23 @@ function huoderenwu:OnUpdate()
 	end
 end
 
-function baowu_OnExit(context)
+function huderenwu_OnExit(context)
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
 	SceneLoader.LoadScene("main");
 end
+
+function huderenwu_OnInfo(context)
+  local card = GamePlayer.newCard;
+    local displayData = GamePlayer.GetDisplayDataByInstID(card.InstId);
+	UIParamHolder.Set("qiecuo1", card.InstId);
+	UIParamHolder.Set("qiecuo2", true);
+	UIParamHolder.Set("showBoos",false);
+	UIManager.Show("xiangxiziliao");
+end
+
+
 function huoderenwu:OnTick()
 	
 end

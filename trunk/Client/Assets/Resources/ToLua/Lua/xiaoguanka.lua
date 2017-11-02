@@ -159,13 +159,13 @@ function xiaoguanka_OnBack(context)
 end
 
 
-function xiaoguanka_OnRightBtn(context) 
+function xiaoguanka_OnRightBtn(context)
 	challengePanel.visible = false;
 	leftBtn.visible = true
 	showNum = showNum + 4;
     local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
     smallChapters = chapterData.SmallChapters;
-    local len = smallChapters.Length / 4;
+    local len = Mathf.Ceil(smallChapters.Length / 4);
     len = (len -1 ) * 4;
     if showNum >= len then
         showNum = len;
@@ -315,6 +315,16 @@ function xiaoguanka_FlushData()
 		showNum = nowCanBattle/4*4;
 	end	 
 
+    local Maxlen = Mathf.Ceil(smallChapters.Length / 4);
+    Maxlen  = (Maxlen  -1 ) * 4;
+    if showNum >= Maxlen then
+		showNum = Maxlen ;
+		rightBtn.visible = false;
+     end
+    if showNum <= 0 then
+ 		leftBtn.visible = false;
+    end
+
  	xiaoguanka_UpdataInfo();
     updateReward()
 
@@ -334,6 +344,7 @@ function xiaoguanka_UpdataInfo()
     fuben1.onClick:Set(xiaoguanka_OnBack);
     fuben2.onClick:Set(xiaoguanka_OnBack);
     fuben3.onClick:Set(xiaoguanka_OnBack);
+
 
     for i =1, 4 do 
     	local bBattle = false;
