@@ -18,6 +18,13 @@ local crtCardsFee = 0;
 local crtCardsType = 0;
 local crtCardName;
 
+local crtCardIdx = 0; --当前所有卡的起始索引
+local countPerPage = 9; --所有卡组列表 每页的最大数量
+
+local nextBtn;
+local prevBtn;
+local pageText;
+
 local doubleClickTicker;
 
 local isInGroup;
@@ -41,12 +48,18 @@ function paiku:OnInit()
 
 	local leftPart = self.contentPane:GetChild("n6").asCom;
 	allCardList = leftPart:GetChild("n27").asList;
-	allCardList:SetVirtual();
-	allCardList.itemRenderer = paiku_RenderListItem;
+--	allCardList:SetVirtual();
+--	allCardList.itemRenderer = paiku_RenderListItem;
 	allCardList.onDrop:Add(paiku_OnDropCard);
 	allCardList.data = 0;
 	allCardList.scrollItemToViewOnClick = false;
 	total = leftPart:GetChild("n33").asTextField;
+
+	prevBtn = leftPart:GetChild("n36");
+	nextBtn = leftPart:GetChild("n37");
+	pageText = leftPart:GetChild("n39");
+	prevBtn.onClick:Add(paiku_OnPrevPage);
+	nextBtn.onClick:Add(paiku_OnNextPage);
 
 	local feeList = leftPart:GetChild("n34").asList;
 	local feeMax = feeList.numItems;
@@ -94,16 +107,18 @@ function paiku:OnInit()
 	end
 	allCardGroupList.selectedIndex = crtGroupIdx;
 
-	paiku_FlushData();
+	UIManager.SetDirty("paiku");
 end
 
 function paiku_OnFeeItemClick(context)
 	crtCardsFee = context.sender.data;
+	crtCardIdx = 0;
 	UIManager.SetDirty("paiku");
 end
 
 function paiku_OnTypeItemClick(context)
 	crtCardsType = context.sender.data;
+	crtCardIdx = 0;
 	UIManager.SetDirty("paiku");
 end
 
@@ -197,7 +212,7 @@ end
 
 function paiku_OnSelectGroup(context)
 	crtGroupIdx = context.sender.data;
-	paiku_FlushData();
+	UIManager.SetDirty("paiku");
 end
 
 function paiku:OnUpdate()
@@ -230,13 +245,51 @@ function paiku:OnHide()
 	Window:Hide();
 end
 
+function paiku_OnNextPage()
+	local cardList = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType);
+	if cardList ~= nil then
+		if crtCardIdx + countPerPage <= cardList.Count then
+			crtCardIdx = crtCardIdx + countPerPage;
+		end
+	end
+	UIManager.SetDirty("paiku");
+end
+
+function paiku_OnPrevPage()
+	crtCardIdx = crtCardIdx - countPerPage;
+	if crtCardIdx < 0 then
+		crtCardIdx = 0;
+	end
+	UIManager.SetDirty("paiku");
+end
+
 function paiku_FlushData()
 	total.text = "(数量:" .. GamePlayer.CardsByFeeAndType(0, 0).Count .. ")";
-	local cards = 0;
-	if GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType) ~= nil then
-		cards = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType).Count;
+	local page = crtCardIdx / countPerPage + 1;
+	pageText.text = "第" .. page .. "页";
+--	local cards = 0;
+--	if GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType) ~= nil then
+--		cards = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType).Count;
+--	end
+--	allCardList.numItems = cards;
+	local cardList = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType);
+	allCardList:RemoveChildrenToPool();
+
+	if cardList ~= nil then
+		local max = crtCardIdx + countPerPage;
+		if max > cardList.Count then
+			max = cardList.Count;
+		end
+		for i=crtCardIdx, max - 1 do
+			paiku_RenderListItem(i, allCardList:AddItemFromPool(cardItemUrl));
+		end
+		nextBtn.enabled = crtCardIdx + countPerPage < cardList.Count;
+		prevBtn.enabled = crtCardIdx ~= 0;
+	else
+		nextBtn.enabled = false;
+		prevBtn.enabled = false;
 	end
-	allCardList.numItems = cards;
+
 	cardGroupList:RemoveChildrenToPool(); 
 	local groupCards = GamePlayer.GetGroupCards(crtGroupIdx);
 	if groupCards == nil then
