@@ -146,7 +146,7 @@ public class GuideSystem  {
 
         new Timer().Start(content.Length * 0.05f, delegate
         {
-            _ContentCom.visible = false;
+            //_ContentCom.visible = false;
         });
     }
 
