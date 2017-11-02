@@ -10,7 +10,7 @@
     <image id="a44q6" name="tianxian.png" path="/" exported="true"/>
     <image id="a44q7" name="zhaohuantianshu.png" path="/" exported="true"/>
     <image id="a44q8" name="cangbaoge.png" path="/" exported="true"/>
-    <image id="a44q9" name="diban.png" path="/" exported="true" scale="9grid" scale9grid="272,168,18,26"/>
+    <image id="a44q9" name="diban.png" path="/" exported="true" scale="" scale9grid="272,168,18,26"/>
     <image id="a44qa" name="dixian.png" path="/" exported="true"/>
     <image id="k7i8b" name="baoshi.png" path="/" exported="true"/>
     <image id="k7i8c" name="ditiao.png" path="/" exported="true" scale="9grid" scale9grid="8,13,9,20"/>
@@ -53,9 +53,11 @@
     <image id="ed8l1e" name="hunbi.png" path="/" exported="true"/>
     <component id="ed8l1h" name="shuaxin_Button.xml" path="/" exported="true"/>
     <image id="qbbb1i" name="shouqing.png" path="/" exported="true"/>
-    <image id="nk8s1j" name="shajiangjun_head_icon.png" path="/"/>
+    <image id="nk8s1j" name="shajiangjun_head_icon.png" path="/" exported="true"/>
+    <image id="qe8f1k" name="18.png" path="/" exported="true"/>
+    <image id="uxrn1l" name="20.png" path="/" exported="true"/>
   </resources>
-  <publish name="cangbaoge" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="cangbaoge" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

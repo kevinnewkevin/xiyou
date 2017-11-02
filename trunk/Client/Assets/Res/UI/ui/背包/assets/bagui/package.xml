@@ -5,7 +5,7 @@
     <image id="v6ah1" name="zhuangshi.png" path="/" exported="true"/>
     <image id="v6ah4" name="baoshi.png" path="/" exported="true"/>
     <image id="v6ah5" name="bb_beibao.png" path="/" exported="true"/>
-    <image id="v6ah6" name="bb_diban.png" path="/" exported="true" scale="9grid" scale9grid="286,149,26,18"/>
+    <image id="v6ah6" name="bb_diban.png" path="/" exported="true" scale="" scale9grid="286,149,26,18"/>
     <image id="v6ah7" name="bb_diban2.png" path="/" exported="true" scale="9grid" scale9grid="26,29,6,9"/>
     <image id="v6ah8" name="bb_fanhui.png" path="/" exported="true"/>
     <image id="v6ah9" name="bb_huaban.png" path="/" exported="true"/>
@@ -32,8 +32,11 @@
     <component id="lg80x" name="Label2.xml" path="/" exported="true"/>
     <component id="lg80y" name="Button5.xml" path="/" exported="true"/>
     <image id="lg80z" name="hunbi.png" path="/" exported="true"/>
+    <image id="ubxc10" name="xian3.png" path="/"/>
+    <image id="ubxc11" name="xian.png" path="/"/>
+    <image id="ubxc12" name="xian2.png" path="/"/>
   </resources>
-  <publish name="bagui" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="bagui" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

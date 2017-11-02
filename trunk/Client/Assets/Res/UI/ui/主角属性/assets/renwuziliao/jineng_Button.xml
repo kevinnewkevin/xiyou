@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="141,138" extention="Button">
+<component size="199,190" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n4_s5s1" name="n4" src="tqum2l" xy="0,0"/>
     <image id="n9_wnnz" name="n9" src="tqum2m" xy="3,-1">
       <gearDisplay controller="button" pages="1,2,3"/>
     </image>
-    <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
-    <image id="n5_s5s1" name="n5" src="tqum2n" xy="95,92"/>
-    <text id="n7_s5s1" name="n7" xy="89,97" size="59,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
+    <loader id="n8_s5s1" name="n8" xy="17,11" size="168,168" align="center" vAlign="middle" fill="scale"/>
+    <image id="n5_s5s1" name="n5" src="tqum2n" xy="104,107"/>
+    <text id="n7_s5s1" name="n7" xy="127,124" size="56,54" font="方正楷体_GBK" fontSize="46" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="8&#xA;"/>
   </displayList>
   <Button mode="Radio"/>
 </component>
