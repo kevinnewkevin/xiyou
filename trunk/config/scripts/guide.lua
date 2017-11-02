@@ -4,7 +4,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--1.进入主界面事件(WhenUIOpen "zhujiemian")指引点击解魂模式(uiWindow.contentPane:GetChild("n43"):GetChildAt(1))
 	if uiName == "zhujiemian" then
 		if GuideSystem.IsNotFinish(1) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1), 300, 300);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n43"):GetChildAt(1), 300, 300,"解魂吧，少年");
 			GuideSystem.SetFinish(1);
 		end
 	end
@@ -12,7 +12,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--指引点击解魂按钮(uiWindow.contentPane:GetChild("n4"):GetChild("n3"))
 	if uiName == "daguanka" then
 		if GuideSystem.IsNotFinish(2) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"));
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"选择一关");
 			GuideSystem.SetFinish(2);
 		end
 	end
@@ -20,7 +20,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--指引点击第一小关(uiWindow.contentPane:GetChild("n22"))
 	if uiName == "xiaoguanka" then
 		if GuideSystem.IsNotFinish(3) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n22"));
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n22"),"");
 			GuideSystem.SetFinish(3);
 		end
 	end
@@ -32,7 +32,7 @@ function SpecialEvent(type, param1)
 	--指引点击挑战按钮(uiWindow.contentPane:GetChild("n26"):GetChild("n2"))
 	if type == "xiaoguanka_challenge" then
 		if GuideSystem.IsNotFinish(4) then
-			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n26"):GetChild("n2"));
+			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n26"):GetChild("n2"),"");
 			GuideSystem.SetFinish(4);
 		end
 	end
@@ -42,7 +42,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(5) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n50"):GetChildAt(0),"");
 				GuideSystem.SetFinish(5);
 			end
 		end
@@ -52,7 +52,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_roleskill" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(6) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"");
 				GuideSystem.SetFinish(6);
 			end
 		end
@@ -62,7 +62,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"");
 				GuideSystem.SetFinish(7);
 			end
 		end
@@ -72,7 +72,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_selectcard" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(8) then
-				GuideSystem.StartGuideInScene(Battle.GetPoint(1).gameObject,300,300);
+				GuideSystem.StartGuideInScene(Battle.GetPoint(1).gameObject,300,300,"");
 				GuideSystem.SetFinish(8);
 			end
 		end
@@ -83,7 +83,7 @@ function SpecialEvent(type, param1)
 	print("battle_cardonbattle" .. Battle._Turn);
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"));
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"");
 				GuideSystem.SetFinish(9);
 			end
 		end
