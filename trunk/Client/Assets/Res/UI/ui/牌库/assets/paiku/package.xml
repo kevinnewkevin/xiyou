@@ -5,7 +5,7 @@
     <image id="rvp51" name="biaoti.png" path="/" exported="true" scale="9grid" scale9grid="26,16,18,32"/>
     <image id="rvp52" name="dikuang1.png" path="/" exported="true" scale="9grid" scale9grid="26,26,13,13"/>
     <image id="rvp53" name="dikuang2.png" path="/" exported="true" scale="9grid" scale9grid="247,81,60,17"/>
-    <image id="rvp54" name="dikuang3.png" path="/" exported="true" scale="" scale9grid="109,62,30,32"/>
+    <image id="rvp54" name="dikuang3.png" path="/" exported="true" scale9grid="109,62,30,32"/>
     <image id="rvp55" name="dikuang4.png" path="/" exported="true" scale="9grid" scale9grid="91,91,74,26"/>
     <image id="rvp56" name="gaiming.png" path="/" exported="true"/>
     <image id="rvp57" name="guagou.png" path="/" exported="true"/>
@@ -35,7 +35,7 @@
     <component id="o31mx" name="pk_anniu5_Button.xml" path="/" exported="true"/>
     <image id="o31my" name="dinglan.png" path="/" exported="true" scale="9grid" scale9grid="22,18,13,28"/>
     <image id="o31mz" name="xiaotiao.png" path="/" exported="true" scale="9grid" scale9grid="16,29,18,18"/>
-    <image id="qu1s11" name="dinglananniu.png" path="/" exported="true" scale="" scale9grid="2,2,6,6"/>
+    <image id="qu1s11" name="dinglananniu.png" path="/" exported="true" scale9grid="2,2,6,6"/>
     <component id="qu1s12" name="paikuanniu_1_Button.xml" path="/" exported="true"/>
     <component id="qu1s13" name="paikuanniu_2_Button.xml" path="/" exported="true"/>
     <component id="qu1s14" name="paikuanniu_3_Button.xml" path="/" exported="true"/>
@@ -75,32 +75,40 @@
     <image id="dgfb24" name="kazu3.png" path="/" exported="true"/>
     <image id="dgfb25" name="kazu4.png" path="/" exported="true"/>
     <font id="dgfb26" name="kazu_Font.fnt" path="/" exported="true"/>
-    <image id="f15l27" name="dinglan2.png" path="/" exported="true" scale=""/>
-    <image id="bx2q28" name="32.png" path="/"/>
-    <image id="bx2q29" name="33.png" path="/"/>
-    <image id="bx2q2a" name="34.png" path="/"/>
-    <image id="bx2q2b" name="35.png" path="/"/>
-    <image id="bx2q2c" name="36.png" path="/"/>
-    <image id="bx2q2d" name="37.png" path="/"/>
-    <image id="bx2q2e" name="38.png" path="/"/>
-    <image id="bx2q2f" name="39.png" path="/"/>
-    <image id="bx2q2g" name="40.png" path="/"/>
-    <image id="bx2q2h" name="41.png" path="/"/>
-    <image id="bx2q2i" name="03.png" path="/"/>
-    <image id="bx2q2j" name="04.png" path="/"/>
-    <image id="bx2q2k" name="21.png" path="/"/>
-    <image id="bx2q2l" name="22.png" path="/"/>
-    <image id="bx2q2m" name="23.png" path="/"/>
-    <image id="bx2q2n" name="24.png" path="/"/>
-    <image id="bx2q2o" name="25.png" path="/"/>
-    <image id="bx2q2p" name="26.png" path="/"/>
-    <image id="bx2q2q" name="27.png" path="/"/>
-    <image id="bx2q2r" name="28.png" path="/"/>
-    <image id="bx2q2s" name="29.png" path="/"/>
-    <image id="bx2q2t" name="30.png" path="/"/>
-    <image id="t76o2u" name="05.png" path="/"/>
+    <image id="f15l27" name="dinglan2.png" path="/" exported="true"/>
+    <image id="bx2q28" name="32.png" path="/" exported="true"/>
+    <image id="bx2q29" name="33.png" path="/" exported="true"/>
+    <image id="bx2q2a" name="34.png" path="/" exported="true"/>
+    <image id="bx2q2b" name="35.png" path="/" exported="true"/>
+    <image id="bx2q2c" name="36.png" path="/" exported="true"/>
+    <image id="bx2q2d" name="37.png" path="/" exported="true"/>
+    <image id="bx2q2e" name="38.png" path="/" exported="true"/>
+    <image id="bx2q2f" name="39.png" path="/" exported="true"/>
+    <image id="bx2q2g" name="40.png" path="/" exported="true"/>
+    <image id="bx2q2h" name="41.png" path="/" exported="true"/>
+    <image id="bx2q2i" name="03.png" path="/" exported="true"/>
+    <image id="bx2q2j" name="04.png" path="/" exported="true"/>
+    <image id="bx2q2k" name="21.png" path="/" exported="true"/>
+    <image id="bx2q2l" name="22.png" path="/" exported="true"/>
+    <image id="bx2q2m" name="23.png" path="/" exported="true"/>
+    <image id="bx2q2n" name="24.png" path="/" exported="true"/>
+    <image id="bx2q2o" name="25.png" path="/" exported="true"/>
+    <image id="bx2q2p" name="26.png" path="/" exported="true"/>
+    <image id="bx2q2q" name="27.png" path="/" exported="true"/>
+    <image id="bx2q2r" name="28.png" path="/" exported="true"/>
+    <image id="bx2q2s" name="29.png" path="/" exported="true"/>
+    <image id="bx2q2t" name="30.png" path="/" exported="true"/>
+    <image id="t76o2u" name="05.png" path="/" exported="true"/>
+    <image id="t76o2v" name="46.png" path="/" exported="true"/>
+    <image id="t76o2w" name="longtaizi_head.png" path="/" exported="true"/>
+    <image id="t76o2y" name="17.png" path="/" exported="true"/>
+    <component id="t76o2z" name="zuojiantou_Button.xml" path="/" exported="true"/>
+    <component id="t76o30" name="youjiantou_Button.xml" path="/" exported="true"/>
+    <image id="hvum31" name="xian3.png" path="/" exported="true"/>
+    <image id="hvum32" name="xian.png" path="/" exported="true"/>
+    <image id="hvum33" name="xian2.png" path="/" exported="true"/>
   </resources>
-  <publish name="paiku" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="paiku" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

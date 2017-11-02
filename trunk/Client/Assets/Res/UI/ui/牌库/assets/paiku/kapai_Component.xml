@@ -3,12 +3,29 @@
   <displayList>
     <image id="n0_b9pp" name="n0" src="rvp53" xy="102,168" size="833,696"/>
     <image id="n18_qu1s" name="n18" src="o31ms" xy="284,19" size="392,72"/>
+    <image id="n40_hvum" name="n40" src="hvum32" xy="38,96"/>
+    <image id="n41_hvum" name="n41" src="hvum33" xy="-1,931"/>
+    <image id="n42_hvum" name="n42" src="hvum31" xy="49,268"/>
+    <image id="n43_hvum" name="n43" src="hvum31" xy="48,392"/>
+    <image id="n44_hvum" name="n44" src="hvum31" xy="49,523"/>
+    <image id="n45_hvum" name="n45" src="hvum31" xy="48,656"/>
+    <image id="n46_hvum" name="n46" src="hvum31" xy="48,783"/>
     <text id="n19_qu1s" name="n19" xy="404,34" size="202,46" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="我的卡牌">
       <relation target="n18_qu1s" sidePair="center-center,middle-middle"/>
     </text>
-    <list id="n27_qu1s" name="n27" xy="129,314" size="882,728" layout="flow_hz" overflow="scroll" margin="6,0,47,6" lineGap="-1" colGap="14" defaultItem="ui://y2r47n1iqu1s17"/>
-    <text id="n33_qu1s" name="n33" xy="662,30" size="223,38" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" bold="true" text="（数量：300）&#xA;"/>
-    <list id="n34_k57y" name="n34" xy="-9,129" size="126,738" lineGap="-59">
+    <list id="n27_qu1s" name="n27" xy="147,210" size="769,728" layout="flow_hz" overflow="scroll" margin="6,0,47,6" lineGap="28" colGap="24" defaultItem="ui://y2r47n1iqu1s17">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <text id="n33_qu1s" name="n33" xy="662,30" size="208,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" bold="true" text="（数量：300）&#xA;"/>
+    <list id="n34_k57y" name="n34" xy="-9,129" size="126,738" lineGap="-65">
       <item url="ui://y2r47n1iok6e1m"/>
       <item url="ui://y2r47n1irvp5m"/>
       <item url="ui://y2r47n1io31mu"/>
@@ -23,5 +40,9 @@
       <item url="ui://y2r47n1iqu1s15"/>
       <item url="ui://y2r47n1iqu1s16"/>
     </list>
+    <component id="n36_t76o" name="n36" src="t76o2z" xy="241,958"/>
+    <component id="n37_t76o" name="n37" src="t76o30" xy="619,958"/>
+    <image id="n38_t76o" name="n38" src="rvp5a" xy="424,953"/>
+    <text id="n39_t76o" name="n39" xy="429,962" size="178,63" font="方正楷体_GBK" fontSize="44" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="第一页"/>
   </displayList>
 </component>

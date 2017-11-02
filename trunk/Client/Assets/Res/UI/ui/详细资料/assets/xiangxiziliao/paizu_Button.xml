@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="249,100" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <controller name="huang" pages="0,jiaru,1,yichu" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="ne6yt" xy="0,0">
-      <gearDisplay controller="button" pages="0,2"/>
-      <relation target="" sidePair="width-width,height-height"/>
+    <image id="n5_hvum" name="n5" src="hvum20" xy="-44,-2">
+      <gearDisplay controller="huang" pages="0"/>
     </image>
-    <image id="n2" name="n2" src="ne6yt" xy="0,0">
-      <gearDisplay controller="button" pages="1,3"/>
-      <relation target="" sidePair="width-width,height-height"/>
+    <image id="n6_hvum" name="n6" src="hvum21" xy="-46,-4">
+      <gearDisplay controller="huang" pages="1"/>
     </image>
-    <image id="n3_s4kk" name="n3" src="ne6yu" xy="0,0" alpha="0">
-      <gearLook controller="huang" pages="0" values="0,0,0,1" default="1,0,0,1"/>
-    </image>
-    <text id="n4_s4kk" name="n4" xy="73,17" size="143,41" font="方正楷体_GBK" fontSize="34" color="#4e2a0d" align="center" vAlign="middle" bold="true" text="加入牌组">
-      <gearColor controller="huang" pages="0" values="#4e2a0d,#000000" default="#161a82,#000000"/>
-      <gearText controller="huang" pages="0" values="加入牌组" default="移除牌组"/>
-      <relation target="n3_s4kk" sidePair="center-center,middle-middle"/>
-    </text>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>
