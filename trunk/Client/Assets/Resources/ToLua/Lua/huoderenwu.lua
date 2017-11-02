@@ -33,7 +33,7 @@ function huoderenwu:OnInit()
     hitNextBtn = self.contentPane:GetChild("n10");
     infoBtn = self.contentPane:GetChild("n12");
     hitNextBtn.onClick:Add(huderenwu_OnExit);
-    hitNextBtn.onClick:Add(huderenwu_OnInfo);
+    infoBtn.onClick:Add(huderenwu_OnInfo);
 	huoderenwu_FlushData();
 end
 
