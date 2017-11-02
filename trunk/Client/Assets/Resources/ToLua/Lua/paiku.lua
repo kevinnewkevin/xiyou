@@ -111,19 +111,50 @@ function paiku_RenderListItem(index, obj)
 	if obj == nil then
 		return;
 	end
+
+	local feeImg = obj:GetChild("n3");
+	if feeImg == nil then
+		return;
+	end
+
+	local img = obj:GetChild("n5");
+	if img == nil then
+		return;
+	end
+
+	local level = obj:GetChild("n6");
+	if level == nil then
+		return;
+	end
+
+	local fee = obj:GetChild("n7");
+	if fee == nil then
+		return;
+	end
+
+	local inGroup = obj:GetChild("n9");
+	if inGroup == nil then
+		return;
+	end
+
+	local radImg = obj:GetChild("n10");
+	if radImg == nil then
+		return;
+	end
+
+	local iconloader = obj:GetChild("n11");
+	if iconloader == nil then
+		return;
+	end
+
 	local displayData = GamePlayer.GetDisplayDataByIndex(crtCardsFee, crtCardsType, index);
 	local entityData = GamePlayer.GetEntityDataByIndex(crtCardsFee, crtCardsType, index);
-	local img = obj:GetChild("n5");
-	local feeImg = obj:GetChild("n3");
-	local radImg = obj:GetChild("n10");
 	img.asLoader.url = "ui://" .. displayData._HeadIcon;
-	obj:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
+	iconloader.asLoader.url = "ui://" .. displayData._Quality;
 	obj.onClick:Add(paiku_OnCardItem);
 	local instId = GamePlayer.GetInstID(crtCardsFee, crtCardsType, index);
 	obj.data = instId;
 	obj.onDragStart:Add(paiku_OnDragCard);
-	local fee = obj:GetChild("n7");
-	local inGroup = obj:GetChild("n9");
 	fee.text = entityData._Cost;
 	local isIn = GamePlayer.IsInGroup(instId, crtGroupIdx);
 	inGroup.visible = isIn;
@@ -131,7 +162,6 @@ function paiku_RenderListItem(index, obj)
 	fee.enabled = not isIn;
 	feeImg.enabled = not isIn;
 	obj.draggable = not isIn;
-	local level = obj:GetChild("n6");
 	local entityInst = GamePlayer.GetCardByInstID(instId);
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 	level.text = entityInst.IProperties[9] .. "";
