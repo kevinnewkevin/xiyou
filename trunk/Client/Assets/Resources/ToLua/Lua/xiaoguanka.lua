@@ -138,6 +138,7 @@ function xiaoguanka:OnHide()
 	challengePanel.visible = false;
 	challengeBtn.enabled = true;
 	oneShow = false; 
+	Proxy4Lua.ClearToDeleteAsset("xiaoguanka");
 	Window:Hide();
 end
 
@@ -366,7 +367,7 @@ function xiaoguanka_UpdataInfo()
             player:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
             --Proxy4Lua.ColorGameObject(player,0.3,0.3,0.3);
             local lock = fubenArr[i-1]:GetChild("n9");
-            Proxy4Lua.AddToDelete(modelRes);
+            Proxy4Lua.AddToDelete("xiaoguanka",modelRes);
             fubenArr[i-1].data = data._ID;
 
             star0.enabled = false;
