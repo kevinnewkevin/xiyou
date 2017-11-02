@@ -104,10 +104,10 @@ public class GuideSystem  {
 
         GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
         Rect rect;
-        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
+//        if(aim.parent != null && aim.parent.parent != null && aim.parent.parent is Window)
             rect = aim.TransformRect(new Rect(aim.pivotX * -aim.width, aim.pivotY * -aim.height, aim.width, aim.height), _GuideLayer);
-        else
-            rect = aim.TransformRect(new Rect(0f, 0f, aim.width, aim.height), _GuideLayer);
+//        else
+//            rect = aim.TransformRect(new Rect(0f, 0f, aim.width, aim.height), _GuideLayer);
 
         GObject window = _GuideLayer.GetChild("n5");
         window.pivotX = 0f;
