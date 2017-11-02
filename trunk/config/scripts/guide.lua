@@ -72,7 +72,7 @@ function SpecialEvent(type, param1)
 	if type == "battle_start" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n37"):GetChild("n2"),"","dianji2");
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n38"):GetChild("n1"),"","dianji2");
 				--GuideSystem.SetFinish(5);
 			end
 		end
