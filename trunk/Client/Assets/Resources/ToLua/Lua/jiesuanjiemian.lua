@@ -304,6 +304,11 @@ function jiesuanjiemian_OnOkBtn()
 		UIParamHolder.Set("showChaptersDrop", false);
 		UIManager.Show("baowu");
 	else
-		SceneLoader.LoadScene("main");
+		if GamePlayer.showNewCard == true then
+			UIManager.Show("huoderenwu");
+			GamePlayer.showNewCard = false;
+		else
+			SceneLoader.LoadScene("main");
+		end
 	end
 end
