@@ -143,23 +143,25 @@ public class JieHunSystem
 		{
 			if (chapteList [i].ChapterId == id) 
 			{
+				HeroStroyData hData = HeroStroyData.GetData(id);
 				if (chapteList [i].StarReward == null) 
 				{
-						chapteList [i].StarReward = new int[3];
-						chapteList [i].StarReward [0] = (boxId + 1) * 10;
-				} else if (chapteList [i].StarReward.Length < 3) 
+					chapteList [i].StarReward = new int[3];
+					chapteList [i].StarReward [0] = hData.Star_ [boxId];				
+				} 
+				else if (chapteList [i].StarReward.Length < 3) 
 				{
 					int[] num = chapteList [i].StarReward;
 					chapteList [i].StarReward = new int[3];
 					for (int j = 0; j < num.Length; j++) 
 					{
-							chapteList [i].StarReward [j] = num [j]; 
+						chapteList [i].StarReward [j] = num [j]; 
 					}
 					for (int k = 0; k < chapteList [i].StarReward.Length; k++) 
 					{
 						if (chapteList [i].StarReward [k] == 0) 
 						{
-							chapteList [i].StarReward [k] = (boxId + 1) * 10;
+							chapteList [i].StarReward [k] =  hData.Star_ [boxId];
 						}
 					}
 				} 
@@ -169,12 +171,11 @@ public class JieHunSystem
 					{
 						if (chapteList [i].StarReward [k] == 0) 
 						{
-							chapteList [i].StarReward [k] = (boxId + 1) * 10;
+							chapteList [i].StarReward [k] = hData.Star_ [boxId];
 							break;
 						}
 					}	
 					
-
 				}
 			}
 		}
