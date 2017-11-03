@@ -230,6 +230,7 @@ function xiangxiziliao:OnHide()
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
 	raceHelp.visible = false;
+	rightLevelUp.visible = false;
 	Window:Hide();
 end
 
