@@ -62,7 +62,7 @@ local needItemIconback;
 local needItem;
 local needItemBar;
 local levelUpRad;
-
+local btnList;
 local levelRadBtn;
 local raceHelp;
 
@@ -90,7 +90,7 @@ function xiangxiziliao:OnInit()
 	rightInfo = self.contentPane:GetChild("n80").asCom;
 	rightLevelUp = self.contentPane:GetChild("n81").asCom;
 
-	local btnList = self.contentPane:GetChild("n82").asList;
+	btnList = self.contentPane:GetChild("n82").asList;
 	local btnMax = btnList.numItems;
 	local btnItem;
 	for i=1, btnMax do
@@ -167,7 +167,6 @@ function xiangxiziliao:OnInit()
 		local skill = skillList:GetChildAt(i - 2);
 		skill.onClick:Add(xiangxiziliao_OnSkillBtn);
 	end
-
 	--xiangxiziliao_FlushData();
 end
 
@@ -231,6 +230,8 @@ function xiangxiziliao:OnHide()
 	modelRes = "";
 	raceHelp.visible = false;
 	rightLevelUp.visible = false;
+	rightInfo.visible = true;
+	btnList.selectedIndex = 0;
 	Window:Hide();
 end
 
