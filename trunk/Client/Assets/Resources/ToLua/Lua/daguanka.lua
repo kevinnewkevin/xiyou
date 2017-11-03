@@ -20,6 +20,9 @@ local Trans0;
 local Trans1;
 local Trans2;
 local crtSelectIdx;
+local battleNum;
+
+
 
 function daguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
@@ -42,6 +45,7 @@ function daguanka:OnInit()
 	leftBtn.onClick:Add(daguanka_OnLeftBtn);
 	rightBtn.onClick:Add(daguanka_OnRightBtn);
 	playerName = self.contentPane:GetChild("n17");
+	battleNum = self.contentPane:GetChild("n18");
 	boosInfoBtn.onClick:Add(daguanka_OnBoosInfo);
 	rewardIcon = infoPanel:GetChild("n16");
 	starBtn = infoPanel:GetChild("n3");
@@ -95,6 +99,17 @@ function DoSpecialEffect()
 				rewardIcon.asLoader.url = "ui://" .. displayData._HeadIcon;
 				guankaId = obj.data;
 				local cData = JieHunSystem.instance:GetChapterData(guankaId);
+				local chapterData =  JieHunSystem.instance:GetChapterData(guankaId);
+  				local smallChapters = chapterData.SmallChapters;
+  				local len = smallChapters.Length;
+  				local num = 0;
+			    for i = 1, len do
+			 	 	if smallChapters[i -1].Star1 == true or smallChapters[i -1].Star2 == true or smallChapters[i -1].Star3 == true  then    
+						num= num + 1;
+					end
+				 end
+				 battleNum.text = "已完成"..num.."/"..len;
+
 				if  cData == nil then
 					starBtn.visible = false;
 				else
