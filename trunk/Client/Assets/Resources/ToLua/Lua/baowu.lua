@@ -203,5 +203,8 @@ function baowu:OnHide()
 	hitNextLbl.visible = false;
 	dropList.visible = false;
 	outCom.visible = false;
+	timeOut = {};
+	timeOut.max = 2;
+	timeOut.count = 0;
 	Window:Hide();
 end
