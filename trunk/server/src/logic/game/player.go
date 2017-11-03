@@ -275,14 +275,16 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 }
 
 func (this *GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer) {
+
 	this.SetPlayerCOM(&p.COM_Player)
 	this.PlayerId = p.PlayerId
 	this.Username = p.Username
 	this.LoginTime = p.LoginTime
 	this.LogoutTime = p.LogoutTime
-	for _, a := range p.BagItemList {
-		this.BagItems = append(this.BagItems, &a)
+	for i := range p.BagItemList {
+		this.BagItems = append(this.BagItems, &p.BagItemList[i])
 	}
+
 	this.BlackMarketData = &p.BlackMarketData
 }
 
@@ -1489,10 +1491,10 @@ func TestPlayer() {
 }
 
 func (this *GamePlayer) TestItem() {
-	//for i := 1; i < 9 ; i++ {	//测试用
-	//	this.AddBagItemByItemId(int32(i), 10)
-	//}
-	//this.AddBagItemByItemId(5000,2000)
+	for i := 1; i < 9 ; i++ {	//测试用
+		this.AddBagItemByItemId(int32(i), 10)
+	}
+	this.AddBagItemByItemId(5000,2000)
 	this.AddCopper(10000000)
 	this.AddGold(10000)
 	this.GiveDrop(1000)
