@@ -186,7 +186,7 @@
     <image id="neb75k" name="icon_skill_shedu.png" path="/" exported="true"/>
     <image id="neb75l" name="icon_skill_henyijue.png" path="/" exported="true"/>
   </resources>
-  <publish name="icon" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="icon" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>

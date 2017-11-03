@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="199,190" extention="Button">
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
   <displayList>
     <image id="n4_s5s1" name="n4" src="s5s1p" xy="0,0"/>
-    <image id="n9_wnnz" name="n9" src="ihygz" xy="3,-1">
+    <image id="n9_wnnz" name="n9" src="ihygz" xy="12,7" size="180,180" aspect="true">
       <gearDisplay controller="button" pages="1,2,3"/>
     </image>
     <loader id="n8_s5s1" name="n8" xy="17,11" size="168,168" align="center" vAlign="middle" fill="scale"/>
