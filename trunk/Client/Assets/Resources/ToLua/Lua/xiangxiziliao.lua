@@ -161,8 +161,8 @@ function xiangxiziliao:OnInit()
 	needItemIconback= needItem:GetChild("n0"); 
 	needItemBar = rightLevelUp:GetChild("n300");
 
-	for i=1, 3 do
-		local skill = skillList:GetChildAt(i - 1);
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
 		skill.onClick:Add(xiangxiziliao_OnSkillBtn);
 	end
 
@@ -340,8 +340,8 @@ function xiangxiziliao_FlushData()
 		levelUpBtn.enabled  = false;
 	end
 
-	for i=1, 3 do
-		local skill = skillList:GetChildAt(i - 1);
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
 		local sData = Proxy4Lua.GetCardInstSkillData(instId, i-1);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
@@ -396,8 +396,8 @@ function xiangxiziliao_BoosInfo()
 	suck.text = "0";--entityData.;
 
 
-	for i=1, 4 do
-		local skill = skillList:GetChildAt(i - 1);
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
 		local sData = SkillData.GetData(entityData._Skills[i-1]);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
