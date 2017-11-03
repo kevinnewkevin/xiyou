@@ -2,8 +2,8 @@
 <component size="249,100" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n3_qmkd" name="n3" src="rbrv1l" xy="0,0"/>
-    <text id="n2_qbyu" name="n2" xy="95,11" size="97,49" font="方正楷体_GBK" fontSize="42" color="#4e2a0d" bold="true" text="领取"/>
+    <image id="n3_qmkd" name="n3" src="rbrv1l" xy="-14,6" size="260,90" aspect="true"/>
+    <text id="n2_qbyu" name="n2" xy="49,24" size="131,63" font="方正楷体_GBK" fontSize="44" color="#e8c460" align="center" autoSize="none" bold="true" strokeColor="#754600" strokeSize="2" text="领取"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

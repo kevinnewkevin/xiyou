@@ -8,11 +8,13 @@
     <component id="n4_63w5" name="n4" src="63w59" xy="1211,571" pivot="0,0.5" anchor="true" size="767,785"/>
     <component id="n5_63w5" name="n5" src="63w5i" xy="521,522"/>
     <component id="n6_63w5" name="n6" src="63w5j" xy="1272,522"/>
-    <component id="n3_63w5" name="n3" src="63w53" xy="1664,0" pivot="1,0"/>
+    <component id="n3_63w5" name="n3" src="63w53" xy="1668,12" pivot="1,0"/>
     <image id="n15_sssk" name="n15" src="sssks" xy="116,0" alpha="0.6"/>
     <image id="n14_sssk" name="n14" src="ssskt" xy="133,147" pivot="0.5,0.5" anchor="true" alpha="0.6"/>
     <image id="n16_wlsd" name="n16" src="wlsdu" xy="660,424"/>
     <text id="n17_wlsd" name="n17" xy="660,407" size="83,372" font="方正楷体_GBK" fontSize="42" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="啦啦啦啦啦啊"/>
+    <image id="n19_q9wn" name="n19" src="q9wnv" xy="14,960" size="340,84"/>
+    <text id="n18_q9wn" name="n18" xy="38,978" size="272,75" font="方正楷体_GBK" fontSize="50" color="#ffffff" autoSize="none" bold="true" text="已完成1/20"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="Alpha" target="n4_63w5" tween="true" startValue="0" endValue="1" duration="8" ease="Circ.InOut"/>
