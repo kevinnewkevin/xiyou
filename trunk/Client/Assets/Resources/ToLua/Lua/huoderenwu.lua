@@ -24,15 +24,13 @@ end
 function huoderenwu:OnInit()
 	self.contentPane = UIPackage.CreateObject("huoderenwu", "huoderenwu_com").asCom;
 	self:Center();
-   -- self.closeButton = self.contentPane:GetChild("n10");
-    
+	self.modal = true;
+    self.closeButton = self.contentPane:GetChild("n10");
     nameLab = self.contentPane:GetChild("n4");
     race = self.contentPane:GetChild("n7");
     needPower = self.contentPane:GetChild("n8");
     holder = self.contentPane:GetChild("n1").asGraph;
-    hitNextBtn = self.contentPane:GetChild("n10");
     infoBtn = self.contentPane:GetChild("n12");
-    hitNextBtn.onClick:Add(huderenwu_OnExit);
     infoBtn.onClick:Add(huderenwu_OnInfo);
 	huoderenwu_FlushData();
 end
@@ -77,6 +75,7 @@ function huoderenwu:OnHide()
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Proxy4Lua.UnloadAsset(modelRes);
 	modelRes = "";
+	SceneLoader.LoadScene("main");
 	Window:Hide();
 end
 

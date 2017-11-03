@@ -307,6 +307,7 @@ function jiesuanjiemian_OnOkBtn()
 		if GamePlayer.showNewCard == true then
 			UIManager.Show("huoderenwu");
 			GamePlayer.showNewCard = false;
+			Window:Hide();
 		else
 			SceneLoader.LoadScene("main");
 		end
