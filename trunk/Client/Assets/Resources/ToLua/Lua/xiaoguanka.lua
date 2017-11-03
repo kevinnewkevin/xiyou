@@ -264,6 +264,8 @@ end
 function xiaoguanka_OnGetRewardBtn(context)
 	local data = HeroStroyData.GetData(showRewardId);
 	Proxy4Lua.RequestChapterStarReward(showRewardId,data.Star_[showRewardStar]);
+	JieHunSystem.instance.chapterID = showRewardId;
+	JieHunSystem.instance.chapterBox = showRewardStar;
 	rewardShow.visible= false;
 end
 

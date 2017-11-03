@@ -35,7 +35,7 @@ end
 function baowu:OnInit()
 	self.contentPane = UIPackage.CreateObject("baowu", "baowu_com").asCom;
 	self:Center();
-
+	self.modal = true;
 	hitNextLbl = self.contentPane:GetChild("n0").asTextField;
 	hitNextBtn = self.contentPane:GetChild("n9");
 	hitNextBtn.onClick:Add(baowu_OnExit);
@@ -82,7 +82,7 @@ function baowu_OnExit(context)
 		hitNextLbl.visible = false;
 		dropList.visible = false;
 		outCom.visible = false;
-		UIManager.Show("jiehun");
+		--UIManager.Show("jiehun");
 		Window:Hide();			
 	else
 		if GamePlayer.showNewCard == true then
