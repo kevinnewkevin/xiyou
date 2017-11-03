@@ -209,10 +209,10 @@ function qiecuo_FlushData()
 		end
 
 		tiantiFen0.text =  "积分 " .. GamePlayer._TianTiVal;
-		tiantiFen1.text =  "积分 " .. GamePlayer._TianTiVal;
+		--tiantiFen1.text =  "积分 " .. GamePlayer._TianTiVal;
 		local level = GamePlayer.GetTianTiLevel();
 		levelImg.asLoader.url = "ui://qiecuo/duanwei" .. level;
-		
+		tiantiFen1.text =  level.."段";
 end
 
 
