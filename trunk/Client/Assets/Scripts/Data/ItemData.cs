@@ -31,7 +31,7 @@ public class ItemData {
         {
             data = new ItemData ();
             data._Id = parser.GetInt (i, "ItemID");
-            data._Type = parser.GetInt (i, "ItemType");
+			data._Type = parser.GetString (i, "ItemType");
             data._Icon = parser.GetString (i, "ItemIcon");
 			data._IconBack = parser.GetString (i, "Quality");
 			data._Name = parser.GetString (i, "Name");
