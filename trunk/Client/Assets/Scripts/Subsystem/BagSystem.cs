@@ -72,18 +72,18 @@ public class BagSystem {
 			if (_ItemsByType [0] [i].InstId == instid)
             {
 				ItemData iData = ItemData.GetData(_ItemsByType [0] [i].ItemId);
-                type = iData._Type;
+              //  type = iData._Type;
                 _ItemsByType [0].RemoveAt(i);
                 break;
             }
         }
-        for(int i=0; i < _ItemsByType[type].Count; ++ i)
-        {
-			if (_ItemsByType [type] [i].InstId == instid)
-            {
-                _ItemsByType [type].RemoveAt(i);
-            }
-        }
+       // for(int i=0; i < _ItemsByType[type].Count; ++ i)
+       // {
+			//if (_ItemsByType [type] [i].InstId == instid)
+           // {
+               // _ItemsByType [type].RemoveAt(i);
+          //  }
+     //   }
         UIManager.SetDirty("bagui");
     }
 
@@ -95,16 +95,16 @@ public class BagSystem {
 			if (_ItemsByType [0] [i].InstId == inst.InstId)
             {
 				ItemData iData = ItemData.GetData(_ItemsByType [0] [i].ItemId);
-                type = iData._Type;
+               // type = iData._Type;
                 _ItemsByType [0] [i] = inst;
                 break;
             }
         }
-        for(int i=0; i < _ItemsByType[type].Count; ++i)
-        {
-						if (_ItemsByType [type] [i].InstId == inst.InstId)
-                _ItemsByType [type] [i] = inst;
-        }
+      //  for(int i=0; i < _ItemsByType[type].Count; ++i)
+        //{
+						//if (_ItemsByType [type] [i].InstId == inst.InstId)
+               // _ItemsByType [type] [i] = inst;
+       // }
         UIManager.SetDirty("bagui");
     }
 
