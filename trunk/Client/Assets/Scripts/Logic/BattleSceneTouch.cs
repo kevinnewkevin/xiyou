@@ -104,16 +104,19 @@ public class BattleSceneTouch : MonoBehaviour {
             _WantPress = false;
             _PressTimer = 0;
         }
-        
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
-        if (Physics.Raycast(ray, out hit))
+
+        if (!Stage.isTouchOnUI)
         {
-            if (hit.transform.CompareTag("Point"))
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Stage.inst.touchPosition.x, Screen.height - Stage.inst.touchPosition.y));
+            if (Physics.Raycast(ray, out hit))
             {
-                PointHandle handler = hit.transform.GetComponent<PointHandle>();
-                if (handler != null)
-                    handler.Excute();
+                if (hit.transform.CompareTag("Point"))
+                {
+                    PointHandle handler = hit.transform.GetComponent<PointHandle>();
+                    if (handler != null)
+                        handler.Excute();
+                }
             }
         }
         _IsPress = false;
