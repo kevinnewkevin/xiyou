@@ -78,12 +78,19 @@ function DoSpecialEffect()
 			local colorObj = obj:GetChild("n5");
 			colorObj.color = Color.gray;
 			effect.visible =false;
+			obj.onClick:Set(zhujiemian_OnClose);
 		else
 			local ss = 1 + (1 - dist / obj.width) * 1;
 			obj:SetScale(ss, ss);
 			local colorObj = obj:GetChild("n5");
 			colorObj.color = Color.white;
 			effect.visible = true;
+			if obj.data == 0 then
+				obj.onClick:Set(zhujiemian_OnQieCuoBtn);
+			elseif obj.data == 1 then
+				obj.onClick:Set(zhujiemian_OnTaskBtn);
+			end
+
 		end
 	end
 end
@@ -143,6 +150,7 @@ function zhujiemain_RenderListItem(index, obj)
 	if index == 0 then
 		img.url = "ui://zhujiemian/zjm_31";
 		obj.onClick:Set(zhujiemian_OnQieCuoBtn);
+		obj.data = 0;
 		effRes = "Effect/sunwukong_ui";
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(effRes)); 
 		Proxy4Lua.AddToDelete("zhujiemian",effRes);
@@ -152,13 +160,16 @@ function zhujiemain_RenderListItem(index, obj)
 		effRes = "Effect/xihailongwang_ui";
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(effRes));
 		Proxy4Lua.AddToDelete("zhujiemian",effRes);
+		obj.data = 1;
 	elseif index == 2 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
+		obj.data = 2;
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(""));
 	elseif index == 3 then
 		img.url = "ui://zhujiemian/zjm_28";
 		obj.onClick:Set(zhujiemian_OnClose);
+		obj.data = 3;
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(""));
 	end
 	
