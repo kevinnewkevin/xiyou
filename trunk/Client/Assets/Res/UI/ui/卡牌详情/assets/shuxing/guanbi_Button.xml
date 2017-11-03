@@ -2,7 +2,7 @@
 <component size="99,100" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="l86n9" xy="0,0">
+    <image id="n1" name="n1" src="l86n9" xy="-30,-11">
       <gearDisplay controller="button" pages="0,2"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>

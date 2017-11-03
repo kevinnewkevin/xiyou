@@ -2,13 +2,13 @@
 <component size="141,138" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n4_s5s1" name="n4" src="l86nc" xy="0,0"/>
+    <image id="n4_s5s1" name="n4" src="l86nc" xy="0,0" size="145,138" aspect="true"/>
     <image id="n9_wnnz" name="n9" src="m96qj" xy="3,-1">
       <gearDisplay controller="button" pages="1,2,3"/>
     </image>
     <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
-    <image id="n5_s5s1" name="n5" src="l86nb" xy="95,92"/>
-    <text id="n7_s5s1" name="n7" xy="90,97" size="58,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
+    <image id="n5_s5s1" name="n5" src="l86nb" xy="75,77" size="74,64" aspect="true"/>
+    <text id="n7_s5s1" name="n7" xy="82,90" size="65,46" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
   </displayList>
   <Button mode="Radio"/>
 </component>
