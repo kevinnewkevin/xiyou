@@ -568,7 +568,7 @@ public class Proxy4Lua {
         
         for(int i=0; i < _AssetToDelete[ui].Count; ++i)
         {
-            AssetLoader.UnloadAsset(_AssetToDelete[ui][i], true);
+            AssetLoader.UnloadAsset(_AssetToDelete[ui][i], false);
         }
         _AssetToDelete [ui].Clear();
         _AssetToDelete.Remove(ui);
