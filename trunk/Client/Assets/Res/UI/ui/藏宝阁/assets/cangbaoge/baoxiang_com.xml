@@ -2,26 +2,28 @@
 <component size="1920,1080">
   <displayList>
     <graph id="n0_mrcu" name="n0" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
-    <image id="n1_mrcu" name="n1" src="mrcuv" xy="503,146" size="900,780"/>
-    <image id="n2_mrcu" name="n2" src="mrcuy" xy="768,197" size="370,43"/>
-    <image id="n3_mrcu" name="n3" src="mrcu13" xy="591,254" size="730,4"/>
-    <image id="n4_mrcu" name="n4" src="mrcu13" xy="591,835" size="730,4"/>
-    <image id="n6_mrcu" name="n6" src="mrcux" xy="930,318"/>
-    <image id="n7_mrcu" name="n7" src="mrcuz" xy="939,446"/>
-    <image id="n8_mrcu" name="n8" src="mrcu10" xy="939,532"/>
-    <image id="n9_mrcu" name="n9" src="mrcu11" xy="939,708"/>
-    <image id="n10_mrcu" name="n10" src="mrcu12" xy="940,622"/>
-    <loader id="n22_nfe4" name="n22" xy="585,261" size="333,576"/>
-    <text id="n11_mrcu" name="n11" xy="874,196" size="158,51" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="包括"/>
-    <text id="n12_mrcu" name="n12" xy="630,307" size="239,51" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" letterSpacing="-3" autoSize="none" text="啦啦啦啦宝箱"/>
+    <image id="n1_mrcu" name="n1" src="mrcuv" xy="472,146" size="931,780"/>
+    <image id="n24_ula6" name="n24" src="mrcu16" xy="946,344" size="392,59"/>
+    <image id="n25_ula6" name="n25" src="mrcu16" xy="947,455" size="392,59"/>
+    <image id="n26_ula6" name="n26" src="mrcu16" xy="945,555" size="392,59"/>
+    <image id="n27_ula6" name="n27" src="mrcu16" xy="951,655" size="392,59"/>
+    <image id="n28_ula6" name="n28" src="mrcu16" xy="950,749" size="392,59"/>
+    <image id="n2_mrcu" name="n2" src="mrcuy" xy="745,194" size="397,72"/>
+    <image id="n6_mrcu" name="n6" src="mrcux" xy="927,327" size="88,93" aspect="true"/>
+    <image id="n7_mrcu" name="n7" src="mrcuz" xy="919,428"/>
+    <image id="n8_mrcu" name="n8" src="mrcu10" xy="934,536"/>
+    <image id="n9_mrcu" name="n9" src="mrcu11" xy="938,726"/>
+    <image id="n10_mrcu" name="n10" src="mrcu12" xy="937,631"/>
+    <loader id="n22_nfe4" name="n22" xy="523,267" size="424,576" url="ui://4qflmm6sa44qa"/>
+    <text id="n11_mrcu" name="n11" xy="873,201" size="158,51" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="包括"/>
+    <text id="n12_mrcu" name="n12" xy="609,311" size="239,51" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" letterSpacing="-3" autoSize="none" text="啦啦啦啦宝箱"/>
     <text id="n13_mrcu" name="n13" xy="982,346" size="213,51" font="方正楷体_GBK" fontSize="34" color="#f4d997" align="right" vAlign="middle" autoSize="none" strokeColor="#372600" strokeSize="2" text="1000"/>
     <text id="n14_mrcu" name="n14" xy="1058,460" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="白/绿碎片 * 20"/>
-    <text id="n15_mrcu" name="n15" xy="1056,548" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="蓝色碎片 * 20"/>
-    <text id="n16_mrcu" name="n16" xy="1056,634" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="紫色碎片 * 20"/>
-    <text id="n17_mrcu" name="n17" xy="1058,722" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="橙色碎片 * 20"/>
+    <text id="n15_mrcu" name="n15" xy="1056,560" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="蓝色碎片 * 20"/>
+    <text id="n16_mrcu" name="n16" xy="1056,661" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="紫色碎片 * 20"/>
+    <text id="n17_mrcu" name="n17" xy="1062,758" size="264,51" font="方正楷体_GBK" fontSize="34" color="#d5e5fd" vAlign="middle" autoSize="none" strokeColor="#001947" strokeSize="2" text="橙色碎片 * 20"/>
     <component id="n18_mrcu" name="n18" src="l9rhl" xy="818,852"/>
-    <component id="n20_mrcu" name="n20" src="mrcu15" xy="1299,207"/>
-    <image id="n21_mrcu" name="n21" src="mrcu16" xy="1358,183"/>
     <image id="n23_v1wy" name="n23" src="k7i8e" xy="1189,336"/>
+    <component id="n29_f1cd" name="n20" src="f1cd1n" xy="1278,134"/>
   </displayList>
 </component>

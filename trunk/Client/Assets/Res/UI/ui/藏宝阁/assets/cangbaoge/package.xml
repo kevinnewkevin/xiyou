@@ -10,7 +10,7 @@
     <image id="a44q6" name="tianxian.png" path="/" exported="true"/>
     <image id="a44q7" name="zhaohuantianshu.png" path="/" exported="true"/>
     <image id="a44q8" name="cangbaoge.png" path="/" exported="true"/>
-    <image id="a44q9" name="diban.png" path="/" exported="true" scale="" scale9grid="272,168,18,26"/>
+    <image id="a44q9" name="diban.png" path="/" exported="true" scale9grid="272,168,18,26"/>
     <image id="a44qa" name="dixian.png" path="/" exported="true"/>
     <image id="k7i8b" name="baoshi.png" path="/" exported="true"/>
     <image id="k7i8c" name="ditiao.png" path="/" exported="true" scale="9grid" scale9grid="8,13,9,20"/>
@@ -32,7 +32,7 @@
     <component id="t33es" name="goumaitongbi_com.xml" path="/" exported="true"/>
     <image id="t33et" name="ewai.png" path="/" exported="true" scale="9grid" scale9grid="14,30,28,32"/>
     <component id="mrcuu" name="baoxiang_com.xml" path="/" exported="true"/>
-    <image id="mrcuv" name="tc_diban.png" path="/" exported="true" scale="9grid" scale9grid="114,68,28,27"/>
+    <image id="mrcuv" name="tc_diban.png" path="/" exported="true" scale="" scale9grid="114,68,28,27"/>
     <image id="mrcuw" name="tc_guanbi.png" path="/" exported="true"/>
     <image id="mrcux" name="tc_jinbi.png" path="/" exported="true"/>
     <image id="mrcuy" name="tc_tiao.png" path="/" exported="true" scale="9grid" scale9grid="54,11,8,22"/>
@@ -56,6 +56,8 @@
     <image id="nk8s1j" name="shajiangjun_head_icon.png" path="/" exported="true"/>
     <image id="qe8f1k" name="18.png" path="/" exported="true"/>
     <image id="uxrn1l" name="20.png" path="/" exported="true"/>
+    <image id="f1cd1m" name="40.png" path="/"/>
+    <component id="f1cd1n" name="guan_Button.xml" path="/"/>
   </resources>
   <publish name="cangbaoge" extractAlpha="true">
     <atlas name="默认" index="0"/>
