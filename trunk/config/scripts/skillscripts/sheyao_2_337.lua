@@ -15,6 +15,10 @@ sys.log("蛇妖 SK_337_Action 开始")
 
 function all_337_skill(battleid,casterid,target,skillid)
 	for i,v in ipairs(target) do
+
+		--if v == casterid then
+			--v = Player.GetFriend(battleid,casterid)
+		--end
 	
 		Battle.TargetOn(battleid)
 	
@@ -28,6 +32,11 @@ function all_337_skill(battleid,casterid,target,skillid)
 		
 			damage = 0
 		
+		end
+		
+		if v == casterid then
+			damage = 0 
+
 		end
 		local crit = Battle.GetCrit(skillid)   --是否暴击
 		
@@ -48,6 +57,7 @@ function SK_337_Action(battleid, casterid)
 
 
 	local  p = Player.GetFriends(battleid,casterid,attackNum)  --获取友方所有目标
+
 	all_337_skill(battleid,casterid,p,skillid)
 
 
