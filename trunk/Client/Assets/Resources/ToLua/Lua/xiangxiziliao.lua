@@ -110,7 +110,7 @@ function xiangxiziliao:OnInit()
 	level= self.contentPane:GetChild("n59");
 	fee = self.contentPane:GetChild("n58");
 	name = self.contentPane:GetChild("n60");
-	race = self.contentPane:GetChild("n79");
+	race = self.contentPane:GetChild("n89");
 	race.onClick:Add(xiangxiziliao_OnRace);
 	raceBack = self.contentPane:GetChild("n85");
 	raceHelp = self.contentPane:GetChild("n87");
@@ -161,7 +161,7 @@ function xiangxiziliao:OnInit()
 	needItemIconback= needItem:GetChild("n0"); 
 	needItemBar = rightLevelUp:GetChild("n300");
 
-	for i=1, 4 do
+	for i=1, 3 do
 		local skill = skillList:GetChildAt(i - 1);
 		skill.onClick:Add(xiangxiziliao_OnSkillBtn);
 	end
@@ -340,7 +340,7 @@ function xiangxiziliao_FlushData()
 		levelUpBtn.enabled  = false;
 	end
 
-	for i=1, 4 do
+	for i=1, 3 do
 		local skill = skillList:GetChildAt(i - 1);
 		local sData = Proxy4Lua.GetCardInstSkillData(instId, i-1);
 		local loader = skill:GetChild("n8").asLoader;
