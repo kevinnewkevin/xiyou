@@ -109,7 +109,7 @@ function renwuziliao_FlushData()
 	if modelRes ~= displayData._AssetPath then
 		Proxy4Lua.UnloadAsset(modelRes);
 		modelRes = displayData._AssetPath;
-		local scale = Define.GetFloat("UIModelScale") * 1.5;
+		local scale = Define.GetFloat("UIModelScale") * 2;
 		holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, scale, 0, true));
 	end
 	name.text =  GamePlayer._Name;
