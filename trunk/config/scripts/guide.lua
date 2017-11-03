@@ -12,7 +12,7 @@ function WhenUIOpen(uiName, uiWindow)
 	--指引点击解魂按钮(uiWindow.contentPane:GetChild("n4"):GetChild("n3"))
 	if uiName == "daguanka" then
 		if GuideSystem.IsNotFinish(2) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,559);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
 			GuideSystem.SetFinish(2);
 		end
 	end
