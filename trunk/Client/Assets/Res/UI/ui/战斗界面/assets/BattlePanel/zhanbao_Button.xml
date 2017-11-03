@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="96,92" extention="Button">
+<component size="108,131" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n8_nz5f" name="n8" xy="-1,-4" size="106,99" aspect="true" fill="scale"/>
-    <loader id="n5_nz5f" name="n5" xy="3,-30" size="95,121" fill="scale"/>
-    <loader id="n6_nz5f" name="n6" xy="3,-30" size="95,121" align="center" vAlign="bottom" fill="scale"/>
-    <loader id="n7_nz5f" name="n7" xy="41,39" size="56,55" url="ui://g7uitnianz5f2v" align="center" vAlign="middle"/>
+    <loader id="n8_nz5f" name="n8" xy="2,28" size="106,99" aspect="true" fill="scale"/>
+    <loader id="n5_nz5f" name="n5" xy="6,2" size="95,121" fill="scale"/>
+    <loader id="n6_nz5f" name="n6" xy="6,2" size="95,121" align="center" vAlign="bottom" fill="scale"/>
+    <loader id="n7_nz5f" name="n7" xy="44,71" size="56,55" url="ui://g7uitnianz5f2v" align="center" vAlign="middle"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.90"/>
 </component>
