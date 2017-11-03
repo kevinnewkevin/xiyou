@@ -269,7 +269,7 @@ function xiangxiziliao_FlushData()
 	local hideBtn = UIParamHolder.Get("qiecuo2");
 	local displayData = GamePlayer.GetDisplayDataByInstID(instId);
 	modelRes = displayData._AssetPath;
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true, 1200));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true, 1200, 1.5));
 
 	race.asLoader.url = "ui://" .. displayData._Race;
 	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
@@ -372,7 +372,7 @@ function xiangxiziliao_BoosInfo()
 	local entityData = EntityData.GetData(boosId);
 	local displayData =  DisplayData.GetData(entityData._DisplayId);
 	modelRes = displayData._AssetPath;
-	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true, 1200));
+	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, true, 1200, 1.5));
 	race.asLoader.url = "ui://" .. displayData._Race;
 	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
 

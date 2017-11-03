@@ -150,7 +150,7 @@ public class Proxy4Lua {
         return new FairyGUI.GoWrapper(go);
     }
 
-    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, bool canRot, float distance = 1500f)
+    static public FairyGUI.GoWrapper GetAssetGameObject(string assetPath, bool canRot, float distance = 1500f, float scale = 1f)
     {
         if (string.IsNullOrEmpty(assetPath))
             return new FairyGUI.GoWrapper(new GameObject());
@@ -158,7 +158,7 @@ public class Proxy4Lua {
         if(canRot)
             go.AddComponent<ActorRotate>();
         go.transform.position = new Vector3(0f, 0f, distance);
-        go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
+        go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale") * scale;
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
         go.SetActive(true);
