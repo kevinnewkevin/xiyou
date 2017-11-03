@@ -3,7 +3,7 @@
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
     <image id="n14_ugcq" name="n14" src="dv3n25" xy="0,0"/>
-    <image id="n4_s5s1" name="n4" src="i5xx28" xy="21,25"/>
+    <image id="n4_s5s1" name="n4" src="i5xx28" xy="21,25" size="143,136" aspect="true"/>
     <image id="n11_tmae" name="n11" src="ugcq2b" xy="22,21">
       <gearDisplay controller="button" pages="1"/>
     </image>
@@ -11,7 +11,7 @@
     <image id="n12_tzjy" name="n12" src="ugcq2c" xy="32,31" hideByEditor="true"/>
     <text id="n13_tzjy" name="n13" xy="24,76" size="136,53" hideByEditor="true" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="10级解锁"/>
     <image id="n10_tmae" name="n10" src="ugcq2d" xy="31,26" hideByEditor="true"/>
-    <image id="n5_s5s1" name="n5" src="i5xx2a" xy="116,117"/>
+    <image id="n5_s5s1" name="n5" src="i5xx2a" xy="100,108" size="73,63" aspect="true"/>
     <text id="n7_s5s1" name="n7" xy="108,122" size="63,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
     <image id="n15_ugcq" name="n15" src="dv3n24" xy="15,100"/>
     <text id="n16_ugcq" name="n16" xy="2,116" size="69,77" font="ui://g7uitniaugcq2j" fontSize="12" align="center" vAlign="middle" autoSize="none" text="1"/>

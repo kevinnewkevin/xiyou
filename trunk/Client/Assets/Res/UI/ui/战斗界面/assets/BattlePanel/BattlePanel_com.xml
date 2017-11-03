@@ -14,10 +14,10 @@
     <image id="n25_gswf" name="n25" src="olbbi" xy="1290,915"/>
     <image id="n24_gswf" name="n24" src="olbbi" xy="1275,915"/>
     <graph id="n43_gw9z" name="n44" xy="1808,1066" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
-    <image id="n22_gswf" name="n22" src="olbbf" xy="1262,984"/>
-    <image id="n2_olbb" name="n2" src="olbb9" xy="1652,938"/>
+    <image id="n22_gswf" name="n22" src="olbbf" xy="1262,984" alpha="0.6"/>
+    <image id="n2_olbb" name="n2" src="olbb9" xy="1652,938" alpha="0.6"/>
     <image id="n3_olbb" name="n3" src="olbba" xy="1,1001" size="162,72"/>
-    <image id="n51_i407" name="n51" src="i4072l" xy="272,7" size="1534,109"/>
+    <image id="n51_i407" name="n51" src="i4072l" xy="272,7" size="1534,109" alpha="0.6"/>
     <image id="n71_i407" name="n71" src="i4072n" xy="1465,24">
       <relation target="n51_i407" sidePair="center-center,middle-middle"/>
     </image>
@@ -36,14 +36,14 @@
     <image id="n50_i407" name="n200" src="i4072k" xy="0,0"/>
     <image id="n48_dv3n" name="n48" src="dv3n23" xy="-14,462"/>
     <component id="n7_olbb" name="n7" src="h4l515" xy="562,344"/>
-    <component id="n8_olbb" name="n8" src="olbbs" xy="5,5"/>
-    <component id="n9_olbb" name="n9" src="olbbt" xy="93,5"/>
-    <component id="n10_olbb" name="n10" src="olbbu" xy="181,5"/>
+    <component id="n8_olbb" name="n8" src="olbbs" xy="34,20" size="49,46" aspect="true"/>
+    <component id="n9_olbb" name="n9" src="olbbt" xy="158,11"/>
+    <component id="n10_olbb" name="n10" src="olbbu" xy="234,8"/>
     <component id="n12_olbb" name="n12" src="olbbv" xy="40,885">
       <Button page="1"/>
     </component>
     <component id="n4_olbb" name="n4" src="olbbq" xy="15,979"/>
-    <loader id="n16_olbb" name="n16" xy="1692,860" size="230,214" align="right" vAlign="bottom"/>
+    <loader id="n16_olbb" name="n16" xy="1692,856" size="230,214" align="right" vAlign="bottom"/>
     <component id="n17_i02i" name="n17" src="i02ix" xy="412,1067" pivot="1,1" anchor="true"/>
     <component id="n18_i02i" name="n18" src="i02ix" xy="623,1067" pivot="1,1" anchor="true"/>
     <component id="n19_i02i" name="n19" src="i02ix" xy="834,1067" pivot="1,1" anchor="true"/>
@@ -63,7 +63,7 @@
       <item/>
       <item/>
     </list>
-    <list id="n77_nz5f" name="n77" xy="336,1" size="1444,111" layout="flow_hz" overflow="scroll" colGap="-2" defaultItem="ui://g7uitnianz5f2o" align="right" vAlign="middle"/>
+    <list id="n77_nz5f" name="n77" xy="336,1" size="1444,111" layout="flow_hz" overflow="scroll" colGap="3" defaultItem="ui://g7uitnianz5f2o" align="right" vAlign="middle"/>
     <component id="n78_jdlj" name="n78" src="i02ix" xy="627,773"/>
   </displayList>
   <transition name="t0">

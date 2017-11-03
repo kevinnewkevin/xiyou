@@ -49,8 +49,11 @@
     <image id="n04d20" name="l_8.png" path="/" exported="true"/>
     <image id="n04d21" name="l_9.png" path="/" exported="true"/>
     <font id="n04d22" name="jiaxue_Font.fnt" path="/" exported="true"/>
+    <image id="jdjw23" name="leizhenzi_head.png" path="/"/>
+    <image id="jdjw24" name="43.png" path="/"/>
+    <image id="jdjw25" name="icon_skill_huaxuekuangji.png" path="/"/>
   </resources>
-  <publish name="zhanbao" maxAtlasSize="1024" extractAlpha="true">
+  <publish name="zhanbao" extractAlpha="true">
     <atlas name="默认" index="0"/>
   </publish>
 </packageDescription>
