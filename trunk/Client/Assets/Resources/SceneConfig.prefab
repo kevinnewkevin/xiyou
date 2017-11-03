@@ -986,6 +986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114156869423432694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -997,6 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114173014141960660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1008,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114326147107316336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1019,6 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114326716737192168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1030,6 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114487198591550046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1041,6 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114567795638028688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1052,6 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114593420324060206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1063,6 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114678385241852950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1074,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114694681753367486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1096,6 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114991802735700200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1107,6 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!114 &114995435110541934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1118,6 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045a45b30d0d294a99774787a8b87f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Pos: 0
 --- !u!135 &135011812764456764
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1128,7 +1140,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135174204022659300
 SphereCollider:
@@ -1140,7 +1152,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135181776988871172
 SphereCollider:
@@ -1152,7 +1164,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135185445326861756
 SphereCollider:
@@ -1164,7 +1176,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135187695684123566
 SphereCollider:
@@ -1188,7 +1200,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135431014407441268
 SphereCollider:
@@ -1200,7 +1212,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135444160324200190
 SphereCollider:
@@ -1212,7 +1224,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135466144165632084
 SphereCollider:
@@ -1224,7 +1236,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135483073138120126
 SphereCollider:
@@ -1236,7 +1248,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135497583457340108
 SphereCollider:
@@ -1248,7 +1260,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135913443274154202
 SphereCollider:
@@ -1260,7 +1272,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135999885707098332
 SphereCollider:
@@ -1272,5 +1284,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
