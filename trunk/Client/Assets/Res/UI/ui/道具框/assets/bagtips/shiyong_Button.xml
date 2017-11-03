@@ -2,8 +2,7 @@
 <component size="130,130" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n3_tpyu" name="n1" src="hjqe3" xy="0,0"/>
-    <image id="n4_jlx4" name="n4" src="hjqe6" xy="58,-25"/>
+    <image id="n3_tpyu" name="n1" src="hjqe3" xy="0,0" size="130,127" aspect="true"/>
   </displayList>
   <Button downEffect="dark" downEffectValue="0.80"/>
 </component>

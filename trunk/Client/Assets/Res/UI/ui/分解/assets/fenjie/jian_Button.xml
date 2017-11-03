@@ -2,7 +2,7 @@
 <component size="91,80" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <component id="n1" name="n1" src="nhtz7" xy="45,40" pivot="0.5,0.5" anchor="true" skew="0,-180">
+    <component id="n1" name="n1" src="nhtz7" xy="0,1" pivot="0.5,0.5" skew="0,-180">
       <relation target="" sidePair="width-width,height-height"/>
     </component>
   </displayList>

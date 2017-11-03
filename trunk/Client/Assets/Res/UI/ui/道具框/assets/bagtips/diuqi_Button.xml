@@ -2,10 +2,9 @@
 <component size="130,130" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="hjqe1" xy="0,0">
+    <image id="n1" name="n1" src="hjqe1" xy="0,0" size="130,127" aspect="true">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n2_jlx4" name="n2" src="hjqe6" xy="58,-24"/>
   </displayList>
   <Button downEffect="dark" downEffectValue="0.80"/>
 </component>
