@@ -58,7 +58,6 @@ public class Tools {
     {
         Process p = new Process();
         p.StartInfo.FileName = Application.dataPath + "/../../tools/rpc.bat";
-        p.StartInfo.Arguments = PathDefine.TABLE_ASSET_PATH.Replace("/", "\\");
         p.StartInfo.UseShellExecute = true;
         p.StartInfo.WorkingDirectory = "../tools/";
         p.Start();
