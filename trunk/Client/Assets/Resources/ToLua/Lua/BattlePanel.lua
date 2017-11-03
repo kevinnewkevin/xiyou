@@ -432,7 +432,7 @@ function BattlePanel_DisableSkills(yes)
 	for i=0, skills.Length - 1 do
 		skill = skillList:GetChildAt(i);
 		skill.enabled = not yes;
-		sData = SkillData.GetData(skills[0]);
+		sData = SkillData.GetData(skills[i]);
 		if sData ~= nil  and skill.enabled then
 			skill.enabled = sData._Fee <= Battle._Fee;
 		end
