@@ -118,5 +118,6 @@ function bagui:GetCrtTab()
 end
 
 function bagui_OnFeeItemClick(context)
-
+	crtTab =  context.sender.data;
+	bagui_FlushData();
 end
