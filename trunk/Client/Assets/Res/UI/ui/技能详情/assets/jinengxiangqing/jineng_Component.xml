@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="524,563">
   <displayList>
-    <image id="n0_nmle" name="n0" src="nmle2" xy="0,31" size="490,530"/>
-    <image id="n1_nmle" name="n1" src="nmle1" xy="49,65" size="394,50"/>
-    <text id="n2_nmle" name="n2" xy="114,70" size="255,43" font="方正楷体_GBK" fontSize="34" align="center" vAlign="middle" autoSize="none" text="技能详情"/>
+    <image id="n0_nmle" name="n0" src="nmle2" xy="-9,15" size="520,554"/>
+    <image id="n1_nmle" name="n1" src="nmle1" xy="31,51" size="397,72"/>
+    <image id="n18_92c6" name="n18" src="nmle3" xy="35,287" size="425,212" aspect="true"/>
+    <text id="n2_nmle" name="n2" xy="129,61" size="255,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="技能详情"/>
     <image id="n6_nmle" name="n6" src="nmle0" xy="188,147"/>
     <text id="n7_nmle" name="n7" xy="193,149" size="75,41" font="方正楷体_GBK" fontSize="34" color="#e25226" align="center" vAlign="middle" bold="true" text="主动"/>
-    <text id="n8_nmle" name="n8" xy="193,201" size="255,43" font="方正楷体_GBK" fontSize="34" vAlign="middle" autoSize="none" text="技能详情"/>
-    <image id="n9_nmle" name="n9" src="nmle3" xy="26,277" size="439,4"/>
-    <image id="n10_nmle" name="n10" src="nmle3" xy="25,500" size="439,4"/>
-    <text id="n12_nmle" name="n12" xy="39,290" size="420,196" font="方正楷体_GBK" fontSize="34" autoSize="none" text="对对方全体目标造成30%水系法术伤害，并且标记对方全体目标1回合，使被标记的目标受到的水系法术伤害增加20%。"/>
-    <component id="n13_nmle" name="n13" src="nmle8" xy="425,-1"/>
+    <text id="n8_nmle" name="n8" xy="193,201" size="255,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text="技能详情"/>
+    <text id="n12_nmle" name="n12" xy="44,300" size="404,196" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" text="对对方全体目标造成30%水系法术伤害，并且标记对方全体目标1回合，使被标记的目标受到的水系法术伤害增加20%。"/>
+    <component id="n13_nmle" name="n13" src="nmle8" xy="421,13"/>
     <component id="n14_p3jw" name="n14" src="p3jw9" xy="35,125"/>
   </displayList>
 </component>
