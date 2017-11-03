@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1920,1080">
   <displayList>
-    <component id="n20_scpb" name="n20" src="scpbq" xy="423,250" pivot="1,0" anchor="true"/>
+    <component id="n20_scpb" name="n20" src="scpbq" xy="427,214" pivot="1,0" anchor="true"/>
     <image id="n13_scpb" name="n13" src="scpbi" xy="960,910" pivot="0.5,0.5" anchor="true" size="604,240"/>
-    <image id="n12_scpb" name="n12" src="scpbk" xy="1460,184" size="442,642"/>
-    <image id="n14_scpb" name="n14" src="h59k8" xy="793,854" size="350,62"/>
+    <image id="n12_scpb" name="n12" src="scpbk" xy="1464,202" size="442,642"/>
     <component id="n4_h59k" name="n4" src="h59kb" xy="1086,841"/>
-    <component id="n6_h59k" name="n6" src="h59kc" xy="1762,22"/>
-    <component id="n7_h59k" name="n7" src="h59ke" xy="821,958"/>
+    <component id="n6_h59k" name="n6" src="h59kc" xy="1736,14"/>
+    <component id="n7_h59k" name="n7" src="h59ke" xy="855,968"/>
     <text id="n9_h59k" name="n9" xy="821,864" size="272,42" input="true" prompt="点击输入名字" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text=""/>
     <list id="n10_h59k" name="n10" xy="1546,280" size="340,538" layout="flow_hz" scroll="horizontal" colGap="105" align="center">
       <item url="ui://1koj6zquh59kf"/>
       <item url="ui://1koj6zquh59kg"/>
     </list>
-    <image id="n11_scpb" name="n11" src="scpbj" xy="960,41" pivot="0.5,0.5" anchor="true"/>
-    <text id="n15_scpb" name="n15" xy="786,920" size="378,41" font="方正楷体_GBK" fontSize="30" color="#543e28" align="center" autoSize="none" bold="true" text="角色名不超过7个汉字"/>
-    <image id="n18_scpb" name="n18" src="scpbm" xy="1084,969"/>
-    <image id="n19_scpb" name="n19" src="scpbn" xy="646,790"/>
-    <text id="n21_a0vq" name="n21" xy="930,976" size="75,41" font="方正楷体_GBK" fontSize="34" color="#4e2a0d" bold="true" text="确定"/>
+    <image id="n11_scpb" name="n11" src="scpbj" xy="207,103" pivot="0.5,0.5" anchor="true"/>
+    <text id="n15_scpb" name="n15" xy="796,925" size="378,41" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" autoSize="none" bold="true" text="角色名不超过7个汉字"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="XY" target="n20_scpb" tween="true" startValue="-49,250" endValue="423,250" duration="9" ease="Circ.InOut"/>

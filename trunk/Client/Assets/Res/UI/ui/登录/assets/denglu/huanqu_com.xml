@@ -2,13 +2,11 @@
 <component size="1920,1080">
   <displayList>
     <graph id="n11_mil9" name="n11" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
-    <image id="n0_mil9" name="n0" src="mil9l" xy="252,112" size="1490,906"/>
-    <image id="n1_mil9" name="n1" src="mil9j" xy="721,86"/>
-    <image id="n2_mil9" name="n2" src="mil9k" xy="377,229" size="1228,733"/>
-    <image id="n3_mil9" name="n3" src="mil9n" xy="1344,954"/>
-    <text id="n4_mil9" name="n4" xy="881,97" size="210,48" font="方正楷体_GBK" fontSize="40" color="#482621" bold="true" text="选择服务器"/>
-    <list id="n9_mil9" name="n9" xy="389,156" size="1206,70" layout="flow_hz" colGap="16" defaultItem="ui://9211bzvymil9r" vAlign="middle"/>
-    <list id="n10_mil9" name="n10" xy="395,254" size="1204,685" layout="flow_hz" overflow="scroll" lineGap="18" colGap="4" defaultItem="ui://9211bzvymil9s"/>
-    <component id="n5_mil9" name="n5" src="mil9o" xy="1654,168"/>
+    <image id="n0_mil9" name="n0" src="mil9l" xy="296,88"/>
+    <image id="n2_mil9" name="n2" src="mil9k" xy="373,286" size="1228,710"/>
+    <text id="n4_mil9" name="n4" xy="849,150" size="215,48" font="方正楷体_GBK" fontSize="40" color="#ffffff" bold="true" text="选择服务器"/>
+    <list id="n9_mil9" name="n9" xy="386,218" size="1206,70" layout="flow_hz" colGap="16" defaultItem="ui://9211bzvymil9r" vAlign="middle"/>
+    <list id="n10_mil9" name="n10" xy="391,308" size="1204,685" layout="flow_hz" overflow="scroll" lineGap="18" colGap="4" defaultItem="ui://9211bzvymil9s"/>
+    <component id="n5_mil9" name="n5" src="mil9o" xy="1536,72"/>
   </displayList>
 </component>

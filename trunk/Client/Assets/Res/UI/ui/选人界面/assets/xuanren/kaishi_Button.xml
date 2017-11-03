@@ -2,7 +2,7 @@
 <component size="249,100" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n1" name="n1" src="h59kd" xy="0,0">
+    <image id="n1" name="n1" src="h59kd" xy="23,-1" size="201,100" aspect="true">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
