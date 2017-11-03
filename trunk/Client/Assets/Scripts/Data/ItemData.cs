@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ItemData {
     
     public int _Id;
-    public int _Type;
+    public string _Type;
     public string _Icon;
 	public string _IconBack;
 	public string _Name;
