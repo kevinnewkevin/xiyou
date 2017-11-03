@@ -104,7 +104,9 @@ function xiangxiziliao:OnInit()
 	levelRadBtn = btnList:GetChildAt(btnMax-1);
 	rightInfo.visible = true;
 	rightLevelUp.visible = false;
-	local moveLab=  self.contentPane:GetChild("n84");
+	local movebg =  self.contentPane:GetChild("n83");
+	local moveLab =  self.contentPane:GetChild("n84");
+	movebg.visible = false;
 	moveLab.visible = false;
 	btnList.selectedIndex = 0;
 	level= self.contentPane:GetChild("n59");
