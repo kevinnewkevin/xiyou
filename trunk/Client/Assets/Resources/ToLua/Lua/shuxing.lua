@@ -47,8 +47,8 @@ function shuxing:OnInit()
 	reflect = self.contentPane:GetChild("n222");
 	suck = self.contentPane:GetChild("n223");
 
-	for i=1, 4 do
-		local skill = skillList:GetChildAt(i - 1);
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
 		skill.onClick:Add(shuxing_OnSkillBtn);
 	end
 
@@ -104,8 +104,8 @@ function shuxing_FlushData()
 	reflect.text = entityInst.CProperties[14];
 	suck.text = entityInst.CProperties[15];
 
-	for i=1, 4 do
-		local skill = skillList:GetChildAt(i - 1);
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
 		local sData = Proxy4Lua.GetCardInstSkillData(Battle._SelectedHandCardInstID, i-1);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
