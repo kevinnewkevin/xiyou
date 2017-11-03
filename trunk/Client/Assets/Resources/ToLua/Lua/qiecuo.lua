@@ -212,7 +212,7 @@ function qiecuo_FlushData()
 		--tiantiFen1.text =  "积分 " .. GamePlayer._TianTiVal;
 		local level = GamePlayer.GetTianTiLevel();
 		levelImg.asLoader.url = "ui://qiecuo/duanwei" .. level;
-		tiantiFen1.text =  level.."段";
+		tiantiFen1.text =  Proxy4Lua.ConvertToChineseNumber(level).."段";
 end
 
 

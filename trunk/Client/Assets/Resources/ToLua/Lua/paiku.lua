@@ -266,7 +266,7 @@ end
 function paiku_FlushData()
 	total.text = "(数量:" .. GamePlayer.CardsByFeeAndType(0, 0).Count .. ")";
 	local page = crtCardIdx / countPerPage + 1;
-	pageText.text = "第" .. page .. "页";
+	pageText.text = "第" .. Proxy4Lua.ConvertToChineseNumber(page) .. "页";
 --	local cards = 0;
 --	if GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType) ~= nil then
 --		cards = GamePlayer.CardsByFeeAndType(crtCardsFee, crtCardsType).Count;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class Define {
@@ -100,7 +101,36 @@ public class Define {
         {
             if (_BattleScenes == null)
                 return SCENE_BATTLE;
-            return _BattleScenes [Random.Range(0, _BattleScenes.Length)];
+            return _BattleScenes [UnityEngine.Random.Range(0, _BattleScenes.Length)];
         }
+    }
+
+    //加到类的定义部分
+    private static string[] cstr={"零","一","二","三","四", "五", "六","七","八","九"};
+    private  static string[] wstr={"","","十","百","千","万","十","百","千","亿","十","百","千"};
+    //数字必须在12位整数以内的字符串
+    //调用方式如：Label1.Text=ConvertInt("数字字符串");
+    public static string ConvertInt(string str)
+    {
+        int len=str.Length;
+        int i;
+        string tmpstr,rstr;
+        rstr="";
+        for(i=1;i<=len;i++)
+        {
+            tmpstr=str.Substring(len-i,1);
+            rstr=string.Concat(cstr[Int32.Parse(tmpstr)]+wstr[i],rstr);
+        }
+        rstr=rstr.Replace("十零","十");
+        rstr=rstr.Replace("零十","零");
+        rstr=rstr.Replace("零百","零");
+        rstr=rstr.Replace("零千","零");
+        rstr=rstr.Replace("零万","万");
+        for(i=1;i<=6;i++)
+            rstr=rstr.Replace("零零","零");
+        rstr=rstr.Replace("零万","零");
+        rstr=rstr.Replace("零亿","億");
+        rstr=rstr.Replace("零零","零"); 
+        return rstr;
     }
 }

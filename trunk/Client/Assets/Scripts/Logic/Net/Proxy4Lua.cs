@@ -591,6 +591,11 @@ public class Proxy4Lua {
         
         _SceneUI.Remove(sceneName);
     }
+
+    static public string ConvertToChineseNumber(int albNum)
+    {
+        return Define.ConvertInt(albNum.ToString());
+    }
 }
 
 public class ServInfo
