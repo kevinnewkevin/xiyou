@@ -5,12 +5,14 @@ using UnityEngine;
 public class BagSystem {
 
     public static Dictionary<int, List<COM_ItemInst>> _ItemsByType;
+	public static Dictionary<int, List<COM_ItemInst>> _DebrisItemsByType;
 
 	public static void Init(COM_ItemInst[] items = null)
     {
 		_ItemsByType = new Dictionary<int, List<COM_ItemInst>>();
+		_DebrisItemsByType = new Dictionary<int, List<COM_ItemInst>>();
 		List<COM_ItemInst> itemList = new List<COM_ItemInst> ();
-
+		List<COM_ItemInst> debrisItemList = new List<COM_ItemInst> ();	
         if ( items != null )
         {
             for (int i = 0; i < items.Length; i++)
@@ -24,19 +26,23 @@ public class BagSystem {
         else
             _ItemsByType [0] = itemList;
 
+		if (!_DebrisItemsByType.ContainsKey (0))
+				_DebrisItemsByType.Add (0, debrisItemList);
        // _ItemsByType [0].Sort(Sort);
-//        ItemData iData = null;
-		
-	/*	for(int i=0; i < items.Length; ++i)
-        {
-			iData = ItemData.GetData(items[i].ItemId);
-            if (iData == null)
-                continue;
-            if (!_ItemsByType.ContainsKey(iData._Type))
-					_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
-			_ItemsByType [iData._Type].Add(items[i]);
-        }
-        */
+        ItemData iData = null;
+		if ( items != null )
+		{
+			for (int k = 0; k < items.Length; ++k) 
+			{
+				iData = ItemData.GetData (items [k].ItemId);
+				if (iData == null)
+						continue;
+				if (iData._Type == "IMT_Debris") 
+				{
+					_DebrisItemsByType [0].Add (items [k]);
+				}
+			}
+		}
         
         UIManager.SetDirty("bagui");
     }
@@ -57,6 +63,10 @@ public class BagSystem {
 			ItemData iData = ItemData.GetData(inst.ItemId);
         if (iData != null)
         {
+					
+			if (iData._Type == "IMT_Debris")
+				_DebrisItemsByType [0].Add(inst);
+					
             //if (!_ItemsByType.ContainsKey(iData._Type))
 			//	_ItemsByType.Add(iData._Type, new List<COM_ItemInst>());
             //_ItemsByType [iData._Type].Add(inst);
@@ -77,13 +87,13 @@ public class BagSystem {
                 break;
             }
         }
-       // for(int i=0; i < _ItemsByType[type].Count; ++ i)
-       // {
-			//if (_ItemsByType [type] [i].InstId == instid)
-           // {
-               // _ItemsByType [type].RemoveAt(i);
-          //  }
-     //   }
+		for(int i=0; i < _DebrisItemsByType[0].Count; ++ i)
+        {
+			if (_DebrisItemsByType [0] [i].InstId == instid)
+            {
+				_DebrisItemsByType [0].RemoveAt(i);
+            }
+        }
         UIManager.SetDirty("bagui");
     }
 
@@ -100,16 +110,22 @@ public class BagSystem {
                 break;
             }
         }
-      //  for(int i=0; i < _ItemsByType[type].Count; ++i)
-        //{
-						//if (_ItemsByType [type] [i].InstId == inst.InstId)
-               // _ItemsByType [type] [i] = inst;
-       // }
+		for(int i=0; i < _DebrisItemsByType[0].Count; ++i)
+        {
+			if (_DebrisItemsByType [0] [i].InstId == inst.InstId)
+				_DebrisItemsByType [0] [i] = inst;
+        }
         UIManager.SetDirty("bagui");
     }
 
 	public static  COM_ItemInst GetItemInstByIndex(int idx, int crtTab = 0)
     {
+		if (crtTab == 1) 
+		{
+			if (idx < 0 || idx >= _DebrisItemsByType[0].Count)
+					return null;
+			return _DebrisItemsByType[0][idx];
+		}
         if (!_ItemsByType.ContainsKey(crtTab))
             return null;
         
@@ -120,7 +136,11 @@ public class BagSystem {
     }
 
 	public static  int GetItemCount(int crtTab)
-    {
+{
+		if (crtTab == 1) 
+		{
+			return _DebrisItemsByType [0].Count;
+		}
         if (!_ItemsByType.ContainsKey(crtTab))
             return 0;
 		return _ItemsByType [crtTab].Count;
