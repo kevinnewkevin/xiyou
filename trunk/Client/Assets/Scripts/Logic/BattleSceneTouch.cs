@@ -119,6 +119,10 @@ public class BattleSceneTouch : MonoBehaviour {
                 }
             }
         }
+        else
+        {
+            Battle.ClearSimActor();
+        }
         _IsPress = false;
     }
 

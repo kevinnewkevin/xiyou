@@ -162,12 +162,6 @@ public class Proxy4Lua {
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
         go.SetActive(true);
-        SkinnedMeshRenderer[] smr = go.GetComponentsInChildren<SkinnedMeshRenderer>();
-        for(int i=0; i < smr.Length; ++i)
-        {
-            if (smr [i].sharedMaterial != null)
-                smr [i].sharedMaterial.SetColor("_Color", Color.white);
-        }
         return new FairyGUI.GoWrapper(go);
     }
 
@@ -183,12 +177,6 @@ public class Proxy4Lua {
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
         go.SetActive(true);
-        SkinnedMeshRenderer[] smr = go.GetComponentsInChildren<SkinnedMeshRenderer>();
-        for(int i=0; i < smr.Length; ++i)
-        {
-            if (smr [i].sharedMaterial != null)
-                smr [i].sharedMaterial.SetColor("_Color", Color.white);
-        }
         return new FairyGUI.GoWrapper(go);
     }
 
@@ -204,12 +192,6 @@ public class Proxy4Lua {
         go.transform.Rotate(Vector3.up, 180f);
         go.SetActive(false);
         go.SetActive(true);
-        SkinnedMeshRenderer[] smr = go.GetComponentsInChildren<SkinnedMeshRenderer>();
-        for(int i=0; i < smr.Length; ++i)
-        {
-            if (smr [i].sharedMaterial != null)
-                smr [i].sharedMaterial.SetColor("_Color", Color.white);
-        }
         return new FairyGUI.GoWrapper(go);
     }
 
