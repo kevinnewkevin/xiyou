@@ -83,7 +83,6 @@ function baowu_OnExit(context)
 		dropList.visible = false;
 		outCom.visible = false;
 		--UIManager.Show("jiehun");
-		Window:Hide();			
 	else
 		if GamePlayer.showNewCard == true then
 			UIManager.Show("huoderenwu");
@@ -95,6 +94,7 @@ function baowu_OnExit(context)
 	Proxy4Lua.UnloadAsset(boxEff);
 	boxEff = "";
 	boxEffHolder:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
+	UIManager.Hide("baowu");
 end
 
 function baowu_FlushData()
