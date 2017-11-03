@@ -313,6 +313,38 @@ function xiaoguanka_FlushData()
 	rewardStar2.text = "" .. heroData .Star_[2];
 	rewardBar.value = starNum /heroData .Star_[2]*100;
 
+
+	local boxOpen0 = rewardBox0:GetChild("n5");
+	local boxNoOpen0 = rewardBox0:GetChild("n4");
+	local boxOpen1 = rewardBox1:GetChild("n5");
+	local boxNoOpen1 = rewardBox1:GetChild("n4");
+	local boxOpen2 = rewardBox2:GetChild("n5");
+	local boxNoOpen2 = rewardBox2:GetChild("n4");
+	boxOpen0.visible =false;
+	boxOpen1.visible =false;
+	boxOpen2.visible =false;
+	boxNoOpen0.visible = true;
+	boxNoOpen1.visible = true;
+	boxNoOpen2.visible = true;
+	local openArr= {};
+	openArr[0] = boxOpen0;
+	openArr[1] = boxOpen1;
+	openArr[2] = boxOpen2;
+	local noOpenArr= {};
+	noOpenArr[0] = boxNoOpen0;
+	noOpenArr[1] = boxNoOpen1;
+	noOpenArr[2] = boxNoOpen2;
+	if chapterData.StarReward ~= nil then
+		local len = chapterData.StarReward.Length;
+		print("len" .. len);
+		for i=1, len do
+			if chapterData.StarReward[i-1] ~= 0 then
+				openArr[i-1].visible =true;
+				noOpenArr[i-1].visible =false;
+			end
+		end
+	end
+
 	rewardBox0.data = guankaID;
 	rewardBox1.data = guankaID;
 	rewardBox2.data = guankaID;

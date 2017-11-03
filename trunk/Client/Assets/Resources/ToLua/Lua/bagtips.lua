@@ -91,7 +91,13 @@ function bagtips_FlushData()
 	iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
 	descLab.text = itemdata._Desc;
 	nameLab.text = itemdata._Name;
-	typeLab.text = "碎片";
+	if  itemdata._Type == "IMT_Debris" then
+		typeLab.text = "碎片";
+		unlockBtn.visible = true;
+	elseif itemdata._Type == "IMT_Consumables" then
+		typeLab.text = "消耗品";
+		unlockBtn.visible = false;
+	end
 end
 
 function bagtips_OnDelItem(context)
