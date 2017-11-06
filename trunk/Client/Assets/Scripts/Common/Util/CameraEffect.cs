@@ -53,7 +53,8 @@ public class CameraEffect {
         }
         if (!_IsPlaying)
             return;
-        
+
+        Color color;
         if (_FadeIn)
         {
             _V -= Time.deltaTime;
@@ -65,6 +66,7 @@ public class CameraEffect {
                     fadeCallback = null;
                 }
             }
+            color = Color.Lerp(Color.white, Color.black, _V * -1f);
         }
         else
         {
@@ -79,8 +81,10 @@ public class CameraEffect {
                     fadeCallback2 = null;
                 }
             }
+            color = Color.Lerp(Color.black, Color.white, _V + 1f);
         }
-        _Mat.SetFloat("_Float1", _V);
+
+        _Mat.SetColor("_Color", color);
     }
 
     public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
