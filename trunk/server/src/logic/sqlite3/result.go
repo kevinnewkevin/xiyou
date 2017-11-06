@@ -4,7 +4,7 @@ import (
 	"errors"
 	"database/sql/driver"
 	"io"
-	"jimny/logs"
+	"logic/log"
 )
 
 type SQLiteResult struct {
@@ -56,7 +56,7 @@ func (r *SQLiteResult) Next(dest []driver.Value) error {
 		return  io.EOF
 	}
 	if nRet != SQLITE_ROW{
-		logs.Info("ROW")
+		log.Info("ROW")
 		nRet = sqlite3_reset(r.pVM)
 		if nRet != SQLITE_OK {
 			return sqlite3_lasterror(r.pDB)
