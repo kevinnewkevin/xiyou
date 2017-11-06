@@ -3,10 +3,10 @@
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="1"/>
   <displayList>
     <image id="n4_s5s1" name="n4" src="s5s1p" xy="0,0"/>
-    <image id="n9_wnnz" name="n9" src="ihygz" xy="12,7" size="180,180" aspect="true">
+    <image id="n9_wnnz" name="n9" src="ihygz" xy="1,-4" size="200,200" aspect="true">
       <gearDisplay controller="button" pages="1,2,3"/>
     </image>
-    <loader id="n8_s5s1" name="n8" xy="17,11" size="168,168" align="center" vAlign="middle" fill="scale"/>
+    <loader id="n8_s5s1" name="n8" xy="17,11" size="168,168" aspect="true" align="center" vAlign="middle" fill="scale"/>
     <image id="n5_s5s1" name="n5" src="s5s1o" xy="104,107"/>
     <text id="n7_s5s1" name="n7" xy="127,124" size="56,54" font="方正楷体_GBK" fontSize="46" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="8&#xA;"/>
   </displayList>

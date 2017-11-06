@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="199,190" extention="Button">
-  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="button" pages="0,up,1,down" selected="1"/>
   <displayList>
     <image id="n4_s5s1" name="n4" src="tmaej" xy="0,0"/>
     <loader id="n8_s5s1" name="n8" xy="16,13" size="168,168" align="center" vAlign="middle" fill="scale"/>
-    <image id="n11_tmae" name="n11" src="v9hce" xy="0,-6" size="207,207" aspect="true">
+    <image id="n11_tmae" name="n11" src="v9hce" xy="-1,-4" size="199,199" aspect="true">
       <gearDisplay controller="button" pages="1"/>
     </image>
     <image id="n12_tzjy" name="n12" src="tzjyp" xy="11,6" size="177,178" hideByEditor="true" aspect="true"/>
