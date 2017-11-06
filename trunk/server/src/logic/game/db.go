@@ -1,19 +1,37 @@
 package game
 
 import (
+	"bytes"
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	"logic/log"
 	"logic/prpc"
-
-	"bytes"
-
-	_ "github.com/go-sql-driver/mysql"
+	_ "logic/sqlite3"
+	"runtime"
 )
 
-const ()
+func InitDB() {
+	ptable := "CREATE TABLE IF NOT EXISTS `Player` ( `PlayerId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `Username` VARCHAR(255) ,`BinData` BLOB NOT NULL ) ;"
+
+	c, e := ConnectDB()
+	if e != nil {
+		log.Println(e.Error())
+		return
+	}
+
+	_, e = c.Exec(ptable)
+
+	if e != nil {
+		log.Error(e.Error())
+	}
+}
 
 func ConnectDB() (*sql.DB, error) {
 	//dsn := beego.AppConfig.String("dbuser") + ":" + beego.AppConfig.String("dbpass") + "@tcp(" + beego.AppConfig.String("dbhost") + ":" + beego.AppConfig.String("dbport") + ")/" + beego.AppConfig.String("dbname")
+
+	if runtime.GOOS == `windows` {
+		return sql.Open("sqlite3", "game.db")
+	}
 	dsn := GetEnvString("V_MySqlData")
 	return sql.Open("mysql", dsn)
 }

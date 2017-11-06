@@ -126,6 +126,7 @@ func (this *App) Run() {
 	//game.InitGlobalLuaState()
 	game.InitTianTi()
 	game.InitGameTask()
+	game.InitDB()
 	toolbox.StartTask()
 	defer toolbox.StopTask()
 	//game.TestPlayer()
