@@ -20,6 +20,7 @@ public class ActorRotate : MonoBehaviour {
     void OnPress()
     {
         originX_ = Input.mousePosition.x;
+		beginRot_ = true;
     }
 
     void OnEnd()
