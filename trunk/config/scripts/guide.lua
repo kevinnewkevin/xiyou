@@ -77,11 +77,17 @@ function SpecialEvent(type, param1)
 			end
 		end
 	end
+	if type == "ondragend" then
+		if Battle._Turn == 2 then
+			if GuideSystem.IsNotFinish(7) then
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"消耗2个魂可以上阵这张卡牌！每张卡牌消耗的魂显示在卡牌右下角！",492,552);
+			end
+		end
+	end
 	if type == "dianji2" then
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(7) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n17"),"消耗2个魂可以上阵这张卡牌！每张卡牌消耗的魂显示在卡牌右下角！",492,552);
-				GuideSystem.SetFinish(7);
 			end
 		end
 	end
@@ -91,7 +97,6 @@ function SpecialEvent(type, param1)
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(8) then
 				GuideSystem.StartGuideInScene(Battle.GetPoint(1).gameObject,300,300,"选择卡牌上场的位置！",984,247);
-				GuideSystem.SetFinish(8);
 			end
 		end
 	end
@@ -102,6 +107,8 @@ function SpecialEvent(type, param1)
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
+				GuideSystem.SetFinish(7);
+				GuideSystem.SetFinish(8);
 				GuideSystem.SetFinish(9);
 			end
 		end

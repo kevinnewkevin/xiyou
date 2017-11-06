@@ -173,5 +173,7 @@ public class DragDrop {
             Battle._SelectedHandCardInstID = 0;
             Battle.SwitchPoint(false);
         }
+
+        GuideSystem.SpecialEvt("ondragend");
     }
 }
