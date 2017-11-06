@@ -93,6 +93,14 @@ public class GamePlayer {
             _Cards.Add(costTypeKey, new List<COM_Unit>());
         _Cards [costTypeKey].Add(card);
 
+        if(!_Cards.ContainsKey("0_" + eData._Type))
+            _Cards.Add("0_" + eData._Type, new List<COM_Unit>());
+        _Cards ["0_" + eData._Type].Add(card);
+
+        if(!_Cards.ContainsKey(eData._Cost + "_0"))
+            _Cards.Add(eData._Cost + "_0", new List<COM_Unit>());
+        _Cards [eData._Cost + "_0"].Add(card);
+
         if(!_Cards.ContainsKey("0_0"))
             _Cards.Add("0_0", new List<COM_Unit>());
         _Cards ["0_0"].Add(card);
