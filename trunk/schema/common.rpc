@@ -213,22 +213,14 @@ struct SGE_DBPlayer : COM_Player {
 	COM_BlackMarket		BlackMarketData;
 };
 
-//聊天
 struct COM_Chat
 {
-	ChatKind 		CkType;
-	bool 			IsAudio;
-	string 			Content;
-	int32 			AudioTime;
-	uint8[] 		Audio; ///
+	int8		Type;			//0-系统  1-世界
+	int64		PlayerInstId;	//玩家instid
+	string		PlayerName;		//玩家名字
+	string		HeadIcon;		//玩家头像
+	string		Content;		//内容
+	int64		AudioId;		//语音id
+	uint8[]		Audio;			//语音数据
 };
-
-struct COM_ChatInfo : COM_Chat
-{
-	int32 	AudioId;
-	uint16 	AssetId; /// 头像
-	string 	PlayerName;
-};
-
-
 
