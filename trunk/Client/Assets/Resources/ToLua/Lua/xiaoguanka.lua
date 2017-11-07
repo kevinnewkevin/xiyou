@@ -144,6 +144,7 @@ function xiaoguanka:OnHide()
  	leftBtn.visible = true;
 	Proxy4Lua.ClearToDeleteAsset("xiaoguanka");
 	Window:Hide();
+	GuideSystem.CloseUI("xiaoguanka");
 end
 
 

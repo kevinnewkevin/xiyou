@@ -73,7 +73,6 @@ public class UIManager {
         _Windows [uiName].Hide();
 
         //AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
-        GuideSystem.CloseUI(uiName);
 
         if (_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Remove(uiName);

@@ -233,6 +233,7 @@ function xiangxiziliao:OnHide()
 	rightInfo.visible = true;
 	btnList.selectedIndex = 0;
 	Window:Hide();
+	GuideSystem.CloseUI("xiangxiziliao");
 end
 
 

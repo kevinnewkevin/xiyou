@@ -243,6 +243,7 @@ end
 
 function paiku:OnHide()
 	Window:Hide();
+	GuideSystem.CloseUI("paiku");
 end
 
 function paiku_OnNextPage()
