@@ -216,4 +216,14 @@ class Proxy : ICOM_ServerToClientProxy
 
 		return true;
 	}
+
+    public bool ReceiveChat(ref COM_Chat chat)
+    {
+        return true;
+    }
+
+    public bool RequestAudioOk(long id, ref byte[] data)
+    {
+        return true;
+    }
 }
