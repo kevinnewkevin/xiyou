@@ -22,6 +22,9 @@ service COM_ClientToServer{
 	ResolveItem(int64 instId,int32 num);
 	RefreshBlackMarkte();
 	NewPlayerGuide(uint64 Step);
+	///<聊天
+	SendChat(COM_Chat content);
+	RequestAudio(int64 audioId);
 };
 
 service COM_ServerToClient{
@@ -49,4 +52,7 @@ service COM_ServerToClient{
 	BuyShopItemOK(COM_ItemInst[] items);
 	AddNewUnit(COM_Unit unit);
 	SycnBlackMarkte(COM_BlackMarket data);
+	///<接收聊天信息
+	ReceiveChat(COM_Chat info);
+	RequestAudioOk(int64 audioId, uint8[] content);
 };

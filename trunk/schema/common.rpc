@@ -215,7 +215,7 @@ struct SGE_DBPlayer : COM_Player {
 
 struct COM_Chat
 {
-	int8		Type;			//0-系统  1-世界
+	int8		Type;			//0-系统  1-世界 2-GM
 	int64		PlayerInstId;	//玩家instid
 	string		PlayerName;		//玩家名字
 	string		HeadIcon;		//玩家头像

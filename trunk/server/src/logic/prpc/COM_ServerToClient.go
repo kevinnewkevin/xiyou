@@ -76,6 +76,13 @@ type COM_ServerToClient_AddNewUnit struct{
 type COM_ServerToClient_SycnBlackMarkte struct{
   data COM_BlackMarket  //0
 }
+type COM_ServerToClient_ReceiveChat struct{
+  info COM_Chat  //0
+}
+type COM_ServerToClient_RequestAudioOk struct{
+  audioId int64  //0
+  content []uint8  //1
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -104,6 +111,8 @@ type COM_ServerToClientProxy interface{
   BuyShopItemOK(items []COM_ItemInst ) error // 21
   AddNewUnit(unit COM_Unit ) error // 22
   SycnBlackMarkte(data COM_BlackMarket ) error // 23
+  ReceiveChat(info COM_Chat ) error // 24
+  RequestAudioOk(audioId int64, content []uint8 ) error // 25
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1067,6 +1076,107 @@ func (this *COM_ServerToClient_SycnBlackMarkte)Deserialize(buffer *bytes.Buffer)
   }
   return nil
 }
+func (this *COM_ServerToClient_ReceiveChat)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //info
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize info
+  {
+    err := this.info.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_ReceiveChat)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize info
+  if mask.readBit() {
+    err := this.info.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_RequestAudioOk)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.audioId!=0)
+  mask.writeBit(len(this.content) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize audioId
+  {
+    if(this.audioId!=0){
+      err := write(buffer,this.audioId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize content
+  if len(this.content) != 0{
+    {
+      err := write(buffer,uint(len(this.content)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.content {
+      err := write(buffer,value)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_RequestAudioOk)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize audioId
+  if mask.readBit() {
+    err := read(buffer,&this.audioId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize content
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.content = make([]uint8,size)
+    for i,_ := range this.content{
+      err := read(buffer,&this.content[i])
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1467,6 +1577,41 @@ func(this* COM_ServerToClientStub)SycnBlackMarkte(data COM_BlackMarket ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)ReceiveChat(info COM_Chat ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(24))
+  if err != nil{
+    return err
+  }
+  _24 := COM_ServerToClient_ReceiveChat{}
+  _24.info = info;
+  err = _24.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)RequestAudioOk(audioId int64, content []uint8 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(25))
+  if err != nil{
+    return err
+  }
+  _25 := COM_ServerToClient_RequestAudioOk{}
+  _25.audioId = audioId;
+  _25.content = content;
+  err = _25.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1788,6 +1933,34 @@ func Bridging_COM_ServerToClient_SycnBlackMarkte(buffer *bytes.Buffer, p COM_Ser
   }
   return p.SycnBlackMarkte(_23.data)
 }
+func Bridging_COM_ServerToClient_ReceiveChat(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _24 := COM_ServerToClient_ReceiveChat{}
+  err := _24.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ReceiveChat(_24.info)
+}
+func Bridging_COM_ServerToClient_RequestAudioOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _25 := COM_ServerToClient_RequestAudioOk{}
+  err := _25.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.RequestAudioOk(_25.audioId,_25.content)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -1849,6 +2022,10 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_AddNewUnit(buffer,p);
     case 23 :
       return Bridging_COM_ServerToClient_SycnBlackMarkte(buffer,p);
+    case 24 :
+      return Bridging_COM_ServerToClient_ReceiveChat(buffer,p);
+    case 25 :
+      return Bridging_COM_ServerToClient_RequestAudioOk(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

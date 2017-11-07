@@ -1488,6 +1488,7 @@ func TestPlayer() {
 	P1.InitMyBlackMarket()
 	P1.RefreshMyBlackMarket(false)
 	P1.TestItem()
+	P1.TestChat()
 }
 
 func (this *GamePlayer) TestItem() {

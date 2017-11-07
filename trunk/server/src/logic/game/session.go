@@ -257,6 +257,22 @@ func (this *Session)NewPlayerGuide(Step uint64) error {
 	return nil
 }
 
+func (this *Session)SendChat(content prpc.COM_Chat ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.SendChat(content)
+	return nil
+}
+
+func (this *Session)RequestAudio(audioId int64 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.RequestAudio(audioId)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
