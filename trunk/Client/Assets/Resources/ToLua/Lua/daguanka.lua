@@ -179,6 +179,7 @@ function  daguanka_OnLeftBtn(context)
 	crtSelectIdx = (crtSelectIdx - 1) % cardGroupList.numItems;
 	cardGroupList:ScrollToView(crtSelectIdx, false);
 	print(crtSelectIdx);
+	GuideSystem.SpecialEvt("daguanka_leftclick");
 end
 
 function daguanka_OnRightBtn(context) 
@@ -186,6 +187,7 @@ function daguanka_OnRightBtn(context)
 	crtSelectIdx = (crtSelectIdx + 1) % cardGroupList.numItems;
 	cardGroupList:ScrollToView(crtSelectIdx, false);
 	print(crtSelectIdx);
+	GuideSystem.SpecialEvt("daguanka_rightclick");
 end
 
 
