@@ -73,6 +73,7 @@ public class UIManager {
         _Windows [uiName].Hide();
 
         //AssetLoader.UnloadAsset(PathDefine.UI_ASSET_PATH + uiName);
+        GuideSystem.CloseUI(uiName);
 
         if (_DirtyPool.ContainsKey(uiName))
             _DirtyPool.Remove(uiName);
@@ -154,6 +155,14 @@ public class UIManager {
             _DirtyPool [_WantClearDirty[i]] = false;
         }
         _WantClearDirty.Clear();
+    }
+
+    static public void AddExDirty(string uiName)
+    {
+        if (!_DirtyPool.ContainsKey(uiName))
+            _DirtyPool.Add(uiName, false);
+
+        _DirtyPool [uiName] = false;
     }
 
     static public void SetDirty(string uiName)

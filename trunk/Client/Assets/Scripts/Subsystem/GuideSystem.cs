@@ -32,6 +32,11 @@ public class GuideSystem  {
         LuaManager.Call("guide.lua", "WhenUIOpen", ui, win);
     }
 
+    static public void CloseUI(string ui)
+    {
+        LuaManager.Call("guide.lua", "WhenUIClose", ui);
+    }
+
     static public void SpecialEvt(string type, params object[] par)
     {
         LuaManager.Call("guide.lua", "SpecialEvent", type, par);

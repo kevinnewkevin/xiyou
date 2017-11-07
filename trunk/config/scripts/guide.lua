@@ -26,6 +26,15 @@ function WhenUIOpen(uiName, uiWindow)
 	end
 end
 
+-- UI关闭时调用
+function WhenUIClose(uiName)
+	if uiName == "xiangxiziliao" then
+		if not GuideSystem.IsNotFinish(999) then
+			GuideSystem.Clear();
+		end
+	end
+end
+
 -- 特殊事件调用
 function SpecialEvent(type, param1)
 	--4.	挑战按钮打开事件(SpecialEvent "xiaoguanka_challenge")
