@@ -28,14 +28,14 @@ function WhenUIOpen(uiName, uiWindow)
 			GuideSystem.SetFinish(3);
 
 		elseif not GuideSystem.IsNotFinish(3) and  GuideSystem.IsNotFinish(12) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n30"),"可以上阵新的卡牌了",284,403);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n30"),150,150,"可以上阵新的卡牌了",284,403);
 			GuideSystem.SetFinish(12);
 		end
 	end
 	
 	if uiName == "paiku" then
 		if GuideSystem.IsNotFinish(13) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(1),"上阵新的卡牌",756,72);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(1),150,150,"上阵新的卡牌",756,72);
 			GuideSystem.SetFinish(13);
 		end	
 	end
