@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"logic/game"
 
-	"logic/socket"
 	"net"
 	"logic/log"
 	"github.com/astaxie/beego/toolbox"
@@ -155,8 +154,7 @@ func (this *App) Run() {
 
 
 
-			peer := socket.NewPeer(conn)
-			client := game.NewClient(peer)
+			client := game.NewClient(conn)
 			//
 
 

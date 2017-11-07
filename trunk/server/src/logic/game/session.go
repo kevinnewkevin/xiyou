@@ -2,16 +2,26 @@ package game
 
 import (
 	"logic/prpc"
-	"logic/socket"
 	"logic/log"
 	"fmt"
+	"strings"
+	"bytes"
+	"runtime"
+	"net"
+	"sync"
 )
 
 type Session struct {
+	sync.Mutex
 	prpc.COM_ServerToClientStub
-	peer *socket.Peer
+
 	username string
 	player *GamePlayer
+
+	TotalIncoming, TotalOutgoing   int
+	IncomingBuffer, OutgoingBuffer *bytes.Buffer
+	Connection                     *net.TCPConn
+
 }
 
 func (this *Session) Login(info prpc.COM_LoginInfo) error {
@@ -285,13 +295,13 @@ func (this *Session) Update() {
 			}
 
 		}()
-		err := this.peer.HandleSocket()
+		err := this.HandleSocket()
 		if err != nil {
 			log.Info("%s", err.Error())
 			goto endLoop
 		}
-		if this.peer.IncomingBuffer.Len() >= 2 {
-			err := prpc.COM_ClientToServerDispatch(this.peer.IncomingBuffer, this)
+		if this.IncomingBuffer.Len() >= 2 {
+			err := prpc.COM_ClientToServerDispatch(this.IncomingBuffer, this)
 			if err != nil {
 				log.Error("err", err)
 				goto endLoop
@@ -306,16 +316,78 @@ endLoop:
 		this.player.Logout()
 		this.player.SetSession(nil)
 		this.player = nil
-		this.peer = nil
+		this.Sender = nil
 
 		log.Info("Socket close ")
 	}
 
 }
 
-func NewClient(peer *socket.Peer) *Session {
+//////////////////////////////////////////////////////////////
+func (this *Session) MethodBegin() *bytes.Buffer {
+	this.Lock()
+	return this.OutgoingBuffer
+}
+
+func (this *Session) MethodEnd() error {
+	defer this.Unlock()
+	c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
+	if e != nil {
+		return e
+	}
+	_, file, line, ok := runtime.Caller(2)
+
+	if !ok {
+		file = "???"
+		line = 0
+	}else {
+
+		i := strings.LastIndex(file, "/")
+		if i == -1 {
+			i = strings.LastIndex(file, "\\")
+		}
+		if i != -1{
+			file = file[i+1:]
+		}
+
+	}
+	log.Info("CALL %s:%d MethodEnd() %d ",file,line, c)
+	this.OutgoingBuffer.Reset()
+	this.TotalOutgoing += c
+	return nil
+}
+
+func (this *Session) HandleSocket() error {
+	{
+		bs := make([]byte, 2048)
+
+		c, e := this.Connection.Read(bs)
+		if e != nil {
+			log.Error("Incoming error %s",e.Error())
+			return e
+		}
+		this.IncomingBuffer.Write(bs[:c])
+		this.TotalIncoming += c
+	}
+
+	{
+		c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
+		if e != nil {
+			log.Error("Outgoing error %s",e.Error())
+
+			return e
+		}
+		this.TotalOutgoing += c
+	}
+	return nil
+}
+
+func NewClient(conn *net.TCPConn) *Session {
 	c := Session{}
-	c.Sender = peer
-	c.peer = peer
+	conn.SetNoDelay(true)
+	c.Connection = conn
+	c.OutgoingBuffer =  bytes.NewBuffer(nil)
+	c.IncomingBuffer =  bytes.NewBuffer(nil)
+	c.Sender = &c
 	return &c
 }

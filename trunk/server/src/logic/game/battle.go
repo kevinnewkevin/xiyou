@@ -416,7 +416,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 					}else {
 						unit := p.NewGameUnit(drop.Hero)
 						if unit!=nil {
-							log.Info("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
+							log.Println("PlayerName=",p.MyUnit.InstName,"GiveDrop AddUnit OK UnitId=",drop.Hero)
 							temp := unit.GetUnitCOM()
 							if p.session != nil {
 								p.session.AddNewUnit(temp)
@@ -505,7 +505,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		p.BattleCamp = prpc.CT_MAX
 	}
 
-	log.Info("BattleRoomOver, winner is ", camp)
+	log.Println("BattleRoomOver, winner is ", camp)
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -607,15 +607,15 @@ func (this *BattleRoom) Update() {
 			}
 		}
 	//}
-	log.Info("Battle report battleid is ", this.ReportOne.BattleID)
-	log.Info("Battle report unitlist is ", this.ReportOne.UnitList)
-	log.Info("Battle report acctionlist is ", this.ReportOne.ActionList)
+	log.Println("Battle report battleid is ", this.ReportOne.BattleID)
+	log.Println("Battle report unitlist is ", this.ReportOne.UnitList)
+	log.Println("Battle report acctionlist is ", this.ReportOne.ActionList)
 
 	this.showReport()
 
 	this.SetBattleUnits()
 
-	log.Info("Battle status ", this.Status)
+	log.Println("Battle status ", this.Status)
 
 	for _, p := range this.PlayerList { //戰鬥結束之後要重置屬性
 		p.IsActive = false
@@ -627,7 +627,7 @@ func (this *BattleRoom) Update() {
 		this.SendReport(this.ReportOne)
 	}
 
-	log.Info("站后回合为 ", this.Round)
+	log.Println("站后回合为 ", this.Round)
 
 	this.ReportAll = append(this.ReportAll, this.ReportOne)
 
@@ -688,7 +688,7 @@ func (this *BattleRoom) showReport()  {
 		log.Println("使用的技能 ", re.SkillId)
 		log.Println("技能自带的buff ", re.SkillBuff)
 		log.Println("技能释放的目标信息为")
-		log.Debug("目标链表",re.TargetList)
+		log.Println("目标链表",re.TargetList)
 		for idx1, l := range re.TargetList {
 			log.Println("\t第", idx1 + 1, "个目标")
 			log.Println("\t目标实例ID为", l.InstId)

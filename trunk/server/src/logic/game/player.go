@@ -591,9 +591,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition, skillid int32
 		//错误消息
 		return nil
 	}
-	log.Info("SetupBattle 1 ", battleRoom.Units)
+	log.Println("SetupBattle 1 ", battleRoom.Units)
 	battleRoom.SetupPosition(this, pos, skillid)
-	log.Info("SetupBattle 2 ", battleRoom.Units)
+	log.Println("SetupBattle 2 ", battleRoom.Units)
 
 	this.session.SetupBattleOK()
 
@@ -857,7 +857,7 @@ func (this *GamePlayer) AddCopper(val int32) {
 	}
 	this.MyUnit.SetIProperty(prpc.IPT_COPPER, curCopper)
 
-	log.Info("Player[", this.MyUnit.InstName, "]", "Old Copper=", oldCopper, "curCopper=", curCopper)
+	log.Println("Player[", this.MyUnit.InstName, "]", "Old Copper=", oldCopper, "curCopper=", curCopper)
 }
 
 func (this *GamePlayer) AddGold(val int32) {
