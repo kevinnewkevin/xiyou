@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_klfu" name="n0" src="klfu6" xy="0,0"/>
+    <component id="n1_klfu" name="n1" src="klfuc" xy="787,479">
+      <relation target="n0_klfu" sidePair="center-center,middle-middle"/>
+    </component>
+    <list id="n2_klfu" name="n2" xy="212,36" size="510,78" layout="flow_hz">
+      <relation target="n0_klfu" sidePair="center-center,middle-middle"/>
+      <item url="ui://aq8ce93rklfud"/>
+      <item url="ui://aq8ce93rklfue"/>
+    </list>
+    <list id="n3_klfu" name="n3" xy="50,130" size="650,898" overflow="scroll" lineGap="12" defaultItem="ui://aq8ce93rklfuf">
+      <relation target="n0_klfu" sidePair="center-center,middle-middle"/>
+    </list>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="XY" target="n0_klfu" tween="true" startValue="-863,0" endValue="0,0" duration="12" ease="Circ.InOut"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="XY" target="n0_klfu" tween="true" startValue="0,0" endValue="-860,0" duration="12" ease="Circ.InOut"/>
+  </transition>
+</component>
