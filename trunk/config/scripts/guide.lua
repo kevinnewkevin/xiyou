@@ -26,9 +26,8 @@ function WhenUIOpen(uiName, uiWindow)
 		elseif not GuideSystem.IsNotFinish(3) and  GuideSystem.IsNotFinish(12) then
 			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n30"),150,150,"可以上阵新的卡牌了",284,403);
 			GuideSystem.SetFinish(12);
-		elseif not GuideSystem.IsNotFinish(3) and  not GuideSystem.IsNotFinish(12) and GuideSystem.IsNotFinish(13) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n19"),150,150,"返回",1066,97);
-			GuideSystem.SetFinish(13);
+		elseif not GuideSystem.IsNotFinish(11) then
+			GuideSystem.ClearGuide();
 		end
 	end
 	
@@ -56,10 +55,15 @@ print(uiName)
 			--GuideSystem.ClearGuide();
 		end	
 	end
-	
+	if uiName == "paiku" then
+		if not GuideSystem.IsNotFinish(3) and  not GuideSystem.IsNotFinish(12) and GuideSystem.IsNotFinish(13) then
+			GuideSystem.StartGuide(UIManager.GetWindow("xiaoguanka").contentPane:GetChild("n7"),150,150,"返回",1066,97);
+			GuideSystem.SetFinish(13);
+		end
+	end
 	if uiName == "xiaoguanka" then
 		if not GuideSystem.IsNotFinish(2) and GuideSystem.IsNotFinish(10) and not GuideSystem.IsNotFinish(12) then
-			GuideSystem.StartGuide(UIManager.GetWindow("daguanka").contentPane:GetChild("n6"),"去看看下一个英雄！",1138,409);
+			GuideSystem.StartGuide(UIManager.GetWindow("daguanka").contentPane:GetChild("n6"),150,150,"去看看下一个英雄！",519,438);
 			GuideSystem.SetFinish(10);
 			--GuideSystem.ClearGuide();
 		end
@@ -155,7 +159,7 @@ function SpecialEvent(type, param1)
 	--向右翻页
 	if type == "daguanka_rightclick" then
 		if GuideSystem.IsNotFinish(11) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
+			GuideSystem.StartGuide(UIManager.GetWindow("daguanka").contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
 			GuideSystem.SetFinish(11);
 		end
 	end
