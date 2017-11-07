@@ -14,6 +14,10 @@ function WhenUIOpen(uiName, uiWindow)
 		if GuideSystem.IsNotFinish(2) then
 			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
 			GuideSystem.SetFinish(2);
+		
+		elseif not GuideSystem.IsNotFinish(2) and GuideSystem.IsNotFinish(10) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6"),"去看看下一个英雄！",1138,409);
+			GuideSystem.SetFinish(10);
 		end
 	end
 	--3.	小关卡界面打开事件(WhenUIOpen "xiaoguanka")
@@ -22,7 +26,24 @@ function WhenUIOpen(uiName, uiWindow)
 		if GuideSystem.IsNotFinish(3) then
 			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n22"),"从第一关开始吧！",689,214);
 			GuideSystem.SetFinish(3);
+
+		elseif not GuideSystem.IsNotFinish(3) and  GuideSystem.IsNotFinish(12) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n30"),"可以上阵新的卡牌了",284,403);
+			GuideSystem.SetFinish(12);
 		end
+	end
+	
+	if uiName == "paiku" then
+		if GuideSystem.IsNotFinish(13) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(1),"上阵新的卡牌",756,72);
+			GuideSystem.SetFinish(13);
+		end	
+	end
+	if uiName == "xiangxiziliao" then
+		if GuideSystem.IsNotFinish(14) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n61"),"上阵！",0,0);
+			GuideSystem.SetFinish(14);
+		end	
 	end
 end
 
@@ -112,7 +133,6 @@ function SpecialEvent(type, param1)
 	--9.	卡牌上阵事件(SpecialEvent “battle_cardonbattle”)
 	--指引点击结束回合按钮
 	if type == "battle_cardonbattle" then
-	print("battle_cardonbattle" .. Battle._Turn);
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
 				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
@@ -120,6 +140,13 @@ function SpecialEvent(type, param1)
 				GuideSystem.SetFinish(8);
 				GuideSystem.SetFinish(9);
 			end
+		end
+	end
+	--向右翻页
+	if type == "daguanka_rightclick" then
+		if GuideSystem.IsNotFinish(11) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
+			GuideSystem.SetFinish(11);
 		end
 	end
 end
