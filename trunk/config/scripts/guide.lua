@@ -30,7 +30,7 @@ end
 function WhenUIClose(uiName)
 	if uiName == "xiangxiziliao" then
 		if not GuideSystem.IsNotFinish(999) then
-			GuideSystem.Clear();
+			GuideSystem.ClearGuide();
 		end
 	end
 end
