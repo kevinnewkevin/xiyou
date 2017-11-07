@@ -84,6 +84,25 @@ public class GuideSystem  {
         TypeEffectContent(content);
     }
 
+    static public void StartGuide(GObject aim, string content, float offsetx, float offsety, float dialogx, float dialogy)
+    {
+        if (aim == null)
+            return;
+
+        SetDialogXY(dialogx, dialogy);
+        GRoot.inst.AddChild(_GuideLayer); //!!Before using TransformRect(or GlobalToLocal), the object must be added first
+        Rect rect;
+        rect = aim.TransformRect(new Rect(offsetx, offsety, aim.width, aim.height), _GuideLayer);
+
+        GObject window = _GuideLayer.GetChild("n5");
+        window.pivot = aim.pivot;
+        window.size = new Vector2((int)rect.size.x, (int)rect.size.y);
+        //        window.SetXY((int)rect.position.x, (int)rect.position.y);
+        window.TweenMove(new Vector2((int)rect.position.x, (int)rect.position.y), 0.5f);
+
+        TypeEffectContent(content);
+    }
+
     static public void StartGuideInScene(GameObject go, float width, float height, string content, float dialogx, float dialogy)
     {
         if (go == null)

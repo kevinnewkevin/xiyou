@@ -35,7 +35,7 @@ function WhenUIOpen(uiName, uiWindow)
 	
 	if uiName == "paiku" then
 		if GuideSystem.IsNotFinish(13) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(1),150,150,"上阵新的卡牌",756,72);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(0),"上阵新的卡牌",430,0,756,72);
 			GuideSystem.SetFinish(13);
 		end	
 	end
