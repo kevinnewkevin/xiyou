@@ -14,10 +14,6 @@ function WhenUIOpen(uiName, uiWindow)
 		if GuideSystem.IsNotFinish(2) then
 			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n4"):GetChild("n3"),"通过解魂可以获得卡牌！",1138,409);
 			GuideSystem.SetFinish(2);
-		
-		elseif not GuideSystem.IsNotFinish(2) and GuideSystem.IsNotFinish(10) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6"),"去看看下一个英雄！",1138,409);
-			GuideSystem.SetFinish(10);
 		end
 	end
 	--3.	小关卡界面打开事件(WhenUIOpen "xiaoguanka")
@@ -30,18 +26,21 @@ function WhenUIOpen(uiName, uiWindow)
 		elseif not GuideSystem.IsNotFinish(3) and  GuideSystem.IsNotFinish(12) then
 			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n30"),150,150,"可以上阵新的卡牌了",284,403);
 			GuideSystem.SetFinish(12);
+		elseif not GuideSystem.IsNotFinish(3) and  not GuideSystem.IsNotFinish(12) and GuideSystem.IsNotFinish(13) then
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n19"),150,150,"返回",1066,97);
+			GuideSystem.SetFinish(13);
 		end
 	end
 	
 	if uiName == "paiku" then
 		if GuideSystem.IsNotFinish(13) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(0),"上阵新的卡牌",430,0,756,72);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n6").asCom:GetChild("n27").asList:GetChildAt(1),"上阵新的卡牌",630,0,756,72);
 			GuideSystem.SetFinish(13);
 		end	
 	end
 	if uiName == "xiangxiziliao" then
 		if GuideSystem.IsNotFinish(14) then
-			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n61"),"上阵！",0,0);
+			GuideSystem.StartGuide(uiWindow.contentPane:GetChild("n61"),150,100,"上阵！",661,522);
 			GuideSystem.SetFinish(14);
 		end	
 	end
@@ -49,9 +48,20 @@ end
 
 -- UI关闭时调用
 function WhenUIClose(uiName)
+print(uiName)
 	if uiName == "xiangxiziliao" then
-		if not GuideSystem.IsNotFinish(999) then
-			GuideSystem.ClearGuide();
+		if not GuideSystem.IsNotFinish(13) and  not GuideSystem.IsNotFinish(14) and GuideSystem.IsNotFinish(15) then
+			GuideSystem.StartGuide(UIManager.GetWindow("paiku").contentPane:GetChild("n7"),150,150,"返回",1066,97);
+			GuideSystem.SetFinish(15);
+			--GuideSystem.ClearGuide();
+		end	
+	end
+	
+	if uiName == "xiaoguanka" then
+		if not GuideSystem.IsNotFinish(2) and GuideSystem.IsNotFinish(10) and not GuideSystem.IsNotFinish(12) then
+			GuideSystem.StartGuide(UIManager.GetWindow("daguanka").contentPane:GetChild("n6"),"去看看下一个英雄！",1138,409);
+			GuideSystem.SetFinish(10);
+			--GuideSystem.ClearGuide();
 		end
 	end
 end
