@@ -15,6 +15,8 @@ public class GuideSystem  {
 
     static string _SpecialEvt = "";
 
+    static bool _NeedSync;
+
     static public void Init()
     {
         Define.LaunchUIBundle("xinshouyindao");
@@ -196,7 +198,7 @@ public class GuideSystem  {
     static public void SetFinish(int idx)
     {
         _Progress |= (ulong)1 << idx;
-        SyncProgress();
+        _NeedSync = true;
     }
 
     static public void SetProgress(ulong progress)
@@ -207,5 +209,14 @@ public class GuideSystem  {
     static public void SyncProgress()
     {
         NetWoking.S.NewPlayerGuide(_Progress);
+    }
+
+    static public void Update()
+    {
+        if (_NeedSync)
+        {
+            SyncProgress();
+            _NeedSync = false;
+        }
     }
 }
