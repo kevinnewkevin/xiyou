@@ -110,3 +110,16 @@ enum ItemMainType
 	IMT_BabyEquip, //宠物装备
 	IMT_Max,
 };
+
+/// 聊天类型
+enum ChatKind
+{
+	CK_None,
+	CK_World,
+	CK_Team,
+	CK_System,
+	CK_Friend,
+	CK_GM,
+	CK_Guild,
+    CK_Max,
+};
