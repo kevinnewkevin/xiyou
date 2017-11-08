@@ -4,6 +4,7 @@ import (
 	"logic/prpc"
 	"strconv"
 
+	"sort"
 )
 
 var TrueTopList []prpc.COM_TopUnit
@@ -49,8 +50,21 @@ func InitTopList(){
 
 }
 
+func RefreshAllTopList(){
+	sort.Sort(TopList(TMPTopList))		// 重新排名
+
+	TrueTopList = TMPTopList[:num]
+
+	for _, p := range PlayerStore {
+		p.TianTiRank = p.FindMyTianTiRank()
+		p.session.RecvTopList(TrueTopList, p.TianTiRank)
+	}
+}
+
 
 func (this *GamePlayer) AllTopByPage()  {
+
+	this.TianTiRank = this.FindMyTianTiRank()
 
 	this.session.RecvTopList(TrueTopList, this.TianTiRank)
 

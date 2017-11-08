@@ -21,7 +21,7 @@ func PlayerSave() error {
 }
 
 func RefreshTopList() error {
-
+	RefreshAllTopList()
 	return nil
 }
 
