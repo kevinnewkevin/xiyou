@@ -299,6 +299,22 @@ func (this *Session) FriendTopByPage () error  {
 	return nil
 }
 
+func (this *Session) SerchFriendByName (name string) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.SerchFriendByName(name)
+	return nil
+}
+
+func (this *Session) SerchFriendRandom () error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.SerchFriendRandom()
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {

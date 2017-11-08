@@ -234,3 +234,10 @@ struct COM_TopUnit
 	int32	DisplayID;		//头像
 };
 
+struct COM_Friend			//好友
+{
+	string	Name;				//姓名
+	int32	Level;				//等级
+	int32	DisplayID;			//头像
+};
+

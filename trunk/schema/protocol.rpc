@@ -28,6 +28,9 @@ service COM_ClientToServer{
 	//天梯
 	AllTopByPage();		//全体排行榜
 	FriendTopByPage();				//好友排行榜
+	//好友
+	SerchFriendByName(string name);			//查找好友
+	SerchFriendRandom();					//随机好友推荐
 };
 
 service COM_ServerToClient{
@@ -60,4 +63,7 @@ service COM_ServerToClient{
 	RequestAudioOk(int64 audioId, uint8[] content);
 	//接收排行榜信息
 	RecvTopList(COM_TopUnit[] TopList, int32 MyRank);
+	//好友
+	FriendInfo(COM_Friend[] info);
+	ApplyFriend(string name);
 };

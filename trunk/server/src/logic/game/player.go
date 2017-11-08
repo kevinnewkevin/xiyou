@@ -57,6 +57,10 @@ type GamePlayer struct {
 
 	//新手引導步驟
 	Guide		uint64
+
+	//好友
+	Friends		[]*prpc.COM_Friend
+	Enemys		[]*prpc.COM_Friend
 }
 
 var (
@@ -182,6 +186,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	p.TianTiVal = 0
 	p.TianTiRank = -1
 	PlayerStore = append(PlayerStore, &p)
+	p.Friends = []*prpc.COM_Friend{}
+	p.Enemys = []*prpc.COM_Friend{}
 
 	for _, u := range p.UnitList {
 		log.Info("Myself Unit InstId %d InstName %s", u.InstId, u.InstName)
