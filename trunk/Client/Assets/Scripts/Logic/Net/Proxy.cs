@@ -238,4 +238,17 @@ class Proxy : ICOM_ServerToClientProxy
         UIManager.SetDirty("zhujiemian_paihang");
         return true;
     }
+
+	public bool	FriendInfo(ref COM_Friend[] friends)
+	{
+		return true;
+	}
+
+	public bool	ApplyFriend(ref string name)
+	{
+			
+		return true;
+	}
+
+
 }
