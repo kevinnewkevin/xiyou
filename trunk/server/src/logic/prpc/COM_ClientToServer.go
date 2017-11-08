@@ -76,6 +76,9 @@ type COM_ClientToServer_RequestAudio struct{
 type COM_ClientToServer_SerchFriendByName struct{
   name string  //0
 }
+type COM_ClientToServer_ProcessingFriend struct{
+  name string  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -107,6 +110,7 @@ type COM_ClientToServerProxy interface{
   FriendTopByPage() error // 24
   SerchFriendByName(name string ) error // 25
   SerchFriendRandom() error // 26
+  ProcessingFriend(name string ) error // 27
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1027,6 +1031,40 @@ func (this *COM_ClientToServer_SerchFriendByName)Deserialize(buffer *bytes.Buffe
   }
   return nil
 }
+func (this *COM_ClientToServer_ProcessingFriend)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.name) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize name
+  if len(this.name) != 0{
+    err := write(buffer,this.name)
+    if err != nil {
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_ProcessingFriend)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize name
+  if mask.readBit() {
+    err := read(buffer,&this.name)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1460,6 +1498,23 @@ func(this* COM_ClientToServerStub)SerchFriendRandom() error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)ProcessingFriend(name string ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(27))
+  if err != nil{
+    return err
+  }
+  _27 := COM_ClientToServer_ProcessingFriend{}
+  _27.name = name;
+  err = _27.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1808,6 +1863,20 @@ func Bridging_COM_ClientToServer_SerchFriendRandom(buffer *bytes.Buffer, p COM_C
   }
   return p.SerchFriendRandom()
 }
+func Bridging_COM_ClientToServer_ProcessingFriend(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _27 := COM_ClientToServer_ProcessingFriend{}
+  err := _27.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ProcessingFriend(_27.name)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -1875,6 +1944,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_SerchFriendByName(buffer,p);
     case 26 :
       return Bridging_COM_ClientToServer_SerchFriendRandom(buffer,p);
+    case 27 :
+      return Bridging_COM_ClientToServer_ProcessingFriend(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

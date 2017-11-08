@@ -315,6 +315,14 @@ func (this *Session) SerchFriendRandom () error  {
 	return nil
 }
 
+func (this *Session) ProcessingFriend (name string) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.ProcessingFriend(name)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Update() {
