@@ -13,4 +13,10 @@ public class RankSystem {
         _AllRank = new List<COM_TopUnit>();
         _FirendRank = new List<COM_TopUnit>();
     }
+
+    static public void Sync()
+    {
+        NetWoking.S.AllTopByPage();
+        NetWoking.S.FriendTopByPage();
+    }
 }

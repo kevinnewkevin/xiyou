@@ -26,6 +26,7 @@ class Proxy : ICOM_ServerToClientProxy
     {
         GamePlayer.Init(player);
         SceneLoader.LoadScene(Define.SCENE_MAIN);
+        RankSystem.Sync();
         return true;
     }
 
