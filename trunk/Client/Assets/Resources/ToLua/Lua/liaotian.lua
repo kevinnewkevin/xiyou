@@ -41,6 +41,7 @@ function liaotian:OnInit()
 	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
 
 	typeList = self.contentPane:GetChild("n6").asList;
+	typeList.onClickItem:Add(liaotian_OnTypeSelect);
 
 	contentList = self.contentPane:GetChild("n13").asList;
 	contentList:SetVirtual();
@@ -82,18 +83,17 @@ function liaotian_OnRenderListItem(index, obj)
 			local content = obj:GetChild("n7");
 			local lv = obj:GetChild("n3");
 
-			yybtn.onClick.Add(liaotian_OnPlayRecord);
-
-			if crtList[index].AudioId ~= 0 then
-				icon.visible = false;
-				name.visible = false;
-				content.visible = false;
-				lv.visible = false;
-				yybtn.visible = true;
-				yybg.visible = true;
-				yybtn.data = crtList[index].AudioId;
-				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
-			else
+--			if crtList[index].AudioId ~= 0 then
+--				icon.visible = false;
+--				name.visible = false;
+--				content.visible = false;
+--				lv.visible = false;
+--				yybtn.visible = true;
+--				yybg.visible = true;
+--				yybtn.onClick:Add(liaotian_OnPlayRecord);
+--				yybtn.data = crtList[index].AudioId;
+--				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
+--			else
 				icon.visible = true;
 				name.visible = true;
 				content.visible = true;
@@ -105,7 +105,7 @@ function liaotian_OnRenderListItem(index, obj)
 				name.text = crtList[index].PlayerName;
 				content.text = crtList[index].Content;
 				lv.text = crtList[index].Level;
-			end
+--			end
 		end
 	end
 end

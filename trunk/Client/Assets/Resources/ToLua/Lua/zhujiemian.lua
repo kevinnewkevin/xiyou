@@ -243,16 +243,16 @@ end
 function zhujiemian_RankRenderListItem(index, obj)
 	local rank = obj:GetChild("n59");
 	local lv = obj:GetChild("n58");
---	local icon = obj:GetChild("").asLoader;
+	local icon = obj:GetChild("n60").asLoader;
 
 	lv.text = RankSystem._FirendRank[index].Level;
-	rank.text = index .. "";
---	local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
---	if dData ~= nil then
---		icon.url = "ui://" .. dData._HeadIcon;
---	else
---		icon.url = "";
---	end
+	rank.text = index + 1 .. "";
+	local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
+	if dData ~= nil then
+		icon.url = "ui://" .. dData._HeadIcon;
+	else
+		icon.url = "";
+	end
 end
 
 function zhujiemian_OnClose()
