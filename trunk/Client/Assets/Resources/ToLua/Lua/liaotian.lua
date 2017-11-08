@@ -89,6 +89,10 @@ function liaotian_OnRenderListItem(index, obj)
 end
 
 function liaotian_OnSend()
+	if content.text == "" then
+		return;
+	end
+
 	local chat = COM_Chat.New();
 	chat.Type = 1;
 	chat.PlayerInstId = GamePlayer._InstID;
