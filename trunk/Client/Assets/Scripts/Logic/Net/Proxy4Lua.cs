@@ -104,6 +104,11 @@ public class Proxy4Lua {
         NetWoking.S.SendChat (chat);
     }
 
+    static public void PlayAudio(long id)
+    {
+        NetWoking.S.RequestAudio(id);
+    }
+
     #endregion
 
     #region 内部接口

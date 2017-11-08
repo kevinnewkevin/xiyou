@@ -34,6 +34,8 @@ public class AppEntry : MonoBehaviour {
         BagSystem.Init();
         ChatSystem.Init();
         RankSystem.Init();
+        YYSystem.Init();
+        YYSystem.Login();
 //        WeatherSystem.Init();
         UIManager.Show("yemiantishi");
         UIManager.Show("denglu");
