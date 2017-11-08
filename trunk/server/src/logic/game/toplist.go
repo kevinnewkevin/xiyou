@@ -97,7 +97,7 @@ func RefreshFriendTopList(){
 			continue
 		}
 		p.TianTiRank = p.FindMyTianTiRank()
-		p.session.RecvFriendTopList(TrueTopList, p.TianTiRank)
+		p.session.RecvFriendTopList(TrueTopList, p.FriendTianTiRank)
 	}
 }
 
@@ -116,7 +116,7 @@ func (this *GamePlayer) FriendTopByPage(page int32) {
 
 	this.TianTiRank = this.FindMyTianTiRank()
 
-	this.session.RecvTopList(TrueTopList, this.TianTiRank)
+	this.session.RecvFriendTopList(TrueTopList, this.FriendTianTiRank)
 }
 
 
