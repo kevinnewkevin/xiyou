@@ -283,7 +283,7 @@ func (this *Session)RequestAudio(audioId int64 ) error  {
 	return nil
 }
 
-func (this *Session) AllTopByPage (page int32 ) error  {
+func (this *Session) AllTopByPage () error  {
 	if this.player == nil {
 		return nil
 	}

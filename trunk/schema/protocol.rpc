@@ -26,7 +26,7 @@ service COM_ClientToServer{
 	SendChat(COM_Chat content);
 	RequestAudio(int64 audioId);
 	//天梯
-	AllTopByPage(int32 page);		//全体排行榜
+	AllTopByPage();		//全体排行榜
 	FriendTopByPage();				//好友排行榜
 };
 

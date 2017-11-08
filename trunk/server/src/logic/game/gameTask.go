@@ -2,7 +2,6 @@ package game
 
 import (
 	"github.com/astaxie/beego/toolbox"
-	"logic/log"
 )
 
 func PassZeroHourTask() error {
