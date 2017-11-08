@@ -230,6 +230,12 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool RecvTopList(ref COM_TopUnit[] rankList, int myRank)
     {
+        RankSystem._AllRank = new System.Collections.Generic.List<COM_TopUnit>(rankList);
+        RankSystem._FirendRank = new System.Collections.Generic.List<COM_TopUnit>(rankList);
+        RankSystem._MyAllRank = myRank;
+        RankSystem._MyFirendRank = myRank;
+        UIManager.SetDirty("paihangbang");
+        UIManager.SetDirty("zhujiemian_paihang");
         return true;
     }
 }

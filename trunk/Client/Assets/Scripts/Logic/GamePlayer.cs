@@ -82,6 +82,9 @@ public class GamePlayer {
 
         GuideSystem.SetProgress(player.Guide);
 
+        RankSystem._MyAllRank = player.TianTiRank;
+        RankSystem._MyFirendRank = player.TianTiRank;
+
         UIManager.SetDirty("zhujiemian");
     }
 

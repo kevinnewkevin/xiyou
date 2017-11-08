@@ -15,6 +15,7 @@ local headIcon;
 local stateIcon;
 local stateBar;
 local listGroup;
+local rankList;
 
 local minChatList;
 local minChatItem = "ui://zhujiemian/wenzi_com";
@@ -71,12 +72,19 @@ function zhujiemian:OnInit()
 	listGroup.itemRenderer = zhujiemain_RenderListItem;
 	listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
 
+	rankList =  self.contentPane:GetChild("n42").asList;
+	rankList:SetVirtual();
+	rankList.itemRenderer = zhujiemian_RankRenderListItem;
+	rankList.onClick:Add(zhujiemian_OnRank);
+
 	minChatList = self.contentPane:GetChild("n55").asList;
 	minChatList.onClick:Add(zhujiemian_OnMinChat);
 
 	zhujiemian_FlushData();
 	zhujiemian_FlushChatData();
+	zhujiemian_FlushRankData();
 	UIManager.AddExDirty("zhujiemian_liaotian");
+	UIManager.AddExDirty("zhujiemian_paihang");
 	--DoSpecialEffect();
 end
 
@@ -123,6 +131,11 @@ function zhujiemian:OnUpdate()
 		zhujiemian_FlushChatData();
 		UIManager.ClearDirty("zhujiemian_liaotian");
 	end
+
+	if UIManager.IsDirty("zhujiemian_paihang") then
+		zhujiemian_FlushRankData();
+		UIManager.ClearDirty("zhujiemian_paihang");
+	end
 end
 
 function zhujiemian:OnTick()
@@ -167,20 +180,30 @@ function zhujiemian_FlushChatData()
 	local list = ChatSystem.MsgByType(-1);
 	minChatList:RemoveChildrenToPool();
 	for i=0, maxNum - 1 do
-		local content = minChatList:AddItemFromPool(minChatItem);
-		local lbl = content:GetChild("n0");
-		local frontPlus = "";
-		if list[i].Type == 0 then
-			frontPlus = "系统:";
-		else
-			frontPlus = list[i].PlayerName .. ":";
+		if list[i].Content ~= nil and list[i].PlayerName ~= nil then
+			local content = minChatList:AddItemFromPool(minChatItem);
+			local lbl = content:GetChild("n0");
+			local frontPlus = "";
+			if list[i].Type == 0 then
+				frontPlus = "系统:";
+			else
+				frontPlus = list[i].PlayerName .. ":";
+			end
+			lbl.text = frontPlus .. list[i].Content;
 		end
-		lbl.text = frontPlus .. list[i].Content;
 	end
+end
+
+function zhujiemian_FlushRankData()
+	rankList.numItems = RankSystem._FirendRank.Count;
 end
 
 function zhujiemian_OnMinChat()
 	UIManager.Show("liaotian");
+end
+
+function zhujiemian_OnRank()
+	UIManager.Show("paihangbang");
 end
 
 function zhujiemain_RenderListItem(index, obj)
@@ -215,6 +238,21 @@ function zhujiemain_RenderListItem(index, obj)
 		effect :SetNativeObject(Proxy4Lua.GetEffectAssetGameObject(""));
 	end
 	
+end
+
+function zhujiemian_RankRenderListItem(index, obj)
+	local rank = obj:GetChild("n59");
+	local lv = obj:GetChild("n58");
+--	local icon = obj:GetChild("").asLoader;
+
+	lv.text = RankSystem._FirendRank[index].Level;
+	rank.text = index .. "";
+--	local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
+--	if dData ~= nil then
+--		icon.url = "ui://" .. dData._HeadIcon;
+--	else
+--		icon.url = "";
+--	end
 end
 
 function zhujiemian_OnClose()

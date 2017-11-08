@@ -248,6 +248,8 @@ public static class CustomSettings
         _GT(typeof(GuideSystem)),
         _GT(typeof(ChatSystem)),
         _GT(typeof(COM_Chat)),
+        _GT(typeof(RankSystem)),
+        _GT(typeof(COM_TopUnit)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

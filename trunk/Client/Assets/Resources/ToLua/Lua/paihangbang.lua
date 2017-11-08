@@ -1,0 +1,140 @@
+require "FairyGUI"
+
+paihangbang = fgui.window_class(WindowBase)
+local Window;
+
+local rankList;
+local typeList;
+
+local oneUrl = "ui://paihangbang/07";
+local twoUrl = "ui://paihangbang/08";
+local threeUrl = "ui://paihangbang/09";
+
+local myRank;
+
+local crtType;
+
+function paihangbang:OnEntry()
+	Window = paihangbang.New();
+	Window:Show();
+end
+
+function paihangbang:GetWindow()
+	return Window;
+end
+
+function paihangbang:OnInit()
+	self.contentPane = UIPackage.CreateObject("paihangbang", "paihangbang_com").asCom;
+	self:Center();
+	self.closeButton = self.contentPane:GetChild("n1");
+
+	myRank = self.contentPane:GetChild("n4").asTextField;
+
+	rankList = self.contentPane:GetChild("n3").asList;
+	rankList:SetVirtual();
+	rankList.itemRenderer = paihangbang_RenderListItem;
+
+	typeList = self.contentPane:GetChild("n2").asList;
+	typeList.onClickItem:Add(paihangbang_OnSelectType);
+	crtType = 0;
+
+	paihangbang_FlushData();
+end
+
+function paihangbang_OnSelectType()
+	crtType = typeList.selectedIndex;
+	UIManager.SetDirty("paihangbang");
+end
+
+function paihangbang_RenderListItem(index, obj)
+	local rank = obj:GetChild("n3");
+	local name = obj:GetChild("n1");
+	local score = obj:GetChild("n2");
+	local lv = obj:GetChild("n10");
+	local flower = obj:GetChild("n8").asLoader;
+	local icon = obj:GetChild("n7").asLoader;
+	if crtType == 0 then
+		name.text = RankSystem._AllRank[index].Name;
+		lv.text = RankSystem._AllRank[index].Level;
+		score.text = RankSystem._AllRank[index].TianTi;
+		rank.text = index .. "";
+		if index == 0 then
+			flower.url = oneUrl;
+		elseif index == 1 then
+			flower.url = twoUrl;
+		elseif index == 2 then
+			flower.url = threeUrl;
+		else
+			flower.url = "";
+		end
+		local dData = DisplayData.GetData(RankSystem._AllRank[index].DisplayID);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._HeadIcon;
+		else
+			icon.url = "";
+		end
+	elseif crtType == 1 then
+		name.text = RankSystem._FirendRank[index].Name;
+		lv.text = RankSystem._FirendRank[index].Level;
+		score.text = RankSystem._FirendRank[index].TianTi;
+		rank.text = index .. "";
+		if index == 0 then
+			flower.url = oneUrl;
+		elseif index == 1 then
+			flower.url = tweUrl;
+		elseif index == 2 then
+			flower.url = threeUrl;
+		else
+			flower.url = "";
+		end
+		local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._HeadIcon;
+		else
+			icon.url = "";
+		end
+	end
+end
+
+function paihangbang:OnUpdate()
+	if UIManager.IsDirty("paihangbang") then
+		denglu_FlushData();
+		UIManager.ClearDirty("paihangbang");
+	end
+end
+
+function paihangbang:OnTick()
+	
+end
+
+function paihangbang:isShow()
+	return Window.isShowing;
+end
+
+function paihangbang:OnDispose()
+	Window:Dispose();
+end
+
+function paihangbang:OnHide()
+	crtType = 0;
+	Window:Hide();
+end
+
+function paihangbang_FlushData()
+	local count = 0;
+	local myRankStr = "未入榜";
+	if crtType == 0 then
+		count = RankSystem._AllRank.Count;
+		if RankSystem._MyAllRank ~= 0 then
+			myRankStr = RankSystem._MyAllRank .. "";
+		end
+	elseif crtType == 1 then
+		count = RankSystem._FirendRank.Count;
+		if RankSystem._MyFirendRank ~= 0 then
+			myRankStr = RankSystem._MyFirendRank .. "";
+		end
+	end
+
+	myRank.text = myRankStr;
+	rankList.numItems = count;
+end

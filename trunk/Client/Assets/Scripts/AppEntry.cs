@@ -33,6 +33,7 @@ public class AppEntry : MonoBehaviour {
         CameraEffect.Init();
         BagSystem.Init();
         ChatSystem.Init();
+        RankSystem.Init();
 //        WeatherSystem.Init();
         UIManager.Show("yemiantishi");
         UIManager.Show("denglu");
