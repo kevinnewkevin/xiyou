@@ -1,6 +1,7 @@
-d1awe2g.xml|273|<component size="542,46">
+d1awe2g.xml|336|<component size="542,46">
   <displayList>
     <richtext id="n0_d1aw" name="n0" xy="2,5" size="536,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" leading="8" autoSize="height" text=""/>
+    <component id="n3_umbv" name="n3" src="umbve2t" xy="4,5"/>
   </displayList>
   <relation target="n0_d1aw" sidePair="height-height"/>
 </component>hbv51.xml|1917|<component size="1920,1080" opaque="false">
@@ -300,7 +301,7 @@ d1awe2g.xml|273|<component size="542,46">
     </image>
   </displayList>
   <Button/>
-</component>package.xml|8121|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|8399|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
     <component id="uh5ye2h" name="paihang_com" path="/" size="127,124"/>
     <image id="jijre2e" name="34" path="/" size="77,77"/>
@@ -333,6 +334,7 @@ d1awe2g.xml|273|<component size="542,46">
     <component id="nfe41z" name="Button19" path="/" size="864,826" exported="true"/>
     <component id="nfe420" name="Button20" path="/" size="418,470" exported="true"/>
     <component id="nfe423" name="paihang_Button" path="/" size="36,194" exported="true"/>
+    <component id="umbve2t" name="yuyin_Button" path="/" size="128,40" exported="true"/>
     <component id="y4d0e2c" name="fasong_Button" path="/" size="100,53" exported="true"/>
     <component id="y4d0e2d" name="shezhi_Button" path="/" size="64,68" exported="true"/>
     <font id="uh5ye2s" name="paiming_Font" path="/" size="0,0" exported="true" file="uh5ye2s.fnt"/>
@@ -391,6 +393,8 @@ d1awe2g.xml|273|<component size="542,46">
     <image id="uh5ye2p" name="ph_8" path="/" size="102,95" exported="true"/>
     <image id="uh5ye2q" name="ph_9" path="/" size="102,95" exported="true"/>
     <image id="uh5ye2r" name="ph_10" path="/" size="102,95" exported="true"/>
+    <image id="umbve2u" name="14" path="/" size="53,40" exported="true" scale="9grid" scale9grid="22,15,12,9"/>
+    <image id="umbve2v" name="30(1)" path="/" size="21,21" exported="true"/>
     <image id="y4d0e2b" name="30" path="/" size="298,36" exported="true"/>
     <atlas id="atlas0" size="1024,1024" file="atlas0.png"/>
     <atlas id="atlas100" size="1024,1024" file="atlas0_1.png"/>
@@ -418,7 +422,17 @@ char id=54 img=uh5ye2n xoffset=0 yoffset=0 xadvance=0
 char id=55 img=uh5ye2o xoffset=0 yoffset=0 xadvance=0
 char id=56 img=uh5ye2p xoffset=0 yoffset=0 xadvance=0
 char id=57 img=uh5ye2q xoffset=0 yoffset=0 xadvance=0
-y4d0e2c.xml|290|<component size="100,53" extention="Button">
+umbve2t.xml|550|<component size="128,40" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="umbve2u" xy="0,0" size="130,40">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_zh4y" name="n2" xy="6,3" size="60,43" font="华文楷体" fontSize="27" color="#3b1e02" autoSize="none" bold="true" text="20s"/>
+    <image id="n3_zh4y" name="n3" src="umbve2v" xy="103,9"/>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>y4d0e2c.xml|290|<component size="100,53" extention="Button">
   <Button/>
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
   <displayList>
