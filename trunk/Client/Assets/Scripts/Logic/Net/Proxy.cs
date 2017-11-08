@@ -248,9 +248,12 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	ApplyFriend(ref string name)
 	{
-			
 		return true;
 	}
 
+	public bool	RecvFriend(ref COM_Friend friend)
+	{
 
+			return true;
+	}
 }
