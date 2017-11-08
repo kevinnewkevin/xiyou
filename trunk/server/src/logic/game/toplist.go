@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"sort"
+	"logic/log"
 )
 
 var TrueTopList []prpc.COM_TopUnit
@@ -56,6 +57,9 @@ func RefreshAllTopList(){
 	TrueTopList = TMPTopList[:num]
 
 	for _, p := range PlayerStore {
+		if p == nil || p.session == nil {
+			continue
+		}
 		p.TianTiRank = p.FindMyTianTiRank()
 		p.session.RecvTopList(TrueTopList, p.TianTiRank)
 	}
@@ -91,13 +95,28 @@ func (this *GamePlayer) FindMyTianTiRank() int32 {
 func (this *GamePlayer) UpdateTianTiVal() {		//只更新不操作
 
 	if this.TianTiRank == -1 {		// 无排名
-		top := prpc.COM_TopUnit{}
-		top.TianTi = this.TianTiVal
-		top.Level = this.MyUnit.Level
-		top.Name = this.MyUnit.InstName
-		top.DisplayID = this.MyUnit.UnitId
 
-		TMPTopList = append(TMPTopList, top)
+		idx := -1
+
+		for i, t := range TMPTopList{
+			if t.Name == this.MyUnit.InstName {
+				idx = i
+				break
+			}
+		}
+		log.Println("UpdateTianTiVal -100, ", idx)
+		if idx == -1 {
+			top := prpc.COM_TopUnit{}
+			top.TianTi = this.TianTiVal
+			top.Level = this.MyUnit.Level
+			top.Name = this.MyUnit.InstName
+			top.DisplayID = this.MyUnit.UnitId
+
+			TMPTopList = append(TMPTopList, top)
+		} else {
+			TMPTopList[idx].TianTi = this.TianTiVal
+		}
+		log.Println("UpdateTianTiVal -1, ", TMPTopList)
 	} else {
 		my_top := TMPTopList[this.TianTiRank]
 
@@ -105,8 +124,4 @@ func (this *GamePlayer) UpdateTianTiVal() {		//只更新不操作
 
 		TMPTopList[this.TianTiRank] = my_top
 	}
-
-	//sort.Sort(TopList(TrueTopList))		// 重新排名
-
-	//this.TianTiRank = this.FindMyTianTiRank()
 }

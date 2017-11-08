@@ -1493,10 +1493,11 @@ func (this *GamePlayer) IsLock() bool {
 
 func TestPlayer() {
 	P1 := CreatePlayer(1, "testPlayer")
-	P1.InitMyBlackMarket()
-	P1.RefreshMyBlackMarket(false)
-	P1.TestItem()
-	P1.TestChat()
+	//P1.InitMyBlackMarket()
+	//P1.RefreshMyBlackMarket(false)
+	//P1.TestItem()
+	//P1.TestChat()
+	P1.TestTop()
 }
 
 func (this *GamePlayer) TestItem() {
@@ -1511,4 +1512,10 @@ func (this *GamePlayer) TestItem() {
 	for _, u := range this.UnitList {
 		log.Info("Myself Unit InstId", u.InstId, "InstName", u.InstName)
 	}
+}
+
+func (this *GamePlayer) TestTop() {
+	this.UpdateTianTiVal()
+	this.TianTiVal = 1000
+	this.UpdateTianTiVal()
 }

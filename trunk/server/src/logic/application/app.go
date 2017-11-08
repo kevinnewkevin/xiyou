@@ -129,7 +129,7 @@ func (this *App) Run() {
 	toolbox.StartTask()
 	game.InitTopList()
 	defer toolbox.StopTask()
-	//game.TestPlayer()
+	game.TestPlayer()
 	this.l, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("0.0.0.0"),10999,"ipv4"})
 	if err != nil {
 		log.Fatal(err.Error())
