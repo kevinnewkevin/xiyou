@@ -77,7 +77,7 @@ function paihangbang_RenderListItem(index, obj)
 		name.text = RankSystem._FirendRank[index].Name;
 		lv.text = RankSystem._FirendRank[index].Level;
 		score.text = RankSystem._FirendRank[index].TianTi;
-		rank.text = index .. "";
+		rank.text = index + 1 .. "";
 		if index == 0 then
 			flower.url = oneUrl;
 		elseif index == 1 then
@@ -98,7 +98,7 @@ end
 
 function paihangbang:OnUpdate()
 	if UIManager.IsDirty("paihangbang") then
-		denglu_FlushData();
+		paihangbang_FlushData();
 		UIManager.ClearDirty("paihangbang");
 	end
 end
