@@ -81,7 +81,7 @@ function paihangbang_RenderListItem(index, obj)
 		if index == 0 then
 			flower.url = oneUrl;
 		elseif index == 1 then
-			flower.url = tweUrl;
+			flower.url = twoUrl;
 		elseif index == 2 then
 			flower.url = threeUrl;
 		else
