@@ -287,15 +287,15 @@ func (this *Session) AllTopByPage (page int32 ) error  {
 	if this.player == nil {
 		return nil
 	}
-	this.player.AllTopByPage(page)
+	this.player.AllTopByPage()
 	return nil
 }
 
-func (this *Session) FriendTopByPage (page int32 ) error  {
+func (this *Session) FriendTopByPage () error  {
 	if this.player == nil {
 		return nil
 	}
-	this.player.AllTopByPage(page)
+	this.player.AllTopByPage()
 	return nil
 }
 

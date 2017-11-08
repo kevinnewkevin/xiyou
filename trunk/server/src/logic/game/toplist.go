@@ -3,15 +3,16 @@ package game
 import (
 	"logic/prpc"
 	"strconv"
-	"sort"
+
 )
 
-var TestTop []prpc.COM_TopUnit
+var TrueTopList []prpc.COM_TopUnit
+var TMPTopList []prpc.COM_TopUnit
 
 const (
 	show_num = 5		//每页显示五个人
 	Testpaiming = "测试用"
-	num = 1000
+	num = 200
 	tian = 10000
 )
 
@@ -29,7 +30,7 @@ func (a TopList) Less(i, j int) bool {    // 重写 Less() 方法， 从大到�
 }
 
 func InitTopList(){
-	if len(TestTop) == 0{
+	if len(TrueTopList) == 0{
 		for i := 0; i < num; i++ {
 			p := prpc.COM_TopUnit{}
 			p.Name = Testpaiming + strconv.Itoa(i)
@@ -41,25 +42,17 @@ func InitTopList(){
 			p.Level = num - int32(i)
 			p.TianTi = tian - int32(i) * 2
 
-			TestTop = append(TestTop, p)
+			TrueTopList = append(TrueTopList, p)
 		}
 	}
+	TMPTopList = TrueTopList
 
 }
 
 
-func (this *GamePlayer) AllTopByPage(page int32)  {
-	start := show_num * page - show_num
-	end := show_num * page - 1
+func (this *GamePlayer) AllTopByPage()  {
 
-	show_p := []prpc.COM_TopUnit{}
-	for i := start; i <= end; i++ {
-		show_p = append(show_p, TestTop[i])
-	}
-
-	this.UpdateTianTiVal()
-
-	this.session.RecvTopList(show_p, this.TianTiRank)
+	this.session.RecvTopList(TrueTopList, this.TianTiRank)
 
 	return
 }
@@ -72,7 +65,7 @@ func (this *GamePlayer) FriendTopByPage(page int32) {
 
 
 func (this *GamePlayer) FindMyTianTiRank() int32 {
-	for i, t := range TestTop {
+	for i, t := range TrueTopList {
 		if t.Name == this.MyUnit.InstName {
 			return int32(i)
 		}
@@ -81,7 +74,7 @@ func (this *GamePlayer) FindMyTianTiRank() int32 {
 	return -1
 }
 
-func (this *GamePlayer) UpdateTianTiVal() {
+func (this *GamePlayer) UpdateTianTiVal() {		//只更新不操作
 
 	if this.TianTiRank == -1 {		// 无排名
 		top := prpc.COM_TopUnit{}
@@ -90,20 +83,16 @@ func (this *GamePlayer) UpdateTianTiVal() {
 		top.Name = this.MyUnit.InstName
 		top.DisplayID = this.MyUnit.UnitId
 
-		TestTop = append(TestTop, top)
+		TMPTopList = append(TMPTopList, top)
 	} else {
-		my_top := TestTop[this.TianTiRank]
+		my_top := TMPTopList[this.TianTiRank]
 
 		my_top.TianTi = this.TianTiVal
 
-		TestTop[this.TianTiRank] = my_top
+		TMPTopList[this.TianTiRank] = my_top
 	}
 
-	sort.Sort(TopList(TestTop))		// 重新排名
+	//sort.Sort(TopList(TrueTopList))		// 重新排名
 
-	if len(TestTop) > 1000 {
-		TestTop = TestTop[:1000]
-	}
-
-	this.TianTiRank = this.FindMyTianTiRank()
+	//this.TianTiRank = this.FindMyTianTiRank()
 }
