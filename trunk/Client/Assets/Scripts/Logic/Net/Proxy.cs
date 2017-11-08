@@ -227,4 +227,9 @@ class Proxy : ICOM_ServerToClientProxy
     {
         return true;
     }
+
+    public bool RecvTopList(ref COM_TopUnit[] rankList, int myRank)
+    {
+        return true;
+    }
 }
