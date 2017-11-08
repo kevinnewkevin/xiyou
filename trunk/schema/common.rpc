@@ -219,6 +219,7 @@ struct COM_Chat
 	int64		PlayerInstId;	//玩家instid
 	string		PlayerName;		//玩家名字
 	string		HeadIcon;		//玩家头像
+	string		Level;			//玩家等级
 	string		Content;		//内容
 	int64		AudioId;		//语音id
 	uint8[]		Audio;			//语音数据
