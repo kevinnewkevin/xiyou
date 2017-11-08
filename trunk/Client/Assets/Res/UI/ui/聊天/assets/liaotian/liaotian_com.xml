@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_zh4y" name="n0" src="zh4y5" xy="0,0"/>
+    <component id="n1_zh4y" name="n1" src="zh4yi" xy="793,476"/>
+    <list id="n6_zh4y" name="n6" xy="176,32" size="536,86" layout="flow_hz" lineGap="-24" colGap="13">
+      <item url="ui://asmryhlizh4yu"/>
+      <item url="ui://asmryhlizh4yv"/>
+      <item url="ui://asmryhlizh4yt"/>
+    </list>
+    <image id="n7_v0r3" name="n7" src="zh4y6" xy="131,1010"/>
+    <component id="n8_v0r3" name="n8" src="v0r3w" xy="619,1005"/>
+    <component id="n10_v0r3" name="n10" src="v0r3x" xy="536,997"/>
+    <component id="n11_v0r3" name="n11" src="v0r3y" xy="41,992"/>
+    <text id="n12_v0r3" name="n12" xy="137,1012" size="385,45" input="true" prompt="点击输入聊天内容" maxLength="30" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" text=""/>
+    <list id="n13_v0r3" name="n13" xy="38,110" size="670,862" overflow="scroll"/>
+    <component id="n14_v0r3" name="n14" src="v0r310" xy="60,630"/>
+  </displayList>
+</component>
