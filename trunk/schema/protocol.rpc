@@ -64,6 +64,7 @@ service COM_ServerToClient{
 	RequestAudioOk(int64 audioId, uint8[] content);
 	//接收排行榜信息
 	RecvTopList(COM_TopUnit[] TopList, int32 MyRank);
+	RecvFriendTopList(COM_TopUnit[] TopList, int32 MyRank);
 	//好友
 	FriendInfo(COM_Friend[] info);
 	ApplyFriend(string name);

@@ -41,6 +41,7 @@ type GamePlayer struct {
 
 	TianTiVal   int32
 	TianTiRank  int32
+	FriendTianTiRank  int32
 	EnergyTimer float64
 	//Bag
 	BagItems []*prpc.COM_ItemInst
@@ -185,6 +186,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	//p.DefaultUnitGroup = 1
 	p.TianTiVal = 0
 	p.TianTiRank = -1
+	p.FriendTianTiRank = -1
 	PlayerStore = append(PlayerStore, &p)
 	p.Friends = []*prpc.COM_Friend{}
 	p.Enemys = []*prpc.COM_Friend{}
@@ -243,6 +245,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	}
 	this.TianTiVal = p.TianTiVal
 	this.TianTiRank = p.TianTiRank
+	this.FriendTianTiRank = p.FriendTianTiRank
 	this.Guide = p.Guide
 
 	this.SkillBase = map[int32]int32{}
@@ -269,6 +272,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 	p.TianTiVal = this.TianTiVal
 	p.TianTiRank = this.TianTiRank
+	p.FriendTianTiRank = this.FriendTianTiRank
 	p.Guide = this.Guide
 
 	for index, skillid := range this.SkillBase {

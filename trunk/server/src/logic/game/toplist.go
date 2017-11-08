@@ -82,6 +82,25 @@ func RefreshAllTopList(){
 	}
 }
 
+func RefreshFriendTopList(){
+	sort.Sort(TopList(TMPTopList))		// 重新排名
+
+	tmp := TrueTopList
+
+	TrueTopList = TMPTopList[:num]
+
+	if isSame(tmp, TrueTopList) {
+		return
+	}
+	for _, p := range PlayerStore {
+		if p == nil || p.session == nil {
+			continue
+		}
+		p.TianTiRank = p.FindMyTianTiRank()
+		p.session.RecvFriendTopList(TrueTopList, p.TianTiRank)
+	}
+}
+
 
 func (this *GamePlayer) AllTopByPage()  {
 
@@ -95,7 +114,9 @@ func (this *GamePlayer) AllTopByPage()  {
 
 func (this *GamePlayer) FriendTopByPage(page int32) {
 
+	this.TianTiRank = this.FindMyTianTiRank()
 
+	this.session.RecvTopList(TrueTopList, this.TianTiRank)
 }
 
 

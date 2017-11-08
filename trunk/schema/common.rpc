@@ -68,6 +68,7 @@ struct COM_Player{
 	COM_UnitGroup[]		UnitGroup;
 	int32				TianTiVal;
 	int32				TianTiRank;
+	int32				FriendTianTiRank;
 	uint64				Guide;
 	COM_SkillBase[]		SkillBase;
 };

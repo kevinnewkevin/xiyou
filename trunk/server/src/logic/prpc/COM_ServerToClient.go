@@ -87,6 +87,10 @@ type COM_ServerToClient_RecvTopList struct{
   TopList []COM_TopUnit  //0
   MyRank int32  //1
 }
+type COM_ServerToClient_RecvFriendTopList struct{
+  TopList []COM_TopUnit  //0
+  MyRank int32  //1
+}
 type COM_ServerToClient_FriendInfo struct{
   info []COM_Friend  //0
 }
@@ -127,9 +131,10 @@ type COM_ServerToClientProxy interface{
   ReceiveChat(info COM_Chat ) error // 24
   RequestAudioOk(audioId int64, content []uint8 ) error // 25
   RecvTopList(TopList []COM_TopUnit, MyRank int32 ) error // 26
-  FriendInfo(info []COM_Friend ) error // 27
-  ApplyFriend(name string ) error // 28
-  RecvFriend(info COM_Friend ) error // 29
+  RecvFriendTopList(TopList []COM_TopUnit, MyRank int32 ) error // 27
+  FriendInfo(info []COM_Friend ) error // 28
+  ApplyFriend(name string ) error // 29
+  RecvFriend(info COM_Friend ) error // 30
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1261,6 +1266,73 @@ func (this *COM_ServerToClient_RecvTopList)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ServerToClient_RecvFriendTopList)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.TopList) != 0)
+  mask.writeBit(this.MyRank!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize TopList
+  if len(this.TopList) != 0{
+    {
+      err := write(buffer,uint(len(this.TopList)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.TopList {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  // serialize MyRank
+  {
+    if(this.MyRank!=0){
+      err := write(buffer,this.MyRank)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_RecvFriendTopList)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize TopList
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.TopList = make([]COM_TopUnit,size)
+    for i,_ := range this.TopList{
+      err := this.TopList[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize MyRank
+  if mask.readBit() {
+    err := read(buffer,&this.MyRank)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func (this *COM_ServerToClient_FriendInfo)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
@@ -1832,7 +1904,7 @@ func(this* COM_ServerToClientStub)RecvTopList(TopList []COM_TopUnit, MyRank int3
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
+func(this* COM_ServerToClientStub)RecvFriendTopList(TopList []COM_TopUnit, MyRank int32 ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1841,9 +1913,27 @@ func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
   if err != nil{
     return err
   }
-  _27 := COM_ServerToClient_FriendInfo{}
-  _27.info = info;
+  _27 := COM_ServerToClient_RecvFriendTopList{}
+  _27.TopList = TopList;
+  _27.MyRank = MyRank;
   err = _27.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(28))
+  if err != nil{
+    return err
+  }
+  _28 := COM_ServerToClient_FriendInfo{}
+  _28.info = info;
+  err = _28.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1854,13 +1944,13 @@ func(this* COM_ServerToClientStub)ApplyFriend(name string ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(28))
+  err := write(buffer,uint16(29))
   if err != nil{
     return err
   }
-  _28 := COM_ServerToClient_ApplyFriend{}
-  _28.name = name;
-  err = _28.Serialize(buffer)
+  _29 := COM_ServerToClient_ApplyFriend{}
+  _29.name = name;
+  err = _29.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1871,13 +1961,13 @@ func(this* COM_ServerToClientStub)RecvFriend(info COM_Friend ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(29))
+  err := write(buffer,uint16(30))
   if err != nil{
     return err
   }
-  _29 := COM_ServerToClient_RecvFriend{}
-  _29.info = info;
-  err = _29.Serialize(buffer)
+  _30 := COM_ServerToClient_RecvFriend{}
+  _30.info = info;
+  err = _30.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2246,6 +2336,20 @@ func Bridging_COM_ServerToClient_RecvTopList(buffer *bytes.Buffer, p COM_ServerT
   }
   return p.RecvTopList(_26.TopList,_26.MyRank)
 }
+func Bridging_COM_ServerToClient_RecvFriendTopList(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _27 := COM_ServerToClient_RecvFriendTopList{}
+  err := _27.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.RecvFriendTopList(_27.TopList,_27.MyRank)
+}
 func Bridging_COM_ServerToClient_FriendInfo(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2253,12 +2357,12 @@ func Bridging_COM_ServerToClient_FriendInfo(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _27 := COM_ServerToClient_FriendInfo{}
-  err := _27.Deserialize(buffer)
+  _28 := COM_ServerToClient_FriendInfo{}
+  err := _28.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.FriendInfo(_27.info)
+  return p.FriendInfo(_28.info)
 }
 func Bridging_COM_ServerToClient_ApplyFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -2267,12 +2371,12 @@ func Bridging_COM_ServerToClient_ApplyFriend(buffer *bytes.Buffer, p COM_ServerT
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _28 := COM_ServerToClient_ApplyFriend{}
-  err := _28.Deserialize(buffer)
+  _29 := COM_ServerToClient_ApplyFriend{}
+  err := _29.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.ApplyFriend(_28.name)
+  return p.ApplyFriend(_29.name)
 }
 func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -2281,12 +2385,12 @@ func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _29 := COM_ServerToClient_RecvFriend{}
-  err := _29.Deserialize(buffer)
+  _30 := COM_ServerToClient_RecvFriend{}
+  err := _30.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.RecvFriend(_29.info)
+  return p.RecvFriend(_30.info)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -2356,10 +2460,12 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 26 :
       return Bridging_COM_ServerToClient_RecvTopList(buffer,p);
     case 27 :
-      return Bridging_COM_ServerToClient_FriendInfo(buffer,p);
+      return Bridging_COM_ServerToClient_RecvFriendTopList(buffer,p);
     case 28 :
-      return Bridging_COM_ServerToClient_ApplyFriend(buffer,p);
+      return Bridging_COM_ServerToClient_FriendInfo(buffer,p);
     case 29 :
+      return Bridging_COM_ServerToClient_ApplyFriend(buffer,p);
+    case 30 :
       return Bridging_COM_ServerToClient_RecvFriend(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)

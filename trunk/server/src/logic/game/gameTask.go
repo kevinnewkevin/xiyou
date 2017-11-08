@@ -21,6 +21,7 @@ func PlayerSave() error {
 
 func RefreshTopList() error {
 	RefreshAllTopList()
+	RefreshFriendTopList()
 	return nil
 }
 

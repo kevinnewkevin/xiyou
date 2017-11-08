@@ -14,8 +14,9 @@ type COM_Player struct{
   UnitGroup []COM_UnitGroup  //5
   TianTiVal int32  //6
   TianTiRank int32  //7
-  Guide uint64  //8
-  SkillBase []COM_SkillBase  //9
+  FriendTianTiRank int32  //8
+  Guide uint64  //9
+  SkillBase []COM_SkillBase  //10
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -97,6 +98,16 @@ func (this *COM_Player)GetTianTiRank() int32 {
   defer this.Unlock()
   return this.TianTiRank
 }
+func (this *COM_Player)SetFriendTianTiRank(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.FriendTianTiRank = value
+}
+func (this *COM_Player)GetFriendTianTiRank() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.FriendTianTiRank
+}
 func (this *COM_Player)SetGuide(value uint64) {
   this.Lock()
   defer this.Unlock()
@@ -130,6 +141,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.UnitGroup) != 0)
   mask.writeBit(this.TianTiVal!=0)
   mask.writeBit(this.TianTiRank!=0)
+  mask.writeBit(this.FriendTianTiRank!=0)
   mask.writeBit(this.Guide!=0)
   mask.writeBit(len(this.SkillBase) != 0)
   {
@@ -219,6 +231,15 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.TianTiRank!=0){
       err := write(buffer,this.TianTiRank)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize FriendTianTiRank
+  {
+    if(this.FriendTianTiRank!=0){
+      err := write(buffer,this.FriendTianTiRank)
       if err != nil{
         return err
       }
@@ -334,6 +355,13 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize TianTiRank
   if mask.readBit() {
     err := read(buffer,&this.TianTiRank)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize FriendTianTiRank
+  if mask.readBit() {
+    err := read(buffer,&this.FriendTianTiRank)
     if err != nil{
       return err
     }
