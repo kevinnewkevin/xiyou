@@ -1,9 +1,9 @@
-d1awe2g.xml|278|<component size="542,53">
+d1awe2g.xml|273|<component size="542,46">
   <displayList>
-    <richtext id="n0_d1aw" name="n0" xy="2,5" size="536,48" font="方正楷体_GBK" fontSize="34" color="#ffffff" leading="8" autoSize="height" text="&#xA;"/>
+    <richtext id="n0_d1aw" name="n0" xy="2,5" size="536,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" leading="8" autoSize="height" text=""/>
   </displayList>
   <relation target="n0_d1aw" sidePair="height-height"/>
-</component>hbv51.xml|1889|<component size="1920,1080" opaque="false">
+</component>hbv51.xml|1917|<component size="1920,1080" opaque="false">
   <displayList>
     <image id="n38_nfe4" name="n38" src="nfe424" xy="0,0" size="1920,1080"/>
     <image id="n52_jijr" name="n52" src="jijre2e" xy="1598,11"/>
@@ -26,7 +26,8 @@ d1awe2g.xml|278|<component size="542,53">
     <component id="n50_y4d0" name="n50" src="y4d0e2d" xy="1608,18"/>
     <image id="n51_y4d0" name="n51" src="nfe41v" xy="1849,22"/>
     <image id="n53_dtnx" name="n53" src="dtnxe2f" xy="11,154"/>
-    <list id="n55_d1aw" name="n55" xy="5,948" size="558,129" overflow="hidden" defaultItem="ui://s1sxt36ud1awe2g">
+    <list id="n55_d1aw" name="n55" xy="5,948" size="558,129" overflow="hidden" lineGap="-14" defaultItem="ui://s1sxt36ud1awe2g">
+      <item/>
       <item/>
       <item/>
     </list>
@@ -303,7 +304,7 @@ d1awe2g.xml|278|<component size="542,53">
   <resources>
     <component id="uh5ye2h" name="paihang_com" path="/" size="127,124"/>
     <image id="jijre2e" name="34" path="/" size="77,77"/>
-    <component id="d1awe2g" name="wenzi_com" path="/" size="542,53" exported="true"/>
+    <component id="d1awe2g" name="wenzi_com" path="/" size="542,46" exported="true"/>
     <component id="hbv51" name="zhujiemian_com" path="/" size="1920,1080" exported="true"/>
     <component id="hbv511" name="Label2" path="/" size="1103,84" exported="true"/>
     <component id="hbv512" name="Button5" path="/" size="75,67" exported="true"/>
@@ -399,8 +400,9 @@ d1awe2g.xml|278|<component size="542,53">
     <atlas id="atlas104" size="1024,1024" file="atlas0_5.png"/>
     <atlas id="atlas105" size="1024,1024" file="atlas0_6.png"/>
   </resources>
-</packageDescription>uh5ye2h.xml|484|<component size="127,124">
+</packageDescription>uh5ye2h.xml|561|<component size="127,124">
   <displayList>
+    <loader id="n60_nw5n" name="n60" xy="12,8" size="101,105" fill="scale"/>
     <image id="n56_uh5y" name="n56" src="hbv5i" xy="11,5"/>
     <image id="n57_uh5y" name="n57" src="hbv58" xy="17,81"/>
     <text id="n58_uh5y" name="n58" xy="66,79" size="39,35" font="方正楷体_GBK" fontSize="27" color="#ffd000" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
