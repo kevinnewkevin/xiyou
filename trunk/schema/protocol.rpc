@@ -25,6 +25,9 @@ service COM_ClientToServer{
 	///<聊天
 	SendChat(COM_Chat content);
 	RequestAudio(int64 audioId);
+	//天梯
+	AllTopByPage(int32 page);		//全体排行榜
+	FriendTopByPage();				//好友排行榜
 };
 
 service COM_ServerToClient{
@@ -55,4 +58,6 @@ service COM_ServerToClient{
 	///<接收聊天信息
 	ReceiveChat(COM_Chat info);
 	RequestAudioOk(int64 audioId, uint8[] content);
+	//接收排行榜信息
+	RecvTopList(COM_TopUnit[] TopList, int32 MyRank);
 };

@@ -73,6 +73,9 @@ type COM_ClientToServer_SendChat struct{
 type COM_ClientToServer_RequestAudio struct{
   audioId int64  //0
 }
+type COM_ClientToServer_AllTopByPage struct{
+  page int32  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -100,6 +103,8 @@ type COM_ClientToServerProxy interface{
   NewPlayerGuide(Step uint64 ) error // 20
   SendChat(content COM_Chat ) error // 21
   RequestAudio(audioId int64 ) error // 22
+  AllTopByPage(page int32 ) error // 23
+  FriendTopByPage() error // 24
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -986,6 +991,42 @@ func (this *COM_ClientToServer_RequestAudio)Deserialize(buffer *bytes.Buffer) er
   }
   return nil
 }
+func (this *COM_ClientToServer_AllTopByPage)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.page!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize page
+  {
+    if(this.page!=0){
+      err := write(buffer,this.page)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_AllTopByPage)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize page
+  if mask.readBit() {
+    err := read(buffer,&this.page)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1369,6 +1410,34 @@ func(this* COM_ClientToServerStub)RequestAudio(audioId int64 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)AllTopByPage(page int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(23))
+  if err != nil{
+    return err
+  }
+  _23 := COM_ClientToServer_AllTopByPage{}
+  _23.page = page;
+  err = _23.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)FriendTopByPage() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(24))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1676,6 +1745,29 @@ func Bridging_COM_ClientToServer_RequestAudio(buffer *bytes.Buffer, p COM_Client
   }
   return p.RequestAudio(_22.audioId)
 }
+func Bridging_COM_ClientToServer_AllTopByPage(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _23 := COM_ClientToServer_AllTopByPage{}
+  err := _23.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.AllTopByPage(_23.page)
+}
+func Bridging_COM_ClientToServer_FriendTopByPage(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  return p.FriendTopByPage()
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -1735,6 +1827,10 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_SendChat(buffer,p);
     case 22 :
       return Bridging_COM_ClientToServer_RequestAudio(buffer,p);
+    case 23 :
+      return Bridging_COM_ClientToServer_AllTopByPage(buffer,p);
+    case 24 :
+      return Bridging_COM_ClientToServer_FriendTopByPage(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

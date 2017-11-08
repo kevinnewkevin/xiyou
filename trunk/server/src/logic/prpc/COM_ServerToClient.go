@@ -83,6 +83,10 @@ type COM_ServerToClient_RequestAudioOk struct{
   audioId int64  //0
   content []uint8  //1
 }
+type COM_ServerToClient_RecvTopList struct{
+  TopList []COM_TopUnit  //0
+  MyRank int32  //1
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -113,6 +117,7 @@ type COM_ServerToClientProxy interface{
   SycnBlackMarkte(data COM_BlackMarket ) error // 23
   ReceiveChat(info COM_Chat ) error // 24
   RequestAudioOk(audioId int64, content []uint8 ) error // 25
+  RecvTopList(TopList []COM_TopUnit, MyRank int32 ) error // 26
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1177,6 +1182,73 @@ func (this *COM_ServerToClient_RequestAudioOk)Deserialize(buffer *bytes.Buffer) 
   }
   return nil
 }
+func (this *COM_ServerToClient_RecvTopList)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.TopList) != 0)
+  mask.writeBit(this.MyRank!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize TopList
+  if len(this.TopList) != 0{
+    {
+      err := write(buffer,uint(len(this.TopList)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.TopList {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  // serialize MyRank
+  {
+    if(this.MyRank!=0){
+      err := write(buffer,this.MyRank)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_RecvTopList)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize TopList
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.TopList = make([]COM_TopUnit,size)
+    for i,_ := range this.TopList{
+      err := this.TopList[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize MyRank
+  if mask.readBit() {
+    err := read(buffer,&this.MyRank)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1612,6 +1684,24 @@ func(this* COM_ServerToClientStub)RequestAudioOk(audioId int64, content []uint8 
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)RecvTopList(TopList []COM_TopUnit, MyRank int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(26))
+  if err != nil{
+    return err
+  }
+  _26 := COM_ServerToClient_RecvTopList{}
+  _26.TopList = TopList;
+  _26.MyRank = MyRank;
+  err = _26.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1961,6 +2051,20 @@ func Bridging_COM_ServerToClient_RequestAudioOk(buffer *bytes.Buffer, p COM_Serv
   }
   return p.RequestAudioOk(_25.audioId,_25.content)
 }
+func Bridging_COM_ServerToClient_RecvTopList(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _26 := COM_ServerToClient_RecvTopList{}
+  err := _26.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.RecvTopList(_26.TopList,_26.MyRank)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -2026,6 +2130,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_ReceiveChat(buffer,p);
     case 25 :
       return Bridging_COM_ServerToClient_RequestAudioOk(buffer,p);
+    case 26 :
+      return Bridging_COM_ServerToClient_RecvTopList(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }
