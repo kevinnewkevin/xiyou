@@ -20,6 +20,7 @@ var (
 	CK_World  int8	= 1
 	CK_GM	  int8	= 2
 	CK_System int8	= 0
+	CK_Friend int8	= 3
 )
 
 func BroadcastChat(info prpc.COM_Chat)  {
@@ -33,6 +34,22 @@ func BroadcastChat(info prpc.COM_Chat)  {
 		}
 		PlayerStore[i].session.ReceiveChat(info)
 	}
+}
+
+func BroadFriendChat(info prpc.COM_Chat)  {
+
+	friend := FindPlayerByInstId(info.PlayerInstId)
+
+	if friend == nil {
+		return
+	}
+
+	if friend.session == nil {
+		return
+	}
+
+	friend.session.ReceiveChat(info)
+
 }
 
 func (player *GamePlayer)RequestAudio(guid int64)  {
@@ -61,9 +78,15 @@ func (player *GamePlayer)SendChat(info prpc.COM_Chat)  {
 				info.AudioId = PushAudioInfo(info.Audio)
 				info.Audio = nil
 			}
+			BroadcastChat(info)
+		} else if info.Type == CK_Friend {
+			if len(info.Audio) != 0 {
+				info.AudioId = PushAudioInfo(info.Audio)
+				info.Audio = nil
+			}
+			BroadFriendChat(info)
 		}
 		log.Info("Player[", player.MyUnit.InstName, "]","SendChat",info)
-		BroadcastChat(info)
 	}
 }
 

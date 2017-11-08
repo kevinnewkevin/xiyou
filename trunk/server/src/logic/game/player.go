@@ -1522,6 +1522,6 @@ func (this *GamePlayer) TestItem() {
 
 func (this *GamePlayer) TestTop() {
 	this.UpdateTianTiVal()
-	this.TianTiVal = 1000
+	this.TianTiVal = 10000
 	this.UpdateTianTiVal()
 }

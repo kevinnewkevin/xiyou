@@ -14,7 +14,7 @@ var TMPTopList []prpc.COM_TopUnit
 const (
 	show_num = 5		//每页显示五个人
 	Testpaiming = "测试用"
-	num = 200
+	num = 199
 	tian = 10000
 )
 
@@ -51,11 +51,28 @@ func InitTopList(){
 
 }
 
+func isSame(t1 []prpc.COM_TopUnit, t2 []prpc.COM_TopUnit) bool {
+
+	for idx, t := range t1 {
+		if t == t2[idx]{
+			continue
+		}
+		return false
+	}
+
+	return true
+}
+
 func RefreshAllTopList(){
 	sort.Sort(TopList(TMPTopList))		// 重新排名
 
+	tmp := TrueTopList
+
 	TrueTopList = TMPTopList[:num]
 
+	if isSame(tmp, TrueTopList) {
+		return
+	}
 	for _, p := range PlayerStore {
 		if p == nil || p.session == nil {
 			continue
