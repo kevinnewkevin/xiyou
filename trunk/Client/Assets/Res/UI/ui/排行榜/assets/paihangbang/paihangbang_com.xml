@@ -10,9 +10,10 @@
       <item url="ui://aq8ce93rklfud"/>
       <item url="ui://aq8ce93rklfue"/>
     </list>
-    <list id="n3_klfu" name="n3" xy="50,130" size="650,898" overflow="scroll" lineGap="12" defaultItem="ui://aq8ce93rklfuf">
+    <list id="n3_klfu" name="n3" xy="50,126" size="650,852" overflow="scroll" lineGap="12" defaultItem="ui://aq8ce93rklfuf">
       <relation target="n0_klfu" sidePair="center-center,middle-middle"/>
     </list>
+    <text id="n4_aqkr" name="n4" xy="203,983" size="169,117" font="ui://aq8ce93rklfu11" fontSize="73" vAlign="middle" autoSize="none" text="200"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="XY" target="n0_klfu" tween="true" startValue="-863,0" endValue="0,0" duration="12" ease="Circ.InOut"/>
