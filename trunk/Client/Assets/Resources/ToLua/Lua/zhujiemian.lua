@@ -15,6 +15,15 @@ local headIcon;
 local stateIcon;
 local stateBar;
 local listGroup;
+
+local minChatList;
+local minChatItem = "ui://zhujiemian/wenzi_com";
+
+local maxChat;
+local maxChatList;
+local maxChatInput;
+local maxChatSendBtn;
+
 function zhujiemian:OnEntry()
 	UIManager.RegIDirty("zhujiemian");
 	Define.LaunchUIBundle("icon");
@@ -61,10 +70,15 @@ function zhujiemian:OnInit()
 	listGroup:SetVirtualAndLoop();
 	listGroup.itemRenderer = zhujiemain_RenderListItem;
 	listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
+
+	minChatList = self.contentPane:GetChild("n55").asList;
+	minChatList.onClick:Add(zhujiemian_OnMinChat);
+
 	zhujiemian_FlushData();
+	zhujiemian_FlushChatData();
+	UIManager.AddExDirty("zhujiemian_liaotian");
 	--DoSpecialEffect();
 end
-
 
 function DoSpecialEffect()
 	local midX = listGroup.scrollPane.posX + listGroup.viewWidth / 2;
@@ -95,7 +109,6 @@ function DoSpecialEffect()
 	end
 end
 
-
 function zhujiemian:GetWindow()
 	return Window;
 end
@@ -104,6 +117,11 @@ function zhujiemian:OnUpdate()
 	if UIManager.IsDirty("zhujiemian") then
 		zhujiemian_FlushData();
 		UIManager.ClearDirty("zhujiemian");
+	end
+
+	if UIManager.IsDirty("zhujiemian_liaotian") then
+		zhujiemian_FlushChatData();
+		UIManager.ClearDirty("zhujiemian_liaotian");
 	end
 end
 
@@ -139,6 +157,30 @@ function zhujiemian_FlushData()
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 	listGroup.numItems = 3;
 	DoSpecialEffect();
+end
+
+function zhujiemian_FlushChatData()
+	local maxNum = ChatSystem.MsgByType(-1).Count;
+	if maxNum > 3 then
+		maxNum = 3;
+	end
+	local list = ChatSystem.MsgByType(-1);
+	minChatList:RemoveChildrenToPool();
+	for i=0, maxNum - 1 do
+		local content = minChatList:AddItemFromPool(minChatItem);
+		local lbl = content:GetChild("n0");
+		local frontPlus = "";
+		if list[i].Type == 0 then
+			frontPlus = "系统:";
+		else
+			frontPlus = list[i].PlayerName .. ":";
+		end
+		lbl.text = frontPlus .. list[i].Content;
+	end
+end
+
+function zhujiemian_OnMinChat()
+	UIManager.Show("liaotian");
 end
 
 function zhujiemain_RenderListItem(index, obj)

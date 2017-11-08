@@ -32,6 +32,7 @@ public class AppEntry : MonoBehaviour {
         Define.Init();
         CameraEffect.Init();
         BagSystem.Init();
+        ChatSystem.Init();
 //        WeatherSystem.Init();
         UIManager.Show("yemiantishi");
         UIManager.Show("denglu");
@@ -102,12 +103,26 @@ public class AppEntry : MonoBehaviour {
 //    void OnGUI()
 //    {
 //        if (GUILayout.Button("PlayEffect"))
-//            Proxy4Lua.ReturnToLogin();
+//        {
+//            COM_Chat cha = new COM_Chat();
+//            cha.PlayerInstId = 111;
+//            cha.Level = "3";
+//            cha.PlayerName = "哈哈哈";
+//            cha.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
+//            cha.Content = "温柔攻克欧派让客户";
+//            cha.Type = 1;
+//            Proxy4Lua.SendChat(cha);
+//        }
 //
 //        if (GUILayout.Button("PlayBackground"))
-//            AudioSystem.PlayBackground("Audio/background");
+//        {
+//            COM_Chat cha = new COM_Chat();
+//            cha.Content = "温泛塞封柔攻克欧派让客户";
+//            cha.Type = 0;
+//            Proxy4Lua.SendChat(cha);
+//        }
 //
 //        if (GUILayout.Button("PlayBackground2"))
 //            AudioSystem.PlayBackground("Audio/background2");
 //    }
-        }
+}

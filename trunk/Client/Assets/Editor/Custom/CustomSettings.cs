@@ -246,6 +246,8 @@ public static class CustomSettings
         _GT(typeof(Queue<string>)),
         _GT(typeof(ServInfo)),
         _GT(typeof(GuideSystem)),
+        _GT(typeof(ChatSystem)),
+        _GT(typeof(COM_Chat)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

@@ -219,6 +219,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool ReceiveChat(ref COM_Chat chat)
     {
+        ChatSystem.AddMsg(chat);
         return true;
     }
 

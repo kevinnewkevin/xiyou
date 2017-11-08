@@ -99,7 +99,10 @@ public class Proxy4Lua {
 		NetWoking.S.RefreshBlackMarkte ();
 	}
 
-
+    static public void SendChat(COM_Chat chat)
+    {
+        NetWoking.S.SendChat (chat);
+    }
 
     #endregion
 
