@@ -14,6 +14,7 @@ local crtList;
 
 local sendBtn;
 local emojiBtn;
+local yyBtn;
 local content;
 
 function liaotian:OnEntry()
@@ -33,8 +34,11 @@ function liaotian:OnInit()
 
 	sendBtn = self.contentPane:GetChild("n8").asButton;
 	emojiBtn = self.contentPane:GetChild("n10").asButton;
+	yyBtn = self.contentPane:GetChild("n11").asButton;
 	content = self.contentPane:GetChild("n12");
 	sendBtn.onClick:Add(liaotian_OnSend);
+	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
+	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
 
 	typeList = self.contentPane:GetChild("n6").asList;
 
@@ -73,18 +77,53 @@ function liaotian_OnRenderListItem(index, obj)
 		else
 			local yybtn = obj:GetChild("n8").asCom;
 			local yybg = obj:GetChild("n9");
-			yybtn.visible = false;
-			yybg.visible = false;
-
 			local icon = obj:GetChild("n1").asLoader;
-			icon.url = "ui://" .. crtList[index].HeadIcon;
 			local name = obj:GetChild("n5").asTextField;
-			name.text = crtList[index].PlayerName;
 			local content = obj:GetChild("n7");
-			content.text = crtList[index].Content;
 			local lv = obj:GetChild("n3");
-			lv.text = crtList[index].Level;
+
+			yybtn.onClick.Add(liaotian_OnPlayRecord);
+
+			if crtList[index].AudioId ~= 0 then
+				icon.visible = false;
+				name.visible = false;
+				content.visible = false;
+				lv.visible = false;
+				yybtn.visible = true;
+				yybg.visible = true;
+				yybtn.data = crtList[index].AudioId;
+				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
+			else
+				icon.visible = true;
+				name.visible = true;
+				content.visible = true;
+				lv.visible = true;
+				yybtn.visible = false;
+				yybg.visible = false;
+
+				icon.url = "ui://" .. crtList[index].HeadIcon;
+				name.text = crtList[index].PlayerName;
+				content.text = crtList[index].Content;
+				lv.text = crtList[index].Level;
+			end
 		end
+	end
+end
+
+function liaotian_OnYYBegin()
+	YYSystem.StartRecord();
+end
+
+function liaotian_OnYYEnd()
+	YYSystem.StopRecord();
+end
+
+function liaotian_OnPlayRecord(context)
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		Proxy4Lua.PlayAudio(context.sender.data);
+	else
+		YYSystem.PlayRecord(record);
 	end
 end
 
