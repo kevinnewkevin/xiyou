@@ -130,7 +130,7 @@ func (this *Session) JoinBattle() error {
 } // 4
 
 func (this *Session) SetupBattle(positionList []prpc.COM_BattlePosition, skillid int32) error {
-	//log.Info("SetupBattle", positionList)
+	log.Info("SetupBattle", positionList)
 	r := this.player.SetupBattle(positionList, skillid)
 
 	if r != nil {
@@ -280,6 +280,22 @@ func (this *Session)RequestAudio(audioId int64 ) error  {
 		return nil
 	}
 	this.player.RequestAudio(audioId)
+	return nil
+}
+
+func (this *Session) AllTopByPage (page int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.AllTopByPage(page)
+	return nil
+}
+
+func (this *Session) FriendTopByPage (page int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.AllTopByPage(page)
 	return nil
 }
 

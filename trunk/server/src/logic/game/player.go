@@ -40,6 +40,7 @@ type GamePlayer struct {
 	Chapters  []*prpc.COM_Chapter
 
 	TianTiVal   int32
+	TianTiRank  int32
 	EnergyTimer float64
 	//Bag
 	BagItems []*prpc.COM_ItemInst
@@ -179,6 +180,7 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 	}
 	//p.DefaultUnitGroup = 1
 	p.TianTiVal = 0
+	p.TianTiRank = -1
 	PlayerStore = append(PlayerStore, &p)
 
 	for _, u := range p.UnitList {
@@ -234,6 +236,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 		this.UnitGroup = append(this.UnitGroup, &p.UnitGroup[i])
 	}
 	this.TianTiVal = p.TianTiVal
+	this.TianTiRank = p.TianTiRank
 	this.Guide = p.Guide
 
 	this.SkillBase = map[int32]int32{}
@@ -259,6 +262,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 		p.UnitGroup = append(p.UnitGroup, *ug)
 	}
 	p.TianTiVal = this.TianTiVal
+	p.TianTiRank = this.TianTiRank
 	p.Guide = this.Guide
 
 	for index, skillid := range this.SkillBase {
@@ -572,7 +576,9 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition, skillid int32
 	//defer this.Unlock()
 	//log.Info("SetupBattle", pos)
 
+	log.Info("SetupBattle")
 	if this.IsActive {
+		log.Info("this.IsActive")
 		return nil
 	}
 
@@ -581,6 +587,7 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition, skillid int32
 		//	return nil //错误消息
 		//}
 		if p.Position >= prpc.BP_MAX || p.Position < prpc.BP_RED_1 {
+			log.Info(" p.Position >= prpc.BP_MAX || p.Position < prpc.BP_RED_1", p.Position)
 			return nil //错误消息 //检测缺失 阵营与位置关系
 		}
 	}
@@ -589,6 +596,7 @@ func (this *GamePlayer) SetupBattle(pos []prpc.COM_BattlePosition, skillid int32
 
 	if battleRoom == nil {
 		//错误消息
+		log.Info("battleRoom")
 		return nil
 	}
 	log.Println("SetupBattle 1 ", battleRoom.Units)
