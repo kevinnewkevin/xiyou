@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_m22w" name="n0" src="m22w3" xy="161,104"/>
+    <image id="n1_m22w" name="n1" src="m22w2" xy="882,0"/>
+    <list id="n2_m22w" name="n2" xy="271,46" size="622,74" layout="flow_hz" lineGap="7" colGap="14">
+      <item url="ui://48q8n463m22ww"/>
+      <item url="ui://48q8n463m22wu"/>
+      <item url="ui://48q8n463m22wv"/>
+    </list>
+    <list id="n3_pjju" name="n3" xy="1014,122" size="844,818" overflow="scroll" margin="0,0,25,0">
+      <item url="ui://48q8n463pjju16"/>
+      <item url="ui://48q8n463m4s7y"/>
+    </list>
+    <list id="n4_pjju" name="n4" xy="187,132" size="670,914" overflow="scroll" lineGap="5" defaultItem="ui://48q8n463m22wx">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n5_pjju" name="n5" src="pjju1i" xy="1167,987"/>
+    <component id="n6_pjju" name="n6" src="pjju1m" xy="1667,982"/>
+    <component id="n7_pjju" name="n7" src="pjju1n" xy="1069,975"/>
+    <component id="n8_pjju" name="n8" src="pjju1o" xy="1579,975"/>
+    <text id="n11_pjju" name="n11" xy="1180,987" size="387,52" input="true" prompt="点击输入聊天内容" maxLength="30" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

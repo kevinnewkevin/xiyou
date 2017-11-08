@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="128,40" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="m4s714" xy="0,0" size="130,40">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_zh4y" name="n2" xy="6,3" size="60,43" font="华文楷体" fontSize="27" color="#3b1e02" autoSize="none" bold="true" text="20s"/>
+    <image id="n3_zh4y" name="n3" src="m4s715" xy="103,9"/>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>
