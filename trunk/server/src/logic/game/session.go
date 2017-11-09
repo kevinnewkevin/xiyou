@@ -384,14 +384,17 @@ func (this *Session) MethodBegin() *bytes.Buffer {
 }
 
 func (this *Session) MethodEnd() error {
-	logs.Debug("Methed end %d", this.OutgoingBuffer.Len())
-	buffer := bytes.NewBuffer(nil)
 
-	binary.Write(buffer, binary.LittleEndian, int16(this.OutgoingBuffer.Len()+2))
-	binary.Write(buffer, binary.LittleEndian, this.OutgoingBuffer.Bytes())
-	this.sendChannel <- buffer.Bytes()
-	this.OutgoingBuffer.Reset()
+	if this.Connection.IsValid() {
 
+		logs.Debug("Methed end %d", this.OutgoingBuffer.Len())
+		buffer := bytes.NewBuffer(nil)
+
+		binary.Write(buffer, binary.LittleEndian, int16(this.OutgoingBuffer.Len() + 2))
+		binary.Write(buffer, binary.LittleEndian, this.OutgoingBuffer.Bytes())
+		this.sendChannel <- buffer.Bytes()
+		this.OutgoingBuffer.Reset()
+	}
 	return nil
 }
 
