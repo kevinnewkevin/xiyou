@@ -251,6 +251,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	FriendInfo(ref COM_Friend[] friends)
 	{
+		FriendSystem.InitFriends (friends);
 		return true;
 	}
 
@@ -261,7 +262,11 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	RecvFriend(ref COM_Friend friend)
 	{
+		return true;
+	}
 
+	public bool	DelFriend(long id)
+	{
 			return true;
 	}
 }
