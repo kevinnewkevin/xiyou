@@ -115,7 +115,9 @@ end
 
 function haoyou_FlushData()
 	if findFriendPanel.visible == true then
-		findFriendList.numItems = 1;
+		if FriendSystem.findFriend ~= nil then
+			findFriendList.numItems = 1;
+		end
 		applyFriendList.numItems = FriendSystem.GetApplyNum();
 		return;
 	end
