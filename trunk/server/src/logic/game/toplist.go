@@ -4,6 +4,7 @@ import (
 	"logic/prpc"
 	"strconv"
 	"sort"
+	"logic/log"
 )
 
 var TrueTopList []prpc.COM_TopUnit
@@ -15,7 +16,7 @@ var TMPFriendTopList []prpc.COM_TopUnit
 const (
 	show_num = 5		//每页显示五个人
 	Testpaiming = "测试用"
-	num = 199
+	num = 200
 	tian = 10000
 )
 
@@ -107,9 +108,8 @@ func RefreshAllTopList(){
 }
 
 func (this *GamePlayer) AllTopByPage()  {
-	//log.Println("AllTopByPage", TrueTopList)
 	this.TianTiRank = this.FindMyTianTiRank()
-
+	log.Println("AllTopByPage", this.TianTiRank, len(TrueTopList))
 	this.session.RecvTopList(TrueTopList, this.TianTiRank)
 
 	return
@@ -178,13 +178,22 @@ func initMeToFriendTopList(player *GamePlayer) {
 
 }
 
+func (this *GamePlayer) FindMyFriendTianTiRank() int32 {
+	for i, t := range TrueFriendTopList {
+		if t.Name == this.MyUnit.InstName {
+			return int32(i)
+		}
+	}
+
+	return -1
+}
 
 func (this *GamePlayer) FriendTopByPage() {
 	initMeToFriendTopList(this)			//测试用
 	//log.Println("FriendTopByPage", TrueFriendTopList)
 
-	this.FriendTianTiRank = this.FindMyTianTiRank()
-
+	this.FriendTianTiRank = this.FindMyFriendTianTiRank()
+	log.Println("FriendTopByPage", this.FriendTianTiRank, len(TrueFriendTopList))
 	this.session.RecvFriendTopList(TrueFriendTopList, this.FriendTianTiRank)
 }
 
