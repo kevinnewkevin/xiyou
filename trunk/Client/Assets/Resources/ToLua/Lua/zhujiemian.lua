@@ -55,6 +55,11 @@ function zhujiemian:OnInit()
 	local shopBtn = self.contentPane:GetChild("n30");
 	shopBtn.onClick:Add(zhujiemian_OnShop);
 
+	local friendBtn = self.contentPane:GetChild("n44");
+	friendBtn.onClick:Add(zhujiemian_OnFriend);
+
+
+
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
 	playerExp = infoGroup:GetChild("n10");
@@ -310,4 +315,8 @@ end
 
 function zhujiemian_OnShop()
 	UIManager.Show("cangbaoge");
+end
+
+function zhujiemian_OnFriend()
+	UIManager.Show("haoyou");
 end
