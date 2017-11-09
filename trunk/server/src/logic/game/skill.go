@@ -1,7 +1,7 @@
 package game
 
 import (
-	"logic/log"
+	"jimny/logs"
 	"logic/prpc"
 )
 
@@ -30,7 +30,7 @@ func (this *Skill) Action(caster *GameUnit, targetList []*GameUnit, bout int32) 
 	actionList := []prpc.COM_BattleActionTarget{}
 	OwnerDead := false
 	for i := 0; i < len(targetList); i++ {
-		log.Println(i, "Action", targetList[i], "		")
+		logs.Debug(i, "Action", targetList[i], "		")
 		finl := int32(targetList[i].CProperties[prpc.CPT_CHP]) - this.Damage
 		if finl <= 0 {
 			finl = 0
@@ -122,7 +122,7 @@ func TestActionByLua() {
 	v := []interface{}{9999999999, 1}
 	r := []interface{}{false}
 	CallLuaFunc("SK_1_Action", v, &r)
-	log.Println("TestActionByLua", r)
+	logs.Debug("TestActionByLua", r)
 
 	return
 }

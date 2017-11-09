@@ -1,10 +1,11 @@
 package game
 
 import (
-	"github.com/yuin/gopher-lua"
-	"logic/log"
+	"jimny/logs"
 	"logic/prpc"
 	"time"
+
+	"github.com/yuin/gopher-lua"
 )
 
 var (
@@ -21,7 +22,7 @@ func LoadFile(L *lua.LState, file string) {
 	err := L.DoFile(file)
 
 	if err != nil {
-		log.Fatal("Load lua file %s", err.Error())
+		logs.Fatal("Load lua file %s", err.Error())
 	}
 }
 
@@ -94,30 +95,30 @@ func CallLuaFunc(fn string, inParams []interface{}, outParams *[]interface{}) er
 
 func __luaLog(L *lua.LState) int {
 	str := L.ToString(-1)
-	log.Info("LUA >> %s", str)
+	logs.Info("LUA >> %s", str)
 	return 0
 }
 
 func __luaError(L *lua.LState) int {
 	str := L.ToString(-1)
-	log.Error("LUA >> %s", str)
+	logs.Error("LUA >> %s", str)
 	return 0
 }
 
 func __luaFatal(L *lua.LState) int {
 	str := L.ToString(-1)
-	log.Fatal("LUA >> %s", str)
+	logs.Fatal("LUA >> %s", str)
 	return 0
 }
 
 var sysMod = map[string]lua.LGFunction{
-	"log":         			__luaLog,
-	"err":         			__luaError,
-	"fatal":       			__luaFatal,
-	"loadfile":    			__loadfile,
-	"DefineCards": 			__DefineCards,
-	"DefineBattleCard": 	__DefineBattleCard,
-	"GetTime":     			__GetTime,
+	"log":              __luaLog,
+	"err":              __luaError,
+	"fatal":            __luaFatal,
+	"loadfile":         __loadfile,
+	"DefineCards":      __DefineCards,
+	"DefineBattleCard": __DefineBattleCard,
+	"GetTime":          __GetTime,
 }
 
 var playerMod = map[string]lua.LGFunction{
@@ -336,9 +337,9 @@ func __GetStrings(L *lua.LState) int {
 
 	i := L.ToInt(idx)
 
-	log.Info("__GetStrings", int32(i))
+	logs.Info("__GetStrings", int32(i))
 
-	//log.Info("__GetStrings")
+	//logs.Info("__GetStrings")
 
 	return 0
 }
@@ -350,7 +351,7 @@ func __DefineCards(L *lua.LState) int {
 	cards := L.ToString(idx)
 	SetDefaultUnits(cards)
 
-	//log.Info("__GetStrings")`
+	//logs.Info("__GetStrings")`
 
 	return 0
 }
@@ -362,28 +363,28 @@ func __DefineBattleCard(L *lua.LState) int {
 	card := L.ToInt(idx)
 	SetDefaultBattleUnit(int32(card))
 
-	//log.Info("__GetStrings")`
+	//logs.Info("__GetStrings")`
 
 	return 0
 }
 
 func __GetTarget(L *lua.LState) int { //获取 敌方单个目标
 
-	log.Info("__GetTarget")
+	logs.Info("__GetTarget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	uid := L.ToInt(idx)
 
-	//log.Info(battleid, uid)
+	//logs.Info(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(uid))
 
 	t_id := battle.SelectNearTarget(unit.InstId)
 
-	log.Info("__GetTarget end ,", t_id)
+	logs.Info("__GetTarget end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
@@ -392,21 +393,21 @@ func __GetTarget(L *lua.LState) int { //获取 敌方单个目标
 
 func __GetMainTarget(L *lua.LState) int { // 获取 敌方主角目标
 
-	log.Info("__GetMainTarget")
+	logs.Info("__GetMainTarget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	uid := L.ToInt(idx)
 
-	//log.Info(battleid, uid)
+	//logs.Info(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
 	var t_id int64
 	t_id = battle.selectMainUnit(int64(uid), false)
 
-	log.Info("__GetMainTarget end ,", t_id)
+	logs.Info("__GetMainTarget end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
@@ -415,21 +416,21 @@ func __GetMainTarget(L *lua.LState) int { // 获取 敌方主角目标
 
 func __GetRandomTarget(L *lua.LState) int { // 获取 敌方主角目标
 
-	log.Info("__GetRandomTarget")
+	logs.Info("__GetRandomTarget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	uid := L.ToInt(idx)
 
-	//log.Info(battleid, uid)
+	//logs.Info(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
 	var t_id int64
 	t_id = battle.SelectOneTarget(int64(uid))
 
-	log.Info("__GetMainTarget end ,", t_id)
+	logs.Info("__GetMainTarget end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
@@ -438,14 +439,14 @@ func __GetRandomTarget(L *lua.LState) int { // 获取 敌方主角目标
 
 func __CheckUnitDead(L *lua.LState) int { //判断是否死亡
 
-	log.Info("__CheckUnitDead")
+	logs.Info("__CheckUnitDead")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	uid := L.ToInt(idx)
 
-	//log.Info(battleid, uid)
+	//logs.Info(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
@@ -463,21 +464,21 @@ func __CheckUnitDead(L *lua.LState) int { //判断是否死亡
 }
 
 func __GetMainFriend(L *lua.LState) int { //友方主角
-	log.Info("__GetMainFriend")
+	logs.Info("__GetMainFriend")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	uid := L.ToInt(idx)
 
-	//log.Info(battleid, uid)
+	//logs.Info(battleid, uid)
 
 	battle := FindBattle(int64(battleid))
 
 	var t_id int64
 	t_id = battle.selectMainUnit(int64(uid), true)
 
-	log.Info("__GetMainFriend end ,", t_id)
+	logs.Info("__GetMainFriend end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
@@ -486,7 +487,7 @@ func __GetMainFriend(L *lua.LState) int { //友方主角
 
 func __GetFriend(L *lua.LState) int { //友方单个目标
 
-	//log.Info("__GetFriend")
+	//logs.Info("__GetFriend")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -498,7 +499,7 @@ func __GetFriend(L *lua.LState) int { //友方单个目标
 
 	t_id := battle.SelectNearFriend(unit.InstId)
 
-	log.Info("__GetFriend end ,", t_id)
+	logs.Info("__GetFriend end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
@@ -507,7 +508,7 @@ func __GetFriend(L *lua.LState) int { //友方单个目标
 
 func __GetUnitProperty(L *lua.LState) int { //获取属性值
 
-	//log.Info("__GetUnitProperty")
+	//logs.Info("__GetUnitProperty")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -516,7 +517,7 @@ func __GetUnitProperty(L *lua.LState) int { //获取属性值
 	idx++
 	property := L.ToString(idx)
 
-	//log.Info(battleid, unitid, property)
+	//logs.Info(battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -529,7 +530,7 @@ func __GetUnitProperty(L *lua.LState) int { //获取属性值
 
 func __ChangeCptProperty(L *lua.LState) int { //加Cpt减属性值
 
-	//log.Info("__ChangeCptProperty")
+	//logs.Info("__ChangeCptProperty")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -540,7 +541,7 @@ func __ChangeCptProperty(L *lua.LState) int { //加Cpt减属性值
 	idx++
 	property := L.ToString(idx)
 
-	log.Info("__ChangeCptProperty", battleid, unitid, property)
+	logs.Info("__ChangeCptProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -551,7 +552,7 @@ func __ChangeCptProperty(L *lua.LState) int { //加Cpt减属性值
 
 func __ChangeIptProperty(L *lua.LState) int { //加 IPT减属性值
 
-	//log.Info("__ChangeIptProperty")
+	//logs.Info("__ChangeIptProperty")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -562,7 +563,7 @@ func __ChangeIptProperty(L *lua.LState) int { //加 IPT减属性值
 	idx++
 	property := L.ToString(idx)
 
-	log.Info("__ChangeIptProperty", battleid, unitid, property)
+	logs.Info("__ChangeIptProperty", battleid, unitid, property)
 
 	battle := FindBattle(int64(battleid))
 
@@ -573,7 +574,7 @@ func __ChangeIptProperty(L *lua.LState) int { //加 IPT减属性值
 
 func __AddSheld(L *lua.LState) int { //加护盾
 
-	log.Info("__AddSheld")
+	logs.Info("__AddSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -597,7 +598,7 @@ func __AddSheld(L *lua.LState) int { //加护盾
 
 func __PopSheld(L *lua.LState) int { //减护盾
 
-	log.Info("__PopSheld")
+	logs.Info("__PopSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -623,7 +624,7 @@ func __PopSheld(L *lua.LState) int { //减护盾
 
 func __DamageSheld(L *lua.LState) int { //减護盾值
 
-	log.Info("__DamageSheld")
+	logs.Info("__DamageSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -666,7 +667,7 @@ func __DamageSheld(L *lua.LState) int { //减護盾值
 
 func __ClacSheld(L *lua.LState) int { //减伤
 
-	log.Info("__ClacSheld")
+	logs.Info("__ClacSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -675,12 +676,12 @@ func __ClacSheld(L *lua.LState) int { //减伤
 
 	battle := FindBattle(int64(battleid))
 
-	//log.Info("__ClacSheld",battleid,unitid)
+	//logs.Info("__ClacSheld",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacSheldPer(int32(battle.Round))
 
-	//log.Info("__ClacSheld1111",unit,ClacSheld)
+	//logs.Info("__ClacSheld1111",unit,ClacSheld)
 
 	L.Push(lua.LNumber(ClacSheld))
 
@@ -689,7 +690,7 @@ func __ClacSheld(L *lua.LState) int { //减伤
 
 func __ClacStrongPer(L *lua.LState) int { //增输出伤比
 
-	log.Info("__ClacStrongPer")
+	logs.Info("__ClacStrongPer")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -698,12 +699,12 @@ func __ClacStrongPer(L *lua.LState) int { //增输出伤比
 
 	battle := FindBattle(int64(battleid))
 
-	//log.Info("__ClacStrongPer",battleid,unitid)
+	//logs.Info("__ClacStrongPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacStrongPer(int32(battle.Round))
 
-	//log.Info("__ClacStrongPer",unit,ClacSheld)
+	//logs.Info("__ClacStrongPer",unit,ClacSheld)
 
 	L.Push(lua.LNumber(ClacSheld))
 
@@ -712,7 +713,7 @@ func __ClacStrongPer(L *lua.LState) int { //增输出伤比
 
 func __ClacWeakPer(L *lua.LState) int { //增承受伤比
 
-	log.Info("__ClacStrongPer")
+	logs.Info("__ClacStrongPer")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -721,12 +722,12 @@ func __ClacWeakPer(L *lua.LState) int { //增承受伤比
 
 	battle := FindBattle(int64(battleid))
 
-	//log.Info("__ClacWeakPer",battleid,unitid)
+	//logs.Info("__ClacWeakPer",battleid,unitid)
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	ClacSheld := unit.ClacWeakPer(int32(battle.Round))
 
-	//log.Info("__ClacWeakPer",unit,ClacSheld)
+	//logs.Info("__ClacWeakPer",unit,ClacSheld)
 
 	L.Push(lua.LNumber(ClacSheld))
 
@@ -735,7 +736,7 @@ func __ClacWeakPer(L *lua.LState) int { //增承受伤比
 
 func __ChangeSpecial(L *lua.LState) int { //判断有无这个属性，有替换，么加上
 
-	log.Info("__ChangeSpecial")
+	logs.Info("__ChangeSpecial")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -757,7 +758,7 @@ func __ChangeSpecial(L *lua.LState) int { //判断有无这个属性，有替换
 
 func __PopSpec(L *lua.LState) int { //删除buff
 
-	log.Info("__PopSpec")
+	logs.Info("__PopSpec")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -772,7 +773,7 @@ func __PopSpec(L *lua.LState) int { //删除buff
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	log.Info("__PopSpec , unit:", unit)
+	logs.Info("__PopSpec , unit:", unit)
 	if unit == nil {
 		return 0
 	}
@@ -783,7 +784,7 @@ func __PopSpec(L *lua.LState) int { //删除buff
 
 func __GetSpecial(L *lua.LState) int { //獲取spec相对应的buffid
 
-	log.Info("__GetSpecial")
+	logs.Info("__GetSpecial")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -812,7 +813,7 @@ func __GetSpecial(L *lua.LState) int { //獲取spec相对应的buffid
 
 func __GetOneSpecial(L *lua.LState) int { //獲取spec相对应的buffid  实例id
 
-	log.Info("__GetOneSpecial")
+	logs.Info("__GetOneSpecial")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -835,7 +836,7 @@ func __GetOneSpecial(L *lua.LState) int { //獲取spec相对应的buffid  实例
 
 func __GetSpecialData(L *lua.LState) int { //獲取spec相对应的buffid s数值
 
-	log.Info("__GetSpecialData")
+	logs.Info("__GetSpecialData")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -849,7 +850,7 @@ func __GetSpecialData(L *lua.LState) int { //獲取spec相对应的buffid s数�
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buffids := unit.GetSpecial(spec)
-	log.Info("aaaaaaaaaaaaa", buffids)
+	logs.Info("aaaaaaaaaaaaa", buffids)
 
 	var data int32
 
@@ -869,7 +870,7 @@ func __GetSpecialData(L *lua.LState) int { //獲取spec相对应的buffid s数�
 
 func __GetCheckSpec(L *lua.LState) int { //是否有特殊效果的buff
 
-	log.Info("__GetCheckSpec")
+	logs.Info("__GetCheckSpec")
 
 	idx := 1
 
@@ -879,17 +880,17 @@ func __GetCheckSpec(L *lua.LState) int { //是否有特殊效果的buff
 	idx++
 	spec := L.ToString(idx)
 
-	//log.Info("__GetCheckSpec ",battleid,unitid)
+	//logs.Info("__GetCheckSpec ",battleid,unitid)
 
 	battle := FindBattle(int64(battleid))
 
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	//log.Info("__GetCheckSpec 1111",battleid,unitid)
+	//logs.Info("__GetCheckSpec 1111",battleid,unitid)
 
 	_bool := unit.CheckSpec(spec, battle.Round)
 
-	//log.Info("__GetCheckSpec 22222",_bool)
+	//logs.Info("__GetCheckSpec 22222",_bool)
 
 	L.Push(lua.LBool(_bool))
 
@@ -899,7 +900,7 @@ func __GetCheckSpec(L *lua.LState) int { //是否有特殊效果的buff
 
 func __GetBuffLockId(L *lua.LState) int { //是否有特殊效果的buff
 
-	log.Info("__GetBuffLockId")
+	logs.Info("__GetBuffLockId")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -913,7 +914,7 @@ func __GetBuffLockId(L *lua.LState) int { //是否有特殊效果的buff
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buffids := unit.GetSpecial(spec)
-	log.Info("__GetBuffLockId", buffids)
+	logs.Info("__GetBuffLockId", buffids)
 
 	var data int32
 
@@ -936,7 +937,7 @@ func __GetBuffLockId(L *lua.LState) int { //是否有特殊效果的buff
 
 func __GetTargets(L *lua.LState) int { //获取敌方多个目标
 
-	//log.Info("__GetTargets")
+	//logs.Info("__GetTargets")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -945,7 +946,7 @@ func __GetTargets(L *lua.LState) int { //获取敌方多个目标
 	idx++
 	num := L.ToInt(idx)
 
-	////log.Info("4444444444", battleid, unitid, num)
+	////logs.Info("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
@@ -964,14 +965,14 @@ func __GetTargets(L *lua.LState) int { //获取敌方多个目标
 
 func __GetTargetsAround(L *lua.LState) int { //溅射目标
 
-	//log.Info("__GetTargetsAround")
+	//logs.Info("__GetTargetsAround")
 
 	idx := 1
 	battleid := L.ToInt(idx)
 	idx++
 	unitid := L.ToInt(idx)
 
-	////log.Info("4444444444", battleid, unitid, num)
+	////logs.Info("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
@@ -993,7 +994,7 @@ func __GetTargetsAround(L *lua.LState) int { //溅射目标
 
 func __GetTargetsRandom(L *lua.LState) int { //溅射目标
 
-	//log.Info("__GetTargetsRandom")
+	//logs.Info("__GetTargetsRandom")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1002,12 +1003,12 @@ func __GetTargetsRandom(L *lua.LState) int { //溅射目标
 	idx++
 	targetnum := L.ToInt(idx)
 
-	////log.Info("4444444444", battleid, unitid, num)
+	////logs.Info("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
 	ls := battle.SelectRandomTarget(int64(unitid), int32(targetnum))
-	//log.Info("4444444444",ls)
+	//logs.Info("4444444444",ls)
 	table := L.NewTable()
 
 	for i := 0; i < len(ls); i++ {
@@ -1021,7 +1022,7 @@ func __GetTargetsRandom(L *lua.LState) int { //溅射目标
 
 func __GetFriends(L *lua.LState) int {
 
-	//log.Info("__GetTargets")
+	//logs.Info("__GetTargets")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1030,12 +1031,12 @@ func __GetFriends(L *lua.LState) int {
 	idx++
 	num := L.ToInt(idx)
 
-	////log.Info("4444444444", battleid, unitid, num)
+	////logs.Info("4444444444", battleid, unitid, num)
 
 	battle := FindBattle(int64(battleid))
 
 	ls := battle.SelectMoreFriend(int64(unitid), num)
-	log.Info("__GetFriends", ls)
+	logs.Info("__GetFriends", ls)
 
 	table := L.NewTable()
 
@@ -1050,7 +1051,7 @@ func __GetFriends(L *lua.LState) int {
 
 func __FrontTarget(L *lua.LState) int { //获取前排人数
 
-	log.Info("__FrontTarget")
+	logs.Info("__FrontTarget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1063,7 +1064,7 @@ func __FrontTarget(L *lua.LState) int { //获取前排人数
 
 	FrontTarget := battle.SelectFrontTarget(int(unit.Camp))
 
-	log.Info(string(unitid), "Front", len(FrontTarget), "info", FrontTarget)
+	logs.Info(string(unitid), "Front", len(FrontTarget), "info", FrontTarget)
 
 	//L.Push(int(num))
 
@@ -1080,7 +1081,7 @@ func __FrontTarget(L *lua.LState) int { //获取前排人数
 
 func __LineTraget(L *lua.LState) int { //获取纵排人数
 
-	log.Info("__LineTraget")
+	logs.Info("__LineTraget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1091,7 +1092,7 @@ func __LineTraget(L *lua.LState) int { //获取纵排人数
 
 	lineTraget := battle.SelectLineTraget(int64(unitid))
 
-	log.Info(string(unitid), "line", len(lineTraget), "info", lineTraget)
+	logs.Info(string(unitid), "line", len(lineTraget), "info", lineTraget)
 
 	//L.Push(int(num))
 
@@ -1108,7 +1109,7 @@ func __LineTraget(L *lua.LState) int { //获取纵排人数
 
 func __BackTarget(L *lua.LState) int { //获取后排人数
 
-	log.Info("__BackTarget")
+	logs.Info("__BackTarget")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1121,7 +1122,7 @@ func __BackTarget(L *lua.LState) int { //获取后排人数
 
 	BackTarget := battle.SelectBackTarget(int(unit.Camp))
 
-	log.Info(string(unitid), "Back", len(BackTarget), "info", BackTarget)
+	logs.Info(string(unitid), "Back", len(BackTarget), "info", BackTarget)
 
 	//L.Push(int(num))
 
@@ -1138,7 +1139,7 @@ func __BackTarget(L *lua.LState) int { //获取后排人数
 
 func __Attack(L *lua.LState) int {
 
-	log.Info("__Attack")
+	logs.Info("__Attack")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1155,14 +1156,14 @@ func __Attack(L *lua.LState) int {
 
 	battle.MintsHp(int64(caster), int64(target), int32(damage), int32(crit))
 
-	log.Info("55555555555555", battleid, caster, target, crit, damage)
+	logs.Info("55555555555555", battleid, caster, target, crit, damage)
 
 	return 0
 }
 
 func __Cure(L *lua.LState) int {
 
-	log.Info("__Cure")
+	logs.Info("__Cure")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1175,7 +1176,7 @@ func __Cure(L *lua.LState) int {
 
 	battle := FindBattle(int64(battleid))
 
-	log.Info("6666666666666", battleid, target, crit, damage)
+	logs.Info("6666666666666", battleid, target, crit, damage)
 
 	battle.AddHp(int64(target), int32(damage), int32(crit))
 
@@ -1196,7 +1197,7 @@ func __GetCrit(L *lua.LState) int { //判断暴击
 
 func __GetTime(L *lua.LState) int {
 
-	//log.Info("__GetTime")
+	//logs.Info("__GetTime")
 
 	time_unix := time.Now().Unix()
 
@@ -1207,7 +1208,7 @@ func __GetTime(L *lua.LState) int {
 
 func __AddBuff(L *lua.LState) int {
 
-	//log.Info("__AddBuff")
+	//logs.Info("__AddBuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1229,7 +1230,7 @@ func __AddBuff(L *lua.LState) int {
 
 func __HasBuff(L *lua.LState) int { //是否有增益buff
 
-	//log.Info("__HasBuff")
+	//logs.Info("__HasBuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1248,7 +1249,7 @@ func __HasBuff(L *lua.LState) int { //是否有增益buff
 
 func __HasDebuff(L *lua.LState) int { //是否delbuff
 
-	//log.Info("__HasDebuff")
+	//logs.Info("__HasDebuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1267,7 +1268,7 @@ func __HasDebuff(L *lua.LState) int { //是否delbuff
 }
 
 func __AddSkillBuff(L *lua.LState) int {
-	//log.Info("__AddSkillBuff")
+	//logs.Info("__AddSkillBuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1289,7 +1290,7 @@ func __AddSkillBuff(L *lua.LState) int {
 
 func __BuffMintsHp(L *lua.LState) int { //掉血
 
-	log.Info("__BuffMintsHp")
+	logs.Info("__BuffMintsHp")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1303,7 +1304,7 @@ func __BuffMintsHp(L *lua.LState) int { //掉血
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	//log.Info("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//logs.Info("__BuffMintsHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffMintsHp(buff.CasterId, buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
@@ -1313,7 +1314,7 @@ func __BuffMintsHp(L *lua.LState) int { //掉血
 //export __BuffCureHp
 func __BuffCureHp(L *lua.LState) int { //回血buff
 
-	log.Info("__BuffCureHp")
+	logs.Info("__BuffCureHp")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1327,7 +1328,7 @@ func __BuffCureHp(L *lua.LState) int { //回血buff
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	buff := unit.SelectBuff(int32(buffinstid))
-	//log.Info("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
+	//logs.Info("__BuffCureHp, ", buff.IsOver(battle.Round), !buff.IsOver(battle.Round))
 
 	battle.BuffAddHp(buff.Owner.InstId, buff.BuffId, buff.Data, !buff.IsOver(battle.Round))
 
@@ -1337,7 +1338,7 @@ func __BuffCureHp(L *lua.LState) int { //回血buff
 //export __PopAllBuffByDebuff
 func __PopAllBuffByDebuff(L *lua.LState) int { //驱散所有负面效果    返回负面buff数量
 
-	log.Info("__PopAllBuffByDebuff")
+	logs.Info("__PopAllBuffByDebuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1358,7 +1359,7 @@ func __PopAllBuffByDebuff(L *lua.LState) int { //驱散所有负面效果    返
 //export __PopAllBuffBybuff
 func __PopAllBuffBybuff(L *lua.LState) int { //驱散所有增益buff效果
 
-	log.Info("__PopAllBuffBybuff")
+	logs.Info("__PopAllBuffBybuff")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1381,7 +1382,7 @@ func __PopAllBuffBybuff(L *lua.LState) int { //驱散所有增益buff效果
 //export __GetUnitDamage
 func __GetUnitDamage(L *lua.LState) int { //物理  伤害
 
-	log.Info("__GetUnitDamage")
+	logs.Info("__GetUnitDamage")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1390,21 +1391,21 @@ func __GetUnitDamage(L *lua.LState) int { //物理  伤害
 	idx++
 	targetid := L.ToInt(idx)
 
-	log.Info("battleid", battleid)
-	log.Info("targetid", targetid)
+	logs.Info("battleid", battleid)
+	logs.Info("targetid", targetid)
 
 	battle := FindBattle(int64(battleid))
-	log.Info("battle", battle)
+	logs.Info("battle", battle)
 
 	caster := battle.SelectOneUnit(int64(casterid))
-	log.Info("caster", caster)
+	logs.Info("caster", caster)
 
 	target := battle.SelectOneUnit(int64(targetid))
-	log.Info("target", target)
+	logs.Info("target", target)
 
 	finaldamage := CalcDamage(caster, target)
 
-	log.Info(string(int(finaldamage)))
+	logs.Info(string(int(finaldamage)))
 
 	L.Push(lua.LNumber(finaldamage))
 
@@ -1414,7 +1415,7 @@ func __GetUnitDamage(L *lua.LState) int { //物理  伤害
 //export __GetMagicDamage
 func __GetMagicDamage(L *lua.LState) int { //法术   伤害
 
-	log.Info("__GetMagicDamage")
+	logs.Info("__GetMagicDamage")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1439,7 +1440,7 @@ func __GetMagicDamage(L *lua.LState) int { //法术   伤害
 //export __GetUnitSheld
 func __GetUnitSheld(L *lua.LState) int { // 获取场上所有玩家护盾数值
 
-	log.Info("__GetUnitSheld")
+	logs.Info("__GetUnitSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1466,7 +1467,7 @@ func __GetUnitSheld(L *lua.LState) int { // 获取场上所有玩家护盾数值
 //export __GetOneSheld
 func __GetOneSheld(L *lua.LState) int { // 获取场上单个玩家护盾数值
 
-	log.Info("__GetOneSheld")
+	logs.Info("__GetOneSheld")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1487,7 +1488,7 @@ func __GetOneSheld(L *lua.LState) int { // 获取场上单个玩家护盾数值
 //export __GetUnitSheldPer
 func __GetUnitSheldPer(L *lua.LState) int { //获取减伤百分比
 
-	log.Info("__GetUnitSheldPer")
+	logs.Info("__GetUnitSheldPer")
 
 	L.Push(lua.LNumber(1))
 
@@ -1497,7 +1498,7 @@ func __GetUnitSheldPer(L *lua.LState) int { //获取减伤百分比
 //export __GetUnitAtk
 func __GetUnitAtk(L *lua.LState) int { //获取减伤百分比  物理强度
 
-	log.Info("__GetUnitAtk")
+	logs.Info("__GetUnitAtk")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1517,7 +1518,7 @@ func __GetUnitAtk(L *lua.LState) int { //获取减伤百分比  物理强度
 //export __GetCalcDef
 func __GetCalcDef(L *lua.LState) int { //获取减伤百分比  物理防御
 
-	log.Info("__GetCalcDef")
+	logs.Info("__GetCalcDef")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1538,7 +1539,7 @@ func __GetCalcDef(L *lua.LState) int { //获取减伤百分比  物理防御
 //export __GetUnitMtk
 func __GetUnitMtk(L *lua.LState) int { //获取减伤百分比   法术强度
 
-	log.Info("__GetUnitMtk")
+	logs.Info("__GetUnitMtk")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1559,7 +1560,7 @@ func __GetUnitMtk(L *lua.LState) int { //获取减伤百分比   法术强度
 //export __GetCalcMagicDef
 func __GetCalcMagicDef(L *lua.LState) int { //获取减伤百分比   法术 防御
 
-	log.Info("__GetCalcMagicDef")
+	logs.Info("__GetCalcMagicDef")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1580,7 +1581,7 @@ func __GetCalcMagicDef(L *lua.LState) int { //获取减伤百分比   法术 防
 //export __TargetOver
 func __TargetOver(L *lua.LState) int { //结束后
 
-	log.Info("__TargetOver")
+	logs.Info("__TargetOver")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1595,7 +1596,7 @@ func __TargetOver(L *lua.LState) int { //结束后
 //export __TargetOn
 func __TargetOn(L *lua.LState) int { //开始前清理数据
 
-	log.Info("__TargetOn")
+	logs.Info("__TargetOn")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1610,7 +1611,7 @@ func __TargetOn(L *lua.LState) int { //开始前清理数据
 //export __ChangeBuffTimes
 func __ChangeBuffTimes(L *lua.LState) int { //开始前清理数据
 
-	log.Info("__ChangeBuffTimes")
+	logs.Info("__ChangeBuffTimes")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1628,7 +1629,7 @@ func __ChangeBuffTimes(L *lua.LState) int { //开始前清理数据
 //export __BuffUpdate
 func __BuffUpdate(L *lua.LState) int { //开始前清理数据
 
-	log.Info("__BuffUpdate")
+	logs.Info("__BuffUpdate")
 
 	idx := 1
 	battleid := L.ToInt(idx)
@@ -1659,7 +1660,7 @@ func __BuffChangeStillData(L *lua.LState) int {
 	idx++
 	new_data := L.ToInt(idx)
 
-	log.Info("__BuffChangeStillData")
+	logs.Info("__BuffChangeStillData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
@@ -1688,7 +1689,7 @@ func __BuffChangeData(L *lua.LState) int {
 	idx++
 	new_data := L.ToInt(idx)
 
-	log.Info("__BuffChangeData")
+	logs.Info("__BuffChangeData")
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
@@ -1699,7 +1700,7 @@ func __BuffChangeData(L *lua.LState) int {
 
 		buff.Data = buff.Data + buff.Data*(int32(new_data))
 
-		log.Info("__BuffChangeData  battleid", battleid, "unitid", unitid, "buff.Data", buff.Data)
+		logs.Info("__BuffChangeData  battleid", battleid, "unitid", unitid, "buff.Data", buff.Data)
 	}
 
 	//buff := unit.SelectBuff(int32(buffinstid))
@@ -1719,7 +1720,7 @@ func __GetMyUnitIProperty(L *lua.LState) int {
 
 	player := FindPlayerByInstId(casterId)
 	if player == nil {
-		log.Info("__GetMyUnitIProperty FindPlayerByInstId==nil", casterId)
+		logs.Info("__GetMyUnitIProperty FindPlayerByInstId==nil", casterId)
 		return 1
 	}
 
@@ -1742,7 +1743,7 @@ func __AddMyUnitEnergy(L *lua.LState) int {
 
 	player := FindPlayerByInstId(casterId)
 	if player == nil {
-		log.Info("__AddMyUnitEnergy FindPlayerByInstId==nil", casterId)
+		logs.Info("__AddMyUnitEnergy FindPlayerByInstId==nil", casterId)
 		return 0
 	}
 

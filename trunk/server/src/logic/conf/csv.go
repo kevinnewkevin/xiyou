@@ -2,14 +2,14 @@ package conf
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
-	"fmt"
 )
 
-const(
+const (
 	kInvalideIndex = 999
 )
 
@@ -47,13 +47,13 @@ func (this *CSV) get(row, column int) string {
 	return this.data[row][column]
 }
 
-func (this *CSV) index(column string) int{
-	for i, v :=range this.names{
-		if v == column{
-			return  i
+func (this *CSV) index(column string) int {
+	for i, v := range this.names {
+		if v == column {
+			return i
 		}
 	}
-	return  kInvalideIndex
+	return kInvalideIndex
 }
 
 func (this *CSV) Length() int {
@@ -211,7 +211,7 @@ func (this *CSV) LoadString(s string) error {
 	return err
 }
 
-func (this *CSV) LoadJson(j []map[string]interface{})error{
+func (this *CSV) LoadJson(j []map[string]interface{}) error {
 	this.Lock()
 	defer this.Unlock()
 	return this.parseJson(j)
@@ -229,16 +229,16 @@ func (this *CSV) SaveFile(filename string) error {
 	writer := bufio.NewWriter(f)
 
 	var lineArr []string
-	for _, k := range this.names{
-		lineArr = append(lineArr,k)
+	for _, k := range this.names {
+		lineArr = append(lineArr, k)
 	}
-	writer.WriteString(fmt.Sprintf("%s\n",strings.Join(lineArr,",")))
-	for i, _ := range this.data{
+	writer.WriteString(fmt.Sprintf("%s\n", strings.Join(lineArr, ",")))
+	for i, _ := range this.data {
 		lineArr = nil
-		for k,_ := range this.names{
-			lineArr = append(lineArr,this.get(i,k))
+		for k, _ := range this.names {
+			lineArr = append(lineArr, this.get(i, k))
 		}
-		writer.WriteString(fmt.Sprintf("%s\n",strings.Join(lineArr,",")))
+		writer.WriteString(fmt.Sprintf("%s\n", strings.Join(lineArr, ",")))
 	}
 
 	return nil

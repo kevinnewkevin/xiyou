@@ -1,24 +1,24 @@
 package game
 
 import (
+	"fmt"
 	"logic/conf"
 	"logic/prpc"
 	"sync/atomic"
-	"fmt"
 )
 
 type (
 	ItemData struct {
-		ItemId			int32
-		ItemMainType	int
-		MaxCount		int32
-		GloAction		string
-		SoulVal			int32			//卡牌碎片分解的魂值
+		ItemId       int32
+		ItemMainType int
+		MaxCount     int32
+		GloAction    string
+		SoulVal      int32 //卡牌碎片分解的魂值
 	}
 )
 
 var (
-	ItemTableData  = map[int32]*ItemData{}
+	ItemTableData        = map[int32]*ItemData{}
 	rootItemInstId int64 = 1
 )
 
@@ -29,26 +29,26 @@ func LoadItemTable(filename string) error {
 	}
 
 	for r := 0; r < csv.Length(); r++ {
-		itemId := csv.GetInt32(r,"ItemID")
+		itemId := csv.GetInt32(r, "ItemID")
 
 		if itemId <= 0 {
-			fmt.Println("ItemTable Nonstandard ItemId",itemId)
+			fmt.Println("ItemTable Nonstandard ItemId", itemId)
 			continue
 		}
-		
+
 		if ItemTableData[itemId] != nil {
-			fmt.Println("ItemTable Have The Same ID",)
+			fmt.Println("ItemTable Have The Same ID")
 			continue
 		}
 		item := ItemData{}
-		item.ItemId			= itemId
+		item.ItemId = itemId
 
-		itemtype 			:= csv.GetString(r,"ItemType")
-		item.ItemMainType	= prpc.ToId_ItemMainType(itemtype)
+		itemtype := csv.GetString(r, "ItemType")
+		item.ItemMainType = prpc.ToId_ItemMainType(itemtype)
 
-		item.MaxCount		= csv.GetInt32(r,"MaxCount")
-		item.GloAction		= csv.GetString(r,"GloAction")
-		item.SoulVal		= csv.GetInt32(r,"Price")
+		item.MaxCount = csv.GetInt32(r, "MaxCount")
+		item.GloAction = csv.GetString(r, "GloAction")
+		item.SoulVal = csv.GetInt32(r, "Price")
 
 		ItemTableData[item.ItemId] = &item
 	}
@@ -59,9 +59,9 @@ func GetItemTableDataById(itemid int32) *ItemData {
 	return ItemTableData[itemid]
 }
 
-func GenItemInst(itemId int32,itemCount int32) []*prpc.COM_ItemInst {
+func GenItemInst(itemId int32, itemCount int32) []*prpc.COM_ItemInst {
 	itemData := GetItemTableDataById(itemId)
-	if itemData==nil {
+	if itemData == nil {
 		return nil
 	}
 
@@ -72,7 +72,7 @@ func GenItemInst(itemId int32,itemCount int32) []*prpc.COM_ItemInst {
 
 	items := []*prpc.COM_ItemInst{}
 
-	for itemCount>0 {
+	for itemCount > 0 {
 		item := prpc.COM_ItemInst{}
 		item.ItemId = itemData.ItemId
 		item.InstId = atomic.AddInt64(&rootItemInstId, 1)
@@ -80,12 +80,12 @@ func GenItemInst(itemId int32,itemCount int32) []*prpc.COM_ItemInst {
 		if itemData.MaxCount > itemCount {
 			item.Stack = itemCount
 			itemCount = 0
-		}else {
+		} else {
 			item.Stack = itemData.MaxCount
 			itemCount -= itemData.MaxCount
 		}
 
-		items = append(items,&item)
+		items = append(items, &item)
 	}
 
 	return items

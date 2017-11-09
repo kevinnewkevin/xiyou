@@ -1,13 +1,13 @@
 package main
 
 import (
-	"logic/application"
-	"runtime"
-	"os"
-	"path/filepath"
-	"os/exec"
 	"fmt"
-	"logic/log"
+	"jimny/logs"
+	"logic/application"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
 )
 
 func main() {
@@ -29,15 +29,12 @@ func main() {
 	defer func() {
 
 		if r := recover(); r != nil {
-			log.Error("main panic %s",fmt.Sprint(r))
+			logs.Error("main panic %s", fmt.Sprint(r))
 		}
 
 	}()
 
-
-
 	app := application.NewApp()
 	app.Run()
-
 
 }

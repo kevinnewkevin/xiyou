@@ -3,10 +3,10 @@ package conf
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"strings"
-	"fmt"
 )
 
 func (this *CSV) parseFile(filename string) error {
@@ -45,7 +45,6 @@ func (this *CSV) parseFile(filename string) error {
 			return err
 		}
 
-
 	}
 
 	return nil
@@ -74,19 +73,19 @@ func (this *CSV) parseHeader(s string) error {
 	ss := strings.Split(s, ",")
 	for _, v := range ss {
 		v = strings.Trim(v, "\r\n\t\" ")
-			if this.index(v) != kInvalideIndex{
+		if this.index(v) != kInvalideIndex {
 			this.ErrorColum = strings.Index(s, v)
 			return errors.New("CSV : same column name")
 		}
 
-		this.names = append(this.names,v)
+		this.names = append(this.names, v)
 	}
 	return nil
 }
 
 func (this *CSV) parseSource(s string) error {
 	if len(s) == 0 {
-		return  nil
+		return nil
 	}
 	s = strings.Trim(s, "\n\r\t ")
 	r := []string{}
@@ -110,19 +109,19 @@ func (this *CSV) parseSource(s string) error {
 	return nil
 }
 
-func (this *CSV)parseJson(j []map[string]interface{})error{
-	this.data = make([][]string,len(j))
-	for i , l := range j{
+func (this *CSV) parseJson(j []map[string]interface{}) error {
+	this.data = make([][]string, len(j))
+	for i, l := range j {
 
-		for k, _ := range l{
-			if this.index(k) == kInvalideIndex{
-				this.names = append(this.names,k)
+		for k, _ := range l {
+			if this.index(k) == kInvalideIndex {
+				this.names = append(this.names, k)
 			}
 		}
-		this.data[i] = make([]string,len(this.names))
-		for k, v := range l{
+		this.data[i] = make([]string, len(this.names))
+		for k, v := range l {
 			this.data[i][this.index(k)] = fmt.Sprint(v)
 		}
 	}
-	return  nil
+	return nil
 }

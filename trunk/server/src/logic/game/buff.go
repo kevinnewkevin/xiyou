@@ -1,7 +1,7 @@
 package game
 
 import (
-	"logic/log"
+	"jimny/logs"
 	"sync/atomic"
 )
 
@@ -60,21 +60,21 @@ func (this *Buff) AddProperty() {
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
 	buff_t := GetBuffRecordById(this.BuffId)
-	log.Println("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId, buff_t.AddLua)
+	logs.Debug("AddProperty", int(this.Owner.BattleId), this.Data, "buffID是", buff_t.BuffId, buff_t.AddLua)
 
 	CallLuaFunc(buff_t.AddLua, v, &r)
 }
 
 func (this *Buff) DeleteProperty() {
 
-	log.Println("DeleteProperty", this.Data, this.InstId)
+	logs.Debug("DeleteProperty", this.Data, this.InstId)
 	v := []interface{}{int(this.Owner.BattleId), int(this.Owner.InstId), int(this.InstId), int(this.Data)}
 	r := []interface{}{0}
 	this.Over = true
 
 	buff_t := GetBuffRecordById(this.BuffId)
 
-	log.Println(buff_t.PopLua, this.Owner.InstId, this.InstId)
+	logs.Debug(buff_t.PopLua, this.Owner.InstId, this.InstId)
 	CallLuaFunc(buff_t.PopLua, v, &r)
 }
 
@@ -83,22 +83,22 @@ func (this *Buff) Update(round int32) bool {
 		return false // 被动buff不会结算
 	}
 
-	log.Println("buff每回合更新 实例ID为:", this.InstId, "round is ", round, "myRound is ", this.Round)
+	logs.Debug("buff每回合更新 实例ID为:", this.InstId, "round is ", round, "myRound is ", this.Round)
 
 	needDel := false
 
 	if this.Round == round && this.BuffKind == kKindUntil {
-		log.Println("本回合上的有结算的buff本回合不生效", this.Round, round, needDel)
+		logs.Debug("本回合上的有结算的buff本回合不生效", this.Round, round, needDel)
 		return needDel
 	}
 
 	if this.IsOver(round) { //buff結束需要刪除
-		log.Println("本buff到期 需要删除")
+		logs.Debug("本buff到期 需要删除")
 		needDel = true
 	}
 
 	if this.BuffKind == kKindNow { //沒有行為的不需要進行結算
-		log.Println("本buff不需要行为")
+		logs.Debug("本buff不需要行为")
 		return needDel
 	} else if this.BuffKind == kKindUntil {
 		v := []interface{}{int(this.Owner.BattleId), int(this.InstId), int(this.Owner.InstId)}
@@ -106,7 +106,7 @@ func (this *Buff) Update(round int32) bool {
 
 		buff_t := GetBuffRecordById(this.BuffId)
 
-		log.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
+		logs.Debug(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "是否需要删除", needDel, "unitID为:", this.Owner.InstId)
 		CallLuaFunc(buff_t.UpdateLua, v, &r)
 		//testBattleBuff(this, this.IsOver(round))
 
@@ -122,7 +122,7 @@ func (this *Buff) MustUpdate() {
 
 	buff_t := GetBuffRecordById(this.BuffId)
 
-	log.Println(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "unitID为:", this.Owner.InstId)
+	logs.Debug(buff_t.UpdateLua, int(this.Owner.BattleId), int(this.InstId), "unitID为:", this.Owner.InstId)
 	CallLuaFunc(buff_t.UpdateLua, v, &r)
 }
 
@@ -158,14 +158,14 @@ func (this *Buff) ChangeTimes() int {
 }
 
 func testBattleBuff(buff *Buff, over bool) {
-	log.Println("testBattleBuff 1, buffid:", buff.BuffId, "over", over)
-	log.Println(buff.Owner.BattleId)
+	logs.Debug("testBattleBuff 1, buffid:", buff.BuffId, "over", over)
+	logs.Debug(buff.Owner.BattleId)
 	battle := FindBattle(buff.Owner.BattleId)
 
 	if battle == nil {
 		return
 	}
-	log.Println("testBattleBuff 2")
+	logs.Debug("testBattleBuff 2")
 
 	var o bool
 

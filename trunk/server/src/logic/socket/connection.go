@@ -1,13 +1,13 @@
 package socket
 
 import (
+	"jimny/logs"
 	"net"
 	"sync"
-	"logic/log"
 )
 
-type Connection interface{
-	RdMessage()([]byte,error)
+type Connection interface {
+	RdMessage() ([]byte, error)
 	WrMessage(msg ...[]byte) error
 	LocalAddress() net.Addr
 	RemoteAddress() net.Addr
@@ -17,31 +17,30 @@ type Connection interface{
 
 type TcpConnection struct {
 	sync.Mutex
-	base  *net.TCPConn
+	base      *net.TCPConn
 	writeChan chan []byte
-	closeFlag	bool
-
+	closeFlag bool
 }
 
-func (this *TcpConnection) doDestroy(){
+func (this *TcpConnection) doDestroy() {
 	this.base.SetLinger(0)
 	this.base.Close()
-	if !this.closeFlag{
+	if !this.closeFlag {
 		close(this.writeChan)
 		this.closeFlag = true
 	}
 }
 
-func (this* TcpConnection)Destroy(){
+func (this *TcpConnection) Destroy() {
 	this.Lock()
 	defer this.Unlock()
 	this.doDestroy()
 }
 
-func (this* TcpConnection) Close(){
+func (this *TcpConnection) Close() {
 	this.Lock()
-	defer  this.Unlock()
-	if this.closeFlag{
+	defer this.Unlock()
+	if this.closeFlag {
 		return
 	}
 	this.doWrite(nil)
@@ -49,10 +48,10 @@ func (this* TcpConnection) Close(){
 
 }
 
-func (this* TcpConnection) doWrite(b []byte){
+func (this *TcpConnection) doWrite(b []byte) {
 
 	if len(this.writeChan) == cap(this.writeChan) {
-		log.Println("close conn: channel full")
+		logs.Debug("close conn: channel full")
 		this.doDestroy()
 		return
 	}
@@ -82,6 +81,7 @@ func (this *TcpConnection) LocalAddr() net.Addr {
 func (this *TcpConnection) RemoteAddr() net.Addr {
 	return this.base.RemoteAddr()
 }
+
 //
 //func (tcpConn *TcpConnection) ReadMsg() ([]byte, error) {
 //	return tcpConn.msgParser.Read(tcpConn)
@@ -91,10 +91,10 @@ func (this *TcpConnection) RemoteAddr() net.Addr {
 //	return tcpConn.msgParser.Write(tcpConn, args...)
 //}
 
-func (this* TcpConnection) Run(){
+func (this *TcpConnection) Run() {
 
 }
 
-func NewTcpConnection(base *net.TCPConn, cap int)* TcpConnection{
-	return  &TcpConnection{sync.Mutex{},base,make(chan []byte,cap),false}
+func NewTcpConnection(base *net.TCPConn, cap int) *TcpConnection {
+	return &TcpConnection{sync.Mutex{}, base, make(chan []byte, cap), false}
 }

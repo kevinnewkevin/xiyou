@@ -2,7 +2,7 @@ package game
 
 import (
 	"fmt"
-	"logic/log"
+	"jimny/logs"
 	"logic/conf"
 	"math/rand"
 	"time"
@@ -142,7 +142,7 @@ func GetDropBaseById(dropid int32) *Drop {
 func GetDropById(dropid int32) *Drop {
 	drop := GetDropBaseById(dropid)
 	if drop == nil {
-		log.Error("Can Not Find Drop In DropTable %d ", dropid)
+		logs.Error("Can Not Find Drop In DropTable %d ", dropid)
 		return nil
 	}
 
@@ -176,7 +176,7 @@ func GetDropById(dropid int32) *Drop {
 			newDrop.Items = append(newDrop.Items, drop.Items[index])
 			break
 		} else {
-			log.Error("Drop ProbType Error DropId= %d item= %d", dropid, item.ItemId)
+			logs.Error("Drop ProbType Error DropId= %d item= %d", dropid, item.ItemId)
 		}
 	}
 

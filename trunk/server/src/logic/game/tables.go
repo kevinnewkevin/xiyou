@@ -1,22 +1,22 @@
 package game
 
 import (
+	"fmt"
+	"logic/conf"
 	"logic/prpc"
 	"strconv"
-	"logic/conf"
 	"strings"
-	"fmt"
 )
 
 type (
 	UnitRecord struct {
-		Id     int32
-		DispId int32
-		Cost   int32
-		Race   int32
-		IProp  []int32
-		CProp  []float32
-		Skills []int32
+		Id       int32
+		DispId   int32
+		Cost     int32
+		Race     int32
+		IProp    []int32
+		CProp    []float32
+		Skills   []int32
 		chapters []int32
 		BaseName string
 	}
@@ -31,65 +31,65 @@ type (
 		LuaScprit  string
 	}
 	SkillLuaRecord struct {
-		SkillID    int32
-		LuaScprit  string
+		SkillID   int32
+		LuaScprit string
 	}
 	BuffRecord struct {
-		BuffId		int32
-		Until		int32
-		Type 		int32
-		Kind 		int32
-		Times 		int32
-		AddLua 		string
-		UpdateLua 	string
-		PopLua 		string
+		BuffId    int32
+		Until     int32
+		Type      int32
+		Kind      int32
+		Times     int32
+		AddLua    string
+		UpdateLua string
+		PopLua    string
 	}
 	BattleRecord struct {
-		BattleId	int32
-		MainId		int32
-		SmallId		[]int32
+		BattleId int32
+		MainId   int32
+		SmallId  []int32
 	}
 	PromoteInfo struct {
-		Level		int32
-		Hp			int32
-		ATK			float32
-		DEF			float32
-		MATK		float32
-		MDEF		float32
-		AGILE		float32
-		ItemId		int32
-		ItemNum		int32
+		Level   int32
+		Hp      int32
+		ATK     float32
+		DEF     float32
+		MATK    float32
+		MDEF    float32
+		AGILE   float32
+		ItemId  int32
+		ItemNum int32
 	}
 	RoleSkill struct {
-		OpenLv		int32
-		SKillID		int32
-		Type 		int32
+		OpenLv  int32
+		SKillID int32
+		Type    int32
 	}
 	RoleSkillUpdate struct {
-		NeedItem	int32
-		NeedNum		int32
-		NextID 		int32
-		NeedMoney 	int32
+		NeedItem  int32
+		NeedNum   int32
+		NextID    int32
+		NeedMoney int32
 	}
 	RaceRecord struct {
-		Exercise	int32
-		Quotiety	int32
+		Exercise int32
+		Quotiety int32
 	}
 )
 
 var (
-	CopperMax int32 = 1000000000
-	GoldMax	 int32  =1000000000
-	UnitTable  = map[int32]*UnitRecord{}
-	SkillTable = map[int32]*SkillRecord{}
-	SkillLuaTable = map[int32]*SkillLuaRecord{}
-	BuffTable = map[int32]*BuffRecord{}
-	BattleTable = map[int32]*BattleRecord{}
-	ExpTable = map[int32]int32{}
-	PromoteTable = map[int32][]*PromoteInfo{}
-	RoleSkillTable = map[int32]*RoleSkill{}
-	RoleSkillUpdateTable = map[int32]*RoleSkillUpdate{}
-	RaceTable = map[int32]*RaceRecord{}
+	CopperMax            int32 = 1000000000
+	GoldMax              int32 = 1000000000
+	UnitTable                  = map[int32]*UnitRecord{}
+	SkillTable                 = map[int32]*SkillRecord{}
+	SkillLuaTable              = map[int32]*SkillLuaRecord{}
+	BuffTable                  = map[int32]*BuffRecord{}
+	BattleTable                = map[int32]*BattleRecord{}
+	ExpTable                   = map[int32]int32{}
+	PromoteTable               = map[int32][]*PromoteInfo{}
+	RoleSkillTable             = map[int32]*RoleSkill{}
+	RoleSkillUpdateTable       = map[int32]*RoleSkillUpdate{}
+	RaceTable                  = map[int32]*RaceRecord{}
 )
 
 func LoadUnitTable(filename string) error {
@@ -139,10 +139,10 @@ func LoadUnitTable(filename string) error {
 		u.Skills[2] = csv.GetInt32(r, "Skill3")
 		u.Skills[3] = csv.GetInt32(r, "Skill4")
 
-		strTmp := strings.Split(csv.GetString(r,"ChapterID"),";")
-		for i:=0;i<len(strTmp);i++{
-			id,_ := strconv.Atoi(strTmp[i])
-			u.chapters = append(u.chapters,int32(id))
+		strTmp := strings.Split(csv.GetString(r, "ChapterID"), ";")
+		for i := 0; i < len(strTmp); i++ {
+			id, _ := strconv.Atoi(strTmp[i])
+			u.chapters = append(u.chapters, int32(id))
 		}
 
 		UnitTable[u.Id] = &u
@@ -280,14 +280,12 @@ func LoadPromoteTable(filename string) error {
 		p_info.ItemId = csv.GetInt32(r, "ItemID")
 		p_info.ItemNum = csv.GetInt32(r, "ItemNum")
 
-
 		_, ok := PromoteTable[e_id]
 		if !ok {
 			PromoteTable[e_id] = []*PromoteInfo{}
 		}
 
 		PromoteTable[e_id] = append(PromoteTable[e_id], &p_info)
-
 
 	}
 	return nil
@@ -316,7 +314,6 @@ func LoadExpTable(filename string) error {
 func GetExpRecordById(level int32) int32 {
 	return ExpTable[level]
 }
-
 
 func LoadRoleSkillTable(filename string) error {
 	csv, err := conf.NewCSVFile(filename)
@@ -386,5 +383,3 @@ func LoadRaceTable(filename string) error {
 func GetRaceRecordById(ID int32) *RaceRecord {
 	return RaceTable[ID]
 }
-
-

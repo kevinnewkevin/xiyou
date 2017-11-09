@@ -1,9 +1,9 @@
 package game
 
 import (
+	"fmt"
 	"logic/prpc"
 	"math/rand"
-	"fmt"
 )
 
 //游戏规则文件
@@ -20,8 +20,8 @@ var kDefenseRandom = []float32{0, 0.1, 0.2, 0.3, 0.4, 0.5}
 //计算物理攻击力
 func CalcAtk(unit *GameUnit) float32 {
 	currAtk := unit.GetCProperty(prpc.CPT_ATK)
-	if currAtk < 240{
-		fmt.Println("CalcAtk  攻击力",currAtk)
+	if currAtk < 240 {
+		fmt.Println("CalcAtk  攻击力", currAtk)
 		return currAtk
 	} else {
 		return kAtkValue + 3*(currAtk-kAtkValue)*0.1
@@ -33,7 +33,7 @@ func CalcAtk(unit *GameUnit) float32 {
 func CalcDef(unit *GameUnit) float32 {
 	currDef := unit.GetCProperty(prpc.CPT_DEF)
 	if currDef < 240 {
-		fmt.Println("currDef  攻击力",currDef)
+		fmt.Println("currDef  攻击力", currDef)
 
 		return currDef
 	} else {

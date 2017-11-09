@@ -1,7 +1,7 @@
 package game
 
 import (
-	"logic/log"
+	"jimny/logs"
 	"logic/prpc"
 	"strconv"
 )
@@ -14,18 +14,18 @@ func (this *GamePlayer) SerchFriendByName(name string) {
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
-		log.Println("不存在")
+		logs.Debug("不存在")
 		return
 	}
 
 	if t.session == nil {
-		log.Println("不在线")
+		logs.Debug("不在线")
 		return
 	}
 
 	for _, b := range t.Enemys {
-		if b.Name == name{
-			log.Println("你在对方黑名单中,不能查看")
+		if b.Name == name {
+			logs.Debug("你在对方黑名单中,不能查看")
 			return
 		}
 	}
@@ -45,14 +45,14 @@ func (this *GamePlayer) SerchFriendRandom() {
 	all := []prpc.COM_Friend{}
 
 	low := this.MyUnit.Level - step
-	if low <= 1{
+	if low <= 1 {
 		low = 1
 	}
 
 	high := this.MyUnit.Level - step
 
 	for _, p := range PlayerStore {
-		if low <= p.MyUnit.Level && p.MyUnit.Level <= high{
+		if low <= p.MyUnit.Level && p.MyUnit.Level <= high {
 			info := prpc.COM_Friend{}
 			info.InstId = p.MyUnit.InstId
 			info.Name = p.MyUnit.InstName
@@ -87,41 +87,41 @@ func (this *GamePlayer) ApplicationFriend(name string) {
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
-		log.Println("不存在")
+		logs.Debug("不存在")
 		return
 	}
 
 	if t.session == nil {
-		log.Println("不在线")
+		logs.Debug("不在线")
 		return
 	}
 
 	for _, b := range t.Enemys {
-		if b.Name == name{
-			log.Println("你在对方黑名单中,不能添加好友")
+		if b.Name == name {
+			logs.Debug("你在对方黑名单中,不能添加好友")
 			return
 		}
 	}
 
-	t.session.ApplyFriend(this.MyUnit.InstName)		//向对方发送好友信息
+	t.session.ApplyFriend(this.MyUnit.InstName) //向对方发送好友信息
 }
 
 func (this *GamePlayer) ProcessingFriend(name string) {
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
-		log.Println("不存在")
+		logs.Debug("不存在")
 		return
 	}
 
 	if t.session == nil {
-		log.Println("不在线")
+		logs.Debug("不在线")
 		return
 	}
 
 	for _, b := range t.Enemys {
-		if b.Name == name{
-			log.Println("你在对方黑名单中,不能添加好友")
+		if b.Name == name {
+			logs.Debug("你在对方黑名单中,不能添加好友")
 			return
 		}
 	}
@@ -141,7 +141,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 	t_info.Name = t.MyUnit.InstName
 	t_info.Level = t.MyUnit.Level
 	t_info.DisplayID = t.MyUnit.UnitId
-	this.Friends =  append(this.Friends, &t_info)
+	this.Friends = append(this.Friends, &t_info)
 	this.session.RecvFriend(t_info)
 
 }
@@ -161,12 +161,12 @@ func (this *GamePlayer) DeleteFriend(instid int64) {
 
 func (this *GamePlayer) delFriend(instid int64) {
 	idx := -1
-	for i, f := range this.Friends{
+	for i, f := range this.Friends {
 		if f.InstId == instid {
 			idx = i
 		}
 	}
-	this.Friends = append(this.Friends[:idx], this.Friends[idx + 1:]...)
+	this.Friends = append(this.Friends[:idx], this.Friends[idx+1:]...)
 
 	if this.session == nil {
 		return
@@ -214,7 +214,7 @@ func (this *GamePlayer) SendMessage() {
 
 func (this *GamePlayer) InitTestFriend() {
 	var uid int64 = 1000000000
-	for i :=1; i <= 10; i++ {
+	for i := 1; i <= 10; i++ {
 		info := prpc.COM_Friend{}
 		info.InstId = uid - int64(i)
 		info.Name = "测试Friend" + strconv.Itoa(i)
