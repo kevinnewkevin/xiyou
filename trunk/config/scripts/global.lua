@@ -74,6 +74,23 @@ function GainItem()
 	Proxy4Lua.PopMsg("获得魂币" + (value - GamePlayer._Data.IProperties[type]));
 end
 
+--改变颜色ubb语法
+function ChangeColor(content, color)
+	if color == "blue" then
+		return "[color=#b1eaff]" .. content .. "[/color]";
+	elseif color == "red" then
+		return "[color=#ff6868]" .. content .. "[/color]";
+	elseif color == "yellow" then
+		return "[color=#fff44a]" .. content .. "[/color]";
+	elseif color == "green" then
+		return "[color=#72ff5b]" .. content .. "[/color]";
+	elseif color == "purple" then
+		return "[color=#fa68ff]" .. content .. "[/color]";
+	elseif color == "orange" then
+		return "[color=#ff7a38]" .. content .. "[/color]";
+	end
+end
+
 --常量定义
 function RegGlobalValue()
 	Define.Set("LogUrl", "http://106.75.78.151:8080/log");

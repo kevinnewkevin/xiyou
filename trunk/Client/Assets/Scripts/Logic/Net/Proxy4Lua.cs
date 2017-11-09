@@ -586,6 +586,11 @@ public class Proxy4Lua {
     {
         return Define.ConvertInt(albNum.ToString());
     }
+
+    static public string ChangeColor(string content, string color)
+    {
+        return LuaManager.Call("global.lua", "ChangeColor", content, color)[0].ToString();
+    }
 }
 
 public class ServInfo

@@ -184,7 +184,7 @@ function zhujiemian_FlushChatData()
 			if list[i].Type == 0 then
 				frontPlus = "系统:";
 			else
-				frontPlus = list[i].PlayerName .. ":";
+				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";
 			end
 --			if list[i].AudioId ~= 0 then
 --				lbl.visible = false;
