@@ -225,10 +225,10 @@ class Proxy : ICOM_ServerToClientProxy
 			FriendSystem.chatFriend (chat.PlayerInstId, chat);
 			UIManager.SetDirty ("cangbaoge");
 		} 
-		else 
-		{
+		//else 
+		//{
 			ChatSystem.AddMsg (chat);
-		}
+		//}
         return true;
     }
 
@@ -293,4 +293,12 @@ class Proxy : ICOM_ServerToClientProxy
 		UIManager.SetDirty("haoyou");
 		return true;
 	}
+
+	public bool	RecvEnemy(ref COM_Friend friend)
+	{
+		FriendSystem.AddBlack (friend);
+		UIManager.SetDirty("haoyou");
+		return true;
+	}
+
 }
