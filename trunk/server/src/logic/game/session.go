@@ -384,15 +384,13 @@ func (this *Session) MethodBegin() *bytes.Buffer {
 }
 
 func (this *Session) MethodEnd() error {
-	logs.Debug("Methed end %d %d", this.OutgoingBuffer.Len())
+	logs.Debug("Methed end %d", this.OutgoingBuffer.Len())
 	buffer := bytes.NewBuffer(nil)
 
 	binary.Write(buffer, binary.LittleEndian, int16(this.OutgoingBuffer.Len()+2))
 	binary.Write(buffer, binary.LittleEndian, this.OutgoingBuffer.Bytes())
 	this.sendChannel <- buffer.Bytes()
 	this.OutgoingBuffer.Reset()
-
-	logs.Debug(string(buffer.Bytes()))
 
 	return nil
 }
