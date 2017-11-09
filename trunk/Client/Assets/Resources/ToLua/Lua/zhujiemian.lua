@@ -173,13 +173,9 @@ function zhujiemian_FlushData()
 end
 
 function zhujiemian_FlushChatData()
-	local maxNum = ChatSystem.MsgByType(-1).Count;
-	if maxNum > 3 then
-		maxNum = 3;
-	end
-	local list = ChatSystem.MsgByType(-1);
+	local list = ChatSystem.LastestMsgByType(-1, 3);
 	minChatList:RemoveChildrenToPool();
-	for i=0, maxNum - 1 do
+	for i=0, list.Count - 1 do
 		if list[i].Content ~= nil and list[i].PlayerName ~= nil then
 			local content = minChatList:AddItemFromPool(minChatItem);
 			local lbl = content:GetChild("n0");
