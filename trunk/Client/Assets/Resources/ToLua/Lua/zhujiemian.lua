@@ -183,14 +183,34 @@ function zhujiemian_FlushChatData()
 		if list[i].Content ~= nil and list[i].PlayerName ~= nil then
 			local content = minChatList:AddItemFromPool(minChatItem);
 			local lbl = content:GetChild("n0");
+			local yyCom = content:GetChild("n3");
 			local frontPlus = "";
 			if list[i].Type == 0 then
 				frontPlus = "系统:";
 			else
 				frontPlus = list[i].PlayerName .. ":";
 			end
-			lbl.text = frontPlus .. EmojiParser.inst:Parse(list[i].Content);
+--			if list[i].AudioId ~= 0 then
+--				lbl.visible = false;
+--				yyCom.visible = true;
+--				yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
+--				yyCom.data = list[i].AudioId;
+--				yybtn:GetChild("n3").visible = list[i].Audio == nil;
+--			else
+				yyCom.visible = false;
+				lbl.visible = true;
+				lbl.text = frontPlus .. EmojiParser.inst:Parse(list[i].Content);
+--			end
 		end
+	end
+end
+
+function zhujiemian_liaotian_OnPlayRecord(context)
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		Proxy4Lua.PlayAudio(context.sender.data);
+	else
+		YYSystem.PlayRecord(record);
 	end
 end
 
