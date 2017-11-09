@@ -94,8 +94,22 @@ public class NetWoking
     {
         if (incoming_buffer_.Length >= 2)
         {
-            COM_ServerToClientDispatcher.Execute(incoming_buffer_, proxy_);
-            incoming_buffer_.Crunch();
+            short len = System.BitConverter.ToInt16(incoming_buffer_.Buffer, incoming_buffer_.GetReadPtr());
+            if (len == 0)
+            {
+                return;
+            }
+            if (incoming_buffer_.Length >= len)
+            {
+
+                incoming_buffer_.Read(ref len);
+               
+                if (!COM_ServerToClientDispatcher.Execute(incoming_buffer_, proxy_))
+                {
+                    incoming_buffer_.SetReadPtr(incoming_buffer_.GetReadPtr() + len - 2);
+                }
+                incoming_buffer_.Crunch();
+            }
         }
     }
 
