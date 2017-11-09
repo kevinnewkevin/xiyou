@@ -28,7 +28,14 @@ func (c *Conn) Handle() net.Conn {
 
 func (c *Conn) Cancel() {
 	c.cancelFunc()
-	c.conn.Close()
+	if c.conn != nil {
+		c.conn.Close()
+		c.conn = nil
+	}
+}
+
+func (c *Conn) IsValid() bool {
+	return  c.conn != nil
 }
 
 func (c *Conn) Status() map[string]interface{} {
