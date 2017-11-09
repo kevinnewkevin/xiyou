@@ -209,6 +209,13 @@ function zhujiemian_FlushChatData()
 			end
 		end
 	end
+	if minChatList.numItems > 0 then
+		if minChatList.numItems >= 3 then
+			minChatList:ScrollToView(2, false);
+		else
+			minChatList:ScrollToView(minChatList.numItems - 1, false);
+		end
+	end
 end
 
 function zhujiemian_liaotian_OnPlayRecord(context)
