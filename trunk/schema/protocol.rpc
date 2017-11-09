@@ -31,6 +31,7 @@ service COM_ClientToServer{
 	//好友
 	SerchFriendByName(string name);			//查找好友
 	SerchFriendRandom();					//随机好友推荐
+	ApplicationFriend(string name);					//申请某人为好友
 	ProcessingFriend(string name);						//处理好友
 	DeleteFriend(int64 instid);						//删除好友
 };

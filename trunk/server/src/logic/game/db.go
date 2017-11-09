@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"database/sql"
 	"jimny/logs"
-	"leaf/log"
 
 	_ "github.com/go-sql-driver/mysql"
 
 	"logic/prpc"
 	_ "jimny/sqlite3"
 	"runtime"
+	//"log"
 )
 
 func InitDB() {
@@ -25,7 +25,7 @@ func InitDB() {
 	_, e = c.Exec(ptable)
 
 	if e != nil {
-		log.Error(e.Error())
+		//log.Error(e.Error())
 	}
 }
 

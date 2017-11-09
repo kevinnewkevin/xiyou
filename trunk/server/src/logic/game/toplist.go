@@ -4,7 +4,7 @@ import (
 	"logic/prpc"
 	"sort"
 	"strconv"
-	"logic/log"
+	"log"
 )
 
 var TrueTopList []prpc.COM_TopUnit
