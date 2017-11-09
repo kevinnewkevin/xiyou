@@ -21,7 +21,6 @@ local yyBtn;
 local content;
 
 function liaotian:OnEntry()
-	UIPackage.AddPackage("UI/Emoji");
 	Window = liaotian.New();
 	Window:Show();
 end
@@ -55,7 +54,7 @@ function liaotian:OnInit()
 
 	emojiCom = self.contentPane:GetChild("n14").asCom;
 	emojiCom.fairyBatching = true;
-	emojiCom:GetChild("n15").asList.onClickItem:Add(liaotian_OnEmojiItem);
+	emojiCom:GetChild("n1").asList.onClickItem:Add(liaotian_OnEmojiItem);
 	emojiCom:RemoveFromParent();
 
 	contentList = self.contentPane:GetChild("n13").asList;
@@ -95,7 +94,7 @@ function liaotian_GetListItemResource(index)
 end
 
 function liaotian_OnEmojiItem(context)
-	content.ReplaceSelection("[:" + context.sender.data.text + "]");
+	content:ReplaceSelection("[:" .. context.data.gameObjectName .. "]");
 end
 
 function liaotian_OnRenderListItem(index, obj)
