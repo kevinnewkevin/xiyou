@@ -62,6 +62,12 @@ public class FriendSystem
 				return 	blackList.Count;	
 		}
 
+		public static int GetApplyNum()
+		{
+			return 	applyFriendList.Count;	
+		}
+
+
 		public static void	DelFriend(long id)
 		{
 			for (int i = 0; i < friendList.Count; i++) 
