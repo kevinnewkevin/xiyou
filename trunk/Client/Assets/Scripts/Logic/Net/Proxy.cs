@@ -251,21 +251,31 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	FriendInfo(ref COM_Friend[] friends)
 	{
-		FriendSystem.InitFriends (friends);
+		FriendSystem.randomFriends = friends;
+		UIManager.SetDirty("haoyou");
 		return true;
 	}
 
 	public bool	ApplyFriend(ref string name)
 	{
+				FriendSystem.ApplyFriend(ref name);
+		UIManager.SetDirty("haoyou");
 		return true;
 	}
 
 	public bool	RecvFriend(ref COM_Friend friend)
 	{
+		FriendSystem.AddFriend (friend);
 		return true;
 	}
 
 	public bool	DelFriend(long id)
+	{
+		FriendSystem.DelFriend (id);
+		return true;
+	}
+
+	public bool	SerchFriendInfo(ref COM_Friend friend)
 	{
 			return true;
 	}
