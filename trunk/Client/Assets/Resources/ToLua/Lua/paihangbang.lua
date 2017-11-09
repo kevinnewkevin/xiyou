@@ -37,6 +37,7 @@ function paihangbang:OnInit()
 	typeList = self.contentPane:GetChild("n2").asList;
 	typeList.onClickItem:Add(paihangbang_OnSelectType);
 	crtType = 0;
+	typeList.selectedIndex = crtType;
 
 	paihangbang_FlushData();
 end
@@ -54,26 +55,6 @@ function paihangbang_RenderListItem(index, obj)
 	local flower = obj:GetChild("n8").asLoader;
 	local icon = obj:GetChild("n7").asLoader;
 	if crtType == 0 then
-		name.text = RankSystem._AllRank[index].Name;
-		lv.text = RankSystem._AllRank[index].Level;
-		score.text = RankSystem._AllRank[index].TianTi;
-		rank.text = index + 1 .. "";
-		if index == 0 then
-			flower.url = oneUrl;
-		elseif index == 1 then
-			flower.url = twoUrl;
-		elseif index == 2 then
-			flower.url = threeUrl;
-		else
-			flower.url = "";
-		end
-		local dData = DisplayData.GetData(RankSystem._AllRank[index].DisplayID);
-		if dData ~= nil then
-			icon.url = "ui://" .. dData._HeadIcon;
-		else
-			icon.url = "";
-		end
-	elseif crtType == 1 then
 		name.text = RankSystem._FirendRank[index].Name;
 		lv.text = RankSystem._FirendRank[index].Level;
 		score.text = RankSystem._FirendRank[index].TianTi;
@@ -88,6 +69,26 @@ function paihangbang_RenderListItem(index, obj)
 			flower.url = "";
 		end
 		local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._HeadIcon;
+		else
+			icon.url = "";
+		end
+	elseif crtType == 1 then
+		name.text = RankSystem._AllRank[index].Name;
+		lv.text = RankSystem._AllRank[index].Level;
+		score.text = RankSystem._AllRank[index].TianTi;
+		rank.text = index + 1 .. "";
+		if index == 0 then
+			flower.url = oneUrl;
+		elseif index == 1 then
+			flower.url = twoUrl;
+		elseif index == 2 then
+			flower.url = threeUrl;
+		else
+			flower.url = "";
+		end
+		local dData = DisplayData.GetData(RankSystem._AllRank[index].DisplayID);
 		if dData ~= nil then
 			icon.url = "ui://" .. dData._HeadIcon;
 		else
@@ -117,6 +118,7 @@ end
 
 function paihangbang:OnHide()
 	crtType = 0;
+	typeList.selectedIndex = crtType;
 	Window:Hide();
 end
 
@@ -124,14 +126,14 @@ function paihangbang_FlushData()
 	local count = 0;
 	local myRankStr = "未入榜";
 	if crtType == 0 then
+		count = RankSystem._FirendRank.Count;
+		if RankSystem._FirendRank ~= 0 then
+			myRankStr = RankSystem._MyFirendRank .. "";
+		end
+	elseif crtType == 1 then
 		count = RankSystem._AllRank.Count;
 		if RankSystem._MyAllRank ~= 0 then
 			myRankStr = RankSystem._MyAllRank .. "";
-		end
-	elseif crtType == 1 then
-		count = RankSystem._FirendRank.Count;
-		if RankSystem._MyFirendRank ~= 0 then
-			myRankStr = RankSystem._MyFirendRank .. "";
 		end
 	end
 

@@ -58,6 +58,7 @@ function liaotian:OnInit()
 	contentList.itemRenderer = liaotian_OnRenderListItem;
 
 	crtType = 0;
+	typeList.selectedIndex = crtType;
 	liaotian_FlushData();
 end
 
@@ -186,6 +187,7 @@ end
 
 function liaotian:OnHide()
 	crtType = 0;
+	typeList.selectedIndex = crtType;
 	Window:Hide();
 end
 
