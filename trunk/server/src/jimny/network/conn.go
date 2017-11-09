@@ -9,6 +9,11 @@ import (
 )
 
 type (
+
+	CloseEventHandler interface {
+		HandleClose()
+	}
+
 	Conn struct {
 		conn        net.Conn
 		ctx         context.Context
@@ -19,6 +24,8 @@ type (
 		openTime    time.Time
 		makeTime    time.Time
 		cancelFunc  func()
+
+		CloseHandler CloseEventHandler
 	}
 )
 
@@ -31,6 +38,10 @@ func (c *Conn) Cancel() {
 	if c.conn != nil {
 		c.conn.Close()
 		c.conn = nil
+	}
+
+	if c.CloseHandler != nil {
+		c.CloseHandler.HandleClose()
 	}
 }
 
