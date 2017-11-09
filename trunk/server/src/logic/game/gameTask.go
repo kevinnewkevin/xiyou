@@ -1,25 +1,52 @@
 package game
 
 import (
+	"fmt"
+	"jimny/logs"
+
 	"github.com/astaxie/beego/toolbox"
 )
 
 func PassZeroHourTask() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
 	OnlinePlayerPassZeroHour()
 	return nil
 }
 
 func BlackMarkteRefreshTask() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
 	CheckMyBlackMarkte()
 	return nil
 }
 
 func PlayerSave() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
 	Save()
 	return nil
 }
 
 func RefreshTopList() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
 	RefreshAllTopList()
 	RefreshFriendTopList()
 	return nil
