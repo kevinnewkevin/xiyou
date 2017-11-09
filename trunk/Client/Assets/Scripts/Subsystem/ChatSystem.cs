@@ -57,6 +57,22 @@ public class ChatSystem {
         return _AllMsg [type];
     }
 
+    static public List<COM_Chat> LastestMsgByType(int type, int num)
+    {
+        List<COM_Chat> tList = new List<COM_Chat>();
+        if (!_AllMsg.ContainsKey(type))
+            return tList;
+        
+        for(int i = _AllMsg[type].Count - 1; i >= 0; --i)
+        {
+            tList.Add(_AllMsg[type][i]);
+            if (tList.Count >= num)
+                break;
+        }
+        tList.Reverse();
+        return tList;
+    }
+
     static public void Clear()
     {
         

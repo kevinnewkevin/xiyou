@@ -164,6 +164,8 @@ public class GamePlayer {
 
     static public void UpdateUnitIProperty(long instId, int type, int vaule)
     {
+        LuaManager.Call("global.lua", "UpdateUnitIProperty", instId, type, vaule);
+
         for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
             if (_Cards ["0_0"][i].InstId == instId)
@@ -174,15 +176,7 @@ public class GamePlayer {
 
         if (_InstID == instId)
         {
-			if (type == 11) 
-			{
-				if (vaule > _Data.IProperties [type]) 
-				{
-					Proxy4Lua.PopMsg("获得魂币" + (vaule-_Data.IProperties [type]));	
-				}
-			}
             _Data.IProperties [type] = vaule;
-
         }
 
         for(int i=0; i < _IPropDirty.Count; ++i)
@@ -193,6 +187,7 @@ public class GamePlayer {
 
     static public void UpdateUnitCProperty(long instId, int type, float vaule)
     {
+        LuaManager.Call("global.lua", "UpdateUnitCProperty", instId, type, vaule);
         for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
             if (_Cards ["0_0"][i].InstId == instId)

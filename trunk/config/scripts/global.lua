@@ -33,6 +33,7 @@ function ExcuteNpc(id)
 	MessageBox:SetData("提示", "暂未开放,敬请期待", true);--]]
 end
 
+--网络异常处理
 function NetWorkException(errCode)
 	local MessageBox = UIManager.ShowMessageBox();
 	if errCode == 10061 then
@@ -42,16 +43,38 @@ function NetWorkException(errCode)
 	end
 end
 
+--网络重连
 function NetWorkReconnect()
 	Proxy4Lua.ReconnectServer();
 	UIManager.HideMessageBox();
 end
 
+--错误处理
 function ErrorMessage(errCode)
 	local MessageBox = UIManager.ShowMessageBox();
 	MessageBox:SetData("提示", errCode, true);
 end
 
+--I属性更新
+function UpdateUnitIProperty(instid, type, value)
+	if type == 11 then
+		if value > GamePlayer._Data.IProperties[type] then
+			Proxy4Lua.PopMsg("获得魂币" .. (value - GamePlayer._Data.IProperties[type]));
+		end
+	end
+end
+
+--C属性更新
+function UpdateUnitCProperty(instid, type, value)
+	
+end
+
+--获得物品
+function GainItem()
+	Proxy4Lua.PopMsg("获得魂币" + (value - GamePlayer._Data.IProperties[type]));
+end
+
+--常量定义
 function RegGlobalValue()
 	Define.Set("LogUrl", "http://106.75.78.151:8080/log");
 	Define.Set("DebugServerAddress", "本机#127.0.0.1|外网#106.75.78.151");
@@ -77,6 +100,7 @@ function RegGlobalValue()
 	Define.Set("BattleScenePool", "huangmozhandou,haidizhandou"); --战斗场景随机库
 end
 
+--ui资源和ui逻辑关联map
 function RegUIResMap()
 	UIManager.RegUIResMap("jinengshengji", "qianghuachenggong");
 end
