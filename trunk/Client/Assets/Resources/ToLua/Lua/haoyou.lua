@@ -117,6 +117,8 @@ function haoyou_FlushData()
 	if findFriendPanel.visible == true then
 		if FriendSystem.findFriend ~= nil then
 			findFriendList.numItems = 1;
+		elseif FriendSystem.randomFriends ~= nil then
+			findFriendList.numItems = FriendSystem.randomFriends.length;
 		end
 		applyFriendList.numItems = FriendSystem.GetApplyNum();
 		return;
@@ -199,6 +201,7 @@ function haoyu_OnMainBtnsClick(context)
 		friendPanel.visible = false;
 		findFriendPanel.visible = true;
 	end
+	haoyou_FlushData();
 end
 
 function haoyu_OnFBBtnsClick(context)
@@ -248,6 +251,7 @@ function haoyu_OnFindBtnClick(context)
 end
 
 function haoyu_OnChangeBtnClick(context)
+	Proxy4Lua.SerchFriendRandom();
 end
 
 
