@@ -56,12 +56,20 @@ public class YYSystem {
 
     static public void StartRecord()
     {
+        #if UNITY_EDITOR
+        return;
+        #endif
+
         string filePath = string.Format("{0}/{1}.amr", Application.persistentDataPath, DateTime.Now.ToFileTime());
         YunVaImSDK.instance.RecordStartRequest(filePath,2);
     }
 
     static public void StopRecord()
     {
+        #if UNITY_EDITOR
+        return;
+        #endif
+
         YunVaImSDK.instance.RecordStopRequest((data1) => {
 //            recordPath = data1.strfilepath;
 //            Debug.Log("停止录音返回:" + recordPath);
