@@ -1528,4 +1528,5 @@ func (this *GamePlayer) TestTop() {
 	this.UpdateTianTiVal()
 	this.TianTiVal = 10000
 	this.UpdateTianTiVal()
+	RefreshAllTopList()
 }

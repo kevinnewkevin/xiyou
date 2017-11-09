@@ -295,7 +295,7 @@ func (this *Session) FriendTopByPage () error  {
 	if this.player == nil {
 		return nil
 	}
-	this.player.AllTopByPage()
+	this.player.FriendTopByPage()
 	return nil
 }
 
