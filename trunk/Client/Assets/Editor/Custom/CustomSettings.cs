@@ -252,6 +252,7 @@ public static class CustomSettings
         _GT(typeof(COM_TopUnit)),
         _GT(typeof(YYSystem)),
         _GT(typeof(EmojiParser)),
+        _GT(typeof(SwipeGesture)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
