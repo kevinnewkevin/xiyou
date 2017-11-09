@@ -4,6 +4,7 @@ import (
 	"database/sql/driver"
 	"errors"
 	"fmt"
+	"jimny/logs"
 )
 
 type SQLiteStmt struct {
@@ -13,11 +14,12 @@ type SQLiteStmt struct {
 
 func (s *SQLiteStmt) Close() error {
 	if s.pVM != 0 {
-		nRet := sqlite3_finalize(s.pVM)
-		s.pVM = 0
-		if nRet != SQLITE_OK {
-			return errors.New(sqlite3_errmsg(s.pDB))
-		}
+		logs.Debugf("func (s *SQLiteStmt) Close() error %d",s.pVM, s.pDB)
+		//nRet := sqlite3_finalize(s.pVM)
+		//s.pVM = 0
+		//if nRet != SQLITE_OK {
+		//	return errors.New(sqlite3_errmsg(s.pDB))
+		//}
 	}
 	return nil
 }
