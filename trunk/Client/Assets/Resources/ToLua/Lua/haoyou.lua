@@ -235,6 +235,7 @@ end
 function haoyou_SelectFriendClick(context)
 	chatPanel.visible = true;
 	friendInstId = context.sender.data;
+	haoyu_UpdataChat();
 end
 
 function haoyu_OnFunInfoClick(context)
@@ -257,6 +258,9 @@ function haoyu_OnSendClick(context)
 	chat.Type = 3;
 	chat.PlayerInstId = friendInstId;
 	chat.Content = content.text;
+	chat.PlayerName = GamePlayer._Name;
+	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
+	chat.Level = GamePlayer._Data.IProperties[9];
 	Proxy4Lua.SendChat(chat);
 	content.text = "";
 	chat.PlayerInstId =  GamePlayer._InstID;
@@ -304,4 +308,42 @@ function liaotian_OnRenderListItem(index, obj)
 		return;
 	end
 
+	for i=0, crtList.Count - 1 do
+	
+		local yybtn = obj:GetChild("n8").asCom;
+		local yybg = obj:GetChild("n9");
+		local icon = obj:GetChild("n1").asLoader;
+		local name = obj:GetChild("n5").asTextField;
+		local content = obj:GetChild("n7");
+		local contentBg = obj:GetChild("n6");
+		local lv = obj:GetChild("n3");
+
+		if Proxy4Lua.LongIsNotZero(crtList[index].AudioId) then
+			content.visible = false;
+			contentBg.visible = false;
+			yybtn.visible = true;
+			yybg.visible = true;
+			yybtn.onClick:Add(liaotian_OnPlayRecord);
+			yybtn.data = crtList[index].AudioId;
+			yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
+		else
+			content.visible = true;
+			contentBg.visible = true;
+			yybtn.visible = false;
+			yybg.visible = false;
+			icon.url = "ui://" .. crtList[index].HeadIcon;
+			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			content.text = EmojiParser.inst:Parse(crtList[index].Content);
+			lv.text = crtList[index].Level;
+		end
+	end
+end
+
+function liaotian_OnPlayRecord(context)
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		Proxy4Lua.PlayAudio(context.sender.data);
+	else
+		YYSystem.PlayRecord(record);
+	end
 end
