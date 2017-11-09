@@ -591,6 +591,11 @@ public class Proxy4Lua {
     {
         return LuaManager.Call("global.lua", "ChangeColor", content, color)[0].ToString();
     }
+
+    static public bool LongIsNotZero(long val)
+    {
+        return val != 0;
+    }
 }
 
 public class ServInfo

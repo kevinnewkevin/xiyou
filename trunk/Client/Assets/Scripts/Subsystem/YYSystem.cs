@@ -6,6 +6,8 @@ public class YYSystem {
 
     private const string sUserId="1002318";
 
+    static int _LastRecordLength;
+
     static public void Init()
     {
         #if UNITY_EDITOR
@@ -63,12 +65,14 @@ public class YYSystem {
         YunVaImSDK.instance.RecordStopRequest((data1) => {
 //            recordPath = data1.strfilepath;
 //            Debug.Log("停止录音返回:" + recordPath);
+            _LastRecordLength = (int)(data1.time / 1000f);
         }, 
             (data2) => {
             Debug.Log("上传返回:" + data2.fileurl);
             COM_Chat chat = new COM_Chat();
             chat.Audio = System.Text.Encoding.Default.GetBytes(data2.fileurl);
             chat.Type = 1;
+            chat.AudioLen = _LastRecordLength;
             chat.PlayerInstId = GamePlayer._InstID;
             chat.PlayerName = GamePlayer._Name;
             chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;

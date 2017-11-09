@@ -491,30 +491,34 @@ public class GamePlayer {
 
 	static public int GetTianTiLevel()
 	{
-				if (_TianTiVal < 400)
-						return 1;
-				else if (_TianTiVal > 400 && _TianTiVal <= 700)
-						return 2;
-				else if (_TianTiVal > 700 && _TianTiVal <= 1000)
-						return 3;
-				else if (_TianTiVal > 1000 && _TianTiVal <= 1400)
-						return 4;
-				else if (_TianTiVal > 1400 && _TianTiVal <= 1700)
-						return 5;
-				else if (_TianTiVal > 1700 && _TianTiVal <= 2000)
-						return 6;
-				else if (_TianTiVal > 2000 && _TianTiVal <= 2500)
-						return 7;
-				else if (_TianTiVal > 2500 && _TianTiVal <= 3000)
-						return 8;
-				else if (_TianTiVal > 3000 && _TianTiVal <= 4000)
-						return 9;
-				else if (_TianTiVal > 4000)
-						return 10;
-				else
-					return 1;
-			
+        return RankLevel(_TianTiVal);
 	}
+
+    static public int RankLevel(int score)
+    {
+        if (score < 400)
+            return 1;
+        else if (score > 400 && score <= 700)
+            return 2;
+        else if (score > 700 && score <= 1000)
+            return 3;
+        else if (score > 1000 && score <= 1400)
+            return 4;
+        else if (score > 1400 && score <= 1700)
+            return 5;
+        else if (score > 1700 && score <= 2000)
+            return 6;
+        else if (score > 2000 && score <= 2500)
+            return 7;
+        else if (score > 2500 && score <= 3000)
+            return 8;
+        else if (score > 3000 && score <= 4000)
+            return 9;
+        else if (score > 4000)
+            return 10;
+        else
+            return 1;
+    }
 
     static public void Clear()
     {

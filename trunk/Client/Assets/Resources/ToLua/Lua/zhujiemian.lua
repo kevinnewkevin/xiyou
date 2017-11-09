@@ -179,27 +179,29 @@ function zhujiemian_FlushChatData()
 	local list = ChatSystem.LastestMsgByType(-1, 3);
 	minChatList:RemoveChildrenToPool();
 	for i=0, list.Count - 1 do
-		if list[i].Content ~= nil and list[i].PlayerName ~= nil then
-			local content = minChatList:AddItemFromPool(minChatItem);
-			local lbl = content:GetChild("n0");
-			local yyCom = content:GetChild("n3");
-			local frontPlus = "";
-			if list[i].Type == 0 then
-				frontPlus = "系统:";
-			else
+		local content = minChatList:AddItemFromPool(minChatItem);
+		local lbl = content:GetChild("n0");
+		local yyCom = content:GetChild("n3");
+		local frontPlus = "";
+		if list[i].Type == 0 then
+			frontPlus = "系统:";
+		else
+			if list[i].PlayerName ~= nil then
 				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";
 			end
---			if list[i].AudioId ~= 0 then
---				lbl.visible = false;
---				yyCom.visible = true;
---				yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
---				yyCom.data = list[i].AudioId;
---				yybtn:GetChild("n3").visible = list[i].Audio == nil;
---			else
-				yyCom.visible = false;
-				lbl.visible = true;
+		end
+		if Proxy4Lua.LongIsNotZero(list[i].AudioId) then
+			lbl.visible = false;
+			yyCom.visible = true;
+			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
+			yyCom.data = list[i].AudioId;
+			yybtn:GetChild("n3").visible = list[i].Audio == nil;
+		else
+			yyCom.visible = false;
+			lbl.visible = true;
+			if list[i].Content ~= nil then
 				lbl.text = frontPlus .. EmojiParser.inst:Parse(list[i].Content);
---			end
+			end
 		end
 	end
 end

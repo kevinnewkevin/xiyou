@@ -99,41 +99,37 @@ function liaotian_OnRenderListItem(index, obj)
 			local icon = obj:GetChild("n1").asLoader;
 			local name = obj:GetChild("n5").asTextField;
 			local content = obj:GetChild("n7");
+			local contentBg = obj:GetChild("n6");
 			local lv = obj:GetChild("n3");
 
---			if crtList[index].AudioId ~= 0 then
---				icon.visible = false;
---				name.visible = false;
---				content.visible = false;
---				lv.visible = false;
---				yybtn.visible = true;
---				yybg.visible = true;
---				yybtn.onClick:Add(liaotian_OnPlayRecord);
---				yybtn.data = crtList[index].AudioId;
---				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
---			else
-				icon.visible = true;
-				name.visible = true;
+			if Proxy4Lua.LongIsNotZero(crtList[index].AudioId) then
+				content.visible = false;
+				contentBg.visible = false;
+				yybtn.visible = true;
+				yybg.visible = true;
+				yybtn.onClick:Add(liaotian_OnPlayRecord);
+				yybtn.data = crtList[index].AudioId;
+				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
+			else
 				content.visible = true;
-				lv.visible = true;
+				contentBg.visible = true;
 				yybtn.visible = false;
 				yybg.visible = false;
-
 				icon.url = "ui://" .. crtList[index].HeadIcon;
 				name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				lv.text = crtList[index].Level;
---			end
+			end
 		end
 	end
 end
 
 function liaotian_OnYYBegin()
---	YYSystem.StartRecord();
+	YYSystem.StartRecord();
 end
 
 function liaotian_OnYYEnd()
---	YYSystem.StopRecord();
+	YYSystem.StopRecord();
 end
 
 function liaotian_OnPlayRecord(context)
