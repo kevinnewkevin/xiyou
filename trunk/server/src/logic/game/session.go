@@ -35,12 +35,12 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	this.player = FindPlayerByUsername(info.Username)
 
 	if this.player == nil {
-		p := prpc.SGE_DBPlayer{Username: info.Username}
+		var p *prpc.SGE_DBPlayer
 
-		if QueryPlayer(&p) {
+		if p = <- QueryPlayer(info.Username); p!=nil {
 			this.player = &GamePlayer{}
 			this.player.SetSession(this)
-			this.player.SetPlayerSGE(p)
+			this.player.SetPlayerSGE(*p)
 			if FindPlayerByUsername(info.Username) != nil {
 				for k, n := range PlayerStore {
 					if n == nil {
@@ -364,17 +364,6 @@ func (this *Session) Tick() {
 
 	}
 
-	//do clean
-
-	//if this.player != nil {
-	//	this.player.Logout()
-	//	this.player.SetSession(nil)
-	//	this.player = nil
-	//	this.Sender = nil
-	//
-	//	logs.Info("Socket close ")
-	//}
-
 }
 
 //////////////////////////////////////////////////////////////
@@ -385,8 +374,6 @@ func (this *Session) MethodBegin() *bytes.Buffer {
 
 func (this *Session) MethodEnd() error {
 
-	if this.Connection.IsValid() {
-
 		logs.Debug("Methed end %d", this.OutgoingBuffer.Len())
 		buffer := bytes.NewBuffer(nil)
 
@@ -394,8 +381,30 @@ func (this *Session) MethodEnd() error {
 		binary.Write(buffer, binary.LittleEndian, this.OutgoingBuffer.Bytes())
 		this.sendChannel <- buffer.Bytes()
 		this.OutgoingBuffer.Reset()
-	}
+
 	return nil
+}
+
+func (this*Session) HandleClose(){
+	if this.player != nil {
+		this.player.Logout()
+		this.player.SetSession(nil)
+		this.player = nil
+		this.Sender = nil
+		this.Connection = nil
+		logs.Info("Socket close ")
+	}
+
+
+	for i:=0; i<len(sessionList); i++{
+		if sessionList[i] == this {
+			sessionList = append(sessionList[:i],sessionList[(i+1):]...)
+			break
+		}
+	}
+
+
+
 }
 
 var sessionList = make([]*Session, 0)
@@ -409,8 +418,10 @@ func NewClient(conn *network.Conn) {
 	c.OutgoingBuffer = bytes.NewBuffer(nil)
 	c.IncomingBuffer = bytes.NewBuffer(nil)
 	c.Sender = &c
+	c.Connection.CloseHandler = &c
 	sessionList = append(sessionList, &c)
 }
+
 
 func TickClient() {
 
