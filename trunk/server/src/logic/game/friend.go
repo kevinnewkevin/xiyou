@@ -11,6 +11,7 @@ import (
 ////////////////////////////////////////////////////
 
 func (this *GamePlayer) SerchFriendByName(name string) {
+	logs.Debug("SerchFriendByName ", name)
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
@@ -36,7 +37,8 @@ func (this *GamePlayer) SerchFriendByName(name string) {
 	info.Level = t.MyUnit.Level
 	info.DisplayID = t.MyUnit.UnitId
 
-	t.session.SerchFriendInfo(info)		//向对方发送好友信息
+	e := this.session.SerchFriendInfo(info)		//向对方发送好友信息
+	logs.Debug("SerchFriendInfo", info, "    ", e)
 
 }
 
@@ -84,6 +86,7 @@ func (this *GamePlayer) SerchFriendRandom() {
 }
 
 func (this *GamePlayer) ApplicationFriend(name string) {
+	logs.Debug("ApplicationFriend ", name)
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
@@ -103,10 +106,12 @@ func (this *GamePlayer) ApplicationFriend(name string) {
 		}
 	}
 
-	t.session.ApplyFriend(this.MyUnit.InstName) //向对方发送好友信息
+	e := t.session.ApplyFriend(this.MyUnit.InstName) //向对方发送好友信息
+	logs.Debug("ApplicationFriend end ", this.MyUnit.InstName, "    ", e)
 }
 
 func (this *GamePlayer) ProcessingFriend(name string) {
+	logs.Debug("ProcessingFriend ", name)
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
@@ -134,6 +139,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 	info.DisplayID = this.MyUnit.UnitId
 	t.Friends = append(t.Friends, &info)
 	t.session.RecvFriend(info)
+	logs.Debug("ProcessingFriend t ", info)
 
 	//把别人加入到自己的好友名单
 	t_info := prpc.COM_Friend{}
@@ -143,6 +149,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 	t_info.DisplayID = t.MyUnit.UnitId
 	this.Friends = append(this.Friends, &t_info)
 	this.session.RecvFriend(t_info)
+	logs.Debug("ProcessingFriend me ", t_info)
 
 }
 

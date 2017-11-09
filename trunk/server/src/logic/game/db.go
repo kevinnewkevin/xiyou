@@ -9,7 +9,7 @@ import (
 
 	"logic/prpc"
 	_ "jimny/sqlite3"
-	"runtime"
+
 	//"log"
 )
 
@@ -34,18 +34,19 @@ var windowDB *sql.DB
 func ConnectDB() (*sql.DB, error) {
 	//dsn := beego.AppConfig.String("dbuser") + ":" + beego.AppConfig.String("dbpass") + "@tcp(" + beego.AppConfig.String("dbhost") + ":" + beego.AppConfig.String("dbport") + ")/" + beego.AppConfig.String("dbname")
 
-	if runtime.GOOS == `windows` {
-		if windowDB == nil {
-			db , _ := sql.Open("sqlite3", "game.db")
-			windowDB = db
-			}
-			return windowDB, nil
-			}
+	//if runtime.GOOS == `windows` {
+	//	if windowDB == nil {
+	//		db , _ := sql.Open("sqlite3", "game.db")
+	//		windowDB = db
+	//		}
+	//		return windowDB, nil
+	//		}
 	dsn := GetEnvString("V_MySqlData")
 	return sql.Open("mysql", dsn)
 }
 
 func QueryPlayer(p *prpc.SGE_DBPlayer) bool {
+
 	c, e := ConnectDB()
 	if e != nil {
 		logs.Debug(e.Error())

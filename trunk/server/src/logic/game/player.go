@@ -231,6 +231,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	this.MyUnit = &GameUnit{}
 	this.MyUnit.Owner = this
 	this.MyUnit.SetUnitCOM(&p.Unit)
+	this.MyUnit.InstName = p.Name
 
 	for _, u := range p.Employees {
 		unit := GameUnit{}

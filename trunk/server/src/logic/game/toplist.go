@@ -4,7 +4,7 @@ import (
 	"logic/prpc"
 	"sort"
 	"strconv"
-	"log"
+	"jimny/logs"
 )
 
 var TrueTopList []prpc.COM_TopUnit
@@ -51,7 +51,7 @@ func InitTopList() {
 	TMPTopList = TrueTopList
 
 	if len(TrueFriendTopList) == 0 {
-		for i := 0; i < num-1; i++ {
+		for i := 0; i < num - 2; i++ {
 			p := prpc.COM_TopUnit{}
 			p.Name = Testpaiming + strconv.Itoa(i) + "friend"
 			if i/2 == 0 {
@@ -109,7 +109,7 @@ func RefreshAllTopList() {
 func (this *GamePlayer) AllTopByPage() {
 	//logs.Debug("AllTopByPage", TrueTopList)
 	this.TianTiRank = this.FindMyTianTiRank()
-	log.Println("AllTopByPage", this.TianTiRank, len(TrueTopList))
+	logs.Debug("AllTopByPage 1 ", this.TianTiRank, len(TrueTopList))
 	this.session.RecvTopList(TrueTopList, this.TianTiRank)
 
 	return
@@ -176,6 +176,9 @@ func initMeToFriendTopList(player *GamePlayer) {
 	sort.Sort(TopList(TMPFriendTopList))
 	sort.Sort(TopList(TrueFriendTopList))
 
+	TMPFriendTopList = TMPFriendTopList[:num]
+	TrueFriendTopList = TrueFriendTopList[:num]
+
 }
 
 func (this *GamePlayer) FindMyFriendTianTiRank() int32 {
@@ -193,7 +196,7 @@ func (this *GamePlayer) FriendTopByPage() {
 	//logs.Debug("FriendTopByPage", TrueFriendTopList)
 
 	this.FriendTianTiRank = this.FindMyFriendTianTiRank()
-	log.Println("FriendTopByPage", this.FriendTianTiRank, len(TrueFriendTopList))
+	logs.Debug("FriendTopByPage 1 ", this.FriendTianTiRank, len(TrueFriendTopList), "myname is :", this.MyUnit.InstName)
 	this.session.RecvFriendTopList(TrueFriendTopList, this.FriendTianTiRank)
 }
 
