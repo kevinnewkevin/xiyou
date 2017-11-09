@@ -91,6 +91,9 @@ type COM_ServerToClient_RecvFriendTopList struct{
   TopList []COM_TopUnit  //0
   MyRank int32  //1
 }
+type COM_ServerToClient_SerchFriendInfo struct{
+  info COM_Friend  //0
+}
 type COM_ServerToClient_FriendInfo struct{
   info []COM_Friend  //0
 }
@@ -135,10 +138,11 @@ type COM_ServerToClientProxy interface{
   RequestAudioOk(audioId int64, content []uint8 ) error // 25
   RecvTopList(TopList []COM_TopUnit, MyRank int32 ) error // 26
   RecvFriendTopList(TopList []COM_TopUnit, MyRank int32 ) error // 27
-  FriendInfo(info []COM_Friend ) error // 28
-  ApplyFriend(name string ) error // 29
-  RecvFriend(info COM_Friend ) error // 30
-  DelFriend(instid int64 ) error // 31
+  SerchFriendInfo(info COM_Friend ) error // 28
+  FriendInfo(info []COM_Friend ) error // 29
+  ApplyFriend(name string ) error // 30
+  RecvFriend(info COM_Friend ) error // 31
+  DelFriend(instid int64 ) error // 32
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1337,6 +1341,40 @@ func (this *COM_ServerToClient_RecvFriendTopList)Deserialize(buffer *bytes.Buffe
   }
   return nil
 }
+func (this *COM_ServerToClient_SerchFriendInfo)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //info
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize info
+  {
+    err := this.info.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_SerchFriendInfo)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize info
+  if mask.readBit() {
+    err := this.info.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func (this *COM_ServerToClient_FriendInfo)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
@@ -1962,7 +2000,7 @@ func(this* COM_ServerToClientStub)RecvFriendTopList(TopList []COM_TopUnit, MyRan
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
+func(this* COM_ServerToClientStub)SerchFriendInfo(info COM_Friend ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -1971,9 +2009,26 @@ func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
   if err != nil{
     return err
   }
-  _28 := COM_ServerToClient_FriendInfo{}
+  _28 := COM_ServerToClient_SerchFriendInfo{}
   _28.info = info;
   err = _28.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(29))
+  if err != nil{
+    return err
+  }
+  _29 := COM_ServerToClient_FriendInfo{}
+  _29.info = info;
+  err = _29.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -1984,13 +2039,13 @@ func(this* COM_ServerToClientStub)ApplyFriend(name string ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(29))
+  err := write(buffer,uint16(30))
   if err != nil{
     return err
   }
-  _29 := COM_ServerToClient_ApplyFriend{}
-  _29.name = name;
-  err = _29.Serialize(buffer)
+  _30 := COM_ServerToClient_ApplyFriend{}
+  _30.name = name;
+  err = _30.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2001,13 +2056,13 @@ func(this* COM_ServerToClientStub)RecvFriend(info COM_Friend ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(30))
+  err := write(buffer,uint16(31))
   if err != nil{
     return err
   }
-  _30 := COM_ServerToClient_RecvFriend{}
-  _30.info = info;
-  err = _30.Serialize(buffer)
+  _31 := COM_ServerToClient_RecvFriend{}
+  _31.info = info;
+  err = _31.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2018,13 +2073,13 @@ func(this* COM_ServerToClientStub)DelFriend(instid int64 ) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(31))
+  err := write(buffer,uint16(32))
   if err != nil{
     return err
   }
-  _31 := COM_ServerToClient_DelFriend{}
-  _31.instid = instid;
-  err = _31.Serialize(buffer)
+  _32 := COM_ServerToClient_DelFriend{}
+  _32.instid = instid;
+  err = _32.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2407,6 +2462,20 @@ func Bridging_COM_ServerToClient_RecvFriendTopList(buffer *bytes.Buffer, p COM_S
   }
   return p.RecvFriendTopList(_27.TopList,_27.MyRank)
 }
+func Bridging_COM_ServerToClient_SerchFriendInfo(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _28 := COM_ServerToClient_SerchFriendInfo{}
+  err := _28.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SerchFriendInfo(_28.info)
+}
 func Bridging_COM_ServerToClient_FriendInfo(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2414,12 +2483,12 @@ func Bridging_COM_ServerToClient_FriendInfo(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _28 := COM_ServerToClient_FriendInfo{}
-  err := _28.Deserialize(buffer)
+  _29 := COM_ServerToClient_FriendInfo{}
+  err := _29.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.FriendInfo(_28.info)
+  return p.FriendInfo(_29.info)
 }
 func Bridging_COM_ServerToClient_ApplyFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -2428,12 +2497,12 @@ func Bridging_COM_ServerToClient_ApplyFriend(buffer *bytes.Buffer, p COM_ServerT
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _29 := COM_ServerToClient_ApplyFriend{}
-  err := _29.Deserialize(buffer)
+  _30 := COM_ServerToClient_ApplyFriend{}
+  err := _30.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.ApplyFriend(_29.name)
+  return p.ApplyFriend(_30.name)
 }
 func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -2442,12 +2511,12 @@ func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerTo
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _30 := COM_ServerToClient_RecvFriend{}
-  err := _30.Deserialize(buffer)
+  _31 := COM_ServerToClient_RecvFriend{}
+  err := _31.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.RecvFriend(_30.info)
+  return p.RecvFriend(_31.info)
 }
 func Bridging_COM_ServerToClient_DelFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -2456,12 +2525,12 @@ func Bridging_COM_ServerToClient_DelFriend(buffer *bytes.Buffer, p COM_ServerToC
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _31 := COM_ServerToClient_DelFriend{}
-  err := _31.Deserialize(buffer)
+  _32 := COM_ServerToClient_DelFriend{}
+  err := _32.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.DelFriend(_31.instid)
+  return p.DelFriend(_32.instid)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -2533,12 +2602,14 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 27 :
       return Bridging_COM_ServerToClient_RecvFriendTopList(buffer,p);
     case 28 :
-      return Bridging_COM_ServerToClient_FriendInfo(buffer,p);
+      return Bridging_COM_ServerToClient_SerchFriendInfo(buffer,p);
     case 29 :
-      return Bridging_COM_ServerToClient_ApplyFriend(buffer,p);
+      return Bridging_COM_ServerToClient_FriendInfo(buffer,p);
     case 30 :
-      return Bridging_COM_ServerToClient_RecvFriend(buffer,p);
+      return Bridging_COM_ServerToClient_ApplyFriend(buffer,p);
     case 31 :
+      return Bridging_COM_ServerToClient_RecvFriend(buffer,p);
+    case 32 :
       return Bridging_COM_ServerToClient_DelFriend(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)

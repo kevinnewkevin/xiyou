@@ -67,6 +67,7 @@ service COM_ServerToClient{
 	RecvTopList(COM_TopUnit[] TopList, int32 MyRank);
 	RecvFriendTopList(COM_TopUnit[] TopList, int32 MyRank);
 	//好友
+	SerchFriendInfo(COM_Friend info);
 	FriendInfo(COM_Friend[] info);
 	ApplyFriend(string name);
 	RecvFriend(COM_Friend info);

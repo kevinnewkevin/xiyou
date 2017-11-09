@@ -36,7 +36,7 @@ func (this *GamePlayer) SerchFriendByName(name string) {
 	info.Level = t.MyUnit.Level
 	info.DisplayID = t.MyUnit.UnitId
 
-	t.session.FriendInfo([]prpc.COM_Friend{info})		//向对方发送好友信息
+	t.session.SerchFriendInfo(info)		//向对方发送好友信息
 
 }
 
