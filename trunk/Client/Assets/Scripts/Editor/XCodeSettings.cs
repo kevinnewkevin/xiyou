@@ -1,11 +1,11 @@
-﻿using System.IO;
+﻿#if UNITY_EDITOR && UNITY_IOS
+using System.IO;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.iOS.Xcode;
 using UnityEditor.Callbacks;
 using UnityEditor.XCodeEditor;
-#endif
+
 using System.Collections;
 
 public class XCodeSettings
@@ -88,3 +88,4 @@ public class XCodeSettings
         inst.AddFileToBuild(targetGuid, fileGuid);
     }
 }
+#endif
