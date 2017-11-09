@@ -233,6 +233,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool RecvTopList(ref COM_TopUnit[] rankList, int myRank)
     {
+        UnityEngine.Debug.Log("RecvTopList");
         RankSystem._AllRank = new System.Collections.Generic.List<COM_TopUnit>(rankList);
         RankSystem._MyAllRank = myRank;
         UIManager.SetDirty("paihangbang");
@@ -242,6 +243,7 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool RecvFriendTopList(ref COM_TopUnit[] rankList, int myRank)
     {
+        UnityEngine.Debug.Log("RecvFriendTopList");
         RankSystem._FirendRank = new System.Collections.Generic.List<COM_TopUnit>(rankList);
         RankSystem._MyFirendRank = myRank;
         UIManager.SetDirty("paihangbang");
