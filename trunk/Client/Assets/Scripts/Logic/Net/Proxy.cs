@@ -219,8 +219,16 @@ class Proxy : ICOM_ServerToClientProxy
 	}
 
     public bool ReceiveChat(ref COM_Chat chat)
-    {
-        ChatSystem.AddMsg(chat);
+{
+		if (chat.Type == 3) 
+		{
+			FriendSystem.chatFriend (chat.PlayerInstId, chat);
+			UIManager.SetDirty ("cangbaoge");
+		} 
+		else 
+		{
+			ChatSystem.AddMsg (chat);
+		}
         return true;
     }
 
@@ -268,6 +276,7 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool	RecvFriend(ref COM_Friend friend)
 	{
 		FriendSystem.AddFriend (friend);
+		UIManager.SetDirty("haoyou");
 		return true;
 	}
 
