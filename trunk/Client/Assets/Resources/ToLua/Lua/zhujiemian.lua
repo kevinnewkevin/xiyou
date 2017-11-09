@@ -189,7 +189,7 @@ function zhujiemian_FlushChatData()
 			else
 				frontPlus = list[i].PlayerName .. ":";
 			end
-			lbl.text = frontPlus .. list[i].Content;
+			lbl.text = frontPlus .. EmojiParser.inst:Parse(list[i].Content);
 		end
 	end
 end

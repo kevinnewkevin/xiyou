@@ -12,12 +12,15 @@ local typeList;
 local crtType;
 local crtList;
 
+local emojiCom;
+
 local sendBtn;
 local emojiBtn;
 local yyBtn;
 local content;
 
 function liaotian:OnEntry()
+	UIPackage.AddPackage("UI/Emoji");
 	Window = liaotian.New();
 	Window:Show();
 end
@@ -37,11 +40,17 @@ function liaotian:OnInit()
 	yyBtn = self.contentPane:GetChild("n11").asButton;
 	content = self.contentPane:GetChild("n12");
 	sendBtn.onClick:Add(liaotian_OnSend);
+	emojiBtn.onClick:Add(liaotian_OnEmoji);
 	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
 	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
 
 	typeList = self.contentPane:GetChild("n6").asList;
 	typeList.onClickItem:Add(liaotian_OnTypeSelect);
+
+	emojiCom = self.contentPane:GetChild("n14").asCom;
+	emojiCom.fairyBatching = true;
+	emojiCom:GetChild("n15").asList.onClickItem:Add(liaotian_OnEmojiItem);
+	emojiCom.visible = false;
 
 	contentList = self.contentPane:GetChild("n13").asList;
 	contentList:SetVirtual();
@@ -50,6 +59,10 @@ function liaotian:OnInit()
 
 	crtType = 0;
 	liaotian_FlushData();
+end
+
+function liaotian_OnEmoji(context)
+	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
 end
 
 function liaotian_GetListItemResource(index)
@@ -66,6 +79,10 @@ function liaotian_GetListItemResource(index)
 	end
 end
 
+function liaotian_OnEmojiItem(context)
+	content.ReplaceSelection("[:" + context.sender.data.text + "]");
+end
+
 function liaotian_OnRenderListItem(index, obj)
 	if crtList == nil then
 		return;
@@ -74,7 +91,7 @@ function liaotian_OnRenderListItem(index, obj)
 	for i=0, crtList.Count - 1 do
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
-			content.text = "系统:" .. crtList[index].Content;
+			content.text = "系统:" .. EmojiParser.inst:Parse(crtList[index].Content);
 		else
 			local yybtn = obj:GetChild("n8").asCom;
 			local yybg = obj:GetChild("n9");
@@ -103,7 +120,7 @@ function liaotian_OnRenderListItem(index, obj)
 
 				icon.url = "ui://" .. crtList[index].HeadIcon;
 				name.text = crtList[index].PlayerName;
-				content.text = crtList[index].Content;
+				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				lv.text = crtList[index].Level;
 --			end
 		end
@@ -111,11 +128,11 @@ function liaotian_OnRenderListItem(index, obj)
 end
 
 function liaotian_OnYYBegin()
-	YYSystem.StartRecord();
+--	YYSystem.StartRecord();
 end
 
 function liaotian_OnYYEnd()
-	YYSystem.StopRecord();
+--	YYSystem.StopRecord();
 end
 
 function liaotian_OnPlayRecord(context)
