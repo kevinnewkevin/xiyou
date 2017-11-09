@@ -10,7 +10,7 @@ public class FriendSystem
 	public static  COM_Friend[] randomFriends;
 	public static  COM_Friend findFriend;
 
-	public static Dictionary<long, List<COM_Friend>> friendRecvList = new Dictionary<long, List<COM_Friend>>();
+		public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
 	
 	public static void InitFriends( COM_Friend[] friends)
 	{
@@ -44,11 +44,11 @@ public class FriendSystem
 		applyFriendList.Add (name);
 	}
 
-	public  static bool	chatFriend(ref COM_Friend friend)
+	public  static bool	chatFriend(long instId,COM_Chat friend)
 	{
-		if(!friendRecvList.ContainsKey(friend.InstId))
-				friendRecvList[friend.InstId] = new List<COM_Friend>();
-		friendRecvList [friend.InstId].Add (friend);
+		if(!friendRecvList.ContainsKey(instId))
+				friendRecvList[instId] = new List<COM_Chat>();
+		friendRecvList [instId].Add (friend);
 		return true;
 	}
 
@@ -77,6 +77,13 @@ public class FriendSystem
 					friendList.Remove (friendList [i]);
 				}
 			}
+		}
+
+		public static List<COM_Chat> GetFriendChat(long InstId)
+		{
+			if (!friendRecvList.ContainsKey(InstId))
+				return new List<COM_Chat>();
+			return friendRecvList [InstId];
 		}
 }
 
