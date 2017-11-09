@@ -50,7 +50,7 @@ function liaotian:OnInit()
 	emojiCom = self.contentPane:GetChild("n14").asCom;
 	emojiCom.fairyBatching = true;
 	emojiCom:GetChild("n15").asList.onClickItem:Add(liaotian_OnEmojiItem);
-	emojiCom.visible = false;
+	emojiCom:RemoveFromParent();
 
 	contentList = self.contentPane:GetChild("n13").asList;
 	contentList:SetVirtual();
