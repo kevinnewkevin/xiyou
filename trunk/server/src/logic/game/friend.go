@@ -4,7 +4,6 @@ import (
 	"jimny/logs"
 	"logic/prpc"
 	"strconv"
-	"github.com/astaxie/beego"
 )
 
 ////////////////////////////////////////////////////
