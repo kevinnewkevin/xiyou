@@ -54,10 +54,12 @@ function paihangbang_RenderListItem(index, obj)
 	local lv = obj:GetChild("n10");
 	local flower = obj:GetChild("n8").asLoader;
 	local icon = obj:GetChild("n7").asLoader;
+	local duan = obj:GetChild("n11").asLoader;
 	if crtType == 0 then
 		name.text = RankSystem._FirendRank[index].Name;
 		lv.text = RankSystem._FirendRank[index].Level;
 		score.text = RankSystem._FirendRank[index].TianTi;
+		duan.url = "xiao_duanwei" .. GamePlayer.RankLevel(RankSystem._FirendRank[index].TianTi);
 		rank.text = index + 1 .. "";
 		if index == 0 then
 			flower.url = oneUrl;
@@ -78,6 +80,7 @@ function paihangbang_RenderListItem(index, obj)
 		name.text = RankSystem._AllRank[index].Name;
 		lv.text = RankSystem._AllRank[index].Level;
 		score.text = RankSystem._AllRank[index].TianTi;
+		duan.url = "xiao_duanwei" .. GamePlayer.RankLevel(RankSystem._AllRank[index].TianTi);
 		rank.text = index + 1 .. "";
 		if index == 0 then
 			flower.url = oneUrl;

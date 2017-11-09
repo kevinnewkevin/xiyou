@@ -77,6 +77,9 @@ function zhujiemian:OnInit()
 	rankList.itemRenderer = zhujiemian_RankRenderListItem;
 	rankList.onClick:Add(zhujiemian_OnRank);
 
+	local rankBtn = self.contentPane:GetChild("n37").asButton;
+	rankBtn.onClick:Add(zhujiemian_OnRank);
+
 	minChatList = self.contentPane:GetChild("n55").asList;
 	minChatList.onClick:Add(zhujiemian_OnMinChat);
 
