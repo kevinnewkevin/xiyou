@@ -1,7 +1,6 @@
 package sqlite3
 
 import (
-	"context"
 	"database/sql/driver"
 	"errors"
 )
@@ -9,10 +8,9 @@ import (
 //import "database/sql/driver"
 
 type SQLiteConn struct {
-	ctx                context.Context
-	pDB                uintptr
-	nBusyTimeoutMs     int
-	bForeignKeys       bool
+	pDB            uintptr
+	nBusyTimeoutMs int
+	bForeignKeys	bool
 	bRecursiveTriggers bool
 }
 
@@ -25,11 +23,11 @@ func (c *SQLiteConn) Prepare(query string) (driver.Stmt, error) {
 }
 
 func (c *SQLiteConn) Begin() (driver.Tx, error) {
-	nRet := sqlite3_exec(c.pDB, "COMMIT;")
+	nRet := sqlite3_exec(c.pDB,"COMMIT;");
 	if nRet != SQLITE_OK {
 		return nil, errors.New(sqlite3_errmsg(c.pDB))
 	}
-	return &SQLiteTx{pDB: c.pDB}, nil
+	return &SQLiteTx{pDB:c.pDB},nil
 }
 
 func (c *SQLiteConn) Close() error {

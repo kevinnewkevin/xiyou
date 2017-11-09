@@ -7,6 +7,8 @@ import (
 	"net"
 	"logic/log"
 	"github.com/astaxie/beego/toolbox"
+	"jimny/network"
+	"time"
 )
 
 type App struct {
@@ -16,7 +18,6 @@ type App struct {
 func (this *App) Run() {
 	var (
 		err        error
-		conn       *net.TCPConn
 		endRunning = make(chan bool, 1)
 	)
 
@@ -130,36 +131,42 @@ func (this *App) Run() {
 	game.InitTopList()
 	defer toolbox.StopTask()
 	game.TestPlayer()
-	this.l, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("0.0.0.0"),10999,"ipv4"})
-	if err != nil {
-		log.Fatal(err.Error())
-		return
-	}
+
+
+	acceptor := network.NewAcceptorC("tcp", "0.0.0.0:10999")
 
 	go func() {
+
 		for {
-
-			defer func() {
-
+			defer func(){
 				if r := recover(); r != nil {
 					log.Error("main panic %s",fmt.Sprint(r))
 				}
 
 			}()
-			conn, err = this.l.AcceptTCP()
-			if err != nil {
-				log.Debug(err.Error())
-				endRunning <- true
+
+			select{
+			case conn := <- acceptor.Accept():
+				game.NewClient(conn)
+			default:
+				game.TickClient()
+
 			}
-			log.Info("Client connected %s ",conn.RemoteAddr().String())
 
-
-
-			client := game.NewClient(conn)
+			//conn, err = this.l.AcceptTCP()
+			//if err != nil {
+			//	log.Debug(err.Error())
+			//	endRunning <- true
+			//}
+			//log.Info("Client connected %s ",conn.RemoteAddr().String())
+			//
+			//
+			//
+			//
 			//
 
-
-			go client.Update()
+			time.Sleep(1)
+			//go client.Update()
 		}
 	}()
 

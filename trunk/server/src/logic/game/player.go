@@ -1046,7 +1046,7 @@ func (this *GamePlayer) SetMyEnergy(val int32, isAdd bool) {
 	}
 
 	this.MyUnit.SetIProperty(prpc.IPT_ENERGY, myEnergy)
-	log.Info("SetMyEnergy Val=", val, "CurmyEnergy=", myEnergy)
+	log.Println("SetMyEnergy Val=", val, "CurmyEnergy=", myEnergy)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

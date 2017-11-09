@@ -4,12 +4,11 @@ import (
 	"database/sql/driver"
 	"errors"
 	"database/sql"
-	"logic/log"
+	"jimny/logs"
 )
 
 type (
-	SQLiteDriver struct{
-	}
+	SQLiteDriver struct{}
 )
 /*
  *
@@ -21,10 +20,10 @@ func (d SQLiteDriver) Open(dsn string) (driver.Conn, error) {
 	)
 
 	if !sqlite3_threadsafe() {
-		log.Error("SQLite thread unsafe ")
+		logs.Error("SQLite thread unsafe ")
 	}
 
-	log.Info("SQLite VERSION(%s|%d) SOURCEID(%s)", sqlite3_libversion(),sqlite3_libversion_number(),sqlite3_sourceid())
+	logs.Infof("SQLite VERSION(%s|%d) SOURCEID(%s)", sqlite3_libversion(),sqlite3_libversion_number(),sqlite3_sourceid())
 
 	nRet = sqlite3_open(dsn, &pDB)
 

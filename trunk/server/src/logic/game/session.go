@@ -3,12 +3,14 @@ package game
 import (
 	"logic/prpc"
 	"logic/log"
-	"fmt"
-	"strings"
+
 	"bytes"
-	"runtime"
-	"net"
+
 	"sync"
+	"jimny/network"
+	"jimny/logs"
+	"net"
+	"encoding/binary"
 )
 
 type Session struct {
@@ -18,9 +20,11 @@ type Session struct {
 	username string
 	player *GamePlayer
 
-	TotalIncoming, TotalOutgoing   int
+
 	IncomingBuffer, OutgoingBuffer *bytes.Buffer
-	Connection                     *net.TCPConn
+	recvChannel 	<- chan[]byte
+	sendChannel     chan<- []byte
+	Connection                     *network.Conn
 
 }
 
@@ -333,109 +337,82 @@ func (this *Session) DeleteFriend (instid int64) error  {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func (this *Session) Update() {
+func (this *Session) Tick() {
 
-	for {
-		defer func() {
+	select {
+	case b := <- this.recvChannel:
+		this.IncomingBuffer.Write(b)
+		//logs.Debug(len(b))
+	default:
 
-			if r := recover(); r != nil {
-				log.Error("main panic %s",fmt.Sprint(r))
-			}
+			for this.IncomingBuffer.Len() >= 2 {
+				//logs.Debug("Tick sessions 4")
+				err := prpc.COM_ClientToServerDispatch(this.IncomingBuffer, this)
+				if err != nil {
+					log.Error(err.Error())
 
-		}()
-		err := this.HandleSocket()
-		if err != nil {
-			log.Info("%s", err.Error())
-			goto endLoop
+				}
+
+
 		}
-		if this.IncomingBuffer.Len() >= 2 {
-			err := prpc.COM_ClientToServerDispatch(this.IncomingBuffer, this)
-			if err != nil {
-				log.Error("err", err)
-				goto endLoop
-			}
-		}
+
+		this.IncomingBuffer.Reset()
+
+
 	}
-endLoop:
+
 
 	//do clean
 
-	if this.player != nil {
-		this.player.Logout()
-		this.player.SetSession(nil)
-		this.player = nil
-		this.Sender = nil
-
-		log.Info("Socket close ")
-	}
+	//if this.player != nil {
+	//	this.player.Logout()
+	//	this.player.SetSession(nil)
+	//	this.player = nil
+	//	this.Sender = nil
+	//
+	//	log.Info("Socket close ")
+	//}
 
 }
 
 //////////////////////////////////////////////////////////////
 func (this *Session) MethodBegin() *bytes.Buffer {
-	this.Lock()
+
 	return this.OutgoingBuffer
 }
 
 func (this *Session) MethodEnd() error {
-	defer this.Unlock()
-	c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
-	if e != nil {
-		return e
-	}
-	_, file, line, ok := runtime.Caller(2)
+	log.Debug("Methed end %d %d", this.OutgoingBuffer.Len())
+	buffer := bytes.NewBuffer(nil)
 
-	if !ok {
-		file = "???"
-		line = 0
-	}else {
-
-		i := strings.LastIndex(file, "/")
-		if i == -1 {
-			i = strings.LastIndex(file, "\\")
-		}
-		if i != -1{
-			file = file[i+1:]
-		}
-
-	}
-	log.Info("CALL %s:%d MethodEnd() %d ",file,line, c)
+	binary.Write(buffer,binary.LittleEndian,int16(this.OutgoingBuffer.Len() + 2))
+	binary.Write(buffer, binary.LittleEndian,this.OutgoingBuffer.Bytes())
+	this.sendChannel <- buffer.Bytes()
 	this.OutgoingBuffer.Reset()
-	this.TotalOutgoing += c
+
+	log.Debug(string(buffer.Bytes()))
+
 	return nil
 }
 
-func (this *Session) HandleSocket() error {
-	{
-		bs := make([]byte, 2048)
 
-		c, e := this.Connection.Read(bs)
-		if e != nil {
-			log.Error("Incoming error %s",e.Error())
-			return e
-		}
-		this.IncomingBuffer.Write(bs[:c])
-		this.TotalIncoming += c
-	}
+var sessionList = make([]*Session,0)
 
-	{
-		c, e := this.Connection.Write(this.OutgoingBuffer.Bytes())
-		if e != nil {
-			log.Error("Outgoing error %s",e.Error())
-
-			return e
-		}
-		this.TotalOutgoing += c
-	}
-	return nil
-}
-
-func NewClient(conn *net.TCPConn) *Session {
+func NewClient(conn *network.Conn) {
+	logs.Debug("Player connected")
 	c := Session{}
-	conn.SetNoDelay(true)
 	c.Connection = conn
+	conn.Handle().(*net.TCPConn).SetNoDelay(true)
+	c.sendChannel,c.recvChannel = conn.Open()
 	c.OutgoingBuffer =  bytes.NewBuffer(nil)
 	c.IncomingBuffer =  bytes.NewBuffer(nil)
 	c.Sender = &c
-	return &c
+	sessionList = append(sessionList,&c)
+}
+
+func TickClient(){
+
+	for _, s := range sessionList{
+		s.Tick()
+	}
 }

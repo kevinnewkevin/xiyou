@@ -222,7 +222,7 @@ func (this *BattleRoom) BattleStart() {
 		if unit == nil {
 			continue
 		}
-		log.Info("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
+		log.Println("卡牌敏捷: 1 ", unit.GetCProperty(prpc.CPT_AGILE))
 		ul = append(ul, unit.GetBattleUnitCOM())
 	}
 
@@ -232,7 +232,7 @@ func (this *BattleRoom) BattleStart() {
 			continue
 		}
 		targetList := this.findCardsByTarget(p.BattleCamp)
-		log.Info("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
+		log.Println("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
 		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList, ul)
 	}
 }
@@ -1803,10 +1803,10 @@ func (this *BattleRoom) AddBuff(casterid int64, target int64, buffid int32, data
 
 	buff.AddProperty()
 
-	log.Info("bufflen front", this.TargetCOM)
+	log.Println("bufflen front", this.TargetCOM)
 	this.TargetCOM.BuffAdd = append(this.TargetCOM.BuffAdd, buffCOM)
-	log.Info("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
-	log.Info("bufflen back", this.TargetCOM)
+	log.Println("实例ID为", target, "的卡牌在第", this.Round + 1, "回合获得了id为", buff.InstId, "的buff, buff表中的ID为", buffid, "目前该卡牌一共有", len(unit.Allbuff), "个buff, ", buff.Round)
+	log.Println("bufflen back", this.TargetCOM)
 
 }
 
