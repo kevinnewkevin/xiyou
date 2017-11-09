@@ -108,7 +108,29 @@ public class Proxy4Lua {
     {
         NetWoking.S.RequestAudio(id);
     }
+	
+	static public void SerchFriendByName(string name)
+	{
+		NetWoking.S.SerchFriendByName (name);	
+	}
+	static public void SerchFriendRandom()
+	{
+		NetWoking.S.SerchFriendRandom ();	
+	}
+	static public void ProcessingFriend(string name)
+	{
+		NetWoking.S.ProcessingFriend (name);	
+	}
+	static public void DeleteFriend(int instid)
+	{
+		NetWoking.S.DeleteFriend (instid);	
+	}
+	static public void ApplicationFriend(string name)
+	{
+		NetWoking.S.ApplicationFriend (name);	
+	}
 
+	
     #endregion
 
     #region 内部接口

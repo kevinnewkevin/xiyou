@@ -260,7 +260,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	ApplyFriend(ref string name)
 	{
-				FriendSystem.ApplyFriend(ref name);
+		FriendSystem.ApplyFriend(ref name);
 		UIManager.SetDirty("haoyou");
 		return true;
 	}
@@ -274,11 +274,14 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool	DelFriend(long id)
 	{
 		FriendSystem.DelFriend (id);
+		UIManager.SetDirty("haoyou");
 		return true;
 	}
 
 	public bool	SerchFriendInfo(ref COM_Friend friend)
 	{
-			return true;
+		FriendSystem.findFriend = friend;
+		UIManager.SetDirty("haoyou");
+		return true;
 	}
 }
