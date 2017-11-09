@@ -204,6 +204,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 		}
 	}
 
+	p.InitTestFriend()
+
 	return &p
 
 }
@@ -252,6 +254,15 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	for _, skb := range p.SkillBase {
 		this.SkillBase[skb.SkillId] = skb.SkillId
 	}
+
+	for i := range p.Friends {
+		this.Friends = append(this.Friends, &p.Friends[i])
+	}
+
+	for i := range p.Enemys {
+		this.Enemys = append(this.Enemys, &p.Enemys[i])
+	}
+
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -269,6 +280,13 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 	for _, ug := range this.UnitGroup {
 		p.UnitGroup = append(p.UnitGroup, *ug)
+	}
+
+	for _, fr := range this.Friends {
+		p.Friends = append(p.Friends, *fr)
+	}
+	for _, en := range this.Enemys {
+		p.Enemys = append(p.Enemys, *en)
 	}
 	p.TianTiVal = this.TianTiVal
 	p.TianTiRank = this.TianTiRank

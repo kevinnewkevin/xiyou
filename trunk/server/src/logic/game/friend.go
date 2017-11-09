@@ -207,3 +207,21 @@ func (this *GamePlayer) DeleteBlackList() {
 func (this *GamePlayer) SendMessage() {
 
 }
+
+////////////////////////////////////////////////////
+///测试
+////////////////////////////////////////////////////
+
+func (this *GamePlayer) InitTestFriend() {
+	var uid int64 = 1000000000
+	for i :=1; i <= 10; i++ {
+		info := prpc.COM_Friend{}
+		info.InstId = uid - int64(i)
+		info.Name = "测试Friend" + strconv.Itoa(i)
+		info.Level = int32(i) + 1
+		info.DisplayID = this.MyUnit.UnitId
+
+		this.Friends = append(this.Friends, &info)
+	}
+
+}

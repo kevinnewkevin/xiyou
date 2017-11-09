@@ -17,6 +17,8 @@ type COM_Player struct{
   FriendTianTiRank int32  //8
   Guide uint64  //9
   SkillBase []COM_SkillBase  //10
+  Friends []COM_Friend  //11
+  Enemys []COM_Friend  //12
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -128,6 +130,26 @@ func (this *COM_Player)GetSkillBase() []COM_SkillBase {
   defer this.Unlock()
   return this.SkillBase
 }
+func (this *COM_Player)SetFriends(value []COM_Friend) {
+  this.Lock()
+  defer this.Unlock()
+  this.Friends = value
+}
+func (this *COM_Player)GetFriends() []COM_Friend {
+  this.Lock()
+  defer this.Unlock()
+  return this.Friends
+}
+func (this *COM_Player)SetEnemys(value []COM_Friend) {
+  this.Lock()
+  defer this.Unlock()
+  this.Enemys = value
+}
+func (this *COM_Player)GetEnemys() []COM_Friend {
+  this.Lock()
+  defer this.Unlock()
+  return this.Enemys
+}
 func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
@@ -144,6 +166,8 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.FriendTianTiRank!=0)
   mask.writeBit(this.Guide!=0)
   mask.writeBit(len(this.SkillBase) != 0)
+  mask.writeBit(len(this.Friends) != 0)
+  mask.writeBit(len(this.Enemys) != 0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -269,6 +293,36 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize Friends
+  if len(this.Friends) != 0{
+    {
+      err := write(buffer,uint(len(this.Friends)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.Friends {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  // serialize Enemys
+  if len(this.Enemys) != 0{
+    {
+      err := write(buffer,uint(len(this.Enemys)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.Enemys {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
@@ -383,6 +437,36 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     this.SkillBase = make([]COM_SkillBase,size)
     for i,_ := range this.SkillBase{
       err := this.SkillBase[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize Friends
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.Friends = make([]COM_Friend,size)
+    for i,_ := range this.Friends{
+      err := this.Friends[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize Enemys
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.Enemys = make([]COM_Friend,size)
+    for i,_ := range this.Enemys{
+      err := this.Enemys[i].Deserialize(buffer)
       if err != nil{
         return err
       }

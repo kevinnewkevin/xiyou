@@ -3,9 +3,7 @@ package game
 import (
 	"logic/prpc"
 	"strconv"
-
 	"sort"
-	"logic/log"
 )
 
 var TrueTopList []prpc.COM_TopUnit

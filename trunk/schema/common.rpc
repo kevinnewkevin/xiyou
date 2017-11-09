@@ -58,6 +58,14 @@ struct COM_SkillBase{
 	int32			SkillId;	
 };
 
+struct COM_Friend			//好友
+{
+	int64	InstId;				//ID
+	string	Name;				//姓名
+	int32	Level;				//等级
+	int32	DisplayID;			//头像
+};
+
 //角色实例
 struct COM_Player{
 	int64 				InstId;
@@ -71,6 +79,8 @@ struct COM_Player{
 	int32				FriendTianTiRank;
 	uint64				Guide;
 	COM_SkillBase[]		SkillBase;
+	COM_Friend[]		Friends;
+	COM_Friend[]		Enemys;
 };
 
 //账户信息	登录成功返回
@@ -233,13 +243,5 @@ struct COM_TopUnit
 	int32	Level;			//等级
 	int32	TianTi;			//天体点数
 	int32	DisplayID;		//头像
-};
-
-struct COM_Friend			//好友
-{
-	int64	InstId;				//ID
-	string	Name;				//姓名
-	int32	Level;				//等级
-	int32	DisplayID;			//头像
 };
 
