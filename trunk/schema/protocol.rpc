@@ -73,4 +73,5 @@ service COM_ServerToClient{
 	ApplyFriend(string name);
 	RecvFriend(COM_Friend info);
 	DelFriend(int64 instid);
+	RecvEnemy(COM_Friend info);
 };

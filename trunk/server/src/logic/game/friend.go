@@ -4,6 +4,7 @@ import (
 	"jimny/logs"
 	"logic/prpc"
 	"strconv"
+	"github.com/astaxie/beego"
 )
 
 ////////////////////////////////////////////////////
@@ -82,6 +83,8 @@ func (this *GamePlayer) SerchFriendRandom() {
 	} else {
 		this.session.FriendInfo(all)
 	}
+
+	logs.Debug("SerchFriendRandom ", all)
 
 }
 
@@ -184,6 +187,15 @@ func (this *GamePlayer) delFriend(instid int64) {
 
 }
 
+func (this *GamePlayer) findFriend(instid int64) *prpc.COM_Friend {
+	for _, f := range this.Friends {
+		if f.InstId == instid {
+			return f
+		}
+	}
+	return nil
+}
+
 func (this *GamePlayer) CheckMe() {
 	for _, f := range this.Friends {
 		friend := FindPlayerByInstId(f.InstId)
@@ -199,7 +211,19 @@ func (this *GamePlayer) CheckMe() {
 ////黑名单
 ////////////////////////////////////////////////////
 
-func (this *GamePlayer) AddBlackList() {
+func (this *GamePlayer) AddBlackList(instid int64) {
+	friend := this.findFriend(instid)
+
+	if friend == nil {
+		logs.Debug("好友才能加入黑名單")
+		return
+	}
+
+	this.delFriend(instid)
+
+	this.Enemys = append(this.Enemys, friend)
+
+	this.session.RecvEnemy(*friend)
 
 }
 
