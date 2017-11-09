@@ -9,6 +9,7 @@ public class ChatSystem {
     {
         _AllMsg = new Dictionary<int, List<COM_Chat>>();
         _AllMsg.Add(-1, new List<COM_Chat>());
+        EmojiParser.inst.RegistEmojiTags();
     }
 
     static public void AddMsg(COM_Chat chat)

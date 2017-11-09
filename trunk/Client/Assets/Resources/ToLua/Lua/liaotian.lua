@@ -47,7 +47,7 @@ function liaotian:OnInit()
 	yyAnim = self.contentPane:GetChild("n15").asCom;
 	yyAnim.visible = false;
 
-	local gestureMoveUp = SwipeGesture.New(self.contentPane);
+	local gestureMoveUp = Proxy4Lua.SwipeGesture(self.contentPane);
 	gestureMoveUp.onMove:Add(liaotian_OnSwipeMoveEnd);
 
 	typeList = self.contentPane:GetChild("n6").asList;

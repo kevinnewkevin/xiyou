@@ -115,6 +115,7 @@ function RegGlobalValue()
 	Define.Set("CreateDefaultClip", "stand"); --默认动画
 	Define.Set("CreateSelectClip", "attack"); --选中动画
 	Define.Set("BattleScenePool", "huangmozhandou,haidizhandou"); --战斗场景随机库
+	Define.Set("EmojiTags","88,am,bs,bz,ch,cool,dhq,dn,fd,gz,han,hx,hxiao,hxiu");
 end
 
 --ui资源和ui逻辑关联map

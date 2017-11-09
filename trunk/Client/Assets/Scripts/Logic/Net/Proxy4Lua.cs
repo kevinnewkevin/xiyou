@@ -596,6 +596,11 @@ public class Proxy4Lua {
     {
         return val != 0;
     }
+
+    static public FairyGUI.SwipeGesture SwipeGesture(FairyGUI.GObject holder)
+    {
+        return new FairyGUI.SwipeGesture(holder);
+    }
 }
 
 public class ServInfo
