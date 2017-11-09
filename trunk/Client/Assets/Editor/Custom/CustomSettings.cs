@@ -250,6 +250,8 @@ public static class CustomSettings
         _GT(typeof(COM_Chat)),
         _GT(typeof(RankSystem)),
         _GT(typeof(COM_TopUnit)),
+        _GT(typeof(YYSystem)),
+        _GT(typeof(EmojiParser)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
