@@ -70,6 +70,8 @@ function haoyou:OnInit()
 	applyFriendList = findFriendPanel:GetChild("n11");
 	findNameLab = findFriendPanel:GetChild("n5");
 	findNameBtn = findFriendPanel:GetChild("n2");
+	changeBtn = findFriendPanel:GetChild("n12");
+	changeBtn.onClick:Add(haoyu_OnChangeBtnClick);
 	findNameBtn.onClick:Add(haoyu_OnFindBtnClick);
 	friendBtns = self.contentPane:GetChild("n14");
 	friendBtns.visible = false;
@@ -114,7 +116,7 @@ end
 function haoyou_FlushData()
 	if findFriendPanel.visible == true then
 		findFriendList.numItems = 1;
-		applyFriendList.numItems = FriendSystem.applyFriendList.length;
+		applyFriendList.numItems = FriendSystem.GetApplyNum();
 		return;
 	end
 	if fCrtTab == 0 then 
@@ -162,6 +164,9 @@ function haoyu_RenderListItem(indx, obj)
 	end
 	local nameLab = obj:GetChild("n5");
 	local levelLab = obj:GetChild("n4");
+	local icon = obj:GetChild("n2");
+	local displayData = DisplayData.GetData(palyer.DisplayID);
+	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	nameLab.text = palyer.Name;
 	levelLab.text = palyer.Level .. "";
 	local addBtn = obj:GetChild("n9");
@@ -239,6 +244,10 @@ function haoyu_OnFindBtnClick(context)
 	Proxy4Lua.SerchFriendByName(findNameLab.text);
 	findNameLab.text = "";
 end
+
+function haoyu_OnChangeBtnClick(context)
+end
+
 
 function haoyou_OnAddFriendClick(context)
 	local name = context.sender.data;
