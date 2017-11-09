@@ -13,6 +13,7 @@ local crtType;
 local crtList;
 
 local emojiCom;
+local yyAnim;
 
 local sendBtn;
 local emojiBtn;
@@ -43,6 +44,11 @@ function liaotian:OnInit()
 	emojiBtn.onClick:Add(liaotian_OnEmoji);
 	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
 	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
+	yyAnim = self.contentPane:GetChild("n15").asCom;
+	yyAnim.visible = false;
+
+	local gestureMoveUp = SwipeGesture.New(self.contentPane);
+	gestureMoveUp.onMove:Add(liaotian_OnSwipeMoveEnd);
 
 	typeList = self.contentPane:GetChild("n6").asList;
 	typeList.onClickItem:Add(liaotian_OnTypeSelect);
@@ -64,6 +70,14 @@ end
 
 function liaotian_OnEmoji(context)
 	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
+end
+
+function liaotian_OnSwipeMoveEnd()
+	if yyAnim.visible == true then
+		yyAnim.visible = false;
+		YYSystem.StopRecord(true);
+		Proxy4Lua.PopMsg("语音发送取消");
+	end
 end
 
 function liaotian_GetListItemResource(index)
@@ -125,11 +139,13 @@ function liaotian_OnRenderListItem(index, obj)
 end
 
 function liaotian_OnYYBegin()
+	yyAnim.visible = true;
 	YYSystem.StartRecord();
 end
 
 function liaotian_OnYYEnd()
-	YYSystem.StopRecord();
+	yyAnim.visible = false;
+	YYSystem.StopRecord(false);
 end
 
 function liaotian_OnPlayRecord(context)
@@ -182,6 +198,7 @@ function liaotian:OnDispose()
 end
 
 function liaotian:OnHide()
+	yyAnim.visible = false;
 	crtType = 0;
 	typeList.selectedIndex = crtType;
 	Window:Hide();
