@@ -146,7 +146,45 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 
 }
 
-func (this *GamePlayer) DeleteFriend() {
+func (this *GamePlayer) DeleteFriend(instid int64) {
+
+	this.delFriend(instid)
+
+	friend := FindPlayerByInstId(instid)
+
+	if friend == nil {
+		return
+	}
+
+	friend.delFriend(this.MyUnit.InstId)
+}
+
+func (this *GamePlayer) delFriend(instid int64) {
+	idx := -1
+	for i, f := range this.Friends{
+		if f.InstId == instid {
+			idx = i
+		}
+	}
+	this.Friends = append(this.Friends[:idx], this.Friends[idx + 1:]...)
+
+	if this.session == nil {
+		return
+	}
+
+	//给player发送删除好友的信息
+	this.session.DelFriend(instid)
+
+}
+
+func (this *GamePlayer) CheckMe() {
+	for _, f := range this.Friends {
+		friend := FindPlayerByInstId(f.InstId)
+		if friend == nil {
+			continue
+		}
+		friend.delFriend(this.MyUnit.InstId)
+	}
 
 }
 

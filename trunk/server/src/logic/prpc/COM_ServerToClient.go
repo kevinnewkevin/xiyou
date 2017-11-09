@@ -100,6 +100,9 @@ type COM_ServerToClient_ApplyFriend struct{
 type COM_ServerToClient_RecvFriend struct{
   info COM_Friend  //0
 }
+type COM_ServerToClient_DelFriend struct{
+  instid int64  //0
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -135,6 +138,7 @@ type COM_ServerToClientProxy interface{
   FriendInfo(info []COM_Friend ) error // 28
   ApplyFriend(name string ) error // 29
   RecvFriend(info COM_Friend ) error // 30
+  DelFriend(instid int64 ) error // 31
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1451,6 +1455,42 @@ func (this *COM_ServerToClient_RecvFriend)Deserialize(buffer *bytes.Buffer) erro
   }
   return nil
 }
+func (this *COM_ServerToClient_DelFriend)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.instid!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize instid
+  {
+    if(this.instid!=0){
+      err := write(buffer,this.instid)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_DelFriend)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize instid
+  if mask.readBit() {
+    err := read(buffer,&this.instid)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -1973,6 +2013,23 @@ func(this* COM_ServerToClientStub)RecvFriend(info COM_Friend ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)DelFriend(instid int64 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(31))
+  if err != nil{
+    return err
+  }
+  _31 := COM_ServerToClient_DelFriend{}
+  _31.instid = instid;
+  err = _31.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2392,6 +2449,20 @@ func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerTo
   }
   return p.RecvFriend(_30.info)
 }
+func Bridging_COM_ServerToClient_DelFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _31 := COM_ServerToClient_DelFriend{}
+  err := _31.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.DelFriend(_31.instid)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -2467,6 +2538,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_ApplyFriend(buffer,p);
     case 30 :
       return Bridging_COM_ServerToClient_RecvFriend(buffer,p);
+    case 31 :
+      return Bridging_COM_ServerToClient_DelFriend(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

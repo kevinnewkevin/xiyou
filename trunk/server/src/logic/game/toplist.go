@@ -109,7 +109,7 @@ func RefreshAllTopList(){
 }
 
 func (this *GamePlayer) AllTopByPage()  {
-	log.Println("AllTopByPage", TrueFriendTopList)
+	log.Println("AllTopByPage", TrueTopList)
 	this.TianTiRank = this.FindMyTianTiRank()
 
 	this.session.RecvTopList(TrueTopList, this.TianTiRank)

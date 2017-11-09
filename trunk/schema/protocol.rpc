@@ -32,6 +32,7 @@ service COM_ClientToServer{
 	SerchFriendByName(string name);			//查找好友
 	SerchFriendRandom();					//随机好友推荐
 	ProcessingFriend(string name);						//处理好友
+	DeleteFriend(int64 instid);						//删除好友
 };
 
 service COM_ServerToClient{
@@ -69,4 +70,5 @@ service COM_ServerToClient{
 	FriendInfo(COM_Friend[] info);
 	ApplyFriend(string name);
 	RecvFriend(COM_Friend info);
+	DelFriend(int64 instid);
 };
