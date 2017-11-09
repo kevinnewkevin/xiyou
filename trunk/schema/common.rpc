@@ -235,6 +235,7 @@ struct COM_Chat
 	string		Content;		//内容
 	int64		AudioId;		//语音id
 	uint8[]		Audio;			//语音数据
+	int32		AudioLen;		//语音时长
 };
 
 struct COM_TopUnit
