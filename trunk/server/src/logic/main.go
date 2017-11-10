@@ -26,13 +26,13 @@ func main() {
 		}
 	}
 
-	//defer func() {
-	//
-	//	if r := recover(); r != nil {
-	//		logs.Error("main panic %s", fmt.Sprint(r))
-	//	}
-	//
-	//}()
+	defer func() {
+
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
 
 	app := application.NewApp()
 	app.Run()
