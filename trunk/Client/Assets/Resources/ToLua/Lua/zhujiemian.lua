@@ -27,6 +27,8 @@ local maxChatSendBtn;
 
 local friendRad;
 
+local chatBtn;
+
 function zhujiemian:OnEntry()
 	UIManager.RegIDirty("zhujiemian");
 	Define.LaunchUIBundle("icon");
@@ -90,6 +92,9 @@ function zhujiemian:OnInit()
 
 	minChatList = self.contentPane:GetChild("n55").asList;
 	minChatList.onClick:Add(zhujiemian_OnMinChat);
+
+	chatBtn = self.contentPane:GetChild("n8").asButton;
+	chatBtn.onClick:Add(zhujiemian_OnChatBtn);
 
 	zhujiemian_FlushData();
 	zhujiemian_FlushChatData();
@@ -341,4 +346,8 @@ end
 
 function zhujiemian_OnFriend()
 	UIManager.Show("haoyou");
+end
+
+function zhujiemian_OnChatBtn()
+	UIManager.Show("liaotian");
 end
