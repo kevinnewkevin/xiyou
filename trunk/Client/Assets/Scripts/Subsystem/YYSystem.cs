@@ -105,6 +105,10 @@ public class YYSystem {
 
     static public void PlayRecord(string path, string url)
     {
+        #if UNITY_EDITOR || UNITY_ANDROID
+        return;
+        #endif
+
         YunVaImSDK.instance.RecordStartPlayRequest(path, url, "", (data2) =>
         {
             if (data2.result == 0)
