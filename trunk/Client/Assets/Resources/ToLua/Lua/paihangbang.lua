@@ -130,13 +130,13 @@ function paihangbang_FlushData()
 	local myRankStr = "未入榜";
 	if crtType == 0 then
 		count = RankSystem._FirendRank.Count;
-		if RankSystem._MyFirendRank ~= 0 then
-			myRankStr = RankSystem._MyFirendRank .. "";
+		if RankSystem._MyFirendRank ~= -1 then
+			myRankStr = (RankSystem._MyFirendRank + 1) .. "";
 		end
 	elseif crtType == 1 then
 		count = RankSystem._AllRank.Count;
-		if RankSystem._MyAllRank ~= 0 then
-			myRankStr = RankSystem._MyAllRank .. "";
+		if RankSystem._MyAllRank ~= -1 then
+			myRankStr = (RankSystem._MyAllRank + 1) .. "";
 		end
 	end
 
