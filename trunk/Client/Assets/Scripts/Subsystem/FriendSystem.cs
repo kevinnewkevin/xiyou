@@ -143,7 +143,7 @@ public class FriendSystem
 		{
 			if (blackList [i].InstId == id) 
 			{	
-				blackList.Remove (friendList [i]);
+				blackList.Remove (blackList [i]);
 				break;
 			}
 		}
