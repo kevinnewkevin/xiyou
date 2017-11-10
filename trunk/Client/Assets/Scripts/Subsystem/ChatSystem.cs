@@ -30,7 +30,7 @@ public class ChatSystem {
         {
             if (_AllMsg [-1] [i].AudioId.Equals(audioid))
             {
-                _AllMsg [-1] [i].AudioNew = false;
+                _AllMsg [-1] [i].AudioOld = true;
                 UIManager.SetDirty("zhujiemian_liaotian");
                 UIManager.SetDirty("liaotian");
                 break;
@@ -38,17 +38,17 @@ public class ChatSystem {
         }
     }
 
-//    static public byte[] GetRecord(long id)
-//    {
-//        for(int i=0; i < _AllMsg[-1].Count; ++i)
-//        {
-//            if (_AllMsg [-1] [i].AudioId != 0 && _AllMsg [-1] [i].AudioId == id)
-//            {
-//                return _AllMsg [-1] [i].Audio;
-//            }
-//        }
-//        return null;
-//    }
+    static public COM_Chat GetRecord(string audioid)
+    {
+        for(int i=0; i < _AllMsg[-1].Count; ++i)
+        {
+            if (_AllMsg [-1] [i].AudioId.Equals(audioid))
+            {
+                return _AllMsg [-1] [i];
+            }
+        }
+        return null;
+    }
 
     static public List<COM_Chat> MsgByType(int type)
     {
