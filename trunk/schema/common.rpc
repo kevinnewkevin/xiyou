@@ -233,7 +233,7 @@ struct COM_Chat
 	string		HeadIcon;		//玩家头像
 	string		Level;			//玩家等级
 	string		Content;		//内容
-	int64		AudioId;		//语音id
+	string		AudioUrl;		//语音url
 	uint8[]		Audio;			//语音数据
 	int32		AudioLen;		//语音时长
 };
