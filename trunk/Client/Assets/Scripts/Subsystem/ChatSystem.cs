@@ -24,19 +24,19 @@ public class ChatSystem {
         UIManager.SetDirty("liaotian");
     }
 
-//    static public void SetRecord(long id, byte[] data)
-//    {
-//        for(int i=0; i < _AllMsg[-1].Count; ++i)
-//        {
-//            if (string.IsNullOrEmpty(_AllMsg [-1] [i].AudioUrl))
-//            {
-//                _AllMsg [-1] [i].Audio = data;
-//                UIManager.SetDirty("zhujiemian_liaotian");
-//                UIManager.SetDirty("liaotian");
-//                break;
-//            }
-//        }
-//    }
+    static public void SetRecord(string url)
+    {
+        for(int i=0; i < _AllMsg[-1].Count; ++i)
+        {
+            if (_AllMsg [-1] [i].AudioUrl.Equals(url))
+            {
+                _AllMsg [-1] [i].AudioNew = false;
+                UIManager.SetDirty("zhujiemian_liaotian");
+                UIManager.SetDirty("liaotian");
+                break;
+            }
+        }
+    }
 
 //    static public byte[] GetRecord(long id)
 //    {

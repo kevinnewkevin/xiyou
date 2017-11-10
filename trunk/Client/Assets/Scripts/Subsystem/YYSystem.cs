@@ -85,6 +85,7 @@ public class YYSystem {
             (data2) => {
             Debug.Log("上传返回:" + data2.fileurl);
             COM_Chat chat = new COM_Chat();
+            chat.AudioId = data2.fileid;
             chat.AudioUrl = data2.fileurl;
             chat.Type = 1;
             chat.AudioLen = _LastRecordLength;
@@ -99,9 +100,9 @@ public class YYSystem {
         });
     }
 
-    static public void PlayRecord(string url)
+    static public void PlayRecord(string path, string url)
     {
-        YunVaImSDK.instance.RecordStartPlayRequest("", url, "", (data2) =>
+        YunVaImSDK.instance.RecordStartPlayRequest(path, url, "", (data2) =>
         {
             if (data2.result == 0)
             {
