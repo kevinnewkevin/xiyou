@@ -130,7 +130,9 @@ function liaotian_OnRenderListItem(index, obj)
 				yybg.visible = false;
 				icon.url = "ui://" .. crtList[index].HeadIcon;
 				name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+				content.width = content.initWidth;
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
+				content.width = content.textWidth;
 				lv.text = crtList[index].Level;
 			end
 		end
