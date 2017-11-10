@@ -171,7 +171,7 @@ function haoyu_RenderApplyListItem(indx, obj)
 	local displayData = DisplayData.GetData(palyer.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	local addBtn = obj:GetChild("n9");
-	addBtn.data = name;
+	addBtn.data = palyer.Name;
 	addBtn.onClick:Set(haoyou_OnAddApplyFriendClick);
 	local delBtn = obj:GetChild("n10");
 	delBtn.data = palyer.InstId;
