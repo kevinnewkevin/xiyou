@@ -122,7 +122,7 @@ function liaotian_OnRenderListItem(index, obj)
 				yybg.visible = true;
 				yybtn.onClick:Add(liaotian_OnPlayRecord);
 				yybtn.data = crtList[index].AudioUrl;
-				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
+				yybtn:GetChild("n3").visible = crtList[index].AudioNew;
 			else
 				content.visible = true;
 				contentBg.visible = true;
