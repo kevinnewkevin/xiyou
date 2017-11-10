@@ -9,9 +9,6 @@ import (
 var TrueTopList []prpc.COM_TopUnit
 var TMPTopList []prpc.COM_TopUnit
 
-var TrueFriendTopList []prpc.COM_TopUnit
-var TMPFriendTopList []prpc.COM_TopUnit
-
 const (
 	show_num    = 5 //每页显示五个人
 	Testpaiming = "测试用"
@@ -32,8 +29,15 @@ func (a TopList) Less(i, j int) bool { // 重写 Less() 方法， 从大到小�
 }
 
 func InitTopList() {
+	TMPTopList = <- QueryAllTopList()
 
-	TMPTopList = TrueTopList
+	sort.Sort(TopList(TMPTopList))
+
+	if len(TMPTopList) > num {
+		TrueTopList = TMPTopList[:num]
+	} else {
+		TrueTopList = TMPTopList
+	}
 
 }
 

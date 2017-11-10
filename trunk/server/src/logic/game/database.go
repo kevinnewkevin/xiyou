@@ -241,7 +241,7 @@ func QueryUnit(ownerId int64) <- chan []prpc.COM_Unit {
 	return rChan
 }
 
-func InsertUnit(ownerId int64, p prpc.COM_Unit)<- chan int64 {
+func InsertUnit(ownerId int64, p prpc.COM_Unit) <- chan int64 {
 	rChan := make (chan int64)
 	go func () {
 		c, e := ConnectDB()
@@ -334,16 +334,61 @@ func UpdateUnit(p prpc.COM_Unit) {
 }
 
 
-func GetAllTopList() {		//取出来整张表的数据
-	go func () {
+func QueryAllTopList()  <- chan []prpc.COM_TopUnit {		//取出来整张表的数据
+	rChan := make(chan []prpc.COM_TopUnit)
+	go func() {
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
 			return
 		}
 		defer c.Close()
+		r, e := c.Query("SELECT * FROM `TopList`" )
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		arr := []prpc.COM_TopUnit{}
+
+		for r.Next() {
+			a := int64(0)
+			b := []byte{}
+			e = r.Scan(&a, &b)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			p := prpc.COM_TopUnit{}
+
+			bb := bytes.NewBuffer(b)
+			e = p.Deserialize(bb)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			arr = append(arr, p)
+
+		}
+
+		rChan <- arr
+		close(rChan)
 
 	}()
+
+	return rChan
 }
 
 func UpdateTopList(InstId int64, t prpc.SGE_DBTopUnit) {
