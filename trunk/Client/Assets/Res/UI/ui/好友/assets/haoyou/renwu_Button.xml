@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="637,130" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+<component size="660,147" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <component id="n1" src="m22wx" name="n1" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <component id="n1" name="n1" src="m22wx" xy="10,9" size="660,147">
+      <relation target="" sidePair="width-width,height-height"/>
     </component>
+    <image id="n2_m349" name="n2" src="m349h3i" xy="0,-1" size="660,150">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
   </displayList>
+  <Button mode="Radio"/>
 </component>
