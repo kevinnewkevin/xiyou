@@ -189,7 +189,7 @@ function zhujiemian_FlushChatData()
 		local yyCom = content:GetChild("n3");
 		local frontPlus = "";
 		if list[i].Type == 0 then
-			frontPlus = "系统:";
+			frontPlus = Proxy4Lua.ChangeColor("系统:", "yellow");
 		else
 			if list[i].PlayerName ~= nil then
 				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";

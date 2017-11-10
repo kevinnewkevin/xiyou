@@ -105,7 +105,7 @@ function liaotian_OnRenderListItem(index, obj)
 	for i=0, crtList.Count - 1 do
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
-			content.text = "系统:" .. EmojiParser.inst:Parse(crtList[index].Content);
+			content.text = Proxy4Lua.ChangeColor("系统:", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
 		else
 			local yybtn = obj:GetChild("n8").asCom;
 			local yybg = obj:GetChild("n9");
