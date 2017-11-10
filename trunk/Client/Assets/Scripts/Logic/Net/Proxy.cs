@@ -234,8 +234,8 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool RequestAudioOk(long id, ref byte[] data)
     {
-        YYSystem.PlayRecord(data);
-        ChatSystem.SetRecord(id, data);
+//        YYSystem.PlayRecord(data);
+//        ChatSystem.SetRecord(id, data);
         return true;
     }
 

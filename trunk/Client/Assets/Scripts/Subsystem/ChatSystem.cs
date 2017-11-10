@@ -24,31 +24,31 @@ public class ChatSystem {
         UIManager.SetDirty("liaotian");
     }
 
-    static public void SetRecord(long id, byte[] data)
-    {
-        for(int i=0; i < _AllMsg[-1].Count; ++i)
-        {
-            if (_AllMsg [-1] [i].AudioId != 0 && _AllMsg [-1] [i].AudioId == id)
-            {
-                _AllMsg [-1] [i].Audio = data;
-                UIManager.SetDirty("zhujiemian_liaotian");
-                UIManager.SetDirty("liaotian");
-                break;
-            }
-        }
-    }
+//    static public void SetRecord(long id, byte[] data)
+//    {
+//        for(int i=0; i < _AllMsg[-1].Count; ++i)
+//        {
+//            if (string.IsNullOrEmpty(_AllMsg [-1] [i].AudioUrl))
+//            {
+//                _AllMsg [-1] [i].Audio = data;
+//                UIManager.SetDirty("zhujiemian_liaotian");
+//                UIManager.SetDirty("liaotian");
+//                break;
+//            }
+//        }
+//    }
 
-    static public byte[] GetRecord(long id)
-    {
-        for(int i=0; i < _AllMsg[-1].Count; ++i)
-        {
-            if (_AllMsg [-1] [i].AudioId != 0 && _AllMsg [-1] [i].AudioId == id)
-            {
-                return _AllMsg [-1] [i].Audio;
-            }
-        }
-        return null;
-    }
+//    static public byte[] GetRecord(long id)
+//    {
+//        for(int i=0; i < _AllMsg[-1].Count; ++i)
+//        {
+//            if (_AllMsg [-1] [i].AudioId != 0 && _AllMsg [-1] [i].AudioId == id)
+//            {
+//                return _AllMsg [-1] [i].Audio;
+//            }
+//        }
+//        return null;
+//    }
 
     static public List<COM_Chat> MsgByType(int type)
     {

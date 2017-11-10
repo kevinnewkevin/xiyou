@@ -85,7 +85,7 @@ public class YYSystem {
             (data2) => {
             Debug.Log("上传返回:" + data2.fileurl);
             COM_Chat chat = new COM_Chat();
-            chat.Audio = System.Text.Encoding.Default.GetBytes(data2.fileurl);
+            chat.AudioUrl = data2.fileurl;
             chat.Type = 1;
             chat.AudioLen = _LastRecordLength;
             chat.PlayerInstId = GamePlayer._InstID;
@@ -99,10 +99,9 @@ public class YYSystem {
         });
     }
 
-    static public void PlayRecord(byte[] url)
+    static public void PlayRecord(string url)
     {
-        string fileurl = System.Text.Encoding.Default.GetString(url);
-        YunVaImSDK.instance.RecordStartPlayRequest("", fileurl, "", (data2) =>
+        YunVaImSDK.instance.RecordStartPlayRequest("", url, "", (data2) =>
         {
             if (data2.result == 0)
             {

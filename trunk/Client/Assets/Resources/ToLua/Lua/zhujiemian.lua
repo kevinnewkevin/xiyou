@@ -195,11 +195,11 @@ function zhujiemian_FlushChatData()
 				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";
 			end
 		end
-		if Proxy4Lua.LongIsNotZero(list[i].AudioId) then
+		if list[i].AudioUrl ~= nil or list[i].AudioUrl ~= "" then
 			lbl.visible = false;
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
-			yyCom.data = list[i].AudioId;
+			yyCom.data = list[i].AudioUrl;
 			yybtn:GetChild("n3").visible = list[i].Audio == nil;
 		else
 			yyCom.visible = false;
@@ -219,12 +219,12 @@ function zhujiemian_FlushChatData()
 end
 
 function zhujiemian_liaotian_OnPlayRecord(context)
-	local record = ChatSystem.GetRecord(context.sender.data);
-	if record == nil then
-		Proxy4Lua.PlayAudio(context.sender.data);
-	else
+--	local record = ChatSystem.GetRecord(context.sender.data);
+--	if record == nil then
+--		Proxy4Lua.PlayAudio(context.sender.data);
+--	else
 		YYSystem.PlayRecord(record);
-	end
+--	end
 end
 
 function zhujiemian_FlushRankData()

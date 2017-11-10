@@ -115,13 +115,13 @@ function liaotian_OnRenderListItem(index, obj)
 			local contentBg = obj:GetChild("n6");
 			local lv = obj:GetChild("n3");
 
-			if Proxy4Lua.LongIsNotZero(crtList[index].AudioId) then
+			if crtList[index].AudioUrl ~= nil or crtList[index].AudioUrl ~= "" then
 				content.visible = false;
 				contentBg.visible = false;
 				yybtn.visible = true;
 				yybg.visible = true;
 				yybtn.onClick:Add(liaotian_OnPlayRecord);
-				yybtn.data = crtList[index].AudioId;
+				yybtn.data = crtList[index].AudioUrl;
 				yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
 			else
 				content.visible = true;
@@ -150,12 +150,12 @@ function liaotian_OnYYEnd()
 end
 
 function liaotian_OnPlayRecord(context)
-	local record = ChatSystem.GetRecord(context.sender.data);
-	if record == nil then
-		Proxy4Lua.PlayAudio(context.sender.data);
-	else
+--	local record = ChatSystem.GetRecord(context.sender.data);
+--	if record == nil then
+--		Proxy4Lua.PlayAudio(context.sender.data);
+--	else
 		YYSystem.PlayRecord(record);
-	end
+--	end
 end
 
 function liaotian_OnSend()
