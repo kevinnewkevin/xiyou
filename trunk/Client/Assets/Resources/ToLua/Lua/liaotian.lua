@@ -121,7 +121,7 @@ function liaotian_OnRenderListItem(index, obj)
 				yybtn.visible = true;
 				yybg.visible = true;
 				yybtn.onClick:Add(liaotian_OnPlayRecord);
-				yybtn.data = crtList[index].AudioUrl;
+				yybtn.data = crtList[index].AudioId;
 				yybtn:GetChild("n3").visible = crtList[index].AudioNew;
 			else
 				content.visible = true;
@@ -150,8 +150,12 @@ function liaotian_OnYYEnd()
 end
 
 function liaotian_OnPlayRecord(context)
-	YYSystem.PlayRecord(context.sender.data);
-	ChatSystem.SetRecord(context.sender.data);
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		return;
+	end
+	YYSystem.PlayRecord(record.AudioPath, record.AudioUrl);
+	ChatSystem.SetRecord(record.AudioId);
 end
 
 function liaotian_OnSend()

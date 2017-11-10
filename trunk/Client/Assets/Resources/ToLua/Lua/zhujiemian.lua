@@ -199,7 +199,7 @@ function zhujiemian_FlushChatData()
 			lbl.visible = false;
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
-			yyCom.data = list[i].AudioUrl;
+			yyCom.data = list[i].AudioId;
 			yyCom:GetChild("n3").visible = list[i].AudioNew;
 		else
 			yyCom.visible = false;
@@ -219,13 +219,12 @@ function zhujiemian_FlushChatData()
 end
 
 function zhujiemian_liaotian_OnPlayRecord(context)
---	local record = ChatSystem.GetRecord(context.sender.data);
---	if record == nil then
---		Proxy4Lua.PlayAudio(context.sender.data);
---	else
-		YYSystem.PlayRecord(context.sender.data);
-		ChatSystem.SetRecord(context.sender.data);
---	end
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		return;
+	end
+	YYSystem.PlayRecord(record.AudioPath, record.AudioUrl);
+	ChatSystem.SetRecord(record.AudioId);
 end
 
 function zhujiemian_FlushRankData()

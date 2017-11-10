@@ -24,11 +24,11 @@ public class ChatSystem {
         UIManager.SetDirty("liaotian");
     }
 
-    static public void SetRecord(string url)
+    static public void SetRecord(string audioid)
     {
         for(int i=0; i < _AllMsg[-1].Count; ++i)
         {
-            if (_AllMsg [-1] [i].AudioUrl.Equals(url))
+            if (_AllMsg [-1] [i].AudioId.Equals(audioid))
             {
                 _AllMsg [-1] [i].AudioNew = false;
                 UIManager.SetDirty("zhujiemian_liaotian");
