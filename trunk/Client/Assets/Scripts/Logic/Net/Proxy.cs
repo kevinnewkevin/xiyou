@@ -225,8 +225,9 @@ class Proxy : ICOM_ServerToClientProxy
 			//FriendSystem.chatFriend (chat.PlayerInstId, chat);
 			FriendSystem.chatFriendStr (chat.PlayerName, chat);
 			FriendSystem.AddLatelyFriend (chat.PlayerInstId);
-						FriendSystem.AddNewCahtList(chat.PlayerName);
+			FriendSystem.AddNewCahtList(chat.PlayerName);
 			UIManager.SetDirty ("haoyou");
+			UIManager.SetDirty ("zhujiemian");
 		} 
 		//else 
 		//{
@@ -273,6 +274,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		FriendSystem.ApplyFriend(friend);
 		UIManager.SetDirty("haoyou");
+		UIManager.SetDirty ("zhujiemian");
 		return true;
 	}
 
