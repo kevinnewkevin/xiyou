@@ -222,9 +222,10 @@ class Proxy : ICOM_ServerToClientProxy
 {
 		if (chat.Type == 3) 
 		{
-			FriendSystem.chatFriend (chat.PlayerInstId, chat);
-						FriendSystem.chatFriendStr (chat.PlayerName, chat);
+			//FriendSystem.chatFriend (chat.PlayerInstId, chat);
+			FriendSystem.chatFriendStr (chat.PlayerName, chat);
 			FriendSystem.AddLatelyFriend (chat.PlayerInstId);
+						FriendSystem.AddNewCahtList(chat.PlayerName);
 			UIManager.SetDirty ("haoyou");
 		} 
 		//else 
@@ -268,9 +269,9 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
-		public bool	ApplyFriend(ref COM_Friend friend)
+	public bool	ApplyFriend(ref COM_Friend friend)
 	{
-				FriendSystem.ApplyFriend(friend);
+		FriendSystem.ApplyFriend(friend);
 		UIManager.SetDirty("haoyou");
 		return true;
 	}
@@ -300,6 +301,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		FriendSystem.AddBlack (friend);
 		UIManager.SetDirty("haoyou");
+		FriendSystem.DelLatelyFriend (friend.InstId);
 		return true;
 	}
 
