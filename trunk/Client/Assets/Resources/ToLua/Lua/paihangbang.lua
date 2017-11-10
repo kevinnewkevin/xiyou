@@ -127,7 +127,7 @@ end
 
 function paihangbang_FlushData()
 	local count = 0;
-	local myRankStr = "未入榜";
+	local myRankStr = "未上榜";
 	if crtType == 0 then
 		count = RankSystem._FirendRank.Count;
 		if RankSystem._MyFirendRank ~= -1 then
