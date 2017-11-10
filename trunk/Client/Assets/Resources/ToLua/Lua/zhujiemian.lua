@@ -25,6 +25,8 @@ local maxChatList;
 local maxChatInput;
 local maxChatSendBtn;
 
+local friendRad;
+
 function zhujiemian:OnEntry()
 	UIManager.RegIDirty("zhujiemian");
 	Define.LaunchUIBundle("icon");
@@ -58,7 +60,8 @@ function zhujiemian:OnInit()
 	local friendBtn = self.contentPane:GetChild("n44");
 	friendBtn.onClick:Add(zhujiemian_OnFriend);
 
-
+	friendRad = self.contentPane:GetChild("n56");
+	friendRad.visible = false;
 
 	local infoGroup = self.contentPane:GetChild("n15").asCom;
 	playerName = infoGroup:GetChild("n9");
@@ -177,7 +180,15 @@ function zhujiemian_FlushData()
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 	listGroup.numItems = 3;
+	friendRad.visible = FriendSystem.isApplyFriend;
+	local num = FriendSystem.GetNewCahtListNum();
+  	if num > 0 then 
+  		friendRad.visible = true;
+  	else
+  		friendRad.visible = false;
+  	end
 	DoSpecialEffect();
+
 end
 
 function zhujiemian_FlushChatData()

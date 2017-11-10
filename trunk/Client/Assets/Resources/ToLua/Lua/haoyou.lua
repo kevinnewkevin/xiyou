@@ -28,6 +28,8 @@ local crtTab = 0;
 local fCrtTab = 0;
 local friendInstId;
 local crtList;
+local addFriendRad;
+local chatFriendRad;
 function haoyou:OnEntry()
 	Window = haoyou.New();
 	Window:Show();
@@ -92,7 +94,7 @@ function haoyou:OnInit()
 	changeBtn.onClick:Add(haoyu_OnChangeBtnClick);
 	findNameBtn.onClick:Add(haoyu_OnFindBtnClick);
 	friendBtns = self.contentPane:GetChild("n14");
-	friendBtns:RemoveFromParent();
+	friendBtns.visible = false;--:RemoveFromParent();
 	findFriendPanel.visible = false;
 	friendList = friendPanel:GetChild("n4");
 	friendList.itemRenderer = haoyu_RenderListItem;
@@ -102,7 +104,10 @@ function haoyou:OnInit()
 	funBlackBtn = friendBtns:GetChild("n8");
 	funInfoBtn.onClick:Add(haoyu_OnFunInfoClick);
 	funBlackBtn.onClick:Add(haoyu_OnFunBlackClick);
+	friendBtns.onClick:Add(haoyu_OnfunBtnsClick);
 	friendInstId = 0;
+	addFriendRad = self.contentPane:GetChild("n17");
+	chatFriendRad = self.contentPane:GetChild("n16");
 	haoyou_FlushData();
 end
 
@@ -137,6 +142,7 @@ function haoyou_FlushData()
 			findFriendList.numItems = FriendSystem.randomFriends.Length;
 		end
 		applyFriendList.numItems = FriendSystem.GetApplyNum();
+		FriendSystem.isApplyFriend = false;
 		return;
 	end
 	if fCrtTab == 0 then 
@@ -146,7 +152,14 @@ function haoyou_FlushData()
    	elseif fCrtTab == 2 then
    		friendList.numItems = FriendSystem.GetLatelyListNum();
   	end
-  haoyu_UpdataChat();
+  	addFriendRad.visible = FriendSystem.isApplyFriend;
+  	local num = FriendSystem.GetNewCahtListNum();
+  	if num > 0 then 
+  		chatFriendRad.visible = true;
+  	else
+  		chatFriendRad.visible = false;
+  	end
+  	haoyu_UpdataChat();
 end
 
 function haoyu_UpdataChat()
@@ -156,6 +169,13 @@ function haoyu_UpdataChat()
 			local name = friend.Name;
 			crtList =FriendSystem.GetFriendChatStr(name);
 			contentList.numItems = crtList.Count;	
+			FriendSystem.DelNewCahtList(name);
+			local num = FriendSystem.GetNewCahtListNum();
+		  	if num > 0 then 
+		  		chatFriendRad.visible = true;
+		  	else
+		  		chatFriendRad.visible = false;
+		  	end
 		end
 end
 
@@ -227,6 +247,13 @@ function haoyu_RenderListItem(indx, obj)
 	local displayData = DisplayData.GetData(palyer.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	nameLab.text = palyer.Name;
+	local newChat = FriendSystem.IsNewCaht(palyer.Name);
+	local rad = obj:GetChild("n3");
+	if newChat then
+		rad.visible = true;
+	else
+		rad.visible = false;
+	end
 	levelLab.text = palyer.Level .. "";
 	local addBtn = panel:GetChild("n9");
 	local delBtn = panel:GetChild("n8");
@@ -274,7 +301,8 @@ function haoyu_OnFBBtnsClick(context)
 end
 
 function haoyou_OnFunClick(context)
-	GRoot.inst:ShowPopup(friendBtns, context.sender, false);
+	--GRoot.inst:ShowPopup(friendBtns, context.sender, false);
+	friendBtns.visible = true;
 end
 
 function haoyou_OnFunRemoveClick(context)
@@ -294,15 +322,18 @@ function haoyou_SelectFriendClick(context)
 end
 
 function haoyu_OnFunInfoClick(context)
-	friendBtns:RemoveFromParent();
+	--friendBtns:RemoveFromParent();
+	friendBtns.visible = false;
 end
 
 function haoyu_OnFunAddClick(context)
-	friendBtns:RemoveFromParent();
+	--friendBtns:RemoveFromParent();
+	friendBtns.visible = false;
 end
 
 function haoyu_OnFunBlackClick(context)
-	friendBtns:RemoveFromParent();
+	--friendBtns:RemoveFromParent();
+	friendBtns.visible = false;
 	Proxy4Lua.AddEnemy(friendInstId);
 end
 
@@ -339,9 +370,9 @@ function haoyu_OnChangeBtnClick(context)
 	Proxy4Lua.SerchFriendRandom();
 end
 
-
-
-
+function haoyu_OnfunBtnsClick(context)
+	friendBtns.visible = false;
+end
 
 function haoyou_OnAddFriendClick(context)
 	local name = context.sender.data;
@@ -355,6 +386,7 @@ end
 function haoyou_OnDelApplyFriendClick(context)
 	local id = context.sender.data;
 	FriendSystem.DelApplyFriend(id);
+	haoyou_FlushData();
 end
 
 
