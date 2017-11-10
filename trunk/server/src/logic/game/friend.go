@@ -113,7 +113,7 @@ func (this *GamePlayer) ApplicationFriend(name string) {
 }
 
 func (this *GamePlayer) ProcessingFriend(name string) {
-	logs.Debug("ProcessingFriend ", name)
+	logs.Debug("ProcessingFriend t is ", name, "  myName is ", this.MyUnit.InstName)
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
@@ -126,12 +126,21 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 		return
 	}
 
-	for _, b := range t.Enemys {
-		if b.Name == name {
+	for _, e := range t.Enemys {
+		if e.Name == name {
 			logs.Debug("你在对方黑名单中,不能添加好友")
 			return
 		}
 	}
+
+	for _, f := range this.Friends {
+		if f.Name == name {
+			logs.Debug("不能多次添加")
+			return
+		}
+	}
+
+	logs.Debug("ProcessingFriend t is ", t.MyUnit.InstId, "  myName is ", this.MyUnit.InstId)
 
 	//把自己加入到对方好友名单
 	info := prpc.COM_Friend{}
@@ -145,7 +154,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 
 	//把别人加入到自己的好友名单
 	t_info := prpc.COM_Friend{}
-	info.InstId = t.MyUnit.InstId
+	t_info.InstId = t.MyUnit.InstId
 	t_info.Name = t.MyUnit.InstName
 	t_info.Level = t.MyUnit.Level
 	t_info.DisplayID = t.MyUnit.UnitId
