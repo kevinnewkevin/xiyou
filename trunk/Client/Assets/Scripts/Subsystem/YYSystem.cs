@@ -11,7 +11,7 @@ public class YYSystem {
 
     static public void Init()
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_ANDROID
         return;
         #endif
         EventListenerManager.AddListener(ProtocolEnum.IM_RECORD_VOLUME_NOTIFY, ImRecordVolume);//录音音量大小回调监听
@@ -33,7 +33,7 @@ public class YYSystem {
 
     static public void Login()
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_ANDROID
         return;
         #endif
         string ttFormat = "{{\"nickname\":\"{0}\",\"uid\":\"{1}\"}}";
@@ -57,7 +57,7 @@ public class YYSystem {
 
     static public void StartRecord()
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_ANDROID
         return;
         #endif
 
@@ -67,7 +67,7 @@ public class YYSystem {
 
     static public void StopRecord(bool cancel)
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_ANDROID
         return;
         #endif
 
