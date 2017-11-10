@@ -223,7 +223,7 @@ class Proxy : ICOM_ServerToClientProxy
 		if (chat.Type == 3) 
 		{
 			FriendSystem.chatFriend (chat.PlayerInstId, chat);
-			UIManager.SetDirty ("cangbaoge");
+			UIManager.SetDirty ("haoyou");
 		} 
 		//else 
 		//{
