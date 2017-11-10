@@ -4,12 +4,15 @@ using System.Collections.Generic;
 
 public class FriendSystem 
 {
-	public  static List<COM_Friend> friendList = new List<COM_Friend>();
-	public  static List<COM_Friend> blackList = new List<COM_Friend>();
-	public  static List<long> latelyList = new List<long>();
-	public  static List<COM_Friend > applyFriendList = new List<COM_Friend >();
-	public static  COM_Friend[] randomFriends;
-	public static  COM_Friend findFriend;
+	public static List<COM_Friend> friendList = new List<COM_Friend>();
+	public static List<COM_Friend> blackList = new List<COM_Friend>();
+	public static List<long> latelyList = new List<long>();
+	public static List<COM_Friend > applyFriendList = new List<COM_Friend >();
+	public static COM_Friend[] randomFriends;
+	public static COM_Friend findFriend;
+	public static bool isApplyFriend = false;
+	public static List<string> newCahtList = new List<string>();
+	
 
 	public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
 		public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
@@ -41,14 +44,21 @@ public class FriendSystem
 			latelyList.Add (instId );
 	}
 
+	public static void DelLatelyFriend(long  instId)
+	{
+			if(latelyList.Contains(instId))
+				latelyList.Remove(instId );
+	}
+
 	public static void AddBlack( COM_Friend black)
 	{
 		blackList.Add (black );
 	}
 
-		public static void	ApplyFriend(COM_Friend  name)
+	public static void	ApplyFriend(COM_Friend  name)
 	{
 		applyFriendList.Add (name);
+		isApplyFriend = true;
 	}
 
 	public  static bool	chatFriend(long instId,COM_Chat friend)
@@ -102,11 +112,11 @@ public class FriendSystem
 
 		public static void	DelApplyFriend(long id)
 		{
-				for (int i = 0; i < applyFriendList.Count; i++) 
+			for (int i = 0; i < applyFriendList.Count; i++) 
 			{
-						if (applyFriendList [i].InstId == id) 
+				if (applyFriendList [i].InstId == id) 
 				{
-								applyFriendList.Remove (applyFriendList [i]);
+					applyFriendList.Remove (applyFriendList [i]);
 				}
 			}
 		}
@@ -123,7 +133,6 @@ public class FriendSystem
 		}
 	}
 
-
 	public static COM_Friend GetFriend(long id)
 	{
 		for (int i = 0; i < friendList.Count; i++) 
@@ -136,10 +145,6 @@ public class FriendSystem
 		return null;
 	}
 
-
-	
-
-
 	public static List<COM_Chat> GetFriendChat(long InstId)
 	{
 		if (!friendRecvList.ContainsKey(InstId))
@@ -147,14 +152,34 @@ public class FriendSystem
 		return friendRecvList [InstId];
 	}
 
-		public static List<COM_Chat> GetFriendChatStr(string name)
-		{
-				if (!friendRecvListStr.ContainsKey(name))
-						return new List<COM_Chat>();
-				return friendRecvListStr [name];
+	public static List<COM_Chat> GetFriendChatStr(string name)
+	{
+		if (!friendRecvListStr.ContainsKey(name))
+				return new List<COM_Chat>();
+		return friendRecvListStr [name];
 
-		}
+	}
 
+	public static void AddNewCahtList(string name)
+	{
+		if(!newCahtList.Contains(name))
+			newCahtList.Add (name );
+	}
+	public static void DelNewCahtList(string name)
+	{
+		if(newCahtList.Contains(name))
+			newCahtList.Remove(name );
+	}
+
+	public static int GetNewCahtListNum()
+	{
+		return 	newCahtList.Count;	
+	}
+
+	public static bool IsNewCaht(string name)
+	{
+		return 	newCahtList.Contains (name);
+	}
 
 }
 
