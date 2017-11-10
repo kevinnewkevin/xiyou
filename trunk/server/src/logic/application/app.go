@@ -131,7 +131,7 @@ func (this *App) Run() {
 	toolbox.StartTask()
 	game.InitTopList()
 	defer toolbox.StopTask()
-	game.TestPlayer()
+	//game.TestPlayer()
 
 	acceptor := network.NewAcceptorC("tcp", "0.0.0.0:10999")
 
