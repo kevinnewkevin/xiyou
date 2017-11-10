@@ -84,7 +84,8 @@ public class GamePlayer {
 
         RankSystem._MyAllRank = player.TianTiRank;
         RankSystem._MyFirendRank = player.FriendTianTiRank;
-
+		FriendSystem.InitFriends(player.Friends);
+		FriendSystem.InitBlacks(player.Enemys);
         UIManager.SetDirty("zhujiemian");
     }
 

@@ -129,6 +129,10 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ApplicationFriend (name);	
 	}
+	static public void AddEnemy(long instId)
+	{
+		NetWoking.S.AddEnemy (instId);	
+	}
 
 	
     #endregion
