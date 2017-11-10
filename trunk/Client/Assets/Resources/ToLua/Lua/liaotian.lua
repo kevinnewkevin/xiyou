@@ -150,12 +150,8 @@ function liaotian_OnYYEnd()
 end
 
 function liaotian_OnPlayRecord(context)
---	local record = ChatSystem.GetRecord(context.sender.data);
---	if record == nil then
---		Proxy4Lua.PlayAudio(context.sender.data);
---	else
-		YYSystem.PlayRecord(record);
---	end
+	YYSystem.PlayRecord(context.sender.data);
+	ChatSystem.SetRecord(context.sender.data);
 end
 
 function liaotian_OnSend()
