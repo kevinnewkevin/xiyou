@@ -10,7 +10,7 @@
     <image id="n10_zh4y" name="n6" src="pjju18" xy="138,57" size="556,64">
       <relation target="n7_zh4y" sidePair="leftext-left,bottomext-bottom"/>
     </image>
-    <richtext id="n7_zh4y" name="n7" xy="152,68" size="512,40" font="华文楷体" fontSize="32" color="#ffffff" align="right" ubb="true" autoSize="height" bold="true" text="啦啦啦啦啦">
+    <richtext id="n7_zh4y" name="n7" xy="152,68" size="512,40" font="华文楷体" fontSize="32" color="#ffffff" ubb="true" autoSize="height" bold="true" text="啦啦啦啦啦">
       <relation target="n1_zh4y" sidePair="right-right"/>
     </richtext>
     <image id="n11_zh4y" name="n9" src="pjju18" xy="528,59" size="172,58" hideByEditor="true">
@@ -18,4 +18,5 @@
     </image>
     <component id="n8_zh4y" name="n8" src="m4s713" xy="543,68" hideByEditor="true"/>
   </displayList>
+  <relation target="n10_zh4y" sidePair="bottomext-bottom"/>
 </component>
