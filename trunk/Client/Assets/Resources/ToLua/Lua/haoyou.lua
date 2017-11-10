@@ -21,6 +21,8 @@ local applyFriendList;
 local findNameLab;
 local findNameBtn;
 local facePanel;
+local emojiBtn;
+local emojiCom;
 local changeBtn;
 local crtTab = 0;
 local fCrtTab = 0;
@@ -36,14 +38,13 @@ function haoyou:GetWindow()
 end
 
 function haoyou:OnInit()
+	Define.LaunchUIBundle("liaotian");
 	self.contentPane = UIPackage.CreateObject("haoyou", "haoyou_com").asCom;
 	self:Center();
 	self.modal = true;
     self.closeButton = self.contentPane:GetChild("n7").asButton;
     local cl = self.contentPane:GetChild("n15");
     cl.visible = false;
-    local back = self.contentPane:GetChild("n0");
-    back.onClick:Add(haoyu_OnMainBack);
     local feeList = self.contentPane:GetChild("n3").asList;
 	local feeMax = feeList.numItems;
 	local feeItem;
@@ -56,17 +57,16 @@ function haoyou:OnInit()
     friendPanel = self.contentPane:GetChild("n2");
     chatPanel = friendPanel:GetChild("n3");
     chatPanel.visible = false;
-    --chatPanel.onClick:Add(haoyu_OnMainBack);
-    --friendPanel.onClick:Add(haoyu_OnMainBack);
     contentList = chatPanel:GetChild("n3").asList;
 	--contentList:SetVirtual();
-	contentList.itemProvider = liaotian_GetListItemResource;
-	contentList.itemRenderer = liaotian_OnRenderListItem;
+	contentList.itemProvider = haoyou_GetListItemResource;
+	contentList.itemRenderer = haoyou_OnRenderListItem;
 
     sendBtn = chatPanel:GetChild("n6");
     sendBtn.onClick:Add(haoyu_OnSendClick);
     content = chatPanel:GetChild("n11");
-
+   	emojiBtn = chatPanel:GetChild("n8");
+	emojiBtn.onClick:Add(haoyou_OnEmoji);
     local fbBtns = friendPanel:GetChild("n2").asList;
 	local fbMax = fbBtns.numItems;
 	local fbItem;
@@ -76,8 +76,13 @@ function haoyou:OnInit()
 		fbItem.onClick:Add(haoyu_OnFBBtnsClick);
 	end
 	fbBtns.selectedIndex = 0;
-	facePanel = self.contentPane:GetChild("n13");
-	facePanel.visible = false;
+
+	emojiCom = self.contentPane:GetChild("n13").asCom;
+	emojiCom.fairyBatching = true;
+	emojiCom:GetChild("n1").asList.onClickItem:Add(haoyou_OnEmojiItem);
+	emojiCom:RemoveFromParent();
+
+
 	findFriendPanel = self.contentPane:GetChild("n12");
 	findFriendList = findFriendPanel:GetChild("n7");
 	applyFriendList = findFriendPanel:GetChild("n11");
@@ -87,17 +92,13 @@ function haoyou:OnInit()
 	changeBtn.onClick:Add(haoyu_OnChangeBtnClick);
 	findNameBtn.onClick:Add(haoyu_OnFindBtnClick);
 	friendBtns = self.contentPane:GetChild("n14");
-	friendBtns.visible = false;
+	friendBtns:RemoveFromParent();
 	findFriendPanel.visible = false;
 	friendList = friendPanel:GetChild("n4");
 	friendList.itemRenderer = haoyu_RenderListItem;
 	findFriendList.itemRenderer = haoyu_RenderFindListItem;
 	applyFriendList.itemRenderer = haoyu_RenderApplyListItem;
 	funInfoBtn = friendBtns:GetChild("n5");
-	funAddBtn = friendBtns:GetChild("n7");
-	funAddBtn.visible = false;
-	local fundelBtn = friendBtns:GetChild("n6");
-	fundelBtn.visible = false;
 	funBlackBtn = friendBtns:GetChild("n8");
 	funInfoBtn.onClick:Add(haoyu_OnFunInfoClick);
 	funAddBtn.onClick:Add(haoyu_OnFunAddClick);
@@ -150,19 +151,32 @@ function haoyou_FlushData()
 end
 
 function haoyu_UpdataChat()
-	if friendInstId ~= 0 then
-		crtList =FriendSystem.GetFriendChat(friendInstId);
-		contentList.numItems = crtList.Count;
-	end
+		--crtList =FriendSystem.GetFriendChat(friendInstId);
+		local friend = FriendSystem.GetFriend(friendInstId);
+		if friend ~= nil then
+			local name = friend.Name;
+			crtList =FriendSystem.GetFriendChatStr(name);
+			contentList.numItems = crtList.Count;	
+		end
 end
 
 function haoyu_RenderApplyListItem(indx, obj)
-	local name =  FriendSystem.applyFriendList[indx];
+	local palyer = FriendSystem.applyFriendList[indx];
+	--local onLine= obj:GetChild("n8");
+	--onLine.visible =false;
 	local nameLab = obj:GetChild("n7");
-	nameLab.text = name;
+	local levelLab = obj:GetChild("n6");
+	nameLab.text = palyer.Name;
+	levelLab.text = palyer.Level .. "";
+	local icon = obj:GetChild("n3");
+	local displayData = DisplayData.GetData(palyer.DisplayID);
+	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	local addBtn = obj:GetChild("n9");
 	addBtn.data = name;
 	addBtn.onClick:Set(haoyou_OnAddApplyFriendClick);
+	local delBtn = obj:GetChild("n10");
+	addBtn.data = palyer.InstId;
+	delBtn.onClick:Set(haoyou_OnDelApplyFriendClick);
 end
 
 function haoyu_RenderFindListItem(indx, obj)
@@ -206,6 +220,8 @@ function haoyu_RenderListItem(indx, obj)
 		return;
 	end
 	local panel = obj:GetChild("n1");
+	local onLine= panel:GetChild("n6");
+	onLine.visible =false;
 	local nameLab = panel:GetChild("n5");
 	local levelLab = panel:GetChild("n4");
 	local icon = panel:GetChild("n2");
@@ -249,18 +265,17 @@ function haoyu_OnMainBtnsClick(context)
 		friendPanel.visible = false;
 		findFriendPanel.visible = true;
 	end
-	friendBtns.visible = false;
 	haoyou_FlushData();
 end
 
 function haoyu_OnFBBtnsClick(context)
 	fCrtTab = context.sender.data;
-	friendBtns.visible = false;
+	chatPanel.visible = false;
 	haoyou_FlushData();
 end
 
 function haoyou_OnFunClick(context)
-	friendBtns.visible = true;
+	GRoot.inst:ShowPopup(friendBtns, context.sender, false);
 end
 
 function haoyou_OnFunRemoveClick(context)
@@ -280,15 +295,15 @@ function haoyou_SelectFriendClick(context)
 end
 
 function haoyu_OnFunInfoClick(context)
-	friendBtns.visible = false;
+	friendBtns:RemoveFromParent();
 end
 
 function haoyu_OnFunAddClick(context)
-	friendBtns.visible = false;
+	friendBtns:RemoveFromParent();
 end
 
 function haoyu_OnFunBlackClick(context)
-	friendBtns.visible = false;
+	friendBtns:RemoveFromParent();
 	Proxy4Lua.AddEnemy(friendInstId);
 end
 
@@ -308,6 +323,8 @@ function haoyu_OnSendClick(context)
 	chat.PlayerInstId =  GamePlayer._InstID;
 	FriendSystem.chatFriend (friendInstId,chat);
 	FriendSystem.AddLatelyFriend (friendInstId);
+	FriendSystem.chatFriendStr (FriendSystem.GetFriend(friendInstId).Name,chat);
+	print(friendInstId);
 	haoyou_FlushData();
 end
 
@@ -323,11 +340,7 @@ function haoyu_OnChangeBtnClick(context)
 	Proxy4Lua.SerchFriendRandom();
 end
 
-function haoyu_OnMainBack(context)
-	if friendBtns.visible == true then
-		friendBtns.visible = false;
-	end
-end
+
 
 
 
@@ -340,8 +353,13 @@ function haoyou_OnAddApplyFriendClick(context)
 	local name = context.sender.data;
 	Proxy4Lua.ProcessingFriend(name);
 end
+function haoyou_OnDelApplyFriendClick(context)
+	FriendSystem.DelApplyFriend(context.sender.data);
+end
 
-function liaotian_GetListItemResource(index)
+
+
+function haoyou_GetListItemResource(index)
 	if crtList == nil then
 		return;
 	end
@@ -349,11 +367,12 @@ function liaotian_GetListItemResource(index)
 	if GamePlayer.IsMe(crtList[index].PlayerInstId) then
 		return selfCom;
 	else 
-		return sysCom;
+		print("otherCom otherCom otherCom otherCom otherCom");
+		return otherCom;
 	end
 end
 
-function liaotian_OnRenderListItem(index, obj)
+function haoyou_OnRenderListItem(index, obj)
 	if crtList == nil then
 		return;
 	end
@@ -373,21 +392,30 @@ function liaotian_OnRenderListItem(index, obj)
 		contentBg.visible = true;
 		yybtn.visible = false;
 		yybg.visible = false;
-		icon.url = "ui://" .. crtList[index].HeadIcon;
-		name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 		content.width = content.initWidth;
 		content.text = EmojiParser.inst:Parse(crtList[index].Content);
 		content.width = content.textWidth;
+		icon.url = "ui://" .. crtList[index].HeadIcon;
+		name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 		lv.text = crtList[index].Level;
+
 
 	end
 end
 
-function liaotian_OnPlayRecord(context)
+function haoyou_OnPlayRecord(context)
 	local record = ChatSystem.GetRecord(context.sender.data);
 	if record == nil then
 		Proxy4Lua.PlayAudio(context.sender.data);
 	else
 		YYSystem.PlayRecord(record);
 	end
+end
+
+function haoyou_OnEmojiItem(context)
+	content:ReplaceSelection("[:" .. context.data.gameObjectName .. "]");
+end
+
+function haoyou_OnEmoji(context)
+	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
 end
