@@ -35,6 +35,7 @@ service COM_ClientToServer{
 	ProcessingFriend(string name);						//处理好友
 	DeleteFriend(int64 instid);						//删除好友
 	AddEnemy(int64 instid);						//将好友移动到黑名单
+	DeleteEnemy(int64 instid);						//将好友移动到黑名单
 };
 
 service COM_ServerToClient{
@@ -75,4 +76,5 @@ service COM_ServerToClient{
 	RecvFriend(COM_Friend info);
 	DelFriend(int64 instid);
 	RecvEnemy(COM_Friend info);
+	DelEnemy(int64 instid);
 };

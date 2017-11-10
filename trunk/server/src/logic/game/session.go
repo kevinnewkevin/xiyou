@@ -348,6 +348,14 @@ func (this *Session) AddEnemy(instid int64) error {
 	return nil
 }
 
+func (this *Session) DeleteEnemy(instid int64) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.DeleteBlackList(instid)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {

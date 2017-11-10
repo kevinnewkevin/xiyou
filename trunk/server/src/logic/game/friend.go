@@ -219,6 +219,33 @@ func (this *GamePlayer) CheckMe() {
 ////黑名单
 ////////////////////////////////////////////////////
 
+func (this *GamePlayer) findBlackList(instid int64) *prpc.COM_Friend {
+	for _, f := range this.Enemys {
+		if f.InstId == instid {
+			return f
+		}
+	}
+	return nil
+}
+
+func (this *GamePlayer) delEnemy(instid int64) {
+	idx := -1
+	for i, f := range this.Enemys {
+		if f.InstId == instid {
+			idx = i
+		}
+	}
+	this.Enemys = append(this.Enemys[:idx], this.Enemys[idx+1:]...)
+
+	if this.session == nil {
+		return
+	}
+
+	//给player发送删除好友的信息
+	this.session.DelEnemy(instid)
+
+}
+
 func (this *GamePlayer) AddBlackList(instid int64) {
 	friend := this.findFriend(instid)
 
@@ -235,7 +262,15 @@ func (this *GamePlayer) AddBlackList(instid int64) {
 
 }
 
-func (this *GamePlayer) DeleteBlackList() {
+func (this *GamePlayer) DeleteBlackList(instid int64) {
+	en := this.findBlackList(instid)
+
+	if en == nil {
+		logs.Debug("这人不在黑名单中")
+		return
+	}
+
+	this.delEnemy(instid)
 
 }
 
