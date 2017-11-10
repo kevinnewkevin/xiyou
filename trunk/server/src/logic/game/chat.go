@@ -35,7 +35,7 @@ func BroadcastChat(info prpc.COM_Chat) {
 	}
 }
 
-func BroadFriendChat(info prpc.COM_Chat) {
+func BroadFriendChat(info prpc.COM_Chat, sendid int64) {
 
 	friend := FindPlayerByInstId(info.PlayerInstId)
 
@@ -47,6 +47,8 @@ func BroadFriendChat(info prpc.COM_Chat) {
 		return
 	}
 
+	info.PlayerInstId = sendid
+	logs.Info("BroadFriendChat ", info)
 	friend.session.ReceiveChat(info)
 
 }
@@ -67,6 +69,7 @@ func BroadFriendChat(info prpc.COM_Chat) {
 //}
 
 func (player *GamePlayer) SendChat(info prpc.COM_Chat) {
+	logs.Info(" 111111111111111111 Player[", player.MyUnit.InstName, "]", "SendChat", info)
 	if info.Type == CK_GM {
 		///啦啦啦啦啦啦
 	} else {
@@ -75,7 +78,7 @@ func (player *GamePlayer) SendChat(info prpc.COM_Chat) {
 		} else if info.Type == CK_World {
 			BroadcastChat(info)
 		} else if info.Type == CK_Friend {
-			BroadFriendChat(info)
+			BroadFriendChat(info, player.MyUnit.InstId)
 		}
 		logs.Info("Player[", player.MyUnit.InstName, "]", "SendChat", info)
 	}

@@ -108,8 +108,14 @@ func (this *GamePlayer) ApplicationFriend(name string) {
 		}
 	}
 
-	e := t.session.ApplyFriend(this.MyUnit.InstName) //向对方发送好友信息
-	logs.Debug("ApplicationFriend end ", this.MyUnit.InstName, "    ", e)
+	info := prpc.COM_Friend{}
+	info.InstId = t.MyUnit.InstId
+	info.Name = t.MyUnit.InstName
+	info.Level = t.MyUnit.Level
+	info.DisplayID = t.MyUnit.UnitId
+
+	e := t.session.ApplyFriend(info) //向对方发送好友信息
+	logs.Debug("ApplicationFriend end ", info, "    ", e)
 }
 
 func (this *GamePlayer) ProcessingFriend(name string) {

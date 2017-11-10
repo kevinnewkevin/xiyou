@@ -72,7 +72,7 @@ service COM_ServerToClient{
 	//好友
 	SerchFriendInfo(COM_Friend info);
 	FriendInfo(COM_Friend[] info);
-	ApplyFriend(string name);
+	ApplyFriend(COM_Friend info);
 	RecvFriend(COM_Friend info);
 	DelFriend(int64 instid);
 	RecvEnemy(COM_Friend info);

@@ -98,7 +98,7 @@ type COM_ServerToClient_FriendInfo struct{
   info []COM_Friend  //0
 }
 type COM_ServerToClient_ApplyFriend struct{
-  name string  //0
+  info COM_Friend  //0
 }
 type COM_ServerToClient_RecvFriend struct{
   info COM_Friend  //0
@@ -146,7 +146,7 @@ type COM_ServerToClientProxy interface{
   RecvFriendTopList(TopList []COM_TopUnit, MyRank int32 ) error // 27
   SerchFriendInfo(info COM_Friend ) error // 28
   FriendInfo(info []COM_Friend ) error // 29
-  ApplyFriend(name string ) error // 30
+  ApplyFriend(info COM_Friend ) error // 30
   RecvFriend(info COM_Friend ) error // 31
   DelFriend(instid int64 ) error // 32
   RecvEnemy(info COM_Friend ) error // 33
@@ -1436,17 +1436,17 @@ func (this *COM_ServerToClient_FriendInfo)Deserialize(buffer *bytes.Buffer) erro
 func (this *COM_ServerToClient_ApplyFriend)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
-  mask.writeBit(len(this.name) != 0)
+  mask.writeBit(true) //info
   {
     err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
   }
-  // serialize name
-  if len(this.name) != 0{
-    err := write(buffer,this.name)
-    if err != nil {
+  // serialize info
+  {
+    err := this.info.Serialize(buffer)
+    if err != nil{
       return err
     }
   }
@@ -1458,9 +1458,9 @@ func (this *COM_ServerToClient_ApplyFriend)Deserialize(buffer *bytes.Buffer) err
   if err != nil{
     return err
   }
-  // deserialize name
+  // deserialize info
   if mask.readBit() {
-    err := read(buffer,&this.name)
+    err := this.info.Deserialize(buffer)
     if err != nil{
       return err
     }
@@ -2112,7 +2112,7 @@ func(this* COM_ServerToClientStub)FriendInfo(info []COM_Friend ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)ApplyFriend(name string ) error {
+func(this* COM_ServerToClientStub)ApplyFriend(info COM_Friend ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2122,7 +2122,7 @@ func(this* COM_ServerToClientStub)ApplyFriend(name string ) error {
     return err
   }
   _30 := COM_ServerToClient_ApplyFriend{}
-  _30.name = name;
+  _30.info = info;
   err = _30.Serialize(buffer)
   if err != nil{
     return err
@@ -2614,7 +2614,7 @@ func Bridging_COM_ServerToClient_ApplyFriend(buffer *bytes.Buffer, p COM_ServerT
   if err != nil{
     return err
   }
-  return p.ApplyFriend(_30.name)
+  return p.ApplyFriend(_30.info)
 }
 func Bridging_COM_ServerToClient_RecvFriend(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
