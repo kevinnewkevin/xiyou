@@ -6,6 +6,7 @@ public class YYSystem {
 
     private const string sUserId="1002318";
 
+    static string _LastFilePath;
     static int _LastRecordLength;
 
     static public void Init()
@@ -81,12 +82,14 @@ public class YYSystem {
 //            recordPath = data1.strfilepath;
 //            Debug.Log("停止录音返回:" + recordPath);
             _LastRecordLength = (int)(data1.time / 1000f);
+            _LastFilePath = data1.strfilepath;
         }, 
             (data2) => {
             Debug.Log("上传返回:" + data2.fileurl);
             COM_Chat chat = new COM_Chat();
             chat.AudioId = data2.fileid;
             chat.AudioUrl = data2.fileurl;
+            chat.AudioPath = _LastFilePath;
             chat.Type = 1;
             chat.AudioLen = _LastRecordLength;
             chat.PlayerInstId = GamePlayer._InstID;
