@@ -38,6 +38,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 		var p *prpc.SGE_DBPlayer
 
 		if p = <- QueryPlayer(info.Username); p!=nil {
+			logs.Debug("Query player has ")
 			this.player = &GamePlayer{}
 			this.player.SetSession(this)
 			this.player.SetPlayerSGE(*p)
@@ -75,9 +76,8 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 		return nil
 	}
 
-	this.player = CreatePlayer(tempId, playerName)
+	this.player = CreatePlayer(tempId, playerName,this.username)
 	this.player.SetSession(this)
-	this.player.Username = this.username
 
 	if this.player != nil {
 		this.player.PlayerLogin()

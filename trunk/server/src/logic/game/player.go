@@ -167,9 +167,13 @@ func (this *GamePlayer) SetSession(session *Session) {
 	this.session = session
 }
 
-func CreatePlayer(tid int32, name string) *GamePlayer {
+func CreatePlayer(tid int32, name string, username string) *GamePlayer {
+
 	p := GamePlayer{}
+	p.Username = username
+	p.PlayerId = GenPlayerInstId()
 	p.MyUnit = p.NewGameUnit(tid)
+
 	p.MyUnit.InstName = name
 	p.MyUnit.IsMain = true
 	p.Exp = 0
@@ -206,6 +210,8 @@ func CreatePlayer(tid int32, name string) *GamePlayer {
 
 	p.InitTestFriend()
 
+
+
 	return &p
 
 }
@@ -216,6 +222,8 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 		return nil
 	}
 	unit.Owner = this
+	unit.InstId = GenUnitInstId()
+
 	chapterids := GetUnitChapterById(tid)
 	for i := 0; i < len(chapterids); i++ {
 		OpenChapter(this, chapterids[i])
@@ -223,7 +231,13 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 	if tid == 1 || tid == 2 { //主角卡不要放在牌库中
 		return unit
 	}
+
+
+
 	this.UnitList = append(this.UnitList, unit)
+
+	InsertUnit(this.PlayerId,unit.GetUnitCOM())
+
 	return unit
 }
 
@@ -1520,14 +1534,8 @@ func (this *GamePlayer) IsLock() bool {
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func TestPlayer() {
-	P1 := CreatePlayer(1, "testPlayer")
-	//P1.InitMyBlackMarket()
-	//P1.RefreshMyBlackMarket(false)
-	//P1.TestItem()
-	//P1.TestChat()
-	P1.TestTop()
-}
+
+
 
 func (this *GamePlayer) TestItem() {
 	for i := 1; i < 9; i++ { //测试用

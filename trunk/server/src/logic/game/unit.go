@@ -5,10 +5,8 @@ import (
 	"jimny/logs"
 	"logic/prpc"
 	"sync"
-	"sync/atomic"
 )
 
-var genInstId int64 = 1
 
 type GameUnit struct {
 	sync.Mutex
@@ -49,7 +47,6 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	}
 	u := GameUnit{}
 	u.UnitId = t.Id
-	u.InstId = atomic.AddInt64(&genInstId, 1)
 	u.IProperties = append(u.IProperties, t.IProp...)
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId
