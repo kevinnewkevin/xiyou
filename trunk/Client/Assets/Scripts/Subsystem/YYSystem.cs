@@ -4,7 +4,7 @@ using YunvaIM;
 
 public class YYSystem {
 
-    private const string sUserId="1002318";
+    private const uint sUserId = 1002318;
 
     static string _LastFilePath;
     static int _LastRecordLength;
@@ -15,7 +15,7 @@ public class YYSystem {
         return;
         #endif
         EventListenerManager.AddListener(ProtocolEnum.IM_RECORD_VOLUME_NOTIFY, ImRecordVolume);//录音音量大小回调监听
-        int init = YunVaImSDK.instance.YunVa_Init(0, 1002318, Application.persistentDataPath, false, false);
+        int init = YunVaImSDK.instance.YunVa_Init(0, sUserId, Application.persistentDataPath, false, false);
         if (init == 0)
         {
             Debug.Log("初始化成功...");

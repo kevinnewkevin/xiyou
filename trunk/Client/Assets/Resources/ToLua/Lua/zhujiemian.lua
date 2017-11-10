@@ -196,11 +196,10 @@ function zhujiemian_FlushChatData()
 			end
 		end
 		if list[i].AudioUrl ~= nil then
-			lbl.visible = false;
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
 			yyCom.data = list[i].AudioId;
-			yyCom:GetChild("n3").visible = list[i].AudioNew;
+			yyCom:GetChild("n3").visible = not list[i].AudioOld;
 		else
 			yyCom.visible = false;
 			lbl.visible = true;

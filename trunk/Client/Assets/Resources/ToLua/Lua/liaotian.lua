@@ -71,7 +71,10 @@ function liaotian_OnEmoji(context)
 	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
 end
 
-function liaotian_OnSwipeMoveEnd()
+function liaotian_OnSwipeMoveEnd(context)
+	if context.sender.delta.y > -100 then
+		return;
+	end
 	if yyAnim.visible == true then
 		yyAnim.visible = false;
 		YYSystem.StopRecord(true);
@@ -122,19 +125,19 @@ function liaotian_OnRenderListItem(index, obj)
 				yybg.visible = true;
 				yybtn.onClick:Add(liaotian_OnPlayRecord);
 				yybtn.data = crtList[index].AudioId;
-				yybtn:GetChild("n3").visible = crtList[index].AudioNew;
+				yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
 			else
 				content.visible = true;
 				contentBg.visible = true;
 				yybtn.visible = false;
 				yybg.visible = false;
-				icon.url = "ui://" .. crtList[index].HeadIcon;
-				name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 				content.width = content.initWidth;
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				content.width = content.textWidth;
-				lv.text = crtList[index].Level;
 			end
+			icon.url = "ui://" .. crtList[index].HeadIcon;
+			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			lv.text = crtList[index].Level;
 		end
 	end
 end
