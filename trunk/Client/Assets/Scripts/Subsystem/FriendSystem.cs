@@ -15,7 +15,7 @@ public class FriendSystem
 	
 
 	public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
-		public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
+	public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
 	public static void InitFriends( COM_Friend[] friends)
 	{
 		if (friends == null)
@@ -41,8 +41,7 @@ public class FriendSystem
 	{
 		if(!friendList.Contains(friends))
 			friendList.Add (friends );
-		if (applyFriendList.Contains (friends))
-			applyFriendList.Remove (friends);
+		DelApplyFriend (friends.InstId);
 	}
 
 	public static void AddLatelyFriend(long  instId)
@@ -119,6 +118,7 @@ public class FriendSystem
 			if (friendList [i].InstId == id) 
 			{
 				friendList.Remove (friendList [i]);
+				break;
 			}
 		}
 	}
@@ -131,6 +131,7 @@ public class FriendSystem
 				if (applyFriendList [i].InstId == id) 
 				{
 					applyFriendList.Remove (applyFriendList [i]);
+					break;
 				}
 			}
 		}
@@ -143,7 +144,7 @@ public class FriendSystem
 			if (blackList [i].InstId == id) 
 			{	
 				blackList.Remove (friendList [i]);
-                break;
+				break;
 			}
 		}
 	}
@@ -196,6 +197,19 @@ public class FriendSystem
 	public static bool IsNewCaht(string name)
 	{
 		return 	newCahtList.Contains (name);
+	}
+
+
+	public static bool IsInBlack(long instId)
+	{
+		for (int i = 0; i < blackList.Count; i++) 
+		{
+			if (blackList [i].InstId == instId) 
+			{	
+					return true;
+			}
+		}
+		return false;
 	}
 
 }
