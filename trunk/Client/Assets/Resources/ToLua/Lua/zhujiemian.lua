@@ -200,7 +200,7 @@ function zhujiemian_FlushChatData()
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
 			yyCom.data = list[i].AudioUrl;
-			yybtn:GetChild("n3").visible = list[i].AudioNew;
+			yyCom:GetChild("n3").visible = list[i].AudioNew;
 		else
 			yyCom.visible = false;
 			lbl.visible = true;
