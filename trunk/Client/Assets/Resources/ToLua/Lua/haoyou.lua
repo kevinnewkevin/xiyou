@@ -24,6 +24,10 @@ local facePanel;
 local emojiBtn;
 local emojiCom;
 local changeBtn;
+
+local yyAnim;
+local yyBtn;
+
 local crtTab = 0;
 local fCrtTab = 0;
 local friendInstId;
@@ -45,8 +49,8 @@ function haoyou:OnInit()
 	self:Center();
 	self.modal = true;
     self.closeButton = self.contentPane:GetChild("n7").asButton;
-    local cl = self.contentPane:GetChild("n15");
-    cl.visible = false;
+    yyAnim = self.contentPane:GetChild("n15");
+    yyAnim.visible = false;
     local feeList = self.contentPane:GetChild("n3").asList;
 	local feeMax = feeList.numItems;
 	local feeItem;
@@ -63,12 +67,18 @@ function haoyou:OnInit()
 	--contentList:SetVirtual();
 	contentList.itemProvider = haoyou_GetListItemResource;
 	contentList.itemRenderer = haoyou_OnRenderListItem;
+	local gestureMoveUp = Proxy4Lua.SwipeGesture(self.contentPane);
+	gestureMoveUp.onMove:Add(liaotian_OnSwipeMoveEnd);
 
     sendBtn = chatPanel:GetChild("n6");
     sendBtn.onClick:Add(haoyu_OnSendClick);
     content = chatPanel:GetChild("n11");
    	emojiBtn = chatPanel:GetChild("n8");
 	emojiBtn.onClick:Add(haoyou_OnEmoji);
+	yyBtn = chatPanel:GetChild("n7");
+	yyBtn.visible  = false;
+	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
+	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
     local fbBtns = friendPanel:GetChild("n2").asList;
 	local fbMax = fbBtns.numItems;
 	local fbItem;
@@ -131,10 +141,20 @@ function haoyou:OnDispose()
 end
 
 function haoyou:OnHide()
+	yyAnim.visible = false;
 	Window:Hide();
 end
 
 function haoyou_FlushData()
+
+	addFriendRad.visible = FriendSystem.isApplyFriend;
+	local num = FriendSystem.GetNewCahtListNum();	
+	if num > 0 then 
+  		chatFriendRad.visible = true;
+  	else
+  		chatFriendRad.visible = false;
+  	end
+
 	if findFriendPanel.visible == true then
 		if FriendSystem.findFriend ~= nil then
 			findFriendList.numItems = 1;
@@ -153,13 +173,7 @@ function haoyou_FlushData()
    	elseif fCrtTab == 2 then
    		friendList.numItems = FriendSystem.GetLatelyListNum();
   	end
-  	addFriendRad.visible = FriendSystem.isApplyFriend;
-  	local num = FriendSystem.GetNewCahtListNum();
-  	if num > 0 then 
-  		chatFriendRad.visible = true;
-  	else
-  		chatFriendRad.visible = false;
-  	end
+
   	haoyu_UpdataChat();
 end
 
@@ -327,6 +341,7 @@ function haoyou_SelectFriendClick(context)
 		FriendSystem.DelNewCahtList(name);
 	end
 	local cnt = friendList.numChildren;
+
 	for  i = 1, cnt do
 		local obj = friendList:GetChildAt(i-1);
 		local id = obj.data;
@@ -371,11 +386,11 @@ function haoyu_OnSendClick(context)
 	chat.Level = GamePlayer._Data.IProperties[9];
 	Proxy4Lua.SendChat(chat);
 	content.text = "";
+
 	chat.PlayerInstId =  GamePlayer._InstID;
 	FriendSystem.chatFriend (friendInstId,chat);
 	FriendSystem.AddLatelyFriend (friendInstId);
 	FriendSystem.chatFriendStr (FriendSystem.GetFriend(friendInstId).Name,chat);
-	print(friendInstId);
 	haoyou_FlushData();
 end
 
@@ -388,6 +403,7 @@ function haoyu_OnFindBtnClick(context)
 end
 
 function haoyu_OnChangeBtnClick(context)
+	FriendSystem.findFriend = nil;
 	Proxy4Lua.SerchFriendRandom();
 end
 
@@ -440,30 +456,31 @@ function haoyou_OnRenderListItem(index, obj)
 		local contentBg = obj:GetChild("n6");
 		local lv = obj:GetChild("n3");
 
-	
-		content.visible = true;
-		contentBg.visible = true;
-		yybtn.visible = false;
-		yybg.visible = false;
-		content.width = content.initWidth;
-		content.text = EmojiParser.inst:Parse(crtList[index].Content);
-		content.width = content.textWidth;
+		if crtList[index].AudioUrl ~= nil then
+			content.visible = false;
+			contentBg.visible = false;
+			yybtn.visible = true;
+			yybg.visible = true;
+			yybtn.onClick:Add(liaotian_OnPlayRecord);
+			yybtn.data = crtList[index].AudioId;
+			yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
+			yybtn:GetChild("n2").text = crtList[index].AudioLen .. "\"";
+		else
+			content.visible = true;
+			contentBg.visible = true;
+			yybtn.visible = false;
+			yybg.visible = false;
+			content.width = content.initWidth;
+			content.text = EmojiParser.inst:Parse(crtList[index].Content);
+			content.width = content.textWidth;
+		end
 		icon.url = "ui://" .. crtList[index].HeadIcon;
 		name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 		lv.text = crtList[index].Level;
 
-
 	end
 end
 
-function haoyou_OnPlayRecord(context)
-	local record = ChatSystem.GetRecord(context.sender.data);
-	if record == nil then
-		Proxy4Lua.PlayAudio(context.sender.data);
-	else
-		YYSystem.PlayRecord(record);
-	end
-end
 
 function haoyou_OnEmojiItem(context)
 	content:ReplaceSelection("[:" .. context.data.gameObjectName .. "]");
@@ -471,4 +488,34 @@ end
 
 function haoyou_OnEmoji(context)
 	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
+end
+
+function liaotian_OnYYBegin()
+	yyAnim.visible = true;
+	YYSystem.StartRecord();
+end
+
+function liaotian_OnYYEnd()
+	yyAnim.visible = false;
+	YYSystem.StopRecord(false);
+end
+
+function haoyou_OnPlayRecord(context)
+	local record = ChatSystem.GetRecord(context.sender.data);
+	if record == nil then
+		return;
+	end
+	YYSystem.PlayRecord(record.AudioPath, record.AudioUrl);
+	ChatSystem.SetRecord(record.AudioId);
+end
+
+function liaotian_OnSwipeMoveEnd(context)
+	if context.sender.delta.y > -100 then
+		return;
+	end
+	if yyAnim.visible == true then
+		yyAnim.visible = false;
+		YYSystem.StopRecord(true);
+		Proxy4Lua.PopMsg("语音发送取消");
+	end
 end
