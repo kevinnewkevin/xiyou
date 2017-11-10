@@ -46,10 +46,11 @@ public class XCodeSettings
         File.WriteAllText(projectPath, pbxProject.WriteToString());
 
         // 修改Info.plist文件
-//        var plistPath = Path.Combine(pathToBuiltProject, "Info.plist");
-//        var plist = new PlistDocument();
-//        plist.ReadFromFile(plistPath);
+        var plistPath = Path.Combine(pathToBuiltProject, "Info.plist");
+        var plist = new PlistDocument();
+        plist.ReadFromFile(plistPath);
 
+        plist.root.SetString("NSMicrophoneUsageDescription", "是否允许此App使用你的麦克风?");
         // 插入URL Scheme到Info.plsit（理清结构）
 //        var array = plist.root.CreateArray("CFBundleURLTypes");
         //插入dict
@@ -59,7 +60,7 @@ public class XCodeSettings
 //        var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
 //        urlInnerArray.AddString("blablabla");
         // 应用修改
-//        plist.WriteToFile(plistPath);
+        plist.WriteToFile(plistPath);
 
         //插入代码
         //读取UnityAppController.mm文件
