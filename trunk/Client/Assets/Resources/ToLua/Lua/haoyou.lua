@@ -143,6 +143,7 @@ function haoyou_FlushData()
 		end
 		applyFriendList.numItems = FriendSystem.GetApplyNum();
 		FriendSystem.isApplyFriend = false;
+		addFriendRad.visible = FriendSystem.isApplyFriend;
 		return;
 	end
 	if fCrtTab == 0 then 
@@ -215,6 +216,8 @@ function haoyu_RenderFindListItem(indx, obj)
 	local delBtn = obj:GetChild("n8");
 	local funBtn = obj:GetChild("n7");
 	local icon = obj:GetChild("n2");
+	local rad = obj:GetChild("n3");
+	rad.visible = false;
 	local displayData = DisplayData.GetData(palyer.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	addBtn.visible = true;
@@ -318,6 +321,24 @@ end
 function haoyou_SelectFriendClick(context)
 	chatPanel.visible = true;
 	friendInstId = context.sender.data;
+	local friend = FriendSystem.GetFriend(friendInstId);
+	if friend ~= nil then
+		local name = friend.Name;
+		FriendSystem.DelNewCahtList(name);
+	end
+	local cnt = friendList.numChildren;
+	for  i = 1, cnt do
+		local obj = friendList:GetChildAt(i-1);
+		local id = obj.data;
+		local frd = FriendSystem.GetFriend(id);
+		local newChat = FriendSystem.IsNewCaht(frd.Name);
+		local rad = obj:GetChild("n3");
+		if newChat then
+			rad.visible = true;
+		else
+			rad.visible = false;
+		end
+	end
 	haoyu_UpdataChat();
 end
 
