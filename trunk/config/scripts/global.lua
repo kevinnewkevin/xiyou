@@ -115,7 +115,7 @@ function RegGlobalValue()
 	Define.Set("CreateDefaultClip", "stand"); --默认动画
 	Define.Set("CreateSelectClip", "attack"); --选中动画
 	Define.Set("BattleScenePool", "huangmozhandou,haidizhandou"); --战斗场景随机库
-	Define.Set("EmojiTags","bq_01,bq_02,bq_03,bq_04,bq_05,bq_06,bq_07,bq_08,bq_09,bq_10,bq_11,bq_12,bq_13,bq_14,bq_15,bq_16,bq_17,bq_18,bq_19,bq_20,bq_21,bq_22,bq_23,bq_24,bq_25,bq_26,bq_27,bq_28");
+	Define.Set("EmojiTags","001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027,028");
 end
 
 --ui资源和ui逻辑关联map
