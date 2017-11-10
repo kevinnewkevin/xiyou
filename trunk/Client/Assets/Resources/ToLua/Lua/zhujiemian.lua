@@ -181,11 +181,14 @@ function zhujiemian_FlushData()
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
 	listGroup.numItems = 3;
 	friendRad.visible = FriendSystem.isApplyFriend;
+
 	local num = FriendSystem.GetNewCahtListNum();
   	if num > 0 then 
   		friendRad.visible = true;
   	else
-  		friendRad.visible = false;
+  			if FriendSystem.isApplyFriend == false then   
+  				friendRad.visible = false;
+  			end
   	end
 	DoSpecialEffect();
 
