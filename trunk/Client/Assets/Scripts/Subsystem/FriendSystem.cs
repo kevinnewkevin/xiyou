@@ -39,7 +39,10 @@ public class FriendSystem
 
 	public static void AddFriend( COM_Friend friends)
 	{
-		friendList.Add (friends );
+		if(!friendList.Contains(friends))
+			friendList.Add (friends );
+		if (applyFriendList.Contains (friends))
+			applyFriendList.Remove (friends);
 	}
 
 	public static void AddLatelyFriend(long  instId)
@@ -59,9 +62,16 @@ public class FriendSystem
 		blackList.Add (black );
 	}
 
-	public static void	ApplyFriend(COM_Friend  name)
+	public static void	ApplyFriend(COM_Friend friend)
 	{
-		applyFriendList.Add (name);
+		for (int i = 0; i < applyFriendList.Count; i++) 
+		{
+				if (applyFriendList [i].Name == friend.Name) 
+				{
+						return;
+				}
+		}
+		applyFriendList.Add (friend);
 		isApplyFriend = true;
 	}
 
@@ -168,11 +178,13 @@ public class FriendSystem
 	{
 		if(!newCahtList.Contains(name))
 			newCahtList.Add (name );
+		UIManager.SetDirty ("zhujiemian");
 	}
 	public static void DelNewCahtList(string name)
 	{
 		if(newCahtList.Contains(name))
 			newCahtList.Remove(name );
+		UIManager.SetDirty ("zhujiemian");
 	}
 
 	public static int GetNewCahtListNum()
