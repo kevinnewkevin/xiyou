@@ -121,7 +121,7 @@ func (player *GamePlayer) AttackChapter(smallchapterid int32) {
 		return
 	}
 
-	logs.Debug("AttackChapter smallchapterid=", smallchapterid, " smallData.SmallChapterType=", smallData.SmallChapterType, "chapterData.ChapterType", chapterData.ChapterType)
+	logs.Debug("AttackChapter smallchapterid=", smallchapterid, " smallData.SmallChapterType = ", smallData.SmallChapterType, "chapterData.ChapterType = ", chapterData.ChapterType)
 
 	myEnergy := player.MyUnit.GetIProperty(prpc.IPT_ENERGY)
 
