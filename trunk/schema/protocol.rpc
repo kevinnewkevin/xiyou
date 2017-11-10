@@ -34,6 +34,7 @@ service COM_ClientToServer{
 	ApplicationFriend(string name);					//申请某人为好友
 	ProcessingFriend(string name);						//处理好友
 	DeleteFriend(int64 instid);						//删除好友
+	AddEnemy(int64 instid);						//将好友移动到黑名单
 };
 
 service COM_ServerToClient{
