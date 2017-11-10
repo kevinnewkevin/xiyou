@@ -334,7 +334,7 @@ func UpdateUnit(p prpc.COM_Unit) {
 }
 
 
-func GetAllTopList() {
+func GetAllTopList() {		//取出来整张表的数据
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {
@@ -346,7 +346,7 @@ func GetAllTopList() {
 	}()
 }
 
-func UpdateTopList(InstId int64, TianTiVal int32) {
+func UpdateTopList(InstId int64, t prpc.SGE_DBTopUnit) {
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {
@@ -354,21 +354,53 @@ func UpdateTopList(InstId int64, TianTiVal int32) {
 			return
 		}
 		defer c.Close()
+		b := bytes.Buffer{}
 
+		t.Serialize(&b)
+
+		_, e = c.Exec("UPDATE `TopList` SET `BinData` = ? WHERE `InstId` = ?", b.Bytes(), InstId)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
 	}()
 }
 
-func InsertTopList(InstId int64, TianTiVal int32) {
+
+func InsertTopList (InstId int64, t prpc.SGE_DBTopUnit) <- chan int64 {
+
+	rChan := make (chan int64)
+
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
+			rChan <- 0
 			return
 		}
 		defer c.Close()
+		b :=  bytes.NewBuffer(nil)
 
-		//r , e := c.Exec("INSERT INTO `TopList`(`InstId`, `TianTiVal `)VALUES(?,?,)", InstId, TianTiVal)
+		t.Serialize(b)
 
+		r , e := c.Exec("INSERT INTO `TopList`(`InstId`, `BinData`)VALUES(?,?)", InstId, b.Bytes())
 
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		i, e := r.LastInsertId()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		rChan <-  (i + 1)
+		close(rChan)
 	}()
+	return rChan
 }

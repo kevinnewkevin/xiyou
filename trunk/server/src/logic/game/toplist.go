@@ -50,6 +50,35 @@ func isSame(t1 []prpc.COM_TopUnit, t2 []prpc.COM_TopUnit) bool {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
+/////数据
+//////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer) SetTopSGE(p prpc.SGE_DBPlayer) {
+
+	this.SetPlayerCOM(&p.COM_Player)
+	this.PlayerId = p.PlayerId
+	this.Username = p.Username
+	this.LoginTime = p.LoginTime
+	this.LogoutTime = p.LogoutTime
+	for i := range p.BagItemList {
+		this.BagItems = append(this.BagItems, &p.BagItemList[i])
+	}
+
+	this.BlackMarketData = &p.BlackMarketData
+}
+
+func (this *GamePlayer) GetTopSGE() prpc.SGE_DBTopUnit {
+
+	data := prpc.SGE_DBTopUnit{}
+	data.Name = this.MyUnit.InstName
+	data.DisplayID = this.MyUnit.UnitId
+	data.Level = this.MyUnit.Level
+	data.TianTi = this.TianTiVal
+
+	return data
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
 /////全体排行
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -126,6 +155,8 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 
 		TMPTopList[this.TianTiRank] = my_top
 	}
+
+	UpdateTopList(this.MyUnit.InstId, this.GetTopSGE())
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

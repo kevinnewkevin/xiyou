@@ -85,8 +85,10 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 	}
 
 	r := this.player.GetPlayerSGE()
+	t := this.player.GetTopSGE()
 
 	InsertPlayer(r)
+	InsertTopList(this.player.MyUnit.InstId, t)
 
 	this.CreatePlayerOK(r.COM_Player)
 

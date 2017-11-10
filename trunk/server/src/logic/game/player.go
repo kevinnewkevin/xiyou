@@ -360,6 +360,8 @@ func (this *GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer {
 	return data
 }
 
+
+
 func (this *GamePlayer) IsBattle() bool {
 	if this.BattleId == 0 {
 		return false
