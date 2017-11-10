@@ -10,6 +10,7 @@ local gold;
 local hunBi;
 local chopper;
 local stamaPoint;
+local bagList;
 
 function bagui:OnEntry()
 	Define.LaunchUIBundle("icon");
