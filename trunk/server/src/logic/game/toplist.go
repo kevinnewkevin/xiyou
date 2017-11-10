@@ -131,14 +131,8 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 
 	if this.TianTiRank == -1 { // 无排名
 
-		idx := -1
+		idx := this.FindMyTianTiRank()
 
-		for i, t := range TMPTopList {
-			if t.Name == this.MyUnit.InstName {
-				idx = i
-				break
-			}
-		}
 		//logs.Debug("UpdateTianTiVal -100, ", idx)
 		if idx == -1 {
 			top := prpc.COM_TopUnit{}
@@ -166,24 +160,6 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 //////////////////////////////////////////////////////////////////////////////////////
 /////好友排行
 //////////////////////////////////////////////////////////////////////////////////////
-
-//func initMeToFriendTopList(player *GamePlayer) {
-//	top := prpc.COM_TopUnit{}
-//	top.TianTi = player.TianTiVal
-//	top.Level = player.MyUnit.Level
-//	top.Name = player.MyUnit.InstName
-//	top.DisplayID = player.MyUnit.UnitId
-//
-//	TrueFriendTopList = append(TrueFriendTopList, top)
-//	TMPFriendTopList = append(TMPFriendTopList, top)
-//
-//	sort.Sort(TopList(TMPFriendTopList))
-//	sort.Sort(TopList(TrueFriendTopList))
-//
-//	TMPFriendTopList = TMPFriendTopList[:num]
-//	TrueFriendTopList = TrueFriendTopList[:num]
-//
-//}
 
 func (this *GamePlayer) FindMyFriendTianTiRank() int32 {
 	for i, t := range this.FriendTop {
