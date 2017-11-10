@@ -6,13 +6,13 @@ public class FriendSystem
 {
 	public  static List<COM_Friend> friendList = new List<COM_Friend>();
 	public  static List<COM_Friend> blackList = new List<COM_Friend>();
-		public  static List<long> latelyList = new List<long>();
-	public  static List<string> applyFriendList = new List<string>();
+	public  static List<long> latelyList = new List<long>();
+	public  static List<COM_Friend > applyFriendList = new List<COM_Friend >();
 	public static  COM_Friend[] randomFriends;
 	public static  COM_Friend findFriend;
 
-		public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
-	
+	public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
+		public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
 	public static void InitFriends( COM_Friend[] friends)
 	{
 		for (int i = 0; i < friends.Length; i++) 
@@ -46,7 +46,7 @@ public class FriendSystem
 		blackList.Add (black );
 	}
 
-	public static void	ApplyFriend(ref string name)
+		public static void	ApplyFriend(COM_Friend  name)
 	{
 		applyFriendList.Add (name);
 	}
@@ -58,6 +58,15 @@ public class FriendSystem
 		friendRecvList [instId].Add (friend);
 		return true;
 	}
+
+		public  static bool	chatFriendStr(string name,COM_Chat friend)
+		{
+				if(!friendRecvListStr.ContainsKey(name))
+						friendRecvListStr[name] = new List<COM_Chat>();
+				friendRecvListStr [name].Add (friend);
+				return true;
+		}
+
 
 	public static int GetFriendNum()
 	{
@@ -90,6 +99,19 @@ public class FriendSystem
 		}
 	}
 
+
+		public static void	DelApplyFriend(long id)
+		{
+				for (int i = 0; i < applyFriendList.Count; i++) 
+			{
+						if (applyFriendList [i].InstId == id) 
+				{
+								applyFriendList.Remove (applyFriendList [i]);
+				}
+			}
+		}
+
+
 	public static void	DelBlack(long id)
 	{
 		for (int i = 0; i < blackList.Count; i++) 
@@ -115,12 +137,25 @@ public class FriendSystem
 	}
 
 
+	
+
+
 	public static List<COM_Chat> GetFriendChat(long InstId)
 	{
 		if (!friendRecvList.ContainsKey(InstId))
 			return new List<COM_Chat>();
 		return friendRecvList [InstId];
 	}
+
+		public static List<COM_Chat> GetFriendChatStr(string name)
+		{
+				if (!friendRecvListStr.ContainsKey(name))
+						return new List<COM_Chat>();
+				return friendRecvListStr [name];
+
+		}
+
+
 }
 
 
