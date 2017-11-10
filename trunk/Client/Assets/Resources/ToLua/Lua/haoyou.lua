@@ -96,6 +96,8 @@ function haoyou:OnInit()
 	funInfoBtn = friendBtns:GetChild("n5");
 	funAddBtn = friendBtns:GetChild("n7");
 	funAddBtn.visible = false;
+	local fundelBtn = friendBtns:GetChild("n6");
+	fundelBtn.visible = false;
 	funBlackBtn = friendBtns:GetChild("n8");
 	funInfoBtn.onClick:Add(haoyu_OnFunInfoClick);
 	funAddBtn.onClick:Add(haoyu_OnFunAddClick);
