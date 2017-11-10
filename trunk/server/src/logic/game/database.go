@@ -128,8 +128,6 @@ func QueryPlayer(username string) <- chan *prpc.SGE_DBPlayer {
 
 			p.COM_Player.Employees = <- QueryUnit(a)
 
-			logs.Debug(len(p.Employees))
-
 			rChan <- p
 
 			close(rChan)
@@ -296,9 +294,15 @@ func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
 		p.Employees = nil
 
-		p.Serialize(&b)
+		e = p.Serialize(&b)
 
-		_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `PlayerId` = ?", b.Bytes(), p.InstId)
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+
+		logs.Debug("GamePlayerSave", p.Friends)
+		_, e = c.Exec("UPDATE `Player` SET `BinData` = ? WHERE `PlayerId` = ?", b.Bytes(), p.PlayerId)
 
 		if e != nil {
 			logs.Debug(e.Error())
@@ -309,6 +313,49 @@ func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
 
 func UpdateUnit(p prpc.COM_Unit) {
+	go func () {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+		defer c.Close()
+		b := bytes.Buffer{}
+
+		p.Serialize(&b)
+
+		_, e = c.Exec("UPDATE `Unit` SET `BinData` = ? WHERE `UnitId` = ?", b.Bytes(), p.InstId)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}()
+}
+
+
+func GetAllTopList(p prpc.COM_Unit) {
+	go func () {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+		defer c.Close()
+		b := bytes.Buffer{}
+
+		p.Serialize(&b)
+
+		_, e = c.Exec("UPDATE `Unit` SET `BinData` = ? WHERE `UnitId` = ?", b.Bytes(), p.InstId)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}()
+}
+
+func UpdateTopList(p prpc.COM_Unit) {
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {

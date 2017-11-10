@@ -56,6 +56,9 @@ type GamePlayer struct {
 	//状态标记 时间戳
 	LockTime int64
 
+	//好友排行榜
+	FriendTop []prpc.COM_TopUnit
+
 	//新手引導步驟
 	Guide uint64
 
@@ -208,9 +211,9 @@ func CreatePlayer(tid int32, name string, username string) *GamePlayer {
 		}
 	}
 
-	p.InitTestFriend()
+	//p.InitTestFriend()
 
-
+	p.FriendTop = []prpc.COM_TopUnit{}
 
 	return &p
 
@@ -300,6 +303,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	for _, fr := range this.Friends {
 		p.Friends = append(p.Friends, *fr)
 	}
+
 	for _, en := range this.Enemys {
 		p.Enemys = append(p.Enemys, *en)
 	}
@@ -386,6 +390,8 @@ func (this *GamePlayer) PlayerLogin() {
 	} else {
 		this.InitMyBlackMarket()
 	}
+
+	this.RefreshFriendTopList()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1368,6 +1374,8 @@ func (this *GamePlayer) OpenTreasureBox(pondId int32) bool {
 func (this *GamePlayer) Logout() {
 
 	logs.Debug("Logout", "PlayerName=", this.MyUnit.InstName)
+	logs.Debug("Logout", "PlayerName=", this.Friends)
+	logs.Debug("Logout", "PlayerName=", this.Enemys)
 
 	this.LogoutTime = time.Now().Unix()
 
@@ -1380,7 +1388,10 @@ func (this *GamePlayer) Logout() {
 }
 
 func (this *GamePlayer) GamePlayerSave() {
-	UpdatePlayer(this.GetPlayerSGE())
+	p := this.GetPlayerSGE()
+
+	logs.Debug("GamePlayerSave", p.Enemys)
+	UpdatePlayer(p)
 }
 
 func Save() {

@@ -89,6 +89,12 @@ func (this *GamePlayer) SerchFriendRandom() {
 
 func (this *GamePlayer) ApplicationFriend(name string) {
 	logs.Debug("ApplicationFriend ", name)
+
+	if name == this.MyUnit.InstName {
+		logs.Debug("不能加自己")
+		return
+	}
+
 	t := FindPlayerByInstName(name)
 
 	if t == nil {
@@ -109,10 +115,10 @@ func (this *GamePlayer) ApplicationFriend(name string) {
 	}
 
 	info := prpc.COM_Friend{}
-	info.InstId = t.MyUnit.InstId
-	info.Name = t.MyUnit.InstName
-	info.Level = t.MyUnit.Level
-	info.DisplayID = t.MyUnit.UnitId
+	info.InstId = this.MyUnit.InstId
+	info.Name = this.MyUnit.InstName
+	info.Level = this.MyUnit.Level
+	info.DisplayID = this.MyUnit.UnitId
 
 	e := t.session.ApplyFriend(info) //向对方发送好友信息
 	logs.Debug("ApplicationFriend end ", info, "    ", e)
@@ -154,6 +160,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 	info.Name = this.MyUnit.InstName
 	info.Level = this.MyUnit.Level
 	info.DisplayID = this.MyUnit.UnitId
+	info.Username = this.Username
 	t.Friends = append(t.Friends, &info)
 	t.session.RecvFriend(info)
 	logs.Debug("ProcessingFriend t ", info)
@@ -164,6 +171,7 @@ func (this *GamePlayer) ProcessingFriend(name string) {
 	t_info.Name = t.MyUnit.InstName
 	t_info.Level = t.MyUnit.Level
 	t_info.DisplayID = t.MyUnit.UnitId
+	t_info.Username = t.Username
 	this.Friends = append(this.Friends, &t_info)
 	this.session.RecvFriend(t_info)
 	logs.Debug("ProcessingFriend me ", t_info)
@@ -266,9 +274,19 @@ func (this *GamePlayer) AddBlackList(instid int64) {
 
 	this.session.RecvEnemy(*friend)
 
+	f := FindPlayerByInstId(friend.InstId)
+
+	if f == nil {
+		logs.Debug("好友不在线 暂时不清除")
+		return
+	}
+
+	f.delFriend(this.MyUnit.InstId)
+
 }
 
 func (this *GamePlayer) DeleteBlackList(instid int64) {
+	logs.Debug("DeleteBlackList st ", instid)
 	en := this.findBlackList(instid)
 
 	if en == nil {
@@ -277,6 +295,7 @@ func (this *GamePlayer) DeleteBlackList(instid int64) {
 	}
 
 	this.delEnemy(instid)
+	logs.Debug("DeleteBlackList end ", instid)
 
 }
 

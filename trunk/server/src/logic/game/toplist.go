@@ -3,7 +3,6 @@ package game
 import (
 	"logic/prpc"
 	"sort"
-	"strconv"
 	"jimny/logs"
 )
 
@@ -33,41 +32,8 @@ func (a TopList) Less(i, j int) bool { // 重写 Less() 方法， 从大到小�
 }
 
 func InitTopList() {
-	if len(TrueTopList) == 0 {
-		for i := 0; i < num; i++ {
-			p := prpc.COM_TopUnit{}
-			p.Name = Testpaiming + strconv.Itoa(i)
-			if i/2 == 0 {
-				p.DisplayID = 1
-			} else {
-				p.DisplayID = 2
-			}
-			p.Level = num - int32(i)
-			p.TianTi = tian - int32(i)*2
 
-			TrueTopList = append(TrueTopList, p)
-		}
-	}
 	TMPTopList = TrueTopList
-
-	if len(TrueFriendTopList) == 0 {
-		for i := 0; i < num - 2; i++ {
-			p := prpc.COM_TopUnit{}
-			p.Name = Testpaiming + strconv.Itoa(i) + "friend"
-			if i/2 == 0 {
-				p.DisplayID = 1
-			} else {
-				p.DisplayID = 2
-			}
-			p.Level = num - int32(i)
-			p.TianTi = tian - int32(i)*2
-
-			TrueFriendTopList = append(TrueFriendTopList, p)
-		}
-
-	}
-
-	TMPFriendTopList = TrueFriendTopList
 
 }
 
@@ -92,7 +58,10 @@ func RefreshAllTopList() {
 
 	tmp := TrueTopList
 
-	TrueTopList = TMPTopList[:num]
+
+	if len(TMPTopList) > num {
+		TrueTopList = TMPTopList[:num]
+	}
 
 	if isSame(tmp, TrueTopList) {
 		return
@@ -163,26 +132,26 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 /////好友排行
 //////////////////////////////////////////////////////////////////////////////////////
 
-func initMeToFriendTopList(player *GamePlayer) {
-	top := prpc.COM_TopUnit{}
-	top.TianTi = player.TianTiVal
-	top.Level = player.MyUnit.Level
-	top.Name = player.MyUnit.InstName
-	top.DisplayID = player.MyUnit.UnitId
-
-	TrueFriendTopList = append(TrueFriendTopList, top)
-	TMPFriendTopList = append(TMPFriendTopList, top)
-
-	sort.Sort(TopList(TMPFriendTopList))
-	sort.Sort(TopList(TrueFriendTopList))
-
-	TMPFriendTopList = TMPFriendTopList[:num]
-	TrueFriendTopList = TrueFriendTopList[:num]
-
-}
+//func initMeToFriendTopList(player *GamePlayer) {
+//	top := prpc.COM_TopUnit{}
+//	top.TianTi = player.TianTiVal
+//	top.Level = player.MyUnit.Level
+//	top.Name = player.MyUnit.InstName
+//	top.DisplayID = player.MyUnit.UnitId
+//
+//	TrueFriendTopList = append(TrueFriendTopList, top)
+//	TMPFriendTopList = append(TMPFriendTopList, top)
+//
+//	sort.Sort(TopList(TMPFriendTopList))
+//	sort.Sort(TopList(TrueFriendTopList))
+//
+//	TMPFriendTopList = TMPFriendTopList[:num]
+//	TrueFriendTopList = TrueFriendTopList[:num]
+//
+//}
 
 func (this *GamePlayer) FindMyFriendTianTiRank() int32 {
-	for i, t := range TrueFriendTopList {
+	for i, t := range this.FriendTop {
 		if t.Name == this.MyUnit.InstName {
 			return int32(i)
 		}
@@ -192,41 +161,89 @@ func (this *GamePlayer) FindMyFriendTianTiRank() int32 {
 }
 
 func (this *GamePlayer) FriendTopByPage() {
-	initMeToFriendTopList(this) //测试用
+	//initMeToFriendTopList(this) //测试用
 	//logs.Debug("FriendTopByPage", TrueFriendTopList)
 
 	this.FriendTianTiRank = this.FindMyFriendTianTiRank()
-	logs.Debug("FriendTopByPage 1 ", this.FriendTianTiRank, len(TrueFriendTopList), "myname is :", this.MyUnit.InstName)
-	this.session.RecvFriendTopList(TrueFriendTopList, this.FriendTianTiRank)
+	logs.Debug("FriendTopByPage 1 ", this.FriendTianTiRank, len(this.FriendTop), "myname is :", this.MyUnit.InstName)
+	this.session.RecvFriendTopList(this.FriendTop, this.FriendTianTiRank)
 }
 
 func RefreshFriendTopList() {
-	sort.Sort(TopList(TMPFriendTopList)) // 重新排名
 
-	tmp := TrueFriendTopList
-
-	TrueFriendTopList = TMPFriendTopList
-
-	if isSame(tmp, TrueFriendTopList) {
-		return
-	}
+	//if isSame(tmp, TrueFriendTopList) {
+	//	return
+	//}
 
 	for _, p := range PlayerStore {
 		if p == nil || p.session == nil {
 			continue
 		}
+
+		p.RefreshFriendTopList()
+
 		p.FriendTianTiRank = p.FindMyTianTiRank()
-		//logs.Debug("11111", TrueFriendTopList)
-		p.session.RecvFriendTopList(TrueFriendTopList, p.FriendTianTiRank)
+		p.session.RecvFriendTopList(p.FriendTop, p.FriendTianTiRank)
 	}
 }
 
 func (this *GamePlayer) FindFriendTianTiRank() int32 {
-	for i, t := range TrueFriendTopList {
+	for i, t := range this.FriendTop {
 		if t.Name == this.MyUnit.InstName {
 			return int32(i)
 		}
 	}
 
 	return -1
+}
+
+func (this *GamePlayer) RefreshFriendTopList()  {		//好友之间的天梯排行榜
+	this.FriendTop = []prpc.COM_TopUnit{}
+
+	mt := prpc.COM_TopUnit{}
+	mt.Name = this.MyUnit.InstName
+	mt.Level = this.MyUnit.Level
+	mt.TianTi = this.TianTiVal
+	mt.DisplayID = this.MyUnit.UnitId
+
+	this.FriendTop = append(this.FriendTop, mt)
+
+	for _, f := range this.Friends {
+		fr := FindPlayerByInstId(f.InstId)
+		if fr == nil {
+			var fd *prpc.SGE_DBPlayer
+			if fd = <- QueryPlayer(f.Username); fd!=nil {
+				p := &GamePlayer{}
+				p.SetPlayerSGE(*fd)
+
+				if p.TianTiVal == 0 {
+					continue
+				}
+
+				t := prpc.COM_TopUnit{}
+				t.Name = p.MyUnit.InstName
+				t.Level = p.MyUnit.Level
+				t.TianTi = p.TianTiVal
+				t.DisplayID = p.MyUnit.UnitId
+
+				this.FriendTop = append(this.FriendTop, t)
+			}
+		} else {
+			if fr.TianTiVal == 0 {
+				continue
+			}
+
+			t := prpc.COM_TopUnit{}
+			t.Name = fr.MyUnit.InstName
+			t.Level = fr.MyUnit.Level
+			t.TianTi = fr.TianTiVal
+			t.DisplayID = fr.MyUnit.UnitId
+
+			this.FriendTop = append(this.FriendTop, t)
+		}
+	}
+
+	sort.Sort(TopList(this.FriendTop)) // 重新排名
+
+	return
 }

@@ -56,7 +56,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			}
 			infoext.MyPlayer = p.COM_Player
 
-			logs.Debug("Query player ", p)
+
+			logs.Debug("Query player ", p.Enemys)
 		}
 	} else {
 		this.player.SetSession(this)

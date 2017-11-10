@@ -7,9 +7,10 @@ import(
 type COM_Friend struct{
   sync.Mutex
   InstId int64  //0
-  Name string  //1
-  Level int32  //2
-  DisplayID int32  //3
+  Username string  //1
+  Name string  //2
+  Level int32  //3
+  DisplayID int32  //4
 }
 func (this *COM_Friend)SetInstId(value int64) {
   this.Lock()
@@ -20,6 +21,16 @@ func (this *COM_Friend)GetInstId() int64 {
   this.Lock()
   defer this.Unlock()
   return this.InstId
+}
+func (this *COM_Friend)SetUsername(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.Username = value
+}
+func (this *COM_Friend)GetUsername() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.Username
 }
 func (this *COM_Friend)SetName(value string) {
   this.Lock()
@@ -57,6 +68,7 @@ func (this *COM_Friend)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
   mask.writeBit(this.InstId!=0)
+  mask.writeBit(len(this.Username) != 0)
   mask.writeBit(len(this.Name) != 0)
   mask.writeBit(this.Level!=0)
   mask.writeBit(this.DisplayID!=0)
@@ -73,6 +85,13 @@ func (this *COM_Friend)Serialize(buffer *bytes.Buffer) error {
       if err != nil{
         return err
       }
+    }
+  }
+  // serialize Username
+  if len(this.Username) != 0{
+    err := write(buffer,this.Username)
+    if err != nil {
+      return err
     }
   }
   // serialize Name
@@ -113,6 +132,13 @@ func (this *COM_Friend)Deserialize(buffer *bytes.Buffer) error{
   // deserialize InstId
   if mask.readBit() {
     err := read(buffer,&this.InstId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize Username
+  if mask.readBit() {
+    err := read(buffer,&this.Username)
     if err != nil{
       return err
     }
