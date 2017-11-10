@@ -248,6 +248,7 @@ end
 
 function haoyu_OnFunBlackClick(context)
 	friendBtns.visible = false;
+	Proxy4Lua.AddEnemy();
 end
 
 function haoyu_OnSendClick(context)
