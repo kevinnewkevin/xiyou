@@ -101,7 +101,6 @@ function haoyou:OnInit()
 	funInfoBtn = friendBtns:GetChild("n5");
 	funBlackBtn = friendBtns:GetChild("n8");
 	funInfoBtn.onClick:Add(haoyu_OnFunInfoClick);
-	funAddBtn.onClick:Add(haoyu_OnFunAddClick);
 	funBlackBtn.onClick:Add(haoyu_OnFunBlackClick);
 	friendInstId = 0;
 	haoyou_FlushData();
@@ -175,7 +174,7 @@ function haoyu_RenderApplyListItem(indx, obj)
 	addBtn.data = name;
 	addBtn.onClick:Set(haoyou_OnAddApplyFriendClick);
 	local delBtn = obj:GetChild("n10");
-	addBtn.data = palyer.InstId;
+	delBtn.data = palyer.InstId;
 	delBtn.onClick:Set(haoyou_OnDelApplyFriendClick);
 end
 
@@ -354,7 +353,8 @@ function haoyou_OnAddApplyFriendClick(context)
 	Proxy4Lua.ProcessingFriend(name);
 end
 function haoyou_OnDelApplyFriendClick(context)
-	FriendSystem.DelApplyFriend(context.sender.data);
+	local id = context.sender.data;
+	FriendSystem.DelApplyFriend(id);
 end
 
 
