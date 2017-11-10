@@ -74,16 +74,8 @@ func (player *GamePlayer) SendChat(info prpc.COM_Chat) {
 		if info.Type == CK_System {
 
 		} else if info.Type == CK_World {
-			if len(info.Audio) != 0 {
-				info.AudioId = PushAudioInfo(info.Audio)
-				info.Audio = nil
-			}
 			BroadcastChat(info)
 		} else if info.Type == CK_Friend {
-			if len(info.Audio) != 0 {
-				info.AudioId = PushAudioInfo(info.Audio)
-				info.Audio = nil
-			}
 			BroadFriendChat(info)
 		}
 		logs.Info("Player[", player.MyUnit.InstName, "]", "SendChat", info)
