@@ -7,10 +7,10 @@
     <text id="n3_zh4y" name="n3" xy="743,69" size="40,43" font="华文楷体" fontSize="27" color="#ffba00" autoSize="none" bold="true" strokeColor="#000000" text="99"/>
     <image id="n4_zh4y" name="n4" src="m4s711" xy="680,10" skew="0,180"/>
     <text id="n5_zh4y" name="n5" xy="431,10" size="236,40" font="华文楷体" fontSize="32" color="#c8f7ff" align="right" ubb="true" autoSize="none" bold="true" text="啦啦啦啦啦啦啦"/>
-    <image id="n10_zh4y" name="n6" src="pjju18" xy="481,57" size="213,64">
-      <relation target="n7_zh4y" sidePair="leftext-left"/>
+    <image id="n10_zh4y" name="n6" src="pjju18" xy="138,57" size="556,64">
+      <relation target="n7_zh4y" sidePair="leftext-left,bottomext-bottom"/>
     </image>
-    <richtext id="n7_zh4y" name="n7" xy="493,66" size="170,40" font="华文楷体" fontSize="32" color="#ffffff" align="right" ubb="true" bold="true" text="啦啦啦啦啦">
+    <richtext id="n7_zh4y" name="n7" xy="152,68" size="512,40" font="华文楷体" fontSize="32" color="#ffffff" align="right" ubb="true" autoSize="height" bold="true" text="啦啦啦啦啦">
       <relation target="n1_zh4y" sidePair="right-right"/>
     </richtext>
     <image id="n11_zh4y" name="n9" src="pjju18" xy="528,59" size="172,58" hideByEditor="true">

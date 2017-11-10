@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="637,130" extention="Button">
+  <Button/>
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+  <displayList>
+    <component id="n1" src="m22wx" name="n1" xy="0,0">
+      <relation target="" sidePair="width,height"/>
+    </component>
+  </displayList>
+</component>
