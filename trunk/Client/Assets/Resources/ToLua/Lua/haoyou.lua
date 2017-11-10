@@ -150,9 +150,6 @@ function haoyu_UpdataChat()
 end
 
 function haoyu_RenderApplyListItem(indx, obj)
-	if FriendSystem.applyFriendList.Length <= 0 then
-		return;
-	end
 	local name =  FriendSystem.applyFriendList[indx];
 	local nameLab = obj:GetChild("n7");
 	nameLab.text = name;
