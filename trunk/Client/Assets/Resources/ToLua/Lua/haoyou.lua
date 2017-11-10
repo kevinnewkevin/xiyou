@@ -185,16 +185,17 @@ function haoyu_RenderListItem(indx, obj)
 	elseif fCrtTab == 1 then 
 	 	palyer =  FriendSystem.blackList[indx];
 	end
-	local nameLab = obj:GetChild("n5");
-	local levelLab = obj:GetChild("n4");
-	local icon = obj:GetChild("n2");
+	local panel = obj:GetChild("n1");
+	local nameLab = panel:GetChild("n5");
+	local levelLab = panel:GetChild("n4");
+	local icon = panel:GetChild("n2");
 	local displayData = DisplayData.GetData(palyer.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
 	nameLab.text = palyer.Name;
 	levelLab.text = palyer.Level .. "";
-	local addBtn = obj:GetChild("n9");
-	local delBtn = obj:GetChild("n8");
-	local funBtn = obj:GetChild("n7");
+	local addBtn = panel:GetChild("n9");
+	local delBtn = panel:GetChild("n8");
+	local funBtn = panel:GetChild("n7");
 	addBtn.visible = false;
 	delBtn.visible = false;
 	funBtn.visible = false;
