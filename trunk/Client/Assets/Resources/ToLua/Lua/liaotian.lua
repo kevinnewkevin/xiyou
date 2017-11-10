@@ -126,6 +126,7 @@ function liaotian_OnRenderListItem(index, obj)
 				yybtn.onClick:Add(liaotian_OnPlayRecord);
 				yybtn.data = crtList[index].AudioId;
 				yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
+				yybtn:GetChild("n2").text = crtList[index].AudioLen .. "\"";
 			else
 				content.visible = true;
 				contentBg.visible = true;
