@@ -223,6 +223,7 @@ class Proxy : ICOM_ServerToClientProxy
 		if (chat.Type == 3) 
 		{
 			FriendSystem.chatFriend (chat.PlayerInstId, chat);
+			FriendSystem.AddLatelyFriend (chat.PlayerInstId);
 			UIManager.SetDirty ("haoyou");
 		} 
 		//else 
@@ -297,6 +298,13 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool	RecvEnemy(ref COM_Friend friend)
 	{
 		FriendSystem.AddBlack (friend);
+		UIManager.SetDirty("haoyou");
+		return true;
+	}
+
+	public bool	DelEnemy(long id)
+	{
+		FriendSystem.DelBlack (id);
 		UIManager.SetDirty("haoyou");
 		return true;
 	}

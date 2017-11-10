@@ -134,6 +134,11 @@ public class Proxy4Lua {
 		NetWoking.S.AddEnemy (instId);	
 	}
 
+	static public void DeleteEnemy(long instId)
+	{
+		NetWoking.S.DeleteEnemy (instId);	
+	}
+
 	
     #endregion
 
