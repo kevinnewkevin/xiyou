@@ -236,7 +236,7 @@ struct COM_Chat
 	string		AudioId;		//语音唯一id
 	string		AudioUrl;		//语音远程地址
 	string		AudioPath;		//语音本地缓存地址
-	bool		AudioNew;		//是否未听过
+	bool		AudioOld;		//是否听过
 	int32		AudioLen;		//语音时长
 };
 
