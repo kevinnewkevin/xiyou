@@ -87,7 +87,7 @@ public class YYSystem {
             (data2) => {
             Debug.Log("上传返回:" + data2.fileurl);
             COM_Chat chat = new COM_Chat();
-            chat.AudioId = data2.fileid;
+            chat.AudioId = System.Guid.NewGuid().ToString();
             chat.AudioUrl = data2.fileurl;
             chat.AudioPath = _LastFilePath;
             chat.Type = 1;
