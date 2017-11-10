@@ -100,9 +100,9 @@ public class YYSystem {
         });
     }
 
-    static public void PlayRecord(string path, string url)
+    static public void PlayRecord(string url)
     {
-        YunVaImSDK.instance.RecordStartPlayRequest(path, url, "", (data2) =>
+        YunVaImSDK.instance.RecordStartPlayRequest("", url, "", (data2) =>
         {
             if (data2.result == 0)
             {

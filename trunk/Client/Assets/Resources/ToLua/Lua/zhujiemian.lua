@@ -195,7 +195,7 @@ function zhujiemian_FlushChatData()
 				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";
 			end
 		end
-		if list[i].AudioUrl ~= nil or list[i].AudioUrl ~= "" then
+		if list[i].AudioUrl ~= nil then
 			lbl.visible = false;
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);

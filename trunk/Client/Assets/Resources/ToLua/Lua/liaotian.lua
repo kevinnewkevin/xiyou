@@ -115,7 +115,7 @@ function liaotian_OnRenderListItem(index, obj)
 			local contentBg = obj:GetChild("n6");
 			local lv = obj:GetChild("n3");
 
-			if crtList[index].AudioUrl ~= nil or crtList[index].AudioUrl ~= "" then
+			if crtList[index].AudioUrl ~= nil then
 				content.visible = false;
 				contentBg.visible = false;
 				yybtn.visible = true;
