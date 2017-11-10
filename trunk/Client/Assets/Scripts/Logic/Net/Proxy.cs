@@ -219,7 +219,10 @@ class Proxy : ICOM_ServerToClientProxy
 	}
 
     public bool ReceiveChat(ref COM_Chat chat)
-{
+    {
+        if (FriendSystem.IsInBlack(chat.PlayerInstId))
+            return;
+        
 		if (chat.Type == 3) 
 		{
 			//FriendSystem.chatFriend (chat.PlayerInstId, chat);
