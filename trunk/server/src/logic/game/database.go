@@ -334,7 +334,7 @@ func UpdateUnit(p prpc.COM_Unit) {
 }
 
 
-func GetAllTopList(p prpc.COM_Unit) {
+func GetAllTopList() {
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {
@@ -342,20 +342,11 @@ func GetAllTopList(p prpc.COM_Unit) {
 			return
 		}
 		defer c.Close()
-		b := bytes.Buffer{}
 
-		p.Serialize(&b)
-
-		_, e = c.Exec("UPDATE `Unit` SET `BinData` = ? WHERE `UnitId` = ?", b.Bytes(), p.InstId)
-
-		if e != nil {
-			logs.Debug(e.Error())
-			return
-		}
 	}()
 }
 
-func UpdateTopList(p prpc.COM_Unit) {
+func UpdateTopList(InstId int64, TianTiVal int32) {
 	go func () {
 		c, e := ConnectDB()
 		if e != nil {
@@ -363,15 +354,21 @@ func UpdateTopList(p prpc.COM_Unit) {
 			return
 		}
 		defer c.Close()
-		b := bytes.Buffer{}
 
-		p.Serialize(&b)
+	}()
+}
 
-		_, e = c.Exec("UPDATE `Unit` SET `BinData` = ? WHERE `UnitId` = ?", b.Bytes(), p.InstId)
-
+func InsertTopList(InstId int64, TianTiVal int32) {
+	go func () {
+		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
 			return
 		}
+		defer c.Close()
+
+		//r , e := c.Exec("INSERT INTO `TopList`(`InstId`, `TianTiVal `)VALUES(?,?,)", InstId, TianTiVal)
+
+
 	}()
 }

@@ -65,18 +65,6 @@ func (this *GamePlayer) SerchFriendRandom() {
 		}
 	}
 
-	if len(all) == 0 {
-		for i := 1; i <= 6; i++ {
-			info := prpc.COM_Friend{}
-			info.InstId = int64(i)
-			info.Name = strconv.Itoa(i)
-			info.Level = this.MyUnit.Level
-			info.DisplayID = this.MyUnit.UnitId
-
-			all = append(all, info)
-		}
-	}
-
 	if len(all) > 6 {
 		this.session.FriendInfo(all[:6])
 	} else {
