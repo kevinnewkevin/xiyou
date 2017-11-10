@@ -47,6 +47,7 @@ func CreateUnitFromTable(id int32) *GameUnit {
 	}
 	u := GameUnit{}
 	u.UnitId = t.Id
+	u.InstId = GenUnitInstId()
 	u.IProperties = append(u.IProperties, t.IProp...)
 	u.CProperties = append(u.CProperties, t.CProp...)
 	u.DisPlay = t.DispId

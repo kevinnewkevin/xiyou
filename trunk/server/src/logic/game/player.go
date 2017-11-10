@@ -225,7 +225,6 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 		return nil
 	}
 	unit.Owner = this
-	unit.InstId = GenUnitInstId()
 
 	chapterids := GetUnitChapterById(tid)
 	for i := 0; i < len(chapterids); i++ {
