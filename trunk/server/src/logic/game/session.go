@@ -280,7 +280,7 @@ func (this *Session) RequestAudio(audioId int64) error {
 	if this.player == nil {
 		return nil
 	}
-	this.player.RequestAudio(audioId)
+	//this.player.RequestAudio(audioId)
 	return nil
 }
 

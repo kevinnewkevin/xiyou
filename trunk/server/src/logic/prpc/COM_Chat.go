@@ -12,9 +12,11 @@ type COM_Chat struct{
   HeadIcon string  //3
   Level string  //4
   Content string  //5
-  AudioUrl string  //6
-  Audio []uint8  //7
-  AudioLen int32  //8
+  AudioId string  //6
+  AudioUrl string  //7
+  AudioPath string  //8
+  AudioNew bool  //9
+  AudioLen int32  //10
 }
 func (this *COM_Chat)SetType(value int8) {
   this.Lock()
@@ -76,6 +78,16 @@ func (this *COM_Chat)GetContent() string {
   defer this.Unlock()
   return this.Content
 }
+func (this *COM_Chat)SetAudioId(value string) {
+  this.Lock()
+  defer this.Unlock()
+  this.AudioId = value
+}
+func (this *COM_Chat)GetAudioId() string {
+  this.Lock()
+  defer this.Unlock()
+  return this.AudioId
+}
 func (this *COM_Chat)SetAudioUrl(value string) {
   this.Lock()
   defer this.Unlock()
@@ -86,15 +98,25 @@ func (this *COM_Chat)GetAudioUrl() string {
   defer this.Unlock()
   return this.AudioUrl
 }
-func (this *COM_Chat)SetAudio(value []uint8) {
+func (this *COM_Chat)SetAudioPath(value string) {
   this.Lock()
   defer this.Unlock()
-  this.Audio = value
+  this.AudioPath = value
 }
-func (this *COM_Chat)GetAudio() []uint8 {
+func (this *COM_Chat)GetAudioPath() string {
   this.Lock()
   defer this.Unlock()
-  return this.Audio
+  return this.AudioPath
+}
+func (this *COM_Chat)SetAudioNew(value bool) {
+  this.Lock()
+  defer this.Unlock()
+  this.AudioNew = value
+}
+func (this *COM_Chat)GetAudioNew() bool {
+  this.Lock()
+  defer this.Unlock()
+  return this.AudioNew
 }
 func (this *COM_Chat)SetAudioLen(value int32) {
   this.Lock()
@@ -117,8 +139,10 @@ func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.HeadIcon) != 0)
   mask.writeBit(len(this.Level) != 0)
   mask.writeBit(len(this.Content) != 0)
+  mask.writeBit(len(this.AudioId) != 0)
   mask.writeBit(len(this.AudioUrl) != 0)
-  mask.writeBit(len(this.Audio) != 0)
+  mask.writeBit(len(this.AudioPath) != 0)
+  mask.writeBit(this.AudioNew)
   mask.writeBit(this.AudioLen!=0)
   {
     err := write(buffer,mask.bytes())
@@ -172,6 +196,13 @@ func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
       return err
     }
   }
+  // serialize AudioId
+  if len(this.AudioId) != 0{
+    err := write(buffer,this.AudioId)
+    if err != nil {
+      return err
+    }
+  }
   // serialize AudioUrl
   if len(this.AudioUrl) != 0{
     err := write(buffer,this.AudioUrl)
@@ -179,20 +210,15 @@ func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
       return err
     }
   }
-  // serialize Audio
-  if len(this.Audio) != 0{
-    {
-      err := write(buffer,uint(len(this.Audio)))
-      if err != nil {
-        return err
-      }
+  // serialize AudioPath
+  if len(this.AudioPath) != 0{
+    err := write(buffer,this.AudioPath)
+    if err != nil {
+      return err
     }
-    for _, value := range this.Audio {
-      err := write(buffer,value)
-      if err != nil {
-        return err
-      }
-    }
+  }
+  // serialize AudioNew
+  {
   }
   // serialize AudioLen
   {
@@ -255,6 +281,13 @@ func (this *COM_Chat)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
+  // deserialize AudioId
+  if mask.readBit() {
+    err := read(buffer,&this.AudioId)
+    if err != nil{
+      return err
+    }
+  }
   // deserialize AudioUrl
   if mask.readBit() {
     err := read(buffer,&this.AudioUrl)
@@ -262,21 +295,15 @@ func (this *COM_Chat)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
-  // deserialize Audio
+  // deserialize AudioPath
   if mask.readBit() {
-    var size uint
-    err := read(buffer,&size)
+    err := read(buffer,&this.AudioPath)
     if err != nil{
       return err
     }
-    this.Audio = make([]uint8,size)
-    for i,_ := range this.Audio{
-      err := read(buffer,&this.Audio[i])
-      if err != nil{
-        return err
-      }
-    }
   }
+  // deserialize AudioNew
+  this.AudioNew = mask.readBit();
   // deserialize AudioLen
   if mask.readBit() {
     err := read(buffer,&this.AudioLen)
