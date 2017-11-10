@@ -200,7 +200,7 @@ function zhujiemian_FlushChatData()
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
 			yyCom.data = list[i].AudioUrl;
-			yybtn:GetChild("n3").visible = list[i].Audio == nil;
+--			yybtn:GetChild("n3").visible = list[i].Audio == nil;
 		else
 			yyCom.visible = false;
 			lbl.visible = true;
@@ -224,6 +224,7 @@ function zhujiemian_liaotian_OnPlayRecord(context)
 --		Proxy4Lua.PlayAudio(context.sender.data);
 --	else
 		YYSystem.PlayRecord(record);
+		ChatSystem.SetRecord(context.sender.data);
 --	end
 end
 
