@@ -390,7 +390,7 @@ function setItemInfo()
 		if entityInst ~= nil then
 			itemInfolevel.text = entityInst.IProperties[9] .. "";
 			local displayData = DisplayData.GetData(eData._DisplayId);
-			itemInfoIcon_Icon.asLoader.url = "ui://" .. displayData._HeadIcon;
+			itemInfoIcon_Icon.asLoader.url = "ui://" .. iData._Icon;--displayData._HeadIcon;
 			itemInfoIconNum.text =  "" .. itemInst.Stack;
 			itemInfoIconPower.text = eData._Cost;
 			itemInfoIconlevel.text = entityInst.IProperties[9] .. "";

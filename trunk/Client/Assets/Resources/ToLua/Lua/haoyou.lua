@@ -42,6 +42,8 @@ function haoyou:OnInit()
     self.closeButton = self.contentPane:GetChild("n7").asButton;
     local cl = self.contentPane:GetChild("n15");
     cl.visible = false;
+    local back = self.contentPane:GetChild("n0");
+    back.onClick:Add(haoyu_OnMainBack);
     local feeList = self.contentPane:GetChild("n3").asList;
 	local feeMax = feeList.numItems;
 	local feeItem;
@@ -54,7 +56,8 @@ function haoyou:OnInit()
     friendPanel = self.contentPane:GetChild("n2");
     chatPanel = friendPanel:GetChild("n3");
     chatPanel.visible = false;
-
+    --chatPanel.onClick:Add(haoyu_OnMainBack);
+    --friendPanel.onClick:Add(haoyu_OnMainBack);
     contentList = chatPanel:GetChild("n3").asList;
 	--contentList:SetVirtual();
 	contentList.itemProvider = liaotian_GetListItemResource;
@@ -92,6 +95,7 @@ function haoyou:OnInit()
 	applyFriendList.itemRenderer = haoyu_RenderApplyListItem;
 	funInfoBtn = friendBtns:GetChild("n5");
 	funAddBtn = friendBtns:GetChild("n7");
+	funAddBtn.visible = false;
 	funBlackBtn = friendBtns:GetChild("n8");
 	funInfoBtn.onClick:Add(haoyu_OnFunInfoClick);
 	funAddBtn.onClick:Add(haoyu_OnFunAddClick);
@@ -137,7 +141,8 @@ function haoyou_FlushData()
    		friendList.numItems = FriendSystem.GetFriendNum();
    	elseif fCrtTab == 1 then 
    		friendList.numItems = FriendSystem.GetBalckNum();
-   	--elseif fCrtTab == 2 then
+   	elseif fCrtTab == 2 then
+   		friendList.numItems = FriendSystem.GetLatelyListNum();
   	end
   haoyu_UpdataChat();
 end
@@ -192,6 +197,11 @@ function haoyu_RenderListItem(indx, obj)
 		palyer =  FriendSystem.friendList[indx];
 	elseif fCrtTab == 1 then 
 	 	palyer =  FriendSystem.blackList[indx];
+	 elseif fCrtTab == 2 then 
+	 	palyer =  FriendSystem.GetFriend(FriendSystem.latelyList[indx]);
+	end
+	if palyer == nil then
+		return;
 	end
 	local panel = obj:GetChild("n1");
 	local nameLab = panel:GetChild("n5");
@@ -211,12 +221,20 @@ function haoyu_RenderListItem(indx, obj)
 		funBtn.visible = true;
 		funBtn.data = palyer.InstId;
 		obj.data = palyer.InstId;
-		funBtn.onClick:Set(haoyou_OnFunClick);
-		obj.onClick:Set(haoyou_SelectFriendClick);
+		funBtn.onClick:Add(haoyou_OnFunClick);
+		obj.onClick:Add(haoyou_SelectFriendClick);
 	elseif fCrtTab == 1 then 
 	 	delBtn.visible = true;
+	 	delBtn.data = palyer.InstId;
+		obj.data = palyer.InstId;
+		obj.onClick:Remove(haoyou_SelectFriendClick);
+		delBtn.onClick:Add(haoyou_OnFunRemoveClick);
  	elseif fCrtTab == 2 then 
- 		addBtn.visible = true;
+ 		funBtn.visible = true;
+		funBtn.data = palyer.InstId;
+		obj.data = palyer.InstId;
+		funBtn.onClick:Add(haoyou_OnFunClick);
+		obj.onClick:Add(haoyou_SelectFriendClick);
 	end
 end
 
@@ -229,17 +247,29 @@ function haoyu_OnMainBtnsClick(context)
 		friendPanel.visible = false;
 		findFriendPanel.visible = true;
 	end
+	friendBtns.visible = false;
 	haoyou_FlushData();
 end
 
 function haoyu_OnFBBtnsClick(context)
 	fCrtTab = context.sender.data;
+	friendBtns.visible = false;
 	haoyou_FlushData();
 end
 
 function haoyou_OnFunClick(context)
 	friendBtns.visible = true;
 end
+
+function haoyou_OnFunRemoveClick(context)
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "将从黑名单中删除？", false, haoyou_OnDel);
+end
+function haoyou_OnDel(context)
+	UIManager.HideMessageBox();
+	Proxy4Lua.DeleteEnemy(friendInstId);
+end
+
 
 function haoyou_SelectFriendClick(context)
 	chatPanel.visible = true;
@@ -257,7 +287,7 @@ end
 
 function haoyu_OnFunBlackClick(context)
 	friendBtns.visible = false;
-	Proxy4Lua.AddEnemy();
+	Proxy4Lua.AddEnemy(friendInstId);
 end
 
 function haoyu_OnSendClick(context)
@@ -275,6 +305,7 @@ function haoyu_OnSendClick(context)
 	content.text = "";
 	chat.PlayerInstId =  GamePlayer._InstID;
 	FriendSystem.chatFriend (friendInstId,chat);
+	FriendSystem.AddLatelyFriend (friendInstId);
 	haoyou_FlushData();
 end
 
@@ -289,6 +320,13 @@ end
 function haoyu_OnChangeBtnClick(context)
 	Proxy4Lua.SerchFriendRandom();
 end
+
+function haoyu_OnMainBack(context)
+	if friendBtns.visible == true then
+		friendBtns.visible = false;
+	end
+end
+
 
 
 function haoyou_OnAddFriendClick(context)
@@ -328,24 +366,18 @@ function liaotian_OnRenderListItem(index, obj)
 		local contentBg = obj:GetChild("n6");
 		local lv = obj:GetChild("n3");
 
-		if Proxy4Lua.LongIsNotZero(crtList[index].AudioId) then
-			content.visible = false;
-			contentBg.visible = false;
-			yybtn.visible = true;
-			yybg.visible = true;
-			yybtn.onClick:Add(liaotian_OnPlayRecord);
-			yybtn.data = crtList[index].AudioId;
-			yybtn:GetChild("n3").visible = crtList[index].Audio == nil;
-		else
-			content.visible = true;
-			contentBg.visible = true;
-			yybtn.visible = false;
-			yybg.visible = false;
-			icon.url = "ui://" .. crtList[index].HeadIcon;
-			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
-			content.text = EmojiParser.inst:Parse(crtList[index].Content);
-			lv.text = crtList[index].Level;
-		end
+	
+		content.visible = true;
+		contentBg.visible = true;
+		yybtn.visible = false;
+		yybg.visible = false;
+		icon.url = "ui://" .. crtList[index].HeadIcon;
+		name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+		content.width = content.initWidth;
+		content.text = EmojiParser.inst:Parse(crtList[index].Content);
+		content.width = content.textWidth;
+		lv.text = crtList[index].Level;
+
 	end
 end
 
