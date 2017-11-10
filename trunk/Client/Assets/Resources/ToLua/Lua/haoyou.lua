@@ -56,7 +56,7 @@ function haoyou:OnInit()
     chatPanel.visible = false;
 
     contentList = chatPanel:GetChild("n3").asList;
-	contentList:SetVirtual();
+	--contentList:SetVirtual();
 	contentList.itemProvider = liaotian_GetListItemResource;
 	contentList.itemRenderer = liaotian_OnRenderListItem;
 
