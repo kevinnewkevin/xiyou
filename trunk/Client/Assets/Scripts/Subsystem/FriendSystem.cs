@@ -18,6 +18,8 @@ public class FriendSystem
 		public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
 	public static void InitFriends( COM_Friend[] friends)
 	{
+		if (friends == null)
+			return;
 		for (int i = 0; i < friends.Length; i++) 
 		{
 			friendList.Add (friends [i]);
@@ -25,6 +27,8 @@ public class FriendSystem
 	}
 	public static void InitBlacks( COM_Friend[] black)
 	{
+		if (black == null)
+				return;
 		if (black == null)
 			return;
 		for (int i = 0; i < black.Length; i++) 
