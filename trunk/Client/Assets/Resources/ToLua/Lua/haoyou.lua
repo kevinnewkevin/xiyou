@@ -150,6 +150,9 @@ function haoyu_UpdataChat()
 end
 
 function haoyu_RenderApplyListItem(indx, obj)
+	if FriendSystem.applyFriendList.Length <= 0 then
+		return;
+	end
 	local name =  FriendSystem.applyFriendList[indx];
 	local nameLab = obj:GetChild("n7");
 	nameLab.text = name;
@@ -159,7 +162,14 @@ function haoyu_RenderApplyListItem(indx, obj)
 end
 
 function haoyu_RenderFindListItem(indx, obj)
-	local palyer = FriendSystem.randomFriends[indx];
+
+	local palyer;
+	if FriendSystem.findFriend ~= nil then
+		palyer	= FriendSystem.findFriend;
+	else
+		palyer	= FriendSystem.randomFriends[indx];
+	end
+
 	local nameLab = obj:GetChild("n5");
 	local levelLab = obj:GetChild("n4");
 	nameLab.text = palyer.Name;
@@ -179,6 +189,7 @@ function haoyu_RenderFindListItem(indx, obj)
 end
 
 function haoyu_RenderListItem(indx, obj)
+
 	local palyer;
 	if fCrtTab == 0 then
 		palyer =  FriendSystem.friendList[indx];
