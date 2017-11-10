@@ -77,7 +77,7 @@ end
 --改变颜色ubb语法
 function ChangeColor(content, color)
 	if color == "blue" then
-		return "[color=#b1eaff]" .. content .. "[/color]";
+		return "[color=#08e5ff]" .. content .. "[/color]";
 	elseif color == "red" then
 		return "[color=#ff6868]" .. content .. "[/color]";
 	elseif color == "yellow" then
