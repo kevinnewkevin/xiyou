@@ -10,6 +10,9 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/toolbox"
+
+	_ "net/http/pprof"
+	"net/http"
 )
 
 type App struct {
@@ -134,6 +137,10 @@ func (this *App) Run() {
 	//game.TestPlayer()
 
 	acceptor := network.NewAcceptorC("tcp", "0.0.0.0:10999")
+
+	go func() {
+		http.ListenAndServe("0.0.0.0:16060", nil)
+	}()
 
 	go func() {
 
