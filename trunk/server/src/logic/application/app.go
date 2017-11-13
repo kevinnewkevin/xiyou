@@ -13,6 +13,7 @@ import (
 
 	_ "net/http/pprof"
 	"net/http"
+	"runtime"
 )
 
 type App struct {
@@ -157,7 +158,7 @@ func (this *App) Run() {
 				game.NewClient(conn)
 			default:
 				game.TickClient()
-
+				runtime.GC()
 			}
 
 			//conn, err = this.l.AcceptTCP()
