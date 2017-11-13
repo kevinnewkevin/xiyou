@@ -214,6 +214,7 @@ function zhujiemian_FlushChatData()
 				frontPlus = Proxy4Lua.ChangeColor(list[i].PlayerName, "blue") .. ":";
 			end
 		end
+		lbl.width = lbl.initWidth;
 		if list[i].AudioUrl ~= nil then
 			yyCom.visible = true;
 			yyCom.onClick:Add(zhujiemian_liaotian_OnPlayRecord);
@@ -228,6 +229,7 @@ function zhujiemian_FlushChatData()
 				lbl.text = frontPlus .. EmojiParser.inst:Parse(list[i].Content);
 			end
 		end
+		lbl.width = lbl.textWidth;
 	end
 	if minChatList.numItems > 0 then
 		if minChatList.numItems >= 3 then
