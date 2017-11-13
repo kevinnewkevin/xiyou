@@ -68,7 +68,9 @@ type GamePlayer struct {
 }
 
 var (
-	PlayerStore       []*GamePlayer = []*GamePlayer{}
+	PlayerStore       		= []*GamePlayer{}
+	InstIdPlayerStore		= map[int64]*GamePlayer{}
+	InstNamePlayerStore     = map[string]*GamePlayer{}
 	DefaultUnits      []int32
 	DefaultBattleUnit int32
 )
@@ -132,6 +134,8 @@ func RemovePlayer(player *GamePlayer) {
 		return
 	}
 	RemovePlayerByInstName(player.MyUnit.InstName)
+	delete(InstNamePlayerStore, player.MyUnit.InstName)
+	delete(InstIdPlayerStore, player.MyUnit.InstId)
 }
 
 func SetDefaultUnits(cards string) {

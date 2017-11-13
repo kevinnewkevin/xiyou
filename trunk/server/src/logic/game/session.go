@@ -55,6 +55,8 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 				PlayerStore = append(PlayerStore, this.player)
 			}
 			infoext.MyPlayer = p.COM_Player
+			InstIdPlayerStore[this.player.MyUnit.InstId] = this.player
+			InstNamePlayerStore[this.player.MyUnit.InstName] = this.player
 
 
 			logs.Debug("Query player ", p.Enemys)
