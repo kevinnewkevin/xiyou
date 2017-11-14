@@ -77,7 +77,7 @@ function liaotian_OnSwipeMoveEnd(context)
 	end
 	if yyAnim.visible == true then
 		yyAnim.visible = false;
-		YYSystem.StopRecord(true);
+		YYSystem.StopRecord(true, 0);
 		Proxy4Lua.PopMsg("语音发送取消");
 	end
 end
@@ -150,7 +150,7 @@ end
 
 function liaotian_OnYYEnd()
 	yyAnim.visible = false;
-	YYSystem.StopRecord(false);
+	YYSystem.StopRecord(false, liaotian_GetChatType(crtType));
 end
 
 function liaotian_OnPlayRecord(context)
@@ -168,7 +168,11 @@ function liaotian_OnSend()
 	end
 
 	local chat = COM_Chat.New();
-	chat.Type = 1;
+	local chatType = liaotian_GetChatType(crtType);
+	if chatType == -1 then
+		chatType = 1;
+	end
+	chat.Type = chatType;
 	chat.PlayerInstId = GamePlayer._InstID;
 	chat.PlayerName = GamePlayer._Name;
 	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
@@ -211,18 +215,23 @@ end
 
 function liaotian_FlushData(context)
 	local isScrollBottom = contentList.scrollPane.isBottomMost;
-	local type = crtType;
-	if type == 0 then
-		type = -1;
-	elseif type == 1 then
-		type = 1;
-	elseif type == 2 then
-		type = 0;
-	end
+	local type = liaotian_GetChatType(crtType);
 	crtList = ChatSystem.MsgByType(type);
 	contentList.numItems = crtList.Count;
 
 	if isScrollBottom then
 		contentList.scrollPane:ScrollBottom();
+	end
+end
+
+function liaotian_GetChatType(uitype)
+	if uitype == 0 then
+		return -1;--全部
+	elseif uitype == 1 then
+		return 1;--世界
+	elseif uitype == 2 then
+		return 0;--系统
+	elseif uitype == 3 then
+		return 3;--帮派
 	end
 end

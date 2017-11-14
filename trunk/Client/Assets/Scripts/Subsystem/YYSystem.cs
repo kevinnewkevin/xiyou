@@ -8,6 +8,7 @@ public class YYSystem {
 
     static string _LastFilePath;
     static int _LastRecordLength;
+    static int _LastChatType;
 
     static public void Init()
     {
@@ -65,7 +66,7 @@ public class YYSystem {
         YunVaImSDK.instance.RecordStartRequest(filePath,2);
     }
 
-    static public void StopRecord(bool cancel)
+    static public void StopRecord(bool cancel, int chatType)
     {
         #if UNITY_EDITOR 
         return;
@@ -78,6 +79,8 @@ public class YYSystem {
             });
             return;
         }
+        _LastChatType = chatType;
+
         YunVaImSDK.instance.RecordStopRequest((data1) => {
 //            recordPath = data1.strfilepath;
 //            Debug.Log("停止录音返回:" + recordPath);
@@ -90,7 +93,7 @@ public class YYSystem {
             chat.AudioId = System.Guid.NewGuid().ToString();
             chat.AudioUrl = data2.fileurl;
             chat.AudioPath = _LastFilePath;
-            chat.Type = 1;
+            chat.Type = _LastChatType;
             chat.AudioLen = _LastRecordLength;
             chat.PlayerInstId = GamePlayer._InstID;
             chat.PlayerName = GamePlayer._Name;
