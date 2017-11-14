@@ -112,6 +112,9 @@ type COM_ServerToClient_RecvEnemy struct{
 type COM_ServerToClient_DelEnemy struct{
   instid int64  //0
 }
+type COM_ServerToClient_QueryPlayerInfoOK struct{
+  Info COM_PlayerInfo  //0
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -151,6 +154,7 @@ type COM_ServerToClientProxy interface{
   DelFriend(instid int64 ) error // 32
   RecvEnemy(info COM_Friend ) error // 33
   DelEnemy(instid int64 ) error // 34
+  QueryPlayerInfoOK(Info COM_PlayerInfo ) error // 35
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1607,6 +1611,40 @@ func (this *COM_ServerToClient_DelEnemy)Deserialize(buffer *bytes.Buffer) error{
   }
   return nil
 }
+func (this *COM_ServerToClient_QueryPlayerInfoOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //Info
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize Info
+  {
+    err := this.Info.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryPlayerInfoOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize Info
+  if mask.readBit() {
+    err := this.Info.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2197,6 +2235,23 @@ func(this* COM_ServerToClientStub)DelEnemy(instid int64 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)QueryPlayerInfoOK(Info COM_PlayerInfo ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(35))
+  if err != nil{
+    return err
+  }
+  _35 := COM_ServerToClient_QueryPlayerInfoOK{}
+  _35.Info = Info;
+  err = _35.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2672,6 +2727,20 @@ func Bridging_COM_ServerToClient_DelEnemy(buffer *bytes.Buffer, p COM_ServerToCl
   }
   return p.DelEnemy(_34.instid)
 }
+func Bridging_COM_ServerToClient_QueryPlayerInfoOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _35 := COM_ServerToClient_QueryPlayerInfoOK{}
+  err := _35.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryPlayerInfoOK(_35.Info)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -2755,6 +2824,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_RecvEnemy(buffer,p);
     case 34 :
       return Bridging_COM_ServerToClient_DelEnemy(buffer,p);
+    case 35 :
+      return Bridging_COM_ServerToClient_QueryPlayerInfoOK(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

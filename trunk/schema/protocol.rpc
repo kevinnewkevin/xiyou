@@ -36,6 +36,8 @@ service COM_ClientToServer{
 	DeleteFriend(int64 instid);						//删除好友
 	AddEnemy(int64 instid);						//将好友移动到黑名单
 	DeleteEnemy(int64 instid);						//将好友移动到黑名单
+	//资料查询
+	QueryPlayerInfo(int64 instid);						//查询
 };
 
 service COM_ServerToClient{
@@ -77,4 +79,6 @@ service COM_ServerToClient{
 	DelFriend(int64 instid);
 	RecvEnemy(COM_Friend info);
 	DelEnemy(int64 instid);
+	//资料查询
+	QueryPlayerInfoOK(COM_PlayerInfo Info);						//查询
 };

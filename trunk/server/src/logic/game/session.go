@@ -361,6 +361,14 @@ func (this *Session) DeleteEnemy(instid int64) error {
 	return nil
 }
 
+func (this *Session) QueryPlayerInfo(instid int64) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.QueryPlayerInfo(instid)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {

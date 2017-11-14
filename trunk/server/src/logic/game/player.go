@@ -1510,6 +1510,44 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//查询
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
+	info := prpc.COM_PlayerInfo{}
+	info.IsOnline = false
+	p := FindPlayerByInstId(Instid)
+	if p == nil {		//先给个假的
+		info.Name = "测试人物"
+		info.Level = 2
+		info.DisplayID = 1
+		info.ClanName = "测试帮会名字"
+		info.TiatiVal = 100000
+		info.TiatiRank = 88
+		for _, unitid := range this.BattleUnitList {
+			u := this.GetUnit(unitid)
+			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+		}
+	} else {
+		info.IsOnline = true
+		info.Name = p.MyUnit.InstName
+		info.Level = p.MyUnit.Level
+		info.DisplayID = p.MyUnit.UnitId
+		info.ClanName = "测试帮会名字 p"
+		info.TiatiVal = p.TianTiVal
+		info.TiatiRank = p.TianTiRank
+		for _, unitid := range p.BattleUnitList {
+			u := this.GetUnit(unitid)
+			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+		}
+	}
+
+	this.session.QueryPlayerInfoOK(info)
+
+	return
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //新手引導
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
