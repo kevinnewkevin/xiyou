@@ -182,6 +182,7 @@ var battleMod = map[string]lua.LGFunction{
 	"BuffUpdate":          __BuffUpdate,
 	"BuffChangeStillData": __BuffChangeStillData,
 	"BuffChangeData":      __BuffChangeData,
+	"InToBattleOnFighting":      __InToBattleOnFighting,
 	"TargetOver":          __TargetOver,
 	"TargetOn":            __TargetOn,
 }
@@ -1705,6 +1706,24 @@ func __BuffChangeData(L *lua.LState) int {
 
 	//buff := unit.SelectBuff(int32(buffinstid))
 	//buff.MustUpdate()
+
+	return 0
+}
+
+//export __InToBattleOnFighting
+func __InToBattleOnFighting(L *lua.LState) int {
+	//随机上卡牌
+
+	idx := 1
+	battleid := L.ToInt(idx)
+	idx++
+	unitid := L.ToInt(idx)
+
+	logs.Info("__InToBattleOnFighting")
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(unitid))
+
+	battle.InToBattleOnFighting(unit.Owner.MyUnit.InstId)
 
 	return 0
 }

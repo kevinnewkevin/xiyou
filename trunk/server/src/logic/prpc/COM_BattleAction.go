@@ -11,6 +11,7 @@ type COM_BattleAction struct{
   SkillId int32  //2
   SkillBuff []COM_BattleBuff  //3
   TargetList []COM_BattleActionTarget  //4
+  UnitList []COM_ChangeUnit  //5
 }
 func (this *COM_BattleAction)SetInstId(value int64) {
   this.Lock()
@@ -62,6 +63,16 @@ func (this *COM_BattleAction)GetTargetList() []COM_BattleActionTarget {
   defer this.Unlock()
   return this.TargetList
 }
+func (this *COM_BattleAction)SetUnitList(value []COM_ChangeUnit) {
+  this.Lock()
+  defer this.Unlock()
+  this.UnitList = value
+}
+func (this *COM_BattleAction)GetUnitList() []COM_ChangeUnit {
+  this.Lock()
+  defer this.Unlock()
+  return this.UnitList
+}
 func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
@@ -72,6 +83,7 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.SkillId!=0)
   mask.writeBit(len(this.SkillBuff) != 0)
   mask.writeBit(len(this.TargetList) != 0)
+  mask.writeBit(len(this.UnitList) != 0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -135,6 +147,21 @@ func (this *COM_BattleAction)Serialize(buffer *bytes.Buffer) error {
       }
     }
     for _, value := range this.TargetList {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  // serialize UnitList
+  if len(this.UnitList) != 0{
+    {
+      err := write(buffer,uint(len(this.UnitList)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.UnitList {
       err := value.Serialize(buffer)
       if err != nil {
         return err
@@ -205,6 +232,21 @@ func (this *COM_BattleAction)Deserialize(buffer *bytes.Buffer) error{
     this.TargetList = make([]COM_BattleActionTarget,size)
     for i,_ := range this.TargetList{
       err := this.TargetList[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // deserialize UnitList
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.UnitList = make([]COM_ChangeUnit,size)
+    for i,_ := range this.UnitList{
+      err := this.UnitList[i].Deserialize(buffer)
       if err != nil{
         return err
       }

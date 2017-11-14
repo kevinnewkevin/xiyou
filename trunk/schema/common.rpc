@@ -140,6 +140,12 @@ struct COM_ThrowCard{
 	int32			Level;			//等级
 };
 
+//Buff变更
+struct COM_ChangeUnit{
+	COM_BattleUnit			Unit;			//卡牌
+	bool					Status;			//状态 true为上阵,false为下阵
+};
+
 //战斗操作对象
 struct COM_BattleActionTarget{
 	int64 				InstId;				//target
@@ -165,6 +171,7 @@ struct COM_BattleAction{
 	int32 			 			SkillId;				//释放技能id
 	COM_BattleBuff[] 			SkillBuff;				//技能给予释放者的buff
 	COM_BattleActionTarget[] 	TargetList;				//技能目标的情况
+	COM_ChangeUnit[] 			UnitList;				//卡牌变化
 };
 
 //战报

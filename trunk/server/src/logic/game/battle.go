@@ -1093,6 +1093,14 @@ func GetNearFriend(pos int32) []int32 {
 	}
 	return []int32{}
 }
+func GetAllMyPos(camp int) []int32 {
+	if camp == prpc.CT_RED {
+		return []int32{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_6}
+	} else if camp == prpc.CT_BLUE {
+		return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_3, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
+	}
+	return []int32{}
+}
 
 func (this *BattleRoom) SelectRandomTarget(instid int64, targetnum int32) []int64 {
 	unit := this.SelectOneUnit(instid)
@@ -1875,6 +1883,50 @@ func (this *BattleRoom) BuffAddHp(target int64, buffid int32, data int32, over b
 	buffCOM.Dead = unit.IsDead()
 
 	this.AcctionList.BuffList = append(this.AcctionList.BuffList, buffCOM)
+
+}
+
+func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
+	p := FindPlayerByInstId(PlayerInstId)
+	group := p.GetUnitGroupById(p.BattleUnitGroup)
+	space := []*GameUnit{}
+	for _, uid := range group.UnitList {
+		u := p.GetUnit(uid)
+		if u.Position != 0 {
+			continue
+		}
+		space = append(space, u)
+	}
+
+	if len(space) == 0{
+		return
+	}
+
+	poss := []int32{}
+	mypos := GetAllMyPos(p.BattleCamp)
+
+	for _, pos := range mypos {
+		if this.Units[pos] != nil {
+			continue
+		}
+		if !this.Units[pos].IsDead() {
+			continue
+		}
+		poss = append(poss, pos)
+	}
+
+	if len(poss) == 0{
+		return
+	}
+
+	this.Units[poss[0]] = space[0]
+	this.Units[poss[0]].Position = poss[0]
+
+	info := prpc.COM_ChangeUnit{}
+	info.Status = true
+	info.Unit = space[0].GetBattleUnitCOM()
+
+	this.AcctionList.UnitList = append(this.AcctionList.UnitList, info)
 
 }
 
