@@ -319,4 +319,9 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
+	public bool QueryPlayerInfoOK(ref COM_PlayerInfo info)
+	{
+		return true;
+	}
+
 }
