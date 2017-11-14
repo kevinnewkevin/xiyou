@@ -93,7 +93,7 @@ public class YYSystem {
             chat.AudioId = System.Guid.NewGuid().ToString();
             chat.AudioUrl = data2.fileurl;
             chat.AudioPath = _LastFilePath;
-            chat.Type = _LastChatType;
+			chat.Type = (sbyte)_LastChatType;
             chat.AudioLen = _LastRecordLength;
             chat.PlayerInstId = GamePlayer._InstID;
             chat.PlayerName = GamePlayer._Name;
