@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="820,250">
+  <displayList>
+    <image id="n0_t97j" name="n0" src="t97j3e" xy="0,0"/>
+    <component id="n1_we0a" name="n1" src="we0a3g" xy="12,24"/>
+    <text id="n2_we0a" name="n2" xy="212,32" size="304,44" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" bold="true" text="啦啦啦啦啦啦啦"/>
+    <text id="n3_we0a" name="n3" xy="517,32" size="304,44" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" bold="true" text="请求支援"/>
+    <text id="n4_we0a" name="n4" xy="214,90" size="304,44" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" bold="true" text="您有20/20"/>
+    <component id="n5_we0a" name="n5" src="we0a3n" xy="214,148">
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <component id="n6_we0a" name="n6" src="we0a3p" xy="661,101"/>
+  </displayList>
+</component>

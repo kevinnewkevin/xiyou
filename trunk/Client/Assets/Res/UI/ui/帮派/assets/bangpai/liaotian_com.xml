@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="910,1080">
+  <displayList>
+    <list id="n6_zh4y" name="n6" xy="176,32" size="536,86" layout="flow_hz" lineGap="-24" colGap="13">
+      <item url="ui://f9by5023ndwk8"/>
+      <item url="ui://f9by5023ndwkb"/>
+      <item url="ui://f9by5023ndwke"/>
+      <item url="ui://f9by5023ndwk2p"/>
+    </list>
+    <image id="n16_ndwk" name="n16" src="ndwk2m" xy="44,89" size="844,755"/>
+    <image id="n7_v0r3" name="n7" src="ndwkh" xy="328,1009" size="410,58"/>
+    <component id="n8_v0r3" name="n8" src="ndwki" xy="776,1004"/>
+    <component id="n10_v0r3" name="n10" src="ndwkk" xy="693,999"/>
+    <component id="n11_v0r3" name="n11" src="ndwkm" xy="249,996"/>
+    <text id="n12_v0r3" name="n12" xy="337,1010" size="349,45" input="true" prompt="点击输入聊天内容" maxLength="35" font="方正楷体_GBK" fontSize="34" color="#ffffff" autoSize="none" singleLine="true" text=""/>
+    <list id="n13_v0r3" name="n13" xy="60,116" size="830,836" overflow="scroll" defaultItem="ui://f9by5023ndwko"/>
+    <component id="n14_v0r3" name="n14" src="ndwkx" xy="172,634"/>
+    <component id="n15_r2c6" name="n15" src="ndwk2j" xy="324,401" hideByEditor="true"/>
+    <component id="n17_ndwk" name="n17" src="ndwk2s" xy="4,993"/>
+    <text id="n18_ndwk" name="n18" xy="12,953" size="213,41" font="方正楷体_GBK" fontSize="34" color="#b9b7b7" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" text="24:00:00"/>
+  </displayList>
+</component>
