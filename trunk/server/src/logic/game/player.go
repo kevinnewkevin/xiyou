@@ -1517,17 +1517,24 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 	info := prpc.COM_PlayerInfo{}
 	info.IsOnline = false
 	p := FindPlayerByInstId(Instid)
-	if p == nil {		//先给个假的
-		info.Name = "测试人物"
-		info.Level = 2
-		info.DisplayID = 1
-		info.ClanName = "测试帮会名字"
-		info.TiatiVal = 100000
-		info.TiatiRank = 88
-		group := this.GetUnitGroupById(this.BattleUnitGroup)
-		for _, unitid := range group.UnitList {
-			u := this.GetUnit(unitid)
-			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+	if p == nil {
+		var p *prpc.SGE_DBPlayer
+		if p = <- QueryPlayerById(Instid); p!=nil {		//数据库里有这个人
+			player := &GamePlayer{}
+			player.SetPlayerSGE(*p)
+			info.Name = player.MyUnit.InstName
+			info.Level = player.MyUnit.Level
+			info.DisplayID = player.MyUnit.UnitId
+			info.ClanName = "测试帮会名字"
+			info.TiatiVal = player.TianTiVal
+			info.TiatiRank = player.TianTiRank
+			group := this.GetUnitGroupById(player.BattleUnitGroup)
+			for _, unitid := range group.UnitList {
+				u := player.GetUnit(unitid)
+				info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+				}
+		} else {
+			return
 		}
 	} else {
 		info.IsOnline = true

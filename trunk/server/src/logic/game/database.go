@@ -142,6 +142,71 @@ func QueryPlayer(username string) <- chan *prpc.SGE_DBPlayer {
 	return rChan
 }
 
+
+func QueryPlayerById(InstId int64) <- chan *prpc.SGE_DBPlayer {
+	logs.Debug("Query player")
+	rChan := make(chan *prpc.SGE_DBPlayer)
+	go func() {
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		r, e := c.Query("SELECT * FROM `Player` WHERE `InstId` = ?", InstId)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		if r.Next() {
+			a := int64(0)
+			b := []byte{}
+			c := ""
+			e = r.Scan(&a, &c, &b)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			p := &prpc.SGE_DBPlayer{}
+
+			bb := bytes.NewBuffer(b)
+			e = p.Deserialize(bb)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			p.PlayerId = a
+
+
+			p.COM_Player.Employees = <- QueryUnit(a)
+
+			rChan <- p
+
+			close(rChan)
+			return
+		}
+
+		rChan <- nil
+		close(rChan)
+		return
+	}()
+
+	return rChan
+}
+
 func InsertPlayer(p prpc.SGE_DBPlayer) <- chan int64 {
 
 	rChan := make (chan int64)
