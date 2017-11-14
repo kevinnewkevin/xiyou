@@ -158,7 +158,7 @@ func InsertPlayer(p prpc.SGE_DBPlayer) <- chan int64 {
 
 		p.Serialize(b)
 
-		r , e := c.Exec("INSERT INTO `Player`(`PlayerId`, `Username`, `BinData`)VALUES(?,?,?)", p.PlayerId , p.Username, b.Bytes())
+		r , e := c.Exec("INSERT INTO `Player`(`PlayerId`, `Username`, `InstId`, `BinData`)VALUES(?,?,?,?)", p.PlayerId , p.Username, p.COM_Player.InstId, b.Bytes())
 
 		if e != nil {
 			logs.Debug(e.Error())

@@ -1524,7 +1524,8 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 		info.ClanName = "测试帮会名字"
 		info.TiatiVal = 100000
 		info.TiatiRank = 88
-		for _, unitid := range this.BattleUnitList {
+		group := this.GetUnitGroupById(this.BattleUnitGroup)
+		for _, unitid := range group.UnitList {
 			u := this.GetUnit(unitid)
 			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
 		}
@@ -1536,11 +1537,14 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 		info.ClanName = "测试帮会名字 p"
 		info.TiatiVal = p.TianTiVal
 		info.TiatiRank = p.TianTiRank
-		for _, unitid := range p.BattleUnitList {
+		group := p.GetUnitGroupById(p.BattleUnitGroup)
+		for _, unitid := range group.UnitList {
 			u := this.GetUnit(unitid)
 			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
 		}
 	}
+
+	logs.Debug("QueryPlayerInfo end", info)
 
 	this.session.QueryPlayerInfoOK(info)
 
