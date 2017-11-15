@@ -360,6 +360,7 @@ end
 function haoyu_OnFunInfoClick(context)
 	--friendBtns:RemoveFromParent();
 	friendBtns.visible = false;
+	Proxy4Lua.QueryPlayerInfo(friendInstId);
 end
 
 function haoyu_OnFunAddClick(context)
