@@ -5,8 +5,11 @@ public class ChatSystem {
     // type -1 为全部信息 前端自定义
     static public Dictionary<int, List<COM_Chat>> _AllMsg;
 
+    static public List<COM_Assistant> _Assistant;
+
     static public void Init()
     {
+        _Assistant = new List<COM_Assistant>();
         _AllMsg = new Dictionary<int, List<COM_Chat>>();
         _AllMsg.Add(-1, new List<COM_Chat>());
         EmojiParser.inst.RegistEmojiTags();
@@ -22,6 +25,47 @@ public class ChatSystem {
 
         UIManager.SetDirty("zhujiemian_liaotian");
         UIManager.SetDirty("liaotian");
+    }
+
+    static public void UpdateAss(COM_Assistant ass)
+    {
+        bool updated = false;
+        for(int i=0; i < _Assistant.Count; ++i)
+        {
+            if (_Assistant [i].Id == ass.Id)
+            {
+                _Assistant [i] = ass;
+                updated = true;
+            }
+        }
+        if(!updated)
+            _Assistant.Add(ass);
+
+        UIManager.SetDirty("liaotian");
+        UIManager.SetDirty("squad");
+    }
+
+    static public COM_Assistant GetAss(int assid)
+    {
+        for(int i=0; i < _Assistant.Count; ++i)
+        {
+            if (_Assistant [i].Id == assid)
+            {
+                return _Assistant [i];
+            }
+        }
+        return null;
+    }
+
+    static public void SetAssistanted(int assid)
+    {
+        for(int i=0; i < _Assistant.Count; ++i)
+        {
+            if (_Assistant [i].Id == assid)
+            {
+                _Assistant [i].IsAssistanted = true;
+            }
+        }
     }
 
     static public void SetRecord(string audioid)

@@ -142,6 +142,16 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.QueryPlayerInfo (instId);	
 	}
+
+    static public void NeedAssistantItem(int itemId)
+    {
+        NetWoking.S.NeedAssistantItem(itemId);
+    }
+
+    static public void Assistant(int assId)
+    {
+        NetWoking.S.AssistantItem(assId);
+    }
 	
     #endregion
 
