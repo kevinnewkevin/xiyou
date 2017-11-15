@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 198408198416952472}
   - component: {fileID: 199664646366580436}
   m_Layer: 0
-  m_Name: Slash (1)
+  m_Name: Slash (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1830,11 +1830,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772782619281178}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.015000075, y: -0.357, z: -0.114}
-  m_LocalScale: {x: 0.17328866, y: 0.17328854, z: 0.16429392}
+  m_LocalPosition: {x: 0, y: 0.096619844, z: 0}
+  m_LocalScale: {x: 0.5942, y: 0.5942007, z: 1.1520714}
   m_Children: []
-  m_Father: {fileID: 4721784937804204}
-  m_RootOrder: 0
+  m_Father: {fileID: 4828629857555218}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4244246950986560
 Transform:
@@ -2424,8 +2424,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.03, y: 2.6, z: 0.297}
   m_LocalScale: {x: 3.4289622, y: 7.01227, z: 3.4289656}
-  m_Children:
-  - {fileID: 4242588597363276}
+  m_Children: []
   m_Father: {fileID: 4828629857555218}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2602,6 +2601,7 @@ Transform:
   - {fileID: 4060418607656304}
   - {fileID: 4166861489393764}
   - {fileID: 4346042925460032}
+  - {fileID: 4242588597363276}
   m_Father: {fileID: 4113306936028414}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3027,7 +3027,7 @@ Animation:
   m_GameObject: {fileID: 1643141492504480}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400002, guid: cd87ef550eb4c3f4d99184896683a507, type: 3}
+  m_Animation: {fileID: 7400000, guid: bc9b431909aff5645902e1887c59a684, type: 2}
   m_Animations:
   - {fileID: 0}
   - {fileID: 7400002, guid: cd87ef550eb4c3f4d99184896683a507, type: 3}
@@ -12204,7 +12204,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -157591844
+  randomSeed: -380823540
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12348,7 +12348,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.08965516, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
     startSize:
       minMaxState: 0
       scalar: 4
@@ -13069,7 +13069,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0.24137926, g: 1, b: 0, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0.8905617}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -32859,7 +32859,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17b549e00cd70cf4bbfc28441697a37e, type: 2}
+  - {fileID: 2100000, guid: bdd1ee83a64e5984eabd4bb840d39b34, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
