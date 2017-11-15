@@ -260,8 +260,10 @@ struct COM_Chat
 struct COM_Assistant
 {
 	int32 		Id;				//唯一id
+	int32		ItemId;			//需求的道具id
 	int32 		CrtCount;		//当前数量
 	int32 		MaxCount;		//最大数量
+	string		PlayerName;		//谁的需求
 };
 
 struct COM_TopUnit
