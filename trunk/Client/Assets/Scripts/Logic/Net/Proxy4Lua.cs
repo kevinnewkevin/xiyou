@@ -138,7 +138,10 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.DeleteEnemy (instId);	
 	}
-
+	static public void QueryPlayerInfo(long instId)
+	{
+		NetWoking.S.QueryPlayerInfo (instId);	
+	}
 	
     #endregion
 

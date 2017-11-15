@@ -321,6 +321,8 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool QueryPlayerInfoOK(ref COM_PlayerInfo info)
 	{
+		FriendSystem.friendInfo = info; 
+		UIManager.Show("wanjiaxinxi");
 		return true;
 	}
 
