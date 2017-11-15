@@ -121,4 +121,5 @@ end
 --ui资源和ui逻辑关联map
 function RegUIResMap()
 	UIManager.RegUIResMap("jinengshengji", "qianghuachenggong");
+	UIManager.RegUIResMap("squad", "bangpai");
 end
