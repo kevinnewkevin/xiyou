@@ -1,11 +1,17 @@
 require "FairyGUI"
 
-liaotian = fgui.window_class(WindowBase)
+squad = fgui.window_class(WindowBase)
 local Window;
 
-local sysCom = "ui://liaotian/xitong_com";
-local otherCom = "ui://liaotian/duifang_com";
-local selfCom = "ui://liaotian/wofang_com";
+local member;
+
+local helpBtn;
+local helpTime;
+
+local squadChatCom;
+local sysCom = "ui://bangpai/xitong_com";
+local otherCom = "ui://bangpai/duifang_com";
+local selfCom = "ui://bangpai/wofang_com";
 
 local contentList;
 local typeList;
@@ -20,58 +26,115 @@ local emojiBtn;
 local yyBtn;
 local content;
 
-function liaotian:OnEntry()
-	Window = liaotian.New();
+function squad:OnEntry()
+	Window = squad.New();
 	Window:Show();
 end
 
-function liaotian:GetWindow()
+function squad:GetWindow()
 	return Window;
 end
 
-function liaotian:OnInit()
-	self.contentPane = UIPackage.CreateObject("liaotian", "liaotian_com").asCom;
+function squad:OnInit()
+	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
-	self.modal = true;
-	self.closeButton = self.contentPane:GetChild("n1");
 
-	sendBtn = self.contentPane:GetChild("n8").asButton;
-	emojiBtn = self.contentPane:GetChild("n10").asButton;
-	yyBtn = self.contentPane:GetChild("n11").asButton;
-	content = self.contentPane:GetChild("n12");
-	sendBtn.onClick:Add(liaotian_OnSend);
-	emojiBtn.onClick:Add(liaotian_OnEmoji);
-	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
-	yyBtn.onTouchEnd:Add(liaotian_OnYYEnd);
-	yyAnim = self.contentPane:GetChild("n15").asCom;
+	member = self.contentPane:GetChild("").asList;
+	member:SetVirtual();
+	member.itemRenderer = squad_RenderListItem;
+
+	helpBtn = self.contentPane:GetChild("").asButton;
+	helpBtn.onClick:Add(squad_OnHelp);
+	helpTime = self.contentPane:GetChild("");
+
+	-------------------------------chat----------------------------------------
+	squadChatCom = self.contentPane:GetChild("n3").asCom;
+	sendBtn = squadChatCom:GetChild("n8").asButton;
+	emojiBtn = squadChatCom:GetChild("n10").asButton;
+	yyBtn = squadChatCom:GetChild("n11").asButton;
+	content = squadChatCom:GetChild("n12");
+	sendBtn.onClick:Add(squadliaotian_OnSend);
+	emojiBtn.onClick:Add(squadliaotian_OnEmoji);
+	yyBtn.onTouchBegin:Add(squadliaotian_OnYYBegin);
+	yyBtn.onTouchEnd:Add(squadliaotian_OnYYEnd);
+	yyAnim = squadChatCom:GetChild("n15").asCom;
 	yyAnim.visible = false;
 
-	local gestureMoveUp = Proxy4Lua.SwipeGesture(self.contentPane);
-	gestureMoveUp.onMove:Add(liaotian_OnSwipeMoveEnd);
+	local gestureMoveUp = Proxy4Lua.SwipeGesture(squadChatCom);
+	gestureMoveUp.onMove:Add(squadliaotian_OnSwipeMoveEnd);
 
-	typeList = self.contentPane:GetChild("n6").asList;
-	typeList.onClickItem:Add(liaotian_OnTypeSelect);
+	typeList = squadChatCom:GetChild("n6").asList;
+	typeList.onClickItem:Add(squadliaotian_OnTypeSelect);
 
-	emojiCom = self.contentPane:GetChild("n14").asCom;
+	emojiCom = squadChatCom:GetChild("n14").asCom;
 	emojiCom.fairyBatching = true;
-	emojiCom:GetChild("n1").asList.onClickItem:Add(liaotian_OnEmojiItem);
+	emojiCom:GetChild("n1").asList.onClickItem:Add(squadliaotian_OnEmojiItem);
 	emojiCom:RemoveFromParent();
 
-	contentList = self.contentPane:GetChild("n13").asList;
+	contentList = squadChatCom:GetChild("n13").asList;
 	contentList:SetVirtual();
-	contentList.itemProvider = liaotian_GetListItemResource;
-	contentList.itemRenderer = liaotian_OnRenderListItem;
+	contentList.itemProvider = squadliaotian_GetListItemResource;
+	contentList.itemRenderer = squadliaotian_OnRenderListItem;
 
 	crtType = 0;
 	typeList.selectedIndex = crtType;
-	liaotian_FlushData();
+	-------------------------------endchat-------------------------------------
+
+	squad_FlushData();
 end
 
-function liaotian_OnEmoji(context)
+function squad_RenderListItem(index, obj)
+	
+end
+
+function squad_OnHelp()
+	
+end
+
+function squad:OnUpdate()
+	if UIManager.IsDirty("squad") then
+		squad_FlushData();
+		UIManager.ClearDirty("squad");
+	end
+end
+
+function squad:OnTick()
+	
+end
+
+function squad:isShow()
+	return Window.isShowing;
+end
+
+function squad:OnDispose()
+	Window:Dispose();
+end
+
+function squad:OnHide()
+	yyAnim.visible = false;
+	crtType = 0;
+	typeList.selectedIndex = crtType;
+	Window:Hide();
+end
+
+function squad_FlushData()
+
+	local isScrollBottom = contentList.scrollPane.isBottomMost;
+	local type = squadliaotian_GetChatType(crtType);
+	crtList = ChatSystem.MsgByType(type);
+	contentList.numItems = crtList.Count;
+
+	if isScrollBottom then
+		contentList.scrollPane:ScrollBottom();
+	end
+end
+
+
+function squadliaotian_OnEmoji(context)
 	GRoot.inst:ShowPopup(emojiCom, context.sender, false);
 end
 
-function liaotian_OnSwipeMoveEnd(context)
+function squadliaotian_OnSwipeMoveEnd(context)
 	if context.sender.delta.y > -100 then
 		return;
 	end
@@ -82,7 +145,7 @@ function liaotian_OnSwipeMoveEnd(context)
 	end
 end
 
-function liaotian_GetListItemResource(index)
+function squadliaotian_GetListItemResource(index)
 	if crtList == nil then
 		return;
 	end
@@ -96,11 +159,11 @@ function liaotian_GetListItemResource(index)
 	end
 end
 
-function liaotian_OnEmojiItem(context)
+function squadliaotian_OnEmojiItem(context)
 	content:ReplaceSelection("[:" .. context.data.gameObjectName .. "]");
 end
 
-function liaotian_OnRenderListItem(index, obj)
+function squadliaotian_OnRenderListItem(index, obj)
 	if crtList == nil then
 		return;
 	end
@@ -123,7 +186,7 @@ function liaotian_OnRenderListItem(index, obj)
 				contentBg.visible = false;
 				yybtn.visible = true;
 				yybg.visible = true;
-				yybtn.onClick:Add(liaotian_OnPlayRecord);
+				yybtn.onClick:Add(squadliaotian_OnPlayRecord);
 				yybtn.data = crtList[index].AudioId;
 				yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
 				yybtn:GetChild("n2").text = crtList[index].AudioLen .. "\"";
@@ -143,17 +206,17 @@ function liaotian_OnRenderListItem(index, obj)
 	end
 end
 
-function liaotian_OnYYBegin()
+function squadliaotian_OnYYBegin()
 	yyAnim.visible = true;
 	YYSystem.StartRecord();
 end
 
-function liaotian_OnYYEnd()
+function squadliaotian_OnYYEnd()
 	yyAnim.visible = false;
 	YYSystem.StopRecord(false, liaotian_GetChatType(crtType));
 end
 
-function liaotian_OnPlayRecord(context)
+function squadliaotian_OnPlayRecord(context)
 	local record = ChatSystem.GetRecord(context.sender.data);
 	if record == nil then
 		return;
@@ -162,13 +225,13 @@ function liaotian_OnPlayRecord(context)
 	ChatSystem.SetRecord(record.AudioId);
 end
 
-function liaotian_OnSend()
+function squadliaotian_OnSend()
 	if content.text == "" then
 		return;
 	end
 
 	local chat = COM_Chat.New();
-	local chatType = liaotian_GetChatType(crtType);
+	local chatType = squadliaotian_GetChatType(crtType);
 	if chatType == -1 then
 		chatType = 1;
 	end
@@ -182,49 +245,12 @@ function liaotian_OnSend()
 	content.text = "";
 end
 
-function liaotian:OnUpdate()
-	if UIManager.IsDirty("liaotian") then
-		liaotian_FlushData();
-		UIManager.ClearDirty("liaotian");
-	end
-end
-
-function liaotian_OnTypeSelect()
+function squadliaotian_OnTypeSelect()
 	crtType = typeList.selectedIndex;
-	UIManager.SetDirty("liaotian");
+	UIManager.SetDirty("squad");
 end
 
-function liaotian:OnTick()
-	
-end
-
-function liaotian:isShow()
-	return Window.isShowing;
-end
-
-function liaotian:OnDispose()
-	Window:Dispose();
-end
-
-function liaotian:OnHide()
-	yyAnim.visible = false;
-	crtType = 0;
-	typeList.selectedIndex = crtType;
-	Window:Hide();
-end
-
-function liaotian_FlushData(context)
-	local isScrollBottom = contentList.scrollPane.isBottomMost;
-	local type = liaotian_GetChatType(crtType);
-	crtList = ChatSystem.MsgByType(type);
-	contentList.numItems = crtList.Count;
-
-	if isScrollBottom then
-		contentList.scrollPane:ScrollBottom();
-	end
-end
-
-function liaotian_GetChatType(uitype)
+function squadliaotian_GetChatType(uitype)
 	if uitype == 0 then
 		return -1;--全部
 	elseif uitype == 1 then
