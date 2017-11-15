@@ -264,7 +264,7 @@ struct COM_Assistant
 	int32 		CrtCount;		//当前数量
 	int32 		MaxCount;		//最大数量
 	string		PlayerName;		//谁的需求
-	bool		IsAssistanted;	//是否支援过
+	int64[]		IsAssistanted;	//谁是否支援过
 };
 
 struct COM_TopUnit
