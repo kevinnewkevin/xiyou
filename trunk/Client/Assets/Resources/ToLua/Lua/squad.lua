@@ -118,7 +118,6 @@ function squad:OnHide()
 end
 
 function squad_FlushData()
-
 	local isScrollBottom = contentList.scrollPane.isBottomMost;
 	local type = squadliaotian_GetChatType(crtType);
 	crtList = ChatSystem.MsgByType(type);
@@ -126,6 +125,18 @@ function squad_FlushData()
 
 	if isScrollBottom then
 		contentList.scrollPane:ScrollBottom();
+	end
+
+	if type == 0 or type == 4 then
+		sendBtn.visible = false;
+		emojiBtn.visible = false;
+		yyBtn.visible = false;
+		content.visible = false;
+	else
+		sendBtn.visible = true;
+		emojiBtn.visible = true;
+		yyBtn.visible = true;
+		content.visible = true;
 	end
 end
 
