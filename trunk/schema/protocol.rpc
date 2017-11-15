@@ -40,6 +40,8 @@ service COM_ClientToServer{
 	QueryPlayerInfo(int64 instid);						//查询
 	//帮派中玩家需求物品
 	NeedAssistantItem(int32 itemid);
+	//帮派中玩家支援物品(支援id)
+	AssistantItem(int32 assid);
 };
 
 service COM_ServerToClient{
