@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="90,86" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="p36456" xy="14,16" size="68,64" aspect="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_p364" name="n2" src="p36458" xy="5,7">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

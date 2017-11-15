@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="f9by5023" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="upuo0" name="bangpai_com.xml" path="/"/>
-    <image id="upuo1" name="06.png" path="/"/>
-    <image id="upuo2" name="15.png" path="/"/>
-    <image id="brpa3" name="16.png" path="/"/>
+    <component id="upuo0" name="bangpai_com.xml" path="/" exported="true"/>
+    <image id="upuo1" name="06.png" path="/" exported="true"/>
+    <image id="upuo2" name="15.png" path="/" exported="true"/>
+    <image id="brpa3" name="16.png" path="/" exported="true"/>
     <component id="ndwk4" name="liaotian_com.xml" path="/" exported="true"/>
     <image id="ndwk5" name="15(1).png" path="/" exported="true"/>
     <component id="ndwk6" name="fanhui_Button.xml" path="/" exported="true"/>
@@ -95,46 +95,140 @@
     <component id="ndwk2j" name="yuyinbofang_com.xml" path="/" exported="true"/>
     <image id="ndwk2k" name="shengyin1.png" path="/" exported="true"/>
     <movieclip id="ndwk2l" name="yuyin_MovieClip.jta" path="/" exported="true"/>
-    <image id="ndwk2m" name="16(2).png" path="/"/>
-    <image id="ndwk2n" name="011(1).png" path="/"/>
-    <image id="ndwk2o" name="010(1).png" path="/"/>
-    <component id="ndwk2p" name="bangpai_Button.xml" path="/"/>
-    <image id="ndwk2q" name="15(2).png" path="/"/>
-    <image id="ndwk2r" name="16(3).png" path="/"/>
-    <component id="ndwk2s" name="zhiyuan_Button.xml" path="/"/>
-    <image id="ndwk2t" name="20.png" path="/"/>
-    <image id="izvb2u" name="17(1).png" path="/"/>
-    <component id="izvb2v" name="chengyuan_com.xml" path="/"/>
-    <image id="t97j2w" name="24(2).png" path="/"/>
-    <image id="t97j2x" name="zjm_18(1).png" path="/"/>
-    <image id="t97j2y" name="zjm_22(1).png" path="/"/>
-    <image id="t97j2z" name="xiao_duanwei1.png" path="/"/>
-    <image id="t97j30" name="xiao_duanwei2.png" path="/"/>
-    <image id="t97j31" name="xiao_duanwei3.png" path="/"/>
-    <image id="t97j32" name="xiao_duanwei4.png" path="/"/>
-    <image id="t97j33" name="xiao_duanwei5.png" path="/"/>
-    <image id="t97j34" name="xiao_duanwei6.png" path="/"/>
-    <image id="t97j35" name="xiao_duanwei7.png" path="/"/>
-    <image id="t97j36" name="xiao_duanwei8.png" path="/"/>
-    <image id="t97j37" name="xiao_duanwei9.png" path="/"/>
-    <image id="t97j38" name="xiao_duanwei10.png" path="/"/>
-    <image id="t97j39" name="cu_06.png" path="/"/>
-    <image id="t97j3a" name="cy_05.png" path="/"/>
-    <image id="t97j3b" name="cy_07.png" path="/"/>
-    <image id="t97j3c" name="18(1).png" path="/"/>
-    <component id="t97j3d" name="shezhi_Button.xml" path="/"/>
-    <image id="t97j3e" name="19(1).png" path="/"/>
-    <component id="t97j3f" name="zhiyuan_com.xml" path="/"/>
+    <image id="ndwk2m" name="16(2).png" path="/" exported="true"/>
+    <image id="ndwk2n" name="011(1).png" path="/" exported="true"/>
+    <image id="ndwk2o" name="010(1).png" path="/" exported="true"/>
+    <component id="ndwk2p" name="bangpai_Button.xml" path="/" exported="true"/>
+    <image id="ndwk2q" name="15(2).png" path="/" exported="true"/>
+    <image id="ndwk2r" name="16(3).png" path="/" exported="true"/>
+    <component id="ndwk2s" name="zhiyuan_Button.xml" path="/" exported="true"/>
+    <image id="ndwk2t" name="20.png" path="/" exported="true"/>
+    <image id="izvb2u" name="17(1).png" path="/" exported="true"/>
+    <component id="izvb2v" name="chengyuan_com.xml" path="/" exported="true"/>
+    <image id="t97j2w" name="24(2).png" path="/" exported="true"/>
+    <image id="t97j2x" name="zjm_18(1).png" path="/" exported="true"/>
+    <image id="t97j2y" name="zjm_22(1).png" path="/" exported="true"/>
+    <image id="t97j2z" name="xiao_duanwei1.png" path="/" exported="true"/>
+    <image id="t97j30" name="xiao_duanwei2.png" path="/" exported="true"/>
+    <image id="t97j31" name="xiao_duanwei3.png" path="/" exported="true"/>
+    <image id="t97j32" name="xiao_duanwei4.png" path="/" exported="true"/>
+    <image id="t97j33" name="xiao_duanwei5.png" path="/" exported="true"/>
+    <image id="t97j34" name="xiao_duanwei6.png" path="/" exported="true"/>
+    <image id="t97j35" name="xiao_duanwei7.png" path="/" exported="true"/>
+    <image id="t97j36" name="xiao_duanwei8.png" path="/" exported="true"/>
+    <image id="t97j37" name="xiao_duanwei9.png" path="/" exported="true"/>
+    <image id="t97j38" name="xiao_duanwei10.png" path="/" exported="true"/>
+    <image id="t97j39" name="cu_06.png" path="/" exported="true"/>
+    <image id="t97j3a" name="cy_05.png" path="/" exported="true"/>
+    <image id="t97j3b" name="cy_07.png" path="/" exported="true"/>
+    <image id="t97j3c" name="18(1).png" path="/" exported="true"/>
+    <component id="t97j3d" name="shezhi_Button.xml" path="/" exported="true"/>
+    <image id="t97j3e" name="19(1).png" path="/" exported="true"/>
+    <component id="t97j3f" name="zhiyuan_com.xml" path="/" exported="true"/>
     <component id="we0a3g" name="touxiangkuang_Label.xml" path="/" exported="true"/>
     <image id="we0a3h" name="touxiangdi.png" path="/" exported="true"/>
     <image id="we0a3i" name="touxiangdengji.png" path="/" exported="true"/>
     <image id="we0a3j" name="shangzhen.png" path="/" exported="true"/>
     <image id="we0a3k" name="hongdian.png" path="/" exported="true"/>
-    <image id="we0a3l" name="25(1).png" path="/"/>
-    <image id="we0a3m" name="24(3).png" path="/"/>
-    <component id="we0a3n" name="jindu_ProgressBar.xml" path="/"/>
-    <image id="we0a3o" name="20(2).png" path="/"/>
-    <component id="we0a3p" name="juanzeng_Button.xml" path="/"/>
+    <image id="we0a3l" name="25(1).png" path="/" exported="true"/>
+    <image id="we0a3m" name="24(3).png" path="/" exported="true"/>
+    <component id="we0a3n" name="jindu_ProgressBar.xml" path="/" exported="true"/>
+    <image id="we0a3o" name="20(2).png" path="/" exported="true"/>
+    <component id="we0a3p" name="juanzeng_Button.xml" path="/" exported="true"/>
+    <image id="p3643q" name="23(1).png" path="/" exported="true"/>
+    <image id="p3643r" name="22.png" path="/" exported="true"/>
+    <component id="p3643s" name="tichu_Button.xml" path="/" exported="true"/>
+    <component id="p3643u" name="renming_Button.xml" path="/" exported="true"/>
+    <image id="p3643v" name="21.png" path="/" exported="true"/>
+    <image id="p3643w" name="11.png" path="/" exported="true"/>
+    <component id="p3643x" name="jiafujiazu_com.xml" path="/" exported="true"/>
+    <image id="p3643y" name="09.png" path="/" exported="true"/>
+    <component id="p3643z" name="guanbi_Button.xml" path="/" exported="true"/>
+    <image id="p36440" name="01.png" path="/" exported="true" scale="9grid" scale9grid="294,13,12,26"/>
+    <image id="p36441" name="10.png" path="/" exported="true"/>
+    <component id="p36442" name="bangpaiming_com.xml" path="/" exported="true"/>
+    <image id="p36443" name="24(4).png" path="/" exported="true"/>
+    <component id="p36444" name="chakan_Button.xml" path="/" exported="true"/>
+    <image id="p36445" name="03.png" path="/" exported="true"/>
+    <image id="p36446" name="08.png" path="/" exported="true"/>
+    <image id="p36447" name="25(2).png" path="/" exported="true"/>
+    <component id="p36448" name="sousuo_Button.xml" path="/" exported="true"/>
+    <image id="p36449" name="05.png" path="/" exported="true"/>
+    <component id="p3644a" name="zuojiantou_Button.xml" path="/" exported="true"/>
+    <component id="p3644b" name="youjiantou_Button.xml" path="/" exported="true"/>
+    <image id="p3644c" name="13(1).png" path="/" exported="true"/>
+    <component id="p3644d" name="bangpaixiangqing_com.xml" path="/" exported="true"/>
+    <image id="p3644e" name="14(1).png" path="/" exported="true"/>
+    <image id="p3644f" name="26(1).png" path="/" exported="true"/>
+    <component id="p3644g" name="chengyuanxiangqing_com.xml" path="/" exported="true"/>
+    <component id="p3644h" name="zhujue_com.xml" path="/" exported="true"/>
+    <image id="p3644i" name="sh_0.png" path="/" exported="true"/>
+    <image id="p3644j" name="sh_1.png" path="/" exported="true"/>
+    <image id="p3644k" name="sh_2.png" path="/" exported="true"/>
+    <image id="p3644l" name="sh_3.png" path="/" exported="true"/>
+    <image id="p3644m" name="sh_4.png" path="/" exported="true"/>
+    <image id="p3644n" name="sh_5.png" path="/" exported="true"/>
+    <image id="p3644o" name="sh_6.png" path="/" exported="true"/>
+    <image id="p3644p" name="sh_7.png" path="/" exported="true"/>
+    <image id="p3644q" name="sh_8.png" path="/" exported="true"/>
+    <image id="p3644r" name="sh_9.png" path="/" exported="true"/>
+    <font id="p3644s" name="fenshu_Font.fnt" path="/" exported="true"/>
+    <image id="p3644t" name="27(1).png" path="/" exported="true"/>
+    <image id="p3644u" name="28(1).png" path="/" exported="true"/>
+    <component id="p3644v" name="jiaru_Button.xml" path="/" exported="true"/>
+    <component id="p3644w" name="shenqing_Button.xml" path="/" exported="true"/>
+    <image id="p3644x" name="02.png" path="/" exported="true"/>
+    <component id="p3644y" name="chuangjian_com.xml" path="/" exported="true"/>
+    <image id="p3644z" name="jinbi_icon.png" path="/" exported="true"/>
+    <image id="p36450" name="29(1).png" path="/" exported="true"/>
+    <image id="p36451" name="30(1).png" path="/" exported="true"/>
+    <component id="p36452" name="queding_Button.xml" path="/" exported="true"/>
+    <component id="p36453" name="quxiao_Button.xml" path="/" exported="true"/>
+    <component id="p36455" name="bangpairenming_.xml" path="/" exported="true"/>
+    <image id="p36456" name="04.png" path="/" exported="true"/>
+    <component id="p36457" name="chengyuan_Button.xml" path="/" exported="true"/>
+    <image id="p36458" name="31.png" path="/" exported="true"/>
+    <component id="p36459" name="bangpaishezhi_com.xml" path="/" exported="true"/>
+    <image id="p3645a" name="12.png" path="/" exported="true"/>
+    <image id="p3645b" name="33.png" path="/" exported="true"/>
+    <image id="p3645c" name="34.png" path="/" exported="true"/>
+    <image id="p3645d" name="35.png" path="/" exported="true"/>
+    <image id="p3645e" name="32.png" path="/" exported="true"/>
+    <component id="p3645f" name="bangpaishezhi_Button.xml" path="/" exported="true"/>
+    <component id="p3645g" name="bangpaishenqing_Button.xml" path="/" exported="true"/>
+    <image id="p3645h" name="37.png" path="/" exported="true"/>
+    <image id="p3645i" name="38.png" path="/" exported="true"/>
+    <image id="p3645j" name="36.png" path="/" exported="true"/>
+    <component id="p3645k" name="shifoushenqing_Button.xml" path="/" exported="true"/>
+    <component id="p3645l" name="genggai_Button.xml" path="/" exported="true"/>
+    <component id="p3645m" name="xiao_duanwei1_com.xml" path="/" exported="true"/>
+    <component id="p3645n" name="xiao_duanwei10_com.xml" path="/" exported="true"/>
+    <component id="p3645o" name="xiao_duanwei2_com.xml" path="/" exported="true"/>
+    <component id="p3645p" name="xiao_duanwei3_com.xml" path="/" exported="true"/>
+    <component id="p3645q" name="xiao_duanwei4_com.xml" path="/" exported="true"/>
+    <component id="p3645r" name="xiao_duanwei5_com.xml" path="/" exported="true"/>
+    <component id="p3645s" name="xiao_duanwei6_com.xml" path="/" exported="true"/>
+    <component id="p3645t" name="xiao_duanwei7_com.xml" path="/" exported="true"/>
+    <component id="p3645u" name="xiao_duanwei8_com.xml" path="/" exported="true"/>
+    <component id="p3645v" name="xiao_duanwei9_com.xml" path="/" exported="true"/>
+    <image id="p3645w" name="xiao_duanwei11.png" path="/" exported="true"/>
+    <component id="p3645x" name="xiao_duanwei11_com.xml" path="/" exported="true"/>
+    <component id="p3645y" name="bangpaishezhixiao_com.xml" path="/" exported="true"/>
+    <image id="p3645z" name="39.png" path="/" exported="true"/>
+    <component id="p36460" name="shenqingrubang_com.xml" path="/" exported="true"/>
+    <image id="p36461" name="40.png" path="/" exported="true"/>
+    <image id="p36462" name="41.png" path="/" exported="true"/>
+    <component id="p36463" name="tianjia_Button.xml" path="/" exported="true"/>
+    <component id="p36464" name="hulue_Button.xml" path="/" exported="true"/>
+    <component id="p36465" name="shenqingchuli_com.xml" path="/" exported="true"/>
+    <component id="rmkc66" name="xiugaitiaojian_com.xml" path="/" exported="true"/>
+    <image id="rmkc67" name="32(1).png" path="/" exported="true"/>
+    <image id="rmkc68" name="42.png" path="/" exported="true"/>
+    <component id="rmkc69" name="juanzeng_com.xml" path="/" exported="true"/>
+    <image id="rmkc6a" name="43.png" path="/" exported="true"/>
+    <component id="rmkc6b" name="zhiyuantouxiang_com.xml" path="/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="bangpai" extractAlpha="true">
+    <atlas name="默认" index="0"/>
+  </publish>
 </packageDescription>
