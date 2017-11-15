@@ -40,6 +40,6 @@ Global.setGlobalInt("C_BlackMarkteRefreshNum", 1);				--//黑市手动刷新次数
 Global.setGlobalString("C_SaveDataToDB","0 */2 * * * *");
 Global.setGlobalString("C_PassZeroHour","0 0 0 * * *");
 Global.setGlobalString("C_BlackMarkteRefresh","0 0 0,6,12,18 * * *");
-Global.setGlobalString("C_TopListRefresh","* */5 * * * *");
+Global.setGlobalString("C_TopListRefresh","0 */5 * * * *");
 
 

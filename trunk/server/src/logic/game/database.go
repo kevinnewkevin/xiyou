@@ -104,7 +104,8 @@ func QueryPlayer(username string) <- chan *prpc.SGE_DBPlayer {
 			a := int64(0)
 			b := []byte{}
 			c := ""
-			e = r.Scan(&a, &c, &b)
+			d := int64(0)
+			e = r.Scan(&a, &c, &b, &d)
 			if e != nil {
 				logs.Debug(e.Error())
 				rChan <- nil
@@ -169,7 +170,8 @@ func QueryPlayerById(InstId int64) <- chan *prpc.SGE_DBPlayer {
 			a := int64(0)
 			b := []byte{}
 			c := ""
-			e = r.Scan(&a, &c, &b)
+			d := int64(0)
+			e = r.Scan(&a, &c, &b, &d)
 			if e != nil {
 				logs.Debug(e.Error())
 				rChan <- nil

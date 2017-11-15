@@ -15,10 +15,11 @@ type COM_Player struct{
   TianTiVal int32  //6
   TianTiRank int32  //7
   FriendTianTiRank int32  //8
-  Guide uint64  //9
-  SkillBase []COM_SkillBase  //10
-  Friends []COM_Friend  //11
-  Enemys []COM_Friend  //12
+  BattleUnitGroup int32  //9
+  Guide uint64  //10
+  SkillBase []COM_SkillBase  //11
+  Friends []COM_Friend  //12
+  Enemys []COM_Friend  //13
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -110,6 +111,16 @@ func (this *COM_Player)GetFriendTianTiRank() int32 {
   defer this.Unlock()
   return this.FriendTianTiRank
 }
+func (this *COM_Player)SetBattleUnitGroup(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.BattleUnitGroup = value
+}
+func (this *COM_Player)GetBattleUnitGroup() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.BattleUnitGroup
+}
 func (this *COM_Player)SetGuide(value uint64) {
   this.Lock()
   defer this.Unlock()
@@ -164,6 +175,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.TianTiVal!=0)
   mask.writeBit(this.TianTiRank!=0)
   mask.writeBit(this.FriendTianTiRank!=0)
+  mask.writeBit(this.BattleUnitGroup!=0)
   mask.writeBit(this.Guide!=0)
   mask.writeBit(len(this.SkillBase) != 0)
   mask.writeBit(len(this.Friends) != 0)
@@ -264,6 +276,15 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.FriendTianTiRank!=0){
       err := write(buffer,this.FriendTianTiRank)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize BattleUnitGroup
+  {
+    if(this.BattleUnitGroup!=0){
+      err := write(buffer,this.BattleUnitGroup)
       if err != nil{
         return err
       }
@@ -416,6 +437,13 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize FriendTianTiRank
   if mask.readBit() {
     err := read(buffer,&this.FriendTianTiRank)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize BattleUnitGroup
+  if mask.readBit() {
+    err := read(buffer,&this.BattleUnitGroup)
     if err != nil{
       return err
     }

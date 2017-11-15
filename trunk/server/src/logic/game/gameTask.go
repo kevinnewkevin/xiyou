@@ -47,6 +47,7 @@ func RefreshTopList() error {
 		}
 
 	}()
+	//logs.Debug("RefreshTopList")
 	RefreshAllTopList()
 	RefreshFriendTopList()
 	return nil

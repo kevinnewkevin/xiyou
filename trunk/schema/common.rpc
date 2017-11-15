@@ -78,6 +78,7 @@ struct COM_Player{
 	int32				TianTiVal;
 	int32				TianTiRank;
 	int32				FriendTianTiRank;
+	int32				BattleUnitGroup;
 	uint64				Guide;
 	COM_SkillBase[]		SkillBase;
 	COM_Friend[]		Friends;

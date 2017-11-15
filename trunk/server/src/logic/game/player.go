@@ -201,6 +201,7 @@ func CreatePlayer(tid int32, name string, username string) *GamePlayer {
 	PlayerStore = append(PlayerStore, &p)
 	p.Friends = []*prpc.COM_Friend{}
 	p.Enemys = []*prpc.COM_Friend{}
+	p.BattleUnitGroup = 1
 
 	for _, u := range p.UnitList {
 		logs.Info("Myself Unit InstId %d InstName %s", u.InstId, u.InstName)
@@ -270,6 +271,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	this.TianTiRank = p.TianTiRank
 	this.FriendTianTiRank = p.FriendTianTiRank
 	this.Guide = p.Guide
+	this.BattleUnitGroup = p.BattleUnitGroup
 
 	this.SkillBase = map[int32]int32{}
 	for _, skb := range p.SkillBase {
@@ -314,6 +316,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	p.TianTiRank = this.TianTiRank
 	p.FriendTianTiRank = this.FriendTianTiRank
 	p.Guide = this.Guide
+	p.BattleUnitGroup = this.BattleUnitGroup
 
 	for index, skillid := range this.SkillBase {
 		skillbase := prpc.COM_SkillBase{}
@@ -1528,11 +1531,14 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 			info.ClanName = "测试帮会名字"
 			info.TiatiVal = player.TianTiVal
 			info.TiatiRank = player.TianTiRank
-			group := this.GetUnitGroupById(player.BattleUnitGroup)
-			for _, unitid := range group.UnitList {
-				u := player.GetUnit(unitid)
-				info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+			group := player.GetUnitGroupById(player.BattleUnitGroup)
+			logs.Debug("GetUnitGroupById ", player.BattleUnitGroup, group, player.BattleUnitList)
+			if group != nil {
+				for _, unitid := range group.UnitList {
+					u := player.GetUnit(unitid)
+					info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
 				}
+			}
 		} else {
 			return
 		}
@@ -1545,9 +1551,13 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 		info.TiatiVal = p.TianTiVal
 		info.TiatiRank = p.TianTiRank
 		group := p.GetUnitGroupById(p.BattleUnitGroup)
-		for _, unitid := range group.UnitList {
-			u := this.GetUnit(unitid)
-			info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+		logs.Debug("GetUnitGroupById ", p.BattleUnitGroup, group, p.BattleUnitList)
+		if group != nil {
+			for _, unitid := range group.UnitList {
+				u := p.GetUnit(unitid)
+				logs.Debug("GetUnitGroupById ", unitid, "  ", u)
+				info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
+			}
 		}
 	}
 
