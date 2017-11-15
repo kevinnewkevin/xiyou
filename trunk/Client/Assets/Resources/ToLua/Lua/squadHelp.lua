@@ -31,10 +31,27 @@ function squadHelp_RenderListItem(index, obj)
 		return;
 	end
 
-	local displayData = GamePlayer.GetDisplayDataByIndex(0, 0, index);
+	local instid = GamePlayer.GetInstID(0, 0, index);
+	local cardInst = GamePlayer.GetCardByInstID(instid);
+	if cardInst == nil then
+		return;
+	end
+	local entityData = EntityData.GetData(cardInst.UnitId);
+	if entityData == nil then
+		return;
+	end
+	local displayData = DisplayData.GetData(entityData._DisplayId);
+	if displayData == nil then
+		return;
+	end
 	obj:GetChild("n15").asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj:GetChild("n16").asLoader.url = "ui://" .. displayData._Quality;
-	obj:GetChild("n18").text = "";
+	local levelData =  StrengthenData.GetData(cardInst.UnitId, cardInst.IProperties[9]+1);
+	if levelData == nil then
+		return;
+	end
+	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+	obj:GetChild("n18").text = itemNum .. "/" .. levelData._ItemNum;
 	obj.data = index;
 	obj.onClick:Add(squadHelp_OnHelp);
 end
