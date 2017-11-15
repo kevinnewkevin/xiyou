@@ -52,19 +52,15 @@ function squadHelp_RenderListItem(index, obj)
 	end
 	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
 	obj:GetChild("n18").text = itemNum .. "/" .. levelData._ItemNum;
-	obj.data = index;
+	obj.data = levelData._ItemId;
 	obj.onClick:Add(squadHelp_OnHelp);
 end
 
 function squadHelp_OnHelp(context)
---	local chat = COM_Chat.New();
---	chat.Type = 3;
---	chat.PlayerInstId = GamePlayer._InstID;
---	chat.PlayerName = GamePlayer._Name;
---	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
---	chat.Level = GamePlayer._Data.IProperties[9];
---	chat.Content = "";
---	Proxy4Lua.SendChat(chat);
+	if context.sender.data ~= nil then
+		Proxy4Lua.NeedAssistantItem(context.sender.data);
+	end
+	UIManager.Hide("squadHelp");
 end
 
 function squadHelp:OnUpdate()
