@@ -38,6 +38,8 @@ service COM_ClientToServer{
 	DeleteEnemy(int64 instid);						//将好友移动到黑名单
 	//资料查询
 	QueryPlayerInfo(int64 instid);						//查询
+	//帮派中玩家需求物品
+	NeedAssistantItem(int32 itemid);
 };
 
 service COM_ServerToClient{
