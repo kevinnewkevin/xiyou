@@ -67,11 +67,11 @@ public class Skill {
             return;
         }
 
-        if (targets == null || targets.Length == 0)
-        {
-            Clear();
-            return;
-        }
+//        if (targets == null || targets.Length == 0)
+//        {
+//            Clear();
+//            return;
+//        }
 
         // 根据技能类型初始化特效
         if (!string.IsNullOrEmpty(_SkillData._CastEffect))
@@ -277,11 +277,11 @@ public class Skill {
             return false;
         }
 
-        if (_Targets == null || _Targets.Length == 0)
-        {
-            Clear();
-            return false;
-        }
+//        if (_Targets == null || _Targets.Length == 0)
+//        {
+//            Clear();
+//            return false;
+//        }
 
         SkillOutLook();
 
@@ -690,15 +690,18 @@ public class Skill {
             {
                 new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                 {
-                    for (int j = 0; j < _Targets.Length; ++j)
+                    if(_Targets != null)
                     {
-                        if(_Actions[j].ActionParam < 0)
+                        for (int j = 0; j < _Targets.Length; ++j)
                         {
-                            if(_Targets[j] == null)
-                                continue;
+                            if(_Actions[j].ActionParam < 0)
+                            {
+                                if(_Targets[j] == null)
+                                    continue;
 
-                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                            }
                         }
                     }
                     if(_BeattackEff != null && _BeattackEff.Length > 0)
@@ -719,22 +722,25 @@ public class Skill {
             {
                 new Timer().Start(new TimerParam(_SkillData._BeattackTime[i], delegate
                 {
-                    for (int j = 0; j < _Targets.Length; ++j)
+                    if(_Targets != null)
                     {
-                        if(_Actions[j].ActionParam < 0)
+                        for (int j = 0; j < _Targets.Length; ++j)
                         {
-                            if(_Targets[j] == null)
-                                continue;
+                            if(_Actions[j].ActionParam < 0)
+                            {
+                                if(_Targets[j] == null)
+                                    continue;
 
-                            _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                            _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
-                        }
+                                _Targets[j].Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                                _Targets[j].PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                            }
 
-                        //beattack effect
-                        if (_BeattackEff[j] != null)
-                        {
-                            _BeattackEff[j].SetActive(false);
-                            _BeattackEff[j].SetActive(true);
+                            //beattack effect
+                            if (_BeattackEff[j] != null)
+                            {
+                                _BeattackEff[j].SetActive(false);
+                                _BeattackEff[j].SetActive(true);
+                            }
                         }
                     }
                 }));
@@ -794,20 +800,23 @@ public class Skill {
         {
             new Timer().Start(new TimerParam(_SkillData._EmitNumTime[i], (Timer.TimerCallBack1)delegate
             {
-                for (int j = 0; j < _Targets.Length; ++j)
+                if(_Targets != null)
                 {
-                    if(_Targets[j] == null)
-                        continue;
-
-                    if(_Actions[j].ActionParam == 0)
-                        continue;
-
-                    int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
-                    if(disValue == 0)
+                    for (int j = 0; j < _Targets.Length; ++j)
                     {
-                        disValue = _Actions[j].ActionParam > 0? 1: -1;
+                        if(_Targets[j] == null)
+                            continue;
+
+                        if(_Actions[j].ActionParam == 0)
+                            continue;
+
+                        int disValue = _Actions[j].ActionParam / _SkillData._EmitNumTime.Length;
+                        if(disValue == 0)
+                        {
+                            disValue = _Actions[j].ActionParam > 0? 1: -1;
+                        }
+                        _Targets[j].PopContent(disValue, _Actions[j].ActionParamExt);
                     }
-                    _Targets[j].PopContent(disValue, _Actions[j].ActionParamExt);
                 }
             }));
         }
@@ -816,15 +825,18 @@ public class Skill {
         {
             new Timer().Start(new TimerParam(_SkillData._EmitNumTime[0], delegate
             {
-                for (int j = 0; j < _Targets.Length; ++j)
+                if(_Targets != null)
                 {
-                    if(_Targets[j] == null)
-                        continue;
+                    for (int j = 0; j < _Targets.Length; ++j)
+                    {
+                        if(_Targets[j] == null)
+                            continue;
 
-                    if(_Actions[j].ActionParam == 0)
-                        continue;
+                        if(_Actions[j].ActionParam == 0)
+                            continue;
 
-                    _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                        _Targets[j].UpdateValue(_Actions[j].ActionParam, -1);
+                    }
                 }
             }));
         }
