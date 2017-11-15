@@ -71,7 +71,7 @@ function wanjiaxinxi_FlushData()
 		return;
 	end
 	nameLab.text = info.Name;
-	numLab.text = info.TiatiVal .."";
+	numLab.text = info.TiatiVal .."";    
 	guildLab.text = info.ClanName;
 	duanLab.text = info.TiatiRank.."";
 	rankLab.text = info.TiatiRank.."";
@@ -84,5 +84,7 @@ function wanjiaxinxi_RenderListItem(indx, obj)
 	local palyer = FriendSystem.friendInfo.UnitLIst[indx];
 	local level = obj:GetChild("n6");
 	level.text = palyer.Level .."";
-	 
+	local edata = EntityData.GetData(unit.UnitId);
+	local ddata = DisplayData.GetData(edata._DisplayId);
+	obj:GetChild("n5").asLoader.url = "ui://" .. ddata._HeadIcon;
 end
