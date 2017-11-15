@@ -1890,31 +1890,34 @@ func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
 	p := FindPlayerByInstId(PlayerInstId)
 	group := p.GetUnitGroupById(p.BattleUnitGroup)
 	space := []*GameUnit{}
+	//logs.Debug("group",group)
 	for _, uid := range group.UnitList {
 		u := p.GetUnit(uid)
-		if u.Position != 0 {
+		if u.Position != 12 {
+			//logs.Debug(uid, " 11111 ", u.InstName, u.Position)
 			continue
 		}
+
 		space = append(space, u)
 	}
-
+	//logs.Debug("space"," ",len(space))
 	if len(space) == 0{
 		return
 	}
 
 	poss := []int32{}
 	mypos := GetAllMyPos(p.BattleCamp)
-
+	//logs.Debug("mypos"," ",len(mypos))
 	for _, pos := range mypos {
-		if this.Units[pos] != nil {
+		//logs.Debug("循环")
+		if this.Units[pos] != nil && !this.Units[pos].IsDead(){
+			//logs.Debug("1111111")
 			continue
 		}
-		if !this.Units[pos].IsDead() {
-			continue
-		}
+		//logs.Debug("9999999")
 		poss = append(poss, pos)
 	}
-
+	//logs.Debug("poss",len(poss))
 	if len(poss) == 0{
 		return
 	}
@@ -1926,7 +1929,11 @@ func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
 	info.Status = true
 	info.Unit = space[0].GetBattleUnitCOM()
 
+	//logs.Debug("人物链表",this.AcctionList.UnitList)
+
 	this.AcctionList.UnitList = append(this.AcctionList.UnitList, info)
+
+
 
 }
 
