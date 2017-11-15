@@ -121,6 +121,8 @@ sys.loadfile("skillscripts/yaofei_1_334.lua")
 sys.loadfile("skillscripts/yaofei_2_335.lua")
 sys.loadfile("skillscripts/sheyao_1_336.lua")
 sys.loadfile("skillscripts/sheyao_2_337.lua")
+sys.loadfile("skillscripts/taiyizhenren_1_338.lua")
+sys.loadfile("skillscripts/taiyizhenren_2_339.lua")
 
 
 sys.loadfile("buffscripts/bufftest.lua")
@@ -193,3 +195,4 @@ sys.loadfile("buffscripts/buff165.lua")
 sys.loadfile("buffscripts/buff166.lua")
 sys.loadfile("buffscripts/buff167.lua")
 sys.loadfile("buffscripts/buff168.lua")
+sys.loadfile("buffscripts/buff169.lua")
