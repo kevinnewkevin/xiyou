@@ -474,7 +474,7 @@ public class Battle {
         // cast skill
         if (_CrtSkill == null)
         {
-            _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList, _ReportAction[0].SkillBuff);
+            _CrtSkill = new Skill(_ReportAction [0].SkillId, _CrtActor, _CrtTargets.ToArray(), _ReportAction [0].TargetList, _ReportAction[0].SkillBuff, _ReportAction[0].UnitList);
             _CrtSkill.Cast();
             PushReportTip(_ReportAction[0]);
             return;
@@ -524,7 +524,7 @@ public class Battle {
     }
 
     //场上添加一个角色
-    static Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int entityid, int strLv)
+    static public Actor AddActor(GameObject go, int pos, long instid, int crtHp, int maxHp, int entityid, int strLv)
     {
         Actor actor = GetActor(instid);
         if (actor != null)

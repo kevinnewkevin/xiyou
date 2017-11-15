@@ -38,6 +38,9 @@ public class Skill {
     // single skill and target type skillpos
     Transform _SkillPos;
 
+    //上下阵的人员
+    COM_ChangeUnit[] _ChangeUnit;
+
     int crtTargetIdx;
 
     bool IsSec;
@@ -46,7 +49,7 @@ public class Skill {
     LuaFunction _InitFunc;
     LuaFunction _CastFunc;
 
-    public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets, COM_BattleBuff[] skillBuffs)
+    public Skill(int skillId, Actor caster, Actor[] targets, COM_BattleActionTarget[] actionTargets, COM_BattleBuff[] skillBuffs, COM_ChangeUnit[] changeUnit)
     {
         _IsCasting = true;
         // get skilldata by id
@@ -192,6 +195,7 @@ public class Skill {
         _Targets = targets;
         _Actions = actionTargets;
         _SkillBuff = skillBuffs;
+        _ChangeUnit = changeUnit;
 
         IsSec = _SkillData._Motion == SkillData.MotionType.MT_Sec;
 
@@ -420,9 +424,6 @@ public class Skill {
         {
             HandleTrack();
         }
-        OnTimeDo(_SkillData._TotalTime, Range_EndCast);
-        if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
-            Battle._BattleCamera.Reset();
 
         //删除手牌
         for(int i=0; i < _Actions.Length; ++i)
@@ -431,6 +432,49 @@ public class Skill {
                 Battle.RemoveHandCard(_Actions [i].ThrowCard.InstId, true);
             UIManager.SetDirty("BattlePanel");
         }
+
+        float _LongestShowTime = 0f;
+        if (_ChangeUnit != null)
+        {
+            EntityData entity;
+            DisplayData display;
+            Actor actor;
+            int localPos;
+            for(int i=0; i < _ChangeUnit.Length; ++i)
+            {
+                if (_ChangeUnit [i] != null)
+                {
+                    if (_ChangeUnit [i].Status)
+                    {
+                        actor = Battle.GetActorByPos(_ChangeUnit[i].Unit.Position);
+                        if (actor != null)
+                        {
+                            actor.SetValue(_ChangeUnit[i].Unit.CHP, _ChangeUnit[i].Unit.HP);
+                            actor.InstID = _ChangeUnit[i].Unit.InstId;
+                            _ChangeUnit[i] = null;
+                            continue;
+                        }
+
+                        entity = EntityData.GetData(_ChangeUnit[i].Unit.UnitId);
+                        display = DisplayData.GetData(entity._DisplayId);
+                        actor = Battle.AddActor(AssetLoader.LoadAsset(display._AssetPath), _ChangeUnit[i].Unit.Position, _ChangeUnit[i].Unit.InstId, _ChangeUnit[i].Unit.CHP, _ChangeUnit[i].Unit.HP, entity._UnitId, _ChangeUnit[i].Unit.Level);
+                        float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
+                        if (_LongestShowTime < clipLen)
+                            _LongestShowTime = clipLen;
+
+                        Battle.RemoveHandCard(_ChangeUnit[i].Unit.InstId, true);
+                    }
+                    else
+                    {
+                        Battle.DelActor(_ChangeUnit[i].Unit.Position);
+                    }
+                }
+            }
+        }
+
+        OnTimeDo(_SkillData._TotalTime + _LongestShowTime, Range_EndCast);
+        if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
+            Battle._BattleCamera.Reset();
     }
 
     void Range_EndCast()
