@@ -133,7 +133,17 @@ function liaotian_OnRenderListItem(index, obj)
 				itemIcon.url = "";
 				itemIconBack.url = "";
 			end
-			assBtn.enabled = not crtList[i].IsAssistanted and crtList[i].PlayerName ~= GamePlayer._Name;
+			local meAssistanted = false;
+			if crtList[i].IsAssistanted ~= nil then
+				for j=0, crtList[i].IsAssistanted.Length - 1 do
+					if GamePlayer.IsMe(crtList[i].IsAssistanted[j]) then
+						meAssistanted = true;
+						break;
+					end
+				end
+			end
+
+			assBtn.enabled = not meAssistanted and crtList[i].PlayerName ~= GamePlayer._Name;
 		else
 			if crtList[index].Type == 0 then --系统
 				local content = obj:GetChild("n4").asTextField;
@@ -191,9 +201,6 @@ function liaotiansquad_OnAssistant(context)
 		if iData ~= nil then
 			chat.Content = "我捐助了" .. assData.PlayerName .. "1个" .. iData._Name;
 			Proxy4Lua.SendChat(chat);
-			ChatSystem.SetAssistanted(context.sender.data);
-			UIManager.SetDirty("liaotian");
-			UIManager.SetDirty("squad");
 		end
 	end
 end

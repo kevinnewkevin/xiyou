@@ -57,17 +57,6 @@ public class ChatSystem {
         return null;
     }
 
-    static public void SetAssistanted(int assid)
-    {
-        for(int i=0; i < _Assistant.Count; ++i)
-        {
-            if (_Assistant [i].Id == assid)
-            {
-                _Assistant [i].IsAssistanted = true;
-            }
-        }
-    }
-
     static public void SetRecord(string audioid)
     {
         for(int i=0; i < _AllMsg[-1].Count; ++i)
