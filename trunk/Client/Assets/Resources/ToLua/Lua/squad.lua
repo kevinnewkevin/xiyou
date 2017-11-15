@@ -128,7 +128,7 @@ function squad_FlushData()
 		contentList.scrollPane:ScrollBottom();
 	end
 
-	if type == 0 or type == 4 then
+	if type == 0 or type == 5 then
 		sendBtn.visible = false;
 		emojiBtn.visible = false;
 		yyBtn.visible = false;
@@ -270,8 +270,8 @@ function squadliaotian_GetChatType(uitype)
 	elseif uitype == 2 then
 		return 0;--系统
 	elseif uitype == 3 then
-		return 3;--帮派
+		return 4;--帮派
 	elseif uitype == 4 then
-		return 4;--帮派求助
+		return 5;--帮派求助
 	end
 end
