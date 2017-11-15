@@ -77,14 +77,28 @@ function wanjiaxinxi_FlushData()
 	rankLab.text = info.TiatiRank.."";
 	local displayData = DisplayData.GetData(info.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
-	cardGroupList.numItems = info.UnitLIst.length;
+
+	if info.UnitLIst ~= nil then
+		cardGroupList.numItems = info.UnitLIst.Length;
+	else
+		cardGroupList.numItems = 0;
+	end
 end
 
 function wanjiaxinxi_RenderListItem(indx, obj)
 	local palyer = FriendSystem.friendInfo.UnitLIst[indx];
 	local level = obj:GetChild("n6");
 	level.text = palyer.Level .."";
-	local edata = EntityData.GetData(unit.UnitId);
+	local edata = EntityData.GetData(palyer.UnitId);
 	local ddata = DisplayData.GetData(edata._DisplayId);
+	obj:GetChild("n10").visible = false;
+	local fee = obj:GetChild("n7");
+	fee.text = edata._Cost.."";
 	obj:GetChild("n5").asLoader.url = "ui://" .. ddata._HeadIcon;
+	obj.onClick:Add(wanjiaxinxi_OnCard);
+	obj.data = palyer.UnitId;
+end 
+
+function wanjiaxinxi_OnCard(context)
+
 end
