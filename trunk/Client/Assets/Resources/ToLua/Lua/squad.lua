@@ -43,12 +43,13 @@ function squad:OnInit()
 	member:SetVirtual();
 	member.itemRenderer = squad_RenderListItem;
 
-	helpBtn = self.contentPane:GetChild("").asButton;
-	helpBtn.onClick:Add(squad_OnHelp);
-	helpTime = self.contentPane:GetChild("");
-
 	-------------------------------chat----------------------------------------
 	squadChatCom = self.contentPane:GetChild("n3").asCom;
+	--unique
+	helpBtn = self.contentPane:GetChild("n17").asButton;
+	helpBtn.onClick:Add(squad_OnHelp);
+	helpTime = self.contentPane:GetChild("n18");
+	--unique
 	sendBtn = squadChatCom:GetChild("n8").asButton;
 	emojiBtn = squadChatCom:GetChild("n10").asButton;
 	yyBtn = squadChatCom:GetChild("n11").asButton;
