@@ -12,8 +12,7 @@ public class FriendSystem
 	public static COM_Friend findFriend;
 	public static bool isApplyFriend = false;
 	public static List<string> newCahtList = new List<string>();
-	
-
+	public static COM_PlayerInfo friendInfo;
 	public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
 	public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
 	public static void InitFriends( COM_Friend[] friends)
@@ -211,7 +210,7 @@ public class FriendSystem
 		}
 		return false;
 	}
-
+				
 }
 
 
