@@ -137,7 +137,7 @@ function squadSetting_RenderListItem(index, obj)
 		headIcon.url = "";
 	end
 	lv.text = data.Level;
-	dayBefore.text = "";
+	dayBefore.text = TimerManager.TimeAgo(data.Time);
 	tiantiLv.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(data.TianTiVal);
 end
 
