@@ -71,7 +71,12 @@ end
 
 --获得物品
 function GainItem()
-	Proxy4Lua.PopMsg("获得魂币" + (value - GamePlayer._Data.IProperties[type]));
+	Proxy4Lua.PopMsg("获得魂币" .. (value - GamePlayer._Data.IProperties[type]));
+end
+
+--获得物品
+function WhoAssistantMe(who, item)
+	Proxy4Lua.PopMsg(who .. "支援了我1个" .. item);
 end
 
 --改变颜色ubb语法
@@ -122,4 +127,5 @@ end
 function RegUIResMap()
 	UIManager.RegUIResMap("jinengshengji", "qianghuachenggong");
 	UIManager.RegUIResMap("squad", "bangpai");
+	UIManager.RegUIResMap("squadHelp", "bangpai");
 end
