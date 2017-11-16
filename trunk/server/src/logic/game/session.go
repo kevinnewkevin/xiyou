@@ -369,6 +369,15 @@ func (this *Session) QueryPlayerInfo(instid int64) error {
 	return nil
 }
 
+func (this *Session) NeedAssistantItem(instid int32) error {
+	return nil
+}
+
+func (this *Session) AssistantItem(instid int32) error {
+	return nil
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {
