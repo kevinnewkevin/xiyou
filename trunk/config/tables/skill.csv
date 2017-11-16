@@ -1,245 +1,245 @@
-SkillId,Name,Level,Type,Feel,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,CastEffect,CastTime,SkillEffect,AttackAnim,BeattackEffect,BeattackTime,EmitNumTime,TotalTime,MotionType,SingleSkill,TargetPosType,Camera,LuaName
-107,Ç¬À¤È¦,,1,,ÖÀ³öÇ¬À¤È¦£¬»÷ÖĞµĞÈËÖ÷½ÇºóÑ¡ÔñÏÂÒ»¸öµĞÈËµ¯Éä£¬µ¯Éä3´Î£¬¶ÔÃ¿¸öµĞÈËÔì³É50%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£Ã¿»÷ÖĞÒ»¸öµĞÈËÔö¼Ó×Ô¼º10%µÄÎïÀíÇ¿¶È£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_qiankunquan,10,,,,,,0,attack,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.45,0.45,0.7,MT_Sec,1,TPT_None,,SK_299_Action
-108,»ğ¼âÇ¹,,1,,Í»´ÌµĞ·½µ¥ÌåÄ¿±ê£¨Ö÷½Ç£©5´Î£¬Ã¿´ÎÔì³É30%ÎïÀíÇ¿¶ÈµÄÉËº¦£¬²¢¼õÉÙÄ¿±ê10%µÄÎïÀí·ÀÓù£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_huojianqiang,10,,,,,,1,,,0.65,Effect/neza_skill02,magic1,,0.3;0.6;0.9;1.6;2.3,0.3;0.6;0.9;1.6;2.3,,MT_Self,,TPT_None,1,SK_300_Action
-106,»ìÌìç±,,1,,,icon/icon_skill_huntianling,10,,,,,,0,magic2,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,TPT_None,,SK_106_Action
-124,ĞĞÔÆ,,1,,,icon/icon_skill_xingyun,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_attack,,,0.5,0.5,2,MT_Target,0,TPT_None,,SK_124_Action
-125,²¼Óê,,1,,¶ÔµĞ·½È«ÌåÔì³É50%·¨ÊõÇ¿¶ÈµÄÉËº¦£¬²¢¼õÉÙ20%µÄËÙ¶È¡£,icon/icon_skill_buyu,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,0.6,Effect/xihailongwang_skill01_fx1,,,0.4;0.6;0.8,0.4;0.6;0.8,2,MT_Target,1,TPT_All,,SK_311_Action
-126,ÏûÔÖ,,1,,¶ÔµĞ·½È«ÌåÔì³É50%·¨ÊõÇ¿¶ÈµÄÉËº¦£¬²¢Çå³ıËùÓĞµĞ·½¸ºÏò×´Ì¬£¬Ã¿Çå³ıÒ»¸ö¸ºÏò×´Ì¬¶îÍâÔö¼Ó50%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£ÉËº¦Ö»½áËãÒ»´Î£¬¸ù¾İdebuffÊıÁ¿Ö±½ÓËãÉËº¦£¬Ã¿Ïû³ıÒ»¸öÔö¼Ó50%ÉËº¦,icon/icon_skill_xiaozai,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill02_fx1,,,0.5,0.5,2,MT_Target,0,TPT_None,1,SK_312_Action
-127,ÈıµşÀË,,1,,¶ÔµĞÈË½øĞĞÈı´Î¹¥»÷£¬Ã¿´Î¹¥»÷Ôì³É50%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_shenli,10,,,,,,1,,,1.1,Effect/longtaizi_attack,attack,Effect/shouji,0.5;1;1.5,0.5;1;1.5,,MT_Self,,TPT_None,,SK_318_Action
-128,ÁúÏ·Ë®,,1,,¶ÔµĞ·½È«ÌåÔì³É50%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,,3.7;4;4.3,3.7;4;4.3,10,MT_Target,1,TPT_Center,,SK_311_Action
-129,Áúµ¶,,1,,,icon/icon_skill_zhongji,10,,,,,,0,magic2,Effect/longtaizi_skill02_1,1.2,Effect/longtaizi_skill02_2,,Effect/shouji,0.8,0.8,1.2,MT_Fly,0,TPT_None,,SK_102_Action
-131,ÌúÇ¯,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_qianzi,10,,,,,,1,,,,Effect/xiejiang_attack,attack,Effect/shouji,0.5,0.5,1.06,MT_Self,,TPT_None,,SK_318_Action
-130,Í»´Ì,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_pingci,10,,,,,,1,,,,Effect/xiabing_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_318_Action
-132,Ê®×ÖÕ¶»÷,,1,,¶ÔµĞ·½Ôì³É110%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_shuangdao,10,,,,,,1,,,,Effect/shajiangjun_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_318_Action
-133,ÄõÁú,,1,,×ÔÉíÔö¼ÓÒ»¸öbuff£¬ÊÜµ½µÄÉËº¦ÌáÉı30%£¬Ôì³ÉµÄÉËº¦ÌáÉı50%£¬²¢ÇÒ¹¥»÷µĞ·½µ¥¸öÄ¿±êÒ»´Î¡£Buff³ÖĞø2»ØºÏ,icon/icon_skill_nielong,10,,,,,,1,,,,Effect/jiaomowang_attack,attack,,0.5,0.5,1.5,MT_Self,,TPT_None,,SK_314_Action
-134,ÊÈÑª,,1,,,icon/icon_skill_shixue,10,,,,,,1,,,,Effect/jiaomowang_skill01,magic1,,0.5,0.5,1.5,MT_Self,,TPT_None,1,SK_128_Action
-135,ÕæÁúĞÎÌ¬,,1,,¶ÔµĞ·½Ò»¸öÄ¿±êÔì³ÉÎïÀí130%Ç¿¶ÈµÄÉËº¦£¬Èç¹ûÕâ¸öÄ¿±êËÀÍö£¬Ôò¶îÍâ´¥·¢ÁíÒ»´ÎÕæÁúĞÎÌ¬¡£,icon/icon_skill_longwei,10,,,,,,1,,,,Effect/jiaomowang_skill02,magic2,,0.5;1;1.5,0.5;1;1.5,4,MT_Self,,TPT_None,,SK_313_Action
-136,À×»÷,,1,,¶ÔµĞ·½ÑªÁ¿×î¸ßµÄµ¥ÌåÔì³É·¨ÊõÇ¿¶ÈµÄÉËº¦¡£²¢ÇÒ¸½´ø³ÖĞøµôÑªĞ§¹û£¬Ã¿»ØºÏµôµ±Ç°ÉúÃüÖµ40%ÑªÁ¿¡£³ÖĞø2»ØºÏ,icon/icon_skill_leiji,10,,,,,,0,magic1,Effect/leizhenzhi_skill01_1,1,Effect/leizhenzhi_attack,magic1,,0.9,0.9,1.5,MT_Target,,TPT_None,,SK_309_Action
-137,ÂäÀ×,,1,,¶ÔµĞ·½ÊúÅÅÔì³É100%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_luolei,10,,,,,,0,magic2,Effect/leizhenzhi_skill02_1,1.8,Effect/leizhenzhi_skill02,magic2,,1;1.2;1.3;1.4,1;1.2;1.3;1.4,4,MT_Target,1,TPT_All,,SK_310_Action
-138,µç³¡,,1,,,icon/icon_skill_dianchang,10,,,,,,0,magic3,Effect/leizhenzhi_skill03_1,1,Effect/leizhenzhi_skill03,magic3,,1,1,3,MT_Target,,TPT_None,,SK_123_Action
-139,Èı²æêª,,1,,,icon/icon_skill_sanchaji,10,,,,,,1,,,,Effect/lijing_skill02,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_109_Action
-140,Ììî¸µ¶,,1,,¶ÔµĞ·½Ç°ÅÅÔì³ÉÎïÀíÇ¿¶ÈµÄÉËº¦¡£30%¸ÅÂÊ¿ÉÒÔÊ¹»÷ÖĞµÄÄ¿±êÎŞ·¨ĞĞ¶¯1»ØºÏ,icon/icon_skill_tiangangdao,10,,,,,,1,,,,Effect/lijing_skill03,magic3,,1.5,1.5,4,MT_Target,1,TPT_All,,SK_301_Action
-141,ÁáççËş,,1,,µĞ·½µ¥Ìå2»ØºÏÎŞ·¨ĞĞ¶¯£¬²¢¶ÔÄ¿±êÔì³É·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_linglongta,10,,,,,,0,magic4,Effect/lijing_skill04_1,1,Effect/lijing_skill04,,,1.2,1.2,2.5,MT_Target,,TPT_None,1,SK_302_Action
-142,Ë®¹¥,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_shuizushanghaitigao,10,,,,,,0,magic1,Effect/guichengxiang_skill01_1,1,Effect/guichengxiang_skill01,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_317_Action
-143,·ÅÏÂÍÀµ¶,,1,,¶ÔÒ»¸öµĞ·½Ä¿±êÔì³É·¨ÊõÇ¿¶ÈµÄÉËº¦£¬²¢½µµÍÄ¿±ê40%µÄÎïÀíÇ¿¶ÈºÍ·¨ÊõÇ¿¶È£¬½«Æä×ªÒÆ¸øÀë×Ô¼º×î½üµÄÒ»¸öÓÑ·½Ä¿±ê¡£³ÖĞø1»ØºÏ,icon/icon_skill_fangxiatudao,10,,,,,,0,magic1,Effect/guanyin_skill01_1,1,Effect/guanyin_skill01,,,1.2,1.2,3,MT_Target,,TPT_None,,SK_305_Action
-144,´ó´È´ó±¯,,1,,ÇıÉ¢ÎÒ·½È«ÌåËùÓĞ¸ºÃæĞ§¹û£¬²¢ÇÒ¼õÉÙÉËº¦20%£¬³ÖĞø1»ØºÏ¡£,icon/icon_skill_dacidabei,10,,,,,,0,magic3,Effect/guanyin_skill02_1,1,Effect/guanyin_skill02,,,1.5,1.5,4,MT_Self,1,TPT_None,,SK_306_Action
-145,ºñÆ¤,,1,,ÏÂ3´ÎÊÜµ½µÄÉËº¦½µµÍ40%¡£,icon/icon_skill_houpi,10,,,,,,0,magic3,Effect/huangyalaoxiang_skill01_1,1,,,,,,4,MT_Self,,TPT_None,,SK_307_Action
-146,ÉñÁ¦,,1,,Ç¿ÖÆÒ»¸öÄ¿±êÆÕÍ¨¹¥»÷×Ô¼º£¬³ÖĞø2»ØºÏ£¬ÓÅÏÈºóÅÅ¶ÔÃæ£¬È»ºóÊÇÁ½²à£¬È»ºóÊÇÇ°ÅÅ¡£,icon/icon_skill_shenli,10,,,,,,0,magic2,Effect/huangyalaoxiang_skill02_1,1,,,Effect/huangyalaoxiang_skill02,0.5,0.5,3,MT_Target,,TPT_None,,SK_308_Action
-147,»¯ÉíÈıÇ§,,1,,ÕÙ»½2¸ö·ÖÉíºÍ×Ô¼ºÍ¬Ê±¹¥»÷¶ÔÃæÈı¸öÇ°ÅÅÄ¿±ê£¬Ôì³É150%ÉËº¦²¢¼õÉÙ¶Ô·½Ë«·À15%£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_huashensanqian,10,,,,,,0,magic2,Effect/sunwukong_skill02_1,1.5,Effect/sunwukong_skill02,,,1.5,1.5,3,MT_Target,1,TPT_All,,SK_295_Action
-148,´óÄÖÌì¹¬,,1,,ÕÙ»½½ğ¹¿°ô±ä´ó´ÓÌìÔÒÏÂ£¬¶ÔµĞ·½È«ÌåÄ¿±êÔì³É230%µÄÉËº¦²¢ÓĞ20%¼¸ÂÊÑ£ÔÎ¶Ô·½1»ØºÏ£¬²¢ÓĞ20%¼¸ÂÊÔì³ÉË«±¶ÉËº¦¡£,icon/icon_skill_tiangangdao,10,,,,,,0,magic4,Effect/sunwukong_skill03_1,1.5,Effect/sunwukong_skill03,,,0.6;0.8;1;1.2,0.6;0.8;1;1.2,3,MT_Target,1,TPT_All,,SK_296_Action
-149,ÃğµØ,,1,,¶ÔÄ¿±êÔì³ÉÎŞÊÓ·¨Êõ·ÀÓùµÄ100%·¨ÊõÉËº¦¡£,icon/icon_skill_miedi,10,,,,,,0,magic2,Effect/nvhanba_skill01_1,1.5,Effect/nvhanba_skill01,,,1.1,1.1,3,MT_Target,,TPT_None,,SK_326_Action
-150,·ÙÌì,,1,,¶ÔÈ«ÌåÄ¿±êÔì³É55%·¨ÊõÉËº¦£¬²¢ÓĞ¼¸ÂÊÔì³ÉµãÈ¼Ğ§¹û¡£,icon/icon_skill_fentian,10,,,,,,0,magic3,Effect/nvhanba_skill02_1,1.5,Effect/nvhanba_skill02,,,1.2,1.2,3,MT_Target,1,TPT_All,,SK_327_Action
-151,º®±ù,,1,,¶ÔÄ¿±êÔì³É70%·¨ÊõÉËº¦£¬²¢ÓĞ20%¼¸ÂÊ±ù¶³Ä¿±ê1»ØºÏ¡£,icon/icon_skill_hanbing,10,,,,,,0,magic2,Effect/longhou_skill01_1,1.5,Effect/longhou_skill01,,,1.1,1.1,3,MT_Target,1,TPT_Col,,SK_328_Action
-152,Ë®Áú¾í,,1,,¶ÔÄ¿±êÔì³É150%·¨ÊõÉËº¦£¬²¢±ù¶³Ä¿±ê2»ØºÏ¡£,icon/icon_skill_shuilongjuan,10,,,,,,0,magic3,Effect/longhou_skill02_1,1.5,Effect/longhou_skill02,,,1.1,1.1,3,MT_Target,,TPT_None,,SK_329_Action
-153,ĞÓ»ÆÆì,,1,,ÎªËùÓĞµÄÓÑ·½µ¥Î»·Ö±ğÌá¹©Ò»¸öbuff£¬ÌáÉıËùÓĞ¹¥»÷20%¡£Õâ¸öbuff²»»áÏûÊ§£¬¿ÉÒÔµş¼Ó¡£Ã¿´ÎÊÍ·ÅÔö¼Ó20%£¬Ö±µ½±»ÇıÉ¢»òÕß½ª×ÓÑÀËÀÍö£¬buffÏûÊ§,icon/icon_skill_houpi,10,,,,,,0,magic2,,,Effect/jiangziya_skill01_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_297_Action
-154,·âÉñ,,1,,¸øÖ÷½ÇÔö¼ÓÒ»¸ö¿ÉÒÔÎüÊÕ8%×î´óÑªÁ¿µÄ»¤¶Ü£¬Õâ¸öbuff²»»áÏûÊ§£¬¿ÉÒÔµş¼Ó¡£Ã¿´ÎÊÍ·ÅÔö¼Ó8%£¬Ö±µ½±»ÇıÉ¢»òÕß½ª×ÓÑÀËÀÍö£¬buffÏûÊ§,icon/icon_skill_shenli,10,,,,,,0,magic3,,,Effect/jiangziya_skill02_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_298_Action
-155,ËáÎíÅçÍÂ,,1,,Ê¹µĞ·½È«ÌåÄ¿±êÊÜµ½30%·¨ÊõÇ¿¶ÈµÄÉËº¦£¬ÊÜµ½¸ÃÉËº¦µÄÄ¿±êÎŞ·¨»Ø¸´ÉúÃüÖµ£¨ËùÓĞ»Ø¸´ÉúÃüÖµÀàĞÍµÄÊôĞÔºÍ¼¼ÄÜ¶¼²»»áÉúĞ§¡£»Ø¸´Á¿Îª0£©£¬³ÖĞø3»ØºÏ¡£,icon/icon_skill_tiangangdao,10,,,,,,0,magic2,,0,Effect/jiutoushe_skill01,,,1.2,1.2,3,MT_Target,1,TPT_Center,,SK_319_Action
-156,ÈºÉßÂÒÎè,,1,,¶ÔµĞ·½Ëæ»úÄ¿±ê½øĞĞ9´Î¹¥»÷£¨Ëæ»ú9´ÎÄ¿±ê£©£¬Ã¿´Î¹¥»÷Ôì³É30%·¨ÊõÇ¿¶ÈÉËº¦£¬Ã¿´Î¹¥»÷»áÊ¹Ä¿±ê½µµÍ10%ËÙ¶È£¬³ÖĞø1»ØºÏ¡£,icon/icon_skill_linglongta,10,,,,,,0,magic3,Effect/jiutoushe_skill02_1,0.8,Effect/jiutoushe_skill02,,Effect/jiutoushe_skill02_2,0.2,0.2,0.2,MT_Sec,1,TPT_None,,SK_320_Action
-157,·ÉÒ¶Õ¶,,1,,¹¥»÷Á½´Î£¬¶ÔÄ¿±êÔì³É100%ÎïÀíÉËº¦£¬²¢ÇÒ½µµÍÄ¿±ê·ÀÓù50µã£¬³ÖĞø2»ØºÏ,icon/icon_skill_feiyezhan,10,,,,,,1,,,,Effect/cuiyun_skill01,magic1,,0.6;1.2,0.6;1.2,,MT_Self,,TPT_None,,SK_330_Action
-158,±ÌÔÆ¾ö,,1,,¶ÔÄ¿±êÔì³É150%ÎïÀíÉËº¦£¬²¢Ê¹Ä¿±êÖĞ¶¾£¬Ã¿»ØºÏµôµ±Ç°ÉúÃüÖµµÄ10%ÑªÁ¿,icon/icon_skill_biyunjue,10,,,,,,1,,,,Effect/cuiyun_skill02,magic2,,1.2,1.2,,MT_Self,,TPT_None,,SK_331_Action
-159,»¯Ñª¿ñ»÷,,1,,½«Ä¿±ê»÷ÍË£¬ÓĞ50%¼¸ÂÊÈÃÄ¿±êÏÂ»ØºÏ²»ÄÜĞĞ¶¯,icon/icon_skill_huaxuekuangji,10,,,,,,0,magic3,Effect/yecha_skill02_1,1.5,Effect/yecha_skill02,,,1,1,3.5,MT_Target,,TPT_None,,SK_332_Action
-160,ÑªÅ­¿ñ±©,,1,,¶ÔÄ¿±êÔì³É120%ÎïÀíÉËº¦£¬²¢ÇÒÎüÈ¡ÉËº¦ÊıÖµ50%µÄÉúÃüÖµ,icon/icon_skill_xuenukuangbao,10,,,,,,1,,,,Effect/yecha_skill01,magic2,,1.2,1.2,,MT_Self,,TPT_None,,SK_333_Action
-161,³ş³ş¿ÉÁ¯,,1,,³ş³ş¿ÉÁ¯£¬Ê¹×Ô¼º¸Ã»ØºÏ²»ÊÜµ½ÉËº¦£¬ÃâÒßÒ»ÇĞ¹¥»÷,icon/icon_skill_chuchukelian,10,,,,,,0,magic2,Effect/yaofei_skill01_1,1.5,,,,1.2,1.2,2,MT_Self,,TPT_None,,SK_334_Action
-162,÷È»ó,,1,,÷È»óÄ¿±ê£¬Ê¹Ä¿±êÏÂÒ»»ØºÏµÄ¹¥»÷Ä¿±ê±äÎª¼º·½Ò»¸öËæ»úÄ¿±ê,icon/icon_skill_meihuo,10,,,,,,0,magic3,Effect/yaofei_skill02_1,1.5,Effect/yaofei_skill02,,,0.8,0.8,1,MT_Target,,TPT_None,,SK_335_Action
-163,Éß¶¾,,1,,¹¥»÷µĞ·½È«Ìå£¬Ôì³É50%·¨ÊõÉËº¦£¬²¢ÇÒÊ¹Ä¿±êÖĞ¶¾£¬Ã¿»ØºÏÊ°È¡ÉßÑıµ±Ç°ÉúÃüÖµµÄ20%£¬³ÖĞø2»ØºÏ,icon/icon_skill_shedu,10,,,,,,0,magic2,,0,Effect/sheyao_skill01,,,1.2,1.2,3,MT_Target,1,TPT_Center,,SK_336_Action
-164,ºŞ¾öÒâ,,1,,¶ÔÔÚ³¡µÄËùÓĞÄ¿±êÔì³É100%µÄ·¨ÊõÉËº¦£¨°üÀ¨¼º·½Ä¿±ê£©,icon/icon_skill_henyijue,10,,,,,,0,magic3,Effect/sheyao_skill02_1,2,Effect/sheyao_skill02,,,1.5,1.5,4,MT_Self,1,TPT_Center,,SK_337_Action
-165,Á¶Ê¯²¹Ìì,,1,,ÎªËùÓĞÓÑ·½µ¥Î»»Ø¸´Ïàµ±ÓÚ·¨ÊõÇ¿¶È50%µÄÉúÃüÖµ¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,4,MT_Target,1,TPT_All,1,SK_303_Action
-166,ÔìÎï,,1,,"Ê¹¼º·½ÑªÁ¿×îÉÙµÄµ¥Î»ÃâÒßÒ»»ØºÏ»áµ¼ÖÂÆäËÀÍöµÄÉËº¦,³ÖĞø2»ØºÏ",icon/icon_skill_shenli,10,,,,,,0,magic3,,,Effect/jiangziya_skill02_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_304_Action
-1000,À×»÷,,1,,,icon/icon_skill_leiji,10,,,,,,0,magic,Effect/leizhenzhi_skill01_1,1,Effect/leizhenzhi_attack,magic1,,1.5,1.5,2.5,MT_Fly,,TPT_None,,SK_309_Action
-1001,ÂäÀ×,,1,,,icon/icon_skill_luolei,10,,,,,,0,magic,Effect/leizhenzhi_skill02_1,1.8,Effect/leizhenzhi_skill02,magic2,,1.2;1.3;1.4;1.5,1.2;1.3;1.4;1.5,4,MT_Target,1,TPT_All,,SK_310_Action
-1002,µç³¡,,1,,,icon/icon_skill_dianchang,10,,,,,,0,magic,Effect/leizhenzhi_skill03_1,1,Effect/leizhenzhi_skill03,magic3,,1,1,3,MT_Target,,TPT_None,,SK_123_Action
-1003,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,attack,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action
-1004,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic2,Effect/leizhenzhi_skill02_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action
-1005,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic1,,0.3;0.6;0.9;1.6;2.3,0.3;0.6;0.9;1.6;2.3,3,MT_Self,,TPT_None,,SK_1_Action
-1006,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,1,Effect/dianqiu,,Effect/dianqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action
-1007,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_1_Action
-1008,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,attack,,0.5,0.5,1.5,MT_Self,,TPT_None,,SK_1_Action
-1009,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_1_Action
-1010,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action
-1011,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic1,,1.5,1.5,2,MT_Self,,TPT_None,,SK_3_Action
-1012,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,Effect/sunwukong_attack,magic3,,0.6,0.6,1.2,MT_Self,,TPT_None,,SK_1_Action
-1013,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/huoqiu,,Effect/huoqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action
-1014,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action
-1015,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/dianqiu,,Effect/dianqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action
-1016,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%ÎïÀíÇ¿¶ÈÉËº¦¡£,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,Effect/yecha_attack,magic1,,0.6,0.6,1.2,MT_Self,,TPT_None,,SK_1_Action
-1017,ÆÕÍ¨¹¥»÷,,1,,¶ÔµĞ·½Ôì³É100%·¨ÊõÇ¿¶ÈÉËº¦¡£,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/yaofei_attack,,Effect/yaofei_shouji,1,1,1.2,MT_Fly,,TPT_None,,SK_1_Action
-2101,Íò½£¾÷,1,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É100%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_100_Action
-2102,Íò½£¾÷,2,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É105%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_101_Action
-2103,Íò½£¾÷,3,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É110%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_102_Action
-2104,Íò½£¾÷,4,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É115%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_103_Action
-2105,Íò½£¾÷,5,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É120%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_104_Action
-2106,Íò½£¾÷,6,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É125%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_105_Action
-2107,Íò½£¾÷,7,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É130%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_106_Action
-2108,Íò½£¾÷,8,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É135%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_107_Action
-2109,Íò½£¾÷,9,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É140%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_108_Action
-2110,Íò½£¾÷,10,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É145%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_109_Action
-2111,Íò½£¾÷,11,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É150%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_110_Action
-2112,Íò½£¾÷,12,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É155%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_111_Action
-2113,Íò½£¾÷,13,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É160%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_112_Action
-2114,Íò½£¾÷,14,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É165%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_113_Action
-2115,Íò½£¾÷,15,1,1,ÕÙ»½Íò½£´©´ÌµĞ·½È«ÌåÄ¿±ê£¬Ôì³É170%ÎïÀíÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_114_Action
-2301,·ÙÌì¼À,1,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É100%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_115_Action
-2302,·ÙÌì¼À,2,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É105%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_116_Action
-2303,·ÙÌì¼À,3,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É110%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_117_Action
-2304,·ÙÌì¼À,4,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É115%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_118_Action
-2305,·ÙÌì¼À,5,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É120%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_119_Action
-2306,·ÙÌì¼À,6,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É125%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_120_Action
-2307,·ÙÌì¼À,7,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É130%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_121_Action
-2308,·ÙÌì¼À,8,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É135%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_122_Action
-2309,·ÙÌì¼À,9,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É140%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_123_Action
-2310,·ÙÌì¼À,10,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É145%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_124_Action
-2311,·ÙÌì¼À,11,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É150%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_125_Action
-2312,·ÙÌì¼À,12,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É155%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_126_Action
-2313,·ÙÌì¼À,13,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É160%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_127_Action
-2314,·ÙÌì¼À,14,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É165%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_128_Action
-2315,·ÙÌì¼À,15,1,1,ÕÙ»½Òµ»ğ×ÆÉÕµĞ·½È«ÌåÄ¿±ê£¬Ôì³É170%·¨ÊõÇ¿¶ÈµÄÉËº¦¡£,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_129_Action
-2401,½ğ¼×Êõ,1,1,2,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-2402,½ğ¼×Êõ,2,1,2,ÌáÉı¼º·½10%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_131_Action
-2403,½ğ¼×Êõ,3,1,2,ÌáÉı¼º·½15%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_132_Action
-2404,½ğ¼×Êõ,4,1,2,ÌáÉı¼º·½20%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_133_Action
-2405,½ğ¼×Êõ,5,1,2,ÌáÉı¼º·½25%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_134_Action
-2406,½ğ¼×Êõ,6,1,2,ÌáÉı¼º·½30%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_135_Action
-2407,½ğ¼×Êõ,7,1,2,ÌáÉı¼º·½35%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_136_Action
-2408,½ğ¼×Êõ,8,1,2,ÌáÉı¼º·½40%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_137_Action
-2409,½ğ¼×Êõ,9,1,2,ÌáÉı¼º·½45%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_138_Action
-2410,½ğ¼×Êõ,10,1,2,ÌáÉı¼º·½50%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_139_Action
-2411,½ğ¼×Êõ,11,1,2,ÌáÉı¼º·½55%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_140_Action
-2412,½ğ¼×Êõ,12,1,2,ÌáÉı¼º·½60%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_141_Action
-2413,½ğ¼×Êõ,13,1,2,ÌáÉı¼º·½65%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_142_Action
-2414,½ğ¼×Êõ,14,1,2,ÌáÉı¼º·½70%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_143_Action
-2415,½ğ¼×Êõ,15,1,2,ÌáÉı¼º·½75%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_144_Action
-2501,Õñ·ÜÊõ,1,1,2,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_145_Action
-2502,Õñ·ÜÊõ,2,1,2,ÌáÉı¼º·½10%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_146_Action
-2503,Õñ·ÜÊõ,3,1,2,ÌáÉı¼º·½15%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_147_Action
-2504,Õñ·ÜÊõ,4,1,2,ÌáÉı¼º·½20%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_148_Action
-2505,Õñ·ÜÊõ,5,1,2,ÌáÉı¼º·½25%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_149_Action
-2506,Õñ·ÜÊõ,6,1,2,ÌáÉı¼º·½30%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_150_Action
-2507,Õñ·ÜÊõ,7,1,2,ÌáÉı¼º·½35%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_151_Action
-2508,Õñ·ÜÊõ,8,1,2,ÌáÉı¼º·½40%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_152_Action
-2509,Õñ·ÜÊõ,9,1,2,ÌáÉı¼º·½45%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_153_Action
-2510,Õñ·ÜÊõ,10,1,2,ÌáÉı¼º·½50%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_154_Action
-2511,Õñ·ÜÊõ,11,1,2,ÌáÉı¼º·½55%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_155_Action
-2512,Õñ·ÜÊõ,12,1,2,ÌáÉı¼º·½60%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_156_Action
-2513,Õñ·ÜÊõ,13,1,2,ÌáÉı¼º·½65%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_157_Action
-2514,Õñ·ÜÊõ,14,1,2,ÌáÉı¼º·½70%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_158_Action
-2515,Õñ·ÜÊõ,15,1,2,ÌáÉı¼º·½75%ÎïÀí¡¢·¨Êõ¹¥»÷Á¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_159_Action
-2601,»¤ÉíÊõ,1,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí10%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_160_Action
-2602,»¤ÉíÊõ,2,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí15%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_161_Action
-2603,»¤ÉíÊõ,3,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí20%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_162_Action
-2604,»¤ÉíÊõ,4,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí25%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_163_Action
-2605,»¤ÉíÊõ,5,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí30%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_164_Action
-2606,»¤ÉíÊõ,6,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí35%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_165_Action
-2607,»¤ÉíÊõ,7,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí40%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_166_Action
-2608,»¤ÉíÊõ,8,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí45%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_167_Action
-2609,»¤ÉíÊõ,9,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí50%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_168_Action
-2610,»¤ÉíÊõ,10,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí55%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_169_Action
-2611,»¤ÉíÊõ,11,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí60%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_170_Action
-2612,»¤ÉíÊõ,12,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí65%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_171_Action
-2613,»¤ÉíÊõ,13,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí70%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_172_Action
-2614,»¤ÉíÊõ,14,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí75%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_173_Action
-2615,»¤ÉíÊõ,15,1,1,×ÔÉíÔö¼Ó»¤¶Ü£¬¿ÉÒÔÎüÊÕ×ÔÉí80%×î´óÉúÃüÖµµÄÉËº¦£¬³ÖĞø2»ØºÏ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_174_Action
-2701,ÍòÎïÉú,1,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª100%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_175_Action
-2702,ÍòÎïÉú,2,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª105%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_176_Action
-2703,ÍòÎïÉú,3,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª110%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_177_Action
-2704,ÍòÎïÉú,4,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª115%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_178_Action
-2705,ÍòÎïÉú,5,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª120%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_179_Action
-2706,ÍòÎïÉú,6,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª125%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_180_Action
-2707,ÍòÎïÉú,7,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª130%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_181_Action
-2708,ÍòÎïÉú,8,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª135%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_182_Action
-2709,ÍòÎïÉú,9,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª140%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_183_Action
-2710,ÍòÎïÉú,10,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª145%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_184_Action
-2711,ÍòÎïÉú,11,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª150%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_185_Action
-2712,ÍòÎïÉú,12,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª155%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_186_Action
-2713,ÍòÎïÉú,13,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª160%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_187_Action
-2714,ÍòÎïÉú,14,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª165%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_188_Action
-2715,ÍòÎïÉú,15,1,3,ÖÎÁÆ¼º·½È«ÌåÄ¿±ê£¬ÖÎÁÆÁ¿Îª170%·¨ÊõÇ¿¶È¡£,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_189_Action
-2801,¼ÅÃğ¾ö,1,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2802,¼ÅÃğ¾ö,2,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2803,¼ÅÃğ¾ö,3,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2804,¼ÅÃğ¾ö,4,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2805,¼ÅÃğ¾ö,5,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2806,¼ÅÃğ¾ö,6,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2807,¼ÅÃğ¾ö,7,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2808,¼ÅÃğ¾ö,8,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2809,¼ÅÃğ¾ö,9,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2810,¼ÅÃğ¾ö,10,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2811,¼ÅÃğ¾ö,11,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2812,¼ÅÃğ¾ö,12,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2813,¼ÅÃğ¾ö,13,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2814,¼ÅÃğ¾ö,14,1,5,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2815,Ç¿»¯ÔöÒæ,15,1,1,É¾³ı¶Ô·½Ò»ÕÅÊÖÅÆ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÔöÒæ,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action
-2901,Ç¿»¯ÎüÑª,1,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_220_Action
-2902,Ç¿»¯ÎüÑª,2,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_221_Action
-2903,Ç¿»¯ÎüÑª,3,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_222_Action
-2904,Ç¿»¯ÎüÑª,4,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_223_Action
-2905,Ç¿»¯ÎüÑª,5,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_224_Action
-2906,Ç¿»¯ÎüÑª,6,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_225_Action
-2907,Ç¿»¯ÎüÑª,7,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_226_Action
-2908,Ç¿»¯ÎüÑª,8,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_227_Action
-2909,Ç¿»¯ÎüÑª,9,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_228_Action
-2910,Ç¿»¯ÎüÑª,10,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_229_Action
-2911,Ç¿»¯ÎüÑª,11,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_230_Action
-2912,Ç¿»¯ÎüÑª,12,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_231_Action
-2913,Ç¿»¯ÎüÑª,13,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_232_Action
-2914,Ç¿»¯ÎüÑª,14,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_233_Action
-2915,Ç¿»¯ÎüÑª,15,1,1,Ôö¼ÓÓÑ·½µ¥ÌåÄ¿±êÎüÑª5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯ÎüÑª,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_234_Action
-3001,½ğ¼×Êõ,1,1,1,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-3002,½ğ¼×Êõ,1,1,1,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-3003,½ğ¼×Êõ,1,1,1,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-3004,½ğ¼×Êõ,1,1,1,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-3005,½ğ¼×Êõ,1,1,1,ÌáÉı¼º·½5%ÎïÀí¡¢·¨Êõ·ÀÓùÁ¦£¬³ÖĞø2»ØºÏ¡£,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action
-3101,Ç¿»¯Êõ,1,1,3,Ê¹ÒÑ·½ËùÓĞBUFFĞ§¹ûÌáÊ¾,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯Êõ,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_285_Action
-3102,Ç¿»¯Êõ,2,1,3,Ê¹ÒÑ·½ËùÓĞBUFFĞ§¹ûÌáÊ¾,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯Êõ,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_286_Action
-3103,Ç¿»¯Êõ,3,1,3,Ê¹ÒÑ·½ËùÓĞBUFFĞ§¹ûÌáÊ¾,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯Êõ,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_287_Action
-3104,Ç¿»¯Êõ,4,1,3,Ê¹ÒÑ·½ËùÓĞBUFFĞ§¹ûÌáÊ¾,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯Êõ,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_288_Action
-3105,Ç¿»¯Êõ,5,1,3,Ê¹ÒÑ·½ËùÓĞBUFFĞ§¹ûÌáÊ¾,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,Ç¿»¯Êõ,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_289_Action
-3201,¾»»¯Êõ,1,1,3,¾»»¯ÒÑ·½ËùÓĞDEBUFFĞ§¹û£¬³É¹¦¸ÅÂÊ5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,¾»»¯Êõ,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_290_Action
-3202,¾»»¯Êõ,2,1,3,¾»»¯ÒÑ·½ËùÓĞDEBUFFĞ§¹û£¬³É¹¦¸ÅÂÊ5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,¾»»¯Êõ,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_291_Action
-3203,¾»»¯Êõ,3,1,3,¾»»¯ÒÑ·½ËùÓĞDEBUFFĞ§¹û£¬³É¹¦¸ÅÂÊ5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,¾»»¯Êõ,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_292_Action
-3204,¾»»¯Êõ,4,1,3,¾»»¯ÒÑ·½ËùÓĞDEBUFFĞ§¹û£¬³É¹¦¸ÅÂÊ5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,¾»»¯Êõ,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_293_Action
-3205,¾»»¯Êõ,5,1,3,¾»»¯ÒÑ·½ËùÓĞDEBUFFĞ§¹û£¬³É¹¦¸ÅÂÊ5*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,¾»»¯Êõ,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_294_Action
-3301,Ç¿Éí,1,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_235_Action
-3302,Ç¿Éí,2,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_236_Action
-3303,Ç¿Éí,3,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_237_Action
-3304,Ç¿Éí,4,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_238_Action
-3305,Ç¿Éí,5,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_239_Action
-3306,Ç¿Éí,6,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_240_Action
-3307,Ç¿Éí,7,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_241_Action
-3308,Ç¿Éí,8,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_242_Action
-3309,Ç¿Éí,9,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_243_Action
-3310,Ç¿Éí,10,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_244_Action
-3311,Ç¿Éí,11,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_245_Action
-3312,Ç¿Éí,12,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_246_Action
-3313,Ç¿Éí,13,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_247_Action
-3314,Ç¿Éí,14,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_248_Action
-3315,Ç¿Éí,15,0,,Ôö¼ÓÉúÃüÖµ50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_249_Action
-3401,Ìú±Ú,1,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_250_Action
-3402,Ìú±Ú,2,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_251_Action
-3403,Ìú±Ú,3,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_252_Action
-3404,Ìú±Ú,4,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_253_Action
-3405,Ìú±Ú,5,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_254_Action
-3406,Ìú±Ú,6,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_255_Action
-3407,Ìú±Ú,7,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_256_Action
-3408,Ìú±Ú,8,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_257_Action
-3409,Ìú±Ú,9,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_258_Action
-3410,Ìú±Ú,10,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_259_Action
-3411,Ìú±Ú,11,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_260_Action
-3412,Ìú±Ú,12,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_261_Action
-3413,Ìú±Ú,13,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_262_Action
-3414,Ìú±Ú,14,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_263_Action
-3415,Ìú±Ú,15,0,,Ôö¼ÓÎïÀí·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_264_Action
-3501,Ä§Óù,1,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_265_Action
-3502,Ä§Óù,2,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_266_Action
-3503,Ä§Óù,3,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_267_Action
-3504,Ä§Óù,4,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_268_Action
-3505,Ä§Óù,5,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_269_Action
-3506,Ä§Óù,6,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_270_Action
-3507,Ä§Óù,7,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_271_Action
-3508,Ä§Óù,8,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_272_Action
-3509,Ä§Óù,9,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_273_Action
-3510,Ä§Óù,10,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_274_Action
-3511,Ä§Óù,11,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_275_Action
-3512,Ä§Óù,12,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_276_Action
-3513,Ä§Óù,13,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_277_Action
-3514,Ä§Óù,14,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_278_Action
-3515,Ä§Óù,15,0,,Ôö¼Ó·¨Êõ·ÀÓù50*¼¼ÄÜµÈ¼¶,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_279_Action
+SkillId,Name,Level,Type,Feel,Cose,ICON,Crit,Damage,Bufflist,CoolDown,TargetNum,TargetCamp,IsMelee,CastAnim,CastEffect,CastTime,SkillEffect,AttackAnim,BeattackEffect,BeattackTime,EmitNumTime,TotalTime,MotionType,SingleSkill,TargetPosType,Camera,LuaName,
+107,ä¹¾å¤åœˆ,,1,,æ·å‡ºä¹¾å¤åœˆï¼Œå‡»ä¸­æ•Œäººä¸»è§’åé€‰æ‹©ä¸‹ä¸€ä¸ªæ•Œäººå¼¹å°„ï¼Œå¼¹å°„3æ¬¡ï¼Œå¯¹æ¯ä¸ªæ•Œäººé€ æˆ50%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚æ¯å‡»ä¸­ä¸€ä¸ªæ•Œäººå¢åŠ è‡ªå·±10%çš„ç‰©ç†å¼ºåº¦ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_qiankunquan,10,,,,,,0,attack,Effect/neza_skill01_2,2,Effect/neza_skill01,,Effect/shouji,0.45,0.45,0.7,MT_Sec,1,TPT_None,,SK_299_Action,
+108,ç«å°–æª,,1,,çªåˆºæ•Œæ–¹å•ä½“ç›®æ ‡ï¼ˆä¸»è§’ï¼‰5æ¬¡ï¼Œæ¯æ¬¡é€ æˆ30%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ï¼Œå¹¶å‡å°‘ç›®æ ‡10%çš„ç‰©ç†é˜²å¾¡ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_huojianqiang,10,,,,,,1,,,0.65,Effect/neza_skill02,magic1,,0.3;0.6;0.9;1.6;2.3,0.3;0.6;0.9;1.6;2.3,,MT_Self,,TPT_None,1,SK_300_Action,
+106,æ··å¤©ç»«,,1,,,icon/icon_skill_huntianling,10,,,,,,0,magic2,Effect/neza_skill01_2,1,Effect/neza_attack,,,0.5,0.5,1.5,MT_Target,0,TPT_None,,SK_106_Action,
+124,è¡Œäº‘,,1,,,icon/icon_skill_xingyun,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_attack,,,0.5,0.5,2,MT_Target,0,TPT_None,,SK_124_Action,
+125,å¸ƒé›¨,,1,,å¯¹æ•Œæ–¹å…¨ä½“é€ æˆ50%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ï¼Œå¹¶å‡å°‘20%çš„é€Ÿåº¦ã€‚,icon/icon_skill_buyu,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,0.6,Effect/xihailongwang_skill01_fx1,,,0.4;0.6;0.8,0.4;0.6;0.8,2,MT_Target,1,TPT_All,,SK_311_Action,
+126,æ¶ˆç¾,,1,,å¯¹æ•Œæ–¹å…¨ä½“é€ æˆ50%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ï¼Œå¹¶æ¸…é™¤æ‰€æœ‰æ•Œæ–¹è´Ÿå‘çŠ¶æ€ï¼Œæ¯æ¸…é™¤ä¸€ä¸ªè´Ÿå‘çŠ¶æ€é¢å¤–å¢åŠ 50%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚ä¼¤å®³åªç»“ç®—ä¸€æ¬¡ï¼Œæ ¹æ®debuffæ•°é‡ç›´æ¥ç®—ä¼¤å®³ï¼Œæ¯æ¶ˆé™¤ä¸€ä¸ªå¢åŠ 50%ä¼¤å®³,icon/icon_skill_xiaozai,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,0.6,Effect/xihailongwang_skill02_fx1,,,0.5,0.5,2,MT_Target,0,TPT_None,1,SK_312_Action,
+127,ä¸‰å æµª,,1,,å¯¹æ•Œäººè¿›è¡Œä¸‰æ¬¡æ”»å‡»ï¼Œæ¯æ¬¡æ”»å‡»é€ æˆ50%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_shenli,10,,,,,,1,,,1.1,Effect/longtaizi_attack,attack,Effect/shouji,0.5;1;1.5,0.5;1;1.5,,MT_Self,,TPT_None,,SK_318_Action,
+128,é¾™æˆæ°´,,1,,å¯¹æ•Œæ–¹å…¨ä½“é€ æˆ50%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_chuanci,10,,,,,,0,magic4,,0,Effect/longtaizi_skill04_1,,,3.7;4;4.3,3.7;4;4.3,10,MT_Target,1,TPT_Center,,SK_311_Action,
+129,é¾™åˆ€,,1,,,icon/icon_skill_zhongji,10,,,,,,0,magic2,Effect/longtaizi_skill02_1,1.2,Effect/longtaizi_skill02_2,,Effect/shouji,0.8,0.8,1.2,MT_Fly,0,TPT_None,,SK_102_Action,
+131,é“é’³,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_qianzi,10,,,,,,1,,,,Effect/xiejiang_attack,attack,Effect/shouji,0.5,0.5,1.06,MT_Self,,TPT_None,,SK_318_Action,
+130,çªåˆº,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_pingci,10,,,,,,1,,,,Effect/xiabing_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_318_Action,
+132,åå­—æ–©å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ110%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_shuangdao,10,,,,,,1,,,,Effect/shajiangjun_attack,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_318_Action,
+133,å­½é¾™,,1,,è‡ªèº«å¢åŠ ä¸€ä¸ªbuffï¼Œå—åˆ°çš„ä¼¤å®³æå‡30%ï¼Œé€ æˆçš„ä¼¤å®³æå‡50%ï¼Œå¹¶ä¸”æ”»å‡»æ•Œæ–¹å•ä¸ªç›®æ ‡ä¸€æ¬¡ã€‚BuffæŒç»­2å›åˆ,icon/icon_skill_nielong,10,,,,,,1,,,,Effect/jiaomowang_attack,attack,,0.5,0.5,1.5,MT_Self,,TPT_None,,SK_314_Action,
+134,å—œè¡€,,1,,,icon/icon_skill_shixue,10,,,,,,1,,,,Effect/jiaomowang_skill01,magic1,,0.5,0.5,1.5,MT_Self,,TPT_None,1,SK_128_Action,
+135,çœŸé¾™å½¢æ€,,1,,å¯¹æ•Œæ–¹ä¸€ä¸ªç›®æ ‡é€ æˆç‰©ç†130%å¼ºåº¦çš„ä¼¤å®³ï¼Œå¦‚æœè¿™ä¸ªç›®æ ‡æ­»äº¡ï¼Œåˆ™é¢å¤–è§¦å‘å¦ä¸€æ¬¡çœŸé¾™å½¢æ€ã€‚,icon/icon_skill_longwei,10,,,,,,1,,,,Effect/jiaomowang_skill02,magic2,,0.5;1;1.5,0.5;1;1.5,4,MT_Self,,TPT_None,,SK_313_Action,
+136,é›·å‡»,,1,,å¯¹æ•Œæ–¹è¡€é‡æœ€é«˜çš„å•ä½“é€ æˆæ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚å¹¶ä¸”é™„å¸¦æŒç»­æ‰è¡€æ•ˆæœï¼Œæ¯å›åˆæ‰å½“å‰ç”Ÿå‘½å€¼40%è¡€é‡ã€‚æŒç»­2å›åˆ,icon/icon_skill_leiji,10,,,,,,0,magic1,Effect/leizhenzhi_skill01_1,1,Effect/leizhenzhi_attack,magic1,,0.9,0.9,1.5,MT_Target,,TPT_None,,SK_309_Action,
+137,è½é›·,,1,,å¯¹æ•Œæ–¹ç«–æ’é€ æˆ100%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_luolei,10,,,,,,0,magic2,Effect/leizhenzhi_skill02_1,1.8,Effect/leizhenzhi_skill02,magic2,,1;1.2;1.3;1.4,1;1.2;1.3;1.4,4,MT_Target,1,TPT_All,,SK_310_Action,
+138,ç”µåœº,,1,,,icon/icon_skill_dianchang,10,,,,,,0,magic3,Effect/leizhenzhi_skill03_1,1,Effect/leizhenzhi_skill03,magic3,,1,1,3,MT_Target,,TPT_None,,SK_123_Action,
+139,ä¸‰å‰æˆŸ,,1,,,icon/icon_skill_sanchaji,10,,,,,,1,,,,Effect/lijing_skill02,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_109_Action,
+140,å¤©ç½¡åˆ€,,1,,å¯¹æ•Œæ–¹å‰æ’é€ æˆç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚30%æ¦‚ç‡å¯ä»¥ä½¿å‡»ä¸­çš„ç›®æ ‡æ— æ³•è¡ŒåŠ¨1å›åˆ,icon/icon_skill_tiangangdao,10,,,,,,1,,,,Effect/lijing_skill03,magic3,,1.5,1.5,4,MT_Target,1,TPT_All,,SK_301_Action,
+141,ç²ç‘å¡”,,1,,æ•Œæ–¹å•ä½“2å›åˆæ— æ³•è¡ŒåŠ¨ï¼Œå¹¶å¯¹ç›®æ ‡é€ æˆæ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_linglongta,10,,,,,,0,magic4,Effect/lijing_skill04_1,1,Effect/lijing_skill04,,,1.2,1.2,2.5,MT_Target,,TPT_None,1,SK_302_Action,
+142,æ°´æ”»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_shuizushanghaitigao,10,,,,,,0,magic1,Effect/guichengxiang_skill01_1,1,Effect/guichengxiang_skill01,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_317_Action,
+143,æ”¾ä¸‹å± åˆ€,,1,,å¯¹ä¸€ä¸ªæ•Œæ–¹ç›®æ ‡é€ æˆæ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ï¼Œå¹¶é™ä½ç›®æ ‡40%çš„ç‰©ç†å¼ºåº¦å’Œæ³•æœ¯å¼ºåº¦ï¼Œå°†å…¶è½¬ç§»ç»™ç¦»è‡ªå·±æœ€è¿‘çš„ä¸€ä¸ªå‹æ–¹ç›®æ ‡ã€‚æŒç»­1å›åˆ,icon/icon_skill_fangxiatudao,10,,,,,,0,magic1,Effect/guanyin_skill01_1,1,Effect/guanyin_skill01,,,1.2,1.2,3,MT_Target,,TPT_None,,SK_305_Action,
+144,å¤§æ…ˆå¤§æ‚²,,1,,é©±æ•£æˆ‘æ–¹å…¨ä½“æ‰€æœ‰è´Ÿé¢æ•ˆæœï¼Œå¹¶ä¸”å‡å°‘ä¼¤å®³20%ï¼ŒæŒç»­1å›åˆã€‚,icon/icon_skill_dacidabei,10,,,,,,0,magic3,Effect/guanyin_skill02_1,1,Effect/guanyin_skill02,,,1.5,1.5,4,MT_Target,,TPT_None,,SK_306_Action,
+145,åšçš®,,1,,ä¸‹3æ¬¡å—åˆ°çš„ä¼¤å®³é™ä½40%ã€‚,icon/icon_skill_houpi,10,,,,,,0,magic3,Effect/huangyalaoxiang_skill01_1,1,,,,,,4,MT_Self,,TPT_None,,SK_307_Action,
+146,ç¥åŠ›,,1,,å¼ºåˆ¶ä¸€ä¸ªç›®æ ‡æ™®é€šæ”»å‡»è‡ªå·±ï¼ŒæŒç»­2å›åˆï¼Œä¼˜å…ˆåæ’å¯¹é¢ï¼Œç„¶åæ˜¯ä¸¤ä¾§ï¼Œç„¶åæ˜¯å‰æ’ã€‚,icon/icon_skill_shenli,10,,,,,,0,magic2,Effect/huangyalaoxiang_skill02_1,1,,,Effect/huangyalaoxiang_skill02,0.5,0.5,3,MT_Target,,TPT_None,,SK_308_Action,
+147,åŒ–èº«ä¸‰åƒ,,1,,å¬å”¤2ä¸ªåˆ†èº«å’Œè‡ªå·±åŒæ—¶æ”»å‡»å¯¹é¢ä¸‰ä¸ªå‰æ’ç›®æ ‡ï¼Œé€ æˆ150%ä¼¤å®³å¹¶å‡å°‘å¯¹æ–¹åŒé˜²15%ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_huashensanqian,10,,,,,,0,magic2,Effect/sunwukong_skill02_1,1.5,Effect/sunwukong_skill02,,,1.5,1.5,3,MT_Target,1,TPT_All,,SK_295_Action,
+148,å¤§é—¹å¤©å®«,,1,,å¬å”¤é‡‘ç®æ£’å˜å¤§ä»å¤©ç ¸ä¸‹ï¼Œå¯¹æ•Œæ–¹å…¨ä½“ç›®æ ‡é€ æˆ230%çš„ä¼¤å®³å¹¶æœ‰20%å‡ ç‡çœ©æ™•å¯¹æ–¹1å›åˆï¼Œå¹¶æœ‰20%å‡ ç‡é€ æˆåŒå€ä¼¤å®³ã€‚,icon/icon_skill_tiangangdao,10,,,,,,0,magic4,Effect/sunwukong_skill03_1,1.5,Effect/sunwukong_skill03,,,0.6;0.8;1;1.2,0.6;0.8;1;1.2,3,MT_Target,1,TPT_All,,SK_296_Action,
+149,ç­åœ°,,1,,å¯¹ç›®æ ‡é€ æˆæ— è§†æ³•æœ¯é˜²å¾¡çš„100%æ³•æœ¯ä¼¤å®³ã€‚,icon/icon_skill_miedi,10,,,,,,0,magic2,Effect/nvhanba_skill01_1,1.5,Effect/nvhanba_skill01,,,1.1,1.1,3,MT_Target,,TPT_None,,SK_326_Action,
+150,ç„šå¤©,,1,,å¯¹å…¨ä½“ç›®æ ‡é€ æˆ55%æ³•æœ¯ä¼¤å®³ï¼Œå¹¶æœ‰å‡ ç‡é€ æˆç‚¹ç‡ƒæ•ˆæœã€‚,icon/icon_skill_fentian,10,,,,,,0,magic3,Effect/nvhanba_skill02_1,1.5,Effect/nvhanba_skill02,,,1.2,1.2,3,MT_Target,1,TPT_All,,SK_327_Action,
+151,å¯’å†°,,1,,å¯¹ç›®æ ‡é€ æˆ70%æ³•æœ¯ä¼¤å®³ï¼Œå¹¶æœ‰20%å‡ ç‡å†°å†»ç›®æ ‡1å›åˆã€‚,icon/icon_skill_hanbing,10,,,,,,0,magic2,Effect/longhou_skill01_1,1.5,Effect/longhou_skill01,,,1.1,1.1,3,MT_Target,1,TPT_Col,,SK_328_Action,
+152,æ°´é¾™å·,,1,,å¯¹ç›®æ ‡é€ æˆ150%æ³•æœ¯ä¼¤å®³ï¼Œå¹¶å†°å†»ç›®æ ‡2å›åˆã€‚,icon/icon_skill_shuilongjuan,10,,,,,,0,magic3,Effect/longhou_skill02_1,1.5,Effect/longhou_skill02,,,1.1,1.1,3,MT_Target,,TPT_None,,SK_329_Action,
+153,æé»„æ——,,1,,ä¸ºæ‰€æœ‰çš„å‹æ–¹å•ä½åˆ†åˆ«æä¾›ä¸€ä¸ªbuffï¼Œæå‡æ‰€æœ‰æ”»å‡»20%ã€‚è¿™ä¸ªbuffä¸ä¼šæ¶ˆå¤±ï¼Œå¯ä»¥å åŠ ã€‚æ¯æ¬¡é‡Šæ”¾å¢åŠ 20%ï¼Œç›´åˆ°è¢«é©±æ•£æˆ–è€…å§œå­ç‰™æ­»äº¡ï¼Œbuffæ¶ˆå¤±,icon/icon_skill_houpi,10,,,,,,0,magic2,,,Effect/jiangziya_skill01_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_297_Action,
+154,å°ç¥,,1,,ç»™ä¸»è§’å¢åŠ ä¸€ä¸ªå¯ä»¥å¸æ”¶8%æœ€å¤§è¡€é‡çš„æŠ¤ç›¾ï¼Œè¿™ä¸ªbuffä¸ä¼šæ¶ˆå¤±ï¼Œå¯ä»¥å åŠ ã€‚æ¯æ¬¡é‡Šæ”¾å¢åŠ 8%ï¼Œç›´åˆ°è¢«é©±æ•£æˆ–è€…å§œå­ç‰™æ­»äº¡ï¼Œbuffæ¶ˆå¤±,icon/icon_skill_shenli,10,,,,,,0,magic3,,,Effect/jiangziya_skill02_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_298_Action,
+155,é…¸é›¾å–·å,,1,,ä½¿æ•Œæ–¹å…¨ä½“ç›®æ ‡å—åˆ°30%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ï¼Œå—åˆ°è¯¥ä¼¤å®³çš„ç›®æ ‡æ— æ³•å›å¤ç”Ÿå‘½å€¼ï¼ˆæ‰€æœ‰å›å¤ç”Ÿå‘½å€¼ç±»å‹çš„å±æ€§å’ŒæŠ€èƒ½éƒ½ä¸ä¼šç”Ÿæ•ˆã€‚å›å¤é‡ä¸º0ï¼‰ï¼ŒæŒç»­3å›åˆã€‚,icon/icon_skill_tiangangdao,10,,,,,,0,magic2,,0,Effect/jiutoushe_skill01,,,1.2,1.2,3,MT_Target,1,TPT_Center,,SK_319_Action,
+156,ç¾¤è›‡ä¹±èˆ,,1,,å¯¹æ•Œæ–¹éšæœºç›®æ ‡è¿›è¡Œ9æ¬¡æ”»å‡»ï¼ˆéšæœº9æ¬¡ç›®æ ‡ï¼‰ï¼Œæ¯æ¬¡æ”»å‡»é€ æˆ30%æ³•æœ¯å¼ºåº¦ä¼¤å®³ï¼Œæ¯æ¬¡æ”»å‡»ä¼šä½¿ç›®æ ‡é™ä½10%é€Ÿåº¦ï¼ŒæŒç»­1å›åˆã€‚,icon/icon_skill_linglongta,10,,,,,,0,magic3,Effect/jiutoushe_skill02_1,0.8,Effect/jiutoushe_skill02,,Effect/jiutoushe_skill02_2,0.2,0.2,0.2,MT_Sec,1,TPT_None,,SK_320_Action,
+157,é£å¶æ–©,,1,,æ”»å‡»ä¸¤æ¬¡ï¼Œå¯¹ç›®æ ‡é€ æˆ100%ç‰©ç†ä¼¤å®³ï¼Œå¹¶ä¸”é™ä½ç›®æ ‡é˜²å¾¡50ç‚¹ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_feiyezhan,10,,,,,,1,,,,Effect/cuiyun_skill01,magic1,,0.6;1.2,0.6;1.2,,MT_Self,,TPT_None,,SK_330_Action,
+158,ç¢§äº‘å†³,,1,,å¯¹ç›®æ ‡é€ æˆ150%ç‰©ç†ä¼¤å®³ï¼Œå¹¶ä½¿ç›®æ ‡ä¸­æ¯’ï¼Œæ¯å›åˆæ‰å½“å‰ç”Ÿå‘½å€¼çš„10%è¡€é‡,icon/icon_skill_biyunjue,10,,,,,,1,,,,Effect/cuiyun_skill02,magic2,,1.2,1.2,,MT_Self,,TPT_None,,SK_331_Action,
+159,åŒ–è¡€ç‹‚å‡»,,1,,å°†ç›®æ ‡å‡»é€€ï¼Œæœ‰50%å‡ ç‡è®©ç›®æ ‡ä¸‹å›åˆä¸èƒ½è¡ŒåŠ¨,icon/icon_skill_huaxuekuangji,10,,,,,,0,magic3,Effect/yecha_skill02_1,1.5,Effect/yecha_skill02,,,1,1,3.5,MT_Target,,TPT_None,,SK_332_Action,
+160,è¡€æ€’ç‹‚æš´,,1,,å¯¹ç›®æ ‡é€ æˆ120%ç‰©ç†ä¼¤å®³ï¼Œå¹¶ä¸”å¸å–ä¼¤å®³æ•°å€¼50%çš„ç”Ÿå‘½å€¼,icon/icon_skill_xuenukuangbao,10,,,,,,1,,,,Effect/yecha_skill01,magic2,,1.2,1.2,,MT_Self,,TPT_None,,SK_333_Action,
+161,æ¥šæ¥šå¯æ€œ,,1,,æ¥šæ¥šå¯æ€œï¼Œä½¿è‡ªå·±è¯¥å›åˆä¸å—åˆ°ä¼¤å®³ï¼Œå…ç–«ä¸€åˆ‡æ”»å‡»,icon/icon_skill_chuchukelian,10,,,,,,0,magic2,Effect/yaofei_skill01_1,1.5,,,,1.2,1.2,2,MT_Self,,TPT_None,,SK_334_Action,
+162,é­…æƒ‘,,1,,é­…æƒ‘ç›®æ ‡ï¼Œä½¿ç›®æ ‡ä¸‹ä¸€å›åˆçš„æ”»å‡»ç›®æ ‡å˜ä¸ºå·±æ–¹ä¸€ä¸ªéšæœºç›®æ ‡,icon/icon_skill_meihuo,10,,,,,,0,magic3,Effect/yaofei_skill02_1,1.5,Effect/yaofei_skill02,,,0.8,0.8,1,MT_Target,,TPT_None,,SK_335_Action,
+163,è›‡æ¯’,,1,,æ”»å‡»æ•Œæ–¹å…¨ä½“ï¼Œé€ æˆ50%æ³•æœ¯ä¼¤å®³ï¼Œå¹¶ä¸”ä½¿ç›®æ ‡ä¸­æ¯’ï¼Œæ¯å›åˆæ‹¾å–è›‡å¦–å½“å‰ç”Ÿå‘½å€¼çš„20%ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_shedu,10,,,,,,0,magic2,,0,Effect/sheyao_skill01,,,1.2,1.2,3,MT_Target,1,TPT_Center,,SK_336_Action,
+164,æ¨å†³æ„,,1,,å¯¹åœ¨åœºçš„æ‰€æœ‰ç›®æ ‡é€ æˆ100%çš„æ³•æœ¯ä¼¤å®³ï¼ˆåŒ…æ‹¬å·±æ–¹ç›®æ ‡ï¼‰,icon/icon_skill_henyijue,10,,,,,,0,magic3,Effect/sheyao_skill02_1,2,Effect/sheyao_skill02,,,1.5,1.5,4,MT_Self,1,TPT_Center,,SK_337_Action,
+165,ç‚¼çŸ³è¡¥å¤©,,1,,ä¸ºæ‰€æœ‰å‹æ–¹å•ä½å›å¤ç›¸å½“äºæ³•æœ¯å¼ºåº¦50%çš„ç”Ÿå‘½å€¼ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,4,MT_Target,1,TPT_All,1,SK_303_Action,
+166,é€ ç‰©,,1,,"ä½¿å·±æ–¹è¡€é‡æœ€å°‘çš„å•ä½å…ç–«ä¸€å›åˆä¼šå¯¼è‡´å…¶æ­»äº¡çš„ä¼¤å®³,æŒç»­2å›åˆ",icon/icon_skill_shenli,10,,,,,,0,magic3,,,Effect/jiangziya_skill02_1,,,1.5,1.5,3,MT_Target,,TPT_None,,SK_304_Action,
+1000,é›·å‡»,,1,,,icon/icon_skill_leiji,10,,,,,,0,magic,Effect/leizhenzhi_skill01_1,1,Effect/leizhenzhi_attack,magic1,,1.5,1.5,2.5,MT_Fly,,TPT_None,,SK_309_Action,
+1001,è½é›·,,1,,,icon/icon_skill_luolei,10,,,,,,0,magic,Effect/leizhenzhi_skill02_1,1.8,Effect/leizhenzhi_skill02,magic2,,1.2;1.3;1.4;1.5,1.2;1.3;1.4;1.5,4,MT_Target,1,TPT_All,,SK_310_Action,
+1002,ç”µåœº,,1,,,icon/icon_skill_dianchang,10,,,,,,0,magic,Effect/leizhenzhi_skill03_1,1,Effect/leizhenzhi_skill03,magic3,,1,1,3,MT_Target,,TPT_None,,SK_123_Action,
+1003,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,attack,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action,
+1004,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic2,Effect/leizhenzhi_skill02_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action,
+1005,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic1,,0.3;0.6;0.9;1.6;2.3,0.3;0.6;0.9;1.6;2.3,3,MT_Self,,TPT_None,,SK_1_Action,
+1006,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic2,Effect/xihailongwang_skill02_1,1,Effect/dianqiu,,Effect/dianqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action,
+1007,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,attack,Effect/shouji,0.5,0.5,1.16,MT_Self,,TPT_None,,SK_1_Action,
+1008,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,attack,,0.5,0.5,1.5,MT_Self,,TPT_None,,SK_1_Action,
+1009,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic2,,1.5,1.5,4,MT_Self,,TPT_None,,SK_1_Action,
+1010,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.5,0.5,1.2,MT_Fly,,TPT_None,,SK_2_Action,
+1011,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,,magic1,,1.5,1.5,2,MT_Self,,TPT_None,,SK_3_Action,
+1012,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,Effect/sunwukong_attack,magic3,,0.6,0.6,1.2,MT_Self,,TPT_None,,SK_1_Action,
+1013,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/huoqiu,,Effect/huoqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action,
+1014,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/shuiqiu,,Effect/shuiqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action,
+1015,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/dianqiu,,Effect/dianqiu_shouji,0.6,0.6,1.2,MT_Fly,,TPT_None,,SK_1_Action,
+1016,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%ç‰©ç†å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_jinzhangongji,10,,,,,,1,,,,Effect/yecha_attack,magic1,,0.6,0.6,1.2,MT_Self,,TPT_None,,SK_1_Action,
+1017,æ™®é€šæ”»å‡»,,1,,å¯¹æ•Œæ–¹é€ æˆ100%æ³•æœ¯å¼ºåº¦ä¼¤å®³ã€‚,icon/icon_skill_gongjiyuancheng,10,,,,,,0,magic1,Effect/xihailongwang_skill01_1,1,Effect/yaofei_attack,,Effect/yaofei_shouji,1,1,1.2,MT_Fly,,TPT_None,,SK_1_Action,
+2101,ä¸‡å‰‘è¯€,1,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ100%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_100_Action,
+2102,ä¸‡å‰‘è¯€,2,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ105%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_101_Action,
+2103,ä¸‡å‰‘è¯€,3,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ110%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_102_Action,
+2104,ä¸‡å‰‘è¯€,4,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ115%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_103_Action,
+2105,ä¸‡å‰‘è¯€,5,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ120%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_104_Action,
+2106,ä¸‡å‰‘è¯€,6,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ125%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_105_Action,
+2107,ä¸‡å‰‘è¯€,7,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ130%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_106_Action,
+2108,ä¸‡å‰‘è¯€,8,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ135%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_107_Action,
+2109,ä¸‡å‰‘è¯€,9,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ140%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_108_Action,
+2110,ä¸‡å‰‘è¯€,10,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ145%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_109_Action,
+2111,ä¸‡å‰‘è¯€,11,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ150%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_110_Action,
+2112,ä¸‡å‰‘è¯€,12,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ155%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_111_Action,
+2113,ä¸‡å‰‘è¯€,13,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ160%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_112_Action,
+2114,ä¸‡å‰‘è¯€,14,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ165%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_113_Action,
+2115,ä¸‡å‰‘è¯€,15,1,1,å¬å”¤ä¸‡å‰‘ç©¿åˆºæ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ170%ç‰©ç†å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd1,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1.8,Effect/zhujue_jianyu,,,0.8;1;1.1;1.2,0.8;1;1.1;1.2,4,MT_Target,1,TPT_All,,SK_114_Action,
+2301,ç„šå¤©ç¥­,1,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ100%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_115_Action,
+2302,ç„šå¤©ç¥­,2,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ105%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_116_Action,
+2303,ç„šå¤©ç¥­,3,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ110%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_117_Action,
+2304,ç„šå¤©ç¥­,4,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ115%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_118_Action,
+2305,ç„šå¤©ç¥­,5,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ120%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_119_Action,
+2306,ç„šå¤©ç¥­,6,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ125%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_120_Action,
+2307,ç„šå¤©ç¥­,7,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ130%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_121_Action,
+2308,ç„šå¤©ç¥­,8,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ135%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_122_Action,
+2309,ç„šå¤©ç¥­,9,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ140%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_123_Action,
+2310,ç„šå¤©ç¥­,10,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ145%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_124_Action,
+2311,ç„šå¤©ç¥­,11,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ150%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_125_Action,
+2312,ç„šå¤©ç¥­,12,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ155%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_126_Action,
+2313,ç„šå¤©ç¥­,13,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ160%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_127_Action,
+2314,ç„šå¤©ç¥­,14,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ165%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_128_Action,
+2315,ç„šå¤©ç¥­,15,1,1,å¬å”¤ä¸šç«ç¼çƒ§æ•Œæ–¹å…¨ä½“ç›®æ ‡ï¼Œé€ æˆ170%æ³•æœ¯å¼ºåº¦çš„ä¼¤å®³ã€‚,icon/icon_skill_zjzd3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,0.6,Effect/zhujue_huoyan,,,0.5,0.5,2,MT_Target,1,TPT_All,,SK_129_Action,
+2401,é‡‘ç”²æœ¯,1,1,2,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+2402,é‡‘ç”²æœ¯,2,1,2,æå‡å·±æ–¹10%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_131_Action,
+2403,é‡‘ç”²æœ¯,3,1,2,æå‡å·±æ–¹15%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_132_Action,
+2404,é‡‘ç”²æœ¯,4,1,2,æå‡å·±æ–¹20%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_133_Action,
+2405,é‡‘ç”²æœ¯,5,1,2,æå‡å·±æ–¹25%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_134_Action,
+2406,é‡‘ç”²æœ¯,6,1,2,æå‡å·±æ–¹30%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_135_Action,
+2407,é‡‘ç”²æœ¯,7,1,2,æå‡å·±æ–¹35%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_136_Action,
+2408,é‡‘ç”²æœ¯,8,1,2,æå‡å·±æ–¹40%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_137_Action,
+2409,é‡‘ç”²æœ¯,9,1,2,æå‡å·±æ–¹45%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_138_Action,
+2410,é‡‘ç”²æœ¯,10,1,2,æå‡å·±æ–¹50%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_139_Action,
+2411,é‡‘ç”²æœ¯,11,1,2,æå‡å·±æ–¹55%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_140_Action,
+2412,é‡‘ç”²æœ¯,12,1,2,æå‡å·±æ–¹60%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_141_Action,
+2413,é‡‘ç”²æœ¯,13,1,2,æå‡å·±æ–¹65%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_142_Action,
+2414,é‡‘ç”²æœ¯,14,1,2,æå‡å·±æ–¹70%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_143_Action,
+2415,é‡‘ç”²æœ¯,15,1,2,æå‡å·±æ–¹75%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_144_Action,
+2501,æŒ¯å¥‹æœ¯,1,1,2,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_145_Action,
+2502,æŒ¯å¥‹æœ¯,2,1,2,æå‡å·±æ–¹10%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_146_Action,
+2503,æŒ¯å¥‹æœ¯,3,1,2,æå‡å·±æ–¹15%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_147_Action,
+2504,æŒ¯å¥‹æœ¯,4,1,2,æå‡å·±æ–¹20%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_148_Action,
+2505,æŒ¯å¥‹æœ¯,5,1,2,æå‡å·±æ–¹25%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_149_Action,
+2506,æŒ¯å¥‹æœ¯,6,1,2,æå‡å·±æ–¹30%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_150_Action,
+2507,æŒ¯å¥‹æœ¯,7,1,2,æå‡å·±æ–¹35%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_151_Action,
+2508,æŒ¯å¥‹æœ¯,8,1,2,æå‡å·±æ–¹40%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_152_Action,
+2509,æŒ¯å¥‹æœ¯,9,1,2,æå‡å·±æ–¹45%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_153_Action,
+2510,æŒ¯å¥‹æœ¯,10,1,2,æå‡å·±æ–¹50%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_154_Action,
+2511,æŒ¯å¥‹æœ¯,11,1,2,æå‡å·±æ–¹55%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_155_Action,
+2512,æŒ¯å¥‹æœ¯,12,1,2,æå‡å·±æ–¹60%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_156_Action,
+2513,æŒ¯å¥‹æœ¯,13,1,2,æå‡å·±æ–¹65%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_157_Action,
+2514,æŒ¯å¥‹æœ¯,14,1,2,æå‡å·±æ–¹70%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_158_Action,
+2515,æŒ¯å¥‹æœ¯,15,1,2,æå‡å·±æ–¹75%ç‰©ç†ã€æ³•æœ¯æ”»å‡»åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd5,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantigongji,,,,,3.5,MT_Target,1,TPT_All,,SK_159_Action,
+2601,æŠ¤èº«æœ¯,1,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«10%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_160_Action,
+2602,æŠ¤èº«æœ¯,2,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«15%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_161_Action,
+2603,æŠ¤èº«æœ¯,3,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«20%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_162_Action,
+2604,æŠ¤èº«æœ¯,4,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«25%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_163_Action,
+2605,æŠ¤èº«æœ¯,5,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«30%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_164_Action,
+2606,æŠ¤èº«æœ¯,6,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«35%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_165_Action,
+2607,æŠ¤èº«æœ¯,7,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«40%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_166_Action,
+2608,æŠ¤èº«æœ¯,8,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«45%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_167_Action,
+2609,æŠ¤èº«æœ¯,9,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«50%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_168_Action,
+2610,æŠ¤èº«æœ¯,10,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«55%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_169_Action,
+2611,æŠ¤èº«æœ¯,11,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«60%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_170_Action,
+2612,æŠ¤èº«æœ¯,12,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«65%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_171_Action,
+2613,æŠ¤èº«æœ¯,13,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«70%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_172_Action,
+2614,æŠ¤èº«æœ¯,14,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«75%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_173_Action,
+2615,æŠ¤èº«æœ¯,15,1,1,è‡ªèº«å¢åŠ æŠ¤ç›¾ï¼Œå¯ä»¥å¸æ”¶è‡ªèº«80%æœ€å¤§ç”Ÿå‘½å€¼çš„ä¼¤å®³ï¼ŒæŒç»­2å›åˆ,icon/icon_skill_zjzd6,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_hudun,,,,,2.2,MT_Self,,TPT_None,,SK_174_Action,
+2701,ä¸‡ç‰©ç”Ÿ,1,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º100%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_175_Action,
+2702,ä¸‡ç‰©ç”Ÿ,2,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º105%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_176_Action,
+2703,ä¸‡ç‰©ç”Ÿ,3,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º110%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_177_Action,
+2704,ä¸‡ç‰©ç”Ÿ,4,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º115%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_178_Action,
+2705,ä¸‡ç‰©ç”Ÿ,5,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º120%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_179_Action,
+2706,ä¸‡ç‰©ç”Ÿ,6,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º125%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_180_Action,
+2707,ä¸‡ç‰©ç”Ÿ,7,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º130%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_181_Action,
+2708,ä¸‡ç‰©ç”Ÿ,8,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º135%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_182_Action,
+2709,ä¸‡ç‰©ç”Ÿ,9,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º140%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_183_Action,
+2710,ä¸‡ç‰©ç”Ÿ,10,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º145%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_184_Action,
+2711,ä¸‡ç‰©ç”Ÿ,11,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º150%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_185_Action,
+2712,ä¸‡ç‰©ç”Ÿ,12,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º155%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_186_Action,
+2713,ä¸‡ç‰©ç”Ÿ,13,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º160%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_187_Action,
+2714,ä¸‡ç‰©ç”Ÿ,14,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º165%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_188_Action,
+2715,ä¸‡ç‰©ç”Ÿ,15,1,3,æ²»ç–—å·±æ–¹å…¨ä½“ç›®æ ‡ï¼Œæ²»ç–—é‡ä¸º170%æ³•æœ¯å¼ºåº¦ã€‚,icon/icon_skill_zjzd7,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_jiaxue,,,1.5,1.5,3.5,MT_Target,,TPT_All,1,SK_189_Action,
+2801,å¯‚ç­å†³,1,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2802,å¯‚ç­å†³,2,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2803,å¯‚ç­å†³,3,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2804,å¯‚ç­å†³,4,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2805,å¯‚ç­å†³,5,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2806,å¯‚ç­å†³,6,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2807,å¯‚ç­å†³,7,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2808,å¯‚ç­å†³,8,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2809,å¯‚ç­å†³,9,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2810,å¯‚ç­å†³,10,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2811,å¯‚ç­å†³,11,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2812,å¯‚ç­å†³,12,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2813,å¯‚ç­å†³,13,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2814,å¯‚ç­å†³,14,1,5,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2815,å¼ºåŒ–å¢ç›Š,15,1,1,åˆ é™¤å¯¹æ–¹ä¸€å¼ æ‰‹ç‰Œ,icon/icon_skill_zjzd8,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¢ç›Š,Effect/zengjiadanti_jingji,,Effect/chupai,1.5,1.5,3.5,MT_Target,,TPT_None,,SK_190_Action,
+2901,å¼ºåŒ–å¸è¡€,1,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_220_Action,
+2902,å¼ºåŒ–å¸è¡€,2,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_221_Action,
+2903,å¼ºåŒ–å¸è¡€,3,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_222_Action,
+2904,å¼ºåŒ–å¸è¡€,4,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_223_Action,
+2905,å¼ºåŒ–å¸è¡€,5,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_224_Action,
+2906,å¼ºåŒ–å¸è¡€,6,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_225_Action,
+2907,å¼ºåŒ–å¸è¡€,7,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_226_Action,
+2908,å¼ºåŒ–å¸è¡€,8,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_227_Action,
+2909,å¼ºåŒ–å¸è¡€,9,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_228_Action,
+2910,å¼ºåŒ–å¸è¡€,10,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_229_Action,
+2911,å¼ºåŒ–å¸è¡€,11,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_230_Action,
+2912,å¼ºåŒ–å¸è¡€,12,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_231_Action,
+2913,å¼ºåŒ–å¸è¡€,13,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_232_Action,
+2914,å¼ºåŒ–å¸è¡€,14,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_233_Action,
+2915,å¼ºåŒ–å¸è¡€,15,1,1,å¢åŠ å‹æ–¹å•ä½“ç›®æ ‡å¸è¡€5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjzd9,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–å¸è¡€,Effect/zengjiadanti_xixue,,,,,3.5,MT_Target,,TPT_None,,SK_234_Action,
+3001,é‡‘ç”²æœ¯,1,1,1,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+3002,é‡‘ç”²æœ¯,1,1,1,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+3003,é‡‘ç”²æœ¯,1,1,1,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+3004,é‡‘ç”²æœ¯,1,1,1,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+3005,é‡‘ç”²æœ¯,1,1,1,æå‡å·±æ–¹5%ç‰©ç†ã€æ³•æœ¯é˜²å¾¡åŠ›ï¼ŒæŒç»­2å›åˆã€‚,icon/icon_skill_zjzd4,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,1,Effect/zhujue_zengjiaquantifangyu,,,,,3.5,MT_Target,1,TPT_All,,SK_130_Action,
+3101,å¼ºåŒ–æœ¯,1,1,3,ä½¿å·²æ–¹æ‰€æœ‰BUFFæ•ˆæœæç¤º,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–æœ¯,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_285_Action,
+3102,å¼ºåŒ–æœ¯,2,1,3,ä½¿å·²æ–¹æ‰€æœ‰BUFFæ•ˆæœæç¤º,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–æœ¯,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_286_Action,
+3103,å¼ºåŒ–æœ¯,3,1,3,ä½¿å·²æ–¹æ‰€æœ‰BUFFæ•ˆæœæç¤º,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–æœ¯,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_287_Action,
+3104,å¼ºåŒ–æœ¯,4,1,3,ä½¿å·²æ–¹æ‰€æœ‰BUFFæ•ˆæœæç¤º,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–æœ¯,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_288_Action,
+3105,å¼ºåŒ–æœ¯,5,1,3,ä½¿å·²æ–¹æ‰€æœ‰BUFFæ•ˆæœæç¤º,icon/icon_skill_zjbs2,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å¼ºåŒ–æœ¯,Effect/zengjiadanti_zengyitisheng,,,,,3.5,MT_Target,,TPT_None,,SK_289_Action,
+3201,å‡€åŒ–æœ¯,1,1,3,å‡€åŒ–å·²æ–¹æ‰€æœ‰DEBUFFæ•ˆæœï¼ŒæˆåŠŸæ¦‚ç‡5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å‡€åŒ–æœ¯,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_290_Action,
+3202,å‡€åŒ–æœ¯,2,1,3,å‡€åŒ–å·²æ–¹æ‰€æœ‰DEBUFFæ•ˆæœï¼ŒæˆåŠŸæ¦‚ç‡5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å‡€åŒ–æœ¯,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_291_Action,
+3203,å‡€åŒ–æœ¯,3,1,3,å‡€åŒ–å·²æ–¹æ‰€æœ‰DEBUFFæ•ˆæœï¼ŒæˆåŠŸæ¦‚ç‡5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å‡€åŒ–æœ¯,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_292_Action,
+3204,å‡€åŒ–æœ¯,4,1,3,å‡€åŒ–å·²æ–¹æ‰€æœ‰DEBUFFæ•ˆæœï¼ŒæˆåŠŸæ¦‚ç‡5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å‡€åŒ–æœ¯,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_293_Action,
+3205,å‡€åŒ–æœ¯,5,1,3,å‡€åŒ–å·²æ–¹æ‰€æœ‰DEBUFFæ•ˆæœï¼ŒæˆåŠŸæ¦‚ç‡5*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbs3,10,,,,,,0,magic,Effect/nanzhujue_zishenshifa,å‡€åŒ–æœ¯,Effect/shanchujifang_zengyi,,,,,3.5,MT_Target,,TPT_None,,SK_294_Action,
+3301,å¼ºèº«,1,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_235_Action,
+3302,å¼ºèº«,2,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_236_Action,
+3303,å¼ºèº«,3,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_237_Action,
+3304,å¼ºèº«,4,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_238_Action,
+3305,å¼ºèº«,5,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_239_Action,
+3306,å¼ºèº«,6,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_240_Action,
+3307,å¼ºèº«,7,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_241_Action,
+3308,å¼ºèº«,8,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_242_Action,
+3309,å¼ºèº«,9,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_243_Action,
+3310,å¼ºèº«,10,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_244_Action,
+3311,å¼ºèº«,11,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_245_Action,
+3312,å¼ºèº«,12,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_246_Action,
+3313,å¼ºèº«,13,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_247_Action,
+3314,å¼ºèº«,14,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_248_Action,
+3315,å¼ºèº«,15,0,,å¢åŠ ç”Ÿå‘½å€¼50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd1,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_249_Action,
+3401,é“å£,1,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_250_Action,
+3402,é“å£,2,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_251_Action,
+3403,é“å£,3,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_252_Action,
+3404,é“å£,4,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_253_Action,
+3405,é“å£,5,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_254_Action,
+3406,é“å£,6,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_255_Action,
+3407,é“å£,7,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_256_Action,
+3408,é“å£,8,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_257_Action,
+3409,é“å£,9,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_258_Action,
+3410,é“å£,10,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_259_Action,
+3411,é“å£,11,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_260_Action,
+3412,é“å£,12,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_261_Action,
+3413,é“å£,13,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_262_Action,
+3414,é“å£,14,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_263_Action,
+3415,é“å£,15,0,,å¢åŠ ç‰©ç†é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd2,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_264_Action,
+3501,é­”å¾¡,1,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_265_Action,
+3502,é­”å¾¡,2,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_266_Action,
+3503,é­”å¾¡,3,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_267_Action,
+3504,é­”å¾¡,4,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_268_Action,
+3505,é­”å¾¡,5,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_269_Action,
+3506,é­”å¾¡,6,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_270_Action,
+3507,é­”å¾¡,7,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_271_Action,
+3508,é­”å¾¡,8,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_272_Action,
+3509,é­”å¾¡,9,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_273_Action,
+3510,é­”å¾¡,10,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_274_Action,
+3511,é­”å¾¡,11,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_275_Action,
+3512,é­”å¾¡,12,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_276_Action,
+3513,é­”å¾¡,13,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_277_Action,
+3514,é­”å¾¡,14,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_278_Action,
+3515,é­”å¾¡,15,0,,å¢åŠ æ³•æœ¯é˜²å¾¡50*æŠ€èƒ½ç­‰çº§,icon/icon_skill_zjbd3,,,,,,,,,,,,,,,,,MT_None,,TPT_None,,SK_279_Action,
