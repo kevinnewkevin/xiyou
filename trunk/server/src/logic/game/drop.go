@@ -6,6 +6,8 @@ import (
 	"logic/conf"
 	"math/rand"
 	"time"
+	"strings"
+	"strconv"
 )
 
 //////////////////权重随机////////////////////////////////////////
@@ -56,10 +58,16 @@ type (
 		Hero   int32
 		Items  []DropItem
 	}
+
+	GiveGiftData struct {
+		Quality			int32
+		Drops 			[]int32
+	}
 )
 
 var (
 	DropTableData = map[int32]*Drop{}
+	GiveGiftTableData = map[int32]*GiveGiftData{}
 )
 
 func LoadDropTable(filename string) error {
@@ -181,4 +189,42 @@ func GetDropById(dropid int32) *Drop {
 	}
 
 	return &newDrop
+}
+
+///////////////////////////捐赠道具按品质给奖励/////////////////////////////
+
+func LoadGiveGiftTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		temp := GiveGiftData{}
+		temp.Quality = csv.GetInt32(r,"Quality")
+		strTmp := strings.Split(csv.GetString(r, "Dropid"), ";")
+		for i:=0;i<len(strTmp) ;i++  {
+			id, _ := strconv.Atoi(strTmp[i])
+			temp.Drops = append(temp.Drops,int32(id))
+		}
+		GiveGiftTableData[temp.Quality] = &temp
+	}
+
+	return nil
+}
+
+func GetGiveGiftDropIdByQuality(quality int32) int32 {
+	var dropId int32 = 0
+
+	temp := GiveGiftTableData[quality]
+	if temp==nil {
+		return dropId
+	}
+	var rr = rand.New(rand.NewSource(time.Now().UnixNano()))
+	size := len(temp.Drops)
+	var index int32 = rr.Int31n(int32(size))
+
+	dropId = temp.Drops[index]
+
+	return dropId
 }

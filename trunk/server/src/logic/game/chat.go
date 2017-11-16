@@ -10,11 +10,12 @@ type AudioInfo struct {
 	Audio   []uint8
 }
 
-var (
-	CK_System  int8 = 0
-	CK_World   int8 = 1
-	CK_GM      int8 = 2
-	CK_Friend  int8 = 3
+const (
+	CK_System  		int8 = 0
+	CK_World   		int8 = 1
+	CK_GM      		int8 = 2
+	CK_Friend  		int8 = 3
+	CK_Guild   		int8 = 4
 )
 
 func BroadcastChat(info prpc.COM_Chat) {
@@ -50,7 +51,6 @@ func BroadFriendChat(info prpc.COM_Chat, sendid int64) {
 
 
 func (player *GamePlayer) SendChat(info prpc.COM_Chat) {
-	logs.Info(" 111111111111111111 Player[", player.MyUnit.InstName, "]", "SendChat", info)
 	if info.Type == CK_GM {
 		///啦啦啦啦啦啦
 	} else {
@@ -60,12 +60,19 @@ func (player *GamePlayer) SendChat(info prpc.COM_Chat) {
 			BroadcastChat(info)
 		} else if info.Type == CK_Friend {
 			BroadFriendChat(info, player.MyUnit.InstId)
+		} else if info.Type == CK_Guild{
+			if player.GuildId == 0 {
+				return
+			}
+			pGuild := FindGuildById(player.GuildId)
+			if pGuild==nil {
+				return
+			}
+			pGuild.GuildChat(info)
 		}
 		logs.Info("Player[", player.MyUnit.InstName, "]", "SendChat", info)
 	}
 }
-
-
 
 func (player *GamePlayer) TestChat() {
 

@@ -45,7 +45,7 @@ type GamePlayer struct {
 	EnergyTimer      float64
 	//Bag
 	BagItems []*prpc.COM_ItemInst
-
+	GenItemMaxGuid		int64
 	//经验
 	Exp int32
 	//主角可学习技能
@@ -65,6 +65,10 @@ type GamePlayer struct {
 	//好友
 	Friends []*prpc.COM_Friend
 	Enemys  []*prpc.COM_Friend
+
+	GuildId			int32
+	AssistantId		int32
+	AssistantCreateTime		int64
 }
 
 var (
@@ -198,6 +202,7 @@ func CreatePlayer(tid int32, name string, username string) *GamePlayer {
 	p.TianTiVal = 0
 	p.TianTiRank = -1
 	p.FriendTianTiRank = -1
+	p.GenItemMaxGuid = 1
 	PlayerStore = append(PlayerStore, &p)
 	p.Friends = []*prpc.COM_Friend{}
 	p.Enemys = []*prpc.COM_Friend{}
@@ -273,6 +278,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	this.Guide = p.Guide
 	this.BattleUnitGroup = p.BattleUnitGroup
 
+	this.AssistantCreateTime = p.AssistantCreateTime
 	this.SkillBase = map[int32]int32{}
 	for _, skb := range p.SkillBase {
 		this.SkillBase[skb.SkillId] = skb.SkillId
@@ -318,6 +324,7 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	p.Guide = this.Guide
 	p.BattleUnitGroup = this.BattleUnitGroup
 
+	p.AssistantCreateTime = this.AssistantCreateTime
 	for index, skillid := range this.SkillBase {
 		skillbase := prpc.COM_SkillBase{}
 		skillbase.SkillIdx = index
@@ -326,18 +333,19 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 		p.SkillBase = append(p.SkillBase, skillbase)
 	}
 
-	//
-
 	return p
 }
 
 func (this *GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer) {
 
 	this.SetPlayerCOM(&p.COM_Player)
-	this.PlayerId = p.PlayerId
-	this.Username = p.Username
-	this.LoginTime = p.LoginTime
+	this.PlayerId 	= p.PlayerId
+	this.Username 	= p.Username
+	this.LoginTime 	= p.LoginTime
 	this.LogoutTime = p.LogoutTime
+	this.GuildId	= p.GuildId
+	this.AssistantId	= p.AssistantId
+	this.GenItemMaxGuid = p.GenItemMaxGuid
 	for i := range p.BagItemList {
 		this.BagItems = append(this.BagItems, &p.BagItemList[i])
 	}
@@ -357,6 +365,9 @@ func (this *GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer {
 	data.Username = this.Username
 	data.LoginTime = this.LoginTime
 	data.LogoutTime = this.LogoutTime
+	data.GuildId	= this.GuildId
+	data.AssistantId = this.AssistantId
+	data.GenItemMaxGuid = this.GenItemMaxGuid
 	data.BagItemList = items
 
 	if this.BlackMarketData != nil {
@@ -400,6 +411,12 @@ func (this *GamePlayer) PlayerLogin() {
 	}
 
 	this.RefreshFriendTopList()
+	if this.GuildId != 0 {
+		pGuild := FindGuildById(this.GuildId)
+		if pGuild != nil{
+			pGuild.GuildMemberOnLine(this)
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -728,7 +745,7 @@ func (this *GamePlayer) AddBagItemByItemId(itemId int32, itemCount int32) {
 		}
 	}
 	if itemCount > 0 {
-		newItems := GenItemInst(itemId, itemCount)
+		newItems := this.GenItemInst(itemId, itemCount)
 		if len(newItems) == 0 {
 			return
 		}
@@ -1387,6 +1404,13 @@ func (this *GamePlayer) Logout() {
 
 	this.LogoutTime = time.Now().Unix()
 
+	if this.GuildId != 0 {
+		pGuild := FindGuildById(this.GuildId)
+		if pGuild!=nil {
+			pGuild.GuildMemberOffOnLine(this.MyUnit.InstId)
+		}
+	}
+
 	//清理战斗信息
 	this.LeftBattle_strong()
 
@@ -1609,7 +1633,9 @@ func (this *GamePlayer) IsLock() bool {
 /////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+func TestPlayer() {
 
+}
 
 
 func (this *GamePlayer) TestItem() {

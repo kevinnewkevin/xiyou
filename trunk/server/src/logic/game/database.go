@@ -10,13 +10,15 @@ import (
 	"logic/prpc"
 	_ "jimny/sqlite3"
 
-	//"log"
 	"sync/atomic"
+	"encoding/json"
 )
 
 var (
-	MaxPlayerInstId int64 =  1
-	MaxUnitInstId int64  = 1
+	MaxPlayerInstId 		int64 	=  1
+	MaxUnitInstId 			int64 	= 1
+	MaxGuildId	  			int32 	= 1
+	MaxGuildAssistantId	  	int32 	= 1
 )
 
 func GenPlayerInstId() int64{
@@ -25,6 +27,14 @@ func GenPlayerInstId() int64{
 
 func GenUnitInstId() int64 {
 	return atomic.AddInt64(&MaxUnitInstId,1)
+}
+
+func GenGuildInstId() int32 {
+	return atomic.AddInt32(&MaxGuildId,1)
+}
+
+func GenGuildAssistantInstId() int32 {
+	return atomic.AddInt32(&MaxGuildAssistantId,1)
 }
 
 func InitDB() {
@@ -67,7 +77,39 @@ func InitDB() {
 		}
 	}
 
-	logs.Infof("MAX PLAYER ID %d MAX UNIT ID %d",MaxPlayerInstId,MaxUnitInstId)
+	r, e = c.Query("SELECT MAX(`GuildId`) AS MaxID FROM `Guild`")
+
+	if e != nil {
+		logs.Debug(e.Error())
+		return
+	}
+
+
+	if r.Next() {
+		e = r.Scan(&MaxGuildId)
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}
+
+	r, e = c.Query("SELECT MAX(`AssistantId`) AS MaxID FROM `GuildAssistant`")
+
+	if e != nil {
+		logs.Debug(e.Error())
+		return
+	}
+
+
+	if r.Next() {
+		e = r.Scan(&MaxGuildId)
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}
+
+	logs.Infof("MAX PLAYER ID %d MAX UNIT ID %d, MAX GUILD ID %d, MAX GUILD ASSISTAN ID",MaxPlayerInstId,MaxUnitInstId,MaxGuildId,MaxGuildAssistantId)
 }
 
 
@@ -512,6 +554,540 @@ func InsertTopList (InstId int64, t prpc.SGE_DBTopUnit) <- chan int64 {
 		}
 
 		rChan <-  (i + 1)
+		close(rChan)
+	}()
+	return rChan
+}
+
+//帮派
+func InsertGuild(pGuild prpc.COM_Guild,pGuildMember prpc.COM_GuildMember) <- chan bool {
+	rChan := make (chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			return
+		}
+		defer c.Close()
+
+		stmt1, e := c.Prepare("INSERT INTO `Guild`(`GuildId`, `GuildName`,`Master`,`MasterName`,`GuildVal`,`CreatTime`,`RequestList`,`RequestFlag`,`Require`)" +
+			"VALUES(?,?,?,?,?,?,?,?,?)")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			return
+		}
+		stmt2, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`)VALUES(?,?,?,?,?,?,?)")
+		if  e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			return
+		}
+
+		buffs, erro  :=  json.Marshal(pGuild.RequestList)
+
+		if erro != nil {
+			close(rChan)
+			return
+		}
+
+		var isFlag int = 0
+
+		if pGuild.IsRatify {
+			isFlag = 1
+		}
+		
+		_, e = stmt1.Exec( pGuild.GuildId, pGuild.GuildName, pGuild.Master, pGuild.MasterName, pGuild.GuildVal, pGuild.CreateTime, buffs,isFlag,pGuild.Require )
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			return
+		}
+
+		stmt1.Close()
+
+		_, e = stmt2.Exec(pGuildMember.GuildId,pGuildMember.RoleId,pGuildMember.RoleName,pGuildMember.Level,pGuildMember.Job,pGuildMember.Contribution,pGuildMember.TianTiVal)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			return
+		}
+
+		stmt2.Close()
+
+		rChan <-  true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func DeleteDBGuild(guildId int32) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("DELETE FROM `Guild` WHERE `GuildId`= ?  ")
+		stmt.Exec(guildId)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func FetchGuild() <- chan []prpc.COM_Guild {
+	rChan := make(chan []prpc.COM_Guild)
+
+	guildCatch := []prpc.COM_Guild{}
+
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			return
+		}
+		defer c.Close()
+
+		r, e := c.Query("SELECT * FROM Guild")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		for r.Next() {
+			guild := prpc.COM_Guild{}
+			qlist := []byte{}
+			isFlag := 0
+			r.Scan(&guild.GuildId,&guild.GuildName,&guild.Master,&guild.MasterName,&guild.GuildVal,&guild.CreateTime,&qlist,&isFlag,guild.Require)
+			
+			e = json.Unmarshal(qlist,&guild.RequestList)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			if isFlag==1 {
+				guild.IsRatify = true
+			}else {
+				guild.IsRatify = false
+			}
+			
+			guildCatch = append(guildCatch, guild)
+		}
+
+		rChan <- guildCatch
+		close(rChan)
+	}()
+
+	return rChan
+}
+
+func FetchGuildMember() <-chan []prpc.COM_GuildMember {
+	rChan := make(chan []prpc.COM_GuildMember)
+	guildMemberCatch := []prpc.COM_GuildMember{}
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			return
+		}
+		defer c.Close()
+
+		r, e := c.Query("SELECT * FROM GuildMember")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		for r.Next() {
+			m := prpc.COM_GuildMember{}
+			e = r.Scan(&m.GuildId,&m.RoleId,&m.RoleName,&m.Level,&m.Job,&m.Contribution,&m.TianTiVal)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+			guildMemberCatch = append(guildMemberCatch,m)
+		}
+
+		rChan <- guildMemberCatch
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateGuildRequestList(guildId int32,qlist []prpc.COM_GuildRequestData) <- chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		buffs, erro  :=  json.Marshal(qlist)
+
+		if erro != nil {
+			logs.Debug(erro.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
+		stmt, e := c.Prepare("UPDATE Guild SET RequestList=? WHERE GuildId=?")
+		stmt.Exec(buffs,guildId)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateDBGuildVal(guildId int32,val int32) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE Guild SET GuildVal=? WHERE GuildId=?")
+		stmt.Exec(val,guildId)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateDBGuildRatify(guildId int32,isRatify bool,require int32) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE Guild SET RequestFlag=? Require=?  WHERE GuildId=?")
+		if isRatify {
+			stmt.Exec(1,require,guildId)
+		}else {
+			stmt.Exec(0,require,guildId)
+		}
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func InsertGuildMember(member prpc.COM_GuildMember) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`)VALUES(?,?,?,?,?,?,?)")
+		stmt.Exec(member.GuildId,member.RoleId,member.RoleName,member.Level,member.Job,member.Contribution,member.TianTiVal)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func DeleteDBGuildMember(roleId int64) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("DELETE FROM `GuildMember` WHERE `RoleId`= ?  ")
+		stmt.Exec(roleId)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateDBGuildMemberVal(player int64,val int32) <- chan bool  {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE GuildMember SET TianTiVal=? WHERE RoleId=?")
+		stmt.Exec(val,player)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateDBGuildMemberJob(player int64,job int) <- chan bool  {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE GuildMember SET Job=? WHERE RoleId=?")
+		stmt.Exec(job,player)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateDBGuildMemberLevel(player int64,level int32) <- chan bool  {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE GuildMember SET Rolelevel=? WHERE RoleId=?")
+		stmt.Exec(level,player)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+//////////////////捐赠表/////////////////
+
+func InsertGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		buffs , e := json.Marshal(data.Donator)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		stmt, e := c.Prepare("INSERT INTO `GuildAssistant`(`AssistantId`, `RoleName`,`GuildId`,`AssistantItem`,`CrtCount`,`MaxCount`,`CatchNum`,`Donator`)VALUES(?,?,?,?,?,?,?,?)")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
+		stmt.Exec(data.Id,data.RoleName,data.GuildId,data.ItemId,data.CrtCount,data.MaxCount,data.CatchNum,buffs)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func DelGuildAssistant(assistantId int32) <-chan bool {
+	rChan := make( chan bool)
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("DELETE FROM `GuildAssistant` WHERE `AssistantId`= ?  ")
+		stmt.Exec(assistantId)
+		stmt.Close()
+
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func FindGuildAssistantById(assistantId int32) <-chan *prpc.SGE_DBGuildAssistant {
+	rChan := make(chan *prpc.SGE_DBGuildAssistant)
+	data := &prpc.SGE_DBGuildAssistant{}
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		buffs := []byte{}
+		r, e := c.Query("SELECT * FROM `GuildAssistant` WHERE `AssistantId` = ?",assistantId)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		if r.Next() {
+			r.Scan(&data.Id,&data.RoleName,&data.GuildId,&data.ItemId,&data.CrtCount,&data.MaxCount,&data.CatchNum,buffs)
+			e = json.Unmarshal(buffs,&data.Donator)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+		}
+
+		rChan <- data
+		close(rChan)
+	}()
+	return rChan
+}
+
+func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssistant {
+	rChan := make(chan []prpc.SGE_DBGuildAssistant)
+	data := []prpc.SGE_DBGuildAssistant{}
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		buffs := []byte{}
+		r, e := c.Query("SELECT * FROM `GuildAssistant`")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		for r.Next() {
+			m := prpc.SGE_DBGuildAssistant{}
+			r.Scan(&m.Id,&m.RoleName,&m.GuildId,&m.ItemId,&m.CrtCount,&m.MaxCount,&m.CatchNum,buffs)
+			e = json.Unmarshal(buffs,&m.Donator)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+			data = append(data,m)
+		}
+
+		rChan <- data
+		close(rChan)
+	}()
+	return rChan
+}
+
+func UpdateGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
+	rChan := make( chan bool )
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		buffs , e := json.Marshal(data.Donator)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		stmt, e := c.Prepare("UPDATE GuildAssistant SET CrtCount=? CatchNum=? Donator=? WHERE AssistantId=?")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		stmt.Exec(data.CrtCount,data.CatchNum,buffs,data.Id)
+		stmt.Close()
+
+		rChan <- true
 		close(rChan)
 	}()
 	return rChan

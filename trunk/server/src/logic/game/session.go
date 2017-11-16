@@ -369,13 +369,146 @@ func (this *Session) QueryPlayerInfo(instid int64) error {
 	return nil
 }
 
-func (this *Session) NeedAssistantItem(instid int32) error {
+func (this *Session)NeedAssistantItem(itemid int32) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.AddGuildAssistant(itemid)
 	return nil
 }
 
-func (this *Session) AssistantItem(instid int32) error {
-	return nil
+func (this *Session)AssistantItem(assid int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
 
+	this.player.GuildAssistantItem(assid)
+	return nil
+}
+
+func (this *Session)CreateGuild(guildName string ) error  {
+	if this.player == nil {
+		return nil
+	}
+	CreatGuild(this.player,guildName)
+	return nil
+}
+
+func (this *Session)RequestJoinGuild(guid int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	RequestjoinGuild(this.player,guid)
+	return nil
+}
+
+func (this *Session)LeaveGuild() error  {
+	if this.player == nil {
+		return nil
+	}
+	if this.player.GuildId == 0 {
+		return nil
+	}
+
+	pGuild := FindGuildById(this.player.GuildId)
+	if pGuild == nil {
+		return nil
+	}
+
+	pGuild.Leave(this.player.MyUnit.InstId)
+
+	return nil
+}
+
+func (this *Session)KickOut(guid int64 ) error  {
+	if this.player == nil {
+		return nil
+	}
+
+	if this.player.GuildId == 0 {
+		return nil
+	}
+
+	pGuild := FindGuildById(this.player.GuildId)
+	if pGuild == nil {
+		return nil
+	}
+
+	pGuild.Kickout(this.player.MyUnit.InstId,guid)
+
+	return nil
+}
+
+func (this *Session)AcceptRequestGuild(playerId int64 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	AcceptrequestGuild(this.player,playerId)
+	return nil
+}
+
+func (this *Session)RefuseRequestGuild(playerId int64 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	RefuserequestGuild(this.player,playerId)
+	return nil
+}
+
+func (this *Session)ChangeMemberPosition(targetId int64, job int ) error  {
+	if this.player == nil {
+		return nil
+	}
+	pGuild := FindGuildById(this.player.GuildId)
+	if pGuild == nil {
+		return nil
+	}
+
+	pGuild.GuildChangeJob(this.player.MyUnit.InstId,targetId,job)
+
+	return nil
+}
+
+func (this *Session)QueryGuildList() error  {
+	if this.player == nil {
+		return nil
+	}
+	RequestGuildList(this.player)
+	return nil
+}
+
+func (this *Session)QueryGuildDetails(guildid int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	RequestGuildDetails(this.player,guildid)
+	return nil
+}
+
+func (this *Session)QueryGuildData() error  {
+	if this.player == nil {
+		return nil
+	}
+
+	SycnGuildData(this.player)
+
+	return nil
+}
+
+func (this *Session)ChangeJoinGuildFlag(isFlag bool, require int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	if this.player.GuildId == 0 {
+		return nil
+	}
+
+	pGuild := FindGuildById(this.player.GuildId)
+	if pGuild == nil {
+		return nil
+	}
+	pGuild.SetGuildRequestFlag(isFlag,require)
+	return nil
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

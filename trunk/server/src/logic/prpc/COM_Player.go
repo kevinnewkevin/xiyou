@@ -17,9 +17,10 @@ type COM_Player struct{
   FriendTianTiRank int32  //8
   BattleUnitGroup int32  //9
   Guide uint64  //10
-  SkillBase []COM_SkillBase  //11
-  Friends []COM_Friend  //12
-  Enemys []COM_Friend  //13
+  AssistantCreateTime int64  //11
+  SkillBase []COM_SkillBase  //12
+  Friends []COM_Friend  //13
+  Enemys []COM_Friend  //14
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -131,6 +132,16 @@ func (this *COM_Player)GetGuide() uint64 {
   defer this.Unlock()
   return this.Guide
 }
+func (this *COM_Player)SetAssistantCreateTime(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.AssistantCreateTime = value
+}
+func (this *COM_Player)GetAssistantCreateTime() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.AssistantCreateTime
+}
 func (this *COM_Player)SetSkillBase(value []COM_SkillBase) {
   this.Lock()
   defer this.Unlock()
@@ -177,6 +188,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.FriendTianTiRank!=0)
   mask.writeBit(this.BattleUnitGroup!=0)
   mask.writeBit(this.Guide!=0)
+  mask.writeBit(this.AssistantCreateTime!=0)
   mask.writeBit(len(this.SkillBase) != 0)
   mask.writeBit(len(this.Friends) != 0)
   mask.writeBit(len(this.Enemys) != 0)
@@ -294,6 +306,15 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.Guide!=0){
       err := write(buffer,this.Guide)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize AssistantCreateTime
+  {
+    if(this.AssistantCreateTime!=0){
+      err := write(buffer,this.AssistantCreateTime)
       if err != nil{
         return err
       }
@@ -451,6 +472,13 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Guide
   if mask.readBit() {
     err := read(buffer,&this.Guide)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize AssistantCreateTime
+  if mask.readBit() {
+    err := read(buffer,&this.AssistantCreateTime)
     if err != nil{
       return err
     }

@@ -48,8 +48,8 @@ service COM_ClientToServer{
 	CreateGuild(string guildName);									//创建帮派
 	//delGuild(int32 guildId);										//解散帮派
 	RequestJoinGuild(int32 guid);									//加入帮派
-	//leaveGuild();													//退出帮派
-	KickOut(int32 guid);											//踢人
+	LeaveGuild();													//退出帮派
+	KickOut(int64 guid);											//踢人
 	AcceptRequestGuild(int64 playerId); 							//接受申请
 	RefuseRequestGuild(int64 playerId);								//拒绝申请
 	ChangeMemberPosition(int64 targetId , GuildJob job);			//任命

@@ -1,6 +1,11 @@
 Global.setGlobalInt("C_BlackMarkteRefreshSpeed", 1);			--//黑市手动刷新花费
 Global.setGlobalInt("C_BlackMarkteRefreshNum", 1);				--//黑市手动刷新次数
 
+Global.setGlobalInt("C_CreatGuildLevel", 1);				--//创建帮派所需等级
+Global.setGlobalInt("C_CreatGuildGold", 1);					--//创建帮派所需金币
+Global.setGlobalInt("C_CreatGuildMemberMax", 50);			--//帮派成员和申请列表都为50
+Global.setGlobalInt("C_VicePremierMaxNum", 2);				--/副帮主数量
+
 --/////////////////////////////////////////////////////黄金分割线///////////////////////////////////////////////////////////////
 
 --[[

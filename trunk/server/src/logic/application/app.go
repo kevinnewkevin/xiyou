@@ -126,14 +126,21 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadGiveGiftTable("../../../config/tables/Givegift.csv")
+	if err != nil {
+		logs.Debug("LoadGiveGiftTable %s ", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()
 	game.InitTianTi()
 	game.InitGameTask()
 	game.InitDB()
-	toolbox.StartTask()
 	game.InitTopList()
+	game.InitGuild()
+	toolbox.StartTask()
 	defer toolbox.StopTask()
 	//game.TestPlayer()
 

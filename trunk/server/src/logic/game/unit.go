@@ -779,6 +779,13 @@ func (this *GameUnit) CheckExp(exp int32) int32 {
 		exp_info = GetExpRecordById(this.IProperties[prpc.IPT_PROMOTE])
 		this.Level += 1
 		this.Owner.CheckSkillBase()
+
+		if this.Owner.GuildId != 0 {
+			pGuild := FindGuildById(this.Owner.GuildId)
+			if pGuild!= nil {
+				pGuild.GuildMemberLevelUp(this.InstId,this.IProperties[prpc.IPT_PROMOTE])
+			}
+		}
 	}
 
 	logs.Debug("CheckExp out final", exp)

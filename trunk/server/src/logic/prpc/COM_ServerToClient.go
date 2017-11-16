@@ -115,6 +115,33 @@ type COM_ServerToClient_DelEnemy struct{
 type COM_ServerToClient_QueryPlayerInfoOK struct{
   Info COM_PlayerInfo  //0
 }
+type COM_ServerToClient_UpdateGuildAssistant struct{
+  info COM_Assistant  //0
+  donator string  //1
+}
+type COM_ServerToClient_SycnGuildAssistant struct{
+  infos []COM_Assistant  //0
+}
+type COM_ServerToClient_LeaveGuildOk struct{
+  who string  //0
+  isKick bool  //1
+}
+type COM_ServerToClient_InitGuildData struct{
+  guild COM_Guild  //0
+}
+type COM_ServerToClient_InitGuildMemberList struct{
+  members []COM_GuildMember  //0
+}
+type COM_ServerToClient_ModifyGuildMemberList struct{
+  member COM_GuildMember  //0
+  flag int  //1
+}
+type COM_ServerToClient_QueryGuildListResult struct{
+  guildList []COM_GuildViewerData  //0
+}
+type COM_ServerToClient_QueryGuildDetailsResult struct{
+  info COM_GuildDetails  //0
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -155,6 +182,16 @@ type COM_ServerToClientProxy interface{
   RecvEnemy(info COM_Friend ) error // 33
   DelEnemy(instid int64 ) error // 34
   QueryPlayerInfoOK(Info COM_PlayerInfo ) error // 35
+  UpdateGuildAssistant(info COM_Assistant, donator string ) error // 36
+  SycnGuildAssistant(infos []COM_Assistant ) error // 37
+  CreateGuildOK() error // 38
+  DelGuildOK() error // 39
+  LeaveGuildOk(who string, isKick bool ) error // 40
+  InitGuildData(guild COM_Guild ) error // 41
+  InitGuildMemberList(members []COM_GuildMember ) error // 42
+  ModifyGuildMemberList(member COM_GuildMember, flag int ) error // 43
+  QueryGuildListResult(guildList []COM_GuildViewerData ) error // 44
+  QueryGuildDetailsResult(info COM_GuildDetails ) error // 45
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1645,6 +1682,364 @@ func (this *COM_ServerToClient_QueryPlayerInfoOK)Deserialize(buffer *bytes.Buffe
   }
   return nil
 }
+func (this *COM_ServerToClient_UpdateGuildAssistant)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //info
+  mask.writeBit(len(this.donator) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize info
+  {
+    err := this.info.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  // serialize donator
+  if len(this.donator) != 0{
+    err := write(buffer,this.donator)
+    if err != nil {
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateGuildAssistant)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize info
+  if mask.readBit() {
+    err := this.info.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize donator
+  if mask.readBit() {
+    err := read(buffer,&this.donator)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_SycnGuildAssistant)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.infos) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize infos
+  if len(this.infos) != 0{
+    {
+      err := write(buffer,uint(len(this.infos)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.infos {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_SycnGuildAssistant)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize infos
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.infos = make([]COM_Assistant,size)
+    for i,_ := range this.infos{
+      err := this.infos[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_LeaveGuildOk)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.who) != 0)
+  mask.writeBit(this.isKick)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize who
+  if len(this.who) != 0{
+    err := write(buffer,this.who)
+    if err != nil {
+      return err
+    }
+  }
+  // serialize isKick
+  {
+  }
+  return nil
+}
+func (this *COM_ServerToClient_LeaveGuildOk)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize who
+  if mask.readBit() {
+    err := read(buffer,&this.who)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize isKick
+  this.isKick = mask.readBit();
+  return nil
+}
+func (this *COM_ServerToClient_InitGuildData)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //guild
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize guild
+  {
+    err := this.guild.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_InitGuildData)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize guild
+  if mask.readBit() {
+    err := this.guild.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_InitGuildMemberList)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.members) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize members
+  if len(this.members) != 0{
+    {
+      err := write(buffer,uint(len(this.members)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.members {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_InitGuildMemberList)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize members
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.members = make([]COM_GuildMember,size)
+    for i,_ := range this.members{
+      err := this.members[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_ModifyGuildMemberList)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //member
+  mask.writeBit(this.flag!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize member
+  {
+    err := this.member.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  // serialize flag
+  {
+    if(this.flag!=0){
+      err := write(buffer,this.flag)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_ModifyGuildMemberList)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize member
+  if mask.readBit() {
+    err := this.member.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize flag
+  if mask.readBit() {
+    err := read(buffer,&this.flag)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryGuildListResult)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(len(this.guildList) != 0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize guildList
+  if len(this.guildList) != 0{
+    {
+      err := write(buffer,uint(len(this.guildList)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.guildList {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryGuildListResult)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize guildList
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.guildList = make([]COM_GuildViewerData,size)
+    for i,_ := range this.guildList{
+      err := this.guildList[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryGuildDetailsResult)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //info
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize info
+  {
+    err := this.info.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryGuildDetailsResult)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize info
+  if mask.readBit() {
+    err := this.info.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2252,6 +2647,167 @@ func(this* COM_ServerToClientStub)QueryPlayerInfoOK(Info COM_PlayerInfo ) error 
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)UpdateGuildAssistant(info COM_Assistant, donator string ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(36))
+  if err != nil{
+    return err
+  }
+  _36 := COM_ServerToClient_UpdateGuildAssistant{}
+  _36.info = info;
+  _36.donator = donator;
+  err = _36.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)SycnGuildAssistant(infos []COM_Assistant ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(37))
+  if err != nil{
+    return err
+  }
+  _37 := COM_ServerToClient_SycnGuildAssistant{}
+  _37.infos = infos;
+  err = _37.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)CreateGuildOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(38))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)DelGuildOK() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(39))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)LeaveGuildOk(who string, isKick bool ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(40))
+  if err != nil{
+    return err
+  }
+  _40 := COM_ServerToClient_LeaveGuildOk{}
+  _40.who = who;
+  _40.isKick = isKick;
+  err = _40.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)InitGuildData(guild COM_Guild ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(41))
+  if err != nil{
+    return err
+  }
+  _41 := COM_ServerToClient_InitGuildData{}
+  _41.guild = guild;
+  err = _41.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)InitGuildMemberList(members []COM_GuildMember ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(42))
+  if err != nil{
+    return err
+  }
+  _42 := COM_ServerToClient_InitGuildMemberList{}
+  _42.members = members;
+  err = _42.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)ModifyGuildMemberList(member COM_GuildMember, flag int ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(43))
+  if err != nil{
+    return err
+  }
+  _43 := COM_ServerToClient_ModifyGuildMemberList{}
+  _43.member = member;
+  _43.flag = flag;
+  err = _43.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)QueryGuildListResult(guildList []COM_GuildViewerData ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(44))
+  if err != nil{
+    return err
+  }
+  _44 := COM_ServerToClient_QueryGuildListResult{}
+  _44.guildList = guildList;
+  err = _44.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)QueryGuildDetailsResult(info COM_GuildDetails ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(45))
+  if err != nil{
+    return err
+  }
+  _45 := COM_ServerToClient_QueryGuildDetailsResult{}
+  _45.info = info;
+  err = _45.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2741,6 +3297,136 @@ func Bridging_COM_ServerToClient_QueryPlayerInfoOK(buffer *bytes.Buffer, p COM_S
   }
   return p.QueryPlayerInfoOK(_35.Info)
 }
+func Bridging_COM_ServerToClient_UpdateGuildAssistant(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _36 := COM_ServerToClient_UpdateGuildAssistant{}
+  err := _36.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.UpdateGuildAssistant(_36.info,_36.donator)
+}
+func Bridging_COM_ServerToClient_SycnGuildAssistant(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _37 := COM_ServerToClient_SycnGuildAssistant{}
+  err := _37.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.SycnGuildAssistant(_37.infos)
+}
+func Bridging_COM_ServerToClient_CreateGuildOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  return p.CreateGuildOK()
+}
+func Bridging_COM_ServerToClient_DelGuildOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  return p.DelGuildOK()
+}
+func Bridging_COM_ServerToClient_LeaveGuildOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _40 := COM_ServerToClient_LeaveGuildOk{}
+  err := _40.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.LeaveGuildOk(_40.who,_40.isKick)
+}
+func Bridging_COM_ServerToClient_InitGuildData(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _41 := COM_ServerToClient_InitGuildData{}
+  err := _41.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.InitGuildData(_41.guild)
+}
+func Bridging_COM_ServerToClient_InitGuildMemberList(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _42 := COM_ServerToClient_InitGuildMemberList{}
+  err := _42.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.InitGuildMemberList(_42.members)
+}
+func Bridging_COM_ServerToClient_ModifyGuildMemberList(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _43 := COM_ServerToClient_ModifyGuildMemberList{}
+  err := _43.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ModifyGuildMemberList(_43.member,_43.flag)
+}
+func Bridging_COM_ServerToClient_QueryGuildListResult(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _44 := COM_ServerToClient_QueryGuildListResult{}
+  err := _44.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryGuildListResult(_44.guildList)
+}
+func Bridging_COM_ServerToClient_QueryGuildDetailsResult(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _45 := COM_ServerToClient_QueryGuildDetailsResult{}
+  err := _45.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryGuildDetailsResult(_45.info)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -2826,6 +3512,26 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_DelEnemy(buffer,p);
     case 35 :
       return Bridging_COM_ServerToClient_QueryPlayerInfoOK(buffer,p);
+    case 36 :
+      return Bridging_COM_ServerToClient_UpdateGuildAssistant(buffer,p);
+    case 37 :
+      return Bridging_COM_ServerToClient_SycnGuildAssistant(buffer,p);
+    case 38 :
+      return Bridging_COM_ServerToClient_CreateGuildOK(buffer,p);
+    case 39 :
+      return Bridging_COM_ServerToClient_DelGuildOK(buffer,p);
+    case 40 :
+      return Bridging_COM_ServerToClient_LeaveGuildOk(buffer,p);
+    case 41 :
+      return Bridging_COM_ServerToClient_InitGuildData(buffer,p);
+    case 42 :
+      return Bridging_COM_ServerToClient_InitGuildMemberList(buffer,p);
+    case 43 :
+      return Bridging_COM_ServerToClient_ModifyGuildMemberList(buffer,p);
+    case 44 :
+      return Bridging_COM_ServerToClient_QueryGuildListResult(buffer,p);
+    case 45 :
+      return Bridging_COM_ServerToClient_QueryGuildDetailsResult(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

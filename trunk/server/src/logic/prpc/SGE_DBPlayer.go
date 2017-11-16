@@ -7,11 +7,14 @@ type SGE_DBPlayer struct{
   COM_Player
   PlayerId int64  //0
   Username string  //1
-  LoginTime int64  //2
-  LogoutTime int64  //3
-  BattleGroupIdx int32  //4
-  BagItemList []COM_ItemInst  //5
-  BlackMarketData COM_BlackMarket  //6
+  GuildId int32  //2
+  LoginTime int64  //3
+  LogoutTime int64  //4
+  BattleGroupIdx int32  //5
+  GenItemMaxGuid int64  //6
+  AssistantId int32  //7
+  BagItemList []COM_ItemInst  //8
+  BlackMarketData COM_BlackMarket  //9
 }
 func (this *SGE_DBPlayer)SetPlayerId(value int64) {
   this.Lock()
@@ -32,6 +35,16 @@ func (this *SGE_DBPlayer)GetUsername() string {
   this.Lock()
   defer this.Unlock()
   return this.Username
+}
+func (this *SGE_DBPlayer)SetGuildId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.GuildId = value
+}
+func (this *SGE_DBPlayer)GetGuildId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.GuildId
 }
 func (this *SGE_DBPlayer)SetLoginTime(value int64) {
   this.Lock()
@@ -63,6 +76,26 @@ func (this *SGE_DBPlayer)GetBattleGroupIdx() int32 {
   defer this.Unlock()
   return this.BattleGroupIdx
 }
+func (this *SGE_DBPlayer)SetGenItemMaxGuid(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.GenItemMaxGuid = value
+}
+func (this *SGE_DBPlayer)GetGenItemMaxGuid() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.GenItemMaxGuid
+}
+func (this *SGE_DBPlayer)SetAssistantId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.AssistantId = value
+}
+func (this *SGE_DBPlayer)GetAssistantId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.AssistantId
+}
 func (this *SGE_DBPlayer)SetBagItemList(value []COM_ItemInst) {
   this.Lock()
   defer this.Unlock()
@@ -93,12 +126,15 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := newMask1(1)
+  mask := newMask1(2)
   mask.writeBit(this.PlayerId!=0)
   mask.writeBit(len(this.Username) != 0)
+  mask.writeBit(this.GuildId!=0)
   mask.writeBit(this.LoginTime!=0)
   mask.writeBit(this.LogoutTime!=0)
   mask.writeBit(this.BattleGroupIdx!=0)
+  mask.writeBit(this.GenItemMaxGuid!=0)
+  mask.writeBit(this.AssistantId!=0)
   mask.writeBit(len(this.BagItemList) != 0)
   mask.writeBit(true) //BlackMarketData
   {
@@ -123,6 +159,15 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
       return err
     }
   }
+  // serialize GuildId
+  {
+    if(this.GuildId!=0){
+      err := write(buffer,this.GuildId)
+      if err != nil{
+        return err
+      }
+    }
+  }
   // serialize LoginTime
   {
     if(this.LoginTime!=0){
@@ -145,6 +190,24 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.BattleGroupIdx!=0){
       err := write(buffer,this.BattleGroupIdx)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize GenItemMaxGuid
+  {
+    if(this.GenItemMaxGuid!=0){
+      err := write(buffer,this.GenItemMaxGuid)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize AssistantId
+  {
+    if(this.AssistantId!=0){
+      err := write(buffer,this.AssistantId)
       if err != nil{
         return err
       }
@@ -181,7 +244,7 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= newMask0(buffer,1);
+  mask, err:= newMask0(buffer,2);
   if err != nil{
     return err
   }
@@ -195,6 +258,13 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Username
   if mask.readBit() {
     err := read(buffer,&this.Username)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize GuildId
+  if mask.readBit() {
+    err := read(buffer,&this.GuildId)
     if err != nil{
       return err
     }
@@ -216,6 +286,20 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BattleGroupIdx
   if mask.readBit() {
     err := read(buffer,&this.BattleGroupIdx)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize GenItemMaxGuid
+  if mask.readBit() {
+    err := read(buffer,&this.GenItemMaxGuid)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize AssistantId
+  if mask.readBit() {
+    err := read(buffer,&this.AssistantId)
     if err != nil{
       return err
     }

@@ -230,6 +230,11 @@ func CaleTiantiPVR(player *GamePlayer, winCamp int) int32 {
 		player.session.UpdateTiantiVal(player.TianTiVal)
 	}
 
+	guild := FindGuildByPlayerId(player.MyUnit.InstId)
+	if guild!=nil {
+		guild.UpdateGuildMemberVal(player.MyUnit.InstId,player.TianTiVal)
+	}
+
 	tableId := GetTianTiIdByVal(player.TianTiVal)
 	ttData := GetTianTiTableDataById(tableId)
 	if ttData == nil {

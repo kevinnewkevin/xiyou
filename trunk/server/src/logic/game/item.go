@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"logic/conf"
 	"logic/prpc"
-	"sync/atomic"
 )
 
 type (
 	ItemData struct {
-		ItemId       int32
-		ItemMainType int
-		MaxCount     int32
-		GloAction    string
-		SoulVal      int32 //卡牌碎片分解的魂值
+		ItemId       	int32
+		ItemMainType 	int
+		MaxCount     	int32
+		GloAction    	string
+		ItemQuality		int32
+		SoulVal      	int32 //卡牌碎片分解的魂值
 	}
 )
 
@@ -45,7 +45,7 @@ func LoadItemTable(filename string) error {
 
 		itemtype := csv.GetString(r, "ItemType")
 		item.ItemMainType = prpc.ToId_ItemMainType(itemtype)
-
+		item.ItemQuality  = csv.GetInt32(r,"ItemQuality")
 		item.MaxCount = csv.GetInt32(r, "MaxCount")
 		item.GloAction = csv.GetString(r, "GloAction")
 		item.SoulVal = csv.GetInt32(r, "Price")
@@ -59,7 +59,15 @@ func GetItemTableDataById(itemid int32) *ItemData {
 	return ItemTableData[itemid]
 }
 
-func GenItemInst(itemId int32, itemCount int32) []*prpc.COM_ItemInst {
+func GetItemQualityById(itemid int32) int32 {
+	item := GetItemTableDataById(itemid)
+	if item==nil {
+		return 0
+	}
+	return item.ItemQuality
+}
+
+func (this* GamePlayer)GenItemInst(itemId int32, itemCount int32) []*prpc.COM_ItemInst {
 	itemData := GetItemTableDataById(itemId)
 	if itemData == nil {
 		return nil
@@ -75,7 +83,7 @@ func GenItemInst(itemId int32, itemCount int32) []*prpc.COM_ItemInst {
 	for itemCount > 0 {
 		item := prpc.COM_ItemInst{}
 		item.ItemId = itemData.ItemId
-		item.InstId = atomic.AddInt64(&rootItemInstId, 1)
+		item.InstId = this.GenItemMaxGuid + 1
 
 		if itemData.MaxCount > itemCount {
 			item.Stack = itemCount
@@ -90,3 +98,4 @@ func GenItemInst(itemId int32, itemCount int32) []*prpc.COM_ItemInst {
 
 	return items
 }
+

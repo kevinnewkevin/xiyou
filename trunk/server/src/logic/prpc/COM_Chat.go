@@ -17,6 +17,7 @@ type COM_Chat struct{
   AudioPath string  //8
   AudioOld bool  //9
   AudioLen int32  //10
+  AssistantId int32  //11
 }
 func (this *COM_Chat)SetType(value int8) {
   this.Lock()
@@ -128,6 +129,16 @@ func (this *COM_Chat)GetAudioLen() int32 {
   defer this.Unlock()
   return this.AudioLen
 }
+func (this *COM_Chat)SetAssistantId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.AssistantId = value
+}
+func (this *COM_Chat)GetAssistantId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.AssistantId
+}
 func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
@@ -144,6 +155,7 @@ func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.AudioPath) != 0)
   mask.writeBit(this.AudioOld)
   mask.writeBit(this.AudioLen!=0)
+  mask.writeBit(this.AssistantId!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -229,6 +241,15 @@ func (this *COM_Chat)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize AssistantId
+  {
+    if(this.AssistantId!=0){
+      err := write(buffer,this.AssistantId)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Chat)Deserialize(buffer *bytes.Buffer) error{
@@ -307,6 +328,13 @@ func (this *COM_Chat)Deserialize(buffer *bytes.Buffer) error{
   // deserialize AudioLen
   if mask.readBit() {
     err := read(buffer,&this.AudioLen)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize AssistantId
+  if mask.readBit() {
+    err := read(buffer,&this.AssistantId)
     if err != nil{
       return err
     }
