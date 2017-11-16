@@ -80,6 +80,7 @@ struct COM_Player{
 	int32				FriendTianTiRank;
 	int32				BattleUnitGroup;
 	uint64				Guide;
+	int64				AssistantCreateTime;
 	COM_SkillBase[]		SkillBase;
 	COM_Friend[]		Friends;
 	COM_Friend[]		Enemys;
@@ -227,9 +228,11 @@ struct COM_BlackMarket{
 struct SGE_DBPlayer : COM_Player {
 	int64 				PlayerId;
 	string 				Username;
+	int32				GuildId;
 	int64				LoginTime;
 	int64				LogoutTime;
 	int32 				BattleGroupIdx;
+	int64				GenItemMaxGuid;
 	COM_ItemInst[] 		BagItemList;
 	COM_BlackMarket		BlackMarketData;
 };
@@ -287,3 +290,74 @@ struct COM_PlayerInfo
 	bool			IsOnline;			//是否在线
 };
 
+//--帮派
+//<帮派请求
+struct COM_GuildRequestData
+{
+	int64  	RoleId;
+	int32   Level;
+	string 	RoleName;
+	int64	Time;
+};
+
+struct COM_Guild
+{
+	int64					CreateTime;			///<创建时间
+	int32					GuildId;			///<帮派id
+	int64					Master;				///<帮主id
+	string					MasterName;			///<帮主名
+	string					GuildName;			///<帮派名字
+	int32					GuildVal;			///<帮派积分（所有成员的天梯积分总和）
+	bool					IsRatify;			///申请进帮派是否需要批准
+	int32					Require;			///申请所需段位
+	COM_GuildRequestData[]	RequestList;		///<申请列表
+};
+
+//帮派成员
+struct COM_GuildMember
+{
+	int32					GuildId;		//<帮派id
+	int64					RoleId;			//<角色id
+	string					RoleName;		//角色名字
+	int32					Level;			//<角色等级	
+	int8					Job;			//<职位
+	int32					Contribution;	//捐献
+	int32					TianTiVal;
+	bool					IsOnline;
+};
+
+//帮派列表
+struct COM_GuildViewerData
+{
+	int32		GuildId;		//帮派ID
+	string		GuildName;		//帮派名
+	string		MasterName;		//帮主名
+	int32		MemberNum;		//现有人数
+	int32		GuildVal;		//帮派积分（所有成员的天梯积分总和）
+};
+
+//帮派详情
+struct COM_GuildDetails
+{
+	int32				GuildId;		//帮派ID
+	string				GuildName;		//帮派名
+	string				MasterName;		//帮主名
+	int32				MemberNum;		//现有人数
+	int32				GuildVal;		//帮派积分（所有成员的天梯积分总和）
+	bool				IsRatify;		///申请进帮派是否需要批准
+	int32				Require;		///申请所需段位
+	COM_GuildMember[]	Member;			///帮主、副帮主的信息	
+};
+
+//帮派求组
+struct SGE_DBGuildAssistant
+{
+	int32			Id;
+	string			RoleName;
+	int32			GuildId;		
+	int32			ItemId;
+	int32 			CrtCount;		//当前数量
+	int32 			MaxCount;		//最大数量
+	int32			CatchNum;		//角色不在线收到的捐赠数量
+	int64[]			Donator;		
+};

@@ -110,3 +110,25 @@ enum ItemMainType
 	IMT_BabyEquip, //宠物装备
 	IMT_Max,
 };
+//帮派
+//列表修改标志
+enum ModifyListFlag
+{
+	MLF_Add,	           
+	MLF_Delete,
+	MLF_ChangeOnline,            //上线
+	MLF_ChangeOffline,			 //下线
+	MLF_ChangePosition,			 //职位改变
+	MLF_ChangeContribution,		 //捐献
+	MLF_ChangeLevel,			 //等级
+	MLF_ChangeTianTiVal,		 //积分
+};
+
+enum GuildJob
+{					
+	GJ_None,
+	GJ_People, 			//<帮众	
+	GJ_VicePremier,		//<副帮主
+	GJ_Premier,			//<帮主
+	GJ_Max,
+};
