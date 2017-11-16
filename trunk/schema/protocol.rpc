@@ -56,7 +56,8 @@ service COM_ClientToServer{
 	//transferPremier( int32 targetId );								//移交帮主
 	QueryGuildList();												//请求帮派列表
 	QueryGuildDetails(int32 guildid);								//请求帮派详情
-	
+	QueryGuildData();
+	ChangeJoinGuildFlag(bool isFlag,int32 require);					//设置申请条件
 	//@}
 };
 
