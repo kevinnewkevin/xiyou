@@ -110,8 +110,17 @@ function searchList_RenderListItem(index, obj)
 	local info = GuildSystem.searchData.Member[index];
 	local icon = obj:GetChild("n1");
 	icon:GetChild("n3").text = info.Level .."";
+	local edata = EntityData.GetData(info.UnitId);
+	local ddata = DisplayData.GetData(edata._DisplayId);
+	icon:GetChild("n5").asLoader.url = "ui://" .. ddata._HeadIcon;
 	obj:GetChild("n4").text = info.RoleName .."";
-
+	obj:GetChild("n5").text = info.TianTiVal .."";
+	obj:GetChild("n3").asLoader.url = "ui://squadList/xiao_duanwei" .. GamePlayer.RankLevel(info.TianTiVal);
+	if info.Job == 3 then
+		obj:GetChild("n3").asLoader.url = "ui://squadList/duanwei";
+	elseif info.Job == 2 then
+		obj:GetChild("n3").asLoader.url = "ui://squadList/duanwei"
+	end
 end
 
 function squadList_OnCheckSquad(context)
@@ -137,7 +146,7 @@ function squadList_OnCreateConfirm()
 	if GamePlayer._Data.IProperties[8] < 5000 then
 		local MessageBox1 = UIManager.ShowMessageBox();
 		MessageBox1:SetData("提示", "金币不够", true);
-		return;
+		--return;
 	end
 	Proxy4Lua.CreateGuild(createName.text);
 end
@@ -230,7 +239,11 @@ function squadList_UpdateSearch()
 	else
 		searchType.text = "类型:不需申请";
 	end
-	searchList.numItems = info.Member.Length;
+	if info.Member == nil then
+		searchList.numItems = 0;
+	else
+		searchList.numItems = info.Member.Length;
+	end
 	searchBtn.data = info.GuildId;
 end
 

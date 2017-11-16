@@ -195,5 +195,5 @@ function squadSetting_FlushData()
 		guildNeedCheck:GetChild("n1").visible = false;
 		guildNeedCheck:GetChild("n2").visible = true;
 	end
-	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(Require);
+	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(GuildSystem.myGuild.Require);
 end

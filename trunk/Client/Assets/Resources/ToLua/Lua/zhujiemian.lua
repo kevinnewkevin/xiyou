@@ -56,6 +56,9 @@ function zhujiemian:OnInit()
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 
+	local guildBtn = bottomBtnList:GetChildAt(3);
+	guildBtn.onClick:Add(zhujiemian_OnGuild);
+
 	local shopBtn = self.contentPane:GetChild("n30");
 	shopBtn.onClick:Add(zhujiemian_OnShop);
 
@@ -352,4 +355,13 @@ end
 
 function zhujiemian_OnChatBtn()
 	UIManager.Show("liaotian");
+end
+
+function zhujiemian_OnGuild()
+	if GuildSystem.myGuild == nil then
+		Proxy4Lua.QueryGuildList();
+		UIManager.Show("squadList");
+	else
+		UIManager.Show("squad");
+	end
 end
