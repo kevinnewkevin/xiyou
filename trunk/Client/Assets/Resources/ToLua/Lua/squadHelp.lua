@@ -21,7 +21,7 @@ function squadHelp:OnInit()
 
 	cards = self.contentPane:GetChild("n6").asList;
 	cards:SetVirtual();
-	cards.itemRenderer = squad_RenderListItem;
+	cards.itemRenderer = squadHelp_RenderListItem;
 
 	squadHelp_FlushData();
 end

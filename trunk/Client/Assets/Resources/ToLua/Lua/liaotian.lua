@@ -189,18 +189,19 @@ function liaotiansquad_OnAssistant(context)
 	end
 
 	Proxy4Lua.Assistant(context.sender.data);
-	local chat = COM_Chat.New();
-	chat.Type = 4;
-	chat.PlayerInstId = GamePlayer._InstID;
-	chat.PlayerName = GamePlayer._Name;
-	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
-	chat.Level = GamePlayer._Data.IProperties[9];
+--	local chat = COM_Chat.New();
+--	chat.Type = 4;
+--	chat.PlayerInstId = GamePlayer._InstID;
+--	chat.PlayerName = GamePlayer._Name;
+--	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
+--	chat.Level = GamePlayer._Data.IProperties[9];
 	local assData = ChatSystem.GetAss(context.sender.data);
 	if assData ~= nil then
 		local iData = ItemData.GetData(assData.ItemId);
 		if iData ~= nil then
-			chat.Content = "我捐助了" .. assData.PlayerName .. "1个" .. iData._Name;
-			Proxy4Lua.SendChat(chat);
+--			chat.Content = "我捐助了" .. assData.PlayerName .. "1个" .. iData._Name;
+--			Proxy4Lua.SendChat(chat);
+			Proxy4Lua.PopMsg("我捐助了" .. assData.PlayerName .. "1个" .. iData._Name);
 		end
 	end
 end
