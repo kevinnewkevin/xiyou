@@ -28,6 +28,11 @@ local yyBtn;
 local content;
 local contentBg;
 
+local settingBtn;
+local quitBtn;
+
+local willKickPlayer; --计划踢出的玩家id
+
 function squad:OnEntry()
 	Window = squad.New();
 	Window:Show();
@@ -45,6 +50,12 @@ function squad:OnInit()
 	member = self.contentPane:GetChild("n8").asList;
 	member:SetVirtual();
 	member.itemRenderer = squad_RenderListItem;
+
+	quitBtn = self.contentPane:GetChild("n10").asButton;
+	quitBtn.onClick:Add(squad_OnQuit);
+
+	settingBtn = self.contentPane:GetChild("n9").asButton;
+	settingBtn.onClick:Add(squad_OnSetting);
 
 	-------------------------------chat----------------------------------------
 	squadChatCom = self.contentPane:GetChild("n3").asCom;
@@ -89,7 +100,68 @@ function squad:OnInit()
 end
 
 function squad_RenderListItem(index, obj)
+	if obj == nil then
+		return;
+	end
+
+	local data = GuildSystem.guildMemberList[index];
+	local name = obj:GetChild("n6").asTextField;
+	local pos = obj:GetChild("n8").asLoader;
+	local score = obj:GetChild("n7").asLoader;
+	local headCom = obj:GetChild("n5").asCom;
+	local headIcon = headCom:GetChild("n5").asLoader;
+	local lv = headCom:GetChild("n3").asTextField;
+	local renmingBtn = obj:GetChild("n11").asButton;
+	local kickBtn = obj:GetChild("n10").asButton;
+	obj.data = data.GuildId;
+	renmingBtn.onClick:Add(squad_OnRenming);
+	kickBtn.onClick:Add(squad_OnKick);
+
+	name.text = data.RoleName;
+	pos.url = "ui://" .. data.Job;
+	score.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(data.TianTiVal);
+	local eData = EntityData.GetData(data.UnitId);
+	local dData;
+	if eData ~= nil then
+		dData = DisplayData.GetData(eData._DisplayId);
+	end
+	if dData ~= nil then
+		headIcon.url = "ui://" .. dData._HeadIcon;
+	else
+		headIcon.url = "";
+	end
+	lv.text = data.Level;
+end
+
+function squad_OnSetting()
 	
+end
+
+function squad_OnQuit()
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否退出家族？", false, squad_OnConfirmQuit);
+end
+
+function squad_OnConfirmQuit()
+	Proxy4Lua.LeaveGuild();
+end
+
+function squad_OnRenming()
+	
+end
+
+function squad_OnKick(context)
+	if context.sender.data == nil then
+		return;
+	end
+
+	willKickPlayer = context.sender.data;
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否将该玩家踢出家族？", false, squad_OnConfirmKick);
+end
+
+function squad_OnConfirmKick()
+	Proxy4Lua.KickOut(willKickPlayer);
 end
 
 function squad_OnHelp(context)
@@ -132,6 +204,8 @@ function squad:OnHide()
 end
 
 function squad_FlushData()
+	member.numItems = GuildSystem.guildMemberList.Count;
+
 	local isScrollBottom = contentList.scrollPane.isBottomMost;
 	local type = squadliaotian_GetChatType(crtType);
 	if type == 5 then

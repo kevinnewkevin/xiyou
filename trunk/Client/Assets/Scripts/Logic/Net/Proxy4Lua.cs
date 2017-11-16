@@ -146,7 +146,6 @@ public class Proxy4Lua {
     static public void NeedAssistantItem(int itemId)
     {
         NetWoking.S.NeedAssistantItem(itemId);
-        GamePlayer.AddCoolDown("AssistantCoolDown", TimerManager.GetTimeStamp());
     }
 
     static public void Assistant(int assId)
@@ -194,6 +193,10 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ChangeJoinGuildFlag(isFlag,require);
 	}
+    static public void LeaveGuild()
+    {
+        NetWoking.S.LeaveGuild();
+    }
     #endregion
 
     #region 内部接口
