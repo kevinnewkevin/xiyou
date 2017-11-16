@@ -45,9 +45,10 @@ function squadSetting:OnInit()
 	guildScore = setCom:GetChild("n15");
 	guildGiftWeek = setCom:GetChild("n16");
 	guildNeedCheck = setCom:GetChild("n21");
+	guildNeedCheck.onClick:Add(squadSetting_OnNeedCheck);
 	guildNeededLoader = setCom:GetChild("n33").asLoader;
 	guildNeededBtn = setCom:GetChild("n22");
-	guildNeededBtn.OnClick:Add(squadSetting_OnNeededChange);
+	guildNeededBtn.onClick:Add(squadSetting_OnNeededChange);
 
 	requestList = requestCom:GetChild("n39").asList;
 	requestList:SetVirtual();
@@ -93,12 +94,19 @@ function squadSetting:OnHide()
 	Window:Hide();
 end
 
+function squadSetting_OnNeedCheck()
+	GuildSystem.myGuild.IsRatify = not GuildSystem.myGuild.IsRatify;
+	UIManager.SetDirty("squadSetting");
+	Proxy4Lua.ChangeJoinGuildFlag(GuildSystem.myGuild.IsRatify, GuildSystem.myGuild.Require);
+end
+
 function squadSetting_OnNeededChange(context)
 	GRoot.inst:ShowPopup(guildNeededCom, context.sender, false);
 end
 
 function squadSetting_OnChangeNeed(context)
-	--guildNeededCom:GetChild("n24").selectedIndex
+	GuildSystem.myGuild.Require = guildNeededCom:GetChild("n24").selectedIndex;
+	Proxy4Lua.ChangeJoinGuildFlag(GuildSystem.myGuild.IsRatify, GuildSystem.myGuild.Require);
 	guildNeededCom:RemoveFromParent();
 	UIManager.SetDirty("squadSetting");
 end
