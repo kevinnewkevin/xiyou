@@ -46,13 +46,13 @@ service COM_ClientToServer{
 	//帮派
 	//{@
 	CreateGuild(string guildName);									//创建帮派
-	//delGuild(uint32 guildId);										//解散帮派
-	RequestJoinGuild(uint32 guid);									//加入帮派
+	//delGuild(int32 guildId);										//解散帮派
+	RequestJoinGuild(int32 guid);									//加入帮派
 	//leaveGuild();													//退出帮派
 	KickOut(int32 guid);											//踢人
-	AcceptRequestGuild(int32 playerId); 							//接受申请
-	RefuseRequestGuild(int32 playerId);								//拒绝申请
-	ChangeMemberPosition(int32 targetId , GuildJob job);			//任命
+	AcceptRequestGuild(int64 playerId); 							//接受申请
+	RefuseRequestGuild(int64 playerId);								//拒绝申请
+	ChangeMemberPosition(int64 targetId , GuildJob job);			//任命
 	//transferPremier( int32 targetId );								//移交帮主
 	QueryGuildList();												//请求帮派列表
 	QueryGuildDetails(int32 guildid);								//请求帮派详情
