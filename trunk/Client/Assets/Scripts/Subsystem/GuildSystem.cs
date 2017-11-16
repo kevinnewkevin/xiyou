@@ -8,6 +8,7 @@ public class GuildSystem
 	public static List<COM_GuildMember> guildMemberList = new List<COM_GuildMember>();
 	public static List<COM_GuildViewerData> guildViewerList = new List<COM_GuildViewerData>();
 	public static COM_GuildDetails searchData;
+    public static List<COM_GuildRequestData> requestList = new List<COM_GuildRequestData>();
 	
 	public static void InitGuildMember(COM_GuildMember[] guildMember)
 	{
@@ -43,7 +44,25 @@ public class GuildSystem
 		}
 	}
 
+    public static void AddGuildRequest(COM_GuildRequestData data)
+    {
+        requestList.Add(data);
+    }
 
+    public static void DeleteGuildRequest(long playerid)
+    {
+        if(requestList == null)
+            return;
+        
+        for(int i=0; i < requestList.Count; ++i)
+        {
+            if (requestList [i].RoleId == playerid)
+            {
+                requestList.RemoveAt(i);
+                break;
+            }
+        }
+    }
 
 
 	

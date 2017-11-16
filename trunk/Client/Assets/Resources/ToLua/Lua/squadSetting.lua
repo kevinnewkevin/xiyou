@@ -120,7 +120,10 @@ function squadSetting_RenderListItem(index, obj)
 		return;
 	end
 
-	local data = GuildSystem.myGuild.RequestList[index];
+	local data = GuildSystem.requestList[index];
+	if data == nil then
+		return;
+	end
 	local playerName = obj:GetChild("n40");
 	local headCom = obj:GetChild("n39");
 	local headIcon = headCom:GetChild("n5").asLoader;
@@ -155,6 +158,8 @@ function squadSetting_OnAdd(context)
 	end
 
 	Proxy4Lua.AcceptRequestGuild(context.sender.data);
+	GuildSystem.DeleteGuildRequest(context.sender.data);
+	UIManager.SetDirty("squadSetting");
 end
 
 function squadSetting_OnIgnore(context)
@@ -163,10 +168,12 @@ function squadSetting_OnIgnore(context)
 	end
 
 	Proxy4Lua.RefuseRequestGuild(context.sender.data);
+	GuildSystem.DeleteGuildRequest(context.sender.data);
+	UIManager.SetDirty("squadSetting");
 end
 	
 function squadSetting_FlushData()
-	requestList.numItems = GuildSystem.myGuild.RequestList.Lenght;
+	requestList.numItems = GuildSystem.requestList.Count;
 
 	if crtType == 0 then
 		setCom.visible = true;
