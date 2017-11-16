@@ -130,6 +130,7 @@ func CreatGuild(player *GamePlayer,guildName string)  {
 	pGuildMember.RoleId			= player.MyUnit.InstId
 	pGuildMember.Level			= player.MyUnit.GetIProperty(prpc.IPT_PROMOTE)
 	pGuildMember.Job			= prpc.GJ_Premier
+	pGuildMember.UnitId			= player.MyUnit.UnitId
 
 	need := GetGlobalInt("C_CreatGuildGold")
 	player.AddGold(-int32(need))
@@ -311,6 +312,7 @@ func RequestjoinGuild(player *GamePlayer,guildId int32)  {
 		member.Level		= player.MyUnit.GetIProperty(prpc.IPT_PROMOTE)
 		member.TianTiVal	= player.TianTiVal
 		member.Job			= prpc.GJ_People
+		member.UnitId		= player.MyUnit.UnitId
 		isOK := AddGuildMember(member)
 		if isOK {
 			InsertGuildMember(member)
@@ -366,6 +368,7 @@ func AcceptrequestGuild(player *GamePlayer,proposerId int64)  {
 			newMember.TianTiVal = p.TianTiVal
 			newMember.GuildId	= pGuild.GuildData.GuildId
 			newMember.Job		= prpc.GJ_People
+			newMember.UnitId	= p.Unit.UnitId
 		} else {
 			logs.Info("AcceptRequestGuild Fetch DB Data Nil ",proposerId)
 			return
@@ -377,6 +380,7 @@ func AcceptrequestGuild(player *GamePlayer,proposerId int64)  {
 		newMember.TianTiVal = proposer.TianTiVal
 		newMember.GuildId	= pGuild.GuildData.GuildId
 		newMember.Job		= prpc.GJ_People
+		newMember.UnitId	= proposer.MyUnit.UnitId
 	}
 
 	if !AddGuildMember(newMember) {

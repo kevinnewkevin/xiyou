@@ -560,7 +560,7 @@ func InsertTopList (InstId int64, t prpc.SGE_DBTopUnit) <- chan int64 {
 }
 
 //帮派
-func InsertGuild(pGuild prpc.COM_Guild,pGuildMember prpc.COM_GuildMember) <- chan bool {
+func InsertGuild(pGuild prpc.COM_Guild,member prpc.COM_GuildMember) <- chan bool {
 	rChan := make (chan bool)
 	go func() {
 		c, e := ConnectDB()
@@ -578,7 +578,7 @@ func InsertGuild(pGuild prpc.COM_Guild,pGuildMember prpc.COM_GuildMember) <- cha
 			rChan <- false
 			return
 		}
-		stmt2, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`)VALUES(?,?,?,?,?,?,?)")
+		stmt2, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`,`UnitId`)VALUES(?,?,?,?,?,?,?,?)")
 		if  e != nil {
 			logs.Debug(e.Error())
 			rChan <- false
@@ -607,7 +607,7 @@ func InsertGuild(pGuild prpc.COM_Guild,pGuildMember prpc.COM_GuildMember) <- cha
 
 		stmt1.Close()
 
-		_, e = stmt2.Exec(pGuildMember.GuildId,pGuildMember.RoleId,pGuildMember.RoleName,pGuildMember.Level,pGuildMember.Job,pGuildMember.Contribution,pGuildMember.TianTiVal)
+		_, e = stmt2.Exec(member.GuildId,member.RoleId,member.RoleName,member.Level,member.Job,member.Contribution,member.TianTiVal,member.UnitId)
 		if e != nil {
 			logs.Debug(e.Error())
 			rChan <- false
@@ -718,7 +718,7 @@ func FetchGuildMember() <-chan []prpc.COM_GuildMember {
 
 		for r.Next() {
 			m := prpc.COM_GuildMember{}
-			e = r.Scan(&m.GuildId,&m.RoleId,&m.RoleName,&m.Level,&m.Job,&m.Contribution,&m.TianTiVal)
+			e = r.Scan(&m.GuildId,&m.RoleId,&m.RoleName,&m.Level,&m.Job,&m.Contribution,&m.TianTiVal,&m.UnitId)
 			if e != nil {
 				logs.Debug(e.Error())
 				rChan <- nil
@@ -825,8 +825,8 @@ func InsertGuildMember(member prpc.COM_GuildMember) <-chan bool {
 		}
 		defer c.Close()
 
-		stmt, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`)VALUES(?,?,?,?,?,?,?)")
-		stmt.Exec(member.GuildId,member.RoleId,member.RoleName,member.Level,member.Job,member.Contribution,member.TianTiVal)
+		stmt, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`Contribution`,`TianTiVal`,`UnitId`)VALUES(?,?,?,?,?,?,?,?)")
+		stmt.Exec(member.GuildId,member.RoleId,member.RoleName,member.Level,member.Job,member.Contribution,member.TianTiVal,member.UnitId)
 		stmt.Close()
 
 		rChan <- true

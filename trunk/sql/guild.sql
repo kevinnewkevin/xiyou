@@ -46,6 +46,7 @@ CREATE TABLE `GuildMember`
 	`Job`			TINYINT 	NOT NULL,/*** 职位*/
 	`Contribution`	INT 		NOT NULL,/*** 捐献*/
 	`TianTiVal`		INT 		NOT NULL,/*** 天梯积分*/
+	`UnitId`		INT 		NOT NULL,/*** eee*/
 	PRIMARY KEY(roleId)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /**
