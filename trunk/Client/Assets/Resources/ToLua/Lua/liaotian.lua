@@ -126,7 +126,7 @@ function liaotian_OnRenderListItem(index, obj)
 
 			name.text = crtList[i].PlayerName;
 			status.text = crtList[i].CrtCount .. "/" .. crtList[i].MaxCount;
-			statusBar.value = crtList[i].CrtCount * 1f / crtList[i].MaxCount * 1f;
+			statusBar.value = crtList[i].CrtCount * 1.0 / crtList[i].MaxCount * 1.0;
 			local iData = ItemData.GetData(crtList[i].ItemId);
 			if iData ~= nil then
 				itemIcon.url = "ui://" .. iData._Icon;
