@@ -130,7 +130,7 @@ function squad_RenderListItem(index, obj)
 	kickBtn.visible = data.Job == 2 or data.Job == 3;
 
 	name.text = data.RoleName;
-	pos.url = "ui://" .. data.Job;
+	pos.url = "ui://bangpai/cu_" .. data.Job;
 	score.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(data.TianTiVal);
 	local eData = EntityData.GetData(data.UnitId);
 	local dData;
