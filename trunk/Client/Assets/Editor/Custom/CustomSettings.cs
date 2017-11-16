@@ -253,9 +253,14 @@ public static class CustomSettings
         _GT(typeof(COM_TopUnit)),
 		_GT(typeof(COM_Friend)),
 		_GT(typeof(FriendSystem)),
+        _GT(typeof(GuildSystem)),
+        _GT(typeof(COM_GuildMember)),
+        _GT(typeof(COM_GuildRequestData)),
         _GT(typeof(YYSystem)),
+        _GT(typeof(TimerManager)),
         _GT(typeof(EmojiParser)),
         _GT(typeof(SwipeGesture)),
+        _GT(typeof(COM_Assistant)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
