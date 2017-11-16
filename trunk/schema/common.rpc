@@ -299,6 +299,8 @@ struct COM_GuildRequestData
 	int32   Level;
 	string 	RoleName;
 	int64	Time;
+	int32	UnitId;
+	int32	TianTiVal;
 };
 
 struct COM_Guild
