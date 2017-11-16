@@ -233,6 +233,7 @@ struct SGE_DBPlayer : COM_Player {
 	int64				LogoutTime;
 	int32 				BattleGroupIdx;
 	int64				GenItemMaxGuid;
+	int32				AssistantId;
 	COM_ItemInst[] 		BagItemList;
 	COM_BlackMarket		BlackMarketData;
 };

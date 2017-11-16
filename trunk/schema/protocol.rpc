@@ -42,6 +42,22 @@ service COM_ClientToServer{
 	NeedAssistantItem(int32 itemid);
 	//帮派中玩家支援物品(支援id)
 	AssistantItem(int32 assid);
+	
+	//帮派
+	//{@
+	createGuild(string guildName);									//创建帮派
+	//delGuild(uint32 guildId);										//解散帮派
+	requestJoinGuild(uint32 guid);									//加入帮派
+	//leaveGuild();													//退出帮派
+	kickOut(int32 guid);											//踢人
+	acceptRequestGuild(int32 playerId); 							//接受申请
+	refuseRequestGuild(int32 playerId);								//拒绝申请
+	changeMemberPosition(int32 targetId , GuildJob job);			//任命
+	//transferPremier( int32 targetId );								//移交帮主
+	queryGuildList();												//请求帮派列表
+	queryGuildDetails(int32 guildid);								//请求帮派详情
+	
+	//@}
 };
 
 service COM_ServerToClient{
@@ -88,4 +104,16 @@ service COM_ServerToClient{
 	//帮派求助
 	UpdateGuildAssistant(COM_Assistant info, string donator);
 	SycnGuildAssistant(COM_Assistant[] infos);
+	
+	//帮派
+	//{@
+	createGuildOK();
+	delGuildOK();
+	leaveGuildOk(string who , bool isKick);														//退出帮派
+	initGuildData(COM_Guild guild);																//初始化帮派信息
+	initGuildMemberList(COM_GuildMember[] members);												//初始化帮派成员列表
+	modifyGuildMemberList( COM_GuildMember member , ModifyListFlag flag);						//更新帮派成员列表		
+	queryGuildListResult(COM_GuildViewerData[] guildList);										//请求帮派列表
+	queryGuildDetailsResult(COM_GuildDetails info);												//请求帮派详情
+	//@}
 };
