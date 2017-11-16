@@ -20,6 +20,8 @@ public class GamePlayer {
 	
     static public int _CrtBattleGroupIdx;
 
+    static public long _AssistantCoolDown;
+
     static public List<string> _IPropDirty = new List<string>();
     static public List<string> _CPropDirty = new List<string>();
 	static public bool showNewCard;
@@ -48,6 +50,8 @@ public class GamePlayer {
         _Name = player.Name;
         _Data = player.Unit;
 		_TianTiVal = player.TianTiVal;
+        _AssistantCoolDown = player.AssistantCreateTime;
+
         JieHunSystem.instance.InitChapterData(player.Chapters);
         EntityData eData = null;
         for(int i=0; i < player.Employees.Length; ++i)
@@ -87,6 +91,8 @@ public class GamePlayer {
 		FriendSystem.InitFriends(player.Friends);
 		FriendSystem.InitBlacks(player.Enemys);
         UIManager.SetDirty("zhujiemian");
+
+        TimerManager.AddCountDown("AssistantCoolDown", TimerManager.LeftTimeInSecond(player.AssistantCreateTime));
     }
 
     static public void AddCard(COM_Unit card)

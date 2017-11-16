@@ -103,7 +103,7 @@ function squad:OnUpdate()
 end
 
 function squad:OnTick()
-	
+	helpTime.text = "剩余" .. TimerManager.GetCountDown("AssistantCoolDown");
 end
 
 function squad:isShow()
