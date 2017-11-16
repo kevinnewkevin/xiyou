@@ -41,7 +41,7 @@ function liaotian:OnInit()
 	emojiBtn = self.contentPane:GetChild("n10").asButton;
 	yyBtn = self.contentPane:GetChild("n11").asButton;
 	content = self.contentPane:GetChild("n12");
-	contentBg = squadChatCom:GetChild("n7");
+	contentBg = self.contentPane:GetChild("n7");
 	sendBtn.onClick:Add(liaotian_OnSend);
 	emojiBtn.onClick:Add(liaotian_OnEmoji);
 	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
