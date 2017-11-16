@@ -81,6 +81,21 @@ public class TimerManager {
         return (long)ts.TotalSeconds;
     }
 
+    public static string TimeAgo(long timeStamp)
+    {
+        long gap = GetTimeStamp() - timeStamp;
+        DateTime dt = new DateTime(gap, DateTimeKind.Utc);
+        if (dt.Month > 0)
+            return dt.Month + "个月前";
+        if (dt.Day > 0)
+            return dt.Day + "天前";
+        if (dt.Hour > 0)
+            return dt.Hour + "小时前";
+        if (dt.Minute > 0)
+            return dt.Minute + "分钟前";
+        return "";
+    }
+
     static public void Add(Timer timer)
     {
         _Timers.Add(timer);
