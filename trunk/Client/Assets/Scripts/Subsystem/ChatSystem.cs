@@ -39,8 +39,12 @@ public class ChatSystem {
                 updated = true;
             }
         }
-        if(!updated)
+        if (!updated)
+        {
             _Assistant.Add(ass);
+            if(ass.PlayerName.Equals(GamePlayer._Name))
+                GamePlayer.AddCoolDown("AssistantCoolDown", TimerManager.GetTimeStamp());
+        }
 
         UIManager.SetDirty("liaotian");
         UIManager.SetDirty("squad");

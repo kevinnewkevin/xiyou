@@ -61,6 +61,13 @@ public class TimerManager {
         return string.Format("{0}:{1}:{2}", h, m, s);
     }
 
+    static public int GetCountDownSecond(string key)
+    {
+        if (_CountDownKeys.Contains(key))
+            return (int)_CountDownValues [_CountDownKeys.IndexOf(key)];
+        return 0;
+    }
+
     public static long LeftTimeInSecond(long originTimeStamp)
     {
         TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
