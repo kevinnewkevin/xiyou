@@ -40,6 +40,7 @@ end
 function squad:OnInit()
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
+	self.closeButton = self.contentPane:GetChild("n6");
 
 	member = self.contentPane:GetChild("n8").asList;
 	member:SetVirtual();
@@ -197,7 +198,7 @@ function squadliaotian_OnEmojiItem(context)
 end
 
 function squadliaotian_OnRenderListItem(index, obj)
-	if liaotian_GetChatType(crtType) == 5 then
+	if squadliaotian_GetChatType(crtType) == 5 then
 		local name = obj:GetChild("n2");
 		local status = obj:GetChild("n4");
 		local statusBar = obj:GetChild("n5");
@@ -294,7 +295,7 @@ end
 
 function squadliaotian_OnYYEnd()
 	yyAnim.visible = false;
-	YYSystem.StopRecord(false, liaotian_GetChatType(crtType));
+	YYSystem.StopRecord(false, squadliaotian_GetChatType(crtType));
 end
 
 function squadliaotian_OnPlayRecord(context)
