@@ -29,7 +29,8 @@ CREATE TABLE `Guild`
 	`CreatTime` 	BIGINT 		NOT NULL,/*** 创建时间*/
 	`RequestList` 	BLOB 		NOT NULL,
 	`RequestFlag`	INT			NOT NULL,/*** 是否需要申请*/
-	`Require`		INT			NOT NULL,/*** 申请条件*/	
+	`Require`		INT			NOT NULL,/*** 申请条件*/
+	`Contribution`	INT 		NOT NULL,/*** 捐献*/	
 	PRIMARY KEY(guildId),
 	UNIQUE KEY guildNameIdx   (guildName)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -44,7 +45,6 @@ CREATE TABLE `GuildMember`
 	`RoleName`   	VARCHAR(60)	NOT NULL,/*** 成员名*/
 	`Rolelevel`     TINYINT 	NOT NULL,/*** 成员等级*/
 	`Job`			TINYINT 	NOT NULL,/*** 职位*/
-	`Contribution`	INT 		NOT NULL,/*** 捐献*/
 	`TianTiVal`		INT 		NOT NULL,/*** 天梯积分*/
 	`UnitId`		INT 		NOT NULL,/*** eee*/
 	PRIMARY KEY(roleId)

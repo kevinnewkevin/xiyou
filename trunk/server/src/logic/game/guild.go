@@ -87,6 +87,33 @@ func CheckGuildCritical(guildName string,playerInstId int64) bool {
 	return isName&&isId
 }
 
+func GuildEveryMonday()  {
+
+	for _,g := range IdGuildMap{
+		if g == nil {
+			continue
+		}
+		g.GuildData.Contribution = 0
+		g.UpdateGuild()
+	}
+
+	for _,g := range NameGuildMap{
+		if g == nil {
+			continue
+		}
+		g.GuildData.Contribution = 0
+	}
+
+	for _,g := range PlayerIdGuildMap{
+		if g == nil {
+			continue
+		}
+		g.GuildData.Contribution = 0
+	}
+	
+	ResetDBGuildContribution()
+}
+
 func CreatGuild(player *GamePlayer,guildName string)  {
 	if player == nil {
 		return
@@ -254,6 +281,7 @@ func RequestGuildDetails(player *GamePlayer,guildId int32)  {
 	data.GuildVal		= pGuild.GuildData.GuildVal
 	data.IsRatify		= pGuild.GuildData.IsRatify
 	data.Require		= pGuild.GuildData.Require
+	data.Contribution	= pGuild.GuildData.Contribution
 
 	temp1 := pGuild.FindMemberByJob(prpc.GJ_Premier)
 	for i:=0;i<len(temp1) ;i++  {
@@ -773,6 +801,16 @@ func (player *GamePlayer)AddGuildAssistant(item int32)  {
 }
 
 func (player *GamePlayer)GuildAssistantItem(ass int32)  {
+
+	if player.GuildId == 0 {
+		return
+	}
+
+	pGuild := FindGuildById(player.GuildId)
+	if pGuild==nil {
+		return
+	}
+
 	data := <- FindGuildAssistantById(ass)
 	if data==nil {
 		return
@@ -807,6 +845,10 @@ func (player *GamePlayer)GuildAssistantItem(ass int32)  {
 	}else {
 		data.CatchNum++
 	}
+
+	pGuild.GuildData.Contribution++
+
+	UpdateDBGuildContribution(pGuild.GuildData.GuildId,pGuild.GuildData.Contribution)
 
 	data.CrtCount++
 	data.Donator = append(data.Donator,player.MyUnit.InstId)

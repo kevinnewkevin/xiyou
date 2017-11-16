@@ -46,5 +46,6 @@ Global.setGlobalString("C_SaveDataToDB","0 */2 * * * *");
 Global.setGlobalString("C_PassZeroHour","0 0 0 * * *");
 Global.setGlobalString("C_BlackMarkteRefresh","0 0 0,6,12,18 * * *");
 Global.setGlobalString("C_TopListRefresh","0 */5 * * * *");
+Global.setGlobalString("C_EveryMonRefresh","0 0 1 * * 1");
 
 

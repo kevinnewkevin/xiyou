@@ -53,6 +53,17 @@ func RefreshTopList() error {
 	return nil
 }
 
+func RefreshEveryMon() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("main panic %s", fmt.Sprint(r))
+		}
+
+	}()
+	GuildEveryMonday()
+	return nil
+}
+
 func InitGameTask() {
 	passzerohourTimer := GetGlobalString("C_PassZeroHour")
 	passzerohourTask := toolbox.NewTask("Passzerohour", passzerohourTimer, PassZeroHourTask)
@@ -69,5 +80,9 @@ func InitGameTask() {
 	TopListTimer := GetGlobalString("C_TopListRefresh")
 	RefreshTopList := toolbox.NewTask("RefreshTopList", TopListTimer, RefreshTopList)
 	toolbox.AddTask("RefreshTopList", RefreshTopList)
+
+	everyMonTimer := GetGlobalString("C_EveryMonRefresh")
+	RefresheveryMon := toolbox.NewTask("EveryMonRefresh", everyMonTimer, RefreshEveryMon)
+	toolbox.AddTask("EveryMonRefresh", RefresheveryMon)
 
 }

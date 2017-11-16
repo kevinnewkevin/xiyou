@@ -326,7 +326,6 @@ struct COM_GuildMember
 	int32					Level;			//<角色等级	
 	int32					UnitId;
 	GuildJob				Job;			//<职位
-	int32					Contribution;	//捐献
 	int32					TianTiVal;
 	bool					IsOnline;
 };
