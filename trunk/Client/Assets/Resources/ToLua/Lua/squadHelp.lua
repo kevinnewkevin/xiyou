@@ -44,8 +44,8 @@ function squadHelp_RenderListItem(index, obj)
 	if displayData == nil then
 		return;
 	end
-	obj:GetChild("n15").asLoader.url = "ui://" .. displayData._HeadIcon;
-	obj:GetChild("n16").asLoader.url = "ui://" .. displayData._Quality;
+	obj:GetChild("n16").asLoader.url = "ui://" .. displayData._HeadIcon;
+	obj:GetChild("n15").asLoader.url = "ui://" .. displayData._Quality;
 	local levelData =  StrengthenData.GetData(cardInst.UnitId, cardInst.IProperties[9]+1);
 	if levelData == nil then
 		return;
@@ -82,11 +82,11 @@ function squadHelp:OnDispose()
 	Window:Dispose();
 end
 
-function squad:OnHide()
+function squadHelp:OnHide()
 	Window:Hide();
 end
 
 function squadHelp_FlushData()
 	cardList = GamePlayer.CardsByFeeAndType(0, 0);
-	cards.numItems = cardList.Count();
+	cards.numItems = cardList.Count;
 end

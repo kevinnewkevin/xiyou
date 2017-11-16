@@ -26,6 +26,7 @@ local sendBtn;
 local emojiBtn;
 local yyBtn;
 local content;
+local contentBg;
 
 function squad:OnEntry()
 	Window = squad.New();
@@ -40,21 +41,22 @@ function squad:OnInit()
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
 
-	member = self.contentPane:GetChild("").asList;
+	member = self.contentPane:GetChild("n8").asList;
 	member:SetVirtual();
 	member.itemRenderer = squad_RenderListItem;
 
 	-------------------------------chat----------------------------------------
 	squadChatCom = self.contentPane:GetChild("n3").asCom;
 	--unique
-	helpBtn = self.contentPane:GetChild("n17").asButton;
+	helpBtn = squadChatCom:GetChild("n17").asButton;
 	helpBtn.onClick:Add(squad_OnHelp);
-	helpTime = self.contentPane:GetChild("n18");
+	helpTime = squadChatCom:GetChild("n18");
 	--unique
 	sendBtn = squadChatCom:GetChild("n8").asButton;
 	emojiBtn = squadChatCom:GetChild("n10").asButton;
 	yyBtn = squadChatCom:GetChild("n11").asButton;
 	content = squadChatCom:GetChild("n12");
+	contentBg = squadChatCom:GetChild("n7");
 	sendBtn.onClick:Add(squadliaotian_OnSend);
 	emojiBtn.onClick:Add(squadliaotian_OnEmoji);
 	yyBtn.onTouchBegin:Add(squadliaotian_OnYYBegin);
@@ -138,11 +140,13 @@ function squad_FlushData()
 		emojiBtn.visible = false;
 		yyBtn.visible = false;
 		content.visible = false;
+		contentBg.visible = false;
 	else
 		sendBtn.visible = true;
 		emojiBtn.visible = true;
 		yyBtn.visible = true;
 		content.visible = true;
+		contentBg.visible = true;
 	end
 end
 
@@ -198,11 +202,11 @@ function squadliaotian_OnRenderListItem(index, obj)
 			local itemIconBack = itemIconCom:GetChild("n11");
 			local assBtn = obj:GetChild("n6");
 			assBtn.data = crtList[i].Id;
-			assBtn.onClick:Add(liaotiansquad_OnAssistant);
+			assBtn.onClick:Add(squad_OnAssistant);
 
 			name.text = crtList[i].PlayerName;
 			status.text = crtList[i].CrtCount .. "/" .. crtList[i].MaxCount;
-			statusBar.value = crtList[i].CrtCount * 1f / crtList[i].MaxCount * 1f;
+			statusBar.value = crtList[i].CrtCount * 1.0 / crtList[i].MaxCount * 1.0;
 			local iData = ItemData.GetData(crtList[i].ItemId);
 			if iData ~= nil then
 				itemIcon.url = "ui://" .. iData._Icon;
@@ -263,23 +267,20 @@ function squadliaotian_OnRenderListItem(index, obj)
 end
 
 function squad_OnAssistant(context)
-	if context.sender.data == nil then
-		return;
-	end
-
 	Proxy4Lua.Assistant(context.sender.data);
-	local chat = COM_Chat.New();
-	chat.Type = 4;
-	chat.PlayerInstId = GamePlayer._InstID;
-	chat.PlayerName = GamePlayer._Name;
-	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
-	chat.Level = GamePlayer._Data.IProperties[9];
+--	local chat = COM_Chat.New();
+--	chat.Type = 4;
+--	chat.PlayerInstId = GamePlayer._InstID;
+--	chat.PlayerName = GamePlayer._Name;
+--	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
+--	chat.Level = GamePlayer._Data.IProperties[9];
 	local assData = ChatSystem.GetAss(context.sender.data);
 	if assData ~= nil then
 		local iData = ItemData.GetData(assData.ItemId);
 		if iData ~= nil then
-			chat.Content = "我捐助了" .. assData.PlayerName .. "1个" .. iData._Name;
-			Proxy4Lua.SendChat(chat);
+--			chat.Content = "我捐助了" .. assData.PlayerName .. "1个" .. iData._Name;
+--			Proxy4Lua.SendChat(chat);
+			Proxy4Lua.PopMsg("我捐助了" .. assData.PlayerName .. "1个" .. iData._Name);
 		end
 	end
 end

@@ -20,6 +20,7 @@ local sendBtn;
 local emojiBtn;
 local yyBtn;
 local content;
+local contentBg;
 
 function liaotian:OnEntry()
 	Window = liaotian.New();
@@ -40,6 +41,7 @@ function liaotian:OnInit()
 	emojiBtn = self.contentPane:GetChild("n10").asButton;
 	yyBtn = self.contentPane:GetChild("n11").asButton;
 	content = self.contentPane:GetChild("n12");
+	contentBg = squadChatCom:GetChild("n7");
 	sendBtn.onClick:Add(liaotian_OnSend);
 	emojiBtn.onClick:Add(liaotian_OnEmoji);
 	yyBtn.onTouchBegin:Add(liaotian_OnYYBegin);
@@ -291,11 +293,13 @@ function liaotian_FlushData(context)
 		emojiBtn.visible = false;
 		yyBtn.visible = false;
 		content.visible = false;
+		contentBg.visible = false;
 	else
 		sendBtn.visible = true;
 		emojiBtn.visible = true;
 		yyBtn.visible = true;
 		content.visible = true;
+		contentBg.visible = true;
 	end
 end
 
