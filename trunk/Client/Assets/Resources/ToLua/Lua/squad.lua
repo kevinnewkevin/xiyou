@@ -31,7 +31,10 @@ local contentBg;
 local settingBtn;
 local quitBtn;
 
+local guildRenmingCom;
+
 local willKickPlayer; --计划踢出的玩家id
+local willRenmingPlayer; --计划任命的玩家id
 
 function squad:OnEntry()
 	Window = squad.New();
@@ -56,6 +59,12 @@ function squad:OnInit()
 
 	settingBtn = self.contentPane:GetChild("n9").asButton;
 	settingBtn.onClick:Add(squad_OnSetting);
+
+	guildRenmingCom = UIPackage.CreateObject("bangpai", "bangpairenming_").asCom;
+	guildRenmingCom.fairyBatching = true;
+	guildRenmingCom:GetChild("n24").asList.onClickItem:Add(squadSetting_OnRenmingSelect);
+	guildRenmingCom:RemoveFromParent();
+	guildRenmingCom:GetChild("n16").onClick:Add(squadSetting_OnRenmingClose);
 
 	-------------------------------chat----------------------------------------
 	squadChatCom = self.contentPane:GetChild("n3").asCom;
@@ -113,9 +122,12 @@ function squad_RenderListItem(index, obj)
 	local lv = headCom:GetChild("n3").asTextField;
 	local renmingBtn = obj:GetChild("n11").asButton;
 	local kickBtn = obj:GetChild("n10").asButton;
-	obj.data = data.GuildId;
+	obj.data = data.RoleId;
 	renmingBtn.onClick:Add(squad_OnRenming);
 	kickBtn.onClick:Add(squad_OnKick);
+
+	renmingBtn.visible = data.Job == 3;
+	kickBtn.visible = data.Job == 2 or data.Job == 3;
 
 	name.text = data.RoleName;
 	pos.url = "ui://" .. data.Job;
@@ -146,8 +158,22 @@ function squad_OnConfirmQuit()
 	Proxy4Lua.LeaveGuild();
 end
 
-function squad_OnRenming()
-	
+function squad_OnRenming(context)
+	if context.sender.data == nil then
+		return;
+	end
+
+	willRenmingPlayer = context.sender.data;
+	GRoot.inst:ShowPopup(guildRenmingCom, context.sender, false);
+end
+
+function squadSetting_OnRenmingSelect()
+	Proxy4Lua.ChangeMemberPosition(willRenmingPlayer, guildRenmingCom:GetChild("n24").selectedIndex + 1);
+	guildRenmingCom:RemoveFromParent();
+end
+
+function squadSetting_OnRenmingClose()
+	guildRenmingCom:RemoveFromParent();
 end
 
 function squad_OnKick(context)
