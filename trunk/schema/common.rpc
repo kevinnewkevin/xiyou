@@ -321,6 +321,7 @@ struct COM_GuildMember
 	int64					RoleId;			//<角色id
 	string					RoleName;		//角色名字
 	int32					Level;			//<角色等级	
+	int32					UnitId;
 	GuildJob				Job;			//<职位
 	int32					Contribution;	//捐献
 	int32					TianTiVal;
