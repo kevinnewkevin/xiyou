@@ -303,6 +303,8 @@ func RequestjoinGuild(player *GamePlayer,guildId int32)  {
 		data.RoleName		= player.MyUnit.InstName
 		data.Level			= player.MyUnit.GetIProperty(prpc.IPT_PROMOTE)
 		data.Time			= time.Now().Unix()
+		data.UnitId			= player.MyUnit.UnitId
+		data.TianTiVal		= player.TianTiVal
 		pGuild.AddGuildRequestList(data)
 	}else {
 		member := prpc.COM_GuildMember{}
