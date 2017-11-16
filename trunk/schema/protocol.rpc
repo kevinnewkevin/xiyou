@@ -85,4 +85,7 @@ service COM_ServerToClient{
 	DelEnemy(int64 instid);
 	//资料查询
 	QueryPlayerInfoOK(COM_PlayerInfo Info);						//查询
+	//帮派求助
+	UpdateGuildAssistant(COM_Assistant info, string donator);
+	SycnGuildAssistant(COM_Assistant[] infos);
 };
