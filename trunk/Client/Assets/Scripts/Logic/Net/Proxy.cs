@@ -326,4 +326,29 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
+    public bool UpdateGuildAssistant(ref COM_Assistant info, string whoAssMe)
+    {
+        ChatSystem.UpdateAss(info);
+        if (!string.IsNullOrEmpty(whoAssMe))
+        {
+            string itemname = "";
+            ItemData iData = ItemData.GetData(info.ItemId);
+            if (iData != null)
+                itemname = iData._Name;
+            LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, itemname);
+        }
+        return true;
+    }
+
+    public bool SyncGuildAssistant(ref COM_PlayerInfo[] infos)
+    {
+        if (infos != null)
+        {
+            for(int i=0; i < infos.Length; ++i)
+            {
+                ChatSystem.UpdateAss(infos[i]);
+            }
+        }
+        return true;
+    }
 }
