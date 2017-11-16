@@ -350,6 +350,7 @@ struct COM_GuildDetails
 	int32				GuildVal;		//帮派积分（所有成员的天梯积分总和）
 	bool				IsRatify;		///申请进帮派是否需要批准
 	int32				Require;		///申请所需段位
+	int32				Contribution;	//捐献
 	COM_GuildMember[]	Member;			///帮主、副帮主的信息	
 };
 
