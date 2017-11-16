@@ -351,4 +351,45 @@ class Proxy : ICOM_ServerToClientProxy
         }
         return true;
     }
+
+		public bool createGuildOK()
+		{
+			return true;
+		}
+
+		public bool delGuildOK()
+		{
+				return true;
+		}
+
+		public bool leaveGuildOk(ref string str,bool b)
+		{
+				return true;
+		}
+
+		public bool initGuildData(ref COM_Guild data)
+		{
+				return true;
+		}
+
+		public bool initGuildMemberList(ref COM_GuildMember[] data)
+		{
+				return true;
+		}
+
+		public bool modifyGuildMemberList(ref COM_GuildMember data,int num)
+		{
+				return true;
+		}
+
+		public bool queryGuildListResult(ref COM_GuildViewerData[] data)
+		{
+				return true;
+		}
+
+		public bool queryGuildDetailsResult(ref COM_GuildDetails data)
+		{
+				return true;
+		}
+
 }
