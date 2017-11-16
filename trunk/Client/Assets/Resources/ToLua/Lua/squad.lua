@@ -103,7 +103,14 @@ function squad:OnUpdate()
 end
 
 function squad:OnTick()
-	helpTime.text = "剩余" .. TimerManager.GetCountDown("AssistantCoolDown");
+	local left = TimerManager.GetCountDown("AssistantCoolDown");
+	if left < 0 then
+		left = 0;
+		helpBtn.enabled = true;
+	else
+		helpBtn.enabled = false;
+	end
+	helpTime.text = left;
 end
 
 function squad:isShow()
