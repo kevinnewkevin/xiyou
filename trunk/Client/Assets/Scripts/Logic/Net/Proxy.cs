@@ -326,7 +326,7 @@ class Proxy : ICOM_ServerToClientProxy
 		return true;
 	}
 
-    public bool UpdateGuildAssistant(ref COM_Assistant info, string whoAssMe)
+    public bool UpdateGuildAssistant(ref COM_Assistant info, ref string whoAssMe)
     {
         ChatSystem.UpdateAss(info);
         if (!string.IsNullOrEmpty(whoAssMe))
@@ -340,7 +340,7 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
-    public bool SyncGuildAssistant(ref COM_Assistant[] infos)
+    public bool SycnGuildAssistant(ref COM_Assistant[] infos)
     {
         if (infos != null)
         {
