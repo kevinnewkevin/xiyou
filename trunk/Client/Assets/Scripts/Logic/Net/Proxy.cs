@@ -354,42 +354,49 @@ class Proxy : ICOM_ServerToClientProxy
 
 		public bool CreateGuildOK()
 		{
+			UIManager.Hide("squadList");
+			UIManager.Show("squad");
 			return true;
 		}
 
 		public bool DelGuildOK()
 		{
-				return true;
+			return true;
 		}
 
 		public bool LeaveGuildOk(ref string str,bool b)
 		{
-				return true;
+			return true;
 		}
 
 		public bool InitGuildData(ref COM_Guild data)
 		{
-				return true;
+			GuildSystem.myGuild = data;
+			return true;
 		}
 
 		public bool InitGuildMemberList(ref COM_GuildMember[] data)
 		{
-				return true;
+			GuildSystem.InitGuildMember (data);
+			return true;
 		}
 
 		public bool ModifyGuildMemberList(ref COM_GuildMember data,int num)
 		{
-				return true;
+			GuildSystem.UpdateGuildMember(data);
+			return true;
 		}
 
 		public bool QueryGuildListResult(ref COM_GuildViewerData[] data)
 		{
-				return true;
+			GuildSystem.InitViewer(data);
+			return true;
 		}
 
 		public bool QueryGuildDetailsResult(ref COM_GuildDetails data)
 		{
-				return true;
+			GuildSystem.searchData = data;
+			return true;
 		}
 
 }

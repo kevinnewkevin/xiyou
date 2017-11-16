@@ -25,7 +25,7 @@ public class Proxy4Lua {
 	}
 	
 	static public bool _CancelMatch = false;
-	static public void StartMatching(int teamId)
+	static public void StartMatching(int teamId) 
 	{
 		new Timer ().Start (3f, delegate {
 			if(!_CancelMatch)
@@ -154,6 +154,46 @@ public class Proxy4Lua {
         NetWoking.S.AssistantItem(assId);
     }
 	
+	static public void CreateGuild(string name)
+	{
+		NetWoking.S.CreateGuild(name);
+	}
+	static public void RequestJoinGuild(int guid)
+	{
+		NetWoking.S.RequestJoinGuild(guid);
+	}
+	static public void KickOut(int guid)
+	{
+		NetWoking.S.KickOut(guid);
+	}
+	static public void AcceptRequestGuild(int playerId) 							
+	{
+		NetWoking.S.AcceptRequestGuild(playerId);
+	}
+	static public void RefuseRequestGuild(int playerId)								
+	{
+		NetWoking.S.RefuseRequestGuild(playerId);
+	}
+	static public void ChangeMemberPosition(int targetId , int job)			
+	{
+		NetWoking.S.ChangeMemberPosition(targetId,job);
+	}
+	static public void QueryGuildList()												
+	{
+		NetWoking.S.QueryGuildList();
+	}
+	static public void QueryGuildDetails(int guildid)								
+	{
+		NetWoking.S.QueryGuildDetails(guildid);
+	}
+	static public void QueryGuildData()
+	{
+		NetWoking.S.QueryGuildData();
+	}
+	static public void ChangeJoinGuildFlag(bool isFlag,int require)
+	{
+		NetWoking.S.ChangeJoinGuildFlag(isFlag,require);
+	}
     #endregion
 
     #region 内部接口
