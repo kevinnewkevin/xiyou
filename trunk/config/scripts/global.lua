@@ -120,6 +120,7 @@ function RegGlobalValue()
 	Define.Set("CreateDefaultClip", "stand"); --默认动画
 	Define.Set("CreateSelectClip", "attack"); --选中动画
 	Define.Set("BattleScenePool", "huangmozhandou,haidizhandou"); --战斗场景随机库
+	Define.Set("AssistantCoolDown", 86400);
 	Define.Set("EmojiTags","001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027,028");
 end
 
