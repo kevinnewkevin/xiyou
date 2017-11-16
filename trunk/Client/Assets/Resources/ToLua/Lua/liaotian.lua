@@ -113,7 +113,6 @@ function liaotian_OnRenderListItem(index, obj)
 	end
 
 	for i=0, crtList.Count - 1 do
-	print(liaotian_GetChatType(crtType));
 		if liaotian_GetChatType(crtType) == 5 then
 			local name = obj:GetChild("n2");
 			local status = obj:GetChild("n4");
