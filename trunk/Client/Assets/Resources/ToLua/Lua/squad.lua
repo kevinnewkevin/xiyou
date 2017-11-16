@@ -134,7 +134,7 @@ function squad_RenderListItem(index, obj)
 end
 
 function squad_OnSetting()
-	
+	UIManager.Show("squadSetting");
 end
 
 function squad_OnQuit()

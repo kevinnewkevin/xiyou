@@ -18,6 +18,7 @@ local guildNeededLoader;
 local guildNeededBtn;
 
 local requestList;
+local guildNeededCom;
 
 function squadSetting:OnEntry()
 	Window = squadSetting.New();
@@ -51,6 +52,12 @@ function squadSetting:OnInit()
 	requestList = requestCom:GetChild("n39").asList;
 	requestList:SetVirtual();
 	requestList.itemRenderer = squadSetting_RenderListItem;
+
+	guildNeededCom = UIPackage.CreateObject("bangpai", "xiugaitiaojian_com").asCom;
+	guildNeededCom.fairyBatching = true;
+	guildNeededCom:GetChild("n24").asList.onClickItem:Add(squadSetting_OnChangeNeed);
+	guildNeededCom:RemoveFromParent();
+	guildNeededCom:GetChild("n2").onClick:Add(squadSetting_OnChangeNeedClose);
 
 	crtType = 0;
 	typeList.selectedIndex = crtType;
@@ -86,8 +93,18 @@ function squadSetting:OnHide()
 	Window:Hide();
 end
 
-function squadSetting_OnNeededChange()
-	
+function squadSetting_OnNeededChange(context)
+	GRoot.inst:ShowPopup(guildNeededCom, context.sender, false);
+end
+
+function squadSetting_OnChangeNeed(context)
+	--guildNeededCom:GetChild("n24").selectedIndex
+	guildNeededCom:RemoveFromParent();
+	UIManager.SetDirty("squadSetting");
+end
+
+function squadSetting_OnChangeNeedClose(context)
+	guildNeededCom:RemoveFromParent();
 end
 
 function squadSetting_RenderListItem(index, obj)
