@@ -188,80 +188,73 @@ function squadliaotian_OnEmojiItem(context)
 end
 
 function squadliaotian_OnRenderListItem(index, obj)
-	if crtList == nil then
-		return;
-	end
+	if liaotian_GetChatType(crtType) == 5 then
+		local name = obj:GetChild("n2");
+		local status = obj:GetChild("n4");
+		local statusBar = obj:GetChild("n5");
+		local itemIconCom = obj:GetChild("n1");
+		local itemIcon = itemIconCom:GetChild("n5");
+		local itemIconBack = itemIconCom:GetChild("n11");
+		local assBtn = obj:GetChild("n6");
+		assBtn.data = crtList[index].Id;
+		assBtn.onClick:Add(liaotiansquad_OnAssistant);
 
-	for i=0, crtList.Count - 1 do
-		if squadliaotian_GetChatType(crtType) == 5 then
-			local name = obj:GetChild("n2");
-			local status = obj:GetChild("n4");
-			local statusBar = obj:GetChild("n5");
-			local itemIconCom = obj:GetChild("n1");
-			local itemIcon = itemIconCom:GetChild("n5");
-			local itemIconBack = itemIconCom:GetChild("n11");
-			local assBtn = obj:GetChild("n6");
-			assBtn.data = crtList[i].Id;
-			assBtn.onClick:Add(squad_OnAssistant);
-
-			name.text = crtList[i].PlayerName;
-			status.text = crtList[i].CrtCount .. "/" .. crtList[i].MaxCount;
-			statusBar.value = crtList[i].CrtCount * 1.0 / crtList[i].MaxCount * 1.0;
-			local iData = ItemData.GetData(crtList[i].ItemId);
-			if iData ~= nil then
-				itemIcon.url = "ui://" .. iData._Icon;
-				itemIconBack.url = "ui://" .. iData._IconBack;
-			else
-				itemIcon.url = "";
-				itemIconBack.url = "";
-			end
-
-			local meAssistanted = false;
-			if crtList[i].IsAssistanted ~= nil then
-				for j=0, crtList[i].IsAssistanted.Length - 1 do
-					if GamePlayer.IsMe(crtList[i].IsAssistanted[j]) then
-						meAssistanted = true;
-						break;
-					end
-				end
-			end
-
-			assBtn.enabled = not meAssistanted and crtList[i].PlayerName ~= GamePlayer._Name;
+		name.text = crtList[index].PlayerName;
+		status.text = crtList[index].CrtCount .. "/" .. crtList[index].MaxCount;
+		statusBar.value = crtList[index].CrtCount / crtList[index].MaxCount * 100;
+		local iData = ItemData.GetData(crtList[index].ItemId);
+		if iData ~= nil then
+			itemIcon.url = "ui://" .. iData._Icon;
+			itemIconBack.url = "ui://" .. iData._IconBack;
 		else
-			if crtList[index].Type == 0 then --系统
-				local content = obj:GetChild("n4").asTextField;
-				content.text = Proxy4Lua.ChangeColor("系统:", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
-			else
-				local yybtn = obj:GetChild("n8").asCom;
-				local yybg = obj:GetChild("n9");
-				local icon = obj:GetChild("n1").asLoader;
-				local name = obj:GetChild("n5").asTextField;
-				local content = obj:GetChild("n7");
-				local contentBg = obj:GetChild("n6");
-				local lv = obj:GetChild("n3");
-
-				if crtList[index].AudioUrl ~= nil then
-					content.visible = false;
-					contentBg.visible = false;
-					yybtn.visible = true;
-					yybg.visible = true;
-					yybtn.onClick:Add(squadliaotian_OnPlayRecord);
-					yybtn.data = crtList[index].AudioId;
-					yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
-					yybtn:GetChild("n2").text = crtList[index].AudioLen .. "\"";
-				else
-					content.visible = true;
-					contentBg.visible = true;
-					yybtn.visible = false;
-					yybg.visible = false;
-					content.width = content.initWidth;
-					content.text = EmojiParser.inst:Parse(crtList[index].Content);
-					content.width = content.textWidth;
+			itemIcon.url = "";
+			itemIconBack.url = "";
+		end
+		local meAssistanted = false;
+		if crtList[index].IsAssistanted ~= nil then
+			for i=0, crtList[index].IsAssistanted.Length - 1 do
+				if GamePlayer.IsMe(crtList[index].IsAssistanted[i]) then
+					meAssistanted = true;
+					break;
 				end
-				icon.url = "ui://" .. crtList[index].HeadIcon;
-				name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
-				lv.text = crtList[index].Level;
 			end
+		end
+
+		assBtn.enabled = not meAssistanted and crtList[index].PlayerName ~= GamePlayer._Name and crtList[index].CrtCount < crtList[index].MaxCount;
+	else
+		if crtList[index].Type == 0 then --系统
+			local content = obj:GetChild("n4").asTextField;
+			content.text = Proxy4Lua.ChangeColor("系统:", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
+		else
+			local yybtn = obj:GetChild("n8").asCom;
+			local yybg = obj:GetChild("n9");
+			local icon = obj:GetChild("n1").asLoader;
+			local name = obj:GetChild("n5").asTextField;
+			local content = obj:GetChild("n7");
+			local contentBg = obj:GetChild("n6");
+			local lv = obj:GetChild("n3");
+
+			if crtList[index].AudioUrl ~= nil then
+				content.visible = false;
+				contentBg.visible = false;
+				yybtn.visible = true;
+				yybg.visible = true;
+				yybtn.onClick:Add(squadliaotian_OnPlayRecord);
+				yybtn.data = crtList[index].AudioId;
+				yybtn:GetChild("n3").visible = not crtList[index].AudioOld;
+				yybtn:GetChild("n2").text = crtList[index].AudioLen .. "\"";
+			else
+				content.visible = true;
+				contentBg.visible = true;
+				yybtn.visible = false;
+				yybg.visible = false;
+				content.width = content.initWidth;
+				content.text = EmojiParser.inst:Parse(crtList[index].Content);
+				content.width = content.textWidth;
+			end
+			icon.url = "ui://" .. crtList[index].HeadIcon;
+			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			lv.text = crtList[index].Level;
 		end
 	end
 end
