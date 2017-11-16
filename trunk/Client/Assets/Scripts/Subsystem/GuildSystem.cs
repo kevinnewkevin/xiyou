@@ -8,12 +8,14 @@ public class GuildSystem
 	public static List<COM_GuildMember> guildMemberList = new List<COM_GuildMember>();
 	public static List<COM_GuildViewerData> guildViewerList = new List<COM_GuildViewerData>();
 	public static COM_GuildDetails searchData;
+	public static  bool IsShowSearch = false;
     public static List<COM_GuildRequestData> requestList = new List<COM_GuildRequestData>();
 	
 	public static void InitGuildMember(COM_GuildMember[] guildMember)
 	{
 		if (guildMember == null)
 				return;
+		guildMemberList.Clear();
 		for (int i = 0; i < guildMember.Length; i++)
 		{
 			guildMemberList.Add (guildMember [i]); 
@@ -24,6 +26,7 @@ public class GuildSystem
 	{
 		if (guilds == null)
 			return;
+		guildViewerList.Clear();
 		for (int i = 0; i < guilds.Length; i++)
 		{
 			guildViewerList.Add (guilds [i]); 
@@ -44,12 +47,24 @@ public class GuildSystem
 		}
 	}
 
-    public static void AddGuildRequest(COM_GuildRequestData data)
+	public static COM_GuildViewerData findGuildViewer(string name)
+	{
+		for (int i = 0; i < guildViewerList.Count; i++)
+		{
+			if (guildViewerList [i].GuildName == name) 
+			{
+				return	guildViewerList [i];
+			}
+		}
+		return null;
+	}
+ 	
+	public static void AddGuildRequest(COM_GuildRequestData data)
     {
         requestList.Add(data);
     }
 
-    public static void DeleteGuildRequest(long playerid)
+	 public static void DeleteGuildRequest(long playerid)
     {
         if(requestList == null)
             return;
@@ -63,9 +78,6 @@ public class GuildSystem
             }
         }
     }
-
-
-	
 
 }
 
