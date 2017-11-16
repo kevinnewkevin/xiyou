@@ -146,6 +146,7 @@ public class Proxy4Lua {
     static public void NeedAssistantItem(int itemId)
     {
         NetWoking.S.NeedAssistantItem(itemId);
+        GamePlayer.AddCoolDown("AssistantCoolDown", TimerManager.GetTimeStamp());
     }
 
     static public void Assistant(int assId)

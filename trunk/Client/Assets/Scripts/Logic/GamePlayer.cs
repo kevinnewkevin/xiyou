@@ -92,7 +92,12 @@ public class GamePlayer {
 		FriendSystem.InitBlacks(player.Enemys);
         UIManager.SetDirty("zhujiemian");
 
-        TimerManager.AddCountDown("AssistantCoolDown", TimerManager.LeftTimeInSecond(player.AssistantCreateTime));
+        AddCoolDown("AssistantCoolDown", player.AssistantCreateTime);
+    }
+
+    static public void AddCoolDown(string key, long value)
+    {
+        TimerManager.AddCountDown(key, Define.GetInt(key) - TimerManager.LeftTimeInSecond(value));
     }
 
     static public void AddCard(COM_Unit card)
