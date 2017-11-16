@@ -90,7 +90,7 @@ function liaotian_GetListItemResource(index)
 		return;
 	end
 
-	if squadliaotian_GetChatType(crtType) == 5 then
+	if liaotian_GetChatType(crtType) == 5 then
 		return assisCom;
 	else
 		if GamePlayer.IsMe(crtList[index].PlayerInstId) then
@@ -113,7 +113,8 @@ function liaotian_OnRenderListItem(index, obj)
 	end
 
 	for i=0, crtList.Count - 1 do
-		if squadliaotian_GetChatType(crtType) == 5 then
+	print(liaotian_GetChatType(crtType));
+		if liaotian_GetChatType(crtType) == 5 then
 			local name = obj:GetChild("n2");
 			local status = obj:GetChild("n4");
 			local statusBar = obj:GetChild("n5");
@@ -281,7 +282,11 @@ end
 function liaotian_FlushData(context)
 	local isScrollBottom = contentList.scrollPane.isBottomMost;
 	local type = liaotian_GetChatType(crtType);
-	crtList = ChatSystem.MsgByType(type);
+	if type == 5 then
+		crtList = ChatSystem._Assistant;
+	else
+		crtList = ChatSystem.MsgByType(type);
+	end
 	contentList.numItems = crtList.Count;
 
 	if isScrollBottom then

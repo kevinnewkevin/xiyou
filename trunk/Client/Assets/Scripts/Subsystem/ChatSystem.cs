@@ -25,6 +25,7 @@ public class ChatSystem {
 
         UIManager.SetDirty("zhujiemian_liaotian");
         UIManager.SetDirty("liaotian");
+        UIManager.SetDirty("squad");
     }
 
     static public void UpdateAss(COM_Assistant ass)
