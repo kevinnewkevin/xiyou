@@ -234,8 +234,6 @@ function squad_FlushData()
 	else
 		crtList = ChatSystem.MsgByType(type);
 	end
-		print(contentList.numItems);
-		print("crtList.Count" .. crtList.Count);
 	contentList.numItems = crtList.Count;
 
 	if isScrollBottom then
