@@ -82,6 +82,19 @@ public class GuildSystem
 		}
 		return null;
 	}
+
+	public static COM_GuildViewerData GetGuildViewer(int id)
+	{
+		for (int i = 0; i < guildViewerList.Count; i++)
+		{
+			if (guildViewerList [i].GuildId == id) 
+			{
+					return	guildViewerList [i];
+			}
+		}
+		return null;
+	}
+
  	
 	public static void AddGuildRequest(COM_GuildRequestData data)
     {
