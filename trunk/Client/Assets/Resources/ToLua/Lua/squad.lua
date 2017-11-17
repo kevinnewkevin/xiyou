@@ -155,8 +155,8 @@ end
 function squad_OnOperateList(memberData)
 	local allPop = memberData.sender:GetChild("n14");
 	local popMenu = allPop:GetChild("n15").asList;
-	if popMenu.visible == true then
-		popMenu.visible = false;
+	if allPop.visible == true then
+		allPop.visible = false;
 		return;
 	end
 	local item = nil;
@@ -210,7 +210,7 @@ function squad_OnRenming(memberData)
 end
 
 function squad_OnKick(memberData)
-	if context.sender.data == nil then
+	if memberData.sender.data == nil then
 		return;
 	end
 

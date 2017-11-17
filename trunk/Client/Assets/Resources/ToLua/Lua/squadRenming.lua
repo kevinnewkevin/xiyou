@@ -18,6 +18,7 @@ end
 function squadRenming:OnInit()
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpairenming_").asCom;
 	self:Center();
+	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n16");
 
 	typeList = self.contentPane:GetChild("n24").asList;
