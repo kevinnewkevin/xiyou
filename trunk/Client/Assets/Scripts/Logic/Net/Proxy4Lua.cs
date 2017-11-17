@@ -161,7 +161,7 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.RequestJoinGuild(guid);
 	}
-	static public void KickOut(int guid)
+	static public void KickOut(long guid)
 	{
 		NetWoking.S.KickOut(guid);
 	}
