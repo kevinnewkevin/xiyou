@@ -47,6 +47,20 @@ public class GuildSystem
 		}
 	}
 
+
+	public static void LeaveGuildMember( string name,bool b)
+	{
+		for (int i = 0; i < guildMemberList.Count; i++)
+		{
+			if (guildMemberList [i].RoleName == name) 
+			{
+				guildMemberList.Remove( guildMemberList [i]);
+				break;
+			}
+		}
+	}
+
+
 	public static COM_GuildViewerData findGuildViewer(string name)
 	{
 		for (int i = 0; i < guildViewerList.Count; i++)
