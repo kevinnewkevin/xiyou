@@ -153,8 +153,14 @@ function squadList_OnCreateConfirm()
 end
 
 function squadList_OnSearch(context)
+	local guild = GuildSystem.searchData;
+	if guild.Require > GamePlayer.GetTianTiLevel() then
+		local MessageBox1 = UIManager.ShowMessageBox();
+		MessageBox1:SetData("提示", "不满足条件", true);
+		return;
+	end
 	Proxy4Lua.RequestJoinGuild(context.sender.data);
-	Proxy4Lua.PopMsg("申请成功");
+	Proxy4Lua.PopMsg("申请发送成功");
 	searchCom.visible = false;
 end
 
