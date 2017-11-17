@@ -117,9 +117,9 @@ function searchList_RenderListItem(index, obj)
 	obj:GetChild("n5").text = info.TianTiVal .."";
 	obj:GetChild("n3").asLoader.url = "ui://squadList/xiao_duanwei" .. GamePlayer.RankLevel(info.TianTiVal);
 	if info.Job == 3 then
-		obj:GetChild("n3").asLoader.url = "ui://squadList/duanwei";
+		obj:GetChild("n2").asLoader.url = "ui://squadList/cy_07";
 	elseif info.Job == 2 then
-		obj:GetChild("n3").asLoader.url = "ui://squadList/duanwei"
+		obj:GetChild("n2").asLoader.url = "ui://squadList/cu_06"
 	end
 end
 
@@ -177,7 +177,7 @@ function squadList_OnFindGuild()
 		Proxy4Lua.PopMsg("没有此家族");
 		return;
 	end
-	findName.text = "";
+	--findName.text = "";
 	Proxy4Lua.QueryGuildDetails(guild.GuildId);
 	GuildSystem.IsShowSearch = true;
 end
@@ -204,7 +204,7 @@ function squadList:OnDispose()
 end
 
 function squadList:OnHide()
-	findName.text = "";
+	--findName.text = "";
 	searchCom.visible = false;
 	createName.text = "";
 	createCom.visible = false;
@@ -230,10 +230,10 @@ function squadList_UpdateSearch()
 
 	searchName.text = "帮派名称："..info.GuildName;
 	searchNum.text = "帮派编号："..info.GuildId.."";
-	searchPlayerNum.text = "帮派人数："..info.MemberNum.."";
+	searchPlayerNum.text = "帮派人数："..info.MemberNum.."/50";
 	searchFen.text = "帮派积分："..info.GuildVal.."";
 	searchjuan.text = "帮派捐献："..info.Contribution;
-	searchTiao.text = "加入条件：天梯等级"..GamePlayer.RankLevel(info.Require);
+	searchTiao.text = "加入条件：天梯等级"..info.Require;
 	if info.IsRatify == true then
 		searchType.text = "类型：需申请";
 	else

@@ -358,10 +358,11 @@ function zhujiemian_OnChatBtn()
 end
 
 function zhujiemian_OnGuild()
-	if GuildSystem.myGuild == nil then
+	if GamePlayer._iGuildId == 0 then
 		Proxy4Lua.QueryGuildList();
 		UIManager.Show("squadList");
 	else
+		Proxy4Lua.QueryGuildData();
 		UIManager.Show("squad");
 	end
 end

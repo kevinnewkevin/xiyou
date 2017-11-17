@@ -45,6 +45,7 @@ end
 function squad:OnInit()
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
+	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n6");
 
 	member = self.contentPane:GetChild("n8").asList;
