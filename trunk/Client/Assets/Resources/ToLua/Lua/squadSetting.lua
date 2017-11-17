@@ -105,7 +105,8 @@ function squadSetting_OnNeededChange(context)
 end
 
 function squadSetting_OnChangeNeed(context)
-	GuildSystem.myGuild.Require = context.data.gameObjectName;
+print(context.data.gameObjectName);
+	GuildSystem.myGuild.Require = Proxy4Lua.RemoveString(context.data.gameObjectName, "xiaoduanwei");
 	Proxy4Lua.ChangeJoinGuildFlag(GuildSystem.myGuild.IsRatify, GuildSystem.myGuild.Require);
 	guildNeededCom:RemoveFromParent();
 	UIManager.SetDirty("squadSetting");
@@ -192,6 +193,5 @@ function squadSetting_FlushData()
 	else
 		guildNeedCheck:GetController("a1").selectedIndex = 1;
 	end
-	print(GuildSystem.myGuild.Require);
 	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GuildSystem.myGuild.Require;
 end
