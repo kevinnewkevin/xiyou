@@ -442,7 +442,7 @@ end
 
 function squadliaotian_OnYYEnd()
 	yyAnim.visible = false;
-	local chatType = liaotian_GetChatType(crtType);
+	local chatType = squadliaotian_GetChatType(crtType);
 	if chatType == -1 then
 		chatType = 1;
 	end
