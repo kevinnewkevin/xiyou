@@ -186,8 +186,8 @@ function squadSetting_FlushData()
 	guildName.text = "帮派名称: " .. GuildSystem.myGuild.GuildName;
 	guildId = "帮派编号: " .. GuildSystem.myGuild.GuildId;
 	guildCount = "帮派人数: " .. GuildSystem.myGuild.GuildName;
-	guildScore = "帮派积分: " .. GuildSystem.myGuild.GuildName;
-	guildGiftWeek = "每周捐献: " .. GuildSystem.myGuild.GuildName;
+	guildScore = "帮派积分: " .. GuildSystem.myGuild.GuildVal;
+	guildGiftWeek = "每周捐献: " .. GuildSystem.myGuild.Contribution;
 	if GuildSystem.myGuild.IsRatify then
 		guildNeedCheck:GetChild("n1").visible = true;
 		guildNeedCheck:GetChild("n2").visible = false;
