@@ -165,15 +165,15 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.KickOut(guid);
 	}
-	static public void AcceptRequestGuild(int playerId) 							
+    static public void AcceptRequestGuild(long playerId) 							
 	{
 		NetWoking.S.AcceptRequestGuild(playerId);
 	}
-	static public void RefuseRequestGuild(int playerId)								
+    static public void RefuseRequestGuild(long playerId)								
 	{
 		NetWoking.S.RefuseRequestGuild(playerId);
 	}
-	static public void ChangeMemberPosition(int targetId , int job)			
+	static public void ChangeMemberPosition(long targetId , int job)			
 	{
 		NetWoking.S.ChangeMemberPosition(targetId,job);
 	}
