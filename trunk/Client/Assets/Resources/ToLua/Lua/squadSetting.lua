@@ -189,11 +189,9 @@ function squadSetting_FlushData()
 	guildScore = "帮派积分: " .. GuildSystem.myGuild.GuildVal;
 	guildGiftWeek = "每周捐献: " .. GuildSystem.myGuild.Contribution;
 	if GuildSystem.myGuild.IsRatify then
-		guildNeedCheck:GetChild("n1").visible = true;
-		guildNeedCheck:GetChild("n2").visible = false;
+		guildNeedCheck:GetController("button").selectedIndex = 0;
 	else
-		guildNeedCheck:GetChild("n1").visible = false;
-		guildNeedCheck:GetChild("n2").visible = true;
+		guildNeedCheck:GetController("button").selectedIndex = 1;
 	end
 	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(GuildSystem.myGuild.Require);
 end
