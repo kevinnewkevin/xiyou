@@ -28,6 +28,7 @@ local maxChatSendBtn;
 local friendRad;
 
 local chatBtn;
+local guildBtn;
 
 function zhujiemian:OnEntry()
 	UIManager.RegIDirty("zhujiemian");
@@ -56,7 +57,7 @@ function zhujiemian:OnInit()
 	local bagBtn = bottomBtnList:GetChildAt(0);
 	bagBtn.onClick:Add(zhujiemian_OnBagBtn);
 
-	local guildBtn = bottomBtnList:GetChildAt(3);
+	guildBtn = bottomBtnList:GetChildAt(3);
 	guildBtn.onClick:Add(zhujiemian_OnGuild);
 
 	local shopBtn = self.contentPane:GetChild("n30");
@@ -199,7 +200,7 @@ function zhujiemian_FlushData()
   			end
   	end
 	DoSpecialEffect();
-
+	guildBtn.enabled = GamePlayer._Data.IProperties[9] >= 1;
 end
 
 function zhujiemian_FlushChatData()
