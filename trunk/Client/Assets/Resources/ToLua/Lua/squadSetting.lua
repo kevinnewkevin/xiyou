@@ -161,8 +161,8 @@ function squadSetting_OnAdd(context)
 	end
 
 	Proxy4Lua.AcceptRequestGuild(context.sender.data);
-	GuildSystem.DeleteGuildRequest(context.sender.data);
-	UIManager.SetDirty("squadSetting");
+--	GuildSystem.DeleteGuildRequest(context.sender.data);
+--	UIManager.SetDirty("squadSetting");
 end
 
 function squadSetting_OnIgnore(context)
@@ -171,13 +171,15 @@ function squadSetting_OnIgnore(context)
 	end
 
 	Proxy4Lua.RefuseRequestGuild(context.sender.data);
-	GuildSystem.DeleteGuildRequest(context.sender.data);
-	UIManager.SetDirty("squadSetting");
+--	GuildSystem.DeleteGuildRequest(context.sender.data);
+--	UIManager.SetDirty("squadSetting");
 end
 	
 function squadSetting_FlushData()
 	if GuildSystem.myGuild.RequestList ~= nil then
 		requestList.numItems = GuildSystem.myGuild.RequestList.Length;
+	else
+		requestList.numItems = 0;
 	end
 
 	if crtType == 0 then

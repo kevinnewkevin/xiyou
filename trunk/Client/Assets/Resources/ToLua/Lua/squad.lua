@@ -161,41 +161,32 @@ function squad_OnOperateList(memberData)
 		allPop.visible = false;
 		return;
 	end
-	local item = nil;
-	local has = false;
+	local item = popMenu:GetChildAt(2).asButton;
+	local count = 0;
 	if memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:GetChildAt(2).asButton;
 		item.onClick:Add(squad_OnDetail);
 		item.data = memberData.sender.data;
-		has = true;
+		count = count + 1;
 	end
-	if item ~= nil then
-		item.enabled = memberData.sender.data.RoleName ~= GamePlayer._Name;
-	end
+	item.enabled = memberData.sender.data.RoleName ~= GamePlayer._Name;
 
-	item = nil;
+	item = popMenu:GetChildAt(0);
 	if GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:GetChildAt(0);
 		item.onClick:Add(squad_OnRenming);
 		item.data = memberData.sender.data;
-		has = true;
+		count = count + 1;
 	end
-	if item ~= nil then
-		item.enabled = GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name;
-	end
+	item.enabled = GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name;
 
-	item = nil;
+	item = popMenu:GetChildAt(1);
 	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:GetChildAt(1);
 		item.onClick:Add(squad_OnKick);
 		item.data = memberData.sender.data;
-		has = true;
+		count = count + 1;
 	end
-	if item ~= nil then
-		item.enabled = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name;
-	end
+	item.enabled = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name;
 
-	allPop.visible = has;
+	allPop.visible = count ~= 0;
 end
 
 function squad_OnDetail(memberData)
