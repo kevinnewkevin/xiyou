@@ -14,8 +14,6 @@ local otherCom = "ui://liaotian/duifang_com";
 local selfCom = "ui://liaotian/wofang_com";
 local assisCom = "ui://bangpai/zhiyuan_com";
 
-local popMenuBg = "ui://bangpai/47";
-
 local contentList;
 local typeList;
 local crtType;
@@ -46,7 +44,6 @@ end
 
 function squad:OnInit()
 	Define.LaunchUIBundle("liaotian");
-	UIConfig.popupMenu = popMenuBg;
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
 	self.modal = true;
@@ -156,25 +153,47 @@ function squad_RenderListItem(index, obj)
 end
 
 function squad_OnOperateList(memberData)
-	local popMenu = PopupMenu.New();
+	local allPop = memberData.sender:GetChild("n14");
+	local popMenu = allPop:GetChild("n15").asList;
+	if popMenu.visible == true then
+		popMenu.visible = false;
+		return;
+	end
 	local item = nil;
+	local has = false;
 	if memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:AddItem("查看", squad_OnDetail);
+		item = popMenu:GetChildAt(2).asButton;
+		item.onClick:Add(squad_OnDetail);
 		item.data = memberData.sender.data;
-	end
-
-	if GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:AddItem("任命", squad_OnRenming);
-		item.data = memberData.sender.data;
-	end
-
-	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name then
-		item = popMenu:AddItem("踢出", squad_OnKick);
-		item.data = memberData.sender.data;
+		has = true;
 	end
 	if item ~= nil then
-		popMenu:Show(memberData.sender, true);
+		item.enabled = memberData.sender.data.RoleName ~= GamePlayer._Name;
 	end
+
+	item = nil;
+	if GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name then
+		item = popMenu:GetChildAt(0);
+		item.onClick:Add(squad_OnRenming);
+		item.data = memberData.sender.data;
+		has = true;
+	end
+	if item ~= nil then
+		item.enabled = GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name;
+	end
+
+	item = nil;
+	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name then
+		item = popMenu:GetChildAt(1);
+		item.onClick:Add(squad_OnKick);
+		item.data = memberData.sender.data;
+		has = true;
+	end
+	if item ~= nil then
+		item.enabled = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name;
+	end
+
+	allPop.visible = has;
 end
 
 function squad_OnDetail(memberData)
