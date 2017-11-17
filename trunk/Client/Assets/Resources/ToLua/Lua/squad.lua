@@ -407,6 +407,11 @@ function squadliaotian_OnSend()
 		return;
 	end
 
+	if chatType == 4 and GamePlayer._Data.IProperties[9] < 3 then
+		Proxy4Lua.PopMsg("3级开启帮派权限");
+		return;
+	end
+
 	local chat = COM_Chat.New();
 	local chatType = squadliaotian_GetChatType(crtType);
 	if chatType == -1 then
