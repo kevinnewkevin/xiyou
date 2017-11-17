@@ -136,7 +136,8 @@ function squadSetting_RenderListItem(index, obj)
 	local ignore = obj:GetChild("n44").asButton;
 	add.onClick:Add(squadSetting_OnAdd);
 	ignore.onClick:Add(squadSetting_OnIgnore);
-	obj.data = data.RoleId;
+	add.data = data.RoleId;
+	ignore.data = data.RoleId;
 
 	playerName.text = data.RoleName;
 	local eData = EntityData.GetData(data.UnitId);
