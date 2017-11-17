@@ -20,13 +20,14 @@ function SK_314_Action(battleid, casterid)
 	local skillAttack = 10	-- 技能攻击
 	--local attackNum = 0		-- 攻击个数
 	--Battle.Cure(battleid,casterid,0,0)
-	sys.log("蛟魔王 孽龙 给自己  加buff164")
+	sys.log("蛟魔王 孽龙 给自己  加buff163")
 	Battle.AddSkillBuff(battleid,casterid, casterid, 163,30)  -- 受到的伤害增加30%
 	sys.log("蛟魔王 孽龙 给自己   加buff122")
 	Battle.AddSkillBuff(battleid,casterid, casterid, 122,50)  -- 造成的伤害提升50%
 	sys.log("蛟魔王 孽龙 给自己  加buff完成")
 
 	local  t = Player.GetTarget(battleid,casterid)  --获取目标
+
 	local damage = Player.GetUnitDamage(battleid,casterid,t)  -- 获取伤害
 	sys.log("蛟魔王 孽龙 给目标  " ..t.. " 造成 物理伤害  "..damage)
 	local caster_damage = ClacDamageByAllBuff(battleid,casterid,t,damage)
@@ -44,10 +45,8 @@ function SK_314_Action(battleid, casterid)
 	Battle.AddBuff(battleid,casterid,t,163,atk_damage)
 
 	--被动技能 
-	local atk = Player.GetUnitAtk(battleid,casterid)--物理强度
-	local atk_damage = atk * 0.1
-	sys.log("蛟魔王 被动技能 给目标  " ..target .." 加增伤buff  164")
-	Battle.AddBuff(battleid,casterid,target,164,atk_damage)
+	sys.log("蛟魔王 被动技能 给目标  " ..t .." 加增伤buff  164")
+	Battle.AddBuff(battleid,casterid,t,164,atk_damage)
 
 	Battle.TargetOver(battleid)
 	
