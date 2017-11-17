@@ -240,6 +240,7 @@ struct SGE_DBPlayer : COM_Player {
 
 struct SGE_DBTopUnit {
 	string	Name;			//姓名
+	int64	InstId;			//ID
 	int32	Level;			//等级
 	int32	TianTi;			//天体点数
 	int32	DisplayID;		//头像
@@ -274,6 +275,7 @@ struct COM_Assistant
 struct COM_TopUnit
 {
 	string	Name;			//姓名
+	int64	InstId;			//ID
 	int32	Level;			//等级
 	int32	TianTi;			//天体点数
 	int32	DisplayID;		//头像
