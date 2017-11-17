@@ -76,7 +76,12 @@ function wanjiaxinxi_FlushData()
 	numLab.text = info.TiatiVal .."";   
 	tatle.text = info.Name.."的信息";
 	guildLab.text = "帮会：" .. info.ClanName;
-	rankLab.text = info.TiatiRank.."";
+	if info.TiatiRank <= 0 then
+		rankLab.text = "未入榜";
+	else
+		rankLab.text = info.TiatiRank.."";
+	end
+
 	levelLab.text = info.Level.."";
 	local displayData = DisplayData.GetData(info.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
