@@ -259,12 +259,13 @@ public static class CustomSettings
         _GT(typeof(EmojiParser)),
         _GT(typeof(SwipeGesture)),
 		_GT(typeof(COM_PlayerInfo)),
-		 _GT(typeof(COM_Assistant)),
+		_GT(typeof(COM_Assistant)),
 		_GT(typeof(COM_GuildDetails)),
 		_GT(typeof(COM_GuildViewerData)),
         _GT(typeof(COM_Guild)),
         _GT(typeof(COM_GuildMember)),
         _GT(typeof(COM_GuildRequestData)),
+        _GT(typeof(PopupMenu)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
