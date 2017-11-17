@@ -130,4 +130,5 @@ function RegUIResMap()
 	UIManager.RegUIResMap("squad", "bangpai");
 	UIManager.RegUIResMap("squadHelp", "bangpai");
 	UIManager.RegUIResMap("squadSetting", "bangpai");
+	UIManager.RegUIResMap("squadRenming", "bangpai");
 end
