@@ -265,7 +265,6 @@ public static class CustomSettings
         _GT(typeof(COM_Guild)),
         _GT(typeof(COM_GuildMember)),
         _GT(typeof(COM_GuildRequestData)),
-        _GT(typeof(PopupMenu)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
