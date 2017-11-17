@@ -96,8 +96,8 @@ end
 
 function squadSetting_OnNeedCheck()
 	GuildSystem.myGuild.IsRatify = not GuildSystem.myGuild.IsRatify;
-	UIManager.SetDirty("squadSetting");
 	Proxy4Lua.ChangeJoinGuildFlag(GuildSystem.myGuild.IsRatify, GuildSystem.myGuild.Require);
+	UIManager.SetDirty("squadSetting");
 end
 
 function squadSetting_OnNeededChange(context)
@@ -105,7 +105,7 @@ function squadSetting_OnNeededChange(context)
 end
 
 function squadSetting_OnChangeNeed(context)
-	GuildSystem.myGuild.Require = guildNeededCom:GetChild("n24").selectedIndex;
+	GuildSystem.myGuild.Require = context.data.gameObjectName;
 	Proxy4Lua.ChangeJoinGuildFlag(GuildSystem.myGuild.IsRatify, GuildSystem.myGuild.Require);
 	guildNeededCom:RemoveFromParent();
 	UIManager.SetDirty("squadSetting");
@@ -189,9 +189,10 @@ function squadSetting_FlushData()
 	guildScore = "帮派积分: " .. GuildSystem.myGuild.GuildVal;
 	guildGiftWeek = "每周捐献: " .. GuildSystem.myGuild.Contribution;
 	if GuildSystem.myGuild.IsRatify then
-		guildNeedCheck:GetController("button").selectedIndex = 0;
+		guildNeedCheck:GetController("a1").selectedIndex = 0;
 	else
-		guildNeedCheck:GetController("button").selectedIndex = 1;
+		guildNeedCheck:GetController("a1").selectedIndex = 1;
 	end
-	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(GuildSystem.myGuild.Require);
+	print(GuildSystem.myGuild.Require);
+	guildNeededLoader.url = "ui://bangpai/xiao_duanwei" .. GuildSystem.myGuild.Require;
 end

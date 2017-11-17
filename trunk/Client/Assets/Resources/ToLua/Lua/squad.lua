@@ -118,8 +118,8 @@ function squad_RenderListItem(index, obj)
 	renmingBtn.onClick:Add(squad_OnRenming);
 	kickBtn.onClick:Add(squad_OnKick);
 
-	renmingBtn.visible = data.Job == 3;
-	kickBtn.visible = data.Job == 2 or data.Job == 3;
+	renmingBtn.visible = data.Job == 3 and data.RoleName ~= GamePlayer._Name;
+	kickBtn.visible = (data.Job == 2 or data.Job == 3) and data.RoleName ~= GamePlayer._Name;
 
 	name.text = data.RoleName;
 	pos.url = "ui://bangpai/cu_" .. data.Job;
