@@ -916,6 +916,7 @@ func (player *GamePlayer)GuildAssistantItem(ass int32)  {
 	com.MaxCount	= data.MaxCount
 	com.ItemId		= data.ItemId
 	com.PlayerName  = data.RoleName
+	com.IsAssistanted = append(com.IsAssistanted,player.MyUnit.InstId)
 	BroadcastAssistant(player.GuildId,com,player.MyUnit.InstName)
 
 	logs.Info("GuildAssistantItem ",data)
@@ -936,6 +937,7 @@ func (player *GamePlayer)SycnGuildAssistants()  {
 	//将所有现有请求同步给PLAYER
 	data := <- FindGuildAssistantByGuildId(player.GuildId)
 	if data == nil {
+		logs.Info("FindGuildAssistantByGuildId == Null")
 		return
 	}
 
@@ -948,10 +950,13 @@ func (player *GamePlayer)SycnGuildAssistants()  {
 		com.MaxCount	= m.MaxCount
 		com.ItemId		= m.ItemId
 		com.PlayerName  = m.RoleName
+		com.IsAssistanted = m.Donator
 		infos = append(infos,com)
 	}
 
 	player.session.SycnGuildAssistant(infos)
+
+	logs.Info("SycnGuildAssistant ==", infos)
 }
 
 func BroadcastAssistant(guildid int32,info prpc.COM_Assistant,donator string)  {

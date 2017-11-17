@@ -1119,7 +1119,7 @@ func FindGuildAssistantById(assistantId int32) <-chan *prpc.SGE_DBGuildAssistant
 			return
 		}
 		defer c.Close()
-		buffs := []byte{}
+
 		r, e := c.Query("SELECT * FROM `GuildAssistant` WHERE `AssistantId` = ?",assistantId)
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1128,7 +1128,8 @@ func FindGuildAssistantById(assistantId int32) <-chan *prpc.SGE_DBGuildAssistant
 			return
 		}
 		if r.Next() {
-			r.Scan(&data.Id,&data.RoleName,&data.GuildId,&data.ItemId,&data.CrtCount,&data.MaxCount,&data.CatchNum,buffs)
+			buffs := []byte{}
+			r.Scan(&data.Id,&data.RoleName,&data.GuildId,&data.ItemId,&data.CrtCount,&data.MaxCount,&data.CatchNum,&buffs)
 			e = json.Unmarshal(buffs,&data.Donator)
 			if e != nil {
 				logs.Debug(e.Error())
@@ -1156,7 +1157,7 @@ func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssista
 			return
 		}
 		defer c.Close()
-		buffs := []byte{}
+
 		r, e := c.Query("SELECT * FROM `GuildAssistant` WHERE `GuildId` = ?",guildId)
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1165,8 +1166,9 @@ func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssista
 			return
 		}
 		for r.Next() {
+			buffs := []byte{}
 			m := prpc.SGE_DBGuildAssistant{}
-			r.Scan(&m.Id,&m.RoleName,&m.GuildId,&m.ItemId,&m.CrtCount,&m.MaxCount,&m.CatchNum,buffs)
+			r.Scan(&m.Id,&m.RoleName,&m.GuildId,&m.ItemId,&m.CrtCount,&m.MaxCount,&m.CatchNum,&buffs)
 			e = json.Unmarshal(buffs,&m.Donator)
 			if e != nil {
 				logs.Debug(e.Error())
