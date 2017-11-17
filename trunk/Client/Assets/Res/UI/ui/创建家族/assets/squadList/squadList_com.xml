@@ -20,7 +20,7 @@
     <text id="n16_p364" name="n16" xy="1472,259" size="143,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" text="操作"/>
     <text id="n17_p364" name="n17" xy="843,108" size="240,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" text="帮派列表"/>
     <image id="n19_p364" name="n19" src="gzpja" xy="548,163" size="862,58"/>
-    <text id="n20_p364" name="n20" xy="568,166" size="750,41" input="true" prompt="输入帮派名称进行搜索" restrict="6" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" text=""/>
+    <text id="n20_p364" name="n20" xy="568,166" size="750,41" input="true" prompt="输入帮派名称进行搜索" maxLength="6" restrict="6" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" text=""/>
     <component id="n21_p364" name="n21" src="gzpjb" xy="1308,156"/>
     <component id="n22_p364" name="n22" src="gzpjd" xy="686,917"/>
     <component id="n23_p364" name="n23" src="gzpjf" xy="1072,915"/>
