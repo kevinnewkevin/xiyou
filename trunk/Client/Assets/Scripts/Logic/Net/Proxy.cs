@@ -367,6 +367,13 @@ class Proxy : ICOM_ServerToClientProxy
 
 		public bool LeaveGuildOk(ref string str,bool b)
 		{
+			if (str == GamePlayer._Name) 
+			{
+				GamePlayer._iGuildId = 0;
+				GuildSystem.myGuild = null;
+				UIManager.Hide("squad");	
+			}
+
 			GuildSystem.LeaveGuildMember (str, b);
 			UIManager.SetDirty("squad");
 			return true;
@@ -385,13 +392,19 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			GuildSystem.InitGuildMember (data);
 			UIManager.SetDirty("squadList");
+				UIManager.SetDirty("squad");
 			return true;
 		}
 
 		public bool ModifyGuildMemberList(ref COM_GuildMember data,int num)
 		{
 			GuildSystem.UpdateGuildMember(data);
-				UIManager.SetDirty("squadList");
+			if (num == 0) 
+			{
+				GuildSystem.AddGuildMember(data);
+			}
+			UIManager.SetDirty("squadList");
+			UIManager.SetDirty("squad");
 			return true;
 		}
 
@@ -399,6 +412,7 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			GuildSystem.InitViewer(data);
 			UIManager.SetDirty("squadList");
+				UIManager.SetDirty("squad");
 			return true;
 		}
 
@@ -406,6 +420,7 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			GuildSystem.searchData = data;
 			UIManager.SetDirty("squadList");
+				UIManager.SetDirty("squad");
 			return true;
 		}
 		public bool JoinGuildOk()
