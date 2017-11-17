@@ -44,6 +44,8 @@ public class ChatSystem {
             _Assistant.Add(ass);
             if(ass.PlayerName.Equals(GamePlayer._Name))
                 GamePlayer.AddCoolDown("AssistantCoolDown", TimerManager.GetTimeStamp());
+            else
+                LuaManager.Call("global.lua", "ReceivedAssistant", ass);
         }
 
         UIManager.SetDirty("liaotian");
