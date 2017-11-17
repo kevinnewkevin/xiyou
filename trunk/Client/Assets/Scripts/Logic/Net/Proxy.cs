@@ -373,6 +373,7 @@ class Proxy : ICOM_ServerToClientProxy
 		public bool InitGuildData(ref COM_Guild data)
 		{
 			GuildSystem.myGuild = data;
+			GamePlayer._iGuildId = data.GuildId; 
 			UIManager.SetDirty("squadList");
 			UIManager.SetDirty("squad");
 			return true;
