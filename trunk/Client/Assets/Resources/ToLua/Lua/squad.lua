@@ -372,8 +372,8 @@ function squadliaotian_OnRenderListItem(index, obj)
 				end
 			end
 		end
-
-		assBtn.enabled = not meAssistanted and crtList[index].PlayerName ~= GamePlayer._Name and crtList[index].CrtCount < crtList[index].MaxCount;
+		local itemNum = BagSystem.GetItemMaxNum(crtList[index].ItemId);
+		assBtn.enabled = not meAssistanted and crtList[index].PlayerName ~= GamePlayer._Name and crtList[index].CrtCount < crtList[index].MaxCount and itemNum >= 1;
 	else
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
