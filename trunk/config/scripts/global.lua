@@ -74,9 +74,14 @@ function GainItem()
 	Proxy4Lua.PopMsg("获得魂币" .. (value - GamePlayer._Data.IProperties[type]));
 end
 
---获得物品
+--谁支援了我
 function WhoAssistantMe(who, item)
 	Proxy4Lua.PopMsg(who .. "支援了我1个" .. item);
+end
+
+--收到聊天
+function ReceivedAssistant(ass)
+	Proxy4Lua.PopMsg(ass.PlayerName .. "在支援频道发布了支援请求,快去帮助他吧!");
 end
 
 --改变颜色ubb语法
