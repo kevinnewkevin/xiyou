@@ -778,6 +778,14 @@ func UpdateDBGuildVal(guildId int32,val int32) <-chan bool {
 		defer c.Close()
 
 		stmt, e := c.Prepare("UPDATE `Guild` SET `GuildVal`=? WHERE `GuildId`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(val,guildId)
 		stmt.Close()
 
@@ -800,6 +808,12 @@ func UpdateDBGuildRatify(guildId int32,isRatify bool,require int32) <-chan bool 
 		defer c.Close()
 
 		stmt, e := c.Prepare("UPDATE `Guild` SET `RequestFlag`=? `Require`=?  WHERE `GuildId`=?")
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
 		if isRatify {
 			stmt.Exec(1,require,guildId)
 		}else {
@@ -827,6 +841,13 @@ func UpdateDBGuildContribution(guildId int32,contribution int32) <-chan bool {
 
 		stmt, e := c.Prepare("UPDATE `Guild` SET `Contribution`=?   WHERE `GuildId`=?")
 
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(contribution,guildId)
 
 		stmt.Close()
@@ -851,6 +872,13 @@ func ResetDBGuildContribution() <-chan bool {
 
 		stmt, e := c.Prepare("UPDATE `Guild` SET `Contribution`=?")
 
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(0)
 
 		stmt.Close()
@@ -874,6 +902,14 @@ func InsertGuildMember(member prpc.COM_GuildMember) <-chan bool {
 		defer c.Close()
 
 		stmt, e := c.Prepare("INSERT INTO `GuildMember`(`GuildId`, `RoleId`,`RoleName`,`Rolelevel`,`Job`,`TianTiVal`,`UnitId`)VALUES(?,?,?,?,?,?,?)")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(member.GuildId,member.RoleId,member.RoleName,member.Level,member.Job,member.TianTiVal,member.UnitId)
 		stmt.Close()
 
@@ -896,6 +932,14 @@ func DeleteDBGuildMember(roleId int64) <-chan bool {
 		defer c.Close()
 
 		stmt, e := c.Prepare("DELETE FROM `GuildMember` WHERE `RoleId`= ?  ")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(roleId)
 		stmt.Close()
 
@@ -918,6 +962,14 @@ func UpdateDBGuildMemberVal(player int64,val int32) <- chan bool  {
 		defer c.Close()
 
 		stmt, e := c.Prepare("UPDATE `GuildMember` SET `TianTiVal`=? WHERE `RoleId`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(val,player)
 		stmt.Close()
 
@@ -940,6 +992,14 @@ func UpdateDBGuildMemberJob(player int64,job int) <- chan bool  {
 		defer c.Close()
 
 		stmt, e := c.Prepare("UPDATE `GuildMember` SET `Job`=? WHERE `RoleId`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(job,player)
 		stmt.Close()
 
@@ -962,6 +1022,14 @@ func UpdateDBGuildMemberLevel(player int64,level int32) <- chan bool  {
 		defer c.Close()
 
 		stmt, e := c.Prepare("UPDATE `GuildMember` SET `Rolelevel`=? WHERE `RoleId`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(level,player)
 		stmt.Close()
 
@@ -1022,6 +1090,14 @@ func DelGuildAssistant(assistantId int32) <-chan bool {
 		defer c.Close()
 
 		stmt, e := c.Prepare("DELETE FROM `GuildAssistant` WHERE `AssistantId`= ?  ")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
 		stmt.Exec(assistantId)
 		stmt.Close()
 

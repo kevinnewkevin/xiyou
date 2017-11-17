@@ -236,7 +236,7 @@ func AddGuildMember(member prpc.COM_GuildMember) bool {
 	return true
 }
 
-func DelGuildMember(roleid int64)  {
+func DelGuildMember(roleid int64,isKick bool)  {
 	pGuild := FindGuildByPlayerId(roleid)
 	if pGuild==nil {
 		return
@@ -245,6 +245,29 @@ func DelGuildMember(roleid int64)  {
 	DeleteDBGuildMember(roleid)
 	if len(pGuild.GuildMember)==0 {
 		DelGuild(pGuild.GuildData.GuildId)
+	}
+
+	player := FindPlayerByInstId(roleid)
+
+	if player == nil {
+		return
+	}
+	if player.session == nil {
+		return
+	}
+	if isKick {
+		player.session.LeaveGuildOk(player.MyUnit.InstName,isKick)
+	}else {
+		for _,m := range pGuild.GuildMember{
+			if m == nil {
+				continue
+			}
+			p := FindPlayerByInstId(roleid)
+			if p == nil {
+				continue
+			}
+			p.session.LeaveGuildOk(player.MyUnit.InstName,isKick)
+		}
 	}
 }
 
@@ -356,6 +379,8 @@ func RequestjoinGuild(player *GamePlayer,guildId int32)  {
 			InsertGuildMember(member)
 			pGuild.UpdateGuildVal()
 		}
+
+		player.session.JoinGuildOk()
 	}
 }
 
@@ -419,6 +444,8 @@ func AcceptrequestGuild(player *GamePlayer,proposerId int64)  {
 		newMember.GuildId	= pGuild.GuildData.GuildId
 		newMember.Job		= prpc.GJ_People
 		newMember.UnitId	= proposer.MyUnit.UnitId
+
+		proposer.session.JoinGuildOk()
 	}
 
 	if !AddGuildMember(newMember) {
@@ -427,6 +454,7 @@ func AcceptrequestGuild(player *GamePlayer,proposerId int64)  {
 	InsertGuildMember(newMember)
 
 	pGuild.DeleteGuildRequestList(proposerId)
+
 }
 
 func RefuserequestGuild(player *GamePlayer,proposerId int64)  {
@@ -727,7 +755,7 @@ func (this *Guild)Kickout(sender int64,roleId int64)  {
 	if roleMember==nil {
 		return
 	}
-	DelGuildMember(roleId)
+	DelGuildMember(roleId,true)
 }
 
 func (this *Guild)Leave(roleId int64)  {
@@ -738,7 +766,7 @@ func (this *Guild)Leave(roleId int64)  {
 	if roleMember.Job == prpc.GJ_Premier {
 		return
 	}
-	DelGuildMember(roleId)
+	DelGuildMember(roleId,false)
 }
 
 /////////////////////////////////////求助AND捐赠/////////////////////////////////////

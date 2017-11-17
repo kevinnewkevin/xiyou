@@ -192,6 +192,7 @@ type COM_ServerToClientProxy interface{
   ModifyGuildMemberList(member COM_GuildMember, flag int ) error // 43
   QueryGuildListResult(guildList []COM_GuildViewerData ) error // 44
   QueryGuildDetailsResult(info COM_GuildDetails ) error // 45
+  JoinGuildOk() error // 46
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2808,6 +2809,17 @@ func(this* COM_ServerToClientStub)QueryGuildDetailsResult(info COM_GuildDetails 
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)JoinGuildOk() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(46))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3427,6 +3439,15 @@ func Bridging_COM_ServerToClient_QueryGuildDetailsResult(buffer *bytes.Buffer, p
   }
   return p.QueryGuildDetailsResult(_45.info)
 }
+func Bridging_COM_ServerToClient_JoinGuildOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  return p.JoinGuildOk()
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3532,6 +3553,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_QueryGuildListResult(buffer,p);
     case 45 :
       return Bridging_COM_ServerToClient_QueryGuildDetailsResult(buffer,p);
+    case 46 :
+      return Bridging_COM_ServerToClient_JoinGuildOk(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }
