@@ -159,9 +159,6 @@ func CreatGuild(player *GamePlayer,guildName string)  {
 	pGuildMember.Job			= prpc.GJ_Premier
 	pGuildMember.UnitId			= player.MyUnit.UnitId
 
-	need := GetGlobalInt("C_CreatGuildGold")
-	player.AddGold(-int32(need))
-
 	isOK := <- InsertGuild(pGuild,pGuildMember)
 
 	logs.Info("CreateGuild InsertGuild To DB ", isOK)
@@ -177,6 +174,10 @@ func CreatGuild(player *GamePlayer,guildName string)  {
 		if !isAdd {
 			return
 		}
+
+		need := GetGlobalInt("C_CreatGuildGold")
+		player.AddCopper(-int32(need))
+
 		PlayerIdGuildMap[pGuildMember.RoleId] = guild
 		guild.UpdateMemberList(player)
 		guild.UpdateGuild()
