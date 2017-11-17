@@ -403,6 +403,11 @@ class Proxy : ICOM_ServerToClientProxy
 			{
 				GuildSystem.AddGuildMember(data);
 			}
+			else if (num == 1) 
+			{
+				GuildSystem.DelGuildMember(data);
+			}
+
 			UIManager.SetDirty("squadList");
 			UIManager.SetDirty("squad");
 			return true;
