@@ -81,7 +81,8 @@ function squadList:OnInit()
 	searchType = searchCom:GetChild("n19");
 	searchTiao =searchCom:GetChild("n18");
 	searchList = searchCom:GetChild("n20");
-	createGold.text = "5000";
+	local needGold = Define.GetInt("CreateGuild");
+	createGold.text = ""..needGold;
 	createLevel.text = "3";
 	searchList.itemRenderer = searchList_RenderListItem;
 	searchCancel.onClick:Add(squadList_OnSearchCancel);
@@ -142,11 +143,11 @@ function squadList_OnCreateConfirm()
 		MessageBox:SetData("提示", "请输入帮派名", true);
 		return;
 	end
-
-	if GamePlayer._Data.IProperties[8] < 5000 then
+	local needGold = Define.GetInt("CreateGuild");
+	if GamePlayer._Data.IProperties[8] < needGold then
 		local MessageBox1 = UIManager.ShowMessageBox();
 		MessageBox1:SetData("提示", "金币不够", true);
-		--return;
+		return;
 	end
 	Proxy4Lua.CreateGuild(createName.text);
 end

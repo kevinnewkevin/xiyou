@@ -102,5 +102,6 @@ end
 function wanjiaxinxi_OnCard(context)
 	UIParamHolder.Set("showBoosId", context.sender.data);
 	UIParamHolder.Set("showBoos", true);
+	UIManager.Show("xiangxiziliao");
 	
 end
