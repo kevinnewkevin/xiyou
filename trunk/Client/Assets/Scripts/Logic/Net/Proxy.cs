@@ -356,7 +356,7 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			UIManager.Hide("squadList");
 			UIManager.Show("squad");
-			Proxy4Lua.PopMsg("创建成功");
+            LuaManager.Call("global.lua", "CreateGuild");
 			return true;
 		}
 
@@ -371,6 +371,7 @@ class Proxy : ICOM_ServerToClientProxy
 			{
 				GamePlayer._iGuildId = 0;
 				GuildSystem.myGuild = null;
+                LuaManager.Call("global.lua", "LeaveGuild");
 				UIManager.Hide("squad");	
 			}
 
@@ -385,6 +386,7 @@ class Proxy : ICOM_ServerToClientProxy
 			GamePlayer._iGuildId = data.GuildId; 
 			UIManager.SetDirty("squadList");
 			UIManager.SetDirty("squad");
+            UIManager.SetDirty("squadSetting");
 			return true;
 		}
 

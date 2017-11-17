@@ -114,6 +114,12 @@ public class ChatSystem {
         return tList;
     }
 
+    static public void ClearMsgByType(int type)
+    {
+        if (_AllMsg.ContainsKey(type))
+            _AllMsg[type].Clear();
+    }
+
     static public void Clear()
     {
         

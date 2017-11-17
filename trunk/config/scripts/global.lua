@@ -84,6 +84,16 @@ function ReceivedAssistant(ass)
 	Proxy4Lua.PopMsg(ass.PlayerName .. "在支援频道发布了支援请求,快去帮助他吧!");
 end
 
+--创建帮派
+function CreateGuild()
+	Proxy4Lua.PopMsg("创建成功");
+end
+
+--离开帮派
+function LeaveGuild()
+	ChatSystem.ClearMsgByType(5);
+end
+
 --改变颜色ubb语法
 function ChangeColor(content, color)
 	if color == "blue" then
