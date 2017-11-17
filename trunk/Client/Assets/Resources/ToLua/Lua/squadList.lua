@@ -177,7 +177,7 @@ function squadList_OnFindGuild()
 		Proxy4Lua.PopMsg("没有此家族");
 		return;
 	end
-	--findName.text = "";
+	findName.text = "";
 	Proxy4Lua.QueryGuildDetails(guild.GuildId);
 	GuildSystem.IsShowSearch = true;
 end
@@ -204,7 +204,7 @@ function squadList:OnDispose()
 end
 
 function squadList:OnHide()
-	--findName.text = "";
+	findName.text = "";
 	searchCom.visible = false;
 	createName.text = "";
 	createCom.visible = false;
