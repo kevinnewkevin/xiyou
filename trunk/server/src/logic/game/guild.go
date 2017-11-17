@@ -765,6 +765,11 @@ func (this *Guild)Kickout(sender int64,roleId int64)  {
 	if roleMember==nil {
 		return
 	}
+
+	if roleMember.Job >= senderm.Job {
+		return
+	}
+
 	DelGuildMember(roleId,true)
 }
 
