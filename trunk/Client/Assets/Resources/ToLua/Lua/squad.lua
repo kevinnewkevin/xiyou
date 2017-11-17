@@ -235,6 +235,7 @@ end
 
 function squad_OnConfirmKick()
 	Proxy4Lua.KickOut(willKickPlayer);
+	UIManager.HideMessageBox();
 end
 
 function squad_OnHelp(context)
