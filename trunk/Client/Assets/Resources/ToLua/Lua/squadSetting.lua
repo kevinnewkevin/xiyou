@@ -122,7 +122,7 @@ function squadSetting_RenderListItem(index, obj)
 		return;
 	end
 
-	local data = GuildSystem.requestList[index];
+	local data = GuildSystem.myGuild.RequestList[index];
 	if data == nil then
 		return;
 	end
@@ -175,7 +175,7 @@ function squadSetting_OnIgnore(context)
 end
 	
 function squadSetting_FlushData()
-	requestList.numItems = GuildSystem.requestList.Count;
+	requestList.numItems = GuildSystem.myGuild.RequestList.Length;
 
 	if crtType == 0 then
 		setCom.visible = true;
