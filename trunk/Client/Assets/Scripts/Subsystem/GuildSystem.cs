@@ -93,5 +93,14 @@ public class GuildSystem
         }
     }
 
+    public static int MyJob()
+    {
+        for(int i=0; i < guildMemberList.Count; ++i)
+        {
+            if (GamePlayer.IsMe(guildMemberList [i].RoleId))
+                return guildMemberList [i].Job;
+        }
+        return -1;
+    }
 }
 

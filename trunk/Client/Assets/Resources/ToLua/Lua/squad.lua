@@ -122,8 +122,8 @@ function squad_RenderListItem(index, obj)
 	renmingBtn.onClick:Add(squad_OnRenming);
 	kickBtn.onClick:Add(squad_OnKick);
 
-	renmingBtn.visible = data.Job == 3 and data.RoleName ~= GamePlayer._Name;
-	kickBtn.visible = (data.Job == 2 or data.Job == 3) and data.RoleName ~= GamePlayer._Name;
+	renmingBtn.visible = GuildSystem.MyJob() == 3 and data.RoleName ~= GamePlayer._Name;
+	kickBtn.visible = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and data.RoleName ~= GamePlayer._Name;
 
 	rkBtnBg.visible = renmingBtn.visible or kickBtn.visible;
 
