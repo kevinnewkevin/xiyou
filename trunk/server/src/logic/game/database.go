@@ -1145,6 +1145,44 @@ func FindGuildAssistantById(assistantId int32) <-chan *prpc.SGE_DBGuildAssistant
 	return rChan
 }
 
+func FindGuildAssistantByPlayerName(name string) <-chan *prpc.SGE_DBGuildAssistant {
+	rChan := make(chan *prpc.SGE_DBGuildAssistant)
+	data := &prpc.SGE_DBGuildAssistant{}
+	go func() {
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		r, e := c.Query("SELECT * FROM `GuildAssistant` WHERE `RoleName` = ?",name)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		if r.Next() {
+			buffs := []byte{}
+			r.Scan(&data.Id,&data.RoleName,&data.GuildId,&data.ItemId,&data.CrtCount,&data.MaxCount,&data.CatchNum,&buffs)
+			e = json.Unmarshal(buffs,&data.Donator)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+		}
+
+		rChan <- data
+		close(rChan)
+	}()
+	return rChan
+}
+
 func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssistant {
 	rChan := make(chan []prpc.SGE_DBGuildAssistant)
 	data := []prpc.SGE_DBGuildAssistant{}

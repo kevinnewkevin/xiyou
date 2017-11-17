@@ -243,6 +243,9 @@ func DelGuildMember(roleid int64,isKick bool)  {
 	}
 	pGuild.DelMember(roleid)
 	DeleteDBGuildMember(roleid)
+
+	delete(PlayerIdGuildMap,roleid)
+
 	if len(pGuild.GuildMember)==0 {
 		DelGuild(pGuild.GuildData.GuildId)
 	}
@@ -498,6 +501,7 @@ func SycnGuildData(player *GamePlayer)  {
 	}
 	pGuild.UpdateMemberList(player)
 	player.session.InitGuildData(*pGuild.GuildData)
+	logs.Info("SycnGuildData player = ",player.MyUnit.InstName,pGuild.GuildData)
 }
 
 ///-----------------------------------------------------------------------------------------
@@ -686,9 +690,15 @@ func (this *Guild)GuildMemberOnLine(player *GamePlayer)  {
 	player.GuildId = this.GuildData.GuildId
 
 	player.SycnGuildAssistants()
-	this.UpdateGuild()
-	this.UpdateMemberList(player)
+	SycnGuildData(player)
 	this.UpdateMember(*member,prpc.MLF_ChangeOnline)
+
+	data := <-FindGuildAssistantByPlayerName(player.MyUnit.InstName)
+	if data != nil && data.CatchNum != 0{
+		player.AddBagItemByItemId(data.ItemId,data.CatchNum)
+		data.CatchNum = 0
+		UpdateGuildAssistant(*data)
+	}
 }
 
 func (this *Guild)GuildMemberOffOnLine(player int64)  {
@@ -881,7 +891,8 @@ func (player *GamePlayer)GuildAssistantItem(ass int32)  {
 		}
 	}
 	items := player.GetBagItemByTableId(data.ItemId)
-	if items == nil {
+	logs.Info("asdasdasdasdasdasdasdasdasd",items)
+	if len(items) == 0 {
 		return
 	}
 	quality := GetItemQualityById(data.ItemId)
@@ -893,10 +904,10 @@ func (player *GamePlayer)GuildAssistantItem(ass int32)  {
 	}
 	
 	player.DelItemByTableId(data.ItemId,1)
-
+	player.GiveDrop(dropid)
 	receiver := FindPlayerByInstName(data.RoleName)
 	if receiver != nil {
-		receiver.GiveDrop(dropid)
+		receiver.AddBagItemByItemId(data.ItemId,1)
 	}else {
 		data.CatchNum++
 	}
