@@ -179,12 +179,12 @@ function squad_OnOperateList(memberData)
 	item.enabled = GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name;
 
 	item = popMenu:GetChildAt(1);
-	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name then
+	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name and GuildSystem.MyJob() > memberData.sender.data.Job then
 		item.onClick:Add(squad_OnKick);
 		item.data = memberData.sender.data;
 		count = count + 1;
 	end
-	item.enabled = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name;
+	item.enabled = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name and GuildSystem.MyJob() > memberData.sender.data.Job;
 
 	allPop.visible = count ~= 0;
 end
