@@ -7,9 +7,10 @@ import(
 type COM_TopUnit struct{
   sync.Mutex
   Name string  //0
-  Level int32  //1
-  TianTi int32  //2
-  DisplayID int32  //3
+  InstId int64  //1
+  Level int32  //2
+  TianTi int32  //3
+  DisplayID int32  //4
 }
 func (this *COM_TopUnit)SetName(value string) {
   this.Lock()
@@ -20,6 +21,16 @@ func (this *COM_TopUnit)GetName() string {
   this.Lock()
   defer this.Unlock()
   return this.Name
+}
+func (this *COM_TopUnit)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_TopUnit)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
 }
 func (this *COM_TopUnit)SetLevel(value int32) {
   this.Lock()
@@ -57,6 +68,7 @@ func (this *COM_TopUnit)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
   mask.writeBit(len(this.Name) != 0)
+  mask.writeBit(this.InstId!=0)
   mask.writeBit(this.Level!=0)
   mask.writeBit(this.TianTi!=0)
   mask.writeBit(this.DisplayID!=0)
@@ -71,6 +83,15 @@ func (this *COM_TopUnit)Serialize(buffer *bytes.Buffer) error {
     err := write(buffer,this.Name)
     if err != nil {
       return err
+    }
+  }
+  // serialize InstId
+  {
+    if(this.InstId!=0){
+      err := write(buffer,this.InstId)
+      if err != nil{
+        return err
+      }
     }
   }
   // serialize Level
@@ -113,6 +134,13 @@ func (this *COM_TopUnit)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Name
   if mask.readBit() {
     err := read(buffer,&this.Name)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize InstId
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }
