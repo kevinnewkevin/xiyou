@@ -807,7 +807,7 @@ func UpdateDBGuildRatify(guildId int32,isRatify bool,require int32) <-chan bool 
 		}
 		defer c.Close()
 
-		stmt, e := c.Prepare("UPDATE `Guild` SET `RequestFlag`=? `Require`=?  WHERE `GuildId`=?")
+		stmt, e := c.Prepare("UPDATE `Guild` SET `RequestFlag` = ? , `Require` = ?  WHERE `GuildId` = ?")
 		if e != nil {
 			logs.Debug(e.Error())
 			rChan <- false
@@ -1201,7 +1201,7 @@ func UpdateGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
 			close(rChan)
 			return
 		}
-		stmt, e := c.Prepare("UPDATE `GuildAssistant` SET `CrtCount`=? `CatchNum`=? `Donator`=? WHERE `AssistantId`=?")
+		stmt, e := c.Prepare("UPDATE `GuildAssistant` SET `CrtCount`=? , `CatchNum`=? , `Donator`=? WHERE `AssistantId`=?")
 		if e != nil {
 			logs.Debug(e.Error())
 			rChan <- false
