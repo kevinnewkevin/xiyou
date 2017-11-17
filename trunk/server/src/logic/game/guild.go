@@ -660,7 +660,7 @@ func (this *Guild)GuildMemberOnLine(player *GamePlayer)  {
 	player.SycnGuildAssistants()
 	this.UpdateGuild()
 	this.UpdateMemberList(player)
-	this.UpdateMember(member,prpc.MLF_ChangeOffline)
+	this.UpdateMember(*member,prpc.MLF_ChangeOnline)
 }
 
 func (this *Guild)GuildMemberOffOnLine(player int64)  {
