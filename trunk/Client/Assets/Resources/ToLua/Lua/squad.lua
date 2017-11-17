@@ -302,7 +302,7 @@ function squadliaotian_OnRenderListItem(index, obj)
 		local itemIconBack = itemIconCom:GetChild("n11");
 		local assBtn = obj:GetChild("n6");
 		assBtn.data = crtList[index].Id;
-		assBtn.onClick:Add(liaotiansquad_OnAssistant);
+		assBtn.onClick:Add(squad_OnAssistant);
 
 		name.text = crtList[index].PlayerName;
 		status.text = crtList[index].CrtCount .. "/" .. crtList[index].MaxCount;
