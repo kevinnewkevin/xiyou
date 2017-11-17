@@ -111,6 +111,7 @@ function squad_RenderListItem(index, obj)
 	local headCom = obj:GetChild("n5").asCom;
 	local headIcon = headCom:GetChild("n5").asLoader;
 	local lv = headCom:GetChild("n3").asTextField;
+	local rkBtnBg = obj:GetChild("n12");
 	local renmingBtn = obj:GetChild("n11").asButton;
 	local kickBtn = obj:GetChild("n10").asButton;
 	renmingBtn.data = data.RoleId;
@@ -120,6 +121,8 @@ function squad_RenderListItem(index, obj)
 
 	renmingBtn.visible = data.Job == 3 and data.RoleName ~= GamePlayer._Name;
 	kickBtn.visible = (data.Job == 2 or data.Job == 3) and data.RoleName ~= GamePlayer._Name;
+
+	rkBtnBg.visible = renmingBtn.visible or kickBtn.visible;
 
 	name.text = data.RoleName;
 	pos.url = "ui://bangpai/cu_" .. data.Job;
