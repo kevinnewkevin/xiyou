@@ -411,12 +411,12 @@ func (this *GamePlayer) PlayerLogin() {
 	}
 
 	this.RefreshFriendTopList()
-	if this.GuildId != 0 {
-		pGuild := FindGuildById(this.GuildId)
-		if pGuild != nil{
-			pGuild.GuildMemberOnLine(this)
-		}
+
+	pGuild := FindGuildByPlayerId(this.MyUnit.InstId)
+	if pGuild != nil{
+		pGuild.GuildMemberOnLine(this)
 	}
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -710,11 +710,10 @@ func (this *GamePlayer) SyncBag() {
 	}
 
 	for _, item := range items {
-		logs.Info("To Client Item TableId=", item.ItemId, "Stack=", item.Stack, "InstId=", item.InstId)
+		logs.Info("To Client Item TableId=", item.ItemId, " Stack=", item.Stack, " InstId=", item.InstId)
 	}
 
 	if this.session != nil {
-		logs.Info("InitBagItems OK")
 		this.session.InitBagItems(items)
 	}
 }

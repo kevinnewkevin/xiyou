@@ -684,10 +684,13 @@ func (this *Guild)GuildMemberOnLine(player *GamePlayer)  {
 	}
 	member := this.FindMember(player.MyUnit.InstId)
 	if member == nil {
+		logs.Info("GuildMemberOnLine member == nil ")
 		return
 	}
 	member.IsOnline = true
 	player.GuildId = this.GuildData.GuildId
+
+	logs.Info("GuildMemberOnLine player = ",player.MyUnit.InstName," GuildId = ",player.GuildId)
 
 	player.SycnGuildAssistants()
 	SycnGuildData(player)

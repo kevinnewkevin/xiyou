@@ -83,7 +83,8 @@ func (this* GamePlayer)GenItemInst(itemId int32, itemCount int32) []*prpc.COM_It
 	for itemCount > 0 {
 		item := prpc.COM_ItemInst{}
 		item.ItemId = itemData.ItemId
-		item.InstId = this.GenItemMaxGuid + 1
+		this.GenItemMaxGuid ++
+		item.InstId = this.GenItemMaxGuid
 
 		if itemData.MaxCount > itemCount {
 			item.Stack = itemCount
