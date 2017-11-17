@@ -560,6 +560,11 @@ public class Proxy4Lua {
         return "";
     }
 
+    static public string RemoveString(string origin, string toRemove)
+    {
+        return origin.Remove(origin.IndexOf(toRemove));
+    }
+
     static public float DeltaTime
     {
         get
