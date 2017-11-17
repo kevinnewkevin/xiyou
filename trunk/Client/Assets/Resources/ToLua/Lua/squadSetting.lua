@@ -175,7 +175,9 @@ function squadSetting_OnIgnore(context)
 end
 	
 function squadSetting_FlushData()
-	requestList.numItems = GuildSystem.myGuild.RequestList.Length;
+	if GuildSystem.myGuild.RequestList ~= nil then
+		requestList.numItems = GuildSystem.myGuild.RequestList.Length;
+	end
 
 	if crtType == 0 then
 		setCom.visible = true;
