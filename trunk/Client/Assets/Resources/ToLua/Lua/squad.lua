@@ -129,6 +129,8 @@ function squad_RenderListItem(index, obj)
 --	headIcon.onClick:Add(squad_OnGuildPlayer);
 --	headIcon.data =  data.RoleId;
 
+	local allPop = obj:GetChild("n14");
+	allPop.visible = false;
 	obj.data = data;
 	obj.onClick:Add(squad_OnOperateList);
 	name.text = data.RoleName;
