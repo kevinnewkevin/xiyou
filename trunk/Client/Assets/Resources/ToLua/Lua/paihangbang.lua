@@ -55,10 +55,13 @@ function paihangbang_RenderListItem(index, obj)
 	local flower = obj:GetChild("n8").asLoader;
 	local icon = obj:GetChild("n7").asLoader;
 	local duan = obj:GetChild("n11").asLoader;
+	obj.onClick:Add(paihangbang_OnInfoClick);
+	 obj.data =RankSystem._FirendRank[index].InstId;
 	if crtType == 0 then
 		name.text = RankSystem._FirendRank[index].Name;
 		lv.text = RankSystem._FirendRank[index].Level;
 		score.text = RankSystem._FirendRank[index].TianTi;
+
 		duan.url = "ui://paihangbang/xiao_duanwei" .. GamePlayer.RankLevel(RankSystem._FirendRank[index].TianTi);
 		rank.text = index + 1 .. "";
 		if index == 0 then
@@ -143,3 +146,8 @@ function paihangbang_FlushData()
 	myRank.text = myRankStr;
 	rankList.numItems = count;
 end
+
+function paihangbang_OnInfoClick(context)
+	Proxy4Lua.QueryPlayerInfo(context.sender.data);
+end
+
