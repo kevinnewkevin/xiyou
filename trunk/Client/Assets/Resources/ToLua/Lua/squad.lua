@@ -409,7 +409,7 @@ function squadliaotian_OnRenderListItem(index, obj)
 			if crtList[index].Type == 1 then
 				name.text = Proxy4Lua.ChangeColor("[世界]", "red") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 			elseif crtList[index].Type == 4 then
-				name.text = Proxy4Lua.ChangeColor("[家族]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+				name.text = Proxy4Lua.ChangeColor("[帮派]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 			end
 			lv.text = crtList[index].Level;
 		end

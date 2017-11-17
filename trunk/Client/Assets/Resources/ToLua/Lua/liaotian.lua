@@ -140,7 +140,7 @@ function liaotian_OnRenderListItem(index, obj)
 			end
 		end
 
-		assBtn.enabled = not meAssistanted and crtList[index].PlayerName ~= GamePlayer._Name and crtList[index].CrtCount < crtList[index].MaxCount;
+		assBtn.enabled = not meAssistanted and crtList[index].PlayerName ~= GamePlayer._Name and crtList[index].CrtCount < crtList[index].MaxCount and itemNum >= 1;
 	else
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
@@ -176,7 +176,7 @@ function liaotian_OnRenderListItem(index, obj)
 			if crtList[index].Type == 1 then
 				name.text = Proxy4Lua.ChangeColor("[世界]", "red") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 			elseif crtList[index].Type == 4 then
-				name.text = Proxy4Lua.ChangeColor("[家族]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+				name.text = Proxy4Lua.ChangeColor("[帮派]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 			end
 			lv.text = crtList[index].Level;
 		end
