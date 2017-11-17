@@ -102,7 +102,7 @@ func InitDB() {
 
 
 	if r.Next() {
-		e = r.Scan(&MaxGuildId)
+		e = r.Scan(&MaxGuildAssistantId)
 		if e != nil {
 			logs.Debug(e.Error())
 			return
