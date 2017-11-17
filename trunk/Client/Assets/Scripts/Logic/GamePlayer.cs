@@ -26,6 +26,8 @@ public class GamePlayer {
     static public List<string> _CPropDirty = new List<string>();
 	static public bool showNewCard;
 	static public COM_Unit newCard;
+	static public ulong _guildId;
+	static public int _iGuildId;
     static public void Init(COM_Player player)
     {
         Clear();
@@ -51,7 +53,15 @@ public class GamePlayer {
         _Data = player.Unit;
 		_TianTiVal = player.TianTiVal;
         _AssistantCoolDown = player.AssistantCreateTime;
-
+		_guildId = player.Guide;
+		if (_guildId <= 0) 
+		{
+			_iGuildId = 0;
+		} 
+		else 
+		{
+			_iGuildId = 1; 
+		}
         JieHunSystem.instance.InitChapterData(player.Chapters);
         EntityData eData = null;
         for(int i=0; i < player.Employees.Length; ++i)
@@ -353,7 +363,7 @@ public class GamePlayer {
 
     //通过索引获得卡组中卡牌形象
     static public DisplayData GetDisplayDataByIndexFromGroup(int groupidx, int cardidx)
-    {
+    {  
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
             return null;
 

@@ -356,6 +356,7 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			UIManager.Hide("squadList");
 			UIManager.Show("squad");
+			Proxy4Lua.PopMsg("创建成功");
 			return true;
 		}
 
@@ -372,30 +373,36 @@ class Proxy : ICOM_ServerToClientProxy
 		public bool InitGuildData(ref COM_Guild data)
 		{
 			GuildSystem.myGuild = data;
+			UIManager.SetDirty("squadList");
+			UIManager.SetDirty("squad");
 			return true;
 		}
 
 		public bool InitGuildMemberList(ref COM_GuildMember[] data)
 		{
 			GuildSystem.InitGuildMember (data);
+			UIManager.SetDirty("squadList");
 			return true;
 		}
 
 		public bool ModifyGuildMemberList(ref COM_GuildMember data,int num)
 		{
 			GuildSystem.UpdateGuildMember(data);
+				UIManager.SetDirty("squadList");
 			return true;
 		}
 
 		public bool QueryGuildListResult(ref COM_GuildViewerData[] data)
 		{
 			GuildSystem.InitViewer(data);
+			UIManager.SetDirty("squadList");
 			return true;
 		}
 
 		public bool QueryGuildDetailsResult(ref COM_GuildDetails data)
 		{
 			GuildSystem.searchData = data;
+			UIManager.SetDirty("squadList");
 			return true;
 		}
 
