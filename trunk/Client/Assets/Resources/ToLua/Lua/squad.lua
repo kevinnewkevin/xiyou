@@ -121,7 +121,8 @@ function squad_RenderListItem(index, obj)
 	kickBtn.data = data.RoleId;
 	renmingBtn.onClick:Add(squad_OnRenming);
 	kickBtn.onClick:Add(squad_OnKick);
-
+	headIcon.onClick:Add(squad_OnGuildPlayer);
+	headIcon.data =  data.RoleId;
 	renmingBtn.visible = GuildSystem.MyJob() == 3 and data.RoleName ~= GamePlayer._Name;
 	kickBtn.visible = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and data.RoleName ~= GamePlayer._Name;
 
@@ -179,6 +180,11 @@ function squad_OnKick(context)
 	willKickPlayer = context.sender.data;
 	local MessageBox = UIManager.ShowMessageBox();
 	MessageBox:SetData("提示", "是否将该玩家踢出家族？", false, squad_OnConfirmKick);
+end
+
+
+function squad_OnGuildPlayer(context)
+	Proxy4Lua.QueryPlayerInfo(context.sender.data);
 end
 
 function squad_OnConfirmKick()
