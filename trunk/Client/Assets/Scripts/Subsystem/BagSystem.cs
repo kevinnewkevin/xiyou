@@ -30,7 +30,7 @@ public class BagSystem {
 				_DebrisItemsByType.Add (0, debrisItemList);
        // _ItemsByType [0].Sort(Sort);
         ItemData iData = null;
-		if ( items != null )
+		if ( items != null ) 
 		{
 			for (int k = 0; k < items.Length; ++k) 
 			{
@@ -87,11 +87,12 @@ public class BagSystem {
                 break;
             }
         }
-		for(int i=0; i < _DebrisItemsByType[0].Count; ++ i)
+		for(int j=0; j < _DebrisItemsByType[0].Count; ++ j)
         {
-			if (_DebrisItemsByType [0] [i].InstId == instid)
+			if (_DebrisItemsByType [0] [j].InstId == instid)
             {
-				_DebrisItemsByType [0].RemoveAt(i);
+				_DebrisItemsByType [0].RemoveAt(j);
+				break;
             }
         }
         UIManager.SetDirty("bagui");
@@ -110,10 +111,14 @@ public class BagSystem {
                 break;
             }
         }
-		for(int i=0; i < _DebrisItemsByType[0].Count; ++i)
+		for(int j=0;  j< _DebrisItemsByType[0].Count; ++j)
         {
-			if (_DebrisItemsByType [0] [i].InstId == inst.InstId)
-				_DebrisItemsByType [0] [i] = inst;
+			if (_DebrisItemsByType [0] [j].InstId == inst.InstId) 
+			{
+					_DebrisItemsByType [0] [j] = inst;
+					break;
+			}
+				
         }
         UIManager.SetDirty("bagui");
     }
