@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="260,120">
+<component size="530,120">
   <displayList>
-    <image id="n12_p364" name="n12" src="p3643v" xy="0,0"/>
-    <component id="n10_p364" name="n10" src="p3643s" xy="150,38"/>
-    <component id="n11_p364" name="n11" src="p3643u" xy="34,36"/>
+    <image id="n12_p364" name="n12" src="p3643v" xy="0,0" size="522,120"/>
+    <list id="n15_tokn" name="n15" xy="131,34" size="374,63" layout="flow_hz" overflow="scroll" lineGap="24" colGap="26">
+      <item url="ui://f9by5023p3643u"/>
+      <item url="ui://f9by5023p3643s"/>
+      <item url="ui://f9by5023p36444"/>
+    </list>
   </displayList>
 </component>
