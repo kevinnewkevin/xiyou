@@ -367,6 +367,8 @@ class Proxy : ICOM_ServerToClientProxy
 
 		public bool LeaveGuildOk(ref string str,bool b)
 		{
+			GuildSystem.LeaveGuildMember (str, b);
+			UIManager.SetDirty("squad");
 			return true;
 		}
 
