@@ -14,6 +14,8 @@ local otherCom = "ui://liaotian/duifang_com";
 local selfCom = "ui://liaotian/wofang_com";
 local assisCom = "ui://bangpai/zhiyuan_com";
 
+local popMenuBg = "ui://bangpai/47";
+
 local contentList;
 local typeList;
 local crtType;
@@ -44,6 +46,7 @@ end
 
 function squad:OnInit()
 	Define.LaunchUIBundle("liaotian");
+	UIConfig.popupMenu = popMenuBg;
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
 	self.modal = true;
@@ -115,19 +118,22 @@ function squad_RenderListItem(index, obj)
 	local headIcon = headCom:GetChild("n5").asLoader;
 	local lv = headCom:GetChild("n3").asTextField;
 	local rkBtnBg = obj:GetChild("n12");
-	local renmingBtn = obj:GetChild("n11").asButton;
-	local kickBtn = obj:GetChild("n10").asButton;
-	renmingBtn.data = data.RoleId;
-	kickBtn.data = data.RoleId;
-	renmingBtn.onClick:Add(squad_OnRenming);
-	kickBtn.onClick:Add(squad_OnKick);
-	headIcon.onClick:Add(squad_OnGuildPlayer);
-	headIcon.data =  data.RoleId;
-	renmingBtn.visible = GuildSystem.MyJob() == 3 and data.RoleName ~= GamePlayer._Name;
-	kickBtn.visible = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and data.RoleName ~= GamePlayer._Name;
+--	local renmingBtn = obj:GetChild("n11").asButton;
+--	local kickBtn = obj:GetChild("n10").asButton;
+--	renmingBtn.data = data.RoleId;
+--	kickBtn.data = data.RoleId;
+--	renmingBtn.onClick:Add(squad_OnRenming);
+--	kickBtn.onClick:Add(squad_OnKick);
+--
+--	renmingBtn.visible = GuildSystem.MyJob() == 3 and data.RoleName ~= GamePlayer._Name;
+--	kickBtn.visible = (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and data.RoleName ~= GamePlayer._Name;
+--
+--	rkBtnBg.visible = renmingBtn.visible or kickBtn.visible;
+--	headIcon.onClick:Add(squad_OnGuildPlayer);
+--	headIcon.data =  data.RoleId;
 
-	rkBtnBg.visible = renmingBtn.visible or kickBtn.visible;
-
+	obj.data = data;
+	obj.onClick:Add(squad_OnOperateList);
 	name.text = data.RoleName;
 	if data.IsOnline then
 		online.text = "在线";
@@ -149,6 +155,51 @@ function squad_RenderListItem(index, obj)
 	lv.text = data.Level;
 end
 
+function squad_OnOperateList(memberData)
+	local popMenu = PopupMenu.New();
+	local item = nil;
+	if memberData.sender.data.RoleName ~= GamePlayer._Name then
+		item = popMenu:AddItem("查看", squad_OnDetail);
+		item.data = memberData.sender.data;
+	end
+
+	if GuildSystem.MyJob() == 3 and memberData.sender.data.RoleName ~= GamePlayer._Name then
+		item = popMenu:AddItem("任命", squad_OnRenming);
+		item.data = memberData.sender.data;
+	end
+
+	if (GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3) and memberData.sender.data.RoleName ~= GamePlayer._Name then
+		item = popMenu:AddItem("踢出", squad_OnKick);
+		item.data = memberData.sender.data;
+	end
+	if item ~= nil then
+		popMenu:Show(memberData.sender, true);
+	end
+end
+
+function squad_OnDetail(memberData)
+	Proxy4Lua.QueryPlayerInfo(memberData.sender.data.RoleId);
+end
+
+function squad_OnRenming(memberData)
+	if memberData.sender.data == nil then
+		return;
+	end
+
+	UIParamHolder.Set("squadRenmingPlayer", memberData.sender.data.RoleId);
+	UIManager.Show("squadRenming");
+end
+
+function squad_OnKick(memberData)
+	if context.sender.data == nil then
+		return;
+	end
+
+	willKickPlayer = memberData.sender.data.RoleId;
+	local MessageBox = UIManager.ShowMessageBox();
+	MessageBox:SetData("提示", "是否将该玩家踢出家族？", false, squad_OnConfirmKick);
+end
+
 function squad_OnSetting()
 	UIManager.Show("squadSetting");
 end
@@ -161,30 +212,6 @@ end
 function squad_OnConfirmQuit()
 	Proxy4Lua.LeaveGuild();
 	UIManager.HideMessageBox();
-end
-
-function squad_OnRenming(context)
-	if context.sender.data == nil then
-		return;
-	end
-
-	UIParamHolder.Set("squadRenmingPlayer", context.sender.data);
-	UIManager.Show("squadRenming");
-end
-
-function squad_OnKick(context)
-	if context.sender.data == nil then
-		return;
-	end
-
-	willKickPlayer = context.sender.data;
-	local MessageBox = UIManager.ShowMessageBox();
-	MessageBox:SetData("提示", "是否将该玩家踢出家族？", false, squad_OnConfirmKick);
-end
-
-
-function squad_OnGuildPlayer(context)
-	Proxy4Lua.QueryPlayerInfo(context.sender.data);
 end
 
 function squad_OnConfirmKick()
