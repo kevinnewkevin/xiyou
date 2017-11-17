@@ -227,10 +227,6 @@ func (this *GamePlayer) RefreshFriendTopList()  {		//好友之间的天梯排行
 				p := &GamePlayer{}
 				p.SetPlayerSGE(*fd)
 
-				if p.TianTiVal == 0 {
-					continue
-				}
-
 				t := prpc.COM_TopUnit{}
 				t.Name = p.MyUnit.InstName
 				t.Level = p.MyUnit.Level

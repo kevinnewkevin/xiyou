@@ -1552,17 +1552,29 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 			info.Name = player.MyUnit.InstName
 			info.Level = player.MyUnit.Level
 			info.DisplayID = player.MyUnit.UnitId
-			info.ClanName = "测试帮会名字"
 			info.TiatiVal = player.TianTiVal
 			info.TiatiRank = player.TianTiRank
+
+			if player.GuildId == 0 {
+				info.ClanName = "无帮派"
+			} else {
+				guild := FindGuildById(player.GuildId)
+				if guild == nil  {
+					info.ClanName = "无帮派"
+				} else {
+					info.ClanName = guild.GuildData.GuildName
+				}
+			}
+
 			group := player.GetUnitGroupById(player.BattleUnitGroup)
-			logs.Debug("GetUnitGroupById ", player.BattleUnitGroup, group, player.BattleUnitList)
 			if group != nil {
 				for _, unitid := range group.UnitList {
 					u := player.GetUnit(unitid)
 					info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
 				}
 			}
+
+			logs.Debug("QueryPlayerInfo offline ", info)
 		} else {
 			return
 		}
@@ -1571,18 +1583,28 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 		info.Name = p.MyUnit.InstName
 		info.Level = p.MyUnit.Level
 		info.DisplayID = p.MyUnit.UnitId
-		info.ClanName = "测试帮会名字 p"
 		info.TiatiVal = p.TianTiVal
 		info.TiatiRank = p.TianTiRank
+
+		if p.GuildId == 0 {
+			info.ClanName = "无帮派"
+		} else {
+			guild := FindGuildById(p.GuildId)
+			if guild == nil  {
+				info.ClanName = "无帮派"
+			} else {
+				info.ClanName = guild.GuildData.GuildName
+			}
+		}
+
 		group := p.GetUnitGroupById(p.BattleUnitGroup)
-		logs.Debug("GetUnitGroupById ", p.BattleUnitGroup, group, p.BattleUnitList)
 		if group != nil {
 			for _, unitid := range group.UnitList {
 				u := p.GetUnit(unitid)
-				logs.Debug("GetUnitGroupById ", unitid, "  ", u)
 				info.UnitLIst = append(info.UnitLIst, u.GetUnitCOM())
 			}
 		}
+		logs.Debug("QueryPlayerInfo online ", info)
 	}
 
 	logs.Debug("QueryPlayerInfo end", info)
