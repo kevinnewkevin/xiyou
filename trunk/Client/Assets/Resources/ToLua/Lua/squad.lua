@@ -106,6 +106,7 @@ function squad_RenderListItem(index, obj)
 
 	local data = GuildSystem.guildMemberList[index];
 	local name = obj:GetChild("n6").asTextField;
+	local online = obj:GetChild("n9").asTextField;
 	local pos = obj:GetChild("n8").asLoader;
 	local score = obj:GetChild("n7").asLoader;
 	local headCom = obj:GetChild("n5").asCom;
@@ -125,6 +126,11 @@ function squad_RenderListItem(index, obj)
 	rkBtnBg.visible = renmingBtn.visible or kickBtn.visible;
 
 	name.text = data.RoleName;
+	if data.IsOnline then
+		online.text = "在线";
+	else
+		online.text = "离线";
+	end
 	pos.url = "ui://bangpai/cu_" .. data.Job;
 	score.url = "ui://bangpai/xiao_duanwei" .. GamePlayer.RankLevel(data.TianTiVal);
 	local eData = EntityData.GetData(data.UnitId);

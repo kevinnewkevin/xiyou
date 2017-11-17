@@ -183,10 +183,10 @@ function squadSetting_FlushData()
 		requestCom.visible = true;
 	end
 	guildName.text = "帮派名称: " .. GuildSystem.myGuild.GuildName;
-	guildId = "帮派编号: " .. GuildSystem.myGuild.GuildId;
-	guildCount = "帮派人数: " .. GuildSystem.guildMemberList.Count .. "/50";
-	guildScore = "帮派积分: " .. GuildSystem.myGuild.GuildVal;
-	guildGiftWeek = "每周捐献: " .. GuildSystem.myGuild.Contribution;
+	guildId.text = "帮派编号: " .. GuildSystem.myGuild.GuildId;
+	guildCount.text = "帮派人数: " .. GuildSystem.guildMemberList.Count .. "/50";
+	guildScore.text = "帮派积分: " .. GuildSystem.myGuild.GuildVal;
+	guildGiftWeek.text = "每周捐献: " .. GuildSystem.myGuild.Contribution;
 	if GuildSystem.myGuild.IsRatify then
 		guildNeedCheck:GetController("a1").selectedIndex = 0;
 	else
