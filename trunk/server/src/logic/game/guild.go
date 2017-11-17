@@ -184,6 +184,8 @@ func CreatGuild(player *GamePlayer,guildName string)  {
 			return
 		}
 		player.session.CreateGuildOK()
+
+		logs.Info("CreateGuildOK GuildName = ",pGuild.GuildName," MasterName = ",pGuild.MasterName)
 	}
 }
 
@@ -263,6 +265,8 @@ func RequestGuildList(player *GamePlayer)  {
 		return
 	}
 	player.session.QueryGuildListResult(guildViewerList)
+
+	logs.Info("RequestGuildList ",guildViewerList)
 }
 
 func RequestGuildDetails(player *GamePlayer,guildId int32)  {
@@ -297,6 +301,8 @@ func RequestGuildDetails(player *GamePlayer,guildId int32)  {
 		return
 	}
 	player.session.QueryGuildDetailsResult(data)
+
+	logs.Info("RequestGuildDetails ",data)
 }
 
 func RequestjoinGuild(player *GamePlayer,guildId int32)  {
@@ -500,6 +506,9 @@ func (this *Guild)FindMemberByJob(job int) []*prpc.COM_GuildMember {
 func (this *Guild)AddGuildRequestList(request prpc.COM_GuildRequestData)  {
 	this.GuildData.RequestList = append(this.GuildData.RequestList,request)
 	UpdateGuildRequestList(this.GuildData.GuildId,this.GuildData.RequestList)
+
+	logs.Info("AddGuildRequestList", request)
+
 	this.UpdateGuild()
 }
 
@@ -511,6 +520,9 @@ func (this *Guild)DeleteGuildRequestList(player int64)  {
 		}
 	}
 	UpdateGuildRequestList(this.GuildData.GuildId,this.GuildData.RequestList)
+
+	logs.Info("DeleteGuildRequestList ",player)
+
 	this.UpdateGuild()
 }
 
@@ -535,6 +547,9 @@ func (this *Guild)UpdateGuildMemberVal(player int64,val int32)  {
 	}
 	member.TianTiVal = val
 	UpdateDBGuildMemberVal(player,val)
+	this.UpdateGuildVal()
+
+	logs.Info("UpdateGuildMemberVal player = ",player," TianTiVal = " ,member.TianTiVal ," UpdateGuildVal =",this.GuildData.GuildVal)
 }
 
 func (this *Guild)UpdateGuildVal()  {
@@ -562,6 +577,7 @@ func (this *Guild)SetGuildRequestFlag(isFlag bool,require int32)  {
 	UpdateDBGuildRatify(this.GuildData.GuildId,this.GuildData.IsRatify,this.GuildData.Require)
 	//To Client
 	this.UpdateGuild()
+	logs.Info("SetGuildRequestFlag Guild=",this.GuildData.GuildId,isFlag,require)
 }
 
 func (this *Guild)DelMember(roleId int64)  {
@@ -574,6 +590,8 @@ func (this *Guild)DelMember(roleId int64)  {
 		}
 	}
 	this.UpdateMember(tempMem,prpc.MLF_Delete)
+
+	logs.Info("Guild DelMember = ",roleId)
 }
 
 func (this *Guild)GuildChangeJob(myId int64,roleId int64,job int)  {
@@ -609,6 +627,8 @@ func (this *Guild)GuildChangeJob(myId int64,roleId int64,job int)  {
 	roleMember.Job = job
 	//To Client
 	this.UpdateMember(*roleMember,prpc.MLF_ChangePosition)
+
+	logs.Info("GuildChangeJob ",roleMember)
 }
 
 func (this *Guild)GuildChat(chat prpc.COM_Chat)  {
@@ -798,6 +818,8 @@ func (player *GamePlayer)AddGuildAssistant(item int32)  {
 	com.ItemId		= sge.ItemId
 	com.PlayerName  = sge.RoleName
 	BroadcastAssistant(player.GuildId,com,"")
+
+	logs.Info("AddGuildAssistant ",sge)
 }
 
 func (player *GamePlayer)GuildAssistantItem(ass int32)  {
@@ -862,10 +884,13 @@ func (player *GamePlayer)GuildAssistantItem(ass int32)  {
 	com.ItemId		= data.ItemId
 	com.PlayerName  = data.RoleName
 	BroadcastAssistant(player.GuildId,com,player.MyUnit.InstName)
+
+	logs.Info("GuildAssistantItem ",data)
 }
 
 func DeleteGuildAssistant(assistantId int32)()  {
 	DelGuildAssistant(assistantId)
+	logs.Info("DeleteGuildAssistant ",assistantId)
 }
 
 func (player *GamePlayer)SycnGuildAssistants()  {
