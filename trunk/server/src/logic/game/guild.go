@@ -226,6 +226,8 @@ func AddGuildMember(member prpc.COM_GuildMember) bool {
 		return false
 	}
 
+	PlayerIdGuildMap[member.RoleId] = pGuild
+
 	player := FindPlayerByInstId(member.RoleId)
 	if player!=nil {
 		pGuild.GuildMemberOnLine(player)
@@ -656,6 +658,9 @@ func (this *Guild)GuildMemberOnLine(player *GamePlayer)  {
 	player.GuildId = this.GuildData.GuildId
 
 	player.SycnGuildAssistants()
+	this.UpdateGuild()
+	this.UpdateMemberList(player)
+	this.UpdateMember(member,prpc.MLF_ChangeOffline)
 }
 
 func (this *Guild)GuildMemberOffOnLine(player int64)  {
