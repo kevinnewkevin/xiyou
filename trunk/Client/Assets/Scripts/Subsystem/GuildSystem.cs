@@ -47,6 +47,16 @@ public class GuildSystem
 		}
 	}
 
+	public static void AddGuildMember(COM_GuildMember member)
+	{
+		if (member == null)
+			return;
+		if (guildMemberList.Contains (member))
+			return;		
+		guildMemberList.Add(member);
+	}
+
+
 
 	public static void LeaveGuildMember( string name,bool b)
 	{
