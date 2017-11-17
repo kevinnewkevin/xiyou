@@ -56,6 +56,20 @@ public class GuildSystem
 		guildMemberList.Add(member);
 	}
 
+	public static void DelGuildMember(COM_GuildMember member)
+	{
+		if (member == null)
+				return;
+		for (int i = 0; i < guildMemberList.Count; i++)
+		{
+			if (guildMemberList [i].RoleId == member.RoleId) 
+			{
+				guildMemberList.Remove(guildMemberList [i]);
+				break;
+			}
+		}
+	}
+
 
 
 	public static void LeaveGuildMember( string name,bool b)
