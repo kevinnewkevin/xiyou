@@ -331,11 +331,14 @@ class Proxy : ICOM_ServerToClientProxy
         ChatSystem.UpdateAss(info);
         if (!string.IsNullOrEmpty(whoAssMe))
         {
-            string itemname = "";
-            ItemData iData = ItemData.GetData(info.ItemId);
-            if (iData != null)
-                itemname = iData._Name;
-            LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, itemname);
+            if (!GamePlayer._Name.Equals(whoAssMe))
+            {
+                string itemname = "";
+                ItemData iData = ItemData.GetData(info.ItemId);
+                if (iData != null)
+                    itemname = iData._Name;
+                LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, itemname);
+            }
         }
         return true;
     }
