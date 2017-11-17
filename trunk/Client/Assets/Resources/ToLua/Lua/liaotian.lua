@@ -213,7 +213,11 @@ end
 
 function liaotian_OnYYEnd()
 	yyAnim.visible = false;
-	YYSystem.StopRecord(false, liaotian_GetChatType(crtType));
+	local chatType = liaotian_GetChatType(crtType);
+	if chatType == -1 then
+		chatType = 1;
+	end
+	YYSystem.StopRecord(false, chatType);
 end
 
 function liaotian_OnPlayRecord(context)

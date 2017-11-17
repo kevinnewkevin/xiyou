@@ -442,7 +442,11 @@ end
 
 function squadliaotian_OnYYEnd()
 	yyAnim.visible = false;
-	YYSystem.StopRecord(false, squadliaotian_GetChatType(crtType));
+	local chatType = liaotian_GetChatType(crtType);
+	if chatType == -1 then
+		chatType = 1;
+	end
+	YYSystem.StopRecord(false, chatType);
 end
 
 function squadliaotian_OnPlayRecord(context)
