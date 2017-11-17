@@ -100,5 +100,7 @@ function wanjiaxinxi_RenderListItem(indx, obj)
 end 
 
 function wanjiaxinxi_OnCard(context)
-
+	UIParamHolder.Set("showBoosId", context.sender.data);
+	UIParamHolder.Set("showBoos", true);
+	
 end
