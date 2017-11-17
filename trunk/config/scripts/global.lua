@@ -91,7 +91,8 @@ end
 
 --离开帮派
 function LeaveGuild()
-	ChatSystem.ClearMsgByType(5);
+	ChatSystem.ClearMsgByType(4);
+	ChatSystem._Assistant:Clear();
 end
 
 --改变颜色ubb语法
