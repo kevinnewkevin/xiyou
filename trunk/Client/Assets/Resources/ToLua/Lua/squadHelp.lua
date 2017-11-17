@@ -59,6 +59,7 @@ end
 function squadHelp_OnHelp(context)
 	if context.sender.data ~= nil then
 		Proxy4Lua.NeedAssistantItem(context.sender.data);
+		Proxy4Lua.PopMsg("请求成功,请去支援频道查看您的请求");
 	end
 	UIManager.Hide("squadHelp");
 end

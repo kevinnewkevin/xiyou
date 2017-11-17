@@ -144,7 +144,7 @@ function liaotian_OnRenderListItem(index, obj)
 	else
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
-			content.text = Proxy4Lua.ChangeColor("系统:", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
+			content.text = Proxy4Lua.ChangeColor("[系统]", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
 		else
 			local yybtn = obj:GetChild("n8").asCom;
 			local yybg = obj:GetChild("n9");
@@ -173,7 +173,11 @@ function liaotian_OnRenderListItem(index, obj)
 				content.width = content.textWidth;
 			end
 			icon.url = "ui://" .. crtList[index].HeadIcon;
-			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			if crtList[index].Type == 1 then
+				name.text = Proxy4Lua.ChangeColor("[世界]", "red") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			elseif crtList[index].Type == 4 then
+				name.text = Proxy4Lua.ChangeColor("[家族]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			end
 			lv.text = crtList[index].Level;
 		end
 	end

@@ -9,9 +9,9 @@ local helpBtn;
 local helpTime;
 
 local squadChatCom;
-local sysCom = "ui://bangpai/xitong_com";
-local otherCom = "ui://bangpai/duifang_com";
-local selfCom = "ui://bangpai/wofang_com";
+local sysCom = "ui://liaotian/xitong_com";
+local otherCom = "ui://liaotian/duifang_com";
+local selfCom = "ui://liaotian/wofang_com";
 local assisCom = "ui://bangpai/zhiyuan_com";
 
 local contentList;
@@ -234,6 +234,8 @@ function squad_FlushData()
 	else
 		crtList = ChatSystem.MsgByType(type);
 	end
+		print(contentList.numItems);
+		print("crtList.Count" .. crtList.Count);
 	contentList.numItems = crtList.Count;
 
 	if isScrollBottom then
@@ -253,6 +255,8 @@ function squad_FlushData()
 		content.visible = true;
 		contentBg.visible = true;
 	end
+
+	settingBtn.visible = GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3;
 end
 
 
@@ -329,7 +333,7 @@ function squadliaotian_OnRenderListItem(index, obj)
 	else
 		if crtList[index].Type == 0 then --系统
 			local content = obj:GetChild("n4").asTextField;
-			content.text = Proxy4Lua.ChangeColor("系统:", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
+			content.text = Proxy4Lua.ChangeColor("[系统]", "yellow") .. EmojiParser.inst:Parse(crtList[index].Content);
 		else
 			local yybtn = obj:GetChild("n8").asCom;
 			local yybg = obj:GetChild("n9");
@@ -358,7 +362,11 @@ function squadliaotian_OnRenderListItem(index, obj)
 				content.width = content.textWidth;
 			end
 			icon.url = "ui://" .. crtList[index].HeadIcon;
-			name.text = Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			if crtList[index].Type == 1 then
+				name.text = Proxy4Lua.ChangeColor("[世界]", "red") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			elseif crtList[index].Type == 4 then
+				name.text = Proxy4Lua.ChangeColor("[家族]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
+			end
 			lv.text = crtList[index].Level;
 		end
 	end
