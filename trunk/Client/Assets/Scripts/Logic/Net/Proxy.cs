@@ -408,5 +408,13 @@ class Proxy : ICOM_ServerToClientProxy
 			UIManager.SetDirty("squadList");
 			return true;
 		}
-
+		public bool JoinGuildOk()
+		{
+			if (UIManager.IsShow ("squadList")) 
+			{
+				UIManager.Hide("squadList");	
+				UIManager.Show("squad");
+			}	
+			return true;
+		}
 }
