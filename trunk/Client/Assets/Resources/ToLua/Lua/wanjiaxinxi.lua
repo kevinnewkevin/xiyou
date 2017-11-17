@@ -9,6 +9,7 @@ local guildLab;
 local duanLab;
 local rankLab;
 local icon;
+local tatle;
 local cardGroupList;
 
 
@@ -33,6 +34,7 @@ function wanjiaxinxi:OnInit()
 	guildLab = self.contentPane:GetChild("n6");
 	duanLab = self.contentPane:GetChild("n4");
 	rankLab = self.contentPane:GetChild("n14");
+	tatle = self.contentPane:GetChild("n11");
 	cardGroupList = self.contentPane:GetChild("n13");
 
 	cardGroupList.itemRenderer = wanjiaxinxi_RenderListItem;
@@ -71,13 +73,14 @@ function wanjiaxinxi_FlushData()
 		return;
 	end
 	nameLab.text = info.Name;
-	numLab.text = info.TiatiVal .."";    
-	guildLab.text = info.ClanName;
-	duanLab.text = info.TiatiRank.."";
+	numLab.text = info.TiatiVal .."";   
+	tatle.text = info.Name.."的信息";
+	guildLab.text = "帮会：" .. info.ClanName;
 	rankLab.text = info.TiatiRank.."";
+	levelLab.text = info.Level.."";
 	local displayData = DisplayData.GetData(info.DisplayID);
 	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
-
+	duanLab.asLoader.url = "ui://wanjiaxinxi/xiao_duanwei" .. GamePlayer.RankLevel(info.TiatiVal);
 	if info.UnitLIst ~= nil then
 		cardGroupList.numItems = info.UnitLIst.Length;
 	else
