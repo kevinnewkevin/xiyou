@@ -59,6 +59,7 @@ function liaotian:OnInit()
 	typeList.onClickItem:Add(liaotian_OnTypeSelect);
 
 	checkBtns = self.contentPane:GetChild("n24" );
+	checkBtns.onClick:Add(liaotian_OnCloseFriend);
 	addFriendBtn =checkBtns:GetChild("n8");
 	checkInfoBtn =checkBtns:GetChild("n5");
 	addFriendBtn.onClick:Add(liaotian_OnAddFriend);
@@ -344,15 +345,23 @@ function liaotian_GetChatType(uitype)
 end
 
 function liaotian_OnCheckIcon(memberData)
+	if memberData.sender.data == GamePlayer._InstID then
+		return;
+	end
 	checkBtns.visible = true;
 end
 
 function liaotian_OnAddFriend(memberData)
 	checkBtns.visible = false;
-	Proxy4Lua.ApplicationFriend(name);
+	Proxy4Lua.ApplicationFriend(memberData.sender.data);
 end
 
 function liaotian_OnCheckInfo(memberData)
 	checkBtns.visible = false;
 	Proxy4Lua.QueryPlayerInfo(memberData.sender.data);
 end
+
+function liaotian_OnCloseFriend(memberData)
+	checkBtns.visible = false;
+end
+
