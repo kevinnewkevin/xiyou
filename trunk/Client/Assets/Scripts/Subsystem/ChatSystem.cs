@@ -73,6 +73,7 @@ public class ChatSystem {
                 _AllMsg [-1] [i].AudioOld = true;
                 UIManager.SetDirty("zhujiemian_liaotian");
                 UIManager.SetDirty("liaotian");
+                UIManager.SetDirty("squad");
                 break;
             }
         }
