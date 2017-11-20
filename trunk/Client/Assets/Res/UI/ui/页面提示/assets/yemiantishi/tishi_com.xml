@@ -2,9 +2,9 @@
 <component size="803,83">
   <displayList>
     <image id="n0_nk8s" name="n0" src="nk8s1" xy="0,-1" size="803,83"/>
-    <text id="n1_nk8s" name="n1" xy="404,42" pivot="0.5,0.5" anchor="true" size="856,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="">
+    <richtext id="n1_nk8s" name="n1" xy="404,42" pivot="0.5,0.5" anchor="true" size="856,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="">
       <relation target="n0_nk8s" sidePair="center-center,middle-middle"/>
-    </text>
+    </richtext>
   </displayList>
   <transition name="t0">
     <item time="0" type="Alpha" target="n0_nk8s" tween="true" startValue="0" endValue="1" duration="6"/>
