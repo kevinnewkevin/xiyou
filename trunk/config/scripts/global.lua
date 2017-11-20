@@ -60,6 +60,10 @@ function UpdateUnitIProperty(instid, type, value)
 	if type == 11 then
 		if value > GamePlayer._Data.IProperties[type] then
 			Proxy4Lua.PopMsg("获得魂币" .. (value - GamePlayer._Data.IProperties[type]));
+			local chatTip = COM_Chat.New();
+			chatTip.Type = 0;
+			chatTip.Content = "获得魂币" .. (value - GamePlayer._Data.IProperties[type]);
+			ChatSystem.AddMsg(chatTip);
 		end
 	end
 end
@@ -74,6 +78,10 @@ function GainItem(inst)
 	local iData = ItemData.GetData(inst.ItemId);
 	if iData ~= nil then
 		Proxy4Lua.PopMsg("获得" .. iData._Name .. "X" .. inst.Stack);
+		local chatTip = COM_Chat.New();
+		chatTip.Type = 0;
+		chatTip.Content = "获得" .. iData._Name .. "X" .. inst.Stack;
+		ChatSystem.AddMsg(chatTip);
 	end
 end
 
