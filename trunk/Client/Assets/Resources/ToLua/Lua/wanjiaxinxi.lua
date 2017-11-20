@@ -84,7 +84,7 @@ function wanjiaxinxi_FlushData()
 
 	levelLab.text = info.Level.."";
 
-	local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+	local eData = EntityData.GetData(info.UnitID);
 	if eData ~= nil then
 		local dData = DisplayData.GetData(eData._DisplayId);
 		if dData ~= nil then
