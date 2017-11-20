@@ -42,9 +42,7 @@ public class ChatSystem {
         if (!updated)
         {
             _Assistant.Add(ass);
-            if(ass.PlayerName.Equals(GamePlayer._Name))
-                GamePlayer.AddCoolDown("AssistantCoolDown", TimerManager.GetTimeStamp());
-            else
+            if(!ass.PlayerName.Equals(GamePlayer._Name))
                 LuaManager.Call("global.lua", "ReceivedAssistant", ass);
         }
 
