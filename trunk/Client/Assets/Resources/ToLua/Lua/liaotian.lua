@@ -21,6 +21,9 @@ local emojiBtn;
 local yyBtn;
 local content;
 local contentBg;
+local checkBtns;
+local addFriendBtn;
+local checkInfoBtn;
 
 function liaotian:OnEntry()
 	Window = liaotian.New();
@@ -54,6 +57,13 @@ function liaotian:OnInit()
 
 	typeList = self.contentPane:GetChild("n6").asList;
 	typeList.onClickItem:Add(liaotian_OnTypeSelect);
+
+	checkBtns = self.contentPane:GetChild("n24" );
+	addFriendBtn =checkBtns:GetChild("n8");
+	checkInfoBtn =checkBtns:GetChild("n5");
+	addFriendBtn.onClick:Add(liaotian_OnAddFriend);
+	checkInfoBtn.onClick:Add(liaotian_OnCheckInfo);
+	checkBtns.visible = false;
 
 	emojiCom = self.contentPane:GetChild("n14").asCom;
 	emojiCom.fairyBatching = true;
@@ -179,6 +189,11 @@ function liaotian_OnRenderListItem(index, obj)
 				name.text = Proxy4Lua.ChangeColor("[帮派]", "green") .. Proxy4Lua.ChangeColor(crtList[index].PlayerName, "blue");
 			end
 			lv.text = crtList[index].Level;
+
+			icon.onClick:Add(liaotian_OnCheckIcon);
+			icon.data = crtList[index].PlayerInstId;
+			addFriendBtn.data = crtList[index].PlayerName;
+			checkInfoBtn.data = crtList[index].PlayerInstId; 
 		end
 	end
 end
@@ -326,4 +341,18 @@ function liaotian_GetChatType(uitype)
 	elseif uitype == 4 then
 		return 5;--帮派求助
 	end
+end
+
+function liaotian_OnCheckIcon(memberData)
+	checkBtns.visible = true;
+end
+
+function liaotian_OnAddFriend(memberData)
+	checkBtns.visible = false;
+	Proxy4Lua.ApplicationFriend(name);
+end
+
+function liaotian_OnCheckInfo(memberData)
+	checkBtns.visible = false;
+	Proxy4Lua.QueryPlayerInfo(memberData.sender.data);
 end
