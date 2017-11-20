@@ -343,11 +343,7 @@ class Proxy : ICOM_ServerToClientProxy
         {
             if (!GamePlayer._Name.Equals(whoAssMe))
             {
-                string itemname = "";
-                ItemData iData = ItemData.GetData(info.ItemId);
-                if (iData != null)
-                    itemname = iData._Name;
-                LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, itemname);
+                LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, info.ItemId);
             }
         }
         return true;
