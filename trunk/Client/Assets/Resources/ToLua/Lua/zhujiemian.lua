@@ -306,11 +306,14 @@ function zhujiemian_RankRenderListItem(index, obj)
 
 	lv.text = RankSystem._FirendRank[index].Level;
 	rank.text = index + 1 .. "";
-	local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
-	if dData ~= nil then
-		icon.url = "ui://" .. dData._HeadIcon;
-	else
-		icon.url = "";
+	local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+	if eData ~= nil then
+		local dData = DisplayData.GetData(eData._DisplayId);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._HeadIcon;
+		else
+			icon.url = "";
+		end
 	end
 end
 
