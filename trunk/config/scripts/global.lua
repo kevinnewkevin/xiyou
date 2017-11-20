@@ -102,8 +102,27 @@ function GainItem(inst)
 end
 
 --谁支援了我
-function WhoAssistantMe(who, item)
-	Proxy4Lua.PopMsg(who .. "支援了我1个" .. item);
+function WhoAssistantMe(who, itemid)
+	local iData = ItemData.GetData(itemid);
+	if iData ~= nil then
+		local finalStr = "";
+		local content = iData._Name;
+		if iData._Quality == 2 then
+			finalStr = "[color=#72ff5b]" .. content .. "[/color]";
+		elseif iData._Quality == 3 then
+			finalStr = "[color=#08e5ff]" .. content .. "[/color]";
+		elseif iData._Quality == 4 then
+			finalStr = "[color=#fa68ff]" .. content .. "[/color]";
+		elseif iData._Quality == 5 then
+			finalStr = "[color=#ff7a38]" .. content .. "[/color]";
+		elseif iData._Quality == 6 then
+			finalStr = "[color=#ff6868]" .. content .. "[/color]";
+		else
+			finalStr = "[color=#ffffff]" .. content .. "[/color]";
+		end
+
+		Proxy4Lua.PopMsg(who .. "支援了我1个" .. finalStr);
+	end
 end
 
 --收到聊天
