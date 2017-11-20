@@ -61,6 +61,7 @@ public class AppEntry : MonoBehaviour {
         UIManager.Update();
         World.Update();
         Battle.Update();
+        GuideSystem.Update();
         SceneLoader.Update();
         CameraEffect.Update();
         ExceptionHandle.Update();
@@ -128,4 +129,4 @@ public class AppEntry : MonoBehaviour {
 //        if (GUILayout.Button("PlayBackground2"))
 //            AudioSystem.PlayBackground("Audio/background2");
 //    }
-}
+    }
