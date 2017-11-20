@@ -34,7 +34,7 @@ public class CardcloseData
 						data._GreenitemID= parser.GetInt (i, "GreenitemID");
 						data._Greennum = parser.GetInt (i, "Greennum");
 						data._BlueitemID = parser.GetInt (i, "BlueitemID");
-						data._Bluenum = parser.GetInt (i, "BlueitemID");
+						data._Bluenum = parser.GetInt (i, "Bluenum");
 						data._PurpleitemID = parser.GetInt(i, "PurpleitemID");
 						data._Purplenum = parser.GetInt(i, "Purplenum");
 						data._OrangetemID = parser.GetInt(i, "OrangeitemID");
