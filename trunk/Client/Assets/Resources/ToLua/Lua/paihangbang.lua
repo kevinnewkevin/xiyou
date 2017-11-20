@@ -73,11 +73,14 @@ function paihangbang_RenderListItem(index, obj)
 		else
 			flower.url = "";
 		end
-		local dData = DisplayData.GetData(RankSystem._FirendRank[index].DisplayID);
-		if dData ~= nil then
-			icon.url = "ui://" .. dData._HeadIcon;
-		else
-			icon.url = "";
+		local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+		if eData ~= nil then
+			local dData = DisplayData.GetData(eData._DisplayId);
+			if dData ~= nil then
+				icon.url = "ui://" .. dData._HeadIcon;
+			else
+				icon.url = "";
+			end
 		end
 	elseif crtType == 1 then
 		obj.data =RankSystem._AllRank[index].InstId;
@@ -95,11 +98,14 @@ function paihangbang_RenderListItem(index, obj)
 		else
 			flower.url = "";
 		end
-		local dData = DisplayData.GetData(RankSystem._AllRank[index].DisplayID);
-		if dData ~= nil then
-			icon.url = "ui://" .. dData._HeadIcon;
-		else
-			icon.url = "";
+		local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+		if eData ~= nil then
+			local dData = DisplayData.GetData(eData._DisplayId);
+			if dData ~= nil then
+				icon.url = "ui://" .. dData._HeadIcon;
+			else
+				icon.url = "";
+			end
 		end
 	end
 end

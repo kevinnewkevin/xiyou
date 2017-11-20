@@ -83,8 +83,16 @@ function wanjiaxinxi_FlushData()
 	end
 
 	levelLab.text = info.Level.."";
-	local displayData = DisplayData.GetData(info.DisplayID);
-	icon.asLoader.url = "ui://" .. displayData._HeadIcon;
+
+	local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+	if eData ~= nil then
+		local dData = DisplayData.GetData(eData._DisplayId);
+		if dData ~= nil then
+			icon.url = "ui://" .. dData._HeadIcon;
+		else
+			icon.url = "";
+		end
+	end
 	duanLab.asLoader.url = "ui://wanjiaxinxi/xiao_duanwei" .. GamePlayer.RankLevel(info.TiatiVal);
 	if info.UnitLIst ~= nil then
 		cardGroupList.numItems = info.UnitLIst.Length;
