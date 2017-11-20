@@ -286,7 +286,7 @@ struct COM_PlayerInfo
 	COM_Unit[]		UnitLIst;			//出战卡组
 	int32			Level;				//等级
 	string			Name;				//姓名
-	int32			DisplayID;			//unitid
+	int32			UnitID;				//unitid
 	string			ClanName;			//帮会名字
 	int32			TiatiVal;			//天梯积分
 	int32			TiatiRank;			//排名
