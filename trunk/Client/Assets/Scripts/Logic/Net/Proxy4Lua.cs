@@ -699,6 +699,26 @@ public class Proxy4Lua {
     {
         return new FairyGUI.SwipeGesture(holder);
     }
+
+    static public object[] CallGlobalFunction(string funcName, object pa1)
+    {
+        return LuaManager.Call("global.lua", funcName, pa1);
+    }
+
+    static public object[] CallGlobalFunction(string funcName, object pa1, object pa2)
+    {
+        return LuaManager.Call("global.lua", funcName, pa1, pa2);
+    }
+
+    static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3)
+    {
+        return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3);
+    }
+
+    static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3, object pa4)
+    {
+        return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3, pa4);
+    }
 }
 
 public class ServInfo
