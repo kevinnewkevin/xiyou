@@ -243,7 +243,7 @@ struct SGE_DBTopUnit {
 	int64	InstId;			//ID
 	int32	Level;			//等级
 	int32	TianTi;			//天体点数
-	int32	DisplayID;		//头像
+	int32	UnitID;		//头像
 };
 
 struct COM_Chat

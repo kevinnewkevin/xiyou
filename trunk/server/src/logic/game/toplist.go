@@ -75,7 +75,7 @@ func (this *GamePlayer) GetTopSGE() prpc.SGE_DBTopUnit {
 
 	data := prpc.SGE_DBTopUnit{}
 	data.Name = this.MyUnit.InstName
-	data.DisplayID = this.MyUnit.UnitId
+	data.UnitID = this.MyUnit.UnitId
 	data.Level = this.MyUnit.Level
 	data.TianTi = this.TianTiVal
 	data.InstId = this.MyUnit.InstId
@@ -140,7 +140,7 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 			top.TianTi = this.TianTiVal
 			top.Level = this.MyUnit.Level
 			top.Name = this.MyUnit.InstName
-			top.DisplayID = this.MyUnit.UnitId
+			top.UnitID = this.MyUnit.UnitId
 			top.InstId = this.MyUnit.InstId
 
 			TMPTopList = append(TMPTopList, top)
@@ -217,7 +217,7 @@ func (this *GamePlayer) RefreshFriendTopList()  {		//好友之间的天梯排行
 	mt.Name = this.MyUnit.InstName
 	mt.Level = this.MyUnit.Level
 	mt.TianTi = this.TianTiVal
-	mt.DisplayID = this.MyUnit.UnitId
+	mt.UnitID = this.MyUnit.UnitId
 	mt.InstId = this.MyUnit.InstId
 
 	this.FriendTop = append(this.FriendTop, mt)
@@ -234,7 +234,7 @@ func (this *GamePlayer) RefreshFriendTopList()  {		//好友之间的天梯排行
 				t.Name = p.MyUnit.InstName
 				t.Level = p.MyUnit.Level
 				t.TianTi = p.TianTiVal
-				t.DisplayID = p.MyUnit.UnitId
+				t.UnitID = p.MyUnit.UnitId
 				t.InstId = p.MyUnit.InstId
 
 				this.FriendTop = append(this.FriendTop, t)
@@ -248,7 +248,7 @@ func (this *GamePlayer) RefreshFriendTopList()  {		//好友之间的天梯排行
 			t.Name = fr.MyUnit.InstName
 			t.Level = fr.MyUnit.Level
 			t.TianTi = fr.TianTiVal
-			t.DisplayID = fr.MyUnit.UnitId
+			t.UnitID = fr.MyUnit.UnitId
 			t.InstId = fr.MyUnit.InstId
 
 			this.FriendTop = append(this.FriendTop, t)

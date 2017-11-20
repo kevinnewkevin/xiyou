@@ -10,7 +10,7 @@ type COM_TopUnit struct{
   InstId int64  //1
   Level int32  //2
   TianTi int32  //3
-  DisplayID int32  //4
+  UnitID int32  //4
 }
 func (this *COM_TopUnit)SetName(value string) {
   this.Lock()
@@ -52,15 +52,15 @@ func (this *COM_TopUnit)GetTianTi() int32 {
   defer this.Unlock()
   return this.TianTi
 }
-func (this *COM_TopUnit)SetDisplayID(value int32) {
+func (this *COM_TopUnit)SetUnitID(value int32) {
   this.Lock()
   defer this.Unlock()
-  this.DisplayID = value
+  this.UnitID = value
 }
-func (this *COM_TopUnit)GetDisplayID() int32 {
+func (this *COM_TopUnit)GetUnitID() int32 {
   this.Lock()
   defer this.Unlock()
-  return this.DisplayID
+  return this.UnitID
 }
 func (this *COM_TopUnit)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
@@ -71,7 +71,7 @@ func (this *COM_TopUnit)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.InstId!=0)
   mask.writeBit(this.Level!=0)
   mask.writeBit(this.TianTi!=0)
-  mask.writeBit(this.DisplayID!=0)
+  mask.writeBit(this.UnitID!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -112,10 +112,10 @@ func (this *COM_TopUnit)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
-  // serialize DisplayID
+  // serialize UnitID
   {
-    if(this.DisplayID!=0){
-      err := write(buffer,this.DisplayID)
+    if(this.UnitID!=0){
+      err := write(buffer,this.UnitID)
       if err != nil{
         return err
       }
@@ -159,9 +159,9 @@ func (this *COM_TopUnit)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
-  // deserialize DisplayID
+  // deserialize UnitID
   if mask.readBit() {
-    err := read(buffer,&this.DisplayID)
+    err := read(buffer,&this.UnitID)
     if err != nil{
       return err
     }
