@@ -56,8 +56,8 @@ function paihangbang_RenderListItem(index, obj)
 	local icon = obj:GetChild("n7").asLoader;
 	local duan = obj:GetChild("n11").asLoader;
 	obj.onClick:Add(paihangbang_OnInfoClick);
-	 obj.data =RankSystem._FirendRank[index].InstId;
 	if crtType == 0 then
+		obj.data =RankSystem._FirendRank[index].InstId;
 		name.text = RankSystem._FirendRank[index].Name;
 		lv.text = RankSystem._FirendRank[index].Level;
 		score.text = RankSystem._FirendRank[index].TianTi;
@@ -80,6 +80,7 @@ function paihangbang_RenderListItem(index, obj)
 			icon.url = "";
 		end
 	elseif crtType == 1 then
+		obj.data =RankSystem._AllRank[index].InstId;
 		name.text = RankSystem._AllRank[index].Name;
 		lv.text = RankSystem._AllRank[index].Level;
 		score.text = RankSystem._AllRank[index].TianTi;
