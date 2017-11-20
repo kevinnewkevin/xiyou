@@ -1550,7 +1550,7 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 			player.SetPlayerSGE(*p)
 			info.Name = player.MyUnit.InstName
 			info.Level = player.MyUnit.Level
-			info.DisplayID = player.MyUnit.UnitId
+			info.UnitID = player.MyUnit.UnitId
 			info.TiatiVal = player.TianTiVal
 			info.TiatiRank = player.TianTiRank
 
@@ -1581,7 +1581,7 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 		info.IsOnline = true
 		info.Name = p.MyUnit.InstName
 		info.Level = p.MyUnit.Level
-		info.DisplayID = p.MyUnit.UnitId
+		info.UnitID = p.MyUnit.UnitId
 		info.TiatiVal = p.TianTiVal
 		info.TiatiRank = p.TianTiRank
 
@@ -1618,6 +1618,7 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *GamePlayer) NewPlayerGuide(Step uint64) {
+	logs.Debug("NewPlayerGuide ", Step)
 	this.Guide = Step
 
 	return

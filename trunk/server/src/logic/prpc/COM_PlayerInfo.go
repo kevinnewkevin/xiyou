@@ -9,7 +9,7 @@ type COM_PlayerInfo struct{
   UnitLIst []COM_Unit  //0
   Level int32  //1
   Name string  //2
-  DisplayID int32  //3
+  UnitID int32  //3
   ClanName string  //4
   TiatiVal int32  //5
   TiatiRank int32  //6
@@ -45,15 +45,15 @@ func (this *COM_PlayerInfo)GetName() string {
   defer this.Unlock()
   return this.Name
 }
-func (this *COM_PlayerInfo)SetDisplayID(value int32) {
+func (this *COM_PlayerInfo)SetUnitID(value int32) {
   this.Lock()
   defer this.Unlock()
-  this.DisplayID = value
+  this.UnitID = value
 }
-func (this *COM_PlayerInfo)GetDisplayID() int32 {
+func (this *COM_PlayerInfo)GetUnitID() int32 {
   this.Lock()
   defer this.Unlock()
-  return this.DisplayID
+  return this.UnitID
 }
 func (this *COM_PlayerInfo)SetClanName(value string) {
   this.Lock()
@@ -103,7 +103,7 @@ func (this *COM_PlayerInfo)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.UnitLIst) != 0)
   mask.writeBit(this.Level!=0)
   mask.writeBit(len(this.Name) != 0)
-  mask.writeBit(this.DisplayID!=0)
+  mask.writeBit(this.UnitID!=0)
   mask.writeBit(len(this.ClanName) != 0)
   mask.writeBit(this.TiatiVal!=0)
   mask.writeBit(this.TiatiRank!=0)
@@ -145,10 +145,10 @@ func (this *COM_PlayerInfo)Serialize(buffer *bytes.Buffer) error {
       return err
     }
   }
-  // serialize DisplayID
+  // serialize UnitID
   {
-    if(this.DisplayID!=0){
-      err := write(buffer,this.DisplayID)
+    if(this.UnitID!=0){
+      err := write(buffer,this.UnitID)
       if err != nil{
         return err
       }
@@ -221,9 +221,9 @@ func (this *COM_PlayerInfo)Deserialize(buffer *bytes.Buffer) error{
       return err
     }
   }
-  // deserialize DisplayID
+  // deserialize UnitID
   if mask.readBit() {
-    err := read(buffer,&this.DisplayID)
+    err := read(buffer,&this.UnitID)
     if err != nil{
       return err
     }
