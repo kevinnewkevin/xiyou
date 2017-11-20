@@ -77,10 +77,26 @@ end
 function GainItem(inst)
 	local iData = ItemData.GetData(inst.ItemId);
 	if iData ~= nil then
-		Proxy4Lua.PopMsg("获得" .. GetItemColor(iData._Quality, iData._Name) .. "X" .. inst.Stack);
+		local finalStr = "";
+		local content = iData._Name;
+		if iData._Quality == 2 then
+			finalStr = "[color=#72ff5b]" .. content .. "[/color]";
+		elseif iData._Quality == 3 then
+			finalStr = "[color=#08e5ff]" .. content .. "[/color]";
+		elseif iData._Quality == 4 then
+			finalStr = "[color=#fa68ff]" .. content .. "[/color]";
+		elseif iData._Quality == 5 then
+			finalStr = "[color=#ff7a38]" .. content .. "[/color]";
+		elseif iData._Quality == 6 then
+			finalStr = "[color=#ff6868]" .. content .. "[/color]";
+		else
+			finalStr = "[color=#ffffff]" .. content .. "[/color]";
+		end
+
+		Proxy4Lua.PopMsg("获得" .. finalStr .. "X" .. inst.Stack);
 		local chatTip = COM_Chat.New();
 		chatTip.Type = 0;
-		chatTip.Content = "获得" .. GetItemColor(iData._Quality, iData._Name) .. "X" .. inst.Stack;
+		chatTip.Content = "获得" .. finalStr .. "X" .. inst.Stack;
 		ChatSystem.AddMsg(chatTip);
 	end
 end
@@ -120,21 +136,6 @@ function ChangeColor(content, color)
 		return "[color=#fa68ff]" .. content .. "[/color]";
 	elseif color == "orange" then
 		return "[color=#ff7a38]" .. content .. "[/color]";
-	end
-end
-
---获取道具品质颜色
-function GetItemColor(quality, content)
-	if quality == 2 then
-		return "[color=#72ff5b]" .. content .. "[/color]";
-	elseif quality == 3 then
-		return "[color=#08e5ff]" .. content .. "[/color]";
-	elseif quality == 4 then
-		return "[color=#fa68ff]" .. content .. "[/color]";
-	elseif quality == 5 then
-		return "[color=#ff7a38]" .. content .. "[/color]";
-	elseif quality == 6 then
-		return "[color=#ff6868]" .. content .. "[/color]";
 	end
 end
 
