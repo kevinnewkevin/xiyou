@@ -105,6 +105,12 @@ public class Define {
         }
     }
 
+    public static void RegNoPopUI(string uiName)
+    {
+        if (!UIManager._NoPopIgnoreUI.Contains(uiName))
+            UIManager._NoPopIgnoreUI.Add(uiName);
+    }
+
     //加到类的定义部分
     private static string[] cstr={"零","一","二","三","四", "五", "六","七","八","九"};
     private  static string[] wstr={"","","十","百","千","万","十","百","千","亿","十","百","千"};

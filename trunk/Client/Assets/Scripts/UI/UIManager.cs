@@ -25,6 +25,8 @@ public class UIManager {
     static Dictionary<string, bool> _DirtyPool = new Dictionary<string, bool>();
     static List<string> _WantClearDirty = new List<string>();
 
+    static public List<string> _NoPopIgnoreUI = new List<string>();
+
     static public void Show(string uiName)
     {
         if (IsShow(uiName))

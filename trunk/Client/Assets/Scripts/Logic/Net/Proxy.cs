@@ -138,11 +138,21 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool AddBagItem(ref COM_ItemInst inst)
 	{
 		BagSystem.AddItem(inst);
+        LuaManager.Call("global.lua", "GainItem", inst);
 		return true;
 	}
 	public bool UpdateBagItem(ref COM_ItemInst inst)
 	{
+        int preNum = BagSystem.GetItemMaxNum(inst.ItemId);
 		BagSystem.UpdateItem(inst);
+        int crtNum = BagSystem.GetItemMaxNum(inst.ItemId);
+        if (crtNum > preNum)
+        {
+            COM_ItemInst tcii = new COM_ItemInst();
+            tcii.ItemId = inst.ItemId;
+            tcii.Stack = crtNum - preNum;
+            LuaManager.Call("global.lua", "GainItem", tcii);
+        }
 		return true;
 	}
 	

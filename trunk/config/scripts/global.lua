@@ -70,8 +70,11 @@ function UpdateUnitCProperty(instid, type, value)
 end
 
 --获得物品
-function GainItem()
-	Proxy4Lua.PopMsg("获得魂币" .. (value - GamePlayer._Data.IProperties[type]));
+function GainItem(inst)
+	local iData = ItemData.GetData(inst.ItemId);
+	if iData ~= nil then
+		Proxy4Lua.PopMsg("获得" .. iData._Name .. "X" .. inst.Stack);
+	end
 end
 
 --谁支援了我
@@ -139,6 +142,8 @@ function RegGlobalValue()
 	Define.Set("AssistantCoolDown", 86400);
 	Define.Set("EmojiTags","001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027,028");
 	Define.Set("CreateGuild", 1);
+	
+	Define.RegNoPopUI("cangbaoge");
 end
 
 --ui资源和ui逻辑关联map

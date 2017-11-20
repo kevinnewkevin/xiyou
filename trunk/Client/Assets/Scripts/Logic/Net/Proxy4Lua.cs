@@ -576,6 +576,11 @@ public class Proxy4Lua {
     static public System.Collections.Generic.Queue<string> Message = new Queue<string>();
     static public void PopMsg(string msg)
     {
+        for (int i = 0; i < UIManager._NoPopIgnoreUI.Count; ++i)
+        {
+            if (UIManager.IsShow(UIManager._NoPopIgnoreUI [i]))
+                return;
+        }
         Message.Enqueue(msg);
     }
 
