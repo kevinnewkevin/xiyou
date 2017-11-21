@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,242" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="rij83x" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n2_tej4" name="n2" xy="24,71" size="84,126" url="ui://fyok6i50rij83y"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
