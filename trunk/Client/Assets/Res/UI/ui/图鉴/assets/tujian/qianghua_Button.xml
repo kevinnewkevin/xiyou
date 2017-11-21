@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="234,219" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="1"/>
+  <displayList>
+    <image id="n1" name="n1" src="myec1j" xy="52,0">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2" name="n2" src="myec1i" xy="52,0">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_myec" name="n3" src="myec1o" xy="55,42">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n5_p3i8" name="n5" src="p3i81s" xy="134,50"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

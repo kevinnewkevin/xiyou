@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="140,195" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="icon" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n5_bx2q" name="n5" src="o8nm2w" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n7_bx2q" name="n7" src="o8nm2x" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="249,100" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="huang" pages="0,jiaru,1,yichu" selected="0"/>
+  <displayList>
+    <image id="n5_hvum" name="n5" src="hvum20" xy="-44,-2">
+      <gearDisplay controller="huang" pages="0"/>
+    </image>
+    <image id="n6_hvum" name="n6" src="hvum21" xy="-46,-4">
+      <gearDisplay controller="huang" pages="1"/>
+    </image>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
