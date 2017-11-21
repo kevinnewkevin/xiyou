@@ -142,14 +142,14 @@ function kaikabao_OnExit(context)
 end
 
 function kaikabao_FlushData()
-	local dropItem;
-	local dropItemCount;
-	local itemInst;
-	local stack;
-	local name;
-	local quality;
-	local icon;
-	local iData;
+--	local dropItem;
+--	local dropItemCount;
+--	local itemInst;
+--	local stack;
+--	local name;
+--	local quality;
+--	local icon;
+--	local iData;
 	local shopType = ShopSystem.buyType;
 	local btnImg = openCom:GetChild("n0");
 	if shopType == 1000 then
@@ -168,32 +168,32 @@ function kaikabao_FlushData()
 
 	local showChapters = UIParamHolder.Get("showChaptersDrop");
 
-	dropItemCount = ShopSystem.BuyItems.Length;
+--	dropItemCount = ShopSystem.BuyItems.Length;
 
 
 
 	initItemList();
 
 	dropList:RemoveChildrenToPool();
-	for i=1, dropItemCount do
-		itemInst = ShopSystem.BuyItems[i-1];
-		dropItem = dropList:AddItemFromPool(dropItemUrl);
-		if itemInst ~= nil then
-			iData = ItemData.GetData(itemInst.ItemId);
-			quality = dropItem:GetChild("n0").asLoader;
-			icon = dropItem:GetChild("n1").asLoader;
-			stack = dropItem:GetChild("n2").asTextField;
-			--name = dropItem:GetChild("n3").asTextField;
-
-			stack.text = itemInst.Stack;
-			if iData ~= nil then
-				--name.text = iData._Name;
-				icon.url = "ui://" .. iData._Icon;
-				quality.url = "ui://" .. iData._IconBack;
-			end
-			dropItem.visible = false;
-		end
-	end
+--	for i=1, dropItemCount do
+--		itemInst = ShopSystem.BuyItems[i-1];
+--		dropItem = dropList:AddItemFromPool(dropItemUrl);
+--		if itemInst ~= nil then
+--			iData = ItemData.GetData(itemInst.ItemId);
+--			quality = dropItem:GetChild("n0").asLoader;
+--			icon = dropItem:GetChild("n1").asLoader;
+--			stack = dropItem:GetChild("n2").asTextField;
+--			--name = dropItem:GetChild("n3").asTextField;
+--
+--			stack.text = itemInst.Stack;
+--			if iData ~= nil then
+--				--name.text = iData._Name;
+--				icon.url = "ui://" .. iData._Icon;
+--				quality.url = "ui://" .. iData._IconBack;
+--			end
+--			dropItem.visible = false;
+--		end
+--	end
 end
 
 
@@ -303,30 +303,52 @@ function kaikabao:OnTick()
 	if threeTime ~= nil then
 		threeTime.count = threeTime.count + 1;
 		if threeTime.count >= threeTime.max then
-				threeTime = nil;
-				if ShopSystem._ShowBuyItems.Count > 0 then
-					topPanel.visible = false;
-					outCom.visible = false;
-					openCom.visible = true;
-					cardOutDrop = {};
-					cardOutDrop.max = 1;
-					cardOutDrop.count = 0; 
-					showOuTCard = true;
-					local obj = dropList:GetChildAt(ShopSystem._buyItemsNum - ShopSystem._ShowBuyItems.Count-1);
-					obj.visible = true;
-				else
-					local obj1 = dropList:GetChildAt(ShopSystem._buyItemsNum - ShopSystem._ShowBuyItems.Count-1);
-					obj1.visible = true;
-					topPanel.visible = false;
-					outCom.visible = true;
-					openCom.visible = false;
-					backCom.onClick:Add(kaikabao_OnExit);
-					hitNextLbl.visible = true;
+			threeTime = nil;
+			if ShopSystem._ShowBuyItems.Count > 0 then
+				outCom.visible = false;
+				openCom.visible = true;
+				cardOutDrop = {};
+				cardOutDrop.max = 1;
+				cardOutDrop.count = 0; 
+				showOuTCard = true;
+			else
+				outCom.visible = true;
+				openCom.visible = false;
+				backCom.onClick:Add(kaikabao_OnExit);
+				hitNextLbl.visible = true;
 
 			--	showOuTCard = false;
 				--	overPanel.visible = true;
 			--	overEffStr = "effect/kaibao_guangquan";
 			--	overTrans:Play();
+			end
+			local isScrollBottom = dropList.scrollPane.isBottomMost;
+			topPanel.visible = false;
+			local itemInst = itemList[ShopSystem._buyItemsNum - ShopSystem._ShowBuyItems.Count-1];
+			local dropItem;
+			local stack;
+			local name;
+			local quality;
+			local icon;
+			local iData;
+			dropItem = dropList:AddItemFromPool(dropItemUrl);
+			if itemInst ~= nil then
+				iData = ItemData.GetData(itemInst.ItemId);
+				quality = dropItem:GetChild("n0").asLoader;
+				icon = dropItem:GetChild("n1").asLoader;
+				stack = dropItem:GetChild("n2").asTextField;
+				--name = dropItem:GetChild("n3").asTextField;
+
+				stack.text = itemInst.Stack;
+				if iData ~= nil then
+					--name.text = iData._Name;
+					icon.url = "ui://" .. iData._Icon;
+					quality.url = "ui://" .. iData._IconBack;
+				end
+			end
+
+			if isScrollBottom then
+				dropList.scrollPane:ScrollBottom();
 			end
 		end
 	end
