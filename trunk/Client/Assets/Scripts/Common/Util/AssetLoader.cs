@@ -15,6 +15,7 @@ public class AssetLoader {
         if (bundle == null)
         {
             Debug.LogError("资源包不完整, 请检查后重新打包");
+            LuaManager.Call("global.lua", "ErrorMessage", "资源包不完整, 请检查后重新打包");
             return;
         }
         _Manifest = (AssetBundleManifest)bundle.LoadAsset("AssetBundleManifest");
@@ -29,7 +30,7 @@ public class AssetLoader {
 
 	static public GameObject LoadAsset(string path)
     {
-        if (string.IsNullOrEmpty(path))
+         if (string.IsNullOrEmpty(path))
             return null;
         path = path.ToLower();
 #if EDITOR_MODE
