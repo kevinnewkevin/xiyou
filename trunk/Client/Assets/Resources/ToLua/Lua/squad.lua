@@ -9,9 +9,9 @@ local helpBtn;
 local helpTime;
 
 local squadChatCom;
-local sysCom = "ui://liaotian/xitong_com";
-local otherCom = "ui://liaotian/duifang_com";
-local selfCom = "ui://liaotian/wofang_com";
+local sysCom = "ui://bangpai/xitong_com";
+local otherCom = "ui://bangpai/duifang_com";
+local selfCom = "ui://bangpai/wofang_com";
 local assisCom = "ui://bangpai/zhiyuan_com";
 
 local contentList;
