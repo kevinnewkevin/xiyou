@@ -35,6 +35,10 @@ local reflect;
 local suck;
 local desc;
 local icon;
+local leftBtn;
+local rightBtn;
+local raceBack;
+
 
 function tujian:OnEntry()
 	Define.LaunchUIBundle("Card");
@@ -65,6 +69,9 @@ function tujian:OnInit()
 	nextBtn.onClick:Add(tujian_OnNextPage);
 
 	local infoList = self.contentPane:GetChild("n109").asList;
+	leftBtn = self.contentPane:GetChild("n107");
+	rightBtn = self.contentPane:GetChild("n108");
+	raceBack = self.contentPane:GetChild("n111");
 	infoPanel = infoList:GetChildAt(1);
 	modelPanel = infoList:GetChildAt(0);
 	propPanel = infoList:GetChildAt(2);
@@ -105,6 +112,10 @@ function tujian:OnInit()
 		typeItem = typeList:GetChildAt(i-1);
 		typeItem.data = i-1;
 		typeItem.onClick:Add(tujian_OnTypeItemClick);
+	end
+	for i=2, 4 do
+		local skill = skillList:GetChildAt(i - 2);
+		skill.onClick:Add(tujian_OnSkillBtn);
 	end
 	typeList.selectedIndex = crtCardsType;
 	local shihunBtn = self.contentPane:GetChild("n106");
@@ -224,7 +235,8 @@ function tujian_updateModelInfo()
 	race.asLoader.url = "ui://" .. displayData._Race;
 	fee.text = entityData._Cost;
 	nameLab.text = entityData._Name;
-end
+	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
+end 
 
 function tujian_updatePropInfo()
 	local entityData = EntityData.GetData(selectCardId);
@@ -264,6 +276,14 @@ function tujian_updateInfoInfo()
 	icon.asLoader.url = "ui://" .. displayData._CardIcon;
 end
 
+function tujian_OnSkillBtn(context)
+	if context.sender.data == nil or context.sender.data == 0 then
+		return;
+	end
+
+	UIParamHolder.Set("jinengxiangqing", context.sender.data);
+	UIManager.Show("jinengxiangqing");
+end
 
 function tujian_OnShiHunClick(context)
 	UIManager.Show("shihun");
