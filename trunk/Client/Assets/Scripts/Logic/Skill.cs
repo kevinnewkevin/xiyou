@@ -433,6 +433,20 @@ public class Skill {
             UIManager.SetDirty("BattlePanel");
         }
 
+        //处理换位
+        for(int i=0; i < _Actions.Length; ++i)
+        {
+            if (_Actions [i].TransPostion < 12)
+            {
+                Actor actor = Battle.GetActor(_Actions [i].InstId);
+                actor._RealPosInScene = _Actions [i].TransPostion;
+                actor.MoveTo(Battle.GetPoint(_Actions [i].TransPostion).position, delegate {
+                    actor.Stop();
+                    actor.Reset();
+                });
+            }
+        }
+
         float _LongestShowTime = 0f;
         if (_ChangeUnit != null)
         {
