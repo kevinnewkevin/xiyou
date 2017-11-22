@@ -987,6 +987,43 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 	return u_list[idx]
 }
 
+//取得全部目标
+func (this *BattleRoom) SelectOneTargetNoMain(instid int64) int64 {
+	rand.Seed(time.Now().UnixNano())
+	unit := this.SelectOneUnit(instid)
+	u_list := []int64{}
+
+	for _, u := range this.Units {
+		if u == nil {
+			continue
+		}
+		if u.IsDead() {
+			continue
+		}
+		if u.Camp == unit.Camp {
+			continue
+		}
+		if u.IsMain {
+			continue
+		}
+
+		u_list = append(u_list, u.InstId)
+	}
+
+	if len(u_list) == 0 {
+		return -1
+	}
+
+	if len(u_list) == 1 {
+		return u_list[0]
+	}
+
+	index := len(u_list)
+	idx := rand.Intn(index)
+
+	return u_list[idx]
+}
+
 func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 	rand.Seed(time.Now().UnixNano())
 	unit := this.SelectOneUnit(instid)
@@ -1976,7 +2013,7 @@ func (this *BattleRoom) TransPosOnFighting(instid int64) {
 	unit := this.SelectOneUnit(instid)
 
 	if unit.IsMain {
-		return 
+		return
 	}
 
 	if unit == nil {

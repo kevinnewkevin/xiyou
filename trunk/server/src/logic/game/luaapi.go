@@ -128,6 +128,7 @@ var playerMod = map[string]lua.LGFunction{
 	"CheckUnitDead":      __CheckUnitDead,
 	"GetFriends":         __GetFriends,
 	"GetTarget":          __GetTarget,
+	"GetTargetNoMain":    __GetTargetNoMain,
 	"GetMainTarget":      __GetMainTarget,
 	"RandomTarget":       __GetRandomTarget,
 	"GetTargets":         __GetTargets,
@@ -387,6 +388,29 @@ func __GetTarget(L *lua.LState) int { //获取 敌方单个目标
 	t_id := battle.SelectNearTarget(unit.InstId)
 
 	logs.Info("__GetTarget end ,", t_id)
+
+	L.Push(lua.LNumber(t_id))
+
+	return 1
+}
+
+func __GetTargetNoMain(L *lua.LState) int { //获取 敌方单个目标
+
+	logs.Info("__GetTargetNoMain")
+
+	idx := 1
+	battleid := L.ToInt(idx)
+	idx++
+	uid := L.ToInt(idx)
+
+	//logs.Info(battleid, uid)
+
+	battle := FindBattle(int64(battleid))
+	unit := battle.SelectOneUnit(int64(uid))
+
+	t_id := battle.SelectOneTargetNoMain(unit.InstId)
+
+	logs.Info("__GetTargetNoMain end ,", t_id)
 
 	L.Push(lua.LNumber(t_id))
 
