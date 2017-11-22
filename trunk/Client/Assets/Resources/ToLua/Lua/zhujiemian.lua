@@ -66,6 +66,9 @@ function zhujiemian:OnInit()
 	local friendBtn = self.contentPane:GetChild("n44");
 	friendBtn.onClick:Add(zhujiemian_OnFriend);
 
+	local tujianBtn = self.contentPane:GetChild("n45");
+	tujianBtn.onClick:Add(zhujiemian_OnTuJian);
+
 	friendRad = self.contentPane:GetChild("n56");
 	friendRad.visible = false;
 
@@ -360,6 +363,12 @@ end
 function zhujiemian_OnChatBtn()
 	UIManager.Show("liaotian");
 end
+
+
+function zhujiemian_OnTuJian()
+	UIManager.Show("tujian");
+end
+
 
 function zhujiemian_OnGuild()
 	if GamePlayer._iGuildId == 0 then
