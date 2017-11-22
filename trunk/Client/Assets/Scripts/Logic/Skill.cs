@@ -439,7 +439,7 @@ public class Skill {
             if (_Actions [i].TransPostion < 12)
             {
                 Actor actor = Battle.GetActor(_Actions [i].InstId);
-                actor._RealPosInScene = _Actions [i].TransPostion;
+                actor.SetPos(_Actions [i].TransPostion);
                 actor.MoveTo(Battle.GetPoint(_Actions [i].TransPostion).position, delegate {
                     actor.Stop();
                     actor.Reset();

@@ -397,6 +397,16 @@ public class Actor {
         _Headbar._Headbar.transform.localScale = new Vector3(adjScale, adjScale, adjScale);
     }
 
+    public void SetPos(int realPos)
+    {
+        Transform tpos = Battle.GetPoint(realPos);
+        if (tpos == null)
+            return;
+        
+        _Pos = tpos;
+        _RealPosInScene = realPos;
+    }
+
     public void Fini(bool clear = false)
     {
         DisplayData dData = DisplayData.GetData(_DisplayID);
