@@ -579,6 +579,18 @@ public class Battle {
         return null;
     }
 
+    static public void SwapActor(int frompos, int topos)
+    {
+        if (frompos < 0 || frompos >= _ActorInScene.Length)
+            return;
+
+        if (topos < 0 || topos >= _ActorInScene.Length)
+            return;
+
+        _ActorInScene[topos] = _ActorInScene[frompos];
+        _ActorInScene [frompos] = null;
+    }
+
     static public bool IsEmptyPos(int pos)
     {
         return _ActorInScene [pos] == null;

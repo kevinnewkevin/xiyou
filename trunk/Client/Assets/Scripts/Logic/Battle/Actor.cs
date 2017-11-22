@@ -402,7 +402,8 @@ public class Actor {
         Transform tpos = Battle.GetPoint(realPos);
         if (tpos == null)
             return;
-        
+
+        Battle.SwapActor(_RealPosInScene, realPos);
         _Pos = tpos;
         _RealPosInScene = realPos;
     }
