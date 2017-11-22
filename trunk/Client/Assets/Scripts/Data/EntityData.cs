@@ -11,6 +11,7 @@ public class EntityData {
     public string _Name;
     public int[] _Skills;
     public string _Desc;
+	public int _Pokedex;
 	public int CPT_HP;
 	public int CPT_ATK;
 	public int CPT_DEF;
@@ -29,8 +30,8 @@ public class EntityData {
 	public int CPT_RESISTANCE;
 	public int IPT_LEVEL;
 
-
     static Dictionary<int, EntityData> metaData;
+	public static Dictionary<string, List<EntityData>> PokedexTypemetaData = new Dictionary<string, List<EntityData>>();
 
     static public void ParseData(string content, string fileName)
     {
@@ -54,7 +55,7 @@ public class EntityData {
             data._Type = parser.GetInt(i, "type");
             data._Name = parser.GetString(i, "Name");
             data._Desc = parser.GetString(i, "Desc");
-
+			data._Pokedex = parser.GetInt(i, "Pokedex");
 			data.IPT_LEVEL = parser.GetInt(i, "IPT_LEVEL");
 			data.CPT_HP = parser.GetInt(i, "CPT_HP");
 			data.CPT_ATK = parser.GetInt(i, "CPT_ATK");
@@ -84,6 +85,26 @@ public class EntityData {
                 Debug.LogError("EntityData ID重复");
                 return;
             }
+			if (data._Pokedex != 0) 
+			{
+				string costTypeKey = data._Cost + "_" + data._Type;
+
+				if(!PokedexTypemetaData.ContainsKey(costTypeKey))
+					PokedexTypemetaData.Add(costTypeKey, new List<EntityData>());
+				PokedexTypemetaData [costTypeKey].Add(data);
+
+				if(!PokedexTypemetaData.ContainsKey("0_" + data._Type))
+					PokedexTypemetaData.Add("0_" + data._Type, new List<EntityData>());
+				PokedexTypemetaData ["0_" + data._Type].Add(data);
+
+				if(!PokedexTypemetaData.ContainsKey(data._Cost + "_0"))
+					PokedexTypemetaData.Add(data._Cost + "_0", new List<EntityData>());
+				PokedexTypemetaData [data._Cost + "_0"].Add(data);
+
+				if(!PokedexTypemetaData.ContainsKey("0_0"))
+					PokedexTypemetaData.Add("0_0", new List<EntityData>());
+				PokedexTypemetaData ["0_0"].Add(data);
+			}
             metaData[data._UnitId] = data;
         }
         parser.Dispose ();
@@ -97,4 +118,28 @@ public class EntityData {
 
         return metaData[id];
     }
+
+	static public List<EntityData> CardsByFeeAndType(int fee, int type)
+	{
+		if (!PokedexTypemetaData.ContainsKey(fee + "_" + type))
+			return null;
+		return PokedexTypemetaData[fee + "_" + type];
+	}
+
+		static public EntityData GetDisplayDataByIndex(int fee, int type, int idx)
+	{
+		if (!PokedexTypemetaData.ContainsKey(fee + "_" + type))
+			return null;
+
+		if (idx < 0 || idx >= PokedexTypemetaData[fee + "_" + type].Count)
+			return null;
+
+		EntityData edata = PokedexTypemetaData[fee + "_" + type][idx];
+		if (edata != null)
+			return edata;
+		return null;
+		DisplayData ddata = DisplayData.GetData(edata._DisplayId);
+
+	}
+	
 }
