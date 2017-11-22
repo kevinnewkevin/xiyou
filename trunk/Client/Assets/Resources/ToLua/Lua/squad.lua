@@ -43,7 +43,6 @@ function squad:GetWindow()
 end
 
 function squad:OnInit()
-	Define.LaunchUIBundle("liaotian");
 	self.contentPane = UIPackage.CreateObject("bangpai", "bangpai_com").asCom;
 	self:Center();
 	self.modal = true;
