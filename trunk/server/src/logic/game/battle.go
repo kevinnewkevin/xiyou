@@ -211,6 +211,18 @@ func FindBattle(battleId int64) *BattleRoom {
 	return nil
 }
 
+func PopBattle(battleId int64) {
+	logs.Debug("PopBattle 1 ", BattleRoomList)
+	_, ok := BattleRoomList[battleId]
+	if !ok {
+		return
+	}
+
+	delete(BattleRoomList, battleId)
+	logs.Debug("PopBattle 2 ", BattleRoomList)
+
+}
+
 func (this *BattleRoom) BattleStart() {
 
 	ul := []prpc.COM_BattleUnit{}
@@ -505,6 +517,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 	}
 
 	logs.Debug("BattleRoomOver, winner is ", camp)
+	PopBattle(this.InstId)
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1093,6 +1106,7 @@ func GetNearFriend(pos int32) []int32 {
 	}
 	return []int32{}
 }
+
 func GetAllMyPos(camp int) []int32 {
 	if camp == prpc.CT_RED {
 		return []int32{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_6}
@@ -1100,6 +1114,25 @@ func GetAllMyPos(camp int) []int32 {
 		return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_3, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
 	}
 	return []int32{}
+}
+
+func GetAllEnemyPos(camp int) []int32 {
+	if camp == prpc.CT_BLUE {
+		return []int32{prpc.BP_RED_1, prpc.BP_RED_2, prpc.BP_RED_3, prpc.BP_RED_4, prpc.BP_RED_5, prpc.BP_RED_6}
+	} else if camp == prpc.CT_RED {
+		return []int32{prpc.BP_BLUE_1, prpc.BP_BLUE_2, prpc.BP_BLUE_3, prpc.BP_BLUE_4, prpc.BP_BLUE_5, prpc.BP_BLUE_6}
+	}
+	return []int32{}
+}
+
+
+func GetEnemyCamp(camp int) int {
+	if camp == prpc.CT_BLUE {
+		return prpc.CT_RED
+	} else if camp == prpc.CT_RED {
+		return prpc.CT_BLUE
+	}
+	return prpc.CT_MAX
 }
 
 func (this *BattleRoom) SelectRandomTarget(instid int64, targetnum int32) []int64 {
@@ -1623,6 +1656,7 @@ func (this *BattleRoom) MintsHp(casterid int64, target int64, damage int32, crit
 	if this.NewAction == false {
 		this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 		this.TargetCOM = prpc.COM_BattleActionTarget{}
+		this.TargetCOM.TransPostion = prpc.BP_MAX
 	}
 
 	if crit == 0 {
@@ -1703,6 +1737,7 @@ func (this *BattleRoom) AddHp(target int64, damage int32, crit int32) {
 	if this.NewAction == false {
 		this.AcctionList.TargetList = append(this.AcctionList.TargetList, this.TargetCOM)
 		this.TargetCOM = prpc.COM_BattleActionTarget{}
+		this.TargetCOM.TransPostion = prpc.BP_MAX
 	}
 
 	if crit == 0 {
@@ -1741,6 +1776,7 @@ func (this *BattleRoom) ReduceSpell(target int64, damage int32, crit int32) {
 	logs.Info("实例ID为", target, "的卡牌在第", this.Round+1, "法术降到", unit.CProperties[prpc.CPT_MAGIC_ATK], "降低了", damage)
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.TransPostion = prpc.BP_MAX
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
 	this.TargetCOM.ActionParam = damage
@@ -1763,6 +1799,7 @@ func (this *BattleRoom) IncreaseSpell(target int64, damage int32, crit int32) {
 	logs.Info("实例ID为", target, "的卡牌在第", this.Round+1, "法术增加到", unit.CProperties[prpc.CPT_MAGIC_ATK], "增加了", damage)
 
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.TransPostion = prpc.BP_MAX
 	this.TargetCOM.InstId = target
 	this.TargetCOM.ActionType = 1
 	this.TargetCOM.ActionParam = damage
@@ -1933,12 +1970,47 @@ func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
 
 	this.AcctionList.UnitList = append(this.AcctionList.UnitList, info)
 
+}
 
+func (this *BattleRoom) TransPosOnFighting(instid int64) {
+	unit := this.SelectOneUnit(instid)
+
+	if unit == nil {
+		return
+	}
+
+	space_pos := []int32{}
+
+	for _, pos := range GetAllEnemyPos(unit.Camp) {
+		if this.Units[pos] != nil && !this.Units[pos].IsDead(){
+			continue
+		}
+		space_pos = append(space_pos, pos)
+	}
+
+	if len(space_pos) == 0 {
+		return
+	}
+
+	transCamp := GetEnemyCamp(unit.Camp)
+
+	if transCamp == prpc.CT_MAX {
+		return
+	}
+
+	unit.Camp = transCamp
+	this.Units[unit.Position] = nil
+
+	this.Units[space_pos[0]] = unit
+	unit.Position = space_pos[0]
+
+	this.TargetCOM.TransPostion = space_pos[0]
 
 }
 
 func (this *BattleRoom) TargetOn() {
 	this.TargetCOM = prpc.COM_BattleActionTarget{}
+	this.TargetCOM.TransPostion = prpc.BP_MAX
 	this.NewAction = true
 }
 

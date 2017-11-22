@@ -183,6 +183,7 @@ var battleMod = map[string]lua.LGFunction{
 	"BuffChangeStillData": __BuffChangeStillData,
 	"BuffChangeData":      __BuffChangeData,
 	"InToBattleOnFighting":      __InToBattleOnFighting,
+	"TransPosOnFighting":      __TransPosOnFighting,
 	"TargetOver":          __TargetOver,
 	"TargetOn":            __TargetOn,
 }
@@ -1724,6 +1725,23 @@ func __InToBattleOnFighting(L *lua.LState) int {
 	unit := battle.SelectOneUnit(int64(unitid))
 
 	battle.InToBattleOnFighting(unit.Owner.MyUnit.InstId)
+
+	return 0
+}
+
+//export __TransPosOnFighting
+func __TransPosOnFighting(L *lua.LState) int {
+	//移动对方卡牌到自己这边
+
+	idx := 1
+	battleid := L.ToInt(idx)
+	idx++
+	unitid := L.ToInt(idx)
+
+	logs.Info("__InToBattleOnFighting")
+	battle := FindBattle(int64(battleid))
+
+	battle.TransPosOnFighting(int64(unitid))
 
 	return 0
 }
