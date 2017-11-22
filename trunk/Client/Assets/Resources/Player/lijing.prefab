@@ -1298,6 +1298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685567484649864}
   - component: {fileID: 111644131727275136}
+  - component: {fileID: 114316714963730560}
   m_Layer: 0
   m_Name: lijing
   m_TagString: Untagged
@@ -3618,9 +3619,9 @@ Animation:
   m_GameObject: {fileID: 1976950386905726}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 77a9d72c3ca1191499b40f1e069e6a6f, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: 77a9d72c3ca1191499b40f1e069e6a6f, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -3663,6 +3664,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114316714963730560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1766374465930738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c012b509edc55b478dceb52dc3ab3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanleSize: 1
 --- !u!114 &114827775115152920
 MonoBehaviour:
   m_ObjectHideFlags: 1

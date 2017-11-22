@@ -1111,6 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4423067987549288}
   - component: {fileID: 111329180925575918}
+  - component: {fileID: 114454327332553788}
   m_Layer: 0
   m_Name: nezha
   m_TagString: Untagged
@@ -2686,6 +2687,18 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114454327332553788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1764214938093634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c012b509edc55b478dceb52dc3ab3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanleSize: 1
 --- !u!137 &137203358194293300
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

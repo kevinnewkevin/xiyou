@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699847865974500}
   - component: {fileID: 111646839795878538}
+  - component: {fileID: 114209097702884534}
   m_Layer: 0
   m_Name: longtaizi
   m_TagString: Untagged
@@ -1794,6 +1795,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114209097702884534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057474082122288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c012b509edc55b478dceb52dc3ab3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanleSize: 1
 --- !u!114 &114935815668435172
 MonoBehaviour:
   m_ObjectHideFlags: 1
