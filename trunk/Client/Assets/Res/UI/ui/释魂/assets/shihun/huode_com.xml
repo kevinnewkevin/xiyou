@@ -14,56 +14,72 @@
     <component id="n13_lbze" name="n13" src="lbzeu" xy="839,668"/>
     <image id="n14_lbze" name="n14" src="gs2w4" xy="566,218"/>
   </displayList>
-  <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n13_lbze" value="0"/>
-    <item time="0" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="0" type="Alpha" target="n6_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="0" type="Alpha" target="n10_lbze" value="0"/>
-    <item time="0" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n11_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n15_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n14_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="5"/>
+    <item time="0" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="1" duration="5"/>
     <item time="0" type="Alpha" target="n12_lbze" value="0"/>
     <item time="0" type="Alpha" target="n9_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="0" duration="5"/>
+    <item time="0" type="Alpha" target="n10_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n13_lbze" value="0"/>
+    <item time="0" type="Scale" target="n14_lbze" value="1,1"/>
+    <item time="5" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="1" duration="1"/>
+    <item time="5" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="1"/>
+    <item time="5" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="0" duration="1"/>
+    <item time="6" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="5"/>
+    <item time="6" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="6" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="0" duration="5"/>
+    <item time="11" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="1" duration="1"/>
+    <item time="11" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="1" duration="1"/>
+    <item time="11" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="1" duration="1"/>
+    <item time="12" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="12" type="Alpha" target="n6_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="18" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="18" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="0.98" duration="6"/>
+    <item time="18" type="Alpha" target="n6_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
+    <item time="30" type="Alpha" target="n7_lbze" value="0"/>
+    <item time="30" type="Alpha" target="n6_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n13_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n10_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n9_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n11_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n14_lbze" tween="true" startValue="0" endValue="1" duration="5" ease="Circ.InOut"/>
+    <item time="33" type="Alpha" target="n12_lbze" value="0"/>
+    <item time="33" type="Alpha" target="n15_lbze" value="0"/>
+    <item time="33" type="Scale" target="n14_lbze" tween="true" startValue="0,1" endValue="1,1" duration="9" ease="Circ.InOut"/>
+    <item time="42" type="Alpha" target="n10_lbze" value="0"/>
+    <item time="42" type="Alpha" target="n11_lbze" value="0"/>
+    <item time="42" type="Alpha" target="n12_lbze" value="1"/>
+    <item time="42" type="Alpha" target="n13_lbze" value="0"/>
+    <item time="42" type="Alpha" target="n9_lbze" value="0"/>
+    <item time="42" type="Alpha" target="n15_lbze" value="1"/>
+    <item time="43" type="Alpha" target="n14_lbze" tween="true" startValue="1" endValue="0" duration="5" ease="Circ.InOut"/>
+    <item time="47" type="Alpha" target="n15_lbze" tween="true" startValue="1" endValue="0" duration="4" ease="Circ.InOut"/>
+    <item time="48" type="Alpha" target="n11_lbze" tween="true" startValue="0" endValue="1" duration="5" ease="Circ.InOut"/>
+    <item time="48" type="Alpha" target="n9_lbze" tween="true" startValue="0" endValue="1" duration="3" ease="Circ.InOut"/>
+    <item time="50" type="Alpha" target="n10_lbze" tween="true" startValue="0" endValue="1" duration="3" ease="Circ.InOut"/>
+    <item time="51" type="Alpha" target="n13_lbze" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
+  </transition>
+  <transition name="t1" autoPlay="true">
+    <item time="0" type="Alpha" target="n8_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n13_lbze" value="0"/>
     <item time="0" type="Alpha" target="n15_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n12_lbze" value="0"/>
     <item time="0" type="Alpha" target="n11_lbze" value="0"/>
     <item time="0" type="Alpha" target="n14_lbze" value="0"/>
-    <item time="6" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="6" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="6" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
-    <item time="12" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="12" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="12" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="18" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="18" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="18" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
-    <item time="24" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
-    <item time="24" type="Alpha" target="n6_lbze" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="24" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="30" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
-    <item time="30" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="30" type="Alpha" target="n6_lbze" tween="true" startValue="1" endValue="1" duration="6"/>
-    <item time="36" type="Alpha" target="n7_lbze" tween="true" startValue="0" endValue="0.98" duration="6"/>
-    <item time="36" type="Alpha" target="n6_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="36" type="Alpha" target="n8_lbze" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="48" type="Alpha" target="n6_lbze" value="0"/>
-    <item time="48" type="Alpha" target="n7_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n11_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n12_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n10_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n9_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n14_lbze" tween="true" startValue="0" endValue="1" duration="5" ease="Circ.InOut"/>
-    <item time="51" type="Alpha" target="n13_lbze" value="0"/>
-    <item time="51" type="Alpha" target="n15_lbze" value="0"/>
-    <item time="51" type="Scale" target="n14_lbze" tween="true" startValue="0,1" endValue="1,1" duration="9" ease="Circ.InOut"/>
-    <item time="60" type="Alpha" target="n15_lbze" value="1"/>
-    <item time="60" type="Alpha" target="n12_lbze" value="1"/>
-    <item time="60" type="Alpha" target="n11_lbze" value="0"/>
-    <item time="60" type="Alpha" target="n13_lbze" value="0"/>
-    <item time="60" type="Alpha" target="n9_lbze" value="0"/>
-    <item time="60" type="Alpha" target="n10_lbze" value="0"/>
-    <item time="61" type="Alpha" target="n14_lbze" tween="true" startValue="1" endValue="0" duration="5" ease="Circ.InOut"/>
-    <item time="65" type="Alpha" target="n15_lbze" tween="true" startValue="1" endValue="0" duration="4" ease="Circ.InOut"/>
-    <item time="66" type="Alpha" target="n9_lbze" tween="true" startValue="0" endValue="1" duration="3" ease="Circ.InOut"/>
-    <item time="66" type="Alpha" target="n11_lbze" tween="true" startValue="0" endValue="1" duration="5" ease="Circ.InOut"/>
-    <item time="68" type="Alpha" target="n10_lbze" tween="true" startValue="0" endValue="1" duration="3" ease="Circ.InOut"/>
-    <item time="69" type="Alpha" target="n13_lbze" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
+    <item time="0" type="Alpha" target="n9_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n10_lbze" value="0"/>
+    <item time="0" type="Alpha" target="n6_lbze" value="1"/>
+    <item time="0" type="Alpha" target="n7_lbze" value="0"/>
+    <item time="10" type="Alpha" target="n7_lbze" tween="true" startValue="1" endValue="1" duration="8"/>
+    <item time="10" type="Alpha" target="n8_lbze" value="0"/>
+    <item time="10" type="Alpha" target="n6_lbze" value="1"/>
+    <item time="16" type="Alpha" target="n6_lbze" value="0"/>
+    <item time="16" type="Alpha" target="n8_lbze" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="24" type="Alpha" target="n7_lbze" value="0"/>
   </transition>
 </component>
