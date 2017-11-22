@@ -1975,6 +1975,10 @@ func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
 func (this *BattleRoom) TransPosOnFighting(instid int64) {
 	unit := this.SelectOneUnit(instid)
 
+	if unit.IsMain {
+		return 
+	}
+
 	if unit == nil {
 		return
 	}
