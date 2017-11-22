@@ -6542,7 +6542,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1890541476
+  randomSeed: 2044143642
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9474,7 +9474,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -878031067
+  randomSeed: -1336259970
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15337,7 +15337,7 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15376,7 +15376,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSpeed:
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15478,13 +15478,13 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 1
+      scalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.7
+          value: 0.875
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -24665,7 +24665,7 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       minMaxState: 0
-      scalar: 0
+      scalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -24741,13 +24741,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - time: 0
-      minCount: 1
-      maxCount: 1
-      cycleCount: 1
-      repeatInterval: 0.01
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -24996,7 +24991,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 1, g: 1, b: 1, a: 0.78431374}
+        key1: {r: 1, g: 1, b: 1, a: 0.3882353}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -25012,7 +25007,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 19929
+        atime1: 29298
         atime2: 65343
         atime3: 65343
         atime4: 0
@@ -53563,7 +53558,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1722459748
+  randomSeed: 196739953
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53710,7 +53705,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.9364098, b: 0.5808823, a: 1}
     startSize:
       minMaxState: 3
-      scalar: 1.5
+      scalar: 1.4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -53728,7 +53723,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6666667
+          value: 0.71428573
           inSlope: 0
           outSlope: 0
           tangentMode: 0
