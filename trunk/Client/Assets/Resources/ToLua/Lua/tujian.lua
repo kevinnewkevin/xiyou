@@ -269,6 +269,7 @@ function tujian_RenderListItem(index, obj)
 	end
 
 	obj:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
+	obj:GetChild("n7").text = edata._Cost.."";
 	obj.onClick:Add(tujian_OnCardItemClick);
 	obj.data = edata._UnitId;
 
