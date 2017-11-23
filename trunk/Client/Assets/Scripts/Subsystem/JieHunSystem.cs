@@ -17,9 +17,9 @@ public class JieHunSystem
 	{
 		get
 		{
-				if(_instance == null)
-							_instance = new JieHunSystem();
-				return _instance;
+			if(_instance == null)
+				_instance = new JieHunSystem();
+			return _instance;
 		}
 	}
 
@@ -201,4 +201,19 @@ public class JieHunSystem
         }
         _NextDrawData = DrawData.GetNextGarageData(chapterIds);
     }
+
+	public int GetNoFinishOne()
+	{
+		for (int i = 0; i < chapteList.Count; i++) 
+		{
+			for (int j = 0; j < chapteList [i].SmallChapters.Length; j++) 
+			{
+				if(!chapteList [i].SmallChapters[j].Star1 ||!chapteList [i].SmallChapters[j].Star2||!chapteList [i].SmallChapters[j].Star3 )
+				{
+					return i;						
+				}
+			}
+		}
+		return 0;
+	}
 }
