@@ -198,6 +198,10 @@ public class Proxy4Lua {
     {
         NetWoking.S.LeaveGuild();
     }
+    static public void RandChapter()
+    {
+        NetWoking.S.RandChapter();
+    }
     #endregion
 
     #region 内部接口
