@@ -189,6 +189,7 @@ public class JieHunSystem
 		}
 	}
 
+
     public void LaunchNextGarage()
     {
         List<int> chapterIds = new List<int>();
