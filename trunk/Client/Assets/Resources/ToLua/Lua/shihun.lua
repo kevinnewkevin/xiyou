@@ -111,7 +111,7 @@ end
 
 function shihun_CheckResult()
 	if JieHunSystem.instance._LastestChapter ~= nil then
-		local hsData = HeroStoryData.GetData(JieHunSystem.instance._LastestChapter.ChapterId);
+		local hsData = HeroStroyData.GetData(JieHunSystem.instance._LastestChapter.ChapterId);
 		if hsData ~= nil then
 			local eData = EntityData.GetData(hsData.EntityID_);
 			if eData ~= nil then
