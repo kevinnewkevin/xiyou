@@ -39,6 +39,7 @@ local leftBtn;
 local rightBtn;
 local raceBack;
 
+local shihunBtn;
 
 function tujian:OnEntry()
 	Define.LaunchUIBundle("Card");
@@ -118,7 +119,7 @@ function tujian:OnInit()
 		skill.onClick:Add(tujian_OnSkillBtn);
 	end
 	typeList.selectedIndex = crtCardsType;
-	local shihunBtn = self.contentPane:GetChild("n106");
+	shihunBtn = self.contentPane:GetChild("n106");
 	shihunBtn.onClick:Add(tujian_OnShiHunClick);
 	tujian_FlushData();
 end
@@ -148,6 +149,7 @@ function tujian:OnHide()
 end
 
 function tujian_FlushData()
+	shihunBtn.enabled = JiehunSystem.instance._NextDrawData ~= nil;
 
 	--total.text = "(数量:" .. GamePlayer.CardsByFeeAndType(0, 0).Count .. ")";
 	local page = crtCardIdx / countPerPage + 1;
