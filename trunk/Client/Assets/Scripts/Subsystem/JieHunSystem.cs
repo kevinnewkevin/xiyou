@@ -29,7 +29,8 @@ public class JieHunSystem
 		set
 		{ 
 			_chapterData = value;
-			UIManager.SetDirty ("guanka");
+			UIManager.SetDirty ("daguanka");
+			UIManager.SetDirty ("xiaoguanka");
 		} 
 		get
 		{
@@ -63,8 +64,8 @@ public class JieHunSystem
                 break;
             }
         }
-        UIManager.SetDirty("jiehun");
-        UIManager.SetDirty("guanka");
+        UIManager.SetDirty("daguanka");
+        UIManager.SetDirty("xiaoguanka");
     }
 	
 	public void AddChapterData(COM_Chapter chapter)
@@ -76,9 +77,10 @@ public class JieHunSystem
 		chapteList.Add (chapter);
 		InitEasy ();
         LaunchNextGarage();
-		UIManager.SetDirty("jiehun");
-        UIManager.SetDirty("guanka");
+		UIManager.SetDirty("daguanka");
+		UIManager.SetDirty("xiaoguanka");
         UIManager.SetDirty("shihun");
+		UIManager.SetDirty("tujian");
 	}
 
     public void InitChapterData(COM_Chapter[] data)
