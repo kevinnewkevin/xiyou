@@ -129,7 +129,28 @@ function tujian:OnInit()
 	typeList.selectedIndex = crtCardsType;
 	shihunBtn = self.contentPane:GetChild("n106");
 	shihunBtn.onClick:Add(tujian_OnShiHunClick);
+	--infoList.scrollPane.onScroll:Add(DoSpecialEffect);
+	infoList.scrollItemToViewOnClick = false;
 	tujian_FlushData();
+end
+
+
+function DoSpecialEffect()
+		--local midX = infoList.scrollPane.posX + infoList.viewWidth / 2;
+		--local cnt = infoList.numChildren;
+
+		if infoList:IsChildInView(modelPanel) then
+			crtSelectIdx = 0;
+		elseif infoList:IsChildInView(infoPanel) then
+			crtSelectIdx = 1;
+		elseif infoList:IsChildInView(propPanel) then
+			crtSelectIdx = 2;
+		end
+		--crtSelectIdx = infoList:GetFirstChildInView();
+			--print(crtSelectIdx );
+		--crtSelectIdx = infoList:ChildIndexToItemIndex(crtSelectIdx);
+		tujian_UpdateLRBtn();
+		print(crtSelectIdx );
 end
 
 function tujian:OnUpdate()
@@ -153,6 +174,12 @@ function tujian:OnDispose()
 end
 
 function tujian:OnHide()
+	crtCardsFee = 0;
+	crtCardIdx = 0;
+	crtCardsType = 0;
+	selectCardId = 3;
+	crtSelectIdx = 0;
+	allCardList.data = 0;
 	Window:Hide();
 end
 
