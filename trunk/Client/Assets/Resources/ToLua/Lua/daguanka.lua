@@ -21,7 +21,7 @@ local Trans1;
 local Trans2;
 local crtSelectIdx;
 local battleNum;
-
+local finishImg;
 
 
 function daguanka:OnEntry()
@@ -51,7 +51,8 @@ function daguanka:OnInit()
 	starBtn = infoPanel:GetChild("n3");
 	starBtn.onClick:Add(daguanka_OnStart);
 	infoPanel.visible  = false;
-
+	finishImg = infoPanel:GetChild("n21");
+	finishImg.visible = false;
 	Trans0 = self.contentPane:GetTransition("t0");
 	Trans1 = self.contentPane:GetTransition("t1");
 	Trans2 = self.contentPane:GetTransition("t2");
@@ -103,13 +104,17 @@ function DoSpecialEffect()
   				local smallChapters = chapterData.SmallChapters;
   				local len = smallChapters.Length;
   				local num = 0;
+  				local finish = true;
 			    for i = 1, len do
 			 	 	if smallChapters[i -1].Star1 == true or smallChapters[i -1].Star2 == true or smallChapters[i -1].Star3 == true  then    
 						num= num + 1;
 					end
+					if smallChapters[i -1].Star1 ~= true or smallChapters[i -1].Star2 ~= true or smallChapters[i -1].Star3 ~= true  then    
+						finish = false;
+					end
 				 end
 				 battleNum.text = "已完成"..num.."/"..len;
-
+				 finishImg.visible = finish;
 				if  cData == nil then
 					starBtn.visible = false;
 				else
@@ -241,7 +246,7 @@ function daguanka:OnHide()
 end
 
 function daguanka_FlushData()
-		cardGroupList.numItems = HeroStroyData.GetEasyListNum();
+		cardGroupList.numItems = JieHunSystem.instance.ChapterEasyDataList.Count;--HeroStroyData.GetEasyListNum();
 		DoSpecialEffect()
 end
 

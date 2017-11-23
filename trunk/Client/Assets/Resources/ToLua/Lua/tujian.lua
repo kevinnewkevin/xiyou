@@ -38,6 +38,10 @@ local icon;
 local leftBtn;
 local rightBtn;
 local raceBack;
+local infoList;
+local crtSelectIdx;
+local leftBtnImg;
+local rightBtnImg;
 
 local shihunBtn;
 
@@ -58,6 +62,7 @@ function tujian:OnInit()
 	self.closeButton = self.contentPane:GetChild("n4");
 	local leftPart = self.contentPane:GetChild("n97").asCom;
 	selectCardId = 3;
+	crtSelectIdx = 0;
     allCardList = leftPart:GetChild("n27").asList;
 	--allCardList.onDrop:Add(tujian_OnDropCard);
 	allCardList.data = 0;
@@ -68,10 +73,13 @@ function tujian:OnInit()
 	pageText = leftPart:GetChild("n39");
 	prevBtn.onClick:Add(tujian_OnPrevPage);
 	nextBtn.onClick:Add(tujian_OnNextPage);
-
-	local infoList = self.contentPane:GetChild("n109").asList;
+	infoList = self.contentPane:GetChild("n109").asList;
 	leftBtn = self.contentPane:GetChild("n107");
 	rightBtn = self.contentPane:GetChild("n108");
+	leftBtnImg = leftBtn:GetChild("n2");
+	rightBtnImg = rightBtn:GetChild("n2");
+	leftBtn.onClick:Add(tujian_OnLeftBtn);
+	rightBtn.onClick:Add(tujian_OnRightBtn);
 	raceBack = self.contentPane:GetChild("n111");
 	infoPanel = infoList:GetChildAt(1);
 	modelPanel = infoList:GetChildAt(0);
@@ -176,7 +184,7 @@ function tujian_FlushData()
 	tujian_updateModelInfo();
 	tujian_updatePropInfo();
 	tujian_updateInfoInfo();
-
+	tujian_UpdateLRBtn();
 end 
 
 
@@ -214,8 +222,24 @@ function tujian_RenderListItem(index, obj)
 	local edata = EntityData.GetDisplayDataByIndex(crtCardsFee, crtCardsType, index);
 	local displayData = DisplayData.GetData(edata._DisplayId);
 
-	obj:GetChild("n12").visible = false;
-	obj:GetChild("n13").visible = false;
+	local cdata = JieHunSystem.instance:GetChapterData(edata._ChapterID);
+
+	if cdata ~= nil then
+		obj:GetChild("n13").visible = false;
+		local smallChapters = cdata.SmallChapters;
+		local len = smallChapters.Length;
+		local finish = true;
+   		for i = 1, len do
+			if smallChapters[i -1].Star1 ~= true or smallChapters[i -1].Star2 ~= true or smallChapters[i -1].Star3 ~= true  then    
+				finish = false;
+			end
+	 	end
+	 	obj:GetChild("n12").visible = finish;
+	else
+		obj:GetChild("n13").visible = true;
+		obj:GetChild("n12").visible = false;
+	end
+
 	obj:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
 	obj.onClick:Add(tujian_OnCardItemClick);
 	obj.data = edata._UnitId;
@@ -232,7 +256,7 @@ end
 function tujian_updateModelInfo()
 	local entityData = EntityData.GetData(selectCardId);
 	local displayData =  DisplayData.GetData(entityData._DisplayId);
-	modelRes = displayData._AssetPath;
+	modelRes = displayData._AssetPath; 
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false, 1200, 1.5));
 	race.asLoader.url = "ui://" .. displayData._Race;
 	fee.text = entityData._Cost;
@@ -286,7 +310,43 @@ function tujian_OnSkillBtn(context)
 	UIParamHolder.Set("jinengxiangqing", context.sender.data);
 	UIManager.Show("jinengxiangqing");
 end
-
+  
 function tujian_OnShiHunClick(context)
 	UIManager.Show("shihun");
+end
+
+function tujian_OnRightBtn(context) 
+	if crtSelectIdx == 2 then
+		return;
+	end
+	crtSelectIdx = crtSelectIdx+1;
+	infoList:ScrollToView(crtSelectIdx, false);
+	tujian_UpdateLRBtn();
+end
+
+function  tujian_OnLeftBtn(context)
+	if crtSelectIdx == 0 then
+		return;
+	end
+	crtSelectIdx = crtSelectIdx-1;
+	infoList:ScrollToView(crtSelectIdx, false);
+	tujian_UpdateLRBtn();
+end
+
+
+function  tujian_UpdateLRBtn()
+	if crtSelectIdx == 0 then
+		leftBtn.visible = false;
+		rightBtn.visible = true;
+		rightBtnImg.asLoader.url = "ui://tujian/56";
+	elseif crtSelectIdx == 1 then
+		leftBtn.visible = true;
+		rightBtn.visible = true;
+		leftBtnImg.asLoader.url = "ui://tujian/58";
+		rightBtnImg.asLoader.url = "ui://tujian/57";
+	elseif crtSelectIdx == 2 then
+		leftBtn.visible = true;
+		rightBtn.visible = false;
+		leftBtnImg.asLoader.url = "ui://tujian/56";
+	end
 end
