@@ -302,14 +302,23 @@ function paiku_FlushData()
 		if i == 1 or i == 4 or i == 8 then
 			cardGroupList:AddItemFromPool(cardItemGapUrl);
 		end
-
-		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
-		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
-		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
-		itemBtn:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
-		local fee = itemBtn:GetChild("n7");
-		fee.text = entityData._Cost
+		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
+		if displayData ~= nil then
+			itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
+			itemBtn:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
+		else
+			itemBtn:GetChild("n5").asLoader.url = "";
+			itemBtn:GetChild("n11").asLoader.url = "";
+		end
+		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
+		if entityData ~= nil then
+			local fee = itemBtn:GetChild("n7");
+			fee.text = entityData._Cost
+		else
+			fee.text = "";
+		end
+
 		local radImg = itemBtn:GetChild("n10");
 		local level = itemBtn:GetChild("n6");
 		local instId = GamePlayer.GetInstIDFromGroup(crtGroupIdx,  i - 1);

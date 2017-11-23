@@ -165,12 +165,19 @@ function qiecuo_FlushData()
 			cardGroupList:AddItemFromPool(cardItemGapUrl);
 		end
 		displayData = GamePlayer.GetDisplayDataByIndexFromGroup(crtGroupIdx, i - 1);
-		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
 		local itemBtn = cardGroupList:AddItemFromPool(cardItemUrl);
-		itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
-		local fee = itemBtn:GetChild("n7");
-		fee.text = entityData._Cost
-
+		if displayData ~= nil then
+			itemBtn:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
+		else
+			itemBtn:GetChild("n5").asLoader.url = "";
+		end
+		entityData = GamePlayer.GetEntityDataByIndexFromGroup(crtGroupIdx, i - 1);
+		if entityData ~= nil then
+			local fee = itemBtn:GetChild("n7");
+			fee.text = entityData._Cost
+		else
+			fee.text = "";
+		end
 		local radImg = itemBtn:GetChild("n10");
 		local level = itemBtn:GetChild("n6");
 		local instId = GamePlayer.GetInstIDFromGroup(crtGroupIdx,  i - 1);
