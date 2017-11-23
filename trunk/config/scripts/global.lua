@@ -155,6 +155,8 @@ function ChangeColor(content, color)
 		return "[color=#fa68ff]" .. content .. "[/color]";
 	elseif color == "orange" then
 		return "[color=#ff7a38]" .. content .. "[/color]";
+	elseif color == "white" then
+		return "[color=#ffffff]" .. content .. "[/color]";
 	end
 end
 
@@ -186,7 +188,9 @@ function RegGlobalValue()
 	Define.Set("EmojiTags","001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027,028");
 	Define.Set("CreateGuild", 1);
 	
+	--注册不弹popmsg提示的界面
 	Define.RegNoPopUI("cangbaoge");
+	Define.RegNoPopUI("BattlePanel");
 end
 
 --ui资源和ui逻辑关联map
