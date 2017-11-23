@@ -149,7 +149,7 @@ function tujian:OnHide()
 end
 
 function tujian_FlushData()
-	shihunBtn.enabled = JiehunSystem.instance._NextDrawData ~= nil;
+	shihunBtn.enabled = JieHunSystem.instance._NextDrawData ~= nil;
 
 	--total.text = "(数量:" .. GamePlayer.CardsByFeeAndType(0, 0).Count .. ")";
 	local page = crtCardIdx / countPerPage + 1;
