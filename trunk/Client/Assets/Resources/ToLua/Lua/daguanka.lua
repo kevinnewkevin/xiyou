@@ -146,19 +146,19 @@ function daguanka_RenderListItem(index, obj)
 	local comData;
 
 	if index == 0 then
-		index = HeroStroyData.GetEasyListNum() -1;
+		index =  JieHunSystem.instance.ChapterEasyDataList.Count -1;
 	else
 		index = index -1
 	end 
 
-	local data = HeroStroyData.easyList[index]; 
+	local data =  JieHunSystem.instance.ChapterEasyDataList[index]; 
 	--local entityData = EntityData.GetData(data.EntityID_);
 	--local displayData = DisplayData.GetData(entityData._DisplayId);
 	obj:SetPivot(0.5, 0.5);
 --	local mode = obj:GetChild("n8");
 --	local modelRes = displayData._AssetPath;
 	--mode:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
-	obj.data = data.Id_;-- comData.ChapterId;
+	obj.data = data.ChapterId;
 	--Proxy4Lua.AddToDelete(modelRes);
 end
 
