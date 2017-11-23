@@ -365,18 +365,30 @@ public class GamePlayer {
     static public DisplayData GetDisplayDataByIndexFromGroup(int groupidx, int cardidx)
     {  
         if (groupidx < 0 || groupidx >= _CardGroup.Count)
+        {
+            Debug.LogError("groupidx < 0 || groupidx >= _CardGroup.Count" + "   groupidx: " + groupidx + "   cardidx: " + cardidx);
             return null;
+        }
 
-        if (cardidx < 0 || cardidx >= _CardGroup[groupidx].Count)
+        if (cardidx < 0 || cardidx >= _CardGroup [groupidx].Count)
+        {
+            Debug.LogError("cardidx < 0 || cardidx >= _CardGroup [groupidx].Count" + "   groupidx: " + groupidx + "   cardidx: " + cardidx);
             return null;
+        }
 
         COM_Unit unit = GetCardByInstID(_CardGroup[groupidx][cardidx]);
         if (unit == null)
+        {
+            Debug.LogError("unit == null" + "   groupidx: " + groupidx + "   cardidx: " + cardidx + "    instID: " + _CardGroup[groupidx][cardidx]);
             return null;
+        }
 
         EntityData edata = EntityData.GetData(unit.UnitId);
         if (edata == null)
+        {
+            Debug.LogError("edata == null" + "   unit.UnitId: " + unit.UnitId);
             return null;
+        }
 
         DisplayData ddata = DisplayData.GetData(edata._DisplayId);
         return ddata;
