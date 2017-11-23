@@ -5,17 +5,18 @@
     <image id="n1" name="n1" src="t33eo" xy="0,0">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <loader id="n2_t33e" name="n2" xy="178,159" pivot="0.5,0.5" anchor="true" size="204,145" url="ui://4qflmm6snk8s1j" align="center" vAlign="middle"/>
-    <text id="n3_t33e" name="n3" xy="155,308" pivot="0.5,0.5" anchor="true" size="73,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" leading="0" bold="true" text="2000"/>
-    <image id="n5_t33e" name="n5" src="t33et" xy="6,228" size="56,169" hideByEditor="true" rotation="-90"/>
-    <text id="n6_t33e" name="n6" xy="12,177" size="161,45" hideByEditor="true" font="方正楷体_GBK" fontSize="34" color="#ffaa2b" vAlign="middle" ubb="true" autoSize="none" strokeColor="#45260c" strokeSize="2" text="送2000">
+    <text id="n3_t33e" name="n3" xy="152,270" pivot="0.5,0.5" anchor="true" size="108,38" font="ui://4qflmm6slnrj1y" fontSize="34" color="#ffff99" align="center" vAlign="middle" leading="0" bold="true" text="2000"/>
+    <loader id="n2_t33e" name="n2" xy="162,147" pivot="0.5,0.5" anchor="true" size="204,145" url="ui://4qflmm6snk8s1j" align="center" vAlign="middle"/>
+    <image id="n5_t33e" name="n5" src="t33et" xy="20,228" size="56,169" hideByEditor="true" rotation="-90"/>
+    <text id="n6_t33e" name="n6" xy="26,177" size="161,45" hideByEditor="true" font="方正楷体_GBK" fontSize="34" color="#ffaa2b" vAlign="middle" ubb="true" autoSize="none" strokeColor="#45260c" strokeSize="2" text="送">
       <relation target="n5_t33e" sidePair="center-center,middle-middle"/>
     </text>
-    <image id="n7_ed8l" name="n7" src="ed8l1d" xy="25,7" size="319,55"/>
-    <text id="n4_t33e" name="n4" xy="169,34" pivot="0.5,0.5" anchor="true" size="215,41" font="方正楷体_GBK" fontSize="34" color="#ecc766" align="center" vAlign="middle" leading="0" bold="true" strokeColor="#562400" strokeSize="2" text="啦啦啦啦啦啦"/>
-    <text id="n11_nk8s" name="n11" xy="260,215" pivot="0.5,0.5" anchor="true" size="43,48" font="方正楷体_GBK" fontSize="40" color="#ffffff" text="99"/>
-    <image id="n8_ed8l" name="n8" src="ed8l1e" xy="200,260" size="74,76"/>
-    <image id="n10_qbbb" name="n10" src="qbbb1i" xy="56,81" size="244,174" aspect="true"/>
+    <text id="n12_nbtw" name="n12" xy="64,182" size="117,39" hideByEditor="true" font="ui://4qflmm6slnrj1y" fontSize="30" color="#ffd000" autoSize="none" text="8888"/>
+    <image id="n7_ed8l" name="n7" src="ed8l1d" xy="19,2" size="319,55"/>
+    <text id="n4_t33e" name="n4" xy="163,29" pivot="0.5,0.5" anchor="true" size="215,41" font="方正楷体_GBK" fontSize="34" color="#ecc766" align="center" vAlign="middle" leading="0" bold="true" strokeColor="#562400" strokeSize="2" text="啦啦啦啦啦啦"/>
+    <text id="n11_nk8s" name="n11" xy="260,215" pivot="0.5,0.5" anchor="true" size="64,44" font="ui://4qflmm6slnrj1y" fontSize="40" color="#ffff00" text="99"/>
+    <image id="n8_ed8l" name="n8" src="ed8l1e" xy="207,230" size="74,76"/>
+    <image id="n10_qbbb" name="n10" src="qbbb1i" xy="37,62" size="244,174" aspect="true"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.90"/>
 </component>

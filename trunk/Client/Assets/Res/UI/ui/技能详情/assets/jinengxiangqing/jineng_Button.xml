@@ -2,11 +2,11 @@
 <component size="141,138" extention="Button">
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n4_s5s1" name="n4" src="nmle6" xy="-1,-1" size="146,139" aspect="true"/>
+    <image id="n4_s5s1" name="n4" src="nmle6" xy="5,2" size="137,130" aspect="true"/>
     <image id="n11_tmae" name="n11" src="p3jwa" xy="1,-4">
       <gearDisplay controller="button" pages="1"/>
     </image>
-    <loader id="n8_s5s1" name="n8" xy="16,13" size="115,112" align="center" vAlign="middle"/>
+    <loader id="n8_s5s1" name="n8" xy="20,11" size="110,110" align="center" vAlign="middle"/>
     <image id="n5_s5s1" name="n5" src="nmle5" xy="79,82" size="71,62" aspect="true"/>
     <text id="n7_s5s1" name="n7" xy="87,97" size="63,39" font="方正楷体_GBK" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="8&#xA;"/>
   </displayList>
