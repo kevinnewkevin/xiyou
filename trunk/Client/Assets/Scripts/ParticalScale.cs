@@ -30,12 +30,12 @@ public class ParticalScale : MonoBehaviour
         foreach(ParticleSystem particle in particles)
         {
             particle.startSize = initialSize [arrayIndex++] * scanleSize;
-//            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
-//            if (renderer)
-//            {
-//                renderer.lengthScale = initialSize[arrayIndex++] * scanleSize;
-//                renderer.velocityScale = initialSize[arrayIndex++] * scanleSize;
-//            }
+            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
+            if (renderer)
+            {
+                renderer.lengthScale = initialSize[arrayIndex++] * scanleSize;
+                renderer.velocityScale = initialSize[arrayIndex++] * scanleSize;
+            }
         }
     }
 }
