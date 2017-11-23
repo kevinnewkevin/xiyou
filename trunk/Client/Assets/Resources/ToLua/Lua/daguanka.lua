@@ -23,7 +23,7 @@ local crtSelectIdx;
 local battleNum;
 local finishImg;
 local finishBigImg;
-
+local isOneOpen;
 function daguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = daguanka.New();
@@ -58,7 +58,7 @@ function daguanka:OnInit()
 	Trans0 = self.contentPane:GetTransition("t0");
 	Trans1 = self.contentPane:GetTransition("t1");
 	Trans2 = self.contentPane:GetTransition("t2");
-
+	isOneOpen = true;
 	local dList = self.contentPane:GetChild("n12");
 	cardGroupList = dList:GetChild("n11").asList;
 	cardGroupList:SetVirtualAndLoop();
@@ -244,6 +244,7 @@ end
 
 function daguanka:OnHide()
 	--infoPanel.visible  = false;
+	isOneOpen = true;
 	Proxy4Lua.ClearToDeleteAsset("daguanka");
 	Window:Hide();
 end
@@ -251,6 +252,12 @@ end
 function daguanka_FlushData()
 		cardGroupList.numItems = JieHunSystem.instance.ChapterEasyDataList.Count;--HeroStroyData.GetEasyListNum();
 		DoSpecialEffect()
+
+		if isOneOpen then
+			local num = JieHunSystem.instance:GetNoFinishOne();
+			cardGroupList:ScrollToView(num, false);
+			isOneOpen = false;
+		end
 end
 
 
