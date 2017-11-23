@@ -59,6 +59,8 @@ service COM_ClientToServer{
 	QueryGuildData();
 	ChangeJoinGuildFlag(bool isFlag,int32 require);					//设置申请条件
 	//@}
+
+	RandChapter();													//释魂(抽关卡)
 };
 
 service COM_ServerToClient{
