@@ -36,7 +36,7 @@ d1awe2g.xml|444|<component size="542,46">
     </list>
     <image id="n56_fihc" name="n56" src="hbv5h" xy="1792,336"/>
   </displayList>
-</component>hbv511.xml|1259|<component size="1103,84" extention="Label">
+</component>hbv511.xml|1258|<component size="1103,84" extention="Label">
   <displayList>
     <image id="n2_hbv5" name="n2" src="hbv53" xy="-4,7" size="314,72"/>
     <image id="n3_hbv5" name="n3" src="hbv52" xy="0,11"/>
@@ -49,7 +49,7 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="n11_hbv5" name="n11" src="hbv53" xy="678,7" size="314,72"/>
     <text id="n12_hbv5" name="n12" xy="771,20" size="162,47" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="right" vAlign="middle" autoSize="none" strokeColor="#000000" text="99999999"/>
     <component id="n13_hbv5" name="n13" src="hbv512" xy="933,8"/>
-    <image id="n14_hbv5" name="n14" src="hbv5g" xy="697,13"/>
+    <image id="n14_hbv5" name="n14" src="hbv5g" xy="687,9"/>
   </displayList>
 </component>hbv512.xml|592|<component size="75,67" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
@@ -247,7 +247,7 @@ d1awe2g.xml|444|<component size="542,46">
     </list>
   </displayList>
   <relation target="n2" sidePair="height"/>
-</component>hbv5y.xml|1336|<component size="514,200" extention="Label">
+</component>hbv5y.xml|1348|<component size="514,200" extention="Label">
   <displayList>
     <image id="n5_hbv5" name="n5" src="hbv5f" xy="88,0" size="312,74"/>
     <image id="n18_y4d0" name="n18" src="y4d0e2b" xy="107,72"/>
@@ -265,7 +265,7 @@ d1awe2g.xml|444|<component size="542,46">
       <relation target="" sidePair=""/>
     </image>
     <image id="n16_ud9y" name="n16" src="hbv58" xy="22,82"/>
-    <text id="n11_hbv5" name="n11" xy="71,80" size="39,35" font="方正楷体_GBK" fontSize="27" color="#ffd000" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
+    <text id="n11_hbv5" name="n11" xy="72,68" size="39,54" font="ui://s1sxt36ukygke36" fontSize="22" color="#ffefb0" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
   </displayList>
 </component>hbv5z.xml|322|<component size="238,30" extention="ProgressBar">
   <displayList>
@@ -275,7 +275,18 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="n2" name="bar" src="hbv5a" xy="3,3" size="238,24"/>
   </displayList>
   <ProgressBar/>
-</component>nfe41y.xml|457|<component size="485,927" extention="Button">
+</component>kygke36.fnt|591|info creator=UIBuilder resizable=true colored=true
+char id=48 img=kygke2x xoffset=0 yoffset=0 xadvance=0
+char id=49 img=kygke2y xoffset=0 yoffset=0 xadvance=0
+char id=50 img=kygke2z xoffset=0 yoffset=0 xadvance=0
+char id=51 img=kygke30 xoffset=0 yoffset=0 xadvance=0
+char id=52 img=kygke31 xoffset=0 yoffset=0 xadvance=0
+char id=53 img=kygke32 xoffset=0 yoffset=0 xadvance=0
+char id=54 img=kygke33 xoffset=0 yoffset=0 xadvance=0
+char id=55 img=kygke34 xoffset=0 yoffset=0 xadvance=0
+char id=56 img=kygke35 xoffset=0 yoffset=0 xadvance=0
+char id=57 img=kygke2w xoffset=0 yoffset=0 xadvance=0
+nfe41y.xml|457|<component size="485,927" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <loader id="n5_hq2o" name="n5" xy="245,464" pivot="0.51,0.51" anchor="true" size="905,845" scale="0.5,0.5" url="ui://s1sxt36u10fre25" fill="scale"/>
@@ -304,7 +315,7 @@ d1awe2g.xml|444|<component size="542,46">
     </image>
   </displayList>
   <Button/>
-</component>package.xml|8399|<packageDescription id="s1sxt36u" name="zhujiemian">
+</component>package.xml|9257|<packageDescription id="s1sxt36u" name="zhujiemian">
   <resources>
     <component id="uh5ye2h" name="paihang_com" path="/" size="127,124"/>
     <image id="jijre2e" name="34" path="/" size="77,77"/>
@@ -340,6 +351,7 @@ d1awe2g.xml|444|<component size="542,46">
     <component id="umbve2t" name="yuyin_Button" path="/" size="128,40" exported="true"/>
     <component id="y4d0e2c" name="fasong_Button" path="/" size="100,53" exported="true"/>
     <component id="y4d0e2d" name="shezhi_Button" path="/" size="64,68" exported="true"/>
+    <font id="kygke36" name="shuzi_Font" path="/" size="0,0" exported="true" file="kygke36.fnt"/>
     <font id="uh5ye2s" name="paiming_Font" path="/" size="0,0" exported="true" file="uh5ye2s.fnt"/>
     <image id="10fre25" name="zjm_30" path="/" size="905,845" exported="true" scale9grid="227,212,454,424"/>
     <image id="10fre26" name="zjm_31" path="/" size="905,845" exported="true"/>
@@ -367,13 +379,23 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="hbv5d" name="juanzhouguan" path="/" size="588,197" exported="true"/>
     <image id="hbv5e" name="juanzhoukai" path="/" size="465,58" exported="true"/>
     <image id="hbv5f" name="mingzikuang" path="/" size="352,74" exported="true"/>
-    <image id="hbv5g" name="tili" path="/" size="71,57" exported="true"/>
+    <image id="hbv5g" name="tili" path="/" size="85,66" exported="true"/>
     <image id="hbv5h" name="tishi" path="/" size="37,36" exported="true"/>
     <image id="hbv5i" name="touxiangkuang" path="/" size="113,112" exported="true"/>
     <image id="hbv5j" name="xiaoxi" path="/" size="65,58" exported="true"/>
     <image id="hbv5k" name="youbian" path="/" size="100,53" exported="true"/>
     <image id="hbv5l" name="youjian" path="/" size="65,49" exported="true"/>
     <image id="hbv5n" name="zuobian" path="/" size="623,100" exported="true"/>
+    <image id="kygke2w" name="zi_9" path="/" size="40,54" exported="true"/>
+    <image id="kygke2x" name="zi_0" path="/" size="40,54" exported="true"/>
+    <image id="kygke2y" name="zi_1" path="/" size="40,54" exported="true"/>
+    <image id="kygke2z" name="zi_2" path="/" size="40,54" exported="true"/>
+    <image id="kygke30" name="zi_3" path="/" size="40,54" exported="true"/>
+    <image id="kygke31" name="zi_4" path="/" size="40,54" exported="true"/>
+    <image id="kygke32" name="zi_5" path="/" size="40,54" exported="true"/>
+    <image id="kygke33" name="zi_6" path="/" size="40,54" exported="true"/>
+    <image id="kygke34" name="zi_7" path="/" size="40,54" exported="true"/>
+    <image id="kygke35" name="zi_8" path="/" size="40,54" exported="true"/>
     <image id="m9wde27" name="tou1" path="/" size="114,114" exported="true"/>
     <image id="m9wde28" name="tou2" path="/" size="114,114" exported="true"/>
     <image id="mub1e29" name="kuang" path="/" size="462,150" exported="true" scale="9grid" scale9grid="138,107,34,33"/>
@@ -407,12 +429,12 @@ d1awe2g.xml|444|<component size="542,46">
     <atlas id="atlas104" size="1024,1024" file="atlas0_5.png"/>
     <atlas id="atlas105" size="1024,1024" file="atlas0_6.png"/>
   </resources>
-</packageDescription>uh5ye2h.xml|561|<component size="127,124">
+</packageDescription>uh5ye2h.xml|573|<component size="127,124">
   <displayList>
     <loader id="n60_nw5n" name="n60" xy="12,8" size="101,105" fill="scale"/>
     <image id="n56_uh5y" name="n56" src="hbv5i" xy="11,5"/>
     <image id="n57_uh5y" name="n57" src="hbv58" xy="17,81"/>
-    <text id="n58_uh5y" name="n58" xy="66,79" size="39,35" font="方正楷体_GBK" fontSize="27" color="#ffd000" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
+    <text id="n58_uh5y" name="n58" xy="65,78" size="39,35" font="ui://s1sxt36ukygke36" fontSize="22" color="#ffd000" vAlign="middle" autoSize="none" bold="true" text="5&#xA;"/>
     <text id="n59_uh5y" name="n59" xy="0,0" size="43,42" font="ui://s1sxt36uuh5ye2s" fontSize="39" autoSize="none" text="1"/>
   </displayList>
 </component>uh5ye2s.fnt|524|info creator=UIBuilder resizable=true
