@@ -298,7 +298,11 @@ function squad_FlushData()
 		content.visible = true;
 		contentBg.visible = true;
 	end
-
+	if GuildSystem.MyJob() == 3  then
+		quitBtn.visible =false;
+	else
+		quitBtn.visible =true;
+	end
 	settingBtn.visible = GuildSystem.MyJob() == 2 or GuildSystem.MyJob() == 3;
 end
 
