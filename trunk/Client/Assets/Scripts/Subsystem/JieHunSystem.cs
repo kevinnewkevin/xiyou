@@ -11,6 +11,7 @@ public class JieHunSystem
     private List<COM_Chapter> chapteHardList = new List<COM_Chapter>();
 	public int chapterID = 0;
 	public int chapterBox = 0;
+    public COM_Chapter _LastestChapter;
 	public static JieHunSystem instance
 	{
 		get
@@ -69,14 +70,18 @@ public class JieHunSystem
 	{
 		if (HeroStroyData.GetData (chapter.ChapterId) == null)
 			return;
+
+        _LastestChapter = chapter;
 		chapteList.Add (chapter);
-		InitEasy ();		
+		InitEasy ();
 		UIManager.SetDirty("jiehun");
-		UIManager.SetDirty("guanka");		
+        UIManager.SetDirty("guanka");
+        UIManager.SetDirty("shihun");
 	}
 
     public void InitChapterData(COM_Chapter[] data)
     {
+        _LastestChapter = null;
         chapteList.Clear();
         for (int i = 0; i < data.Length; i++)
         {
