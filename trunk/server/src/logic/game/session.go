@@ -59,7 +59,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			InstNamePlayerStore[this.player.MyUnit.InstName] = this.player
 
 
-			logs.Debug("Query player ", p.Enemys)
+			logs.Debug("Query player ", p.InstId)
 		}
 	} else {
 		this.player.SetSession(this)
@@ -91,6 +91,7 @@ func (this *Session) CreatePlayer(tempId int32, playerName string) error {
 
 	InsertPlayer(r)
 	InsertTopList(this.player.MyUnit.InstId, t)
+	logs.Debug("InsertTopList", t)
 
 	this.CreatePlayerOK(r.COM_Player)
 

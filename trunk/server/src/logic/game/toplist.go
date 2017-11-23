@@ -30,7 +30,6 @@ func (a TopList) Less(i, j int) bool { // 重写 Less() 方法， 从大到小�
 
 func InitTopList() {
 	TMPTopList = <- QueryAllTopList()
-
 	sort.Sort(TopList(TMPTopList))
 
 	if len(TMPTopList) > num {
@@ -156,7 +155,9 @@ func (this *GamePlayer) UpdateTianTiVal() { //只更新不操作
 		TMPTopList[this.TianTiRank] = my_top
 	}
 
-	UpdateTopList(this.MyUnit.InstId, this.GetTopSGE())
+	data := this.GetTopSGE()
+	logs.Debug("UpdateTopList", data)
+	UpdateTopList(this.MyUnit.InstId, data)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

@@ -474,7 +474,8 @@ func QueryAllTopList()  <- chan []prpc.COM_TopUnit {		//取出来整张表的数
 				logs.Debug(e.Error())
 				rChan <- nil
 				close(rChan)
-				return
+				logs.Debug("e.Error() 1 ", e.Error())
+				continue
 			}
 
 			p := prpc.COM_TopUnit{}
@@ -485,7 +486,8 @@ func QueryAllTopList()  <- chan []prpc.COM_TopUnit {		//取出来整张表的数
 				logs.Debug(e.Error())
 				rChan <- nil
 				close(rChan)
-				return
+				logs.Debug("e.Error() ", e.Error(), "  ", a)
+				continue
 			}
 
 			arr = append(arr, p)
