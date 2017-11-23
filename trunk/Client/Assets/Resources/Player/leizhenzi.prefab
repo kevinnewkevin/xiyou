@@ -1372,7 +1372,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832861325396156}
   m_LocalRotation: {x: 0.6162683, y: 0.36320275, z: 0.28459322, w: 0.6382037}
-  m_LocalPosition: {x: 0.005, y: -0.021, z: -0.013}
+  m_LocalPosition: {x: 0.073, y: -0.035, z: -0.007}
   m_LocalScale: {x: 0.7272731, y: 0.7272729, z: 0.727273}
   m_Children: []
   m_Father: {fileID: 4329808166191894}
@@ -2233,7 +2233,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1346171693693534}
   m_LocalRotation: {x: 0.27815172, y: 0.6690222, z: 0.5470612, w: 0.4192433}
-  m_LocalPosition: {x: 0, y: 0.004, z: -0.028}
+  m_LocalPosition: {x: 0.037, y: 0.007, z: -0.026}
   m_LocalScale: {x: 0.7272731, y: 0.7272731, z: 0.72727305}
   m_Children: []
   m_Father: {fileID: 4329808166191894}
@@ -2758,7 +2758,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 2
   randomSeed: -1623461554
   InitialModule:
     serializedVersion: 3
@@ -2906,7 +2906,7 @@ ParticleSystem:
       maxColor: {r: 0.8014706, g: 0.90141994, b: 1, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 0.8
+      scalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5767,7 +5767,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 2
   randomSeed: -218736140
   InitialModule:
     serializedVersion: 3
@@ -5915,7 +5915,7 @@ ParticleSystem:
       maxColor: {r: 0.8014706, g: 0.90141994, b: 1, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 0.8
+      scalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8776,7 +8776,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 2
   randomSeed: -1967410769
   InitialModule:
     serializedVersion: 3
@@ -8924,7 +8924,7 @@ ParticleSystem:
       maxColor: {r: 0.8014706, g: 0.90141994, b: 1, a: 1}
     startSize:
       minMaxState: 0
-      scalar: 0.8
+      scalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
