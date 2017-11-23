@@ -22,7 +22,7 @@ local Trans2;
 local crtSelectIdx;
 local battleNum;
 local finishImg;
-
+local finishBigImg;
 
 function daguanka:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
@@ -53,6 +53,8 @@ function daguanka:OnInit()
 	infoPanel.visible  = false;
 	finishImg = infoPanel:GetChild("n21");
 	finishImg.visible = false;
+	finishBigImg = self.contentPane:GetChild("n20");
+	finishBigImg.visible = false;
 	Trans0 = self.contentPane:GetTransition("t0");
 	Trans1 = self.contentPane:GetTransition("t1");
 	Trans2 = self.contentPane:GetTransition("t2");
@@ -115,6 +117,7 @@ function DoSpecialEffect()
 				 end
 				 battleNum.text = "已完成"..num.."/"..len;
 				 finishImg.visible = finish;
+				 finishBigImg.visible = finish;
 				if  cData == nil then
 					starBtn.visible = false;
 				else
