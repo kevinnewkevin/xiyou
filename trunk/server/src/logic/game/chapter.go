@@ -3,9 +3,57 @@ package game
 import (
 	"jimny/logs"
 	"logic/prpc"
+	"time"
+	"math/rand"
 )
 
-func OpenChapter(player *GamePlayer, cid int32) {
+func (player *GamePlayer)RandChapterGo()  {
+	maxId := GetDrawTableMaxId()
+	isOpenAll := player.IsOpenAllChapter(player.ChapterPondId)
+	if maxId <= player.ChapterPondId {
+		if isOpenAll {
+			logs.Info("Player Name = ",player.MyUnit.InstName," Chapter Open All ")
+			return
+		}
+	}
+	pond := GetDrawTableDataById(player.ChapterPondId)
+	if pond == nil {
+		logs.Info("RandChapterGo Can not Find Pond By Id = ",player.ChapterPondId)
+		return
+	}
+
+	itemNum := player.GetBagItemNumByTableId(pond.ItemId)
+
+	if itemNum < pond.ItemNum {
+		logs.Info("Player Name = ",player.MyUnit.InstName,"RandChapterGo ItemNum Not enough")
+		return
+	}
+
+	player.DelItemByTableId(pond.ItemId,pond.ItemNum)
+
+	var tempV []int32	//没开启的关卡
+	for i:=0;i<len(pond.ChapterIds) ;i++  {
+		if !IsOpenChapter(player,pond.ChapterIds[i]) {
+			tempV = append(tempV, pond.ChapterIds[i])
+		}
+	}
+
+	logs.Info("Don't open Chapters ",tempV)
+
+	var rr = rand.New(rand.NewSource(time.Now().UnixNano()))
+	var index int32 = rr.Int31n(int32(len(tempV)))
+
+	player.OpenChapter(tempV[index])
+	logs.Info("PlayerName = ",player.MyUnit.InstName," OpenChapter Id = ",tempV[index])
+	isOpenAll = player.IsOpenAllChapter(player.ChapterPondId)
+	if isOpenAll {
+		tempID := player.ChapterPondId
+		player.ChapterPondId ++
+		logs.Info("PlayerName = ",player.MyUnit.InstName,"Chapter Pond Open All Id = ",tempID," Open New Chapter PondId = ",player.ChapterPondId)
+	}
+}
+
+func (player *GamePlayer)OpenChapter(cid int32) {
 	if player == nil {
 		return
 	}
@@ -30,6 +78,22 @@ func OpenChapter(player *GamePlayer, cid int32) {
 
 		player.session.OpenChapter(chapterData)
 	}
+}
+
+func (player *GamePlayer)IsOpenAllChapter(pondId int32) bool {
+	pond := GetDrawTableDataById(player.ChapterPondId)
+	if pond == nil {
+		logs.Info("IsOpenAllChapter Can not Find Pond By Id = ",player.ChapterPondId)
+		return true
+	}
+	var isOpenAll bool = true
+	for i:=0;i<len(pond.ChapterIds) ;i++  {
+		if !IsOpenChapter(player,pond.ChapterIds[i]) {
+			isOpenAll = false
+			break
+		}
+	}
+	return  isOpenAll
 }
 
 func IsOpenChapter(player *GamePlayer, cid int32) bool {

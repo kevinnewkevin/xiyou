@@ -28,11 +28,19 @@ type (
 		DropID            int32
 		UnLockId          []int32
 	}
+
+	DrawData struct {
+		Id 				int32			//库ID
+		ItemId			int32			//抽关消耗道具
+		ItemNum			int32			//消耗数量
+		ChapterIds 		[]int32			//关卡ID
+	}
 )
 
 var (
 	ChapterTable      = map[int32]*Chapter{}
 	SmallChapterTable = map[int32]*SmallChapter{}
+	DrawDataTable	  = map[int32]*DrawData{}
 )
 
 func LoadStoryChapterTable(filename string) error {
@@ -114,4 +122,44 @@ func LoadSmallChapterTable(filename string) error {
 
 func GetSmallChapterById(id int32) *SmallChapter {
 	return SmallChapterTable[id]
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+
+func LoadRandChapterTable(filename string) error {
+	csv, err := conf.NewCSVFile(filename)
+	if err != nil {
+		return err
+	}
+
+	for r := 0; r < csv.Length(); r++ {
+		c := DrawData{}
+		c.Id = csv.GetInt32(r, "ID")
+		c.ItemId = csv.GetInt32(r,"ItemID")
+		c.ItemNum = csv.GetInt32(r,"ItemNumber")
+		strTmp3 := strings.Split(csv.GetString(r, "HeroStroyID"), ";")
+		for i := 0; i < len(strTmp3); i++ {
+			id, _ := strconv.Atoi(strTmp3[i])
+			if id == 0 {
+				continue
+			}
+			c.ChapterIds = append(c.ChapterIds, int32(id))
+			DrawDataTable[c.Id] = &c
+		}
+	}
+	return nil
+}
+
+func GetDrawTableDataById(id int32) *DrawData {
+	return DrawDataTable[id]
+}
+
+func GetDrawTableMaxId() int32 {
+	var maxId int32 = 0
+	for k, _ := range DrawDataTable {
+		if k > maxId {
+			maxId = k
+		}
+	}
+	return maxId
 }

@@ -237,6 +237,7 @@ struct SGE_DBPlayer : COM_Player {
 	int32				AssistantId;
 	COM_ItemInst[] 		BagItemList;
 	COM_BlackMarket		BlackMarketData;
+	int32				ChapterPondId;
 };
 
 struct SGE_DBTopUnit {

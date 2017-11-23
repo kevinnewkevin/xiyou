@@ -15,6 +15,7 @@ type SGE_DBPlayer struct{
   AssistantId int32  //7
   BagItemList []COM_ItemInst  //8
   BlackMarketData COM_BlackMarket  //9
+  ChapterPondId int32  //10
 }
 func (this *SGE_DBPlayer)SetPlayerId(value int64) {
   this.Lock()
@@ -116,6 +117,16 @@ func (this *SGE_DBPlayer)GetBlackMarketData() COM_BlackMarket {
   defer this.Unlock()
   return this.BlackMarketData
 }
+func (this *SGE_DBPlayer)SetChapterPondId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.ChapterPondId = value
+}
+func (this *SGE_DBPlayer)GetChapterPondId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.ChapterPondId
+}
 func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   {
     err := this.COM_Player.Serialize(buffer);
@@ -137,6 +148,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.AssistantId!=0)
   mask.writeBit(len(this.BagItemList) != 0)
   mask.writeBit(true) //BlackMarketData
+  mask.writeBit(this.ChapterPondId!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -235,6 +247,15 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
       return err
     }
   }
+  // serialize ChapterPondId
+  {
+    if(this.ChapterPondId!=0){
+      err := write(buffer,this.ChapterPondId)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
@@ -322,6 +343,13 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize BlackMarketData
   if mask.readBit() {
     err := this.BlackMarketData.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize ChapterPondId
+  if mask.readBit() {
+    err := read(buffer,&this.ChapterPondId)
     if err != nil{
       return err
     }

@@ -1,3 +1,4 @@
+Global.setGlobalString("C_DefaultChatper", "1,2");			--//默认开启关卡
 Global.setGlobalInt("C_BlackMarkteRefreshSpeed", 1);			--//黑市手动刷新花费
 Global.setGlobalInt("C_BlackMarkteRefreshNum", 1);				--//黑市手动刷新次数
 

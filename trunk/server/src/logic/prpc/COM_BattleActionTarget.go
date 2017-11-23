@@ -13,6 +13,7 @@ type COM_BattleActionTarget struct{
   Dead bool  //4
   ThrowCard COM_ThrowCard  //5
   BuffAdd []COM_BattleBuff  //6
+  TransPostion int32  //7
 }
 func (this *COM_BattleActionTarget)SetInstId(value int64) {
   this.Lock()
@@ -84,6 +85,16 @@ func (this *COM_BattleActionTarget)GetBuffAdd() []COM_BattleBuff {
   defer this.Unlock()
   return this.BuffAdd
 }
+func (this *COM_BattleActionTarget)SetTransPostion(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.TransPostion = value
+}
+func (this *COM_BattleActionTarget)GetTransPostion() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.TransPostion
+}
 func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
@@ -96,6 +107,7 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(this.Dead)
   mask.writeBit(true) //ThrowCard
   mask.writeBit(len(this.BuffAdd) != 0)
+  mask.writeBit(this.TransPostion!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -161,6 +173,15 @@ func (this *COM_BattleActionTarget)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize TransPostion
+  {
+    if(this.TransPostion!=0){
+      err := write(buffer,this.TransPostion)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_BattleActionTarget)Deserialize(buffer *bytes.Buffer) error{
@@ -221,6 +242,13 @@ func (this *COM_BattleActionTarget)Deserialize(buffer *bytes.Buffer) error{
       if err != nil{
         return err
       }
+    }
+  }
+  // deserialize TransPostion
+  if mask.readBit() {
+    err := read(buffer,&this.TransPostion)
+    if err != nil{
+      return err
     }
   }
   return nil

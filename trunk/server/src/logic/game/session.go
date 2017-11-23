@@ -511,6 +511,14 @@ func (this *Session)ChangeJoinGuildFlag(isFlag bool, require int32 ) error  {
 	return nil
 }
 
+func (this *Session)RandChapter() error{
+	if this.player == nil {
+		return nil
+	}
+	this.player.RandChapterGo()
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {

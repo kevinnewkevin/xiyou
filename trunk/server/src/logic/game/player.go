@@ -36,6 +36,7 @@ type GamePlayer struct {
 	BattlePoint int32   //战斗點數
 
 	//story chapter
+	ChapterPondId int32
 	ChapterID int32 //正在进行的关卡
 	Chapters  []*prpc.COM_Chapter
 
@@ -221,7 +222,15 @@ func CreatePlayer(tid int32, name string, username string) *GamePlayer {
 		}
 	}
 
-	//p.InitTestFriend()
+	p.ChapterPondId = 1
+
+	chapters := GetGlobalString("C_DefaultChatper");
+
+	s1 := strings.Split(chapters, ",")
+	for _, c := range s1 {
+		e_id, _ := strconv.Atoi(c)
+		p.OpenChapter(int32(e_id))
+	}
 
 	p.FriendTop = []prpc.COM_TopUnit{}
 
@@ -236,15 +245,9 @@ func (this *GamePlayer) NewGameUnit(tid int32) *GameUnit {
 	}
 	unit.Owner = this
 
-	chapterids := GetUnitChapterById(tid)
-	for i := 0; i < len(chapterids); i++ {
-		OpenChapter(this, chapterids[i])
-	}
 	if tid == 1 || tid == 2 { //主角卡不要放在牌库中
 		return unit
 	}
-
-
 
 	this.UnitList = append(this.UnitList, unit)
 
@@ -346,6 +349,7 @@ func (this *GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer) {
 	this.GuildId	= p.GuildId
 	this.AssistantId	= p.AssistantId
 	this.GenItemMaxGuid = p.GenItemMaxGuid
+	this.ChapterPondId = p.ChapterPondId
 	for i := range p.BagItemList {
 		this.BagItems = append(this.BagItems, &p.BagItemList[i])
 	}
@@ -368,6 +372,7 @@ func (this *GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer {
 	data.GuildId	= this.GuildId
 	data.AssistantId = this.AssistantId
 	data.GenItemMaxGuid = this.GenItemMaxGuid
+	data.ChapterPondId = this.ChapterPondId
 	data.BagItemList = items
 
 	if this.BlackMarketData != nil {
@@ -836,6 +841,32 @@ func (this *GamePlayer) GetBagItemByTableId(itemid int32) []*prpc.COM_ItemInst {
 		}
 	}
 	return items
+}
+
+func (this *GamePlayer)GetBagItemNumByTableId(itemId int32) int32 {
+	var itemNum int32 = 0
+	for _, itemInst := range this.BagItems {
+		if itemInst == nil {
+			continue
+		}
+		if itemInst.ItemId == itemId {
+			itemNum += itemInst.Stack
+		}
+	}
+	return itemNum
+}
+
+func (this *GamePlayer)GetBagItemNumByInstId(instId int64) int32 {
+	var itemNum int32 = 0
+	for _, itemInst := range this.BagItems {
+		if itemInst == nil {
+			continue
+		}
+		if itemInst.InstId == instId {
+			itemNum += itemInst.Stack
+		}
+	}
+	return itemNum
 }
 
 func (this *GamePlayer) UseItem(instId int64, useNum int32) {
@@ -1656,7 +1687,17 @@ func (this *GamePlayer) IsLock() bool {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func TestPlayer() {
+	player := CreatePlayer(1,"test123","123")
+	if player==nil {
+		return
+	}
+	logs.Info("Chapters",player.Chapters)
 
+	for i:=0;i<10 ;i++  {
+		player.RandChapterGo()
+	}
+
+	logs.Info("Chapters new",player.Chapters)
 }
 
 

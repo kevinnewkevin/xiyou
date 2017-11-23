@@ -132,6 +132,12 @@ func (this *App) Run() {
 		return
 	}
 
+	err = game.LoadRandChapterTable("../../../config/tables/Draw.csv")
+	if err != nil {
+		logs.Debug("LoadRandChapterTable %s ", err.Error())
+		return
+	}
+
 	game.InitLua("../../../config/scripts/")
 
 	//game.InitGlobalLuaState()

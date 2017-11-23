@@ -176,6 +176,7 @@ type COM_ClientToServerProxy interface{
   QueryGuildDetails(guildid int32 ) error // 43
   QueryGuildData() error // 44
   ChangeJoinGuildFlag(isFlag bool, require int32 ) error // 45
+  RandChapter() error // 46
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2429,6 +2430,17 @@ func(this* COM_ClientToServerStub)ChangeJoinGuildFlag(isFlag bool, require int32
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)RandChapter() error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(46))
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3028,6 +3040,15 @@ func Bridging_COM_ClientToServer_ChangeJoinGuildFlag(buffer *bytes.Buffer, p COM
   }
   return p.ChangeJoinGuildFlag(_45.isFlag,_45.require)
 }
+func Bridging_COM_ClientToServer_RandChapter(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  return p.RandChapter()
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3133,6 +3154,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_QueryGuildData(buffer,p);
     case 45 :
       return Bridging_COM_ClientToServer_ChangeJoinGuildFlag(buffer,p);
+    case 46 :
+      return Bridging_COM_ClientToServer_RandChapter(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }
