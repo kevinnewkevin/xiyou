@@ -4,6 +4,9 @@ shihun = fgui.window_class(WindowBase)
 local Window;
 
 local rollBtn;
+local itemIcon;
+local itemNameAndNum;
+local levelIcon;
 
 local rollCom;
 local rollResultName;
@@ -27,9 +30,15 @@ end
 function shihun:OnInit()
 	self.contentPane = UIPackage.CreateObject("shihun", "shihun_com").asCom;
 	self:Center();
+	self.modal = true;
+	self.closeButton = self.contentPane:GetChild("n10");
 
 	rollBtn = self.contentPane:GetChild("n5").asButton;
 	rollBtn.onClick:Add(shihun_OnRoll);
+
+	itemIcon = self.contentPane:GetChild("n8").asLoader
+	itemNameAndNum = self.contentPane:GetChild("n9").asTextField;
+	levelIcon = self.contentPane:GetChild("n12").asLoader
 
 	rollCom = UIPackage.CreateObject("shihun", "huode_com").asCom;
 	rollCom:RemoveFromParent();
@@ -76,12 +85,33 @@ function shihun:OnHide()
 end
 
 function shihun_FlushData()
+	rollBtn.enabled = false;
 	shihun_CheckResult();
+	if JieHunSystem.instance._NextDrawData ~= nil then
+		local iData = ItemData.GetData(JieHunSystem.instance._NextDrawData._ItemId);
+		if iData ~= nil then
+			local has = BagSystem.GetItemMaxNum(iData._Id);
+			local need = JieHunSystem.instance._NextDrawData._ItemNum;
+			local color = "white";
+			if has < need then
+				color = "red";
+			end
+			itemIcon.url = "ui://" .. iData._Icon;
+			print(iData._Icon .. "iData._Icon");
+			itemNameAndNum.text = iData._Name .. "(" .. Proxy4Lua.ChangeColor(has, color) .. "/" .. need .. ")";
+			levelIcon.url = "ui://shihun/nandu_" .. JieHunSystem.instance._NextDrawData._ID;
+			rollBtn.enabled = has >= need;
+		else
+			itemIcon.url = "";
+			itemNameAndNum.text = "";
+			levelIcon.url = "";
+		end
+	end
 end
 
 function shihun_CheckResult()
-	if JieHunSystem._LastestChapter ~= nil then
-		local hsData = HeroStoryData.GetData(JieHunSystem._LastestChapter.ChapterId);
+	if JieHunSystem.instance._LastestChapter ~= nil then
+		local hsData = HeroStoryData.GetData(JieHunSystem.instance._LastestChapter.ChapterId);
 		if hsData ~= nil then
 			local eData = EntityData.GetData(hsData.EntityID_);
 			if eData ~= nil then
@@ -96,7 +126,7 @@ function shihun_CheckResult()
 				end
 			end
 		end
-		JieHunSystem._LastestChapter = nil;
+		JieHunSystem.instance._LastestChapter = nil;
 	end
 end
 

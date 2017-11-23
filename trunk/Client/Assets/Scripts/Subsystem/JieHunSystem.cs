@@ -12,6 +12,7 @@ public class JieHunSystem
 	public int chapterID = 0;
 	public int chapterBox = 0;
     public COM_Chapter _LastestChapter;
+    public DrawData _NextDrawData;
 	public static JieHunSystem instance
 	{
 		get
@@ -74,6 +75,7 @@ public class JieHunSystem
         _LastestChapter = chapter;
 		chapteList.Add (chapter);
 		InitEasy ();
+        LaunchNextGarage();
 		UIManager.SetDirty("jiehun");
         UIManager.SetDirty("guanka");
         UIManager.SetDirty("shihun");
@@ -88,6 +90,7 @@ public class JieHunSystem
             chapteList.Add(data[i]);
         }
         InitEasy();
+        LaunchNextGarage();
     }
 
     private void InitEasy()
@@ -185,4 +188,14 @@ public class JieHunSystem
 			}
 		}
 	}
+
+    public void LaunchNextGarage()
+    {
+        List<int> chapterIds = new List<int>();
+        for(int i=0; i < chapteList.Count; ++i)
+        {
+            chapterIds.Add(chapteList[i].ChapterId);
+        }
+        _NextDrawData = DrawData.GetNextGarageData(chapterIds);
+    }
 }

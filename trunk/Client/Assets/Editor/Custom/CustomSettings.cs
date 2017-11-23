@@ -170,7 +170,6 @@ public static class CustomSettings
         _GT(typeof(COM_BattleActionTarget)),
         _GT(typeof(BuffData)),
         _GT(typeof(COM_ThrowCard)),
-        _GT(typeof(UIConfig)),
 
         _GT(typeof(EventContext)),
         _GT(typeof(EventDispatcher)),
@@ -218,6 +217,7 @@ public static class CustomSettings
 		_GT(typeof(HeroStroyData)),
         _GT(typeof(CheckpointData)), 
         _GT(typeof(TalkData)),
+        _GT(typeof(DrawData)),
         _GT(typeof(DragDrop)),
         _GT(typeof(List<long>)),
         _GT(typeof(List<COM_Unit>)),
