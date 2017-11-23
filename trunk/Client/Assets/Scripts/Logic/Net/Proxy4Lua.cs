@@ -256,6 +256,7 @@ public class Proxy4Lua {
             go.AddComponent<ActorRotate>();
         go.transform.position = new Vector3(0f, 0f, distance);
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale") * scale;
+        iTween.ShakePosition(go, new Vector3(0.01f, 0f, 0f), 0.02f);
         ParticalScale ps = go.GetComponent<ParticalScale>();
         if(ps != null)
             ps.scanleSize = Define.GetFloat("UIModelScale") * scale * FairyGUI.Stage.inst.cachedTransform.localScale.x;
@@ -274,6 +275,7 @@ public class Proxy4Lua {
             go.AddComponent<ActorRotate>();
         go.transform.position = new Vector3(0f, 0f, 1500f);
         go.transform.localScale = Vector3.one * Define.GetFloat("UIModelScale");
+        iTween.ShakePosition(go, new Vector3(0.01f, 0f, 0f), 0.02f);
         ParticalScale ps = go.GetComponent<ParticalScale>();
         if(ps != null)
             ps.scanleSize = Define.GetFloat("UIModelScale") * FairyGUI.Stage.inst.cachedTransform.localScale.x;
