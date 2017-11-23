@@ -576,10 +576,10 @@ g57h1w.xml|203|<component size="1920,1080">
     </image>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
-</component>s5s1e.xml|968|<component size="1920,1080" overflow="hidden">
+</component>s5s1e.xml|987|<component size="1920,1080" overflow="hidden">
   <displayList>
     <loader id="n111_tej4" name="n111" xy="1383,541" pivot="0.5,0.5" anchor="true" size="1073,1082" skew="0,180"/>
-    <list id="n109_rij8" name="n109" xy="876,0" size="1044,1082" layout="row" overflow="scroll" scroll="horizontal" vAlign="middle">
+    <list id="n109_rij8" name="n109" xy="876,0" size="1044,1082" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="2" vAlign="middle">
       <item url="ui://fyok6i50gn222b"/>
       <item url="ui://fyok6i50o8nm3v"/>
       <item url="ui://fyok6i50pg7k10"/>
