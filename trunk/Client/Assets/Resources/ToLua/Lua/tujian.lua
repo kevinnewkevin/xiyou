@@ -129,26 +129,26 @@ function tujian:OnInit()
 	typeList.selectedIndex = crtCardsType;
 	shihunBtn = self.contentPane:GetChild("n106");
 	shihunBtn.onClick:Add(tujian_OnShiHunClick);
-	--infoList.scrollPane.onScroll:Add(DoSpecialEffect);
+	infoList.scrollPane.onScroll:Add(DoSpecialEffect);
 	infoList.scrollItemToViewOnClick = false;
 	tujian_FlushData();
 end
 
 
 function DoSpecialEffect()
-		--local midX = infoList.scrollPane.posX + infoList.viewWidth / 2;
-		--local cnt = infoList.numChildren;
+		local midX = infoList.scrollPane.posX + infoList.viewWidth / 2;
+		local cnt = infoList.numChildren;
 
-		if infoList:IsChildInView(modelPanel) then
-			crtSelectIdx = 0;
-		elseif infoList:IsChildInView(infoPanel) then
-			crtSelectIdx = 1;
-		elseif infoList:IsChildInView(propPanel) then
-			crtSelectIdx = 2;
-		end
-		--crtSelectIdx = infoList:GetFirstChildInView();
-			--print(crtSelectIdx );
-		--crtSelectIdx = infoList:ChildIndexToItemIndex(crtSelectIdx);
+			for  i = 1, cnt do
+				local obj = infoList:GetChildAt(i-1);
+				local dist = Mathf.Abs(midX - obj.x - obj.width / 2);
+				if dist > obj.width then
+
+				else
+					crtSelectIdx = i-1;
+				end
+			end
+
 		tujian_UpdateLRBtn();
 		print(crtSelectIdx );
 end
@@ -180,6 +180,7 @@ function tujian:OnHide()
 	selectCardId = 3;
 	crtSelectIdx = 0;
 	allCardList.data = 0;
+	Proxy4Lua.ClearToDeleteAsset("tujian");
 	Window:Hide();
 end
 
@@ -286,6 +287,7 @@ function tujian_updateModelInfo()
 	modelRes = displayData._AssetPath; 
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false, 1200, 1.5));
 	race.asLoader.url = "ui://" .. displayData._Race;
+	Proxy4Lua.AddToDelete("tujian",modelRes);
 	fee.text = entityData._Cost;
 	nameLab.text = entityData._Name;
 	raceBack.asLoader.url = "ui://" .. displayData._Race.. "_bj";
