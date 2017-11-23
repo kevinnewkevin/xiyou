@@ -80,22 +80,30 @@ function shihun_FlushData()
 end
 
 function shihun_CheckResult()
-if minTimer == nil then
-	return;
-end
---	if 结构不是空 then
-		rollResultName.text = "";
-		rollResultIcon.url = "ui://" .. "";
-		rollResultIconShadow.url = "ui://" .. "";
+	if JieHunSystem._LastestChapter ~= nil then
+		local hsData = HeroStoryData.GetData(JieHunSystem._LastestChapter.ChapterId);
+		if hsData ~= nil then
+			local eData = EntityData.GetData(hsData.EntityID_);
+			if eData ~= nil then
+				local dData = DisplayData.GetData(eData._DisplayId);
+				if dData ~= nil then
+					rollResultName.text = eData._Name;
+					rollResultIcon.url = "ui://" .. dData._HeadIcon;
+					rollResultIconShadow.url = "ui://" .. dData._HeadIcon;
 
-		rollCom:GetTransition("t1"):Stop();
-		rollCom:GetTransition("t0"):Play();
---	end
+					rollCom:GetTransition("t1"):Stop();
+					rollCom:GetTransition("t0"):Play();
+				end
+			end
+		end
+		JieHunSystem._LastestChapter = nil;
+	end
 end
 
 function shihun_OnRoll()
 	GRoot.inst:AddChild(rollCom);
 	minTimer = 3;
+	Proxy4Lua.RandChapter();
 end
 
 function shihun_OnRollResult()
