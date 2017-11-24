@@ -31,6 +31,7 @@ function shihun:OnInit()
 	self.contentPane = UIPackage.CreateObject("shihun", "shihun_com").asCom;
 	self:Center();
 	self.modal = true;
+	self.bringToFontOnClick = false;
 	self.closeButton = self.contentPane:GetChild("n10");
 
 	rollBtn = self.contentPane:GetChild("n5").asButton;
