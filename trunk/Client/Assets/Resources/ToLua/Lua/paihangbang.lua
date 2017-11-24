@@ -98,7 +98,7 @@ function paihangbang_RenderListItem(index, obj)
 		else
 			flower.url = "";
 		end
-		local eData = EntityData.GetData(RankSystem._FirendRank[index].UnitID);
+		local eData = EntityData.GetData(RankSystem._AllRank[index].UnitID);
 		if eData ~= nil then
 			local dData = DisplayData.GetData(eData._DisplayId);
 			if dData ~= nil then
