@@ -48,7 +48,7 @@ function shihun:OnInit()
 	rollResultIcon = rollCom:GetChild("n12").asLoader;
 	rollResultIconShadow = rollCom:GetChild("n15").asLoader;
 	rollResultBtn = rollCom:GetChild("n13").asButton;
-	rollResultBtn.onClick:Add(shihun_OnRollResult);
+	--rollResultBtn.onClick:Add(shihun_OnRollResult);
 
 	test = self.contentPane:GetChild("n7");
 	test:RemoveFromParent();
@@ -69,7 +69,7 @@ function shihun:OnTick()
 		if minTimer <= 0 then
 			shihun_CheckResult();
 			minTimer = nil;
-			enableNextTimer = 2.5;
+			enableNextTimer = 2;
 		end
 	end
 
@@ -77,6 +77,7 @@ function shihun:OnTick()
 		enableNextTimer = enableNextTimer - 1;
 		if enableNextTimer < 0 then
 			enableNextTimer = nil;
+			rollResultBtn.onClick:Add(shihun_OnRollResult);
 		end
 	end
 end
@@ -96,6 +97,7 @@ function shihun:OnHide()
 end
 
 function shihun_FlushData()
+	rollResultBtn.onClick:Remove(shihun_OnRollResult);
 	rollBtn.enabled = false;
 	shihun_CheckResult();
 	if JieHunSystem.instance._NextDrawData ~= nil then
@@ -147,9 +149,6 @@ function shihun_OnRoll()
 end
 
 function shihun_OnRollResult()
-	if enableNextTimer ~= nil then
-		return;
-	end
 	rollCom:RemoveFromParent();
 	UIManager.SetDirty("shihun");
 end
