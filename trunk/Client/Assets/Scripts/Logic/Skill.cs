@@ -199,7 +199,6 @@ public class Skill {
 
         IsSec = _SkillData._Motion == SkillData.MotionType.MT_Sec;
 
-        AudioSystem.PlayVoice(_SkillData._Voice);
         AudioSystem.PlayEffect(_SkillData._Sound);
 
 //        _Lua = new LuaState();
@@ -564,6 +563,7 @@ public class Skill {
         Battle._CasterDisplayID = _Caster._DisplayID;
         Battle._CasterSkillName = _SkillData._Name;
         UIManager.GetUI("BattlePanel").Call("ShowSkill");
+        AudioSystem.PlayVoice(_SkillData._Voice);
     }
 
     public int TargetCount
