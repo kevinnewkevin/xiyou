@@ -30,8 +30,8 @@ public class SceneData {
             data._Id = parser.GetInt (i, "ID");
             string[] npcidStr = parser.GetString (i, "NPC").Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
             data._NpcId = new int[npcidStr.Length];
-            data._SceneName = parser.GetString("Name");
-            data._BackgroundMusic = parser.GetString("Music");
+            data._SceneName = parser.GetString(i, "Name");
+            data._BackgroundMusic = parser.GetString(i, "Music");
             for(int j=0; j < npcidStr.Length; ++j)
             {
                 data._NpcId [j] = int.Parse(npcidStr [j]);
