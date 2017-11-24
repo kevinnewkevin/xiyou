@@ -10,7 +10,7 @@ import (
 func PassZeroHourTask() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("main panic %s", fmt.Sprint(r))
+			logs.Error("PassZeroHourTask panic %s", fmt.Sprint(r))
 		}
 
 	}()
@@ -21,7 +21,7 @@ func PassZeroHourTask() error {
 func BlackMarkteRefreshTask() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("main panic %s", fmt.Sprint(r))
+			logs.Error("BlackMarkteRefreshTask panic %s", fmt.Sprint(r))
 		}
 
 	}()
@@ -32,7 +32,7 @@ func BlackMarkteRefreshTask() error {
 func PlayerSave() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("main panic %s", fmt.Sprint(r))
+			logs.Error("PlayerSave panic %s", fmt.Sprint(r))
 		}
 
 	}()
@@ -43,7 +43,7 @@ func PlayerSave() error {
 func RefreshTopList() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("main panic %s", fmt.Sprint(r))
+			logs.Error("RefreshTopList panic %s", fmt.Sprint(r))
 		}
 
 	}()
@@ -56,7 +56,7 @@ func RefreshTopList() error {
 func RefreshEveryMon() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("main panic %s", fmt.Sprint(r))
+			logs.Error("RefreshEveryMon panic %s", fmt.Sprint(r))
 		}
 
 	}()

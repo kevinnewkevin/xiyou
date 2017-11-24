@@ -10,6 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 	//"fmt"
+	"fmt"
 )
 
 type UnitList []*GameUnit
@@ -319,13 +320,13 @@ func (this *BattleRoom) BattleUpdate() {
 	//Round_start := time.Now().Unix()
 	checkindex := 0
 
-	//defer func() {
-	//
-	//	if r := recover(); r != nil {
-	//		logs.Error("main panic %s",fmt.Sprint(r))
-	//	}
-	//
-	//}()
+	defer func() {
+
+		if r := recover(); r != nil {
+			logs.Error("battle panic %s",fmt.Sprint(r))
+		}
+
+	}()
 
 	for this.Status == kUsed {
 

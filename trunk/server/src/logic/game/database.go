@@ -12,6 +12,7 @@ import (
 
 	"sync/atomic"
 	"encoding/json"
+	"fmt"
 )
 
 var (
@@ -125,6 +126,13 @@ func QueryPlayer(username string) <- chan *prpc.SGE_DBPlayer {
 	rChan := make(chan *prpc.SGE_DBPlayer)
 	go func() {
 
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("QueryPlayer panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -191,6 +199,13 @@ func QueryPlayerById(InstId int64) <- chan *prpc.SGE_DBPlayer {
 	rChan := make(chan *prpc.SGE_DBPlayer)
 	go func() {
 
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("QueryPlayerById panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -256,6 +271,14 @@ func InsertPlayer(p prpc.SGE_DBPlayer) <- chan int64 {
 	rChan := make (chan int64)
 
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertPlayer panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -292,6 +315,13 @@ func QueryUnit(ownerId int64) <- chan []prpc.COM_Unit {
 
 	rChan := make(chan []prpc.COM_Unit)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("QueryUnit panic %s", fmt.Sprint(r))
+			}
+
+		}()
 
 		c, e := ConnectDB()
 		if e != nil {
@@ -353,6 +383,14 @@ func QueryUnit(ownerId int64) <- chan []prpc.COM_Unit {
 func InsertUnit(ownerId int64, p prpc.COM_Unit) <- chan int64 {
 	rChan := make (chan int64)
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertUnit panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -389,6 +427,14 @@ func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
 	//logs.Debug(p.UnitGroup)
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdatePlayer panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -423,6 +469,14 @@ func UpdatePlayer(p prpc.SGE_DBPlayer) {
 
 func UpdateUnit(p prpc.COM_Unit) {
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateUnit panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -446,6 +500,13 @@ func UpdateUnit(p prpc.COM_Unit) {
 func QueryAllTopList()  <- chan []prpc.COM_TopUnit {		//取出来整张表的数据
 	rChan := make(chan []prpc.COM_TopUnit)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("QueryAllTopList panic %s", fmt.Sprint(r))
+			}
+
+		}()
 
 		c, e := ConnectDB()
 		if e != nil {
@@ -504,6 +565,14 @@ func QueryAllTopList()  <- chan []prpc.COM_TopUnit {		//取出来整张表的数
 
 func UpdateTopList(InstId int64, t prpc.SGE_DBTopUnit) {
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateTopList panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -529,6 +598,14 @@ func InsertTopList (InstId int64, t prpc.SGE_DBTopUnit) <- chan int64 {
 	rChan := make (chan int64)
 
 	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertTopList panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -565,6 +642,14 @@ func InsertTopList (InstId int64, t prpc.SGE_DBTopUnit) <- chan int64 {
 func InsertGuild(pGuild prpc.COM_Guild,member prpc.COM_GuildMember) <- chan bool {
 	rChan := make (chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertGuild panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -627,6 +712,14 @@ func InsertGuild(pGuild prpc.COM_Guild,member prpc.COM_GuildMember) <- chan bool
 func DeleteDBGuild(guildId int32) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("DeleteDBGuild panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -652,6 +745,14 @@ func FetchGuild() <- chan []prpc.COM_Guild {
 	guildCatch := []prpc.COM_Guild{}
 
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("FetchGuild panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -702,6 +803,14 @@ func FetchGuildMember() <-chan []prpc.COM_GuildMember {
 	rChan := make(chan []prpc.COM_GuildMember)
 	guildMemberCatch := []prpc.COM_GuildMember{}
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("FetchGuildMember panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -739,6 +848,14 @@ func FetchGuildMember() <-chan []prpc.COM_GuildMember {
 func UpdateGuildRequestList(guildId int32,qlist []prpc.COM_GuildRequestData) <- chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateGuildRequestList panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -770,6 +887,14 @@ func UpdateGuildRequestList(guildId int32,qlist []prpc.COM_GuildRequestData) <- 
 func UpdateDBGuildVal(guildId int32,val int32) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildVal panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -800,6 +925,14 @@ func UpdateDBGuildVal(guildId int32,val int32) <-chan bool {
 func UpdateDBGuildRatify(guildId int32,isRatify bool,require int32) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildRatify panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -832,6 +965,14 @@ func UpdateDBGuildRatify(guildId int32,isRatify bool,require int32) <-chan bool 
 func UpdateDBGuildContribution(guildId int32,contribution int32) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildContribution panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -863,6 +1004,14 @@ func UpdateDBGuildContribution(guildId int32,contribution int32) <-chan bool {
 func ResetDBGuildContribution() <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("ResetDBGuildContribution panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -894,6 +1043,14 @@ func ResetDBGuildContribution() <-chan bool {
 func InsertGuildMember(member prpc.COM_GuildMember) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertGuildMember panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -924,6 +1081,14 @@ func InsertGuildMember(member prpc.COM_GuildMember) <-chan bool {
 func DeleteDBGuildMember(roleId int64) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("DeleteDBGuildMember panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -954,6 +1119,14 @@ func DeleteDBGuildMember(roleId int64) <-chan bool {
 func UpdateDBGuildMemberVal(player int64,val int32) <- chan bool  {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildMemberVal panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -984,6 +1157,14 @@ func UpdateDBGuildMemberVal(player int64,val int32) <- chan bool  {
 func UpdateDBGuildMemberJob(player int64,job int) <- chan bool  {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildMemberJob panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1014,6 +1195,14 @@ func UpdateDBGuildMemberJob(player int64,job int) <- chan bool  {
 func UpdateDBGuildMemberLevel(player int64,level int32) <- chan bool  {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateDBGuildMemberLevel panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1046,6 +1235,14 @@ func UpdateDBGuildMemberLevel(player int64,level int32) <- chan bool  {
 func InsertGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertGuildAssistant panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1082,6 +1279,14 @@ func InsertGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
 func DelGuildAssistant(assistantId int32) <-chan bool {
 	rChan := make( chan bool)
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("DelGuildAssistant panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1113,6 +1318,14 @@ func FindGuildAssistantById(assistantId int32) <-chan *prpc.SGE_DBGuildAssistant
 	rChan := make(chan *prpc.SGE_DBGuildAssistant)
 	data := &prpc.SGE_DBGuildAssistant{}
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("FindGuildAssistantById panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1151,6 +1364,14 @@ func FindGuildAssistantByPlayerName(name string) <-chan *prpc.SGE_DBGuildAssista
 	rChan := make(chan *prpc.SGE_DBGuildAssistant)
 	data := &prpc.SGE_DBGuildAssistant{}
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("FindGuildAssistantByPlayerName panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1189,6 +1410,14 @@ func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssista
 	rChan := make(chan []prpc.SGE_DBGuildAssistant)
 	data := []prpc.SGE_DBGuildAssistant{}
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("FindGuildAssistantByGuildId panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
@@ -1228,6 +1457,14 @@ func FindGuildAssistantByGuildId(guildId int32) <-chan []prpc.SGE_DBGuildAssista
 func UpdateGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
 	rChan := make( chan bool )
 	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateGuildAssistant panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
 		c, e := ConnectDB()
 		if e != nil {
 			logs.Debug(e.Error())
