@@ -17,6 +17,7 @@ local rollResultBtn;
 local test;
 
 local minTimer = nil;
+local enableNextTimer = nil;
 
 function shihun:OnEntry()
 	Window = shihun.New();
@@ -31,7 +32,6 @@ function shihun:OnInit()
 	self.contentPane = UIPackage.CreateObject("shihun", "shihun_com").asCom;
 	self:Center();
 	self.modal = true;
-	self.bringToFontOnClick = false;
 	self.closeButton = self.contentPane:GetChild("n10");
 
 	rollBtn = self.contentPane:GetChild("n5").asButton;
@@ -68,6 +68,15 @@ function shihun:OnTick()
 		if minTimer <= 0 then
 			shihun_CheckResult();
 			minTimer = nil;
+			enableNextTimer = 2.5;
+		end
+	end
+
+	if enableNextTimer ~= nil then
+		enableNextTimer = enableNextTimer - 1;
+		if enableNextTimer < 0 then
+			enableNextTimer = nil;
+			rollResultBtn.enabled = true;
 		end
 	end
 end
@@ -82,6 +91,7 @@ end
 
 function shihun:OnHide()
 	minTimer = nil;
+	enableNextTimer = nil;
 	Window:Hide();
 end
 
@@ -98,7 +108,6 @@ function shihun_FlushData()
 				color = "red";
 			end
 			itemIcon.url = "ui://" .. iData._Icon;
-			print(iData._Icon .. "iData._Icon");
 			itemNameAndNum.text = iData._Name .. "(" .. Proxy4Lua.ChangeColor(has, color) .. "/" .. need .. ")";
 			levelIcon.url = "ui://shihun/nandu_" .. JieHunSystem.instance._NextDrawData._ID;
 			rollBtn.enabled = has >= need and JieHunSystem.instance._NextDrawData ~= nil;
@@ -127,6 +136,7 @@ function shihun_CheckResult()
 				end
 			end
 		end
+		rollResultBtn.enabled = true;
 		JieHunSystem.instance._LastestChapter = nil;
 	end
 end
@@ -134,10 +144,12 @@ end
 function shihun_OnRoll()
 	GRoot.inst:AddChild(rollCom);
 	minTimer = 3;
+	rollResultBtn.enabled = false;
 	Proxy4Lua.RandChapter();
 end
 
 function shihun_OnRollResult()
 	rollCom:RemoveFromParent();
+	rollResultBtn.enabled = false;
 	UIManager.SetDirty("shihun");
 end
