@@ -262,10 +262,17 @@ function tujian_RenderListItem(index, obj)
 				finish = false;
 			end
 	 	end
-	 	obj:GetChild("n12").visible = finish;
+	 	--obj:GetChild("n12").visible = finish;
 	else
 		obj:GetChild("n13").visible = true;
-		obj:GetChild("n12").visible = false;
+		--obj:GetChild("n12").visible = false;
+	end
+	local haveImg = obj:GetChild("n12");
+	local card = GamePlayer.GetCardByEntityID(edata._UnitId);
+	if card then
+		haveImg.visible =true;
+	else
+		haveImg.visible = false;
 	end
 
 	obj:GetChild("n5").asLoader.url = "ui://" .. displayData._HeadIcon;
