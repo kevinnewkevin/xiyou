@@ -132,7 +132,7 @@ func CreatGuild(player *GamePlayer,guildName string)  {
 	if FindGuildByPlayerId(player.MyUnit.InstId) != nil {
 		return
 	}
-	if player.MyUnit.GetIProperty(prpc.IPT_LEVEL) < int32(GetGlobalInt("C_CreatGuildLevel")) {
+	if player.MyUnit.GetIProperty(prpc.IPT_PROMOTE) < int32(GetGlobalInt("C_CreatGuildLevel")) {
 		return
 	}
 	if player.MyUnit.GetIProperty(prpc.IPT_GOLD) < int32(GetGlobalInt("C_CreatGuildGold")){
