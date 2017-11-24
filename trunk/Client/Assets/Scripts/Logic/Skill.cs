@@ -199,8 +199,6 @@ public class Skill {
 
         IsSec = _SkillData._Motion == SkillData.MotionType.MT_Sec;
 
-        AudioSystem.PlayEffect(_SkillData._Sound);
-
 //        _Lua = new LuaState();
 //        LuaBinder.Bind(_Lua);
 //        _Lua.Start();
@@ -330,6 +328,8 @@ public class Skill {
 
     void Melee_Moved()
     {
+        AudioSystem.PlayEffect(_SkillData._Sound);
+
         _Caster._ActorObj.transform.LookAt(_Targets[crtTargetIdx]._ActorObj.transform);
 
         Stop(_Caster);
@@ -378,6 +378,7 @@ public class Skill {
 
     void Range()
     {
+        AudioSystem.PlayEffect(_SkillData._Sound);
         if (_SkillPos != null && _SkillData._TargetPos == SkillData.TargetPosType.TPT_Center)
         {
             _Caster._ActorObj.transform.rotation = _SkillPos.rotation;
