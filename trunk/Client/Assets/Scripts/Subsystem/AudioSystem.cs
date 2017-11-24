@@ -8,15 +8,12 @@ public class AudioSystem {
     static AudioSource _VoiceSound;
     static List<EffectSound> _EffectSoundPool;
 
-    static Dictionary<string, AudioClip> _ClipPool;
-
     static float _MusicVolum = 1f;
     static float _SoundVolum = 1f;
     static float _VoiceVolum = 1f;
 
     static public void Init()
     {
-        _ClipPool = new Dictionary<string, AudioClip>();
         _EffectSoundPool = new List<EffectSound>();
     }
 
@@ -25,7 +22,7 @@ public class AudioSystem {
         if (string.IsNullOrEmpty(music))
             return;
 
-        AudioClip ac = GetClip(music);
+        AudioClip ac = AssetLoader.LoadAudio(music);
         if (ac == null)
             return;
         
@@ -53,7 +50,7 @@ public class AudioSystem {
         if (string.IsNullOrEmpty(voice))
             return;
 
-        AudioClip ac = GetClip(voice);
+        AudioClip ac = AssetLoader.LoadAudio(voice);
         if (ac == null)
             return;
         
@@ -98,13 +95,6 @@ public class AudioSystem {
         }
 
         es.Play(effect);
-    }
-
-    static public AudioClip GetClip(string clipName)
-    {
-        if (!_ClipPool.ContainsKey(clipName))
-            _ClipPool.Add(clipName, AssetLoader.LoadAudio(clipName));
-        return _ClipPool[clipName];
     }
 
     static public float MusicVolum
@@ -163,7 +153,7 @@ public class EffectSound
         if (string.IsNullOrEmpty(effect))
             return;
         
-        AudioClip ac = AudioSystem.GetClip(effect);
+        AudioClip ac = AssetLoader.LoadAudio(effect);
         if (ac == null)
             return;
         
