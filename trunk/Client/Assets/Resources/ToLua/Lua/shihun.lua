@@ -32,6 +32,7 @@ function shihun:OnInit()
 	self.contentPane = UIPackage.CreateObject("shihun", "shihun_com").asCom;
 	self:Center();
 	self.modal = true;
+	self.bringToFontOnClick = false;
 	self.closeButton = self.contentPane:GetChild("n10");
 
 	rollBtn = self.contentPane:GetChild("n5").asButton;
@@ -76,7 +77,6 @@ function shihun:OnTick()
 		enableNextTimer = enableNextTimer - 1;
 		if enableNextTimer < 0 then
 			enableNextTimer = nil;
-			rollResultBtn.enabled = true;
 		end
 	end
 end
@@ -136,7 +136,6 @@ function shihun_CheckResult()
 				end
 			end
 		end
-		rollResultBtn.enabled = true;
 		JieHunSystem.instance._LastestChapter = nil;
 	end
 end
@@ -144,12 +143,13 @@ end
 function shihun_OnRoll()
 	GRoot.inst:AddChild(rollCom);
 	minTimer = 3;
-	rollResultBtn.enabled = false;
 	Proxy4Lua.RandChapter();
 end
 
 function shihun_OnRollResult()
+	if enableNextTimer ~= nil then
+		return;
+	end
 	rollCom:RemoveFromParent();
-	rollResultBtn.enabled = false;
 	UIManager.SetDirty("shihun");
 end
