@@ -282,6 +282,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		FriendSystem.randomFriends = friends;
 		UIManager.SetDirty("haoyou");
+
 		return true;
 	}
 
@@ -297,6 +298,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		FriendSystem.AddFriend (friend);
 		UIManager.SetDirty("haoyou");
+		LuaManager.Call("global.lua", "AddFriend",friend.Name);
 		return true;
 	}
 

@@ -19,14 +19,13 @@ public class GamePlayer {
 	static public int _TianTiVal;
 	
     static public int _CrtBattleGroupIdx;
-
     static public long _AssistantCoolDown;
 
     static public List<string> _IPropDirty = new List<string>();
     static public List<string> _CPropDirty = new List<string>();
 	static public bool showNewCard;
 	static public COM_Unit newCard;
-	static public ulong _guildId;
+	static public int _guildId;
 	static public int _iGuildId;
     static public void Init(COM_Player player)
     {
@@ -53,7 +52,7 @@ public class GamePlayer {
         _Data = player.Unit;
 		_TianTiVal = player.TianTiVal;
         _AssistantCoolDown = player.AssistantCreateTime;
-		_guildId = player.Guide;
+		_guildId = player.GuildId;
 		if (_guildId <= 0) 
 		{
 			_iGuildId = 0;
