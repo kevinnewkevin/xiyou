@@ -57,10 +57,11 @@ public class SceneData {
 
     static public string GetMusicData(string sceneName)
     {
-        foreach(SceneData sData in metaData)
+        foreach(SceneData sData in metaData.Values)
         {
             if (sData._SceneName.Equals(sceneName))
                 return sData._BackgroundMusic;
         }
+        return "";
     }
 }
