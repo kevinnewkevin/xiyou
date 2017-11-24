@@ -7,12 +7,17 @@ public class ChatSystem {
 
     static public List<COM_Assistant> _Assistant;
 
+    static int _ChatMaxCount;
+
     static public void Init()
     {
         _Assistant = new List<COM_Assistant>();
         _AllMsg = new Dictionary<int, List<COM_Chat>>();
         _AllMsg.Add(-1, new List<COM_Chat>());
         EmojiParser.inst.RegistEmojiTags();
+        _ChatMaxCount = Define.GetInt("ChatMaxCount");
+        if (_ChatMaxCount <= 0)
+            UnityEngine.Debug.LogError("Are you sure _ChatMaxCount is less then or equal 0?");
     }
 
     static public void AddMsg(COM_Chat chat)
@@ -22,6 +27,11 @@ public class ChatSystem {
 
         _AllMsg [chat.Type].Add(chat);
         _AllMsg [-1].Add(chat);
+        if(_AllMsg[chat.Type].Count > _ChatMaxCount)
+            _AllMsg[chat.Type].RemoveRange(0, _AllMsg[chat.Type].Count - _ChatMaxCount);
+
+        if(_AllMsg[-1].Count > _ChatMaxCount)
+            _AllMsg[-1].RemoveRange(0, _AllMsg[-1].Count - _ChatMaxCount);
 
         UIManager.SetDirty("zhujiemian_liaotian");
         UIManager.SetDirty("liaotian");
