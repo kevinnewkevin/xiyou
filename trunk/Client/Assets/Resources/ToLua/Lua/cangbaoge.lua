@@ -22,6 +22,10 @@ local greenLab;
 local buleLab;
 local purpleLab;
 local orangeLab;
+local greenLabBack;
+local buleLabBack;
+local purpleLabBack;
+local orangeLabBack;
 local greenImg;
 local buleImg;
 local purpleImg;
@@ -67,6 +71,11 @@ function cangbaoge:OnInit()
 	buleLab =  boxInfo:GetChild("n15");
 	purpleLab =  boxInfo:GetChild("n16");
 	orangeLab =  boxInfo:GetChild("n17");
+
+	greenLabBack =  boxInfo:GetChild("n25");
+	buleLabBack  =  boxInfo:GetChild("n26");
+	purpleLabBack  =  boxInfo:GetChild("n27");
+	orangeLabBack  =  boxInfo:GetChild("n28");
 
 	greenImg =  boxInfo:GetChild("n7");
 	buleImg =  boxInfo:GetChild("n8");
@@ -227,33 +236,41 @@ function cangbaoge_UpdateInfo()
 	infoBuyBtnLab.text = shopData._Price;
 	infoMoneyLab.text = shopData._copper .. "铜币";
 	greenLab.visible = false;
+	greenLabBack.visible = false;
 	greenImg.visible = false;	
 	buleLab.visible = false;
+	buleLabBack.visible = false;
 	buleImg.visible = false;
 	purpleLab.visible = false;
+	purpleLabBack.visible = false;
 	purpleImg.visible = false;
 	orangeLab.visible = false;
+	orangeLabBack.visible = false;
 	orangeImg.visible = false;
 
 	local cardData = CardcloseData.GetData(shopData._CardId);
 	if cardData._Greennum > 0 then
 		greenImg.visible = true;
 		greenLab.visible = true;	
+		greenLabBack.visible = true;	
 		greenLab.text = "绿色碎片*" ..cardData._Greennum;	
 	end
 	if cardData._Bluenum > 0 then
 		buleImg.visible = true;
 		buleLab.visible = true;
+		buleLabBack.visible = true;	
 		buleLab.text = "蓝色碎片*" ..cardData._Bluenum;		
 	end
 	if cardData._Purplenum > 0 then
 		purpleImg.visible = true;
 		purpleLab.visible = true;
+		purpleLabBack.visible = true;
 		purpleLab.text = "紫色碎片*" ..cardData._Purplenum;  	
 	end
 	if cardData._Orangenum > 0 then
 		orangeImg.visible = true;
 		orangeLab.visible = true;
+		orangeLabBack.visible = true;
 		orangeLab.text = "橙色碎片*" ..cardData._Orangenum;	
 	end
 

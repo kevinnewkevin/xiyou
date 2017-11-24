@@ -135,6 +135,10 @@ function CreateGuild()
 	Proxy4Lua.PopMsg("创建成功");
 end
 
+function AddFriend(name)
+	Proxy4Lua.PopMsg("添加好友" ..name);
+end
+
 --离开帮派
 function LeaveGuild()
 	ChatSystem.ClearMsgByType(4);
