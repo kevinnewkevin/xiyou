@@ -23,7 +23,7 @@ public class HeroStroyData
 		CSVParser parser = new CSVParser ();
 		if(!parser.Parse (content))
 		{
-			Debug.LogError("EntityData 解析错误");       
+			Debug.LogError("HeroStroyData 解析错误");       
 			return;
 		} 
 		
@@ -60,7 +60,7 @@ public class HeroStroyData
 			}
 			if(metaData.ContainsKey(data.Id_))
 			{
-				Debug.LogError("EntityData ID重复");
+				Debug.LogError("HeroStroyData ID重复");
 				return;
 			}
 			metaData[data.Id_] = data;
@@ -77,9 +77,9 @@ public class HeroStroyData
 				return metaData[id];
 	}
 
-		static public int GetEasyListNum()
-		{
-				return easyList.Count;
-		}
+	static public int GetEasyListNum()
+	{
+		return easyList.Count;
+	}
 
 }
