@@ -100,9 +100,11 @@ function DoSpecialEffect()
 				infoName.text = data.Name_;
 				infoDesc.text = data.Desc_;
 				rewardIcon.asLoader.url = "ui://" .. displayData._HeadIcon;
-				guankaId = obj.data;
-				local cData = JieHunSystem.instance:GetChapterData(guankaId);
-				local chapterData =  JieHunSystem.instance:GetChapterData(guankaId);
+				--guankaId = obj.data;
+				starBtn.data = obj.data;
+				boosInfoBtn.data = obj.data;
+				local cData = JieHunSystem.instance:GetChapterData(obj.data);
+				local chapterData =  JieHunSystem.instance:GetChapterData(obj.data);
   				local smallChapters = chapterData.SmallChapters;
   				local len = smallChapters.Length;
   				local num = 0;
@@ -200,7 +202,7 @@ end
 
 
 function daguanka_OnBoosInfo(context)
-	local data = HeroStroyData.GetData(guankaId);
+	local data = HeroStroyData.GetData(context.sender.data);
 	UIParamHolder.Set("showBoosId", data.EntityID_);
 	UIParamHolder.Set("showBoos", true);
 	UIManager.Show("xiangxiziliao");
@@ -208,6 +210,7 @@ end
 
 
 function daguanka_OnStart(context)
+	guankaId = context.sender.data;
 	Proxy4Lua.RequestChapterData(guankaId );
 
 	ready = {};
