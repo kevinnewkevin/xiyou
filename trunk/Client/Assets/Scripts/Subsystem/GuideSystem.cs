@@ -11,6 +11,8 @@ public class GuideSystem  {
 
     static GTextField _TextField;
 
+    static GButton _SkipButton;
+
     static ulong _Progress;
 
     static string _SpecialEvt = "";
@@ -27,6 +29,8 @@ public class GuideSystem  {
 //        _ContentLayer = _GuideLayer.GetChild("n8");
         _ContentCom = _GuideLayer.GetChild("n6").asCom;
         _TextField = _ContentCom.GetChild("n7").asTextField;
+        _SkipButton = _GuideLayer.GetChild("n10").asButton;
+        _SkipButton.onClick.Add(OnSkip);
     }
 
     static public void OpenUI(string ui, Window win)
@@ -183,6 +187,11 @@ public class GuideSystem  {
             SpecialEvt(_SpecialEvt);
         _SpecialEvt = "";
         Stage.inst.onTouchEnd.Remove(OnTouchEnd);
+    }
+
+    static void OnSkip(EventContext ec)
+    {
+        ClearGuide();
     }
 
     static public void ClearGuide()
