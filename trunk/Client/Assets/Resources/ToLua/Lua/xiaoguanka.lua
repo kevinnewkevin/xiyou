@@ -40,7 +40,10 @@ local rewardNeedNum;
 local rewardOkBtn;
 local nowCanBattle;
 local oneShow;
+local chaptersList;
+
 function xiaoguanka:OnEntry()
+	Define.LaunchUIBundle("guankatupian");
 	Define.LaunchUIBundle("guankatupian");
 	Window = xiaoguanka.New();
 	Window:Show();
@@ -51,16 +54,16 @@ function xiaoguanka:OnInit()
 	self:Center();
 	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n19").asButton;
-	local back= self.contentPane:GetChild("n29");
-	back.onClick:Add(xiaoguanka_OnBack);
-    leftBtn = self.contentPane:GetChild("n21");
-    rightBtn = self.contentPane:GetChild("n20");
-    leftBtn.onClick:Add(xiaoguanka_OnLeftBtn);
-    rightBtn.onClick:Add(xiaoguanka_OnRightBtn);
-    fuben0 = self.contentPane:GetChild("n22");
-    fuben1 = self.contentPane:GetChild("n23");
-    fuben2 = self.contentPane:GetChild("n24");
-    fuben3 = self.contentPane:GetChild("n25");
+	--local back= self.contentPane:GetChild("n29");
+	--back.onClick:Add(xiaoguanka_OnBack);
+    --leftBtn = self.contentPane:GetChild("n21");
+    --rightBtn = self.contentPane:GetChild("n20");
+    --leftBtn.onClick:Add(xiaoguanka_OnLeftBtn);
+    --rightBtn.onClick:Add(xiaoguanka_OnRightBtn);
+    --fuben0 = self.contentPane:GetChild("n22");
+   -- fuben1 = self.contentPane:GetChild("n23");
+   -- fuben2 = self.contentPane:GetChild("n24");
+    --fuben3 = self.contentPane:GetChild("n25");
     nameLab = self.contentPane:GetChild("n6");
     teamBtn = self.contentPane:GetChild("n30");
     playerPos = self.contentPane:GetChild("n27");
@@ -79,6 +82,9 @@ function xiaoguanka:OnInit()
 	closeRewardBtn = rewardShow:GetChild("n19");
 	rewardNeedNum = rewardShow:GetChild("n15");
 	rewardOkBtn = rewardShow:GetChild("n17");
+
+	chaptersList = self.contentPane:GetChild("n39");
+	chaptersList.itemRenderer = xiaoguanka_RenderListItem;
 	rewardBox0.onClick:Add(xiaoguanka_OnBox);
 	rewardBox1.onClick:Add(xiaoguanka_OnBox1);
 	rewardBox2.onClick:Add(xiaoguanka_OnBox2);
@@ -86,21 +92,21 @@ function xiaoguanka:OnInit()
 	closeRewardBtn.onClick:Add(xiaoguanka_OnRewardOkBtn);
 	getRewardBtn.onClick:Add(xiaoguanka_OnGetRewardBtn);
 	rewardOkBtn.onClick:Add(xiaoguanka_OnRewardOkBtn);
-    challengePanel = self.contentPane:GetChild("n26");
-    challengePanel.visible = false;
-    challengeBtn = challengePanel:GetChild("n2");
-    needPowerLab = challengePanel:GetChild("n1");
-    challengeBtn.onClick:Add(xiaoguanka_OnChallengeBtn);
-    fuben0.onClick:Add(xiaoguanka_OnfunbenOne);
-    fuben1.onClick:Add(xiaoguanka_OnfunbenTwo);
-    fuben2.onClick:Add(xiaoguanka_OnfunbenThree);
-    fuben3.onClick:Add(xiaoguanka_OnfunbenFour);
+    --challengePanel = self.contentPane:GetChild("n26");
+    --challengePanel.visible = false;
+    --challengeBtn = challengePanel:GetChild("n2");
+    --needPowerLab = challengePanel:GetChild("n1");
+    --challengeBtn.onClick:Add(xiaoguanka_OnChallengeBtn);
+   -- fuben0.onClick:Add(xiaoguanka_OnfunbenOne);
+   -- fuben1.onClick:Add(xiaoguanka_OnfunbenTwo);
+   -- fuben2.onClick:Add(xiaoguanka_OnfunbenThree);
+   -- fuben3.onClick:Add(xiaoguanka_OnfunbenFour);
     rewardShow.visible= false;
-    fubenArr = {};
-    fubenArr[0] = fuben0;
-    fubenArr[1] = fuben1;
-    fubenArr[2] = fuben2;
-    fubenArr[3] = fuben3;
+    --fubenArr = {};
+   -- fubenArr[0] = fuben0;
+    --fubenArr[1] = fuben1;
+    --fubenArr[2] = fuben2;
+    --fubenArr[3] = fuben3;
 
     guankaID = UIManager.GetWindow("daguanka").GetGuankaId();
     showNum = 0;
@@ -135,72 +141,17 @@ function xiaoguanka:OnDispose()
 end
 
 function xiaoguanka:OnHide()
-	challengePanel.visible = false;
-	challengeBtn.enabled = true;
-	showNum = 0;
-    playerNum = 0;
 	oneShow = false; 
-	rightBtn.visible = true;
- 	leftBtn.visible = true;
+	playerNum = 0;
 	Proxy4Lua.ClearToDeleteAsset("xiaoguanka");
 	Window:Hide();
 	GuideSystem.CloseUI("xiaoguanka");
 end
 
-
-function xiaoguanka_OnLeftBtn(context)
-	challengePanel.visible = false;
-	rightBtn.visible = true;
-	showNum = showNum - 4;
-    if showNum  <= 0 then
-        showNum = 0;
-        leftBtn.visible = false;
-    end
-     xiaoguanka_UpdataInfo();
-end
-
-
-function xiaoguanka_OnBack(context)
-	challengePanel.visible = false;
-end
-
-
-function xiaoguanka_OnRightBtn(context)
-	challengePanel.visible = false;
-	leftBtn.visible = true
-	showNum = showNum + 4;
-    local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
-    smallChapters = chapterData.SmallChapters;
-    local len = Mathf.Ceil(smallChapters.Length / 4);
-    len = (len -1 ) * 4;
-    if showNum >= len then
-        showNum = len;
-        rightBtn.visible = false;
-     end
-     xiaoguanka_UpdataInfo();
-end
-
 function xiaoguanka_OnTeamBtn(context)
-	--Window:Hide();
 	UIManager.Show("paiku");
 end
 
-function xiaoguanka_OnfunbenOne(context)
-
-	smallId = context.sender.data;
-  --  local len = smallChapters.Length;
-    --for i = 1, len do
-  	  --if smallChapters[i -1]._ID == smallId then    
-  	  	--	local smallData  = smallChapters[i -1];
-		--end
-	--end
-
-	local data = CheckpointData.GetSmallData(guankaID,smallId);
-	needPowerLab.text =  data._Main .. "";
-    challengePanel.visible = true;
-    challengePanel:SetXY(fuben0.x,fuben0.y +365);
-    GuideSystem.SpecialEvt("xiaoguanka_challenge", nil);
-end
 
 function xiaoguanka_OnfunbenTwo(context)
 	smallId = context.sender.data;
@@ -210,34 +161,9 @@ function xiaoguanka_OnfunbenTwo(context)
     challengePanel:SetXY(fuben1.x,fuben1.y - 350);
 end
 
-function xiaoguanka_OnfunbenThree(context)
-	smallId = context.sender.data;
-	local data = CheckpointData.GetSmallData(guankaID,smallId); 
-	needPowerLab.text =  data._Main .. "";
-    challengePanel.visible = true;
-    challengePanel:SetXY(fuben2.x,fuben2.y + 365);
-end
 
-function xiaoguanka_OnfunbenFour(context)
-	smallId = context.sender.data;
-	local data = CheckpointData.GetSmallData(guankaID,smallId);
-	needPowerLab.text =  data._Main .. "";
-    challengePanel.visible = true;
-    challengePanel:SetXY(fuben3.x,fuben3.y - 350);
-end
 
-function xiaoguanka_OnChallengeBtn(context)
-	local data = CheckpointData.GetSmallData(guankaID,smallId);
-	if  GamePlayer._Data.IProperties[10] < data._Main then
-		local MessageBox = UIManager.ShowMessageBox();
-		MessageBox:SetData("提示", "体力不够", true);
-	else
-		challengeBtn.enabled = false;
-		Proxy4Lua.ChallengeSmallChapter(smallId);
-		Proxy4Lua.RegHoldUI("main", "daguanka");
-		Proxy4Lua.RegHoldUI("main", "xiaoguanka");
-	end
-end
+
 
 
 function xiaoguanka_OnBox(context)
@@ -355,17 +281,14 @@ function xiaoguanka_FlushData()
 		showNum = nowCanBattle/4*4;
 	end	 
 
-    local Maxlen = Mathf.Ceil(smallChapters.Length / 4);
-    Maxlen  = (Maxlen  -1 ) * 4;
-    if showNum >= Maxlen then
-		showNum = Maxlen ;
-		rightBtn.visible = false;
-     end
-    if showNum <= 0 then
- 		leftBtn.visible = false;
-    end
+ 	--xiaoguanka_UpdataInfo();
 
- 	xiaoguanka_UpdataInfo();
+ 	 local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
+    smallChapters = chapterData.SmallChapters;
+    local hData = HeroStroyData.GetData(guankaID);
+    nameLab.text = hData .Name_;
+    chaptersList.numItems = chapterData.SmallChapters.Length;
+
     updateReward()
 
 end
@@ -377,13 +300,7 @@ function xiaoguanka_UpdataInfo()
     local hData = HeroStroyData.GetData(guankaID);
     nameLab.text = hData .Name_;
     local len = smallChapters.Length;
-	playerPos.visible = false;
 
-
-	fuben0.onClick:Set(xiaoguanka_OnBack);
-    fuben1.onClick:Set(xiaoguanka_OnBack);
-    fuben2.onClick:Set(xiaoguanka_OnBack);
-    fuben3.onClick:Set(xiaoguanka_OnBack);
 
 
     for i =1, 4 do 
@@ -415,19 +332,16 @@ function xiaoguanka_UpdataInfo()
              lock.visible = true;
             if smallData.Star1 == true then 
 		 		star0.enabled = true;
-		 		-- Proxy4Lua.WhiteGameObject(player);
 		 		 bBattle = true;
 		 		 lock.visible  = false;
 		  	end
 			if smallData.Star2 == true then 
 		 		star1.enabled = true;
-		 		-- Proxy4Lua.WhiteGameObject(player);
 		 		 bBattle = true;
 		 		 lock.visible  = false;
 			  end
 		    if smallData.Star3 == true then 
 		   		star2.enabled = true;
-		   		-- Proxy4Lua.WhiteGameObject(player);
 		   		 bBattle = true;
 		   		 lock.visible  = false;
 			end
@@ -443,21 +357,7 @@ function xiaoguanka_UpdataInfo()
             	--playerPos.visible = false;
             end
 
-            if bBattle == true then
-            	if i == 1 then
-            		fuben0.onClick:Set(xiaoguanka_OnfunbenOne);
-            	end
-            	if i ==2 then
-            	  fuben1.onClick:Set(xiaoguanka_OnfunbenTwo);
-            	end
-            	if i ==3 then
-            	 fuben2.onClick:Set(xiaoguanka_OnfunbenThree);
-            	end
-
-            	if i ==4 then
-            	fuben3.onClick:Set(xiaoguanka_OnfunbenFour);
-            	end
-            end
+   
         end
     end
 
@@ -549,4 +449,63 @@ function updateReward()
 			rewardOkBtn.visible = true;
 		end
 
+end
+
+function xiaoguanka_RenderListItem(index, obj)
+	local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
+    smallChapters = chapterData.SmallChapters;
+    local smallData = smallChapters[index];
+    local data = CheckpointData.GetSmallData(guankaID,smallData.SmallChapterId);
+    obj:GetChild("n7").text = data._Name;
+    local gImg = obj:GetChild("n11");
+    local Img = obj:GetChild("n10");
+    Img .asLoader.url = "ui://" .. data._pic;
+   	gImg .asLoader.url = "ui://" .. data._pic;
+    local lock = obj:GetChild("n9");
+    local star0 = obj:GetChild("n3");
+	local star1 = obj:GetChild("n5");
+	local star2 = obj:GetChild("n4");
+	star0.enabled = false;
+	star1.enabled = false;
+	star2.enabled = false;
+	lock.visible = true;
+	gImg.visible = true;
+	if smallData.Star1 == true then 
+	 		star0.enabled = true;
+	 		 bBattle = true;
+	 		 lock.visible  = false;
+	 		 gImg.visible  = false;
+	  	end
+		if smallData.Star2 == true then 
+	 		star1.enabled = true;
+	 		 bBattle = true;
+	 		 lock.visible  = false;
+	 		 gImg.visible  = false;
+		  end
+	    if smallData.Star3 == true then 
+	   		star2.enabled = true;
+	   		 bBattle = true;
+	   		 lock.visible  = false;
+	   		 gImg.visible  = false;
+		end
+	obj.onClick:Add(xiaoguanka_OnChallengeBtn);
+	obj.data = smallData.SmallChapterId;
+	if index == playerNum then
+		lock.visible  = false;
+		gImg.visible  = false;
+	end
+
+end
+
+function xiaoguanka_OnChallengeBtn(context)
+	local sId = context.sender.data;
+	local data = CheckpointData.GetSmallData(guankaID, sId);
+	if  GamePlayer._Data.IProperties[10] < data._Main then
+		local MessageBox = UIManager.ShowMessageBox();
+		MessageBox:SetData("提示", "体力不够", true);
+	else
+		Proxy4Lua.ChallengeSmallChapter(sId);
+		Proxy4Lua.RegHoldUI("main", "daguanka");
+		Proxy4Lua.RegHoldUI("main", "xiaoguanka");
+	end
 end
