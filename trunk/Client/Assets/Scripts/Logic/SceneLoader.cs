@@ -30,13 +30,13 @@ public class SceneLoader
             {
                 Battle.LaunchBundle();
             }
+            AudioSystem.PlayBackground(SceneData.GetMusicData(sceneName));
         }, delegate {
             if(Battle.CurrentState == Battle.BattleState.BS_Init)
             {
                 Battle.FadedCallback();
             }
         });
-        AudioSystem.PlayBackground(SceneData.GetMusicData(sceneName));
     }
 
     static public void Update()
