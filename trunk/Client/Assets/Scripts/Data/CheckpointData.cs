@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 public class CheckpointData 
@@ -13,6 +14,7 @@ public class CheckpointData
 	public int _Main;
 	public string _Name;
 	public int _EntityID;
+		public string _pic;
 	static public Dictionary<int, List<CheckpointData>> metaData;
     static public Dictionary<int, CheckpointData> metaData2;
 
@@ -43,6 +45,7 @@ public class CheckpointData
 			data._Main = parser.GetInt (i, "Main"); 
 			data._Name = parser.GetString(i, "Name");
 			data._EntityID= parser.GetInt(i, "EntityID");
+			data._pic = parser.GetString (i, "pic"); 
 			if (!metaData.ContainsKey (data._HerID)) 
 			{
                 metaData [data._HerID] = new List<CheckpointData> ();
