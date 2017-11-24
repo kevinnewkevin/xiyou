@@ -138,5 +138,5 @@ end
 
 function shihun_OnRollResult()
 	rollCom:RemoveFromParent();
-	UIManager.Hide("shihun");
+	UIManager.SetDirty("shihun");
 end
