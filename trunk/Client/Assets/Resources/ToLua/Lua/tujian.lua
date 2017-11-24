@@ -271,6 +271,7 @@ function tujian_RenderListItem(index, obj)
 	local card = GamePlayer.GetCardByEntityID(edata._UnitId);
 	if card then
 		haveImg.visible =true;
+		obj:GetChild("n13").visible = false;
 	else
 		haveImg.visible = false;
 	end
