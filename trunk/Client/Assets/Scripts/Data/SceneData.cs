@@ -6,6 +6,8 @@ public class SceneData {
 
 	public int _Id;
     public int[] _NpcId;
+    public string _SceneName;
+    public string _BackgroundMusic;
 
     static Dictionary<int, SceneData> metaData;
 	
@@ -28,6 +30,8 @@ public class SceneData {
             data._Id = parser.GetInt (i, "ID");
             string[] npcidStr = parser.GetString (i, "NPC").Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries);
             data._NpcId = new int[npcidStr.Length];
+            data._SceneName = parser.GetString("Name");
+            data._BackgroundMusic = parser.GetString("Music");
             for(int j=0; j < npcidStr.Length; ++j)
             {
                 data._NpcId [j] = int.Parse(npcidStr [j]);
@@ -49,5 +53,14 @@ public class SceneData {
             return null;
 
         return metaData[id];
+    }
+
+    static public string GetMusicData(string sceneName)
+    {
+        foreach(SceneData sData in metaData)
+        {
+            if (sData._SceneName.Equals(sceneName))
+                return sData._BackgroundMusic;
+        }
     }
 }

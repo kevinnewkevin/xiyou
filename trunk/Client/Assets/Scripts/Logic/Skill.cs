@@ -199,6 +199,9 @@ public class Skill {
 
         IsSec = _SkillData._Motion == SkillData.MotionType.MT_Sec;
 
+        AudioSystem.PlayVoice(_SkillData._Voice);
+        AudioSystem.PlayEffect(_SkillData._Sound);
+
 //        _Lua = new LuaState();
 //        LuaBinder.Bind(_Lua);
 //        _Lua.Start();

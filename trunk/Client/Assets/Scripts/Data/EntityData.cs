@@ -30,6 +30,7 @@ public class EntityData {
 	public int CPT_RESISTANCE;
 	public int IPT_LEVEL;
 	public int _ChapterID;
+    public string _Voice;
 
     static Dictionary<int, EntityData> metaData;
 	public static Dictionary<string, List<EntityData>> PokedexTypemetaData = new Dictionary<string, List<EntityData>>();
@@ -75,6 +76,7 @@ public class EntityData {
 			data.CPT_INCANTER = parser.GetInt(i, "CPT_INCANTER");
 			data.CPT_RESISTANCE = parser.GetInt(i, "CPT_RESISTANCE");
 			data._ChapterID = parser.GetInt(i, "ChapterID");
+            data._Voice = parser.GetString(i, "CV");
             data._Skills = new int[4];
             for(int j=0; j < 4; ++j)
             {

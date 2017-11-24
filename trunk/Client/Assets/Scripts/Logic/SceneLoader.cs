@@ -35,6 +35,7 @@ public class SceneLoader
             {
                 Battle.FadedCallback();
             }
+            AudioSystem.PlayBackground(SceneData.GetMusicData(sceneName));
         });
     }
 

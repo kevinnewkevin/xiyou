@@ -43,6 +43,8 @@ public class SkillData {
     public string _Camera;
     public string _Icon;
 	public int _Type;
+    public string _Voice;
+    public string _Sound;
     static Dictionary<int, SkillData> metaData;
 
     static public void ParseData(string content, string fileName)
@@ -95,6 +97,8 @@ public class SkillData {
             data._Single = parser.GetInt(i, "SingleSkill") == 1;
             data._Icon = parser.GetString(i, "ICON");
             data._Camera = parser.GetString(i, "Camera");
+            data._Voice = parser.GetString(i, "CV");
+            data._Sound = parser.GetString(i, "Voice");
 
             if(metaData.ContainsKey(data._Id))
             {
