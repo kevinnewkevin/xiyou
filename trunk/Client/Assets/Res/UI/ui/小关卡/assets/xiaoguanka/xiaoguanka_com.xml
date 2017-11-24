@@ -9,16 +9,7 @@
     <image id="n0_ghbx" name="n0" src="ghbx8" xy="8,16"/>
     <image id="n1_ghbx" name="n1" src="ghbx8" xy="1910,16" skew="0,180"/>
     <image id="n5_ghbx" name="n5" src="ghbx9" xy="60,322" size="100,409" alpha="0.89"/>
-    <list id="n39_bs8y" name="n39" xy="193,280" size="1534,586" layout="row" overflow="scroll" scroll="horizontal" colGap="14" defaultItem="ui://fysg4ddtghbx13">
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-    </list>
+    <list id="n39_bs8y" name="n39" xy="193,280" size="1534,586" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="128" colGap="14" defaultItem="ui://fysg4ddtghbx13"/>
     <text id="n6_ghbx" name="n6" xy="87,364" size="53,322" font="方正楷体_GBK" fontSize="42" color="#ffffff" vAlign="middle" autoSize="none" bold="true" strokeColor="#000000" strokeSize="2" text="啦啦啦啦啦啦"/>
     <component id="n19_ghbx" name="n19" src="ghbxy" xy="1666,14"/>
     <component id="n30_egwe" name="n30" src="egwe1a" xy="159,858" scale="0.9,0.9"/>
@@ -26,14 +17,14 @@
     <component id="n38_rbrv" name="n38" src="rbrv1e" xy="1,1" hideByEditor="true"/>
   </displayList>
   <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n2_ghbx" value="1"/>
+    <item time="0" type="Alpha" target="n39_bs8y" value="0"/>
     <item time="0" type="Alpha" target="n19_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n6_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n1_ghbx" value="0.99"/>
     <item time="0" type="Alpha" target="n0_ghbx" value="1"/>
     <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n39_bs8y" value="0"/>
+    <item time="0" type="Alpha" target="n2_ghbx" value="1"/>
     <item time="0" type="Alpha" target="n29_prtz" tween="true" startValue="0" endValue="0.6" duration="6"/>
     <item time="0" type="Alpha" target="n30_egwe" value="0"/>
     <item time="0" type="Alpha" target="n3_ghbx" value="0"/>
@@ -42,18 +33,18 @@
     <item time="0" type="Size" target="n2_ghbx" tween="true" startValue="144,852" endValue="1646,852" duration="12" ease="Circ.InOut"/>
     <item time="0" type="XY" target="n1_ghbx" tween="true" startValue="1116,16" endValue="1910,16" duration="12" ease="Circ.InOut"/>
     <item time="0" type="XY" target="n0_ghbx" tween="true" startValue="793,16" endValue="8,16" duration="12" ease="Circ.InOut"/>
-    <item time="12" type="Alpha" target="n3_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n1_ghbx" tween="true" startValue="0.99" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n0_ghbx" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n5_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n2_ghbx" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="12" type="Alpha" target="n3_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Size" target="n2_ghbx" tween="true" startValue="1646,852" endValue="1646,852" duration="6"/>
-    <item time="17" type="Alpha" target="n30_egwe" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="17" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="17" type="Alpha" target="n39_bs8y" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.In"/>
     <item time="17" type="Alpha" target="n4_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="17" type="Alpha" target="n19_ghbx" tween="true" startValue="0" endValue="1" duration="7"/>
-    <item time="18" type="XY" target="n0_ghbx" value="8,16"/>
+    <item time="17" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="17" type="Alpha" target="n30_egwe" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="18" type="XY" target="n1_ghbx" value="1910,16"/>
+    <item time="18" type="XY" target="n0_ghbx" value="8,16"/>
   </transition>
 </component>
