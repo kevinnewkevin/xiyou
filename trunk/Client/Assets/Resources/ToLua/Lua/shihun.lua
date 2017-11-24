@@ -100,7 +100,7 @@ function shihun_FlushData()
 			print(iData._Icon .. "iData._Icon");
 			itemNameAndNum.text = iData._Name .. "(" .. Proxy4Lua.ChangeColor(has, color) .. "/" .. need .. ")";
 			levelIcon.url = "ui://shihun/nandu_" .. JieHunSystem.instance._NextDrawData._ID;
-			rollBtn.enabled = has >= need;
+			rollBtn.enabled = has >= need and JieHunSystem.instance._NextDrawData ~= nil;
 		else
 			itemIcon.url = "";
 			itemNameAndNum.text = "";
