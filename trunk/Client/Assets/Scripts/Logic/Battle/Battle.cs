@@ -426,8 +426,6 @@ public class Battle {
                 float clipLen = actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_SHOW);
                 if (_LongestShowTime < clipLen)
                     _LongestShowTime = clipLen;
-                if (GamePlayer.IsMy(_BattleReport.UnitList [i].InstId))
-                    AudioSystem.PlayVoice(entity._Voice);
             }
             PushReportTip(_BattleReport.UnitList);
             _BattleReport.UnitList = null;
@@ -713,6 +711,7 @@ public class Battle {
             RemoveHandCard(_SelectedHandCardInstID);
             _SelectedHandCardInstID = 0;
             CostFee(eData._Cost);
+            AudioSystem.PlayVoice(eData._Voice);
         }
 
         SwitchPoint(false);
