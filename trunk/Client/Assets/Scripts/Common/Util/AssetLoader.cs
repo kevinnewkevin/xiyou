@@ -135,6 +135,7 @@ public class AssetLoader {
         SkillData sData = null;
         if(eData != null)
         {
+            AssetLoader.LaunchBundle(eData._Voice);
             dData = DisplayData.GetData(eData._DisplayId);
             if(dData != null)
                 AssetLoader.LaunchBundle(dData._AssetPath);
@@ -146,6 +147,8 @@ public class AssetLoader {
                     AssetLoader.LaunchBundle(sData._CastEffect);
                     AssetLoader.LaunchBundle(sData._BeattackEffect);
                     AssetLoader.LaunchBundle(sData._SkillEffect);
+                    AssetLoader.LaunchBundle(sData._Voice);
+                    AssetLoader.LaunchBundle(sData._Sound);
                 }
             }
         }
@@ -158,6 +161,7 @@ public class AssetLoader {
         SkillData sData = null;
         if(eData != null)
         {
+            AssetLoader.UnloadAsset(eData._Voice, true);
             dData = DisplayData.GetData(eData._DisplayId);
             if(dData != null)
                 AssetLoader.UnloadAsset(dData._AssetPath, true);
@@ -169,6 +173,8 @@ public class AssetLoader {
                     AssetLoader.UnloadAsset(sData._CastEffect, true);
                     AssetLoader.UnloadAsset(sData._BeattackEffect, true);
                     AssetLoader.UnloadAsset(sData._SkillEffect, true);
+                    AssetLoader.UnloadAsset(sData._Voice, true);
+                    AssetLoader.UnloadAsset(sData._Sound, true);
                 }
             }
         }
