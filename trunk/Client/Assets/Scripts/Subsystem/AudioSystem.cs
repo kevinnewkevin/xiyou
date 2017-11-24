@@ -22,6 +22,13 @@ public class AudioSystem {
 
     static public void PlayBackground(string music)
     {
+        if (string.IsNullOrEmpty(music))
+            return;
+
+        AudioClip ac = GetClip(music);
+        if (ac == null)
+            return;
+        
         if (_BackgroundSound == null)
         {
             GameObject go = new GameObject();
@@ -34,7 +41,7 @@ public class AudioSystem {
             _BackgroundSound.clip = null;
         }
 
-        _BackgroundSound.clip = GetClip(music);
+        _BackgroundSound.clip = ac;
         _BackgroundSound.loop = true;
         _BackgroundSound.pitch = 1f;
         _BackgroundSound.volume = _MusicVolum;
@@ -43,6 +50,13 @@ public class AudioSystem {
 
     static public void PlayVoice(string voice)
     {
+        if (string.IsNullOrEmpty(voice))
+            return;
+
+        AudioClip ac = GetClip(voice);
+        if (ac == null)
+            return;
+        
         if (_VoiceSound == null)
         {
             GameObject go = new GameObject();
@@ -54,8 +68,8 @@ public class AudioSystem {
             _VoiceSound.Stop();
             _VoiceSound.clip = null;
         }
-
-        _VoiceSound.clip = GetClip(voice);
+        
+        _VoiceSound.clip = ac;
         _VoiceSound.loop = true;
         _VoiceSound.pitch = 1f;
         _VoiceSound.volume = _MusicVolum;
@@ -64,6 +78,9 @@ public class AudioSystem {
 
     static public void PlayEffect(string effect)
     {
+        if (string.IsNullOrEmpty(effect))
+            return;
+        
         EffectSound es = null;
         for(int i=0; i < _EffectSoundPool.Count; ++i)
         {
@@ -143,6 +160,13 @@ public class EffectSound
 
     public void Play(string effect)
     {
+        if (string.IsNullOrEmpty(effect))
+            return;
+        
+        AudioClip ac = AudioSystem.GetClip(effect);
+        if (ac == null)
+            return;
+        
         if (_EffectSound == null)
         {
             GameObject go = new GameObject();
@@ -151,7 +175,7 @@ public class EffectSound
             _IsOver = false;
         }
 
-        _EffectSound.clip = AudioSystem.GetClip(effect);
+        _EffectSound.clip = ac;
         _EffectSound.loop = false;
         _EffectSound.pitch = 1f;
         _EffectSound.volume = AudioSystem.SoundVolum;
