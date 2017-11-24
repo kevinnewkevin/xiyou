@@ -68,9 +68,9 @@ public class AudioSystem {
             _VoiceSound.Stop();
             _VoiceSound.clip = null;
         }
-        
+
         _VoiceSound.clip = ac;
-        _VoiceSound.loop = true;
+        _VoiceSound.loop = false;
         _VoiceSound.pitch = 1f;
         _VoiceSound.volume = _MusicVolum;
         _VoiceSound.Play();
