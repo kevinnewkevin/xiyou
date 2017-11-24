@@ -294,7 +294,7 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 	for i := range p.Enemys {
 		this.Enemys = append(this.Enemys, &p.Enemys[i])
 	}
-
+	this.GuildId	= p.GuildId
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -336,6 +336,8 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 		p.SkillBase = append(p.SkillBase, skillbase)
 	}
 
+	p.GuildId	= this.GuildId
+
 	return p
 }
 
@@ -346,7 +348,6 @@ func (this *GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer) {
 	this.Username 	= p.Username
 	this.LoginTime 	= p.LoginTime
 	this.LogoutTime = p.LogoutTime
-	this.GuildId	= p.GuildId
 	this.AssistantId	= p.AssistantId
 	this.GenItemMaxGuid = p.GenItemMaxGuid
 	this.ChapterPondId = p.ChapterPondId
@@ -369,7 +370,6 @@ func (this *GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer {
 	data.Username = this.Username
 	data.LoginTime = this.LoginTime
 	data.LogoutTime = this.LogoutTime
-	data.GuildId	= this.GuildId
 	data.AssistantId = this.AssistantId
 	data.GenItemMaxGuid = this.GenItemMaxGuid
 	data.ChapterPondId = this.ChapterPondId

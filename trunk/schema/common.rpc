@@ -84,6 +84,7 @@ struct COM_Player{
 	COM_SkillBase[]		SkillBase;
 	COM_Friend[]		Friends;
 	COM_Friend[]		Enemys;
+	int32				GuildId;
 };
 
 //账户信息	登录成功返回
@@ -229,7 +230,6 @@ struct COM_BlackMarket{
 struct SGE_DBPlayer : COM_Player {
 	int64 				PlayerId;
 	string 				Username;
-	int32				GuildId;
 	int64				LoginTime;
 	int64				LogoutTime;
 	int32 				BattleGroupIdx;

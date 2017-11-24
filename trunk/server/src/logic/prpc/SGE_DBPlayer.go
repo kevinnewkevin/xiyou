@@ -7,15 +7,14 @@ type SGE_DBPlayer struct{
   COM_Player
   PlayerId int64  //0
   Username string  //1
-  GuildId int32  //2
-  LoginTime int64  //3
-  LogoutTime int64  //4
-  BattleGroupIdx int32  //5
-  GenItemMaxGuid int64  //6
-  AssistantId int32  //7
-  BagItemList []COM_ItemInst  //8
-  BlackMarketData COM_BlackMarket  //9
-  ChapterPondId int32  //10
+  LoginTime int64  //2
+  LogoutTime int64  //3
+  BattleGroupIdx int32  //4
+  GenItemMaxGuid int64  //5
+  AssistantId int32  //6
+  BagItemList []COM_ItemInst  //7
+  BlackMarketData COM_BlackMarket  //8
+  ChapterPondId int32  //9
 }
 func (this *SGE_DBPlayer)SetPlayerId(value int64) {
   this.Lock()
@@ -36,16 +35,6 @@ func (this *SGE_DBPlayer)GetUsername() string {
   this.Lock()
   defer this.Unlock()
   return this.Username
-}
-func (this *SGE_DBPlayer)SetGuildId(value int32) {
-  this.Lock()
-  defer this.Unlock()
-  this.GuildId = value
-}
-func (this *SGE_DBPlayer)GetGuildId() int32 {
-  this.Lock()
-  defer this.Unlock()
-  return this.GuildId
 }
 func (this *SGE_DBPlayer)SetLoginTime(value int64) {
   this.Lock()
@@ -140,7 +129,6 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   mask := newMask1(2)
   mask.writeBit(this.PlayerId!=0)
   mask.writeBit(len(this.Username) != 0)
-  mask.writeBit(this.GuildId!=0)
   mask.writeBit(this.LoginTime!=0)
   mask.writeBit(this.LogoutTime!=0)
   mask.writeBit(this.BattleGroupIdx!=0)
@@ -169,15 +157,6 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
     err := write(buffer,this.Username)
     if err != nil {
       return err
-    }
-  }
-  // serialize GuildId
-  {
-    if(this.GuildId!=0){
-      err := write(buffer,this.GuildId)
-      if err != nil{
-        return err
-      }
     }
   }
   // serialize LoginTime
@@ -279,13 +258,6 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Username
   if mask.readBit() {
     err := read(buffer,&this.Username)
-    if err != nil{
-      return err
-    }
-  }
-  // deserialize GuildId
-  if mask.readBit() {
-    err := read(buffer,&this.GuildId)
     if err != nil{
       return err
     }

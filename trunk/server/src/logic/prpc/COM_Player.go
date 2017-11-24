@@ -21,6 +21,7 @@ type COM_Player struct{
   SkillBase []COM_SkillBase  //12
   Friends []COM_Friend  //13
   Enemys []COM_Friend  //14
+  GuildId int32  //15
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -172,6 +173,16 @@ func (this *COM_Player)GetEnemys() []COM_Friend {
   defer this.Unlock()
   return this.Enemys
 }
+func (this *COM_Player)SetGuildId(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.GuildId = value
+}
+func (this *COM_Player)GetGuildId() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.GuildId
+}
 func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
@@ -192,6 +203,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.SkillBase) != 0)
   mask.writeBit(len(this.Friends) != 0)
   mask.writeBit(len(this.Enemys) != 0)
+  mask.writeBit(this.GuildId!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -365,6 +377,15 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize GuildId
+  {
+    if(this.GuildId!=0){
+      err := write(buffer,this.GuildId)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
@@ -526,6 +547,13 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
       if err != nil{
         return err
       }
+    }
+  }
+  // deserialize GuildId
+  if mask.readBit() {
+    err := read(buffer,&this.GuildId)
+    if err != nil{
+      return err
     }
   }
   return nil
