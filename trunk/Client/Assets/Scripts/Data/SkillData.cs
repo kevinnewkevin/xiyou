@@ -99,6 +99,11 @@ public class SkillData {
             data._Camera = parser.GetString(i, "Camera");
             data._Voice = parser.GetString(i, "CV");
             data._Sound = parser.GetString(i, "Voice");
+            Define.CheckFileExcsit(data._Voice);
+            Define.CheckFileExcsit(data._Sound);
+            Define.CheckFileExcsit(data._CastEffect);
+            Define.CheckFileExcsit(data._SkillEffect);
+            Define.CheckFileExcsit(data._BeattackEffect);
 
             if(metaData.ContainsKey(data._Id))
             {

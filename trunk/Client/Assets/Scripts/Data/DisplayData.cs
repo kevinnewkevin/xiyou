@@ -46,6 +46,7 @@ public class DisplayData {
             data._HeadBarHeight = parser.GetFloat(i, "HeadBarHeight");
             data._BattleSkillScale = parser.GetFloat(i, "ScaleInBattleSkill");
             data._BattleSkillHeight = parser.GetFloat(i, "HeightInBattleSkill");
+            Define.CheckFileExcsit(data._AssetPath);
 					
             if(metaData.ContainsKey(data._Id))
             {

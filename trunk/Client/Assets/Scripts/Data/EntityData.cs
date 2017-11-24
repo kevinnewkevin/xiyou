@@ -77,6 +77,7 @@ public class EntityData {
 			data.CPT_RESISTANCE = parser.GetInt(i, "CPT_RESISTANCE");
 			data._ChapterID = parser.GetInt(i, "ChapterID");
             data._Voice = parser.GetString(i, "CV");
+            Define.CheckFileExcsit(data._Voice);
             data._Skills = new int[4];
             for(int j=0; j < 4; ++j)
             {

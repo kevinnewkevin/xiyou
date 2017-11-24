@@ -111,6 +111,18 @@ public class Define {
             UIManager._NoPopIgnoreUI.Add(uiName);
     }
 
+    public static void CheckFileExcsit(string path)
+    {
+        #if EDITOR_MODE
+        if (string.IsNullOrEmpty(path))
+            return;
+        
+        UnityEngine.Object obj = Resources.Load<UnityEngine.Object>(path);
+        if(obj == null)
+            Debug.LogError(path + " not Excsit");
+        #endif
+    }
+
     //加到类的定义部分
     private static string[] cstr={"零","一","二","三","四", "五", "六","七","八","九"};
     private  static string[] wstr={"","","十","百","千","万","十","百","千","亿","十","百","千"};

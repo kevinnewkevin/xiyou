@@ -32,6 +32,8 @@ public class SceneData {
             data._NpcId = new int[npcidStr.Length];
             data._SceneName = parser.GetString(i, "Name");
             data._BackgroundMusic = parser.GetString(i, "Music");
+            Define.CheckFileExcsit(data._BackgroundMusic);
+
             for(int j=0; j < npcidStr.Length; ++j)
             {
                 data._NpcId [j] = int.Parse(npcidStr [j]);
