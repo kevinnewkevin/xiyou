@@ -76,6 +76,9 @@ public class ChatSystem {
     {
         for(int i=0; i < _AllMsg[-1].Count; ++i)
         {
+            if (string.IsNullOrEmpty(_AllMsg [-1] [i].AudioId))
+                continue;
+            
             if (_AllMsg [-1] [i].AudioId.Equals(audioid))
             {
                 _AllMsg [-1] [i].AudioOld = true;
@@ -91,6 +94,9 @@ public class ChatSystem {
     {
         for(int i=0; i < _AllMsg[-1].Count; ++i)
         {
+            if (string.IsNullOrEmpty(_AllMsg [-1] [i].AudioId))
+                continue;
+            
             if (_AllMsg [-1] [i].AudioId.Equals(audioid))
             {
                 return _AllMsg [-1] [i];
