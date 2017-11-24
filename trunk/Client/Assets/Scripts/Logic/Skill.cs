@@ -412,6 +412,7 @@ public class Skill {
                 Range_End();
                 return;
             }
+            AudioSystem.PlayEffect(_SkillData._Sound);
             SkillEffect(crtTargetIdx);
             BeattackEffect(crtTargetIdx);
             EmitNum(crtTargetIdx);
