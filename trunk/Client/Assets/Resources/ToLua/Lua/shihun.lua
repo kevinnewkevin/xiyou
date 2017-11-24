@@ -69,7 +69,7 @@ function shihun:OnTick()
 		if minTimer <= 0 then
 			shihun_CheckResult();
 			minTimer = nil;
-			enableNextTimer = 2;
+			enableNextTimer = 0.6;
 		end
 	end
 
