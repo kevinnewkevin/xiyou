@@ -1,39 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="451,516">
+<component size="280,547">
   <displayList>
-    <image id="n0_ghbx" name="n0" src="ghbxa" xy="227,258" pivot="0.5,0.5" anchor="true" size="437,427"/>
-    <image id="n1_ghbx" name="n1" src="ghbxb" xy="50,464" pivot="0,1" anchor="true"/>
-    <graph id="n8_ghbx" name="n8" xy="222,416" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
-    <image id="n9_pr0r" name="n9" src="pr0r1q" xy="85,56"/>
-    <image id="n2_ghbx" name="n2" src="ghbx2" xy="70,290"/>
-    <image id="n3_ghbx" name="n3" src="ghbxg" xy="74,336"/>
-    <image id="n4_ghbx" name="n4" src="ghbxg" xy="302,338"/>
-    <image id="n5_ghbx" name="n5" src="ghbxg" xy="184,376"/>
-    <image id="n6_ghbx" name="n6" src="ghbxf" xy="40,112" size="92,307"/>
-    <text id="n7_ghbx" name="n7" xy="48,132" size="74,269" font="方正楷体_GBK" fontSize="48" color="#ffffff" align="center" autoSize="none" bold="true" text="啦啦啦"/>
+    <loader id="n10_bs8y" name="n10" xy="18,-1" size="257,568"/>
+    <loader id="n11_bs8y" name="n11" xy="18,-1" size="257,568" color="#666666"/>
+    <image id="n12_bs8y" name="n12" src="bs8y1t" xy="29,407"/>
+    <image id="n13_bs8y" name="n13" src="bs8y1u" xy="80,414"/>
+    <image id="n3_ghbx" name="n3" src="ghbxg" xy="53,468" size="50,61" aspect="true"/>
+    <image id="n4_ghbx" name="n4" src="ghbxg" xy="193,468" size="50,61" aspect="true"/>
+    <image id="n5_ghbx" name="n5" src="ghbxg" xy="123,469" size="50,61" aspect="true"/>
+    <image id="n6_ghbx" name="n6" src="ghbxf" xy="13,19"/>
+    <text id="n7_ghbx" name="n7" xy="23,30" size="47,295" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" autoSize="none" bold="true" text="啦啦啦啦啦啦"/>
+    <image id="n9_pr0r" name="n9" src="pr0r1q" xy="-11,0"/>
   </displayList>
   <transition name="t0" autoPlay="true">
     <item time="0" type="Alpha" target="n6_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n1_ghbx" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="Alpha" target="n0_ghbx" tween="true" startValue="0.5" endValue="1" duration="12" ease="Circ.InOut"/>
     <item time="0" type="Alpha" target="n3_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n2_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n7_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n8_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n9_pr0r" value="0"/>
-    <item time="0" type="Size" target="n0_ghbx" tween="true" startValue="613,600" endValue="437,427" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="XY" target="n8_ghbx" value="222,-2288"/>
     <item time="8" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
     <item time="8" type="Scale" target="n6_ghbx" tween="true" startValue="1,0" endValue="1,1" duration="6" ease="Circ.InOut"/>
     <item time="10" type="Alpha" target="n9_pr0r" value="1"/>
-    <item time="10" type="XY" target="n8_ghbx" value="222,416"/>
     <item time="12" type="Alpha" target="n4_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n3_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n7_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="12" type="Alpha" target="n8_ghbx" tween="true" startValue="0" endValue="0" duration="6"/>
-    <item time="12" type="Alpha" target="n2_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="12" type="Alpha" target="n5_ghbx" tween="true" startValue="0" endValue="1" duration="6"/>
   </transition>
 </component>

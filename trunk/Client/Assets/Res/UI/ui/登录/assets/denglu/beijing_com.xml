@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="2500,1400">
+  <displayList>
+    <image id="n0_nw1s" name="n0" src="nw1s1" xy="0,0"/>
+    <image id="n5_88nk" name="n5" src="88nk13" xy="701,594" pivot="1,0.4"/>
+    <image id="n6_88nk" name="n6" src="88nky" xy="1720,582" pivot="0,0.3"/>
+    <image id="n1_88nk" name="n1" src="88nkz" xy="1652,814" pivot="0.5,0"/>
+    <image id="n2_88nk" name="n2" src="88nk10" xy="1383,990" pivot="0.8,0"/>
+    <image id="n3_88nk" name="n3" src="88nk11" xy="326,931" pivot="1,0.7" size="1144,359"/>
+    <image id="n4_88nk" name="n4" src="88nk12" xy="529,1058" pivot="1,0.7" anchor="true" size="391,308"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Rotation" target="n6_88nk" tween="true" startValue="-9" endValue="0" duration="48" ease="Back.In"/>
+    <item time="0" type="Rotation" target="n5_88nk" tween="true" startValue="6" endValue="0" duration="48" ease="Back.In"/>
+    <item time="48" type="Rotation" target="n5_88nk" tween="true" startValue="0" endValue="6" duration="48" ease="Back.In"/>
+    <item time="48" type="Rotation" target="n6_88nk" tween="true" startValue="0" endValue="-9" duration="48" ease="Back.In"/>
+  </transition>
+  <transition name="t1" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Rotation" target="n1_88nk" tween="true" startValue="0" endValue="2" duration="24"/>
+    <item time="0" type="Rotation" target="n2_88nk" tween="true" startValue="0" endValue="4" duration="24"/>
+    <item time="0" type="Rotation" target="n3_88nk" tween="true" startValue="0" endValue="-3" duration="24"/>
+    <item time="0" type="Rotation" target="n4_88nk" tween="true" startValue="0" endValue="-3" duration="24"/>
+    <item time="0" type="XY" target="n2_88nk" tween="true" startValue="1383,990" endValue="1377,987" duration="24"/>
+    <item time="0" type="XY" target="n1_88nk" tween="true" startValue="1652,814.5" endValue="1652,814.5" duration="24"/>
+    <item time="0" type="XY" target="n3_88nk" tween="true" startValue="326,931" endValue="305.98,904" duration="24"/>
+    <item time="0" type="XY" target="n4_88nk" tween="true" startValue="529,1058" endValue="512,1080" duration="24"/>
+    <item time="24" type="Rotation" target="n4_88nk" tween="true" startValue="-3" endValue="8" duration="47"/>
+    <item time="24" type="Rotation" target="n3_88nk" tween="true" startValue="-3" endValue="-3" duration="47"/>
+    <item time="24" type="Rotation" target="n1_88nk" tween="true" startValue="2" endValue="-3" duration="47"/>
+    <item time="24" type="Rotation" target="n2_88nk" tween="true" startValue="4" endValue="-5" duration="47"/>
+    <item time="24" type="XY" target="n4_88nk" tween="true" startValue="512,1080" endValue="540.15,1153" duration="47"/>
+    <item time="24" type="XY" target="n2_88nk" tween="true" startValue="1377,987" endValue="1380.05,999" duration="47"/>
+    <item time="24" type="XY" target="n1_88nk" tween="true" startValue="1652,814.5" endValue="1652,806.5" duration="47"/>
+    <item time="24" type="XY" target="n3_88nk" tween="true" startValue="305.98,904" endValue="342.95,963.85" duration="47"/>
+    <item time="71" type="Rotation" target="n3_88nk" tween="true" startValue="-3" endValue="0" duration="25"/>
+    <item time="71" type="Rotation" target="n1_88nk" tween="true" startValue="-3" endValue="0" duration="25"/>
+    <item time="71" type="Rotation" target="n2_88nk" tween="true" startValue="-5" endValue="0" duration="25"/>
+    <item time="71" type="Rotation" target="n4_88nk" tween="true" startValue="8" endValue="0" duration="25"/>
+    <item time="71" type="XY" target="n1_88nk" tween="true" startValue="1652,806.5" endValue="1652,814.5" duration="25"/>
+    <item time="71" type="XY" target="n3_88nk" tween="true" startValue="342.95,963.85" endValue="326,931" duration="25"/>
+    <item time="71" type="XY" target="n4_88nk" tween="true" startValue="540.15,1153" endValue="529,1058" duration="25"/>
+    <item time="71" type="XY" target="n2_88nk" tween="true" startValue="1380.05,999" endValue="1383,990" duration="25"/>
+  </transition>
+</component>
