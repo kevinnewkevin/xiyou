@@ -516,6 +516,9 @@ public class Tools {
 
     static void CollectFiles(string path)
     {
+        if (!Directory.Exists(path))
+            return;
+        
         string[] files = Directory.GetFiles(path);
         for(int i=0; i < files.Length; ++i)
         {
@@ -529,6 +532,9 @@ public class Tools {
     static void CollectAllFiles(string path)
     {
         CollectFiles(path);
+        if (!Directory.Exists(path))
+            return;
+        
         string[] dirs = Directory.GetDirectories(path);
         if (dirs.Length != 0)
             _AllDirectories.AddRange(dirs);
