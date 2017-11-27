@@ -64,6 +64,7 @@ public class YYSystem {
 
         string filePath = string.Format("{0}/{1}.amr", Application.persistentDataPath, DateTime.Now.ToFileTime());
         YunVaImSDK.instance.RecordStartRequest(filePath,2);
+        AudioSystem.MusicVolum = 0f;
     }
 
     static public void StopRecord(bool cancel, int chatType)
@@ -77,6 +78,7 @@ public class YYSystem {
             YunVaImSDK.instance.RecordStopRequest((data1) => {
                 
             });
+            AudioSystem.MusicVolum = 1f;
             return;
         }
         _LastChatType = chatType;
@@ -104,6 +106,8 @@ public class YYSystem {
             (data3) => {
             Debug.Log("识别返回:" + data3.text);
         });
+
+        AudioSystem.MusicVolum = 1f;
     }
 
     static public void PlayRecord(string path, string url)
@@ -112,6 +116,7 @@ public class YYSystem {
         return;
         #endif
 
+        AudioSystem.MusicVolum = 0f;
         YunVaImSDK.instance.RecordStartPlayRequest(path, url, "", (data2) =>
         {
             if (data2.result == 0)
@@ -122,6 +127,7 @@ public class YYSystem {
             {
                 Debug.Log("播放失败");
             }
+            AudioSystem.MusicVolum = 1f;
         });
     }
 

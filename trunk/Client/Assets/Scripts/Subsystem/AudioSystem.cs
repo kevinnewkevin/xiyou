@@ -42,6 +42,7 @@ public class AudioSystem {
         _BackgroundSound.loop = true;
         _BackgroundSound.pitch = 1f;
         _BackgroundSound.volume = _MusicVolum;
+        _BackgroundSound.rolloffMode = AudioRolloffMode.Linear;
         _BackgroundSound.Play();
     }
 
@@ -69,8 +70,12 @@ public class AudioSystem {
         _VoiceSound.clip = ac;
         _VoiceSound.loop = false;
         _VoiceSound.pitch = 1f;
-        _VoiceSound.volume = _MusicVolum;
+        _VoiceSound.volume = _VoiceVolum;
         _VoiceSound.Play();
+        MusicVolum = 0.5f;
+        new Timer().Start(_VoiceSound.clip.length, delegate {
+            MusicVolum = 1f;
+        });
     }
 
     static public void PlayEffect(string effect)
