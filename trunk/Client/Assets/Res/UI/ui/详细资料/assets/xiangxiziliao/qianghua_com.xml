@@ -16,7 +16,7 @@
     <text id="n214_pg7k" name="n214" xy="487,503" size="125,71" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" bold="true" text="9999&#xA;"/>
     <text id="n215_pg7k" name="n215" xy="389,728" size="125,71" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" bold="true" text="9999&#xA;"/>
     <text id="n216_pg7k" name="n216" xy="338,833" size="95,71" font="方正楷体_GBK" fontSize="60" color="#ffffff" vAlign="middle" bold="true" text="999&#xA;"/>
-    <text id="n235_pg7k" name="n235" xy="526,28" size="205,56" font="方正楷体_GBK" fontSize="48" color="#ffffff" align="center" vAlign="middle" bold="true" text="强化属性"/>
+    <text id="n235_pg7k" name="n235" xy="526,28" size="201,56" font="方正楷体_GBK" fontSize="48" color="#ffffff" align="center" vAlign="middle" bold="true" text="强化属性"/>
     <text id="n241_nnup" name="n241" xy="593,249" size="126,52" font="方正楷体_GBK" fontSize="29" color="#ffffff" vAlign="middle" autoSize="none" text="生命"/>
     <text id="n242_nnup" name="n242" xy="592,280" size="125,71" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" bold="true" text="9999&#xA;"/>
     <image id="n243_nnup" name="n243" src="nnup12" xy="514,268" size="70,70" aspect="true"/>
@@ -60,11 +60,11 @@
       <relation target="n216_pg7k" sidePair="left-right"/>
     </image>
     <component id="n299_ol6s" name="n299" src="ol6s1c" xy="734,874" scale="0.9,0.9"/>
-    <component id="n300_ol6s" name="n300" src="ol6s1g" xy="211,394" size="74,44">
+    <component id="n300_ol6s" name="n300" src="ol6s1g" xy="219,396" size="74,44">
       <ProgressBar value="100" max="100"/>
     </component>
-    <text id="n301_ol6s" name="n301" xy="185,354" size="131,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#361e07" strokeSize="2" text="20/20"/>
-    <text id="n303_ol6s" name="n303" xy="583,993" size="245,54" font="方正楷体_GBK" fontSize="46" color="#ffffff" align="center" vAlign="middle" strokeColor="#361e07" strokeSize="2" text="消耗金币："/>
+    <text id="n301_ol6s" name="n301" xy="195,396" size="131,43" font="方正楷体_GBK" fontSize="34" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#361e07" strokeSize="2" text="20/20"/>
+    <text id="n303_ol6s" name="n303" xy="583,993" size="235,54" font="方正楷体_GBK" fontSize="46" color="#ffffff" align="center" vAlign="middle" strokeColor="#361e07" strokeSize="2" text="消耗金币："/>
     <text id="n304_ol6s" name="n304" xy="801,991" size="93,54" font="方正楷体_GBK" fontSize="46" color="#ffffff" vAlign="middle" strokeColor="#361e07" strokeSize="2" text="5000">
       <relation target="n303_ol6s" sidePair="left-right"/>
     </text>
@@ -73,6 +73,6 @@
     </image>
     <text id="n307_sykg" name="n307" xy="573,150" size="125,70" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" text="等级&#xA;"/>
     <text id="n308_sykg" name="n308" xy="715,149" size="35,71" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" bold="true" text="4&#xA;"/>
-    <loader id="n309_sykg" name="n309" xy="137,101" size="240,248" url="ui://fyok6i50sykg33" fill="scale"/>
+    <loader id="n309_sykg" name="n309" xy="143,138" size="246,248" url="ui://fyok6i50sykg33" fill="scale"/>
   </displayList>
 </component>
