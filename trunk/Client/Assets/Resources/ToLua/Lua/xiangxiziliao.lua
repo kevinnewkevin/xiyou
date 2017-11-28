@@ -150,17 +150,17 @@ function xiangxiziliao:OnInit()
 	addLevelMatk = rightLevelUp:GetChild("n282");
 	addLevelMdef = rightLevelUp:GetChild("n283");
 
-	levelUpHp = rightLevelUp:GetChild("n271");
-	levelUpAtk = rightLevelUp:GetChild("n267");
-	levelUpDef = rightLevelUp:GetChild("n268");
-	levelUpAgility = rightLevelUp:GetChild("n272");
-	levelUpMatk = rightLevelUp:GetChild("n269"); 
-	levelUpMdef = rightLevelUp:GetChild("n270");
+	--levelUpHp = rightLevelUp:GetChild("n271");
+	--levelUpAtk = rightLevelUp:GetChild("n267");
+	--levelUpDef = rightLevelUp:GetChild("n268");
+	--levelUpAgility = rightLevelUp:GetChild("n272");
+	--levelUpMatk = rightLevelUp:GetChild("n269"); 
+	--levelUpMdef = rightLevelUp:GetChild("n270");
 	needMoneyLab = rightLevelUp:GetChild("n304");
 	needItemNumLab = rightLevelUp:GetChild("n301");
-	needItem= rightLevelUp:GetChild("n297"); 
-	needItemIcon= needItem:GetChild("n1"); 
-	needItemIconback= needItem:GetChild("n0"); 
+	--needItem= rightLevelUp:GetChild("n297"); 
+	needItemIcon= rightLevelUp:GetChild("n309"); 
+	--needItemIconback= needItem:GetChild("n0"); 
 	needItemBar = rightLevelUp:GetChild("n300");
 
 	for i=2, 4 do
@@ -323,19 +323,19 @@ function xiangxiziliao_FlushData()
 	addLevelMatk.text = levelData._MagicAtk .. "";
 	addLevelMdef.text = levelData._MagicDef .. "";
 
-	levelUpHp.text = levelData._Hp + entityInst.CProperties[1] .. "";
-	levelUpAtk.text = levelData._Atk + entityInst.CProperties[3] .. "";
-	levelUpDef.text = levelData._Def + entityInst.CProperties[4] .. "";
-	levelUpAgility.text = levelData._Agile + entityInst.CProperties[7]  .. "";
-	levelUpMatk.text = levelData._MagicAtk + entityInst.CProperties[5]  .. "";
-	levelUpMdef.text = levelData._MagicDef + entityInst.CProperties[6]  .. "";
+	--levelUpHp.text = levelData._Hp + entityInst.CProperties[1] .. "";
+	--levelUpAtk.text = levelData._Atk + entityInst.CProperties[3] .. "";
+	--levelUpDef.text = levelData._Def + entityInst.CProperties[4] .. "";
+	--levelUpAgility.text = levelData._Agile + entityInst.CProperties[7]  .. "";
+	--levelUpMatk.text = levelData._MagicAtk + entityInst.CProperties[5]  .. "";
+	--levelUpMdef.text = levelData._MagicDef + entityInst.CProperties[6]  .. "";
 	needMoneyLab.text = levelData._ItemNum .. "";
 	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
 	needItemBar.value = itemNum/levelData._ItemNum*100;
 	needItemNumLab.text = itemNum .. "/" .. levelData._ItemNum ;
 	local itemdata = ItemData.GetData(levelData._ItemId);
 	needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
-	needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
+	--needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
 	levelRadBtn.visible = true;
 	if itemNum >= levelData._ItemNum   then
 		levelUpBtn.enabled  = true;
