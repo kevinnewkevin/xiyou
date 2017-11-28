@@ -4,6 +4,7 @@
     <loader id="n10_bs8y" name="n10" xy="18,-1" size="257,568"/>
     <loader id="n11_bs8y" name="n11" xy="18,-1" size="257,568" color="#666666"/>
     <image id="n12_bs8y" name="n12" src="bs8y1t" xy="29,407"/>
+    <component id="n15_fzvw" name="n15" src="fzvw27" xy="127,4"/>
     <text id="n14_tmnf" name="n14" xy="178,414" size="43,55" font="ui://fysg4ddttmnf25" fontSize="51" color="#ffffff" text="3&#xA;"/>
     <image id="n13_bs8y" name="n13" src="bs8y1u" xy="80,414"/>
     <image id="n3_ghbx" name="n3" src="ghbxg" xy="53,468" size="50,61" aspect="true"/>
@@ -14,11 +15,11 @@
     <image id="n9_pr0r" name="n9" src="pr0r1q" xy="-11,0"/>
   </displayList>
   <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n6_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n3_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n7_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n5_ghbx" value="0"/>
-    <item time="0" type="Alpha" target="n6_ghbx" value="0"/>
+    <item time="0" type="Alpha" target="n4_ghbx" value="0"/>
     <item time="0" type="Alpha" target="n9_pr0r" value="0"/>
     <item time="8" type="Alpha" target="n6_ghbx" tween="true" startValue="0" endValue="1" duration="6" ease="Circ.InOut"/>
     <item time="8" type="Scale" target="n6_ghbx" tween="true" startValue="1,0" endValue="1,1" duration="6" ease="Circ.InOut"/>
