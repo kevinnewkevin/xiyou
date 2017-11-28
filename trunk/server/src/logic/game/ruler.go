@@ -18,7 +18,7 @@ const (
 var kDefenseRandom = []float32{0, 0.1, 0.2, 0.3, 0.4, 0.5}
 
 //计算物理攻击力
-func CalcAtk(unit *GameUnit) float32 {
+func CalcAtk(unit *BattleUnit) float32 {
 	currAtk := unit.GetCProperty(prpc.CPT_ATK)
 	if currAtk < 240 {
 		fmt.Println("CalcAtk  攻击力", currAtk)
@@ -30,7 +30,7 @@ func CalcAtk(unit *GameUnit) float32 {
 }
 
 //计算物理防御力
-func CalcDef(unit *GameUnit) float32 {
+func CalcDef(unit *BattleUnit) float32 {
 	currDef := unit.GetCProperty(prpc.CPT_DEF)
 	if currDef < 240 {
 		fmt.Println("currDef  攻击力", currDef)
@@ -43,7 +43,7 @@ func CalcDef(unit *GameUnit) float32 {
 }
 
 //计算法术攻击力
-func CalcMagicAtk(unit *GameUnit) float32 {
+func CalcMagicAtk(unit *BattleUnit) float32 {
 	currAtk := unit.GetCProperty(prpc.CPT_MAGIC_ATK)
 	if currAtk < 240 {
 		return currAtk
@@ -53,7 +53,7 @@ func CalcMagicAtk(unit *GameUnit) float32 {
 }
 
 //计算法术防御力
-func CalcMagicDef(unit *GameUnit) float32 {
+func CalcMagicDef(unit *BattleUnit) float32 {
 	currDef := unit.GetCProperty(prpc.CPT_MAGIC_DEF)
 	if currDef < 240 {
 		return currDef
@@ -63,7 +63,7 @@ func CalcMagicDef(unit *GameUnit) float32 {
 }
 
 //计算攻击数值
-func CalcDamage(attacker, victim *GameUnit) float32 {
+func CalcDamage(attacker, victim *BattleUnit) float32 {
 	currAtk := CalcAtk(attacker)
 	currDef := CalcDef(victim)
 
@@ -75,7 +75,7 @@ func CalcDamage(attacker, victim *GameUnit) float32 {
 }
 
 //计算法术攻击数值
-func CalcMagicDamage(attacker, victim *GameUnit) float32 {
+func CalcMagicDamage(attacker, victim *BattleUnit) float32 {
 	currAtk := CalcMagicAtk(attacker)
 	currDef := CalcMagicDef(victim)
 
@@ -85,7 +85,7 @@ func CalcMagicDamage(attacker, victim *GameUnit) float32 {
 }
 
 //计算防御状态受击数量
-func CalcDefenseDamage(attacker, victim *GameUnit) float32 {
+func CalcDefenseDamage(attacker, victim *BattleUnit) float32 {
 	damage := CalcDamage(attacker, victim)
 	index := rand.Intn(len(kDefenseRandom))
 	damage = damage * kDefenseRandom[index]
@@ -96,7 +96,7 @@ func CalcDefenseDamage(attacker, victim *GameUnit) float32 {
 }
 
 //计算防御状态受击数量
-func CalcDefenseMagicDamage(attacker, victim *GameUnit) float32 {
+func CalcDefenseMagicDamage(attacker, victim *BattleUnit) float32 {
 	damage := CalcMagicDamage(attacker, victim)
 	index := rand.Intn(len(kDefenseRandom))
 	damage = damage * kDefenseRandom[index]

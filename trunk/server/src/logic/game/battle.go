@@ -13,7 +13,7 @@ import (
 	"fmt"
 )
 
-type UnitList []*GameUnit
+type UnitList []*BattleUnit
 
 func (a UnitList) Len() int { // 重写 Len() 方法
 	return len(a)
@@ -41,11 +41,95 @@ var roomInstId int64 = 1
 
 type Monster struct {
 	sync.Locker
-	MainUnit       *GameUnit   //自己的卡片
-	BattleUnitList []*GameUnit //拥有的卡片
+	MainUnit       	*BattleUnit   //自己的卡片
+	BattleUnitList 	[]*BattleUnit //拥有的卡片
 
 	//战斗相关辅助信息
-	BattleCamp int //阵营 //prpc.CompType
+	BattleCamp 		int //阵营 //prpc.CompType
+}
+
+type BattlePlayer struct {
+	sync.Locker
+	PlayerId		int64
+	MainUnit       	*BattleUnit   //自己的卡片
+	BattleUnitList 	[]*BattleUnit //拥有的卡片
+
+	//战斗相关辅助信息
+	BattleCamp 		int //阵营 //prpc.CompType
+
+	IsActive 		bool
+	BattlePoint		int32
+
+	KillUnits   []int32 //杀掉的怪物
+	MyDeathNum  int32   //战斗中自身死亡数量
+}
+
+func (this *BattlePlayer) GetUnit(instId int64) *BattleUnit {
+	//this.Lock()
+	//defer this.Unlock()
+	if this.MainUnit.InstId == instId {
+		return this.MainUnit
+	}
+
+	for _, v := range this.BattleUnitList {
+		if v.InstId == instId {
+			return v
+		}
+	}
+	return nil
+}
+
+
+func (this *BattlePlayer) CalcSmallChapterStar(battledata prpc.COM_BattleResult, player *GamePlayer) int32 {
+	if player == nil {
+		return 0
+	}
+	if player.ChapterID == 0 {
+		logs.Info("CalcSmallChapterStar player.ChapterID == 0")
+		return 0
+	}
+	if battledata.Win == 0 {
+		return 0
+	}
+	small := player.GetMySmallChapterDataById(player.ChapterID)
+	if small == nil {
+		logs.Info("CalcSmallChapterStar small == nil")
+		return 0
+	}
+	smallData := GetSmallChapterById(player.ChapterID)
+	if smallData == nil {
+		logs.Info("CalcSmallChapterStar smallData == nil")
+		return 0
+	}
+
+	if !small.Star1 {
+		for i := 0; i < len(battledata.KillMonsters); i++ {
+			logs.Info("battledata.KillMonsters monsterId=", battledata.KillMonsters[i], "Star1TargetId=", smallData.SmallChapterCase1)
+			if battledata.KillMonsters[i] == smallData.SmallChapterCase1 {
+				small.Star1 = true
+				logs.Debug("SmallChapter=", small.SmallChapterId, "Star1 Succeed")
+			}
+		}
+	}
+
+	if !small.Star2 {
+		logs.Info("CheckChapterStar3 TableCase=", smallData.SmallChapterCase2, "BattleVal=", battledata.BattleRound)
+		if smallData.SmallChapterCase2 >= battledata.BattleRound {
+			small.Star2 = true
+			logs.Debug("SmallChapter=", small.SmallChapterId, "Star2 Succeed")
+		}
+	}
+
+	if !small.Star3 {
+		logs.Info("CheckChapterStar3 TableCase=", smallData.SmallChapterCase3, "BattleVal=", battledata.MySelfDeathNum)
+		if smallData.SmallChapterCase3 >= battledata.MySelfDeathNum {
+			small.Star3 = true
+			logs.Debug("SmallChapter=", small.SmallChapterId, "Star3 Succeed")
+		}
+	}
+	logs.Debug("CalcSmallChapterStar DropId = ", smallData.DropID)
+	player.SycnMyChapterDataById(smallData.SmallChapterType)
+	return smallData.DropID
 }
 
 type BattleRoom struct {
@@ -56,9 +140,9 @@ type BattleRoom struct {
 	Status      int32         //战斗房间状态
 	Round       int32         //回合计数
 	Point       int32         //本场战斗的能量点
-	Units       []*GameUnit   //当前战斗中牌 数组索引跟下面玩家对应
-	Dead        []*GameUnit   //本回合死亡的人数
-	PlayerList  []*GamePlayer //房间中玩家信息
+	Units       []*BattleUnit   //当前战斗中牌 数组索引跟下面玩家对应
+	Dead        []*BattleUnit   //本回合死亡的人数
+	PlayerList  []*BattlePlayer //房间中玩家信息
 	Monster     *Monster
 	Turn        int32
 	Winner      int                         //获胜者
@@ -82,8 +166,9 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.InstId = atomic.AddInt64(&roomInstId, 1)
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
-	room.Units = make([]*GameUnit, prpc.BP_MAX)
-	room.PlayerList = append(room.PlayerList, p)
+	room.Units = make([]*BattleUnit, prpc.BP_MAX)
+	bp := CreateBattlePlayer(p, room.InstId, prpc.CT_RED)
+	room.PlayerList = append(room.PlayerList, bp)
 	room.Type = prpc.BT_PVE
 	room.Point = 1
 	room.BattleID = battleid
@@ -92,13 +177,13 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	BattleRoomList[room.InstId] = &room
 
 	room.Monster = CreateMonster(battleid, room.InstId)
-	p.SetProprty(&room, prpc.CT_RED)
+	//p.SetProprty(&room, prpc.CT_RED)
 
 	room.Units[prpc.BP_BLUE_5] = room.Monster.MainUnit
 	room.Monster.MainUnit.Position = prpc.BP_BLUE_5
 
-	room.Units[prpc.BP_RED_5] = p.MyUnit
-	p.MyUnit.Position = prpc.BP_RED_5
+	room.Units[prpc.BP_RED_5] = bp.MainUnit
+	bp.MainUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
 	//go room.BattleUpdate()
@@ -112,8 +197,9 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 	room.InstId = atomic.AddInt64(&roomInstId, 1)
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
-	room.Units = make([]*GameUnit, prpc.BP_MAX)
-	room.PlayerList = append(room.PlayerList, p)
+	room.Units = make([]*BattleUnit, prpc.BP_MAX)
+	bp := CreateBattlePlayer(p, room.InstId, prpc.CT_RED)
+	room.PlayerList = append(room.PlayerList, bp)
 	room.Type = prpc.BT_PVR
 	room.Point = 1
 	room.BattleID = battleid
@@ -127,7 +213,7 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Units[prpc.BP_BLUE_5] = room.Monster.MainUnit
 	room.Monster.MainUnit.Position = prpc.BP_BLUE_5
 
-	room.Units[prpc.BP_RED_5] = p.MyUnit
+	room.Units[prpc.BP_RED_5] = bp.MainUnit
 	p.MyUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
@@ -141,7 +227,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster {
 
 	m := Monster{}
 
-	m.MainUnit = CreateUnitFromTable(t.MainId)
+	m.MainUnit = CreateUnitFromTable1(t.MainId)
 	logs.Info("adasdas", battleid, t.MainId, m.MainUnit)
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
@@ -149,7 +235,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster {
 	//m.MainUnit.BattleId = roomid
 
 	for _, uid := range t.SmallId {
-		t1 := CreateUnitFromTable(uid)
+		t1 := CreateUnitFromTable1(uid)
 		t1.ResetBattle(prpc.CT_BLUE, false, roomid)
 		//t1.Camp = prpc.CT_BLUE
 		//t1.IsMain = false
@@ -158,6 +244,35 @@ func CreateMonster(battleid int32, roomid int64) *Monster {
 	}
 
 	m.BattleCamp = prpc.CT_BLUE
+
+	return &m
+}
+
+func CreateBattlePlayer(p *GamePlayer, roomid int64, camp int) *BattlePlayer {
+	m := BattlePlayer{}
+
+	m.PlayerId = p.MyUnit.InstId
+	m.MainUnit = CreateBattleUnit(p.MyUnit, &m)
+
+	m.MainUnit.ResetBattle(camp, true, roomid)
+	//m.MainUnit.IsMain = true
+	//m.MainUnit.Camp = prpc.CT_BLUE
+	//m.MainUnit.BattleId = roomid
+	m.IsActive = false
+	p.BattleId = roomid
+
+	battlegroup := p.GetUnitGroupById(p.BattleUnitGroup)
+
+	for _, uid := range battlegroup.UnitList {
+		u := p.GetUnit(uid)
+		t := CreateBattleUnit(u, &m)
+		t.ResetBattle(camp, false, roomid)
+
+		m.BattleUnitList = append(m.BattleUnitList, t)
+	}
+
+	m.BattleCamp = camp
+	p.BattleCamp = camp
 
 	return &m
 }
@@ -173,8 +288,10 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.InstId = atomic.AddInt64(&roomInstId, 1)
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
-	room.Units = make([]*GameUnit, prpc.BP_MAX)
-	room.PlayerList = append(room.PlayerList, p0, p1)
+	room.Units = make([]*BattleUnit, prpc.BP_MAX)
+	bp0 := CreateBattlePlayer(p0, room.InstId, prpc.CT_RED)
+	bp1 := CreateBattlePlayer(p1, room.InstId, prpc.CT_RED)
+	room.PlayerList = append(room.PlayerList, bp0, bp1)
 	room.Type = prpc.BT_PVP
 	room.Point = 1
 	room.BattleID = 0
@@ -189,14 +306,14 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	BattleRoomList[room.InstId] = &room
 	logs.Info("CreatePvP", &room)
 
-	p0.SetProprty(&room, prpc.CT_RED)
-	p1.SetProprty(&room, prpc.CT_BLUE)
+	//p0.SetProprty(&room, prpc.CT_RED)
+	//p1.SetProprty(&room, prpc.CT_BLUE)
 
-	room.Units[prpc.BP_BLUE_5] = p1.MyUnit
-	p1.MyUnit.Position = prpc.BP_BLUE_5
+	room.Units[prpc.BP_BLUE_5] = bp1.MainUnit
+	bp1.MainUnit.Position = prpc.BP_BLUE_5
 
-	room.Units[prpc.BP_RED_5] = p0.MyUnit
-	p0.MyUnit.Position = prpc.BP_RED_5
+	room.Units[prpc.BP_RED_5] = bp0.MainUnit
+	bp1.MainUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
 	go room.BattleUpdate()
@@ -238,20 +355,20 @@ func (this *BattleRoom) BattleStart() {
 		ul = append(ul, unit.GetBattleUnitCOM())
 	}
 
-	for _, p := range this.PlayerList {
-
+	for _, bp := range this.PlayerList {
+		p := FindPlayerByInstId(bp.PlayerId)
 		if p == nil || p.session == nil {
 			continue
 		}
-		targetList := this.findCardsByTarget(p.BattleCamp)
-		logs.Debug("JoinBattleOk, p.id", p.MyUnit.InstId, " and batlecamp is ", int32(p.BattleCamp), "targetList is ", targetList)
-		p.session.JoinBattleOk(int32(p.BattleCamp), this.BattleID, targetList, ul)
+		targetList := this.findCardsByTarget(bp.BattleCamp)
+		logs.Debug("JoinBattleOk, p.id", bp.MainUnit.InstId, " and batlecamp is ", int32(bp.BattleCamp), "targetList is ", targetList)
+		p.session.JoinBattleOk(int32(bp.BattleCamp), this.BattleID, targetList, ul)
 	}
 }
 
 func (this *BattleRoom) BattleStrongOver() {
 	this.BattleRoomOver(prpc.CT_MAX)
-	this.PlayerList = []*GamePlayer{}
+	this.PlayerList = []*BattlePlayer{}
 
 	this.Status = kIdle
 
@@ -260,7 +377,7 @@ func (this *BattleRoom) BattleStrongOver() {
 func (this *BattleRoom) PlayerLeft(player *GamePlayer) {
 	del_index := -1
 	for index, p := range this.PlayerList {
-		if p.MyUnit.InstId == player.MyUnit.InstId {
+		if p.PlayerId == player.MyUnit.InstId {
 			del_index = index
 		}
 	}
@@ -281,7 +398,10 @@ func (this *BattleRoom) SendReportFirst() {
 
 func (this *BattleRoom) findCardsByTarget(camp int) []int32 {
 	li := []int32{}
-	for _, p := range this.PlayerList {
+	for _, bp := range this.PlayerList {
+
+		p := FindPlayerByInstId(bp.PlayerId)
+
 		if p == nil {
 			continue
 		}
@@ -374,7 +494,9 @@ func (this *BattleRoom) BattleUpdate() {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
-	for _, p := range this.PlayerList {
+	for _, bp := range this.PlayerList {
+
+		p := FindPlayerByInstId(bp.PlayerId)
 
 		if p == nil {
 			continue
@@ -392,11 +514,11 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		result.Win = win
 		result.BattleRound = this.Round
-		result.KillMonsters = p.KillUnits
-		result.MySelfDeathNum = p.MyDeathNum
+		result.KillMonsters = bp.KillUnits
+		result.MySelfDeathNum = bp.MyDeathNum
 
 		if this.Type == prpc.BT_PVE {
-			dropId := p.CalcSmallChapterStar(result)
+			dropId := bp.CalcSmallChapterStar(result, p)
 			if dropId != 0 {
 				drop := GetDropById(dropId)
 				if drop == nil {
@@ -440,7 +562,10 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			logs.Info("Battle Over PVE DropId=", dropId)
 		}
 		if this.Type == prpc.BT_PVP {
-			for _, once := range this.PlayerList {
+			for _, bonce := range this.PlayerList {
+
+				once := FindPlayerByInstId(bonce.PlayerId)
+
 				if once == nil {
 					continue
 				}
@@ -513,7 +638,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		if p.session != nil {
 			p.session.BattleExit(result)
 		}
-		logs.Info("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "wincampis ", camp, "winis", win)
+		logs.Info("BattleRoomOver, result is ", result, "player is ", p.MyUnit.InstId, "p.battlecampis ", p.BattleCamp, "pppp", p.KillUnits)
 		p.BattleCamp = prpc.CT_MAX
 	}
 
@@ -544,7 +669,7 @@ func (this *BattleRoom) Update() {
 	logs.Info("站前回合为 ", this.Round)
 
 	this.ReportOne = prpc.COM_BattleReport{}
-	this.Dead = []*GameUnit{}
+	this.Dead = []*BattleUnit{}
 	this.ReportOne.BattleID = this.BattleID
 
 	unitllist := this.SortUnits()
@@ -575,9 +700,6 @@ func (this *BattleRoom) Update() {
 		this.AcctionList = prpc.COM_BattleAction{}
 		//this.TargetOn()
 		this.AcctionList.InstId = u.InstId
-
-		u.CheckBuff(this.Round)
-		u.CheckDebuff(this.Round)
 
 		del_buf := u.CheckAllBuff(this.Round)
 		this.UpdateBuffState(del_buf)
@@ -643,8 +765,8 @@ func (this *BattleRoom) Update() {
 
 }
 
-func (this *BattleRoom) SortUnits() []*GameUnit {
-	ul := []*GameUnit{}
+func (this *BattleRoom) SortUnits() []*BattleUnit {
+	ul := []*BattleUnit{}
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -663,7 +785,8 @@ func (this *BattleRoom) calcWinner() bool {
 
 func (this *BattleRoom) CheckPlayerIsMove() {
 	logs.Info("CheckPlayerIsMove 1", this.Units)
-	for _, p := range this.PlayerList {
+	for _, bp := range this.PlayerList {
+		p := FindPlayerByInstId(bp.PlayerId)
 		if p == nil || p.session == nil {
 			continue
 		}
@@ -673,7 +796,7 @@ func (this *BattleRoom) CheckPlayerIsMove() {
 		}
 		pos := this.positionMiddle(p.BattleCamp)
 		p.MyUnit.Position = int32(pos)
-		this.Units[pos] = p.MyUnit
+		this.Units[pos] = bp.MainUnit
 	}
 	logs.Info("CheckPlayerIsMove 1", this.Units)
 }
@@ -733,7 +856,8 @@ func (this *BattleRoom) UpdateBuffState(bufflist []int32) {
 func (this *BattleRoom) SendReport(report prpc.COM_BattleReport) {
 	b, _ := json.Marshal(report)
 	logs.Info(string(b))
-	for _, p := range this.PlayerList {
+	for _, bp := range this.PlayerList {
+		p := FindPlayerByInstId(bp.PlayerId)
 		if p == nil || p.session == nil {
 			continue
 		}
@@ -973,7 +1097,7 @@ func (this *BattleRoom) SelectOneTarget(instid int64) int64 {
 		if this.Round == 0 {
 			for _, p := range this.PlayerList {
 				if p.BattleCamp != unit.Camp {
-					return p.MyUnit.InstId
+					return p.MainUnit.InstId
 				}
 			}
 		}
@@ -1056,7 +1180,7 @@ func (this *BattleRoom) SelectOneFriend(instid int64) int64 {
 		if this.Round == 0 {
 			for _, p := range this.PlayerList {
 				if p.BattleCamp == unit.Camp {
-					return p.MyUnit.InstId
+					return p.MainUnit.InstId
 				}
 			}
 		}
@@ -1203,7 +1327,7 @@ func (this *BattleRoom) SelectRandomTarget(instid int64, targetnum int32) []int6
 			for _, p := range this.PlayerList {
 				if p.BattleCamp != unit.Camp {
 					for i := 0; i < int(targetnum); i++ {
-						r = append(r, p.MyUnit.InstId)
+						r = append(r, p.MainUnit.InstId)
 					}
 					return r
 				}
@@ -1316,28 +1440,23 @@ func (this *BattleRoom) SelectThrowCard(instid int64) (int64, int32, int32) {
 	unit := this.SelectOneUnit(instid)
 
 	canThrow := []int64{}
-	units := []*GameUnit{}
+	units := []*BattleUnit{}
 
 	if this.Type == prpc.BT_PVP {
 		for _, p := range this.PlayerList {
-			if p.MyUnit.InstId == unit.Owner.MyUnit.InstId {
+			if p.MainUnit.InstId == unit.Owner.MainUnit.InstId {
 				continue
 			}
-			for _, g := range p.UnitGroup {
-				if g.GroupId != p.BattleUnitGroup {
+			for _, u := range p.BattleUnitList {
+
+				if u.IsDead() {
 					continue
 				}
-				for _, ud := range g.UnitList {
-					u := p.GetUnit(ud)
-					if u.IsDead() {
-						continue
-					}
-					if u.OutBattle {
-						continue
-					}
-					canThrow = append(canThrow, ud)
-					units = append(units, u)
+				if u.OutBattle {
+					continue
 				}
+				canThrow = append(canThrow, u.InstId)
+				units = append(units, u)
 			}
 		}
 	} else {
@@ -1378,7 +1497,17 @@ func (this *BattleRoom) SelectThrowCard(instid int64) (int64, int32, int32) {
 	return del_card, del_unit.UnitId, del_unit.IProperties[prpc.IPT_PROMOTE]
 }
 
-func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
+func (this *BattleRoom) SelectOnePlayer(instid int64) *BattlePlayer {
+	for _, p := range this.PlayerList {
+		if p.PlayerId == instid {
+			return p
+		}
+	}
+
+	return nil
+}
+
+func (this *BattleRoom) SelectOneUnit(instid int64) *BattleUnit {
 	for _, u := range this.Units {
 		if u == nil {
 			continue
@@ -1391,10 +1520,10 @@ func (this *BattleRoom) SelectOneUnit(instid int64) *GameUnit {
 	}
 
 	for _, p := range this.PlayerList {
-		if instid == p.MyUnit.InstId {
-			return p.MyUnit
+		if instid == p.MainUnit.InstId {
+			return p.MainUnit
 		}
-		for _, u := range p.UnitList {
+		for _, u := range p.BattleUnitList {
 			if u == nil {
 				continue
 			}
@@ -1416,18 +1545,18 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 
 	if this.Type == prpc.BT_PVP {
 		for _, p := range this.PlayerList {
-			if MyCamp && p.MyUnit.Camp == unit.Camp {
-				return p.MyUnit.InstId
+			if MyCamp && p.MainUnit.Camp == unit.Camp {
+				return p.MainUnit.InstId
 			}
 
-			if !MyCamp && p.MyUnit.Camp != unit.Camp {
-				return p.MyUnit.InstId
+			if !MyCamp && p.MainUnit.Camp != unit.Camp {
+				return p.MainUnit.InstId
 			}
 		}
 	} else {
-		if unit.Camp == this.PlayerList[0].MyUnit.Camp {
+		if unit.Camp == this.PlayerList[0].MainUnit.Camp {
 			if MyCamp {
-				return this.PlayerList[0].MyUnit.InstId
+				return this.PlayerList[0].MainUnit.InstId
 			} else {
 				return this.Monster.MainUnit.InstId
 			}
@@ -1435,7 +1564,7 @@ func (this *BattleRoom) selectMainUnit(instid int64, MyCamp bool) int64 {
 			if MyCamp {
 				return this.Monster.MainUnit.InstId
 			} else {
-				return this.PlayerList[0].MyUnit.InstId
+				return this.PlayerList[0].MainUnit.InstId
 			}
 		}
 	}
@@ -1455,8 +1584,8 @@ func (this *BattleRoom) PlayerMove() {
 	p := this.PlayerList[0]
 	if this.Round == 0 {
 		pos := this.positionMiddle(p.BattleCamp)
-		this.Units[pos] = p.MyUnit
-		p.MyUnit.Position = int32(pos)
+		this.Units[pos] = p.MainUnit
+		p.MainUnit.Position = int32(pos)
 	} else {
 		//pos := this.monsterPos(p.BattleCamp)
 		//this.Units[pos] = this.Monster.BattleUnitList[0]
@@ -1555,11 +1684,11 @@ func (this *BattleRoom) ChangeCptProperty(instid int64, data int32, property str
 	unit := this.SelectOneUnit(instid)
 	if unit == nil {
 		for _, p := range this.PlayerList {
-			if instid == p.MyUnit.InstId {
-				unit = p.MyUnit
+			if instid == p.MainUnit.InstId {
+				unit = p.MainUnit
 				break
 			}
-			for _, u := range p.UnitList {
+			for _, u := range p.BattleUnitList {
 				if u.InstId == instid {
 					unit = u
 					break
@@ -1582,11 +1711,11 @@ func (this *BattleRoom) ChangeIptProperty(instid int64, data int32, property str
 	unit := this.SelectOneUnit(instid)
 	if unit == nil {
 		for _, p := range this.PlayerList {
-			if instid == p.MyUnit.InstId {
-				unit = p.MyUnit
+			if instid == p.MainUnit.InstId {
+				unit = p.MainUnit
 				break
 			}
-			for _, u := range p.UnitList {
+			for _, u := range p.BattleUnitList {
 				if u.InstId == instid {
 					unit = u
 					break
@@ -1608,14 +1737,6 @@ func (this *BattleRoom) MintsHp(casterid int64, target int64, damage int32, crit
 
 	if unit.IsDead() {
 		return
-	}
-
-	for _, debuff := range unit.Debuff {
-		logs.Info("debuff", debuff)
-	}
-
-	for _, debuff := range unit.Buff {
-		logs.Info("debuff", debuff)
 	}
 
 	isover := unit.CheckSpec("BF_UNDAMAGE", this.Round)
@@ -1748,7 +1869,7 @@ func (this *BattleRoom) Throw(main int64, throwcard int64) {
 
 	if this.Type == prpc.BT_PVP {
 		for _, p := range this.PlayerList {
-			if p.MyUnit.InstId != main {
+			if p.MainUnit.InstId != main {
 				continue
 			}
 			unit := p.GetUnit(throwcard)
@@ -1962,13 +2083,11 @@ func (this *BattleRoom) BuffAddHp(target int64, buffid int32, data int32, over b
 }
 
 func (this *BattleRoom) InToBattleOnFighting(PlayerInstId int64) {
-	p := FindPlayerByInstId(PlayerInstId)
-	group := p.GetUnitGroupById(p.BattleUnitGroup)
-	space := []*GameUnit{}
+	p := this.SelectOnePlayer(PlayerInstId)
+	space := []*BattleUnit{}
 	//logs.Debug("group",group)
-	for _, uid := range group.UnitList {
-		u := p.GetUnit(uid)
-		if u.Position != 12 {
+	for _, u := range p.BattleUnitList {
+		if u.Position != prpc.BP_MAX {
 			//logs.Debug(uid, " 11111 ", u.InstName, u.Position)
 			continue
 		}
@@ -2172,13 +2291,14 @@ func (this *BattleRoom) SetupPosition(p *GamePlayer, posList []prpc.COM_BattlePo
 	}
 
 	//处理数据
+	bp := this.SelectOnePlayer(p.MyUnit.InstId)
 	for _, pos := range posList {
-		this.Units[pos.Position] = p.GetUnit(pos.InstId)
+		this.Units[pos.Position] = bp.GetUnit(pos.InstId)
 		this.Units[pos.Position].Position = pos.Position
 	}
-	p.IsActive = true
-	p.BattlePoint -= needPoint
-	p.MyUnit.ChoiceSKill = skillid
+	bp.IsActive = true
+	bp.BattlePoint -= needPoint
+	bp.MainUnit.ChoiceSKill = skillid
 
 	if this.Type == prpc.BT_PVE || this.Type == prpc.BT_PVR {
 		this.BattleUpdate()

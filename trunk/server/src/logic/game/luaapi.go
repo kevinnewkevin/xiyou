@@ -1748,7 +1748,7 @@ func __InToBattleOnFighting(L *lua.LState) int {
 	battle := FindBattle(int64(battleid))
 	unit := battle.SelectOneUnit(int64(unitid))
 
-	battle.InToBattleOnFighting(unit.Owner.MyUnit.InstId)
+	battle.InToBattleOnFighting(unit.Owner.MainUnit.InstId)
 
 	return 0
 }

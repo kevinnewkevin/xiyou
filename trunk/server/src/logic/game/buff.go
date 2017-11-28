@@ -6,7 +6,7 @@ import (
 )
 
 type Buff struct {
-	Owner     *GameUnit     //挂在谁身上
+	Owner     *BattleUnit     //挂在谁身上
 	BuffId    int32         //基础id
 	CasterId  int64         //buff释放者id
 	InstId    int32         //buff实例ID
@@ -31,7 +31,7 @@ const (
 
 var BuffInstId int32 = 1
 
-func NewBuff(owner *GameUnit, casterid int64, buffid int32, data int32, round int32) *Buff {
+func NewBuff(owner *BattleUnit, casterid int64, buffid int32, data int32, round int32) *Buff {
 
 	b := GetBuffRecordById(buffid)
 	if b == nil {
