@@ -35,7 +35,7 @@ type GamePlayer struct {
 	KillUnits   []int32 //杀掉的怪物
 	MyDeathNum  int32   //战斗中自身死亡数量
 	BattlePoint int32   //战斗點數
-	BattleList 	[]prpc.BattleReport_Detail //战斗记录简略信息
+	BattleList 	[]prpc.COM_BattleReport_Detail //战斗记录简略信息
 
 	//story chapter
 	ChapterPondId int32

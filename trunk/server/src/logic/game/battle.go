@@ -667,7 +667,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 					continue
 				}
 
-				b := prpc.BattleReport_Detail{}
+				b := prpc.COM_BattleReport_Detail{}
 
 				b.Battleid = this.BattleID
 				b.ReportId = this.InstId

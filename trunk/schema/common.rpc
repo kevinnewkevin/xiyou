@@ -77,7 +77,7 @@ struct COM_ReportCamp{
 };
 
 //录像文件的简略信息
-struct BattleReport_Detail {
+struct COM_BattleReport_Detail {
 	int64				ReportId;
 	int32				Battleid; 	//战斗ID 不是房间ID
 	COM_ReportCamp[]	Players;	//参赛者
@@ -101,7 +101,7 @@ struct COM_Player{
 	COM_Friend[]			Friends;
 	COM_Friend[]			Enemys;
 	int32					GuildId;
-	BattleReport_Detail[]	BattleList;
+	COM_BattleReport_Detail[]	BattleList;
 };
 
 //账户信息	登录成功返回
