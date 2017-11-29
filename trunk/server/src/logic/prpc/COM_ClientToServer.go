@@ -126,6 +126,9 @@ type COM_ClientToServer_ChangeJoinGuildFlag struct{
   isFlag bool  //0
   require int32  //1
 }
+type COM_ClientToServer_QueryBattleRecord struct{
+  battleid int64  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -177,6 +180,7 @@ type COM_ClientToServerProxy interface{
   QueryGuildData() error // 44
   ChangeJoinGuildFlag(isFlag bool, require int32 ) error // 45
   RandChapter() error // 46
+  QueryBattleRecord(battleid int64 ) error // 47
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1690,6 +1694,42 @@ func (this *COM_ClientToServer_ChangeJoinGuildFlag)Deserialize(buffer *bytes.Buf
   }
   return nil
 }
+func (this *COM_ClientToServer_QueryBattleRecord)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.battleid!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize battleid
+  {
+    if(this.battleid!=0){
+      err := write(buffer,this.battleid)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_QueryBattleRecord)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize battleid
+  if mask.readBit() {
+    err := read(buffer,&this.battleid)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2441,6 +2481,23 @@ func(this* COM_ClientToServerStub)RandChapter() error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)QueryBattleRecord(battleid int64 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(47))
+  if err != nil{
+    return err
+  }
+  _47 := COM_ClientToServer_QueryBattleRecord{}
+  _47.battleid = battleid;
+  err = _47.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3049,6 +3106,20 @@ func Bridging_COM_ClientToServer_RandChapter(buffer *bytes.Buffer, p COM_ClientT
   }
   return p.RandChapter()
 }
+func Bridging_COM_ClientToServer_QueryBattleRecord(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _47 := COM_ClientToServer_QueryBattleRecord{}
+  err := _47.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryBattleRecord(_47.battleid)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3156,6 +3227,8 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_ChangeJoinGuildFlag(buffer,p);
     case 46 :
       return Bridging_COM_ClientToServer_RandChapter(buffer,p);
+    case 47 :
+      return Bridging_COM_ClientToServer_QueryBattleRecord(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

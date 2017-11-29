@@ -67,25 +67,41 @@ struct COM_Friend			//好友
 	int32	DisplayID;			//头像
 };
 
+struct COM_ReportCamp{
+	int8			Camp;
+	int64			InstId;
+	string			Name;
+	int32			TianTi;
+	COM_Unit		MainUnit;
+	COM_Unit[]		Units;
+};
+
+//录像文件的简略信息
+struct BattleReport_Detail {
+	int64				ReportId;
+	int32				Battleid; 	//战斗ID 不是房间ID
+	COM_ReportCamp[]	Players;	//参赛者
+};
+
 //角色实例
 struct COM_Player{
-	int64 				InstId;
-	string				Name;
-	COM_Unit			Unit;
-	COM_Unit[]			Employees;
-	COM_Chapter[]		Chapters;
-	COM_UnitGroup[]		UnitGroup;
-	int32				TianTiVal;
-	int32				TianTiRank;
-	int32				FriendTianTiRank;
-	int32				BattleUnitGroup;
-	uint64				Guide;
-	int64				AssistantCreateTime;
-	COM_SkillBase[]		SkillBase;
-	COM_Friend[]		Friends;
-	COM_Friend[]		Enemys;
-	int32				GuildId;
-	int64[]				BattleList;
+	int64 					InstId;
+	string					Name;
+	COM_Unit				Unit;
+	COM_Unit[]				Employees;
+	COM_Chapter[]			Chapters;
+	COM_UnitGroup[]			UnitGroup;
+	int32					TianTiVal;
+	int32					TianTiRank;
+	int32					FriendTianTiRank;
+	int32					BattleUnitGroup;
+	uint64					Guide;
+	int64					AssistantCreateTime;
+	COM_SkillBase[]			SkillBase;
+	COM_Friend[]			Friends;
+	COM_Friend[]			Enemys;
+	int32					GuildId;
+	BattleReport_Detail[]	BattleList;
 };
 
 //账户信息	登录成功返回
@@ -228,15 +244,6 @@ struct COM_BlackMarket{
 	COM_MlackMarketItemData[]		ShopItems;
 };
 
-struct COM_ReportCamp{
-	int8			Camp;
-	int64			InstId;
-	string			Name;
-	int32			TianTi;
-	COM_Unit		MainUnit;
-	COM_Unit[]		Units;
-};
-
 struct SGE_DBPlayer : COM_Player {
 	int64 				PlayerId;
 	string 				Username;
@@ -266,14 +273,6 @@ struct SGE_DBBattleReport {
 	int64				Winner;		//获胜方
 	COM_ReportCamp[]	Players;	//参赛者
 	COM_BattleReport[]	Report;		//所有战报 = 
-};
-
-//录像文件的详细信息
-struct BattleReport_Detail
-{
-	int64				ReportId;
-	int32				Battleid; 	//战斗ID 不是房间ID
-	COM_ReportCamp[]	Players;	//参赛者
 };
 
 //录像文件

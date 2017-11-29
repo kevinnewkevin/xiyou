@@ -22,7 +22,7 @@ type COM_Player struct{
   Friends []COM_Friend  //13
   Enemys []COM_Friend  //14
   GuildId int32  //15
-  BattleList []int64  //16
+  BattleList []BattleReport_Detail  //16
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -184,12 +184,12 @@ func (this *COM_Player)GetGuildId() int32 {
   defer this.Unlock()
   return this.GuildId
 }
-func (this *COM_Player)SetBattleList(value []int64) {
+func (this *COM_Player)SetBattleList(value []BattleReport_Detail) {
   this.Lock()
   defer this.Unlock()
   this.BattleList = value
 }
-func (this *COM_Player)GetBattleList() []int64 {
+func (this *COM_Player)GetBattleList() []BattleReport_Detail {
   this.Lock()
   defer this.Unlock()
   return this.BattleList
@@ -407,7 +407,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
     for _, value := range this.BattleList {
-      err := write(buffer,value)
+      err := value.Serialize(buffer)
       if err != nil {
         return err
       }
@@ -590,9 +590,9 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     if err != nil{
       return err
     }
-    this.BattleList = make([]int64,size)
+    this.BattleList = make([]BattleReport_Detail,size)
     for i,_ := range this.BattleList{
-      err := read(buffer,&this.BattleList[i])
+      err := this.BattleList[i].Deserialize(buffer)
       if err != nil{
         return err
       }

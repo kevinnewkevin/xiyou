@@ -145,6 +145,9 @@ type COM_ServerToClient_QueryGuildDetailsResult struct{
 type COM_ServerToClient_TianTiSeasonDrop struct{
   award COM_Award  //0
 }
+type COM_ServerToClient_QueryBattleRecordOK struct{
+  record BattleReport  //0
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -197,6 +200,7 @@ type COM_ServerToClientProxy interface{
   QueryGuildDetailsResult(info COM_GuildDetails ) error // 45
   JoinGuildOk() error // 46
   TianTiSeasonDrop(award COM_Award ) error // 47
+  QueryBattleRecordOK(record BattleReport ) error // 48
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2079,6 +2083,40 @@ func (this *COM_ServerToClient_TianTiSeasonDrop)Deserialize(buffer *bytes.Buffer
   }
   return nil
 }
+func (this *COM_ServerToClient_QueryBattleRecordOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //record
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize record
+  {
+    err := this.record.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_QueryBattleRecordOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize record
+  if mask.readBit() {
+    err := this.record.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2875,6 +2913,23 @@ func(this* COM_ServerToClientStub)TianTiSeasonDrop(award COM_Award ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)QueryBattleRecordOK(record BattleReport ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(48))
+  if err != nil{
+    return err
+  }
+  _48 := COM_ServerToClient_QueryBattleRecordOK{}
+  _48.record = record;
+  err = _48.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3517,6 +3572,20 @@ func Bridging_COM_ServerToClient_TianTiSeasonDrop(buffer *bytes.Buffer, p COM_Se
   }
   return p.TianTiSeasonDrop(_47.award)
 }
+func Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _48 := COM_ServerToClient_QueryBattleRecordOK{}
+  err := _48.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryBattleRecordOK(_48.record)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3626,6 +3695,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_JoinGuildOk(buffer,p);
     case 47 :
       return Bridging_COM_ServerToClient_TianTiSeasonDrop(buffer,p);
+    case 48 :
+      return Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

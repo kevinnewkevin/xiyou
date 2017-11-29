@@ -59,7 +59,7 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 			InstNamePlayerStore[this.player.MyUnit.InstName] = this.player
 
 
-			logs.Debug("Query player ", p.InstId)
+			logs.Debug("Query player ", p.BattleList)
 		}
 	} else {
 		this.player.SetSession(this)
@@ -517,6 +517,16 @@ func (this *Session)RandChapter() error{
 		return nil
 	}
 	this.player.RandChapterGo()
+	return nil
+}
+
+func (this *Session)QueryBattleRecord(battleid int64) error{
+	if this.player == nil {
+		return nil
+	}
+
+	this.player.QueryReport(battleid)
+
 	return nil
 }
 

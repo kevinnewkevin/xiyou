@@ -429,6 +429,9 @@ func GetSGECOM(room *BattleRoom) prpc.SGE_DBBattleReport {
 	db.Winner = room.Record.Winner
 	db.Battleid = room.Record.Battleid
 
+	logs.Debug("GetSGECOM ", db)
+
+
 	return db
 
 }
@@ -576,6 +579,9 @@ func (this *BattleRoom) BattleUpdate() {
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
 
+	this.Record.Round = this.Round
+	this.Record.Report = this.ReportAll
+
 	for _, bp := range this.PlayerList {
 
 		var win int32
@@ -645,6 +651,8 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			logs.Info("Battle Over PVE DropId=", dropId)
 		}
 		if this.Type == prpc.BT_PVP {
+			InsertBattleReport(this.InstId, GetSGECOM(this))
+			//InsertBattleReport(9999, GetSGECOM(this))
 			for _, bonce := range this.PlayerList {
 
 				once := FindPlayerByInstId(bonce.PlayerId)
@@ -658,6 +666,14 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				if p.BattleCamp == once.BattleCamp {
 					continue
 				}
+
+				b := prpc.BattleReport_Detail{}
+
+				b.Battleid = this.BattleID
+				b.ReportId = this.InstId
+				b.Players = this.Record.Players
+
+				p.BattleList = append(p.BattleList, b)
 				dropId := CaleTianTiVal(p, once, camp)
 
 				if dropId != 0 {
@@ -717,7 +733,6 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		}
 		p.BattleId = 0
 		p.ClearAllBuff()
-		p.BattleList = append(p.BattleList, this.InstId)
 
 		if p.session != nil {
 			p.session.BattleExit(result)
@@ -726,12 +741,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		p.BattleCamp = prpc.CT_MAX
 	}
 
-	this.Record.Round = this.Round
-	this.Record.Report = this.ReportAll
-
 	logs.Debug("BattleRoomOver, winner is ", camp)
-	InsertBattleReport(this.InstId, GetSGECOM(this))
-	//InsertBattleReport(9999, GetSGECOM(this))
+	logs.Debug("BattleRoomOver, winner is ", this.ReportAll)
+
 	PopBattle(this.InstId)
 }
 
@@ -821,6 +833,7 @@ func (this *BattleRoom) Update() {
 
 			this.Round += 1
 			this.SendReport(this.ReportOne)
+			this.ReportAll = append(this.ReportAll, this.ReportOne)
 			this.BattleRoomOver(this.Winner)
 			this.Status = kIdle
 			break
@@ -828,9 +841,9 @@ func (this *BattleRoom) Update() {
 		}
 	}
 	//}
-	logs.Debug("Battle report battleid is ", this.ReportOne.BattleID)
-	logs.Debug("Battle report unitlist is ", this.ReportOne.UnitList)
-	logs.Debug("Battle report acctionlist is ", this.ReportOne.ActionList)
+	//logs.Debug("Battle report battleid is ", this.ReportOne.BattleID)
+	//logs.Debug("Battle report unitlist is ", this.ReportOne.UnitList)
+	//logs.Debug("Battle report acctionlist is ", this.ReportOne.ActionList)
 
 	this.showReport()
 
@@ -846,11 +859,10 @@ func (this *BattleRoom) Update() {
 		this.Round += 1
 		this.Point += 1
 		this.SendReport(this.ReportOne)
+		this.ReportAll = append(this.ReportAll, this.ReportOne)
 	}
 
 	logs.Debug("站后回合为 ", this.Round)
-
-	this.ReportAll = append(this.ReportAll, this.ReportOne)
 
 }
 

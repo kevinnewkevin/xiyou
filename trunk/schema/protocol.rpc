@@ -61,6 +61,8 @@ service COM_ClientToServer{
 	//@}
 
 	RandChapter();													//释魂(抽关卡)
+	
+	QueryBattleRecord(int64 battleid);								//查询具体战报
 };
 
 service COM_ServerToClient{
@@ -122,4 +124,5 @@ service COM_ServerToClient{
 	//@}
 	
 	TianTiSeasonDrop(COM_Award award);
+	QueryBattleRecordOK(BattleReport record);
 };
