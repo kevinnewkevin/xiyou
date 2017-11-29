@@ -9,6 +9,11 @@ public class DropData
     public int money_;
     public int item1_;
     public int itemNum1_;
+	public int item2_;
+	public int itemNum2_;
+	public int item3_;
+	public int itemNum3_;
+
     static public Dictionary<int, DropData> metaData;
 
     static public void ParseData(string content, string fileName)
@@ -32,6 +37,10 @@ public class DropData
             data.money_ = parser.GetInt(i, "money");
             data.item1_ = parser.GetInt(i, "item-1");
             data.itemNum1_ = parser.GetInt(i, "item-num-1");
+			data.item2_ = parser.GetInt(i, "item-2");
+			data.itemNum2_ = parser.GetInt(i, "item-num-2");
+			data.item3_ = parser.GetInt(i, "item-2");
+			data.itemNum3_ = parser.GetInt(i, "item-num-2");
 
 
             if (metaData.ContainsKey(data.Id_))

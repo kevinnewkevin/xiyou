@@ -74,6 +74,7 @@ public class DataLoader {
 		RegistTables("ShopData", ShopData.ParseData);
 		RegistTables("Cardclose", CardcloseData.ParseData);
         RegistTables("Draw", DrawData.ParseData);
+		RegistTables("Ladder", LadderData.ParseData);
     }
 
     static public void BeginLoad()
