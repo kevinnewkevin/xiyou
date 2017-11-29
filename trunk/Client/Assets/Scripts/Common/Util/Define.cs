@@ -113,13 +113,14 @@ public class Define {
 
     public static void CheckFileExcsit(string path)
     {
+				return;
         #if EDITOR_MODE
         if (string.IsNullOrEmpty(path))
             return;
         
         UnityEngine.Object obj = Resources.Load<UnityEngine.Object>(path);
-        if(obj == null)
-            Debug.LogError(path + " not Excsit");
+       // if(obj == null)
+         //  Debug.LogError(path + " not Excsit");
         #endif
     }
 
