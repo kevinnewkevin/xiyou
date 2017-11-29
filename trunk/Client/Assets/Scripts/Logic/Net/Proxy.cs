@@ -450,4 +450,8 @@ class Proxy : ICOM_ServerToClientProxy
 			}	
 			return true;
 		}
+		public bool  TianTiSeasonDrop(ref COM_Award item)
+		{
+			return true;
+		}
 }
