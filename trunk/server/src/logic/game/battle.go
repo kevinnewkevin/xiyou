@@ -747,7 +747,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 	logs.Debug("BattleRoomOver, winner is ", camp)
 
 	//测试用
-	InsertBattleReport(9999, GetSGECOM(this))
+	//InsertBattleReport(9999, GetSGECOM(this))
 
 	PopBattle(this.InstId)
 }
