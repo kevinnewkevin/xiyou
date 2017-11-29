@@ -25,7 +25,7 @@ public static class CustomSettings
         typeof(UnityEngine.Resources),
         typeof(UnityEngine.Physics),
         typeof(UnityEngine.RenderSettings),
-        typeof(UnityEngine.QualitySettings),
+        typeof(UnityEngine.QualitySettings), 
         typeof(UnityEngine.GL),
     };
 
@@ -266,6 +266,7 @@ public static class CustomSettings
         _GT(typeof(COM_Guild)),
         _GT(typeof(COM_GuildMember)),
         _GT(typeof(COM_GuildRequestData)),
+		_GT(typeof(LadderData)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
