@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1920,1080">
+<component size="1450,476">
   <displayList>
-    <graph id="n0_uc56" name="n0" xy="0,0" size="1920,1080" alpha="0.6" type="rect" fillColor="#ff000000"/>
-    <image id="n1_uc56" name="n1" src="s4225" xy="179,20"/>
-    <image id="n2_uc56" name="n2" src="s4220" xy="255,137" size="1418,870"/>
-    <image id="n3_uc56" name="n3" src="uc567" xy="654,76"/>
-    <text id="n4_uc56" name="n4" xy="844,74" size="230,60" font="方正楷体_GBK" fontSize="40" color="#86e1f7" align="center" vAlign="middle" autoSize="none" bold="true" text="查看录像"/>
-    <list id="n44_if1v" name="n44" xy="280,176" size="1369,820" overflow="scroll" lineGap="-60" defaultItem="ui://46hyk1inif1v1e"/>
+    <image id="n6_f1z4" name="n6" src="s4223" xy="0,0"/>
+    <text id="n7_f1z4" name="n7" xy="288,84" size="177,49" font="ui://46hyk1inf1z4n" fontSize="34" color="#86e1f7" vAlign="middle" autoSize="none" bold="true" text="9999"/>
+    <text id="n8_f1z4" name="n8" xy="229,30" size="277,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="啦啦啦啦啦啦啦"/>
+    <text id="n9_f1z4" name="n9" xy="974,80" size="177,49" font="ui://46hyk1inf1z4n" fontSize="34" color="#86e1f7" vAlign="middle" autoSize="none" bold="true" text="9999"/>
+    <text id="n10_f1z4" name="n10" xy="914,27" size="277,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="啦啦啦啦啦啦啦"/>
+    <image id="n11_f1z4" name="n11" src="s4221" xy="606,95"/>
+    <loader id="n32_f1z4" name="n32" xy="473,76" size="187,71" url="ui://46hyk1inf1z4x" fill="scale"/>
+    <component id="n12_f1z4" name="n12" src="f1z48" xy="11,145" scale="0.6,0.6"/>
+    <component id="n13_f1z4" name="n13" src="f1z48" xy="131,145" scale="0.6,0.6"/>
+    <component id="n15_f1z4" name="n15" src="f1z48" xy="373,145" scale="0.6,0.6"/>
+    <component id="n14_f1z4" name="n14" src="f1z48" xy="252,145" scale="0.6,0.6"/>
+    <component id="n16_f1z4" name="n16" src="f1z48" xy="495,145" scale="0.6,0.6"/>
+    <component id="n17_f1z4" name="n17" src="f1z48" xy="10,274" scale="0.6,0.6"/>
+    <component id="n18_f1z4" name="n18" src="f1z48" xy="130,274" scale="0.6,0.6"/>
+    <component id="n19_f1z4" name="n19" src="f1z48" xy="251,274" scale="0.6,0.6"/>
+    <component id="n20_f1z4" name="n20" src="f1z48" xy="372,274" scale="0.6,0.6"/>
+    <component id="n21_f1z4" name="n21" src="f1z48" xy="494,274" scale="0.6,0.6"/>
+    <component id="n22_f1z4" name="n22" src="f1z48" xy="764,144" scale="0.6,0.6"/>
+    <component id="n23_f1z4" name="n23" src="f1z48" xy="884,144" scale="0.6,0.6"/>
+    <component id="n24_f1z4" name="n24" src="f1z48" xy="1005,144" scale="0.6,0.6"/>
+    <component id="n25_f1z4" name="n25" src="f1z48" xy="1126,144" scale="0.6,0.6"/>
+    <component id="n26_f1z4" name="n26" src="f1z48" xy="1248,144" scale="0.6,0.6"/>
+    <component id="n27_f1z4" name="n27" src="f1z48" xy="763,273" scale="0.6,0.6"/>
+    <component id="n28_f1z4" name="n28" src="f1z48" xy="883,273" scale="0.6,0.6"/>
+    <component id="n29_f1z4" name="n29" src="f1z48" xy="1004,273" scale="0.6,0.6"/>
+    <component id="n30_f1z4" name="n30" src="f1z48" xy="1125,273" scale="0.6,0.6"/>
+    <component id="n31_f1z4" name="n31" src="f1z48" xy="1247,273" scale="0.6,0.6"/>
+    <loader id="n33_f1z4" name="n33" xy="1160,70" size="187,71" url="ui://46hyk1inf1z4x" fill="scale"/>
+    <loader id="n34_f1z4" name="n34" xy="7,44" size="102,64" url="ui://46hyk1inf1z4z"/>
+    <loader id="n35_f1z4" name="n35" xy="692,48" size="102,64" url="ui://46hyk1inf1z4z"/>
+    <image id="n36_f1z4" name="n36" src="f1z410" xy="116,24"/>
+    <loader id="n37_f1z4" name="n37" xy="125,34" size="89,90" fill="scale"/>
+    <image id="n38_f1z4" name="n38" src="f1z412" xy="126,96"/>
+    <text id="n39_if1v" name="n39" xy="174,97" size="43,27" font="ui://46hyk1inif1v1d" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="99"/>
+    <image id="n40_if1v" name="n40" src="f1z410" xy="801,18"/>
+    <loader id="n41_if1v" name="n41" xy="810,28" size="89,90" fill="scale"/>
+    <image id="n42_if1v" name="n42" src="f1z412" xy="811,90"/>
+    <text id="n43_if1v" name="n43" xy="859,91" size="43,27" font="ui://46hyk1inif1v1d" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="99"/>
+    <component id="n44_if1v" name="n44" src="if1v1k" xy="606,322"/>
   </displayList>
 </component>
