@@ -276,7 +276,7 @@ struct SGE_DBBattleReport {
 };
 
 //录像文件
-struct BattleReport {
+struct COM_BattleRecord {
 	int32				Battleid; 	//战斗ID 不是房间ID
 	int32				Round;		//回合数
 	int32				Type;		//战斗类型

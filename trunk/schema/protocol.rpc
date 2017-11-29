@@ -124,5 +124,5 @@ service COM_ServerToClient{
 	//@}
 	
 	TianTiSeasonDrop(COM_Award award);
-	QueryBattleRecordOK(BattleReport record);
+	QueryBattleRecordOK(COM_BattleRecord record);
 };

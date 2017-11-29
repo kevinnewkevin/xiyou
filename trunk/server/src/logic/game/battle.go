@@ -153,7 +153,7 @@ type BattleRoom struct {
 	AcctionList prpc.COM_BattleAction       //行动单元
 	TargetCOM   prpc.COM_BattleActionTarget //行动单元中的每个子元素
 	NewAction   bool                        //是否行动过
-	Record		prpc.BattleReport           //战斗录像
+	Record		prpc.COM_BattleRecord           //战斗录像
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -436,8 +436,8 @@ func GetSGECOM(room *BattleRoom) prpc.SGE_DBBattleReport {
 
 }
 
-func SetReportCOM(sge *prpc.SGE_DBBattleReport) prpc.BattleReport {
-	data := prpc.BattleReport{}
+func SetReportCOM(sge *prpc.SGE_DBBattleReport) prpc.COM_BattleRecord {
+	data := prpc.COM_BattleRecord{}
 
 	data.Report = sge.Report
 	data.Round = sge.Round

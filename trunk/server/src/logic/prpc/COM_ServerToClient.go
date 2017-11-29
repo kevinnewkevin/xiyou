@@ -146,7 +146,7 @@ type COM_ServerToClient_TianTiSeasonDrop struct{
   award COM_Award  //0
 }
 type COM_ServerToClient_QueryBattleRecordOK struct{
-  record BattleReport  //0
+  record COM_BattleRecord  //0
 }
 type COM_ServerToClientStub struct{
   Sender StubSender
@@ -200,7 +200,7 @@ type COM_ServerToClientProxy interface{
   QueryGuildDetailsResult(info COM_GuildDetails ) error // 45
   JoinGuildOk() error // 46
   TianTiSeasonDrop(award COM_Award ) error // 47
-  QueryBattleRecordOK(record BattleReport ) error // 48
+  QueryBattleRecordOK(record COM_BattleRecord ) error // 48
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2913,7 +2913,7 @@ func(this* COM_ServerToClientStub)TianTiSeasonDrop(award COM_Award ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)QueryBattleRecordOK(record BattleReport ) error {
+func(this* COM_ServerToClientStub)QueryBattleRecordOK(record COM_BattleRecord ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
