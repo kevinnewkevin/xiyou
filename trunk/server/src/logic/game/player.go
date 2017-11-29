@@ -1663,7 +1663,7 @@ func (this *GamePlayer) QueryReport(battleinstID int64) {
 
 	var p *prpc.SGE_DBBattleReport
 
-	if p = <- QueryBattleReport(2); p!=nil {
+	if p = <- QueryBattleReport(battleinstID); p!=nil {
 		logs.Debug("QueryBattleReport")
 
 		br := SetReportCOM(p)
@@ -1672,6 +1672,26 @@ func (this *GamePlayer) QueryReport(battleinstID int64) {
 		logs.Debug("QueryBattleReport ", br.Report)
 
 		this.session.QueryBattleRecordOK(br)
+	}
+
+
+	return
+}
+
+//测试用
+func QueryReport(battleinstID int64) {
+	logs.Debug("QueryBattleReport ", battleinstID)
+
+	var p *prpc.SGE_DBBattleReport
+
+	if p = <- QueryBattleReport(battleinstID); p!=nil {
+		logs.Debug("QueryBattleReport")
+
+		br := SetReportCOM(p)
+
+
+		logs.Debug("QueryBattleReport ", br.Report)
+
 	}
 
 
