@@ -85,6 +85,7 @@ struct COM_Player{
 	COM_Friend[]		Friends;
 	COM_Friend[]		Enemys;
 	int32				GuildId;
+	int64[]				BattleList;
 };
 
 //账户信息	登录成功返回
@@ -227,6 +228,15 @@ struct COM_BlackMarket{
 	COM_MlackMarketItemData[]		ShopItems;
 };
 
+struct COM_ReportCamp{
+	int8			Camp;
+	int64			InstId;
+	string			Name;
+	int32			TianTi;
+	COM_Unit		MainUnit;
+	COM_Unit[]		Units;
+};
+
 struct SGE_DBPlayer : COM_Player {
 	int64 				PlayerId;
 	string 				Username;
@@ -246,7 +256,25 @@ struct SGE_DBTopUnit {
 	int64	InstId;			//ID
 	int32	Level;			//等级
 	int32	TianTi;			//天体点数
-	int32	UnitID;		//头像
+	int32	UnitID;			//头像
+};
+
+struct SGE_DBBattleReport {
+	int32				Battleid; 	//战斗ID 不是房间ID
+	int32				Round;		//回合数
+	int32				Type;		//战斗类型
+	int64				Winner;		//获胜方
+	COM_ReportCamp[]	Players;	//参赛者
+	COM_BattleReport[]	Report;		//所有战报 = 
+};
+
+struct BattleReport {
+	int32				Battleid; 	//战斗ID 不是房间ID
+	int32				Round;		//回合数
+	int32				Type;		//战斗类型
+	int64				Winner;		//获胜方
+	COM_ReportCamp[]	Players;	//参赛者
+	COM_BattleReport[]	Report;		//所有战报
 };
 
 struct COM_Chat

@@ -22,6 +22,7 @@ type COM_Player struct{
   Friends []COM_Friend  //13
   Enemys []COM_Friend  //14
   GuildId int32  //15
+  BattleList []int64  //16
 }
 func (this *COM_Player)SetInstId(value int64) {
   this.Lock()
@@ -183,11 +184,21 @@ func (this *COM_Player)GetGuildId() int32 {
   defer this.Unlock()
   return this.GuildId
 }
+func (this *COM_Player)SetBattleList(value []int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.BattleList = value
+}
+func (this *COM_Player)GetBattleList() []int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.BattleList
+}
 func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := newMask1(2)
+  mask := newMask1(3)
   mask.writeBit(this.InstId!=0)
   mask.writeBit(len(this.Name) != 0)
   mask.writeBit(true) //Unit
@@ -204,6 +215,7 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.Friends) != 0)
   mask.writeBit(len(this.Enemys) != 0)
   mask.writeBit(this.GuildId!=0)
+  mask.writeBit(len(this.BattleList) != 0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -386,13 +398,28 @@ func (this *COM_Player)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize BattleList
+  if len(this.BattleList) != 0{
+    {
+      err := write(buffer,uint(len(this.BattleList)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.BattleList {
+      err := write(buffer,value)
+      if err != nil {
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= newMask0(buffer,2);
+  mask, err:= newMask0(buffer,3);
   if err != nil{
     return err
   }
@@ -554,6 +581,21 @@ func (this *COM_Player)Deserialize(buffer *bytes.Buffer) error{
     err := read(buffer,&this.GuildId)
     if err != nil{
       return err
+    }
+  }
+  // deserialize BattleList
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.BattleList = make([]int64,size)
+    for i,_ := range this.BattleList{
+      err := read(buffer,&this.BattleList[i])
+      if err != nil{
+        return err
+      }
     }
   }
   return nil

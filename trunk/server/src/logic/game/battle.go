@@ -7,7 +7,7 @@ import (
 	"math/rand"
 	"sort"
 	"sync"
-	"sync/atomic"
+	//"sync/atomic"
 	"time"
 	//"fmt"
 	"fmt"
@@ -62,6 +62,8 @@ type BattlePlayer struct {
 
 	KillUnits   []int32 //杀掉的怪物
 	MyDeathNum  int32   //战斗中自身死亡数量
+
+	TianTi		int32
 }
 
 func (this *BattlePlayer) GetUnit(instId int64) *BattleUnit {
@@ -151,6 +153,7 @@ type BattleRoom struct {
 	AcctionList prpc.COM_BattleAction       //行动单元
 	TargetCOM   prpc.COM_BattleActionTarget //行动单元中的每个子元素
 	NewAction   bool                        //是否行动过
+	Record		prpc.BattleReport           //战斗录像
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
@@ -163,7 +166,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room := BattleRoom{}
 
 	room.Status = kUsed
-	room.InstId = atomic.AddInt64(&roomInstId, 1)
+	room.InstId = GenBattleId()
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*BattleUnit, prpc.BP_MAX)
@@ -194,7 +197,7 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 	room := BattleRoom{}
 
 	room.Status = kUsed
-	room.InstId = atomic.AddInt64(&roomInstId, 1)
+	room.InstId = GenBattleId()
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*BattleUnit, prpc.BP_MAX)
@@ -259,6 +262,7 @@ func CreateBattlePlayer(p *GamePlayer, roomid int64, camp int) *BattlePlayer {
 	//m.MainUnit.Camp = prpc.CT_BLUE
 	//m.MainUnit.BattleId = roomid
 	m.IsActive = false
+	m.TianTi = p.TianTiVal
 	p.BattleId = roomid
 
 	battlegroup := p.GetUnitGroupById(p.BattleUnitGroup)
@@ -285,7 +289,7 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 
 	room := BattleRoom{}
 	room.Status = kUsed
-	room.InstId = atomic.AddInt64(&roomInstId, 1)
+	room.InstId = GenBattleId()
 	room.Round = 0
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*BattleUnit, prpc.BP_MAX)
@@ -364,6 +368,83 @@ func (this *BattleRoom) BattleStart() {
 		logs.Debug("JoinBattleOk, p.id", bp.MainUnit.InstId, " and batlecamp is ", int32(bp.BattleCamp), "targetList is ", targetList)
 		p.session.JoinBattleOk(int32(bp.BattleCamp), this.BattleID, targetList, ul)
 	}
+
+	this.setRecord()
+}
+
+func (this *BattleRoom) setRecord() {
+	this.Record.Battleid = this.BattleID
+	this.Record.Type = this.Type
+
+	if this.Type == prpc.BT_PVP {
+		for _, bp := range this.PlayerList {
+			player := prpc.COM_ReportCamp{}
+			player.InstId = bp.PlayerId
+			player.TianTi = bp.TianTi
+			player.Camp = int8(bp.BattleCamp)
+			player.Name = bp.MainUnit.InstName
+			player.MainUnit = bp.MainUnit.GetUnitCOM()
+			for _, u := range bp.BattleUnitList {
+				player.Units = append(player.Units, u.GetUnitCOM())
+			}
+
+			this.Record.Players = append(this.Record.Players, player)
+		}
+	} else {
+		for _, bp := range this.PlayerList {
+			player := prpc.COM_ReportCamp{}
+			player.InstId = bp.PlayerId
+			player.TianTi = bp.TianTi
+			player.Camp = int8(bp.BattleCamp)
+			player.Name = bp.MainUnit.InstName
+			player.MainUnit = bp.MainUnit.GetUnitCOM()
+			for _, u := range bp.BattleUnitList {
+				player.Units = append(player.Units, u.GetUnitCOM())
+			}
+
+			this.Record.Players = append(this.Record.Players, player)
+		}
+		m := prpc.COM_ReportCamp{}
+		m.InstId = this.Monster.MainUnit.InstId
+		m.TianTi = 0
+		m.Camp = int8(this.Monster.BattleCamp)
+		m.Name = this.Monster.MainUnit.InstName
+		m.MainUnit = this.Monster.MainUnit.GetUnitCOM()
+		for _, u := range this.Monster.BattleUnitList {
+			m.Units = append(m.Units, u.GetUnitCOM())
+		}
+
+		this.Record.Players = append(this.Record.Players, m)
+	}
+
+}
+
+func GetSGECOM(room *BattleRoom) prpc.SGE_DBBattleReport {
+	db := prpc.SGE_DBBattleReport{}
+
+	db.Report = room.Record.Report
+	db.Round = room.Record.Round
+	db.Players = room.Record.Players
+	db.Type = room.Record.Type
+	db.Winner = room.Record.Winner
+	db.Battleid = room.Record.Battleid
+
+	return db
+
+}
+
+func SetReportCOM(sge *prpc.SGE_DBBattleReport) prpc.BattleReport {
+	data := prpc.BattleReport{}
+
+	data.Report = sge.Report
+	data.Round = sge.Round
+	data.Players = sge.Players
+	data.Type = sge.Type
+	data.Winner = sge.Winner
+	data.Battleid = sge.Battleid
+
+	return data
+
 }
 
 func (this *BattleRoom) BattleStrongOver() {
@@ -494,20 +575,22 @@ func (this *BattleRoom) BattleUpdate() {
 ////////////////////////////////////////////////////////////////////////
 
 func (this *BattleRoom) BattleRoomOver(camp int) {
+
 	for _, bp := range this.PlayerList {
+
+		var win int32
+
+		if bp.BattleCamp == camp {
+			win = 1
+			this.Record.Winner = bp.PlayerId
+		} else {
+			win = 0
+		}
 
 		p := FindPlayerByInstId(bp.PlayerId)
 
 		if p == nil {
 			continue
-		}
-
-		var win int32
-
-		if p.BattleCamp == camp {
-			win = 1
-		} else {
-			win = 0
 		}
 
 		result := prpc.COM_BattleResult{}
@@ -634,6 +717,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		}
 		p.BattleId = 0
 		p.ClearAllBuff()
+		p.BattleList = append(p.BattleList, this.InstId)
 
 		if p.session != nil {
 			p.session.BattleExit(result)
@@ -642,7 +726,12 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		p.BattleCamp = prpc.CT_MAX
 	}
 
+	this.Record.Round = this.Round
+	this.Record.Report = this.ReportAll
+
 	logs.Debug("BattleRoomOver, winner is ", camp)
+	InsertBattleReport(this.InstId, GetSGECOM(this))
+	//InsertBattleReport(9999, GetSGECOM(this))
 	PopBattle(this.InstId)
 }
 

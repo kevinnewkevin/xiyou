@@ -884,6 +884,7 @@ func CreateBattleUnit(p *GameUnit, b *BattlePlayer) *BattleUnit {
 	u.Position = p.Position
 	u.InstId = p.InstId
 	u.UnitId = p.UnitId
+	u.InstName = p.InstName
 	u.Position = p.Position
 	u.DisPlay = p.DisPlay
 	u.Skill = p.Skill

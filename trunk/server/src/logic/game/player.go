@@ -13,6 +13,7 @@ const (
 	unitGroupMax     = 5  //卡组上限
 	onceUnitGroupMax = 10 //每组卡片上限
 	bagMaxGrid       = 200
+	maxBattleList	 = 10
 )
 
 type GamePlayer struct {
@@ -34,6 +35,7 @@ type GamePlayer struct {
 	KillUnits   []int32 //杀掉的怪物
 	MyDeathNum  int32   //战斗中自身死亡数量
 	BattlePoint int32   //战斗點數
+	BattleList 	[]int64 //战斗记录
 
 	//story chapter
 	ChapterPondId int32
@@ -296,6 +298,8 @@ func (this *GamePlayer) SetPlayerCOM(p *prpc.COM_Player) {
 		this.Enemys = append(this.Enemys, &p.Enemys[i])
 	}
 	this.GuildId	= p.GuildId
+
+	this.BattleList = p.BattleList
 }
 
 func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
@@ -338,6 +342,8 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 	}
 
 	p.GuildId	= this.GuildId
+
+	p.BattleList = this.BattleList
 
 	return p
 }
@@ -1438,8 +1444,6 @@ func (this *GamePlayer) OpenTreasureBox(pondId int32) bool {
 func (this *GamePlayer) Logout() {
 
 	logs.Debug("Logout", "PlayerName=", this.MyUnit.InstName)
-	logs.Debug("Logout", "PlayerName=", this.Friends)
-	logs.Debug("Logout", "PlayerName=", this.Enemys)
 
 	this.LogoutTime = time.Now().Unix()
 
@@ -1461,7 +1465,7 @@ func (this *GamePlayer) Logout() {
 func (this *GamePlayer) GamePlayerSave() {
 	p := this.GetPlayerSGE()
 
-	logs.Debug("GamePlayerSave", p.Enemys)
+	logs.Debug("GamePlayerSave", p.BattleList)
 	UpdatePlayer(p)
 }
 
@@ -1649,6 +1653,25 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 	logs.Debug("QueryPlayerInfo end", info)
 
 	this.session.QueryPlayerInfoOK(info)
+
+	return
+}
+
+
+func QueryReport(battleinstID uint64) {
+	logs.Debug("QueryBattleReport ", battleinstID)
+
+	var p *prpc.SGE_DBBattleReport
+
+	if p = <- QueryBattleReport(9999); p!=nil {
+		logs.Debug("Query player has ")
+
+		br := SetReportCOM(p)
+
+
+		logs.Debug("QueryBattleReport ", br)
+	}
+
 
 	return
 }

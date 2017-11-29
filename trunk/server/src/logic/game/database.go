@@ -20,6 +20,7 @@ var (
 	MaxUnitInstId 			int64 	= 1
 	MaxGuildId	  			int32 	= 1
 	MaxGuildAssistantId	  	int32 	= 1
+	MaxBattleID	  			int64 	= 1
 )
 
 func GenPlayerInstId() int64{
@@ -36,6 +37,10 @@ func GenGuildInstId() int32 {
 
 func GenGuildAssistantInstId() int32 {
 	return atomic.AddInt32(&MaxGuildAssistantId,1)
+}
+
+func GenBattleId() int64 {
+	return atomic.AddInt64(&MaxBattleID,1)
 }
 
 func InitDB() {
@@ -104,6 +109,22 @@ func InitDB() {
 
 	if r.Next() {
 		e = r.Scan(&MaxGuildAssistantId)
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}
+
+	r, e = c.Query("SELECT MAX(`BattleID`) AS MaxID FROM `BattleReport`")
+
+	if e != nil {
+		logs.Debug(e.Error())
+		return
+	}
+
+
+	if r.Next() {
+		e = r.Scan(&MaxBattleID)
 		if e != nil {
 			logs.Debug(e.Error())
 			return
@@ -1495,3 +1516,116 @@ func UpdateGuildAssistant(data prpc.SGE_DBGuildAssistant) <-chan bool {
 	}()
 	return rChan
 }
+
+
+////////////////////////////
+////
+////////////////////////////
+
+func InsertBattleReport(battleid int64, report prpc.SGE_DBBattleReport) <- chan int64 {
+	rChan := make (chan int64)
+	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertBattleReport panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+		defer c.Close()
+		b := bytes.NewBuffer(nil)
+
+		report.Serialize(b)
+
+		r , e := c.Exec("INSERT INTO `BattleReport`(`BattleID`,`Report`)VALUES(?,?)", battleid, b.Bytes())
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		i, e := r.LastInsertId()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		rChan <- (i + 1)
+		close(rChan)
+	}()
+	return  rChan
+}
+
+func QueryBattleReport(Battleid int64) <- chan *prpc.SGE_DBBattleReport {
+	rChan := make(chan *prpc.SGE_DBBattleReport)
+	go func() {
+		defer func() {
+		if r := recover(); r != nil {
+			logs.Error("QueryBattleReport panic %s", fmt.Sprint(r))
+			}
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		r, e := c.Query("SELECT * FROM `BattleReport` WHERE `BattleID` = ?", Battleid)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		if r.Next() {
+			a := int64(0)
+			b := []byte{}
+
+			e = r.Scan(&a, &b)
+				if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			p := &prpc.SGE_DBBattleReport{}
+
+			bb := bytes.NewBuffer(b)
+			e = p.Deserialize(bb)
+				if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+
+			rChan <- p
+
+			close(rChan)
+			return
+		}
+
+		rChan <- nil
+		close(rChan)
+		return
+	}()
+
+	return rChan
+}
+
