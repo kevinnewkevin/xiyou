@@ -67,13 +67,24 @@ struct COM_Friend			//好友
 	int32	DisplayID;			//头像
 };
 
+//战斗单元
+struct COM_BattleUnit{
+	int32 		UnitId;
+	int64 		InstId;
+	int32 		Position;
+	int32 		HP;			//卡牌的最大血量 可以变化
+	int32 		CHP;		//卡牌的当前血量
+	int32 		Level;		//等级
+	string 		Name;
+};
+
 struct COM_ReportCamp{
-	int8			Camp;
-	int64			InstId;
-	string			Name;
-	int32			TianTi;
-	COM_Unit		MainUnit;
-	COM_Unit[]		Units;
+	int8				Camp;
+	int64				InstId;
+	string				Name;
+	int32				TianTi;
+	COM_BattleUnit		MainUnit;
+	COM_BattleUnit[]	Units;
 };
 
 //录像文件的简略信息
@@ -134,17 +145,6 @@ struct COM_BattleRoom{
 	int32				Bout;			
 	int32				TurnMove;			
 	COM_BattlePlayer	NextPlayer;
-};
-
-//战斗单元
-struct COM_BattleUnit{
-	int32 		UnitId;
-	int64 		InstId;
-	int32 		Position;
-	int32 		HP;			//卡牌的最大血量 可以变化
-	int32 		CHP;		//卡牌的当前血量
-	int32 		Level;		//等级
-	string 		Name;
 };
 
 //Buff变更
@@ -272,7 +272,8 @@ struct SGE_DBBattleReport {
 	int32				Type;		//战斗类型
 	int64				Winner;		//获胜方
 	COM_ReportCamp[]	Players;	//参赛者
-	COM_BattleReport[]	Report;		//所有战报 = 
+	COM_BattleUnit[]	DefinePos;	//初始站位
+	COM_BattleReport[]	Report;		//所有战报 
 };
 
 //录像文件
@@ -282,6 +283,7 @@ struct COM_BattleRecord {
 	int32				Type;		//战斗类型
 	int64				Winner;		//获胜方
 	COM_ReportCamp[]	Players;	//参赛者
+	COM_BattleUnit[]	DefinePos;	//初始站位
 	COM_BattleReport[]	Report;		//所有战报
 };
 

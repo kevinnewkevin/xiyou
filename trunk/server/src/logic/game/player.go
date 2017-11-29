@@ -1690,7 +1690,13 @@ func QueryReport(battleinstID int64) {
 		br := SetReportCOM(p)
 
 
-		logs.Debug("QueryBattleReport ", br)
+		logs.Debug("QueryBattleReport ", br.Battleid)
+		logs.Debug("QueryBattleReport ", br.Round)
+		logs.Debug("QueryBattleReport ", br.Type)
+		logs.Debug("QueryBattleReport ", br.Winner)
+		logs.Debug("QueryBattleReport ", br.Players)
+		logs.Debug("QueryBattleReport ", br.DefinePos)
+		logs.Debug("QueryBattleReport ", br.Report)
 
 	}
 

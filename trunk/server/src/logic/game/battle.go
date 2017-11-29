@@ -369,12 +369,13 @@ func (this *BattleRoom) BattleStart() {
 		p.session.JoinBattleOk(int32(bp.BattleCamp), this.BattleID, targetList, ul)
 	}
 
-	this.setRecord()
+	this.setRecord(ul)
 }
 
-func (this *BattleRoom) setRecord() {
+func (this *BattleRoom) setRecord(define []prpc.COM_BattleUnit) {
 	this.Record.Battleid = this.BattleID
 	this.Record.Type = this.Type
+	this.Record.DefinePos = define
 
 	if this.Type == prpc.BT_PVP {
 		for _, bp := range this.PlayerList {
@@ -383,9 +384,9 @@ func (this *BattleRoom) setRecord() {
 			player.TianTi = bp.TianTi
 			player.Camp = int8(bp.BattleCamp)
 			player.Name = bp.MainUnit.InstName
-			player.MainUnit = bp.MainUnit.GetUnitCOM()
+			player.MainUnit = bp.MainUnit.GetBattleUnitCOM()
 			for _, u := range bp.BattleUnitList {
-				player.Units = append(player.Units, u.GetUnitCOM())
+				player.Units = append(player.Units, u.GetBattleUnitCOM())
 			}
 
 			this.Record.Players = append(this.Record.Players, player)
@@ -397,9 +398,9 @@ func (this *BattleRoom) setRecord() {
 			player.TianTi = bp.TianTi
 			player.Camp = int8(bp.BattleCamp)
 			player.Name = bp.MainUnit.InstName
-			player.MainUnit = bp.MainUnit.GetUnitCOM()
+			player.MainUnit = bp.MainUnit.GetBattleUnitCOM()
 			for _, u := range bp.BattleUnitList {
-				player.Units = append(player.Units, u.GetUnitCOM())
+				player.Units = append(player.Units, u.GetBattleUnitCOM())
 			}
 
 			this.Record.Players = append(this.Record.Players, player)
@@ -409,9 +410,9 @@ func (this *BattleRoom) setRecord() {
 		m.TianTi = 0
 		m.Camp = int8(this.Monster.BattleCamp)
 		m.Name = this.Monster.MainUnit.InstName
-		m.MainUnit = this.Monster.MainUnit.GetUnitCOM()
+		m.MainUnit = this.Monster.MainUnit.GetBattleUnitCOM()
 		for _, u := range this.Monster.BattleUnitList {
-			m.Units = append(m.Units, u.GetUnitCOM())
+			m.Units = append(m.Units, u.GetBattleUnitCOM())
 		}
 
 		this.Record.Players = append(this.Record.Players, m)
@@ -428,6 +429,7 @@ func GetSGECOM(room *BattleRoom) prpc.SGE_DBBattleReport {
 	db.Type = room.Record.Type
 	db.Winner = room.Record.Winner
 	db.Battleid = room.Record.Battleid
+	db.DefinePos = room.Record.DefinePos
 
 	logs.Debug("GetSGECOM ", db)
 
@@ -444,6 +446,7 @@ func SetReportCOM(sge *prpc.SGE_DBBattleReport) prpc.COM_BattleRecord {
 	data.Players = sge.Players
 	data.Type = sge.Type
 	data.Winner = sge.Winner
+	data.DefinePos = sge.DefinePos
 	data.Battleid = sge.Battleid
 
 	return data
@@ -742,7 +745,9 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 	}
 
 	logs.Debug("BattleRoomOver, winner is ", camp)
-	logs.Debug("BattleRoomOver, winner is ", this.ReportAll)
+
+	//测试用
+	InsertBattleReport(9999, GetSGECOM(this))
 
 	PopBattle(this.InstId)
 }
