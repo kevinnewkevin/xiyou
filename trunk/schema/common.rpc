@@ -268,6 +268,15 @@ struct SGE_DBBattleReport {
 	COM_BattleReport[]	Report;		//所有战报 = 
 };
 
+//录像文件的详细信息
+struct BattleReport_Detail
+{
+	int64				ReportId;
+	int32				Battleid; 	//战斗ID 不是房间ID
+	COM_ReportCamp[]	Players;	//参赛者
+};
+
+//录像文件
 struct BattleReport {
 	int32				Battleid; 	//战斗ID 不是房间ID
 	int32				Round;		//回合数
