@@ -36,6 +36,7 @@ class Proxy : ICOM_ServerToClientProxy
     COM_BattleUnit[] delayUnits = null;
     public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units)
     {
+        BattleRecordSystem.SaveJoin(side, battleid, opponentCards, units);
         if (delayBattleId != 0)
             return true;
 
@@ -82,12 +83,14 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool BattleReport(ref COM_BattleReport report)
     {
+        BattleRecordSystem.SaveReport(report);
         Battle.BattleReport = report;
         return true;
     }
 
     public bool BattleExit(ref COM_BattleResult result)
     {
+        BattleRecordSystem.SaveResult(result);
         Battle.Result = result;
         return true;
     }
@@ -170,6 +173,7 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool OpenChapter(ref COM_Chapter chapter)
 	{
+        UnityEngine.Debug.Log("has new one");
 		JieHunSystem.instance.AddChapterData(chapter);		
 		return true;
 	}
@@ -454,4 +458,9 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			return true;
 		}
+
+    public bool QueryBattleRecordOK(ref COM_BattleRecord br)
+    {
+        return true;
+    }
 }
