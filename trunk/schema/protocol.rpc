@@ -120,4 +120,6 @@ service COM_ServerToClient{
 	QueryGuildDetailsResult(COM_GuildDetails info);												//请求帮派详情
 	JoinGuildOk();
 	//@}
+	
+	TianTiSeasonDrop(COM_Award award);
 };

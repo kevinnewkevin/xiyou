@@ -4,6 +4,7 @@ import (
 	"jimny/logs"
 	"logic/conf"
 	"time"
+	"logic/prpc"
 )
 
 const (
@@ -252,4 +253,110 @@ func CaleTiantiPVR(player *GamePlayer, winCamp int) int32 {
 		logs.Info("Tianti PVR Battle Over CaleVal Loser Player[", player.MyUnit.InstId, "]", "TianTiVal[", player.TianTiVal, "]", "DropId=", ttData.LoseDop)
 	}
 	return dropId
+}
+
+//天梯赛季更新
+func TianTiSeasonRefresh()  {
+	for _, p := range PlayerStore {
+		if p == nil {
+			continue
+		}
+		if !p.CheckTianTiQualification() {
+			continue
+		}
+		
+		//发奖励
+		p.SendSeasonDrop()
+		//重算积分
+		p.ResetTianTiVal()
+	}
+}
+
+func (player *GamePlayer)ResetTianTiVal()  {
+	tableId := GetTianTiIdByVal(player.TianTiVal)
+
+	//段位减2
+	tableId -= 2
+	if tableId <= 0 {
+		tableId = 1
+	}
+
+	ttData := GetTianTiTableDataById(tableId)
+	if ttData == nil {
+		logs.Info("ResetTianTiVal PlayerName=",player.MyUnit.InstName,"Can Not Find TianTiTableData By TableId=", tableId)
+		return
+	}
+	player.TianTiVal = ttData.ScoreFloor
+
+	if player.session != nil {
+		player.session.UpdateTiantiVal(player.TianTiVal)
+	}
+}
+
+func (player *GamePlayer)CheckTianTiQualification() bool {
+	if player.TianTiVal <= 0 {
+		return false
+	}
+	season := time.Now().Month()
+	if int32(season) == player.TianTiSeason {
+		return false
+	}
+	return true
+}
+
+func (player *GamePlayer)SendSeasonDrop()  {
+	co := prpc.COM_Award{}
+	tableId := GetTianTiIdByVal(player.TianTiVal)
+	ttData := GetTianTiTableDataById(tableId)
+	if ttData == nil {
+		logs.Info("SendSeasonDrop PlayerName=",player.MyUnit.InstName,"Can Not Find TianTiTableData By TableId=", tableId)
+		return
+	}
+	drop := GetDropById(ttData.LadderDrop)
+	if drop == nil {
+		logs.Info("Can Not Find Drop By DropId=", ttData.LadderDrop)
+		return
+	}
+	if drop.Exp != 0 {
+		player.AddExp(drop.Exp)
+		co.Exp = drop.Exp
+	}
+	if drop.Money != 0 {
+		player.AddCopper(drop.Money)
+		co.Copper = drop.Money
+	}
+	if len(drop.Items) != 0 {
+		for _, item := range drop.Items {
+			player.AddBagItemByItemId(item.ItemId, item.ItemNum)
+			logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddItem ItemId=", item.ItemId, "ItemNum=", item.ItemNum)
+			itemInst := prpc.COM_ItemInst{}
+			itemInst.ItemId = item.ItemId
+			itemInst.Stack = item.ItemNum
+			co.Items = append(co.Items, itemInst)
+		}
+
+	}
+	if drop.Hero != 0 {
+		if player.HasUnitByTableId(drop.Hero) {
+			//有这个卡就不给了
+			logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit Have not to UnitId=", drop.Hero)
+		} else {
+			unit := player.NewGameUnit(drop.Hero)
+			if unit != nil {
+				logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit OK UnitId=", drop.Hero)
+				temp := unit.GetUnitCOM()
+				if player.session != nil {
+					player.session.AddNewUnit(temp)
+					co.Hero = drop.Hero
+				}
+			}
+		}
+	}
+
+	if player.session != nil {
+		player.session.TianTiSeasonDrop(co)
+		logs.Info("SendSeasonDrop PlayerName=",player.MyUnit.InstName,"OK", co)
+		season := time.Now().Month()
+		player.TianTiSeason = int32(season)
+	}
 }

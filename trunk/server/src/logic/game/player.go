@@ -40,6 +40,7 @@ type GamePlayer struct {
 	ChapterID int32 //正在进行的关卡
 	Chapters  []*prpc.COM_Chapter
 
+	TianTiSeason	 int32
 	TianTiVal        int32
 	TianTiRank       int32
 	FriendTianTiRank int32
@@ -344,13 +345,14 @@ func (this *GamePlayer) GetPlayerCOM() prpc.COM_Player {
 func (this *GamePlayer) SetPlayerSGE(p prpc.SGE_DBPlayer) {
 
 	this.SetPlayerCOM(&p.COM_Player)
-	this.PlayerId 	= p.PlayerId
-	this.Username 	= p.Username
-	this.LoginTime 	= p.LoginTime
-	this.LogoutTime = p.LogoutTime
+	this.PlayerId 		= p.PlayerId
+	this.Username 		= p.Username
+	this.LoginTime 		= p.LoginTime
+	this.LogoutTime 	= p.LogoutTime
 	this.AssistantId	= p.AssistantId
 	this.GenItemMaxGuid = p.GenItemMaxGuid
-	this.ChapterPondId = p.ChapterPondId
+	this.ChapterPondId 	= p.ChapterPondId
+	this.TianTiSeason	= p.TianTiSeason
 	for i := range p.BagItemList {
 		this.BagItems = append(this.BagItems, &p.BagItemList[i])
 	}
@@ -366,13 +368,15 @@ func (this *GamePlayer) GetPlayerSGE() prpc.SGE_DBPlayer {
 
 	data := prpc.SGE_DBPlayer{}
 	data.COM_Player = this.GetPlayerCOM()
-	data.PlayerId = this.PlayerId
-	data.Username = this.Username
-	data.LoginTime = this.LoginTime
-	data.LogoutTime = this.LogoutTime
-	data.AssistantId = this.AssistantId
+	data.PlayerId 		= this.PlayerId
+	data.Username 		= this.Username
+	data.LoginTime 		= this.LoginTime
+	data.LogoutTime 	= this.LogoutTime
+	data.AssistantId 	= this.AssistantId
 	data.GenItemMaxGuid = this.GenItemMaxGuid
-	data.ChapterPondId = this.ChapterPondId
+	data.ChapterPondId 	= this.ChapterPondId
+	data.TianTiSeason	= this.TianTiSeason
+
 	data.BagItemList = items
 
 	if this.BlackMarketData != nil {
@@ -420,6 +424,12 @@ func (this *GamePlayer) PlayerLogin() {
 	pGuild := FindGuildByPlayerId(this.MyUnit.InstId)
 	if pGuild != nil{
 		pGuild.GuildMemberOnLine(this)
+	}
+
+	//天梯赛季奖励
+	if this.CheckTianTiQualification() {
+		this.SendSeasonDrop()
+		this.ResetTianTiVal()
 	}
 }
 
@@ -1690,13 +1700,12 @@ func TestPlayer() {
 	if player==nil {
 		return
 	}
-	logs.Info("Chapters",player.Chapters)
-
-	for i:=0;i<10 ;i++  {
-		player.RandChapterGo()
+	player.TianTiVal = 2000
+	if player.CheckTianTiQualification() {
+		player.SendSeasonDrop()
+		player.ResetTianTiVal()
 	}
-
-	logs.Info("Chapters new",player.Chapters)
+	logs.Info("tiantival = ",player.TianTiVal,)
 }
 
 

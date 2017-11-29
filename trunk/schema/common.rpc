@@ -238,6 +238,7 @@ struct SGE_DBPlayer : COM_Player {
 	COM_ItemInst[] 		BagItemList;
 	COM_BlackMarket		BlackMarketData;
 	int32				ChapterPondId;
+	int32				TianTiSeason;		//天梯赛季
 };
 
 struct SGE_DBTopUnit {
@@ -369,4 +370,13 @@ struct SGE_DBGuildAssistant
 	int32 			MaxCount;		//最大数量
 	int32			CatchNum;		//角色不在线收到的捐赠数量
 	int64[]			Donator;		
+};
+
+struct COM_Award
+{
+	int32	Copper;
+	int32 	Gold;
+	int32	Exp;
+	int32	Hero;			//卡牌ID
+	COM_ItemInst[] Items;	
 };

@@ -53,14 +53,25 @@ func RefreshTopList() error {
 	return nil
 }
 
-func RefreshEveryMon() error {
+func RefreshEveryWeek() error {
 	defer func() {
 		if r := recover(); r != nil {
-			logs.Error("RefreshEveryMon panic %s", fmt.Sprint(r))
+			logs.Error("RefreshEveryWeek panic %s", fmt.Sprint(r))
 		}
 
 	}()
 	GuildEveryMonday()
+	return nil
+}
+
+func RefreshEveryMonth() error {
+	defer func() {
+		if r := recover(); r != nil {
+			logs.Error("RefreshEveryMonth panic %s", fmt.Sprint(r))
+		}
+
+	}()
+	TianTiSeasonRefresh()
 	return nil
 }
 
@@ -81,8 +92,11 @@ func InitGameTask() {
 	RefreshTopList := toolbox.NewTask("RefreshTopList", TopListTimer, RefreshTopList)
 	toolbox.AddTask("RefreshTopList", RefreshTopList)
 
-	everyMonTimer := GetGlobalString("C_EveryMonRefresh")
-	RefresheveryMon := toolbox.NewTask("EveryMonRefresh", everyMonTimer, RefreshEveryMon)
-	toolbox.AddTask("EveryMonRefresh", RefresheveryMon)
+	everyWeekTimer := GetGlobalString("C_EveryWeekRefresh")
+	RefresheveryWeek := toolbox.NewTask("EveryMonRefresh", everyWeekTimer, RefreshEveryWeek)
+	toolbox.AddTask("EveryMonRefresh", RefresheveryWeek)
 
+	everyMonthTimer := GetGlobalString("C_EveryMonthRefresh")
+	RefresheveryMonth := toolbox.NewTask("EveryMonthRefresh", everyMonthTimer, RefreshEveryMonth)
+	toolbox.AddTask("EveryMonthRefresh", RefresheveryMonth)
 }

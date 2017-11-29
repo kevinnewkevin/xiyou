@@ -15,6 +15,7 @@ type SGE_DBPlayer struct{
   BagItemList []COM_ItemInst  //7
   BlackMarketData COM_BlackMarket  //8
   ChapterPondId int32  //9
+  TianTiSeason int32  //10
 }
 func (this *SGE_DBPlayer)SetPlayerId(value int64) {
   this.Lock()
@@ -116,6 +117,16 @@ func (this *SGE_DBPlayer)GetChapterPondId() int32 {
   defer this.Unlock()
   return this.ChapterPondId
 }
+func (this *SGE_DBPlayer)SetTianTiSeason(value int32) {
+  this.Lock()
+  defer this.Unlock()
+  this.TianTiSeason = value
+}
+func (this *SGE_DBPlayer)GetTianTiSeason() int32 {
+  this.Lock()
+  defer this.Unlock()
+  return this.TianTiSeason
+}
 func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   {
     err := this.COM_Player.Serialize(buffer);
@@ -137,6 +148,7 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
   mask.writeBit(len(this.BagItemList) != 0)
   mask.writeBit(true) //BlackMarketData
   mask.writeBit(this.ChapterPondId!=0)
+  mask.writeBit(this.TianTiSeason!=0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -235,6 +247,15 @@ func (this *SGE_DBPlayer)Serialize(buffer *bytes.Buffer) error {
       }
     }
   }
+  // serialize TianTiSeason
+  {
+    if(this.TianTiSeason!=0){
+      err := write(buffer,this.TianTiSeason)
+      if err != nil{
+        return err
+      }
+    }
+  }
   return nil
 }
 func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
@@ -322,6 +343,13 @@ func (this *SGE_DBPlayer)Deserialize(buffer *bytes.Buffer) error{
   // deserialize ChapterPondId
   if mask.readBit() {
     err := read(buffer,&this.ChapterPondId)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize TianTiSeason
+  if mask.readBit() {
+    err := read(buffer,&this.TianTiSeason)
     if err != nil{
       return err
     }
