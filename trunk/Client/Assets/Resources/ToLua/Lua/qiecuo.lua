@@ -21,6 +21,12 @@ local okTrans;
 local anim;
 local pipeiOk;
 local nameArr;
+
+local ttRewardList;
+local rewardList;
+local ttRewardClose;
+
+
 function qiecuo:OnEntry()
 	Window = qiecuo.New();
 	Window:Show();
@@ -65,6 +71,13 @@ function qiecuo:OnInit()
 	local name8 = pipeiOk:GetChild("n15");
 	local name9 = pipeiOk:GetChild("n14");
 	local name10 = pipeiOk:GetChild("n13");
+
+	ttRewardList = self.contentPane:GetChild("n12").asCom;
+	ttRewardClose = ttRewardList:GetChild("n16");
+	ttRewardClose.onClick:Add(qiecuo_ttRewardClose);
+	ttRewardList.visible = false;
+	rewardList = ttRewardList:GetChild("n13");
+	rewardList.itemRenderer = qiecuo_RenderListItem;
 	nameArr ={};
 	nameArr[0] = name0;
 	nameArr[1] = name1;
@@ -96,6 +109,10 @@ function qiecuo:OnInit()
 	descLab.text = "天梯会匹配实力相近的对手，战斗胜利将获得各种英雄碎片，段位越高奖励越好！";
 	tiantiFen0 = liftPanel:GetChild("n41");
 	tiantiFen1 = liftPanel:GetChild("n42");
+	local listBtn = liftPanel:GetChild("n45");
+	listBtn.onClick:Add(qiecuo_OnList);
+	local battleVideoBtn = liftPanel:GetChild("n44");
+	battleVideoBtn.onClick:Add(qiecuo_OnVideo);
 	qiecuo_FlushData();
 end
 
@@ -275,4 +292,58 @@ function qiecuo_RandName()
 	for i=1, 11 do
 	nameArr[i -1].text = RandNameData.Rand(); 
 	end
+end
+
+function qiecuo_ttRewardClose(context)
+	ttRewardList.visible = false;
+end
+
+function qiecuo_OnList(context)
+	rewardList.numItems = LadderData.metaData.Count;
+	ttRewardList.visible = true;
+end
+
+function qiecuo_OnVideo(context)
+
+end
+
+function qiecuo_RenderListItem(index, obj)
+	local data = LadderData.metaData[index+1];
+	obj:GetChild("n6").text = "积分：" .. data._ScoreL .. "-" .. data._ScoreH;
+	obj:GetChild("n5").asLoader.url = "ui://qiecuo/xiao_duanwei" .. (index +1);
+
+	if GamePlayer._TianTiVal >= data._ScoreL and GamePlayer._TianTiVal <= data._ScoreH then
+		obj:GetChild("n13").visible = true;
+	else
+		obj:GetChild("n13").visible = false;
+	end
+	local drop = DropData.GetData(data._LadderDrop);
+	if drop.item1_ ~= 0 then
+		local item = ItemData.GetData(drop.item1_);
+		obj:GetChild("n8").asLoader.url = "ui://" .. item._Icon;
+		obj:GetChild("n7").asLoader.url = "ui://" .. item._IconBack;  
+	else
+		obj:GetChild("n8").visible = false;
+		obj:GetChild("n7").visible = false; 
+	end
+
+	if drop.item2_ ~= 0 then
+		local item2 = ItemData.GetData(drop.item1_);
+		obj:GetChild("n10").asLoader.url = "ui://" .. item2._Icon;
+		obj:GetChild("n9").asLoader.url = "ui://" .. item2._IconBack;  
+	else
+		obj:GetChild("n10").visible = false;
+		obj:GetChild("n9").visible = false; 
+	end
+
+	if drop.item3_ ~= 0 then
+		local item3 = ItemData.GetData(drop.item1_);
+		obj:GetChild("n11").asLoader.url = "ui://" .. item3._Icon;
+		obj:GetChild("n12").asLoader.url = "ui://" .. item3._IconBack;  
+	else
+		obj:GetChild("n11").visible = false;
+		obj:GetChild("n12").visible = false; 
+	end
+
+
 end
