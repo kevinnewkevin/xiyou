@@ -58,7 +58,9 @@
     </image>
     <component id="n47_myec" name="n47" src="myecg" xy="119,97" scale="1.2,1.2"/>
     <text id="n49_myec" name="n49" xy="511,124" size="183,69" font="方正楷体_GBK" fontSize="60" color="#f1c137" vAlign="middle" strokeColor="#332404" strokeSize="2" text="等级15"/>
-    <graph id="n56_c9yj" name="n56" xy="330,139" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
+    <graph id="n56_c9yj" name="n56" xy="476,480" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+      <relation target="n60_tkrv" sidePair="center-center,middle-middle"/>
+    </graph>
     <component id="n52_myec" name="n52" src="myecn" xy="632,820"/>
     <text id="n59_usxy" name="n59" xy="69,87" size="54,312" font="方正楷体_GBK" fontSize="40" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="啦啦啦啦啦"/>
     <image id="n60_tkrv" name="n60" src="tkrvx" xy="-172,346"/>
