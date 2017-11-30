@@ -63,6 +63,9 @@ service COM_ClientToServer{
 	RandChapter();													//释魂(抽关卡)
 	
 	QueryBattleRecord(int64 battleid);								//查询具体战报
+	
+	QueryPlayerRecordDetail(int64 playerId);					//请求录像详细信息(某个玩家)
+	QueryCheckpointRecordDetail(int32 battleid);				//请求录像详细信息(某个小关卡)
 };
 
 service COM_ServerToClient{
@@ -125,4 +128,5 @@ service COM_ServerToClient{
 	
 	TianTiSeasonDrop(COM_Award award);
 	QueryBattleRecordOK(COM_BattleRecord record);
+	QueryRecordDetailOK(COM_BattleRecord_Detail[] recordDetials);
 };
