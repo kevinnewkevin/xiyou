@@ -199,7 +199,6 @@ function luxiang_FlushData()
 				end
 			end
 		end
-	else
-		
+		Window:CloseModalWait();
 	end
 end
