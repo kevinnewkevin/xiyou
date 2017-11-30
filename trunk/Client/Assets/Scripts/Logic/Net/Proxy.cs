@@ -467,4 +467,20 @@ class Proxy : ICOM_ServerToClientProxy
         BattleRecordSystem.CacheSimpleData(ref rds);
         return true;
     }
+
+	public bool	AppendMail(ref COM_Mail[] mails)
+	{
+		return true;
+	}
+
+	public bool DelMailOK(int id)
+	{
+		return true;
+	}
+
+
+	public bool UpdateMailOk(ref COM_Mail mail)
+	{
+		return true;
+	}
 }
