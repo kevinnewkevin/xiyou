@@ -1580,6 +1580,18 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 	return false
 }
 
+func (this *GamePlayer) AddBattleDetail(info prpc.COM_BattleRecord_Detail) {
+
+	if len(this.BattleList) < maxBattleList {
+		this.BattleList = append(this.BattleList, info)
+	} else {
+		this.BattleList = append(this.BattleList, info)
+		this.BattleList = this.BattleList[1:]
+	}
+
+	return
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //查询
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1654,6 +1666,40 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 	logs.Debug("QueryPlayerInfo end", info)
 
 	this.session.QueryPlayerInfoOK(info)
+
+	return
+}
+func (this *GamePlayer) QueryPlayerRecordDetail(Instid int64) {
+	p := FindPlayerByInstId(Instid)
+	if p == nil {
+		var p *prpc.SGE_DBPlayer
+		if p = <- QueryPlayerById(Instid); p!=nil {		//数据库里有这个人
+			player := &GamePlayer{}
+			player.SetPlayerSGE(*p)
+
+			this.session.QueryRecordDetailOK(player.BattleList)
+
+			logs.Debug("QueryPlayerRecordDetail offline ")
+		} else {
+			return
+		}
+	} else {
+		this.session.QueryRecordDetailOK(p.BattleList)
+		logs.Debug("QueryPlayerRecordDetail online ")
+	}
+
+	logs.Debug("QueryPlayerRecordDetail end")
+
+
+	return
+}
+
+
+func (this *GamePlayer) QueryCheckpointRecordDetail(Instid int32) {
+
+	record := FindBattleRecord(Instid)
+
+	this.session.QueryRecordDetailOK(record)
 
 	return
 }

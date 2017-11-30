@@ -157,6 +157,7 @@ type BattleRoom struct {
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
+var BattleRecordPVE = map[int32][]prpc.COM_BattleRecord_Detail{}
 
 ////////////////////////////////////////////////////////////////////////
 ////创建部分
@@ -323,6 +324,30 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	go room.BattleUpdate()
 
 	return &room
+}
+
+func FindBattleRecord(battleId int32) []prpc.COM_BattleRecord_Detail {
+	if record, ok := BattleRecordPVE[battleId]; ok {
+		return record
+	}
+
+	return nil
+}
+
+func AddBattleRecord(battleId int32, info prpc.COM_BattleRecord_Detail) {
+	record, ok := BattleRecordPVE[battleId]
+
+	if !ok {
+		BattleRecordPVE[battleId] = []prpc.COM_BattleRecord_Detail{info}
+	} else {
+		if len(record) < 5 {
+			BattleRecordPVE[battleId] = append(BattleRecordPVE[battleId], info)
+		}
+	}
+
+	logs.Debug("AddBattleRecord", BattleRecordPVE[battleId])
+
+	return
 }
 
 func FindBattle(battleId int64) *BattleRoom {
@@ -613,6 +638,16 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		result.MySelfDeathNum = bp.MyDeathNum
 
 		if this.Type == prpc.BT_PVE {
+			if win != 0 {
+				b := prpc.COM_BattleRecord_Detail{}
+
+				b.Battleid = this.BattleID
+				b.ReportId = this.InstId
+				b.Players = this.Record.Players
+				b.Winner = this.Record.Winner
+
+				AddBattleRecord(this.BattleID, b)
+			}
 			dropId := bp.CalcSmallChapterStar(result, p)
 			if dropId != 0 {
 				drop := GetDropById(dropId)
@@ -681,7 +716,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				b.Winner = this.Record.Winner
 
 
-				p.BattleList = append(p.BattleList, b)
+				p.AddBattleDetail(b)
 				dropId := CaleTianTiVal(p, once, camp)
 
 				if dropId != 0 {

@@ -535,6 +535,8 @@ func (this *Session)QueryPlayerRecordDetail(playerId int64) error{
 		return nil
 	}
 
+	this.player.QueryPlayerRecordDetail(playerId)
+
 	return nil
 }
 
@@ -542,6 +544,8 @@ func (this *Session)QueryCheckpointRecordDetail(battleid int32) error{
 	if this.player == nil {
 		return nil
 	}
+
+	this.player.QueryCheckpointRecordDetail(battleid)
 
 	return nil
 }
