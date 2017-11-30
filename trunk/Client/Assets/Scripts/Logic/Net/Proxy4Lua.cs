@@ -206,11 +206,18 @@ public class Proxy4Lua {
     static public void RequestPlayerRecordData(long instid)
     {
         UIManager.Show("luxiang");
+        NetWoking.S.QueryPlayerRecordDetail(instid);
     }
 
     static public void RequestFBRecordData(int battleid)
     {
         UIManager.Show("guankaluxiang");
+        NetWoking.S.QueryCheckpointRecordDetail(battleid);
+    }
+
+    static public void RequestRecord(long recordid)
+    {
+        BattleRecordSystem.RequestRecord(recordid);
     }
 
     #endregion
@@ -751,11 +758,6 @@ public class Proxy4Lua {
     static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3, object pa4)
     {
         return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3, pa4);
-    }
-
-    static public void RequestRecord(long recordid)
-    {
-        BattleRecordSystem.RequestRecord(recordid);
     }
 }
 
