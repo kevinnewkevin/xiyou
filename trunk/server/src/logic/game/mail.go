@@ -129,11 +129,11 @@ func (player *GamePlayer)GetMailItem(mailId int32)  {
 			if player.Mails[i].Hero != 0 {
 				if player.HasUnitByTableId(player.Mails[i].Hero) {
 					//有这个卡就不给了
-					logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit Have not to UnitId=",player. Mails[i].Hero)
+					logs.Info("PlayerName=", player.MyUnit.InstName, "GetMailItem AddUnit Have not to UnitId=",player. Mails[i].Hero)
 				} else {
 					unit := player.NewGameUnit(player.Mails[i].Hero)
 					if unit != nil {
-						logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit OK UnitId=", player.Mails[i].Hero)
+						logs.Info("PlayerName=", player.MyUnit.InstName, "GetMailItem AddUnit OK UnitId=", player.Mails[i].Hero)
 						temp := unit.GetUnitCOM()
 						if player.session != nil {
 							player.session.AddNewUnit(temp)
@@ -143,6 +143,7 @@ func (player *GamePlayer)GetMailItem(mailId int32)  {
 				player.Mails[i].Hero = 0
 			}
 			//updata db and to client
+			logs.Info("PlayerName=", player.MyUnit.InstName, "GetMailItem OK")
 			isOK := <-UpdateMail(player.Mails[i])
 			//TO Client
 			if isOK && player.session != nil {
