@@ -69,6 +69,10 @@ function zhujiemian:OnInit()
 	local tujianBtn = self.contentPane:GetChild("n45");
 	tujianBtn.onClick:Add(zhujiemian_OnTuJian);
 
+	local emailBtn = self.contentPane:GetChild("n7");
+	emailBtn .onClick:Add(zhujiemian_OnEmailBtn);
+
+
 	friendRad = self.contentPane:GetChild("n56");
 	friendRad.visible = false;
 
@@ -369,7 +373,6 @@ function zhujiemian_OnTuJian()
 	UIManager.Show("tujian");
 end
 
-
 function zhujiemian_OnGuild()
 	if GamePlayer._iGuildId == 0 then
 		Proxy4Lua.QueryGuildList();
@@ -379,3 +382,8 @@ function zhujiemian_OnGuild()
 		UIManager.Show("squad");
 	end
 end
+
+function zhujiemian_OnEmailBtn()
+	UIManager.Show("youxiang");
+end
+
