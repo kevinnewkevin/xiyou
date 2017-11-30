@@ -553,6 +553,18 @@ public class GamePlayer {
             return 1;
     }
 
+	static public int nowTimeMonth()
+	{
+		string[] str = System.DateTime.Now.ToString("yyyy:MM:dd").Split(new char[]{':'});
+		return  int.Parse(str[1]);
+	}
+
+	static public int nowTimeYear()
+	{
+		string[] str = System.DateTime.Now.ToString("yyyy:MM:dd").Split(new char[]{':'});
+		return  int.Parse(str[0]);
+	}
+
     static public void Clear()
     {
         foreach(List<COM_Unit> list in _Cards.Values)
