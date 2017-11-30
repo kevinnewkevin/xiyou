@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="700,700">
+  <displayList>
+    <image id="n1_tnrx" name="n1" src="tnrx2" xy="24,6"/>
+    <image id="n6_tnrx" name="n6" src="tnrx4" xy="80,386"/>
+    <image id="n3_tnrx" name="n3" src="tnrx1" xy="98,170"/>
+    <image id="n4_tnrx" name="n4" src="tnrx6" xy="140,72"/>
+    <image id="n5_tnrx" name="n5" src="tnrx5" xy="60,224" alpha="0.6"/>
+    <image id="n2_tnrx" name="n2" src="tnrx3" xy="346,354" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n6_tnrx" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="0" type="XY" target="n6_tnrx" tween="true" startValue="26,386" endValue="391,386" duration="120"/>
+    <item time="108" type="Alpha" target="n6_tnrx" tween="true" startValue="1" endValue="0" duration="12"/>
+    <item time="120" type="Alpha" target="n3_tnrx" value="1"/>
+    <item time="120" type="XY" target="n3_tnrx" value="98,170"/>
+  </transition>
+  <transition name="t1" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n3_tnrx" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="XY" target="n3_tnrx" tween="true" startValue="58,172" endValue="470,172" duration="240"/>
+    <item time="216" type="Alpha" target="n3_tnrx" tween="true" startValue="1" endValue="0" duration="24"/>
+  </transition>
+  <transition name="t2" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n4_tnrx" tween="true" startValue="0" endValue="0" duration="66"/>
+    <item time="0" type="XY" target="n4_tnrx" value="140,72"/>
+    <item time="66" type="Alpha" target="n4_tnrx" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="66" type="XY" target="n4_tnrx" tween="true" startValue="140,72" endValue="413,72" duration="288"/>
+    <item time="342" type="Alpha" target="n4_tnrx" tween="true" startValue="1" endValue="0" duration="12"/>
+  </transition>
+  <transition name="t3" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n5_tnrx" value="0"/>
+    <item time="0" type="XY" target="n5_tnrx" value="60,224"/>
+    <item time="132" type="Alpha" target="n5_tnrx" tween="true" startValue="0" endValue="0.6" duration="12"/>
+    <item time="132" type="XY" target="n5_tnrx" tween="true" startValue="60,224" endValue="466,224" duration="288"/>
+    <item time="406" type="Alpha" target="n5_tnrx" tween="true" startValue="0.6" endValue="0" duration="14"/>
+  </transition>
+  <transition name="t4" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Rotation" target="n2_tnrx" tween="true" startValue="0" endValue="1920" duration="480" ease="Quad.In" yoyo="true"/>
+  </transition>
+</component>
