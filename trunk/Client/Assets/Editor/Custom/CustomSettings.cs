@@ -267,6 +267,9 @@ public static class CustomSettings
         _GT(typeof(COM_GuildMember)),
         _GT(typeof(COM_GuildRequestData)),
 		_GT(typeof(LadderData)),
+        _GT(typeof(BattleRecordSystem)),
+        _GT(typeof(COM_BattleRecord)),
+        _GT(typeof(COM_BattleRecord_Detail)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

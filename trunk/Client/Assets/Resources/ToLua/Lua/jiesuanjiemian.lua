@@ -105,7 +105,7 @@ end
 
 function jiesuanjiemian_FlushData()
 
-	if Battle._BattleId == 0 then
+	if Battle._BattleId == 0 or Battle._IsRecord then
 		pvpHideItem.a.visible = false;
 		pvpHideItem.b.visible = false;
 		pvpHideItem.c.visible = false;

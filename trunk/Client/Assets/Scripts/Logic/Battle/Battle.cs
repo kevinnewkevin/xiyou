@@ -60,6 +60,8 @@ public class Battle {
 
     static public int _BattleId;
 
+    static public bool _IsRecord;
+
     static public Vector3 _Center;
 
     static public Transform _CenterTrans;
@@ -104,6 +106,7 @@ public class Battle {
         {
             _BattleReport = value;
             _ReportAction = new List<COM_BattleAction>(_BattleReport.ActionList);
+            _DealUnitList = false;
         }
     }
 
@@ -135,8 +138,8 @@ public class Battle {
                 if (LoadAssets() && PlaceActor())
                 {
                     BattleData bData = BattleData.GetData(_BattleId);
-                    // battle has anim
-                    if (bData != null && bData._Animations != null && bData._Animations.Length > 0)
+                    // battle has anim but is not record
+                    if (!_IsRecord && bData != null && bData._Animations != null && bData._Animations.Length > 0)
                     {
                         GRoot.inst.modalLayer.visible = false;
                         op.Begin(bData._Animations);
@@ -153,6 +156,13 @@ public class Battle {
             case BattleState.BS_Opra:
                 break;
             case BattleState.BS_Oper:
+                if (_IsRecord)
+                {
+                    BattleRecordSystem.LaunchOperate();
+                    CurrentState = BattleState.BS_Play;
+                    return;
+                }
+
                 if (GamePlayer._IsAuto)
                 {
                     if (_Turn == 1)
@@ -187,7 +197,7 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init(int side, int battleid = 0, int[] opponentCards = null, COM_BattleUnit[] units = null)
+    static public void Init(int side, int battleid = 0, int[] opponentCards = null, COM_BattleUnit[] units = null, bool isRecord = false)
     {
         _OpponentCards = opponentCards;
         _SceneConfig = null;
@@ -200,6 +210,7 @@ public class Battle {
         _OperatList.Clear();
         _HandCards.Clear();
         _OriginUnits = units;
+        _IsRecord = isRecord;
 
         //_HandCards.Add(GamePlayer._Data);
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
@@ -225,7 +236,8 @@ public class Battle {
     {
         UIManager.GetUI("BattlePanel").Call("ShowTurn");
         new Timer().Start(1.5f, delegate {
-            CurrentState = BattleState.BS_Oper;
+            if(InBattle)
+                CurrentState = BattleState.BS_Oper;
         });
 
         for(int i=0; i < _ActorInScene.Length; ++i)
@@ -391,6 +403,7 @@ public class Battle {
         DisposeAssets();
     }
 
+    static bool _DealUnitList;
     //播放一回合战报 处理快照
     static void Play()
     {
@@ -401,7 +414,7 @@ public class Battle {
             return;
 
         // 处理每回合新上场角色
-        if (_BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
+        if (!_DealUnitList && _BattleReport.UnitList != null && _BattleReport.UnitList.Length > 0)
         {
             _ShowTimeDoing = true;
             EntityData entity;
@@ -416,7 +429,7 @@ public class Battle {
                 {
                     actor.SetValue(_BattleReport.UnitList[i].CHP, _BattleReport.UnitList[i].HP);
                     actor.InstID = _BattleReport.UnitList [i].InstId;
-                    _BattleReport.UnitList [i] = null;
+//                    _BattleReport.UnitList [i] = null;
                     continue;
                 }
                 
@@ -428,7 +441,8 @@ public class Battle {
                     _LongestShowTime = clipLen;
             }
             PushReportTip(_BattleReport.UnitList);
-            _BattleReport.UnitList = null;
+//            _BattleReport.UnitList = null;
+            _DealUnitList = true;
             new Timer().Start(_LongestShowTime, delegate {
                 _ShowTimeDoing = false;
                 _LongestShowTime = 0f;
@@ -808,6 +822,9 @@ public class Battle {
     {
         set
         {
+            if (_Result != null && _CurrentState == BattleState.BS_Result)
+                return;
+            
             _CurrentState = value;
             UIManager.SetDirty("BattlePanel");
         }
@@ -1073,18 +1090,24 @@ public class Battle {
     static public void Fini()
     {
         UnLoadAssets();
-        CurrentState = BattleState.BS_Max;
         _Result = null;
+        _IsRecord = false;
         _ReportIsPlaying = false;
         _ShowTimeDoing = false;
         _IsEnding = false;
+        _ActorLaunched = false;
+        _ShowTimeDoing = false;
         _LongestShowTime = 0f;
         _Fee = 0;
+        _Turn = 0;
         _BattleId = 0;
         _BattleCamera.Reset();
         _SelectSkillID = 0;
         _OriginUnits = null;
         _ReportTips.Clear();
+        _CrtSkill = null;
+        _CrtBuffChecker = null;
+        CurrentState = BattleState.BS_Max;
     }
 }
 

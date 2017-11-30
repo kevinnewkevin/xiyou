@@ -202,6 +202,17 @@ public class Proxy4Lua {
     {
         NetWoking.S.RandChapter();
     }
+
+    static public void RequestPlayerRecordData(long instid)
+    {
+        UIManager.Show("luxiang");
+    }
+
+    static public void RequestFBRecordData(int battleid)
+    {
+        UIManager.Show("guankaluxiang");
+    }
+
     #endregion
 
     #region 内部接口
@@ -441,6 +452,9 @@ public class Proxy4Lua {
     {
         get
         {
+            if (Battle._IsRecord)
+                return false;
+            
             if (Battle._Result == null)
                 return false;
 
@@ -464,6 +478,9 @@ public class Proxy4Lua {
     {
         get
         {
+            if (Battle._IsRecord)
+                return false;
+            
             if (Battle._Result == null)
                 return false;
 
@@ -482,6 +499,9 @@ public class Proxy4Lua {
     {
         get
         {
+            if (Battle._IsRecord)
+                return false;
+            
             if (Battle._Result == null)
                 return false;
 
@@ -703,9 +723,9 @@ public class Proxy4Lua {
         return LuaManager.Call("global.lua", "ChangeColor", content, color)[0].ToString();
     }
 
-    static public bool LongIsNotZero(long val)
+    static public bool LongIsEqual(long val, long val2)
     {
-        return val != 0;
+        return val == val2;
     }
 
     static public FairyGUI.SwipeGesture SwipeGesture(FairyGUI.GObject holder)
@@ -731,6 +751,11 @@ public class Proxy4Lua {
     static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3, object pa4)
     {
         return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3, pa4);
+    }
+
+    static public void RequestRecord(long recordid)
+    {
+        BattleRecordSystem.RequestRecord(recordid);
     }
 }
 

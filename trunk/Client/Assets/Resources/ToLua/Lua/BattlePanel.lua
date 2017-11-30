@@ -125,6 +125,7 @@ function BattlePanel:OnInit()
 
 	throwCardCom = self.contentPane:GetChild("n78").asCom;
 	throwCardCom.visible = false;
+
 	throwCardTrans = self.contentPane:GetTransition("t1");
 	throwCardTimer = {};
 
@@ -132,6 +133,10 @@ function BattlePanel:OnInit()
 end
 
 function BattlePanel_OnDragStart(context)
+	if Battle._IsRecord then
+		return;
+	end
+
 	BattlePanel_OnCardClick(context);
 	context:PreventDefault();
 	local eData = Battle.GetHandCard(context.sender.data - 1);
@@ -161,21 +166,23 @@ function BattlePanel:OnTick()
 		end
 	end
 
-	if Battle._CurrentState == Battle.BattleState.BS_Oper then
-		if countDown.ui.visible == false then
-			countDown.ui.visible = true;
+	if Battle._IsRecord == false then
+		if Battle._CurrentState == Battle.BattleState.BS_Oper then
+			if countDown.ui.visible == false then
+				countDown.ui.visible = true;
+			end
+			countDown.count = countDown.count - 1;
+			if countDown.count <= 0 then
+				BattlePanel_OnTurnOver();
+			end
+		else
+			if countDown.ui.visible == true then
+				countDown.ui.visible = false;
+			end
+			countDown.count = 30;
 		end
-		countDown.count = countDown.count - 1;
-		if countDown.count <= 0 then
-			BattlePanel_OnTurnOver();
-		end
-	else
-		if countDown.ui.visible == true then
-			countDown.ui.visible = false;
-		end
-		countDown.count = 30;
+		countDown.ui.text = countDown.count;
 	end
-	countDown.ui.text = countDown.count;
 end
 
 function BattlePanel:isShow()
@@ -187,11 +194,20 @@ function BattlePanel:OnDispose()
 end
 
 function BattlePanel:OnHide()
+	throwCardCom.visible = false;
 	selectMainRolePos.visible = false;
+	turnTransCom.visible = false;
+	skillTransCom.visible = false;
+	reportList.visible = false;
+	reportListBg.visible = false;
+	countDown.ui.visible = false;
+	startCom.visible = false;
+	autoBtn.visible = false;
 	Window:Hide();
 end
 
 function BattlePanel_FlushData()
+	RecordHandler();
 	reportList:RemoveChildrenToPool();
 	for i=0, Battle._ReportTips.Count - 1 do
 		local reportBtn = reportList:AddItemFromPool(reportBtnUrl);
@@ -225,7 +241,12 @@ function BattlePanel_FlushData()
 				end
 			end
 		elseif Battle._ReportTips[i]._RBType == ReportBase.RBType.RBT_AllAppear then
-			side.url = "ui://BattlePanel/zb_di";
+			if Battle._ReportTips[i]._Self then
+				sideStr = "ui://BattlePanel/zb_wo";
+			else
+				sideStr = "ui://BattlePanel/zb_di";
+			end
+			side.url = sideStr;
 			oper.url = "ui://BattlePanel/zb_zhan";
 			local eData = EntityData.GetData(Battle._ReportTips[i]._CasterEntityID);
 			if eData ~= nil then
@@ -260,6 +281,10 @@ function BattlePanel_FlushData()
 				end
 			end
 		end
+	end
+
+	if Battle._IsRecord then
+		return;
 	end
 
 	local operating = Battle._CurrentState == Battle.BattleState.BS_Oper;
@@ -410,6 +435,9 @@ function BattlePanel_OnReport(context)
 end
 
 function BattlePanel_OnSelectSkill()
+	if Battle._IsRecord then
+		return;
+	end
 --	if Battle.SelectSkillID == skills[skillList.selectedIndex] then
 --		skillList.selectedIndex = -1;
 --		Battle.SelectSkillID = 0;
@@ -426,6 +454,10 @@ function BattlePanel_OnSelectSkill()
 end
 
 function BattlePanel_DisableSkills(yes)
+	if Battle._IsRecord then
+		return;
+	end
+
 	skills = GamePlayer.GetMyActiveSkill();
 	local skill;
 	local sData;
@@ -440,6 +472,10 @@ function BattlePanel_DisableSkills(yes)
 end
 
 function BattlePanel_SetFeeCount(count)
+	if Battle._IsRecord then
+		return;
+	end
+
 	for i=1, 5 do
 		if i <= count then
 			fees[i]["com"].visible = true;
@@ -451,6 +487,10 @@ function BattlePanel_SetFeeCount(count)
 end
 
 function BattlePanel_SetFeeCostCount(count)
+	if Battle._IsRecord then
+		return;
+	end
+
 	for i=1, 5 do
 		if i <= count then
 			fees[i]["controller"].selectedIndex = 0;
@@ -461,6 +501,10 @@ function BattlePanel_SetFeeCostCount(count)
 end
 
 function BattlePanel_OnCardClick(context)
+	if Battle._IsRecord then
+		return;
+	end
+
 	if Proxy4Lua.SameCardSelected(context.sender.data - 1) == true then
 		UIManager.Show("shuxing");
 	end
@@ -480,17 +524,28 @@ function BattlePanel_OnCardClick(context)
 end
 
 function BattlePanel_OnReturnBtn()
+	local tip = "是否退出战斗？";
+	if Battle._IsRecord then
+		tip = "是否退出观看？";
+	end
 	local MessageBox = UIManager.ShowMessageBox();
-	MessageBox:SetData("提示", "是否退出战斗？", false, BattlePanel_OnReturn);
+	MessageBox:SetData("提示", tip, false, BattlePanel_OnReturn);
 end
 
 function BattlePanel_OnReturn()
 	UIManager.HideMessageBox();
-	Proxy4Lua.PopMsg("你逃不出我的魔掌");
-	--SceneLoader.LoadScene("main");
+	if Battle._IsRecord then
+		SceneLoader.LoadScene("main");
+	else
+		Proxy4Lua.PopMsg("你逃不出我的魔掌");
+	end
 end
 
 function BattlePanel_OnTurnOver()
+	if Battle._IsRecord then
+		return;
+	end
+
 	if Battle._CurrentState ~= Battle.BattleState.BS_Oper then
 		return;
 	end
@@ -510,6 +565,10 @@ function BattlePanel_OnTurnOver()
 end
 
 function BattlePanel:NormalCard()
+	if Battle._IsRecord then
+		return;
+	end
+
 	for i=1, 5 do
 		cards[i]["selected"].visible = false;
 		cards[i]["card"]:SetScale(1, 1);
@@ -518,6 +577,10 @@ function BattlePanel:NormalCard()
 end
 
 function BattlePanel_OnAutoBtn()
+	if Battle._IsRecord then
+		return;
+	end
+
 	GamePlayer._IsAuto = not GamePlayer._IsAuto;
 	UIManager.SetDirty("BattlePanel")
 	for i=1, 5 do
@@ -564,6 +627,10 @@ function BattlePanel:ShowTurn()
 end
 
 function BattlePanel:ShowSkill()
+	if Battle._IsRecord then
+		return;
+	end
+
 	skillTransName.text = Battle._CasterSkillName;
 	if skillTransCom.visible == false then
 		skillTransCom.visible = true;
@@ -584,5 +651,81 @@ function BattlePanel:ShowSkill()
 		skillActor:SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		Proxy4Lua.UnloadAsset(skillActor_modRes);
 		skillActor_modRes = "";
+	end
+end
+
+function RecordHandler()
+	if Battle._IsRecord then
+		Window.contentPane:GetChild("n9").visible = false;
+		Window.contentPane:GetChild("n10").visible = false;
+		Window.contentPane:GetChild("n50").visible = false;
+		Window.contentPane:GetChild("n48").visible = false;
+		Window.contentPane:GetChild("n12").visible = false;
+		Window.contentPane:GetChild("n4").visible = false;
+		Window.contentPane:GetChild("n17").visible = false;
+		Window.contentPane:GetChild("n18").visible = false;
+		Window.contentPane:GetChild("n19").visible = false;
+		Window.contentPane:GetChild("n20").visible = false;
+		Window.contentPane:GetChild("n21").visible = false;
+		Window.contentPane:GetChild("n23").visible = false;
+		Window.contentPane:GetChild("n43").visible = false;
+		Window.contentPane:GetChild("n37").visible = false;
+		Window.contentPane:GetChild("n38").visible = false;
+		Window.contentPane:GetChild("n39").visible = false;
+		Window.contentPane:GetChild("n40").visible = false;
+		Window.contentPane:GetChild("n41").visible = false;
+		Window.contentPane:GetChild("n47").visible = false;
+		Window.contentPane:GetChild("n16").visible = false;
+		Window.contentPane:GetChild("n45").visible = false;
+		Window.contentPane:GetChild("n49").visible = false;
+		Window.contentPane:GetChild("n44").visible = false;
+		Window.contentPane:GetChild("n22").visible = false;
+		Window.contentPane:GetChild("n48").visible = false;
+		Window.contentPane:GetChild("n16").visible = false;
+		Window.contentPane:GetChild("n78").visible = false;
+		Window.contentPane:GetChild("n24").visible = false;
+		Window.contentPane:GetChild("n25").visible = false;
+		Window.contentPane:GetChild("n26").visible = false;
+		Window.contentPane:GetChild("n27").visible = false;
+		Window.contentPane:GetChild("n28").visible = false;
+		Window.contentPane:GetChild("n29").visible = false;
+		Window.contentPane:GetChild("n30").visible = false;
+		Window.contentPane:GetChild("n31").visible = false;
+		Window.contentPane:GetChild("n32").visible = false;
+		Window.contentPane:GetChild("n33").visible = false;
+	else
+		Window.contentPane:GetChild("n9").visible = true;
+		Window.contentPane:GetChild("n10").visible = true;
+		Window.contentPane:GetChild("n50").visible = true;
+		Window.contentPane:GetChild("n48").visible = true;
+		Window.contentPane:GetChild("n12").visible = true;
+		Window.contentPane:GetChild("n4").visible = true;
+		Window.contentPane:GetChild("n17").visible = true;
+		Window.contentPane:GetChild("n18").visible = true;
+		Window.contentPane:GetChild("n19").visible = true;
+		Window.contentPane:GetChild("n20").visible = true;
+		Window.contentPane:GetChild("n23").visible = true;
+		Window.contentPane:GetChild("n21").visible = true;
+		Window.contentPane:GetChild("n43").visible = true;
+		Window.contentPane:GetChild("n37").visible = true;
+		Window.contentPane:GetChild("n38").visible = true;
+		Window.contentPane:GetChild("n39").visible = true;
+		Window.contentPane:GetChild("n40").visible = true;
+		Window.contentPane:GetChild("n41").visible = true;
+		Window.contentPane:GetChild("n16").visible = true;
+		Window.contentPane:GetChild("n44").visible = true;
+		Window.contentPane:GetChild("n22").visible = true;
+		Window.contentPane:GetChild("n48").visible = true;
+		Window.contentPane:GetChild("n16").visible = true;
+		Window.contentPane:GetChild("n24").visible = true;
+		Window.contentPane:GetChild("n25").visible = true;
+		Window.contentPane:GetChild("n26").visible = true;
+		Window.contentPane:GetChild("n27").visible = true;
+		Window.contentPane:GetChild("n28").visible = true;
+		Window.contentPane:GetChild("n29").visible = true;
+		Window.contentPane:GetChild("n30").visible = true;
+		Window.contentPane:GetChild("n31").visible = true;
+		Window.contentPane:GetChild("n32").visible = true;
+		Window.contentPane:GetChild("n33").visible = true;
 	end
 end

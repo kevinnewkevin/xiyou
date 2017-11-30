@@ -209,6 +209,9 @@ public class Actor {
 
     public void Reset()
     {
+        if (_ActorObj == null)
+            return;
+        
         if(_Pos != null)
             _ActorObj.transform.rotation = _Pos.rotation;
     }
@@ -283,6 +286,9 @@ public class Actor {
 
     public Vector3 Forward(float ajax)
     {
+        if (_ActorObj == null)
+            return Vector3.zero;
+        
         return _ActorObj.transform.position + _ActorObj.transform.forward * ajax;
     }
 
@@ -416,5 +422,6 @@ public class Actor {
         else
             AssetLoader.UnloadAsset(dData._AssetPath, clear);
         GameObject.Destroy(_ActorObj);
+        _ActorObj = null;
     }
 }

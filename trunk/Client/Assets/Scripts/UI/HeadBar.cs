@@ -81,11 +81,17 @@ public class HeadBar {
 
     public void PopBuff(string content)
     {
+        if (_Root._ActorObj == null)
+            return;
+        
         EmitManager.inst.Emit(_Root._ActorObj.transform, 0, content, true);
     }
 
     public void PopContent(int value, string special)
     {
+        if (_Root._ActorObj == null)
+            return;
+        
         EmitManager.inst.Emit(_Root._ActorObj.transform, value, special);
     }
 
