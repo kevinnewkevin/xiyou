@@ -21,6 +21,7 @@ local okTrans;
 local anim;
 local pipeiOk;
 local nameArr;
+local overTime;
 
 local ttRewardList;
 local rewardList;
@@ -108,7 +109,8 @@ function qiecuo:OnInit()
 	local descLab = liftPanel:GetChild("n33");
 	descLab.text = "天梯会匹配实力相近的对手，战斗胜利将获得各种英雄碎片，段位越高奖励越好！";
 	tiantiFen0 = liftPanel:GetChild("n41");
-	tiantiFen1 = liftPanel:GetChild("n42");
+	--tiantiFen1 = liftPanel:GetChild("n42");
+	overTime = liftPanel:GetChild("n43");
 	local listBtn = liftPanel:GetChild("n45");
 	listBtn.onClick:Add(qiecuo_OnList);
 	local battleVideoBtn = liftPanel:GetChild("n44");
@@ -231,12 +233,21 @@ function qiecuo_FlushData()
 				groupItem:GetChild("n4").visible = false;
 			end
 		end
+		local month = GamePlayer.nowTimeMonth();
+		local year = GamePlayer.nowTimeYear();
+		if month  == 12 then
+			month = 1;
+			year  = year +1;
+		else
+			month = month +1; 
+		end
 
+		overTime.text =  year.."年"..month.."月1日"
 		tiantiFen0.text =  "积分 " .. GamePlayer._TianTiVal;
 		--tiantiFen1.text =  "积分 " .. GamePlayer._TianTiVal;
 		local level = GamePlayer.GetTianTiLevel();
 		levelImg.asLoader.url = "ui://qiecuo/duanwei" .. level;
-		tiantiFen1.text =  Proxy4Lua.ConvertToChineseNumber(level).."段";
+		--tiantiFen1.text =  Proxy4Lua.ConvertToChineseNumber(level).."段";
 end
 
 
