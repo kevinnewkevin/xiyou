@@ -456,6 +456,7 @@ func SetReportCOM(sge *prpc.SGE_DBBattleReport) prpc.COM_BattleRecord {
 func (this *BattleRoom) BattleStrongOver() {
 	this.BattleRoomOver(prpc.CT_MAX)
 	this.PlayerList = []*BattlePlayer{}
+	this.Record.Winner = 0
 
 	this.Status = kIdle
 
@@ -474,6 +475,7 @@ func (this *BattleRoom) PlayerLeft(player *GamePlayer) {
 
 	if len(this.PlayerList) == 0 {
 		this.BattleRoomOver(prpc.CT_MAX)
+		this.Record.Winner = 0
 		this.Status = kIdle
 	}
 
@@ -548,6 +550,7 @@ func (this *BattleRoom) BattleUpdate() {
 		if now-kTimeMax >= start { //超時直接結束 並且沒有勝負方
 			this.Status = kIdle
 			this.BattleRoomOver(prpc.CT_MAX)
+			this.Record.Winner = 0
 			continue
 
 		}
@@ -591,7 +594,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 
 		if bp.BattleCamp == camp {
 			win = 1
-			this.Record.Winner = bp.PlayerId
+			//this.Record.Winner = bp.PlayerId
 		} else {
 			win = 0
 		}
@@ -675,6 +678,8 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				b.Battleid = this.BattleID
 				b.ReportId = this.InstId
 				b.Players = this.Record.Players
+				b.Winner = this.Record.Winner
+
 
 				p.BattleList = append(p.BattleList, b)
 				dropId := CaleTianTiVal(p, once, camp)
@@ -839,6 +844,15 @@ func (this *BattleRoom) Update() {
 			this.Round += 1
 			this.SendReport(this.ReportOne)
 			this.ReportAll = append(this.ReportAll, this.ReportOne)
+			var winnerid int64
+
+			for _, bp := range this.PlayerList {
+				if bp.BattleCamp == this.Winner {
+					winnerid = bp.PlayerId
+					break
+				}
+			}
+			this.Record.Winner = winnerid
 			this.BattleRoomOver(this.Winner)
 			this.Status = kIdle
 			break

@@ -91,6 +91,7 @@ struct COM_ReportCamp{
 struct COM_BattleReport_Detail {
 	int64				ReportId;
 	int32				Battleid; 	//战斗ID 不是房间ID
+	int64				Winner; 	//获胜方的的instid
 	COM_ReportCamp[]	Players;	//参赛者
 };
 
