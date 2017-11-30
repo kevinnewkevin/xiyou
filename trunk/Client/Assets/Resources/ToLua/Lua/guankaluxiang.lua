@@ -45,7 +45,7 @@ function guankaluxiang:OnDispose()
 end
 
 function guankaluxiang:OnHide()
-	BattleRecordSystem._BrDetail == nil
+	BattleRecordSystem._BrDetail = nil;
 	Window:Hide();
 end
 
@@ -58,6 +58,7 @@ function guankaluxiang_OnShare(context)
 end
 
 function guankaluxiang_FlushData()
+	Window:ShowModalWait();
 	guankaluxiangList:RemoveChildrenToPool();
 	if BattleRecordSystem._BrDetail ~= nil then
 		for i=0, BattleRecordSystem._BrDetail.Length -1 do
@@ -92,7 +93,7 @@ function guankaluxiang_FlushData()
 			rfbimg.url = "";
 			------------------------getobjend-------------------------------
 
-			for m=0, BattleRecordSystem._BrDetail[i].Players.Length then
+			for m=0, BattleRecordSystem._BrDetail[i].Players.Length do
 				if BattleRecordSystem._BrDetail[i].Players[m].InstId == BattleRecordSystem.MirrorPlayerId then
 					llv.text = BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Level;
 					lname.text = BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Name;
@@ -139,7 +140,6 @@ function guankaluxiang_FlushData()
 				end
 			end
 		end
-	else
-		
+		Window:CloseModalWait();
 	end
 end
