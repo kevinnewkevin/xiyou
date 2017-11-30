@@ -270,6 +270,8 @@ public static class CustomSettings
         _GT(typeof(BattleRecordSystem)),
         _GT(typeof(COM_BattleRecord)),
         _GT(typeof(COM_BattleRecord_Detail)),
+		_GT(typeof(COM_Mail)),
+		_GT(typeof(MailSystem)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
