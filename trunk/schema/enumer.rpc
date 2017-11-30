@@ -132,3 +132,8 @@ enum GuildJob
 	GJ_Premier,			//<帮主
 	GJ_Max,
 };
+
+enum MailType{
+	MT_Normal,
+	MT_System,
+};

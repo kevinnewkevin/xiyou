@@ -142,8 +142,14 @@ type COM_ServerToClient_QueryGuildListResult struct{
 type COM_ServerToClient_QueryGuildDetailsResult struct{
   info COM_GuildDetails  //0
 }
-type COM_ServerToClient_TianTiSeasonDrop struct{
-  award COM_Award  //0
+type COM_ServerToClient_AppendMail struct{
+  mails []COM_Mail  //0
+}
+type COM_ServerToClient_DelMailOK struct{
+  mailId int32  //0
+}
+type COM_ServerToClient_UpdateMailOk struct{
+  mail COM_Mail  //0
 }
 type COM_ServerToClient_QueryBattleRecordOK struct{
   record COM_BattleRecord  //0
@@ -202,9 +208,11 @@ type COM_ServerToClientProxy interface{
   QueryGuildListResult(guildList []COM_GuildViewerData ) error // 44
   QueryGuildDetailsResult(info COM_GuildDetails ) error // 45
   JoinGuildOk() error // 46
-  TianTiSeasonDrop(award COM_Award ) error // 47
-  QueryBattleRecordOK(record COM_BattleRecord ) error // 48
-  QueryRecordDetailOK(recordDetials []COM_BattleRecord_Detail ) error // 49
+  AppendMail(mails []COM_Mail ) error // 47
+  DelMailOK(mailId int32 ) error // 48
+  UpdateMailOk(mail COM_Mail ) error // 49
+  QueryBattleRecordOK(record COM_BattleRecord ) error // 50
+  QueryRecordDetailOK(recordDetials []COM_BattleRecord_Detail ) error // 51
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2053,34 +2061,120 @@ func (this *COM_ServerToClient_QueryGuildDetailsResult)Deserialize(buffer *bytes
   }
   return nil
 }
-func (this *COM_ServerToClient_TianTiSeasonDrop)Serialize(buffer *bytes.Buffer) error {
+func (this *COM_ServerToClient_AppendMail)Serialize(buffer *bytes.Buffer) error {
   //field mask
   mask := newMask1(1)
-  mask.writeBit(true) //award
+  mask.writeBit(len(this.mails) != 0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
       return err
     }
   }
-  // serialize award
+  // serialize mails
+  if len(this.mails) != 0{
+    {
+      err := write(buffer,uint(len(this.mails)))
+      if err != nil {
+        return err
+      }
+    }
+    for _, value := range this.mails {
+      err := value.Serialize(buffer)
+      if err != nil {
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_AppendMail)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize mails
+  if mask.readBit() {
+    var size uint
+    err := read(buffer,&size)
+    if err != nil{
+      return err
+    }
+    this.mails = make([]COM_Mail,size)
+    for i,_ := range this.mails{
+      err := this.mails[i].Deserialize(buffer)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_DelMailOK)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.mailId!=0)
   {
-    err := this.award.Serialize(buffer)
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize mailId
+  {
+    if(this.mailId!=0){
+      err := write(buffer,this.mailId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_DelMailOK)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize mailId
+  if mask.readBit() {
+    err := read(buffer,&this.mailId)
     if err != nil{
       return err
     }
   }
   return nil
 }
-func (this *COM_ServerToClient_TianTiSeasonDrop)Deserialize(buffer *bytes.Buffer) error{
+func (this *COM_ServerToClient_UpdateMailOk)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(true) //mail
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize mail
+  {
+    err := this.mail.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_UpdateMailOk)Deserialize(buffer *bytes.Buffer) error{
   //field mask
   mask, err:= newMask0(buffer,1);
   if err != nil{
     return err
   }
-  // deserialize award
+  // deserialize mail
   if mask.readBit() {
-    err := this.award.Deserialize(buffer)
+    err := this.mail.Deserialize(buffer)
     if err != nil{
       return err
     }
@@ -2950,7 +3044,7 @@ func(this* COM_ServerToClientStub)JoinGuildOk() error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)TianTiSeasonDrop(award COM_Award ) error {
+func(this* COM_ServerToClientStub)AppendMail(mails []COM_Mail ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2959,9 +3053,43 @@ func(this* COM_ServerToClientStub)TianTiSeasonDrop(award COM_Award ) error {
   if err != nil{
     return err
   }
-  _47 := COM_ServerToClient_TianTiSeasonDrop{}
-  _47.award = award;
+  _47 := COM_ServerToClient_AppendMail{}
+  _47.mails = mails;
   err = _47.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)DelMailOK(mailId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(48))
+  if err != nil{
+    return err
+  }
+  _48 := COM_ServerToClient_DelMailOK{}
+  _48.mailId = mailId;
+  err = _48.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ServerToClientStub)UpdateMailOk(mail COM_Mail ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(49))
+  if err != nil{
+    return err
+  }
+  _49 := COM_ServerToClient_UpdateMailOk{}
+  _49.mail = mail;
+  err = _49.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2972,13 +3100,13 @@ func(this* COM_ServerToClientStub)QueryBattleRecordOK(record COM_BattleRecord ) 
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(48))
+  err := write(buffer,uint16(50))
   if err != nil{
     return err
   }
-  _48 := COM_ServerToClient_QueryBattleRecordOK{}
-  _48.record = record;
-  err = _48.Serialize(buffer)
+  _50 := COM_ServerToClient_QueryBattleRecordOK{}
+  _50.record = record;
+  err = _50.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -2989,13 +3117,13 @@ func(this* COM_ServerToClientStub)QueryRecordDetailOK(recordDetials []COM_Battle
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
-  err := write(buffer,uint16(49))
+  err := write(buffer,uint16(51))
   if err != nil{
     return err
   }
-  _49 := COM_ServerToClient_QueryRecordDetailOK{}
-  _49.recordDetials = recordDetials;
-  err = _49.Serialize(buffer)
+  _51 := COM_ServerToClient_QueryRecordDetailOK{}
+  _51.recordDetials = recordDetials;
+  err = _51.Serialize(buffer)
   if err != nil{
     return err
   }
@@ -3629,19 +3757,47 @@ func Bridging_COM_ServerToClient_JoinGuildOk(buffer *bytes.Buffer, p COM_ServerT
   }
   return p.JoinGuildOk()
 }
-func Bridging_COM_ServerToClient_TianTiSeasonDrop(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+func Bridging_COM_ServerToClient_AppendMail(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
   }
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _47 := COM_ServerToClient_TianTiSeasonDrop{}
+  _47 := COM_ServerToClient_AppendMail{}
   err := _47.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.TianTiSeasonDrop(_47.award)
+  return p.AppendMail(_47.mails)
+}
+func Bridging_COM_ServerToClient_DelMailOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _48 := COM_ServerToClient_DelMailOK{}
+  err := _48.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.DelMailOK(_48.mailId)
+}
+func Bridging_COM_ServerToClient_UpdateMailOk(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _49 := COM_ServerToClient_UpdateMailOk{}
+  err := _49.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.UpdateMailOk(_49.mail)
 }
 func Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -3650,12 +3806,12 @@ func Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer *bytes.Buffer, p COM
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _48 := COM_ServerToClient_QueryBattleRecordOK{}
-  err := _48.Deserialize(buffer)
+  _50 := COM_ServerToClient_QueryBattleRecordOK{}
+  err := _50.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.QueryBattleRecordOK(_48.record)
+  return p.QueryBattleRecordOK(_50.record)
 }
 func Bridging_COM_ServerToClient_QueryRecordDetailOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
@@ -3664,12 +3820,12 @@ func Bridging_COM_ServerToClient_QueryRecordDetailOK(buffer *bytes.Buffer, p COM
   if p == nil {
     return errors.New(NoneProxyError)
   }
-  _49 := COM_ServerToClient_QueryRecordDetailOK{}
-  err := _49.Deserialize(buffer)
+  _51 := COM_ServerToClient_QueryRecordDetailOK{}
+  err := _51.Deserialize(buffer)
   if err != nil{
     return err
   }
-  return p.QueryRecordDetailOK(_49.recordDetials)
+  return p.QueryRecordDetailOK(_51.recordDetials)
 }
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
@@ -3779,10 +3935,14 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
     case 46 :
       return Bridging_COM_ServerToClient_JoinGuildOk(buffer,p);
     case 47 :
-      return Bridging_COM_ServerToClient_TianTiSeasonDrop(buffer,p);
+      return Bridging_COM_ServerToClient_AppendMail(buffer,p);
     case 48 :
-      return Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer,p);
+      return Bridging_COM_ServerToClient_DelMailOK(buffer,p);
     case 49 :
+      return Bridging_COM_ServerToClient_UpdateMailOk(buffer,p);
+    case 50 :
+      return Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer,p);
+    case 51 :
       return Bridging_COM_ServerToClient_QueryRecordDetailOK(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)

@@ -166,6 +166,7 @@ func PlayerTick(dt float64) {
 			continue
 		}
 		p.CaleMyEnergy(dt)
+		p.MailTick(dt)
 	}
 }
 

@@ -546,6 +546,30 @@ func (this *Session)QueryCheckpointRecordDetail(battleid int32) error{
 	return nil
 }
 
+func (this *Session)ReadMail(mailId int32) error {
+	if this.player == nil {
+		return nil
+	}
+	this.player.ReadMail(mailId)
+	return nil
+}
+
+func (this *Session)DelMail(mailId int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.DeleteMail(mailId)
+	return nil
+}
+
+func (this *Session)GetMailItem(mailId int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	this.player.GetMailItem(mailId)
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {

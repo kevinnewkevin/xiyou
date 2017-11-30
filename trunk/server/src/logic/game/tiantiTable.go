@@ -12,6 +12,7 @@ type (
 		LadderDrop int32 //赛季奖励
 		WinDrop    int32 //单次输赢奖励
 		LoseDop    int32
+		GloAction  string
 	}
 )
 
@@ -38,7 +39,7 @@ func LoadTianTiTable(filename string) error {
 		c.LadderDrop = csv.GetInt32(r, "LadderDrop")
 		c.ScoreFloor = csv.GetInt32(r, "ScoreL")
 		c.ScoreUpper = csv.GetInt32(r, "ScoreH")
-
+		c.GloAction = csv.GetString(r,"Script")
 		TianTiTableData[id] = &c
 	}
 	return nil

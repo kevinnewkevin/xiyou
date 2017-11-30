@@ -1629,3 +1629,191 @@ func QueryBattleReport(Battleid int64) <- chan *prpc.SGE_DBBattleReport {
 	return rChan
 }
 
+
+
+//Mail
+func InsertMail(mail prpc.COM_Mail) <-chan bool {
+	rChan := make( chan bool )
+
+	go func() {
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertMail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("INSERT INTO `Mail`( `RecvName` , `SendTime` , `ItemNum` ,`Hero`,`Copper`,`Gold`, `BinData` ) VALUES(?,?,?,?,?,?,?)")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
+		b :=  bytes.NewBuffer(nil)
+		mail.Serialize(b)
+
+		stmt.Exec(mail.RecvPlayerName,mail.MailTimestamp,len(mail.Items),mail.Hero,mail.Copper,mail.Gold,b.Bytes())
+		stmt.Close()
+		rChan <- true
+		close(rChan)
+	}()
+
+	return rChan
+}
+
+func EraseMail(mailId int32) <-chan bool {
+	rChan := make( chan bool )
+
+	go func() {
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("EraseMail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("DELETE FROM `Mail` WHERE `MailGuid`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
+		stmt.Exec(mailId)
+		stmt.Close()
+		rChan <- true
+		close(rChan)
+	}()
+
+	return rChan
+}
+
+func UpdateMail(mail prpc.COM_Mail) <-chan bool {
+	rChan := make( chan bool )
+	go func() {
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateMail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		stmt, e := c.Prepare("UPDATE `Mail` SET `BinData`=?,`ItemNum`=?,`Hero`=?,`Copper`=?,`Gold`=?, WHERE `MailGuid`=?")
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- false
+			close(rChan)
+			return
+		}
+
+		b :=  bytes.NewBuffer(nil)
+		mail.Serialize(b)
+
+		stmt.Exec(b.Bytes(),len(mail.Items),mail.Hero,mail.Copper,mail.Gold,mail.MailId)
+		stmt.Close()
+		rChan <- true
+		close(rChan)
+	}()
+	return rChan
+}
+
+func FatchDBMail(recv string, fatchid int32) <- chan []prpc.COM_Mail {
+	rChan := make( chan []prpc.COM_Mail)
+
+	go func() {
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertMail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+
+		r, e := c.Query("SELECT * FROM `Mail` WHERE `RecvName`= ? and `MailGuid` > ? order by `MailGuid` asc limit 100;",recv,fatchid)
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		arr := []prpc.COM_Mail{}
+
+		for r.Next() {
+			mailId 		:= int32(0)
+			recvName	:= ""
+			sendTime	:= int64(0)
+			itemNum 	:= int32(0)
+			hero 		:= int32(0)
+			copper 		:= int32(0)
+			gold 		:= int32(0)
+			data 		:= []byte{}
+
+			e = r.Scan(&mailId,&recvName,&sendTime,&itemNum,&hero,&copper,&gold,&data)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+			m := prpc.COM_Mail{}
+			bb := bytes.NewBuffer(data)
+			e = m.Deserialize(bb)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+			m.MailId = mailId
+
+			arr = append(arr,m)
+		}
+
+		rChan <- arr
+		close(rChan)
+	}()
+
+	return rChan
+}

@@ -61,6 +61,7 @@ func CallLuaFunc(fn string, inParams []interface{}, outParams *[]interface{}) er
 	e := _L.CallByParam(p, a...)
 
 	if e != nil {
+		logs.Info("CallByParam", e)
 		return e
 	}
 
@@ -119,6 +120,7 @@ var sysMod = map[string]lua.LGFunction{
 	"DefineCards":      __DefineCards,
 	"DefineBattleCard": __DefineBattleCard,
 	"GetTime":          __GetTime,
+	"SendMailByDrop":   __SendMailByDrop,
 }
 
 var playerMod = map[string]lua.LGFunction{
@@ -1847,6 +1849,33 @@ func __Throw(L *lua.LState) int { //删除指定卡牌
 	battle := FindBattle(battleid)
 
 	battle.Throw(unitid, throw)
+
+	return 0
+}
+
+//export __SendMailByDrop
+func __SendMailByDrop(L *lua.LState) int {
+	logs.Info("__SendMailByDrop")
+	idx := 1
+	sendName := L.ToString(idx)
+	idx++
+	recvName := L.ToString(idx)
+	idx++
+	title 	 := L.ToString(idx)
+	idx++
+	content  := L.ToString(idx)
+	idx++
+	dropId   := L.ToInt(idx)
+
+	logs.Info("__SendMailByDrop",sendName,recvName,title,content,dropId)
+
+	player := FindPlayerByInstName(recvName)
+	if player == nil {
+		logs.Info("__SendMailByDrop FindPlayerByInstName==nil", recvName)
+		return 0
+	}
+
+	SendMailByDrop(sendName,recvName,title,content,int32(dropId))
 
 	return 0
 }

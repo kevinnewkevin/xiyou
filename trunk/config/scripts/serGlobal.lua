@@ -48,6 +48,6 @@ Global.setGlobalString("C_PassZeroHour","0 0 0 * * *");
 Global.setGlobalString("C_BlackMarkteRefresh","0 0 0,6,12,18 * * *");
 Global.setGlobalString("C_TopListRefresh","0 */5 * * * *");
 Global.setGlobalString("C_EveryWeekRefresh","0 0 1 * * 1");
-Global.setGlobalString("C_EveryMonthRefresh","0 0 1 1 * *");			--//天梯赛季更新
+Global.setGlobalString("C_EveryMonthRefresh","0 */1 * * * *");			--//天梯赛季更新  "0 0 1 1 * *"
 
 

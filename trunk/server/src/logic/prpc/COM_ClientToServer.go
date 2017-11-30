@@ -135,6 +135,15 @@ type COM_ClientToServer_QueryPlayerRecordDetail struct{
 type COM_ClientToServer_QueryCheckpointRecordDetail struct{
   battleid int32  //0
 }
+type COM_ClientToServer_ReadMail struct{
+  mailId int32  //0
+}
+type COM_ClientToServer_DelMail struct{
+  mailId int32  //0
+}
+type COM_ClientToServer_GetMailItem struct{
+  mailId int32  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -189,6 +198,9 @@ type COM_ClientToServerProxy interface{
   QueryBattleRecord(battleid int64 ) error // 47
   QueryPlayerRecordDetail(playerId int64 ) error // 48
   QueryCheckpointRecordDetail(battleid int32 ) error // 49
+  ReadMail(mailId int32 ) error // 50
+  DelMail(mailId int32 ) error // 51
+  GetMailItem(mailId int32 ) error // 52
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1810,6 +1822,114 @@ func (this *COM_ClientToServer_QueryCheckpointRecordDetail)Deserialize(buffer *b
   }
   return nil
 }
+func (this *COM_ClientToServer_ReadMail)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.mailId!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize mailId
+  {
+    if(this.mailId!=0){
+      err := write(buffer,this.mailId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_ReadMail)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize mailId
+  if mask.readBit() {
+    err := read(buffer,&this.mailId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_DelMail)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.mailId!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize mailId
+  {
+    if(this.mailId!=0){
+      err := write(buffer,this.mailId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_DelMail)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize mailId
+  if mask.readBit() {
+    err := read(buffer,&this.mailId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_GetMailItem)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.mailId!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize mailId
+  {
+    if(this.mailId!=0){
+      err := write(buffer,this.mailId)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_GetMailItem)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize mailId
+  if mask.readBit() {
+    err := read(buffer,&this.mailId)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2612,6 +2732,57 @@ func(this* COM_ClientToServerStub)QueryCheckpointRecordDetail(battleid int32 ) e
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)ReadMail(mailId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(50))
+  if err != nil{
+    return err
+  }
+  _50 := COM_ClientToServer_ReadMail{}
+  _50.mailId = mailId;
+  err = _50.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)DelMail(mailId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(51))
+  if err != nil{
+    return err
+  }
+  _51 := COM_ClientToServer_DelMail{}
+  _51.mailId = mailId;
+  err = _51.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)GetMailItem(mailId int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(52))
+  if err != nil{
+    return err
+  }
+  _52 := COM_ClientToServer_GetMailItem{}
+  _52.mailId = mailId;
+  err = _52.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3262,6 +3433,48 @@ func Bridging_COM_ClientToServer_QueryCheckpointRecordDetail(buffer *bytes.Buffe
   }
   return p.QueryCheckpointRecordDetail(_49.battleid)
 }
+func Bridging_COM_ClientToServer_ReadMail(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _50 := COM_ClientToServer_ReadMail{}
+  err := _50.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ReadMail(_50.mailId)
+}
+func Bridging_COM_ClientToServer_DelMail(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _51 := COM_ClientToServer_DelMail{}
+  err := _51.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.DelMail(_51.mailId)
+}
+func Bridging_COM_ClientToServer_GetMailItem(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _52 := COM_ClientToServer_GetMailItem{}
+  err := _52.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.GetMailItem(_52.mailId)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3375,6 +3588,12 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_QueryPlayerRecordDetail(buffer,p);
     case 49 :
       return Bridging_COM_ClientToServer_QueryCheckpointRecordDetail(buffer,p);
+    case 50 :
+      return Bridging_COM_ClientToServer_ReadMail(buffer,p);
+    case 51 :
+      return Bridging_COM_ClientToServer_DelMail(buffer,p);
+    case 52 :
+      return Bridging_COM_ClientToServer_GetMailItem(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

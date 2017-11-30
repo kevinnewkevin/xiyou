@@ -66,6 +66,11 @@ service COM_ClientToServer{
 	
 	QueryPlayerRecordDetail(int64 playerId);					//请求录像详细信息(某个玩家)
 	QueryCheckpointRecordDetail(int32 battleid);				//请求录像详细信息(某个小关卡)
+	
+	///邮件
+	ReadMail(int32 mailId);
+	DelMail(int32 mailId);
+	GetMailItem(int32 mailId);
 };
 
 service COM_ServerToClient{
@@ -126,7 +131,11 @@ service COM_ServerToClient{
 	JoinGuildOk();
 	//@}
 	
-	TianTiSeasonDrop(COM_Award award);
+	///邮件相关
+	AppendMail(COM_Mail[] mails);
+	DelMailOK(int32 mailId);
+	UpdateMailOk(COM_Mail mail);
+	
 	QueryBattleRecordOK(COM_BattleRecord record);
 	QueryRecordDetailOK(COM_BattleRecord_Detail[] recordDetials);
 };

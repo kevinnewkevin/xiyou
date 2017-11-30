@@ -411,11 +411,25 @@ struct SGE_DBGuildAssistant
 	int64[]			Donator;		
 };
 
-struct COM_Award
+///邮件
+struct COM_MailItem
 {
-	int32	Copper;
-	int32 	Gold;
-	int32	Exp;
-	int32	Hero;			//卡牌ID
-	COM_ItemInst[] Items;	
+	int32 ItemId;
+	int32 ItemStack;
+};
+
+struct COM_Mail
+{
+	int32 		MailId;
+	MailType 	Mailtype;
+	int64 		MailTimestamp;
+	string 		SendPlayerName;
+	string 		RecvPlayerName;
+	string 		Title;
+	string 		Content;
+	int32 		Copper; 	//银币
+	int32 		Gold; 		//金币
+	int32		Hero;		//卡牌
+	COM_MailItem[] Items; 
+	bool 		IsRead;
 };
