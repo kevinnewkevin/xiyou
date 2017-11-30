@@ -6,43 +6,36 @@ import (
 	"time"
 )
 
-var(
-	IsFatchMail				bool  = false
-	FatchMailId				int32 = 0
-	FatchMailTimeout		float64 = 0
-	Mails			[]prpc.COM_Mail
-)
-
 const(
 	FatchMailTimer = 30
 )
 
 func (player *GamePlayer)MailTick(dt float64)  {
-	FatchMailTimeout -= dt
-	if(FatchMailTimeout <= 0){
+	player.FatchMailTimeout -= dt
+	if(player.FatchMailTimeout <= 0){
 		player.FatchMail()
-		FatchMailTimeout += FatchMailTimer
+		player.FatchMailTimeout += FatchMailTimer
 	}
 }
 
 func (player *GamePlayer)FatchMail()  {
-	if IsFatchMail {
+	if player.IsFatchMail {
 		return
 	}
-	IsFatchMail = true
+	player.IsFatchMail = true
 	//Fatch db mail
-	mails := <-FatchDBMail(player.MyUnit.InstName,FatchMailId)
+	mails := <-FatchDBMail(player.MyUnit.InstName,player.FatchMailId)
 	player.AppendMail(mails)
 }
 
 func (player *GamePlayer)AppendMail(mails []prpc.COM_Mail)  {
-	IsFatchMail = false
+	player.IsFatchMail = false
 	if len(mails) == 0 {
 		return
 	}
 	for _,m := range mails{
-		Mails = append(Mails,m)
-		FatchMailId = m.MailId
+		player.Mails = append(player.Mails,m)
+		player.FatchMailId = m.MailId
 	}
 	//TO Client
 	logs.Info("AppendMail = ", mails)
@@ -53,8 +46,8 @@ func (player *GamePlayer)AppendMail(mails []prpc.COM_Mail)  {
 
 func (player *GamePlayer)InitMail()  {
 	//TO Client
-	if len(Mails) != 0 && player.session != nil{
-		player.session.AppendMail(Mails)
+	if len(player.Mails) != 0 && player.session != nil{
+		player.session.AppendMail(player.Mails)
 	}
 }
 
@@ -88,9 +81,9 @@ func SendMailByDrop(sendName string,recvName string,title string,content string,
 }
 
 func (player *GamePlayer)DeleteMail(mailId int32)  {
-	for i:=0;i<len(Mails) ;i++  {
-		if Mails[i].MailId == mailId {
-			Mails = append(Mails[:i], Mails[i+1:]...)
+	for i:=0;i<len(player.Mails) ;i++  {
+		if player.Mails[i].MailId == mailId {
+			player.Mails = append(player.Mails[:i], player.Mails[i+1:]...)
 			//del db mail
 			isOK := <-EraseMail(mailId)
 			if isOK && player.session != nil {
@@ -102,14 +95,14 @@ func (player *GamePlayer)DeleteMail(mailId int32)  {
 }
 
 func (player *GamePlayer)ReadMail(mailId int32)  {
-	for i:=0;i<len(Mails) ;i++  {
-		if Mails[i].MailId == mailId {
-			Mails[i].IsRead = true
+	for i:=0;i<len(player.Mails) ;i++  {
+		if player.Mails[i].MailId == mailId {
+			player.Mails[i].IsRead = true
 			//updata db mail
-			isOK := <-UpdateMail(Mails[i])
+			isOK := <-UpdateMail(player.Mails[i])
 			//TO Client
 			if isOK && player.session != nil {
-				player.session.UpdateMailOk(Mails[i])
+				player.session.UpdateMailOk(player.Mails[i])
 			}
 			return
 		}
@@ -117,43 +110,43 @@ func (player *GamePlayer)ReadMail(mailId int32)  {
 }
 
 func (player *GamePlayer)GetMailItem(mailId int32)  {
-	for i:=0;i<len(Mails) ;i++  {
-		if Mails[i].MailId == mailId {
-			if len(Mails[i].Items) != 0 {
-				for _,item := range Mails[i].Items{
+	for i:=0;i<len(player.Mails) ;i++  {
+		if player.Mails[i].MailId == mailId {
+			if len(player.Mails[i].Items) != 0 {
+				for _,item := range player.Mails[i].Items{
 					player.AddBagItemByItemId(item.ItemId,item.ItemStack)
 				}
-				Mails[i].Items = nil
+				player.Mails[i].Items = nil
 			}
-			if Mails[i].Copper != 0 {
-				player.AddCopper(Mails[i].Copper)
-				Mails[i].Copper = 0
+			if player.Mails[i].Copper != 0 {
+				player.AddCopper(player.Mails[i].Copper)
+				player.Mails[i].Copper = 0
 			}
-			if Mails[i].Gold != 0 {
-				player.AddGold(Mails[i].Gold)
-				Mails[i].Gold = 0
+			if player.Mails[i].Gold != 0 {
+				player.AddGold(player.Mails[i].Gold)
+				player.Mails[i].Gold = 0
 			}
-			if Mails[i].Hero != 0 {
-				if player.HasUnitByTableId(Mails[i].Hero) {
+			if player.Mails[i].Hero != 0 {
+				if player.HasUnitByTableId(player.Mails[i].Hero) {
 					//有这个卡就不给了
-					logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit Have not to UnitId=", Mails[i].Hero)
+					logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit Have not to UnitId=",player. Mails[i].Hero)
 				} else {
-					unit := player.NewGameUnit(Mails[i].Hero)
+					unit := player.NewGameUnit(player.Mails[i].Hero)
 					if unit != nil {
-						logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit OK UnitId=", Mails[i].Hero)
+						logs.Info("PlayerName=", player.MyUnit.InstName, "GiveDrop AddUnit OK UnitId=", player.Mails[i].Hero)
 						temp := unit.GetUnitCOM()
 						if player.session != nil {
 							player.session.AddNewUnit(temp)
 						}
 					}
 				}
-				Mails[i].Hero = 0
+				player.Mails[i].Hero = 0
 			}
 			//updata db and to client
-			isOK := <-UpdateMail(Mails[i])
+			isOK := <-UpdateMail(player.Mails[i])
 			//TO Client
 			if isOK && player.session != nil {
-				player.session.UpdateMailOk(Mails[i])
+				player.session.UpdateMailOk(player.Mails[i])
 			}
 
 			return

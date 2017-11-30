@@ -1730,7 +1730,7 @@ func UpdateMail(mail prpc.COM_Mail) <-chan bool {
 		}
 		defer c.Close()
 
-		stmt, e := c.Prepare("UPDATE `Mail` SET `BinData`=?,`ItemNum`=?,`Hero`=?,`Copper`=?,`Gold`=?, WHERE `MailGuid`=?")
+		stmt, e := c.Prepare("UPDATE `Mail` SET `BinData`=?,`ItemNum`=?,`Hero`=?,`Copper`=?,`Gold`=? WHERE `MailGuid`=?")
 
 		if e != nil {
 			logs.Debug(e.Error())

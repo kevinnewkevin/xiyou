@@ -73,6 +73,12 @@ type GamePlayer struct {
 	GuildId			int32
 	AssistantId		int32
 	AssistantCreateTime		int64
+
+	//mail
+	IsFatchMail				bool
+	FatchMailId				int32
+	FatchMailTimeout		float64
+	Mails					[]prpc.COM_Mail
 }
 
 var (
@@ -204,7 +210,7 @@ func CreatePlayer(tid int32, name string, username string) *GamePlayer {
 		}
 	}
 	//p.DefaultUnitGroup = 1
-	p.TianTiVal = 0
+	p.TianTiVal = 2000
 	p.TianTiRank = -1
 	p.FriendTianTiRank = -1
 	p.GenItemMaxGuid = 1
