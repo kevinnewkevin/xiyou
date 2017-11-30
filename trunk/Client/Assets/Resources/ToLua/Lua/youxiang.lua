@@ -112,21 +112,24 @@ function updateMainInfo()
 		timeLab.text ="";
 		contentLab.text ="";
 		titleLab.text ="";
-		mailList.numItems = 0;
+		itemList.numItems = 0;
 		getBtn.visible = false;
 	else
 		if data.IsRead == false then
 			Proxy4Lua.ReadMail(_mailId);
 		end
-		timeLab.text = data.MailTimestamp.."";
+		--timeLab.text = data.MailTimestamp.."";
 		contentLab.text =data.Content;
 		titleLab.text =data.SendPlayerName;
-		mailList.numItems = data.Items.Length;
-		if data.Items.Length > 0 then
+		if data.Items ~= nil then
+			itemList.numItems = data.Items.Length;
 			getBtn.visible = true;
 		else
+			itemList.numItems = 0;
 			getBtn.visible = false;
-		end
+		end 
+
+	
 	end
 
 end
