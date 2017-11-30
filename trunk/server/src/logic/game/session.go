@@ -530,6 +530,22 @@ func (this *Session)QueryBattleRecord(battleid int64) error{
 	return nil
 }
 
+func (this *Session)QueryPlayerRecordDetail(playerId int64) error{
+	if this.player == nil {
+		return nil
+	}
+
+	return nil
+}
+
+func (this *Session)QueryCheckpointRecordDetail(battleid int32) error{
+	if this.player == nil {
+		return nil
+	}
+
+	return nil
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func (this *Session) Tick() {
