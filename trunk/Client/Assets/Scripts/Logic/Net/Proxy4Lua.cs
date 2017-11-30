@@ -202,7 +202,14 @@ public class Proxy4Lua {
     {
         NetWoking.S.RandChapter();
     }
-
+	static public void GetMailItem(int id)
+	{
+		NetWoking.S.GetMailItem(id);
+	}
+	static public void ReadMail(int id)
+	{
+		NetWoking.S.ReadMail(id);
+	}
     static public void RequestPlayerRecordData(long instid)
     {
         UIManager.Show("luxiang");

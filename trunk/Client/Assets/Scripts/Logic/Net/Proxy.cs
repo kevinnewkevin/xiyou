@@ -472,17 +472,23 @@ class Proxy : ICOM_ServerToClientProxy
 
 	public bool	AppendMail(ref COM_Mail[] mails)
 	{
+		MailSystem.AppendMail (mails);
+		UIManager.SetDirty("youxiang");
 		return true;
 	}
 
 	public bool DelMailOK(int id)
 	{
+		MailSystem.DelMail (id);
+		UIManager.SetDirty("youxiang");
 		return true;
 	}
 
 
 	public bool UpdateMailOk(ref COM_Mail mail)
 	{
+		MailSystem.UpdateMail (mail);
+		UIManager.SetDirty("youxiang");
 		return true;
 	}
 }
