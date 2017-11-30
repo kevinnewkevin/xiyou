@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="414,128" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n1" name="n1" src="zdii5" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n5_dc1a" name="n5" src="zdii6" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n2_dc1a" name="n2" src="zdii4" xy="7,8"/>
+    <loader id="n3_dc1a" name="n3" xy="22,17" size="90,78" url="ui://8hyble0kzdii2"/>
+    <text id="n4_dc1a" name="n4" xy="99,37" size="285,41" font="方正楷体_GBK" fontSize="34" color="#ffffff" bold="true" text="啦啦啦啦啦啦啦啦"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>
