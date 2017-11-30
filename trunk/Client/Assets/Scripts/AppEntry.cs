@@ -14,7 +14,11 @@ public class AppEntry : MonoBehaviour {
         DontDestroyOnLoad(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
         GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
+
+        Define.LaunchUIBundle("jiazai");
         UIConfig.defaultFont = "方正楷体_GBK";
+        UIConfig.windowModalWaiting = "ui://jiazai/zairu_com";
+        UIConfig.globalModalWaiting = "ui://jiazai/jiazai_com";
         //UIConfig.buttonSound = AssetLoader.LoadAudio("Audio/effect");
         Application.logMessageReceived += (condition, stackTrace, type) => {
             if(type == LogType.Log || string.IsNullOrEmpty(logUrl))
@@ -129,4 +133,4 @@ public class AppEntry : MonoBehaviour {
 //        if (GUILayout.Button("PlayBackground2"))
 //            AudioSystem.PlayBackground("Audio/background2");
 //    }
-    }
+        }

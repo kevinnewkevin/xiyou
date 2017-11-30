@@ -89,6 +89,7 @@ public class CameraEffect {
         }
 
         _Mat.color = new Color(0f, 0f, 0f, _V);
+        AudioSystem.MusicVolum = 1f - _V;
     }
 
     public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
