@@ -660,7 +660,7 @@ function RecordHandler()
 		Window.contentPane:GetChild("n10").visible = false;
 		Window.contentPane:GetChild("n50").visible = false;
 		Window.contentPane:GetChild("n48").visible = false;
-		Window.contentPane:GetChild("n12").visible = false;
+--		Window.contentPane:GetChild("n12").visible = false;
 		Window.contentPane:GetChild("n4").visible = false;
 		Window.contentPane:GetChild("n17").visible = false;
 		Window.contentPane:GetChild("n18").visible = false;
@@ -698,7 +698,7 @@ function RecordHandler()
 		Window.contentPane:GetChild("n10").visible = true;
 		Window.contentPane:GetChild("n50").visible = true;
 		Window.contentPane:GetChild("n48").visible = true;
-		Window.contentPane:GetChild("n12").visible = true;
+--		Window.contentPane:GetChild("n12").visible = true;
 		Window.contentPane:GetChild("n4").visible = true;
 		Window.contentPane:GetChild("n17").visible = true;
 		Window.contentPane:GetChild("n18").visible = true;
