@@ -99,6 +99,7 @@ function jiesuanjiemian:OnInit()
 	pvpHideItem.r = self.contentPane:GetChild("n29");
 	pvpHideItem.s = self.contentPane:GetChild("n30");
 	pvpHideItem.t = self.contentPane:GetChild("n32");
+	pvpHideItem.u = self.contentPane:GetChild("n45");
 
 	jiesuanjiemian_FlushData();
 end
@@ -126,6 +127,7 @@ function jiesuanjiemian_FlushData()
 		pvpHideItem.r.visible = false;
 		pvpHideItem.s.visible = false;
 		pvpHideItem.t.visible = false;
+		pvpHideItem.u.visible = false;
 	else
 		pvpHideItem.a.visible = true;
 		pvpHideItem.b.visible = true;
@@ -147,6 +149,7 @@ function jiesuanjiemian_FlushData()
 		pvpHideItem.r.visible = true;
 		pvpHideItem.s.visible = true;
 		pvpHideItem.t.visible = true;
+		pvpHideItem.u.visible = true;
 	end
 
 	star1_des.text = "击杀";
