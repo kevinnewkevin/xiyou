@@ -12,8 +12,8 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="n52_jijr" name="n52" src="jijre2e" xy="1598,11"/>
     <image id="n57_hiiy" name="n57" src="jijre2e" xy="1682,11"/>
     <image id="n58_hiiy" name="n58" src="jijre2e" xy="1765,11"/>
-    <component id="n7_hbv5" name="n7" src="hbv5q" xy="1687,25"/>
-    <component id="n8_hbv5" name="n8" src="hbv5r" xy="1773,25"/>
+    <component id="n7_hbv5" name="n7" src="hbv5q" xy="1591,14"/>
+    <component id="n8_hbv5" name="n8" src="hbv5r" xy="1687,25"/>
     <component id="n15_hbv5" name="n15" src="hbv5y" xy="0,7"/>
     <component id="n16_hbv5" name="n16" src="hbv511" xy="559,8"/>
     <component id="n18_hbv5" name="n18" src="hbv51h" xy="1011,938" size="1905,153"/>
@@ -28,7 +28,7 @@ d1awe2g.xml|444|<component size="542,46">
     <component id="n44_y4d0" name="n44" src="hbv51k" xy="1772,328"/>
     <component id="n45_y4d0" name="n45" src="hbv51p" xy="1775,498"/>
     <image id="n46_y4d0" name="n46" src="hbv5d" xy="-2,934" size="588,147"/>
-    <component id="n50_y4d0" name="n50" src="y4d0e2d" xy="1608,18"/>
+    <component id="n50_y4d0" name="n50" src="y4d0e2d" xy="1768,18"/>
     <image id="n51_y4d0" name="n51" src="nfe41v" xy="1849,22"/>
     <image id="n53_dtnx" name="n53" src="dtnxe2f" xy="11,154"/>
     <list id="n55_d1aw" name="n55" xy="5,948" size="558,129" overflow="scroll" lineGap="-4" defaultItem="ui://s1sxt36ud1awe2g">
@@ -202,12 +202,13 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="n2_y4d0" name="n2" src="sv0v1s" xy="1,0"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
-</component>hbv5q.xml|348|<component size="65,49" extention="Button">
+</component>hbv5q.xml|394|<component size="96,79" extention="Button">
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n2" name="n2" src="hbv5l" xy="0,0" size="65,49">
+    <image id="n2" name="n2" src="hbv5l" xy="10,1">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
+    <image id="n3_k3zs" name="n3" src="hbv5h" xy="54,4"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>hbv5r.xml|618|<component size="65,58" extention="Button">
@@ -340,7 +341,7 @@ nfe41y.xml|457|<component size="485,927" extention="Button">
     <component id="hbv51p" name="Button15" path="/" size="146,145" exported="true"/>
     <component id="hbv51q" name="Button16" path="/" size="121,125" exported="true"/>
     <component id="hbv51r" name="Button17" path="/" size="121,125" exported="true"/>
-    <component id="hbv5q" name="Button3" path="/" size="65,49" exported="true"/>
+    <component id="hbv5q" name="Button3" path="/" size="96,79" exported="true"/>
     <component id="hbv5r" name="Button4" path="/" size="65,58" exported="true"/>
     <component id="hbv5u" name="ComboBox1_item" path="/" size="100,20" exported="true"/>
     <component id="hbv5v" name="ComboBox1_popup" path="/" size="150,200" exported="true"/>
@@ -386,7 +387,7 @@ nfe41y.xml|457|<component size="485,927" extention="Button">
     <image id="hbv5i" name="touxiangkuang" path="/" size="113,112" exported="true"/>
     <image id="hbv5j" name="xiaoxi" path="/" size="64,57" exported="true"/>
     <image id="hbv5k" name="youbian" path="/" size="100,53" exported="true"/>
-    <image id="hbv5l" name="youjian" path="/" size="65,49" exported="true"/>
+    <image id="hbv5l" name="youjian" path="/" size="83,93" exported="true"/>
     <image id="hbv5n" name="zuobian" path="/" size="623,100" exported="true"/>
     <image id="kygke2w" name="zi_9" path="/" size="40,54" exported="true"/>
     <image id="kygke2x" name="zi_0" path="/" size="40,54" exported="true"/>
