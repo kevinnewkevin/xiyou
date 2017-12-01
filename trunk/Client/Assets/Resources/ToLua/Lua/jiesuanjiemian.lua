@@ -219,8 +219,8 @@ function jiesuanjiemian:OnUpdate()
 				starEff.count = 0;
 				if star1.visible then
 					star1_ac.text = "达成";
+					Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				end
-				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				if Proxy4Lua.IsAchieve2 == true then
 					star2_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu", false));
 				end
@@ -236,8 +236,8 @@ function jiesuanjiemian:OnUpdate()
 				starEff.count = 0;
 				if star2.visible then
 					star2_ac.text = "达成";
+					Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				end
-				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				if Proxy4Lua.IsAchieve3 == true then
 					star3_eff:SetNativeObject(Proxy4Lua.GetAssetGameObject("effect/lanhuoqiu", false));
 				end
@@ -258,8 +258,8 @@ function jiesuanjiemian:OnUpdate()
 				okLbl.visible = true;
 				if star3.visible then
 					star3_ac.text = "达成";
+					Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 				end
-				Proxy4Lua.ShakeCamera(Vector3.New(0.1, 0.1, 0), 0.3);
 			end
 		end
 	end
