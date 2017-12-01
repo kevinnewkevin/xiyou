@@ -1677,7 +1677,7 @@ func InsertCheckPointRecordDetail(checkpointid int32, detail prpc.SGE_BattleReco
 	return  rChan
 }
 
-func UpdateCheckPointRecordDetail(checkpointid int32, detail prpc.SGE_BattleRecord_Detail) {
+func UpdateCheckPointRecordDetail(checkpointid int32, detail *prpc.SGE_BattleRecord_Detail) {
 	go func () {
 
 		defer func() {

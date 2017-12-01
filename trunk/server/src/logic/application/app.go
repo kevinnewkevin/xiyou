@@ -146,6 +146,7 @@ func (this *App) Run() {
 	game.InitDB()
 	game.InitTopList()
 	game.InitGuild()
+	game.InitAllCheckPointBattleRecord()
 	toolbox.StartTask()
 	defer toolbox.StopTask()
 	//game.TestPlayer()

@@ -159,7 +159,18 @@ type BattleRoom struct {
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
-var BattleRecordPVE = map[int32]prpc.SGE_BattleRecord_Detail{}
+var BattleRecordPVE = map[int32]*prpc.SGE_BattleRecord_Detail{}
+
+func InitAllCheckPointBattleRecord() {
+	for smallid, _ := range SmallChapterTable {
+		data := <- QueryCheckPointRecordDetail(smallid)
+		if data == nil {
+			continue
+		}
+		BattleRecordPVE[smallid] = data
+	}
+	logs.Debug(" InitAllCheckPointBattleRecord end ", len(BattleRecordPVE))
+}
 
 ////////////////////////////////////////////////////////////////////////
 ////创建部分
@@ -330,12 +341,12 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	return &room
 }
 
-func FindBattleRecord(battleId int32) prpc.SGE_BattleRecord_Detail {
+func FindBattleRecord(battleId int32) *prpc.SGE_BattleRecord_Detail {
 	if record, ok := BattleRecordPVE[battleId]; ok {
 		return record
 	}
 
-	return prpc.SGE_BattleRecord_Detail{}
+	return nil
 }
 
 func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail) bool {
@@ -346,7 +357,7 @@ func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail) bool {
 	if !ok {
 		rc := prpc.SGE_BattleRecord_Detail{}
 		rc.Detail = []prpc.COM_BattleRecord_Detail{info}
-		BattleRecordPVE[chapter] = rc
+		BattleRecordPVE[chapter] = &rc
 		succ = true
 		InsertCheckPointRecordDetail(chapter, rc)
 	} else {
