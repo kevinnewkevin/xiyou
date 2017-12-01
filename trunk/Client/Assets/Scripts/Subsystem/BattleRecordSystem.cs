@@ -32,6 +32,8 @@ public class BattleRecordSystem {
             _Records.Enqueue(br.Report[i]);
         }
         _Result = new COM_BattleResult();
+        if (br.Battleid != 0)
+            MirrorPlayerId = br.Players [0].InstId;
         int side = 0;
         for(int i=0; i < br.Players.Length; ++i)
         {

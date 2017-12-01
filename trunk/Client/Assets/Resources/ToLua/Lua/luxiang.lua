@@ -18,6 +18,7 @@ end
 function luxiang:OnInit()
 	self.contentPane = UIPackage.CreateObject("luxiang", "luxiang_com").asCom;
 	self:Center();
+	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n45");
 
 	luxiangList = self.contentPane:GetChild("n44").asList;

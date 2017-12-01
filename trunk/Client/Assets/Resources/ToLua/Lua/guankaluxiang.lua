@@ -19,6 +19,7 @@ end
 function guankaluxiang:OnInit()
 	self.contentPane = UIPackage.CreateObject("guankaluxiang", "guankaluxiang_com").asCom;
 	self:Center();
+	self.modal = true;
 	self.closeButton = self.contentPane:GetChild("n45");
 
 	guankaluxiangList = self.contentPane:GetChild("n44").asList;
