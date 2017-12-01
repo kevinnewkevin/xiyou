@@ -274,6 +274,7 @@ public static class CustomSettings
 		_GT(typeof(MailSystem)),
         _GT(typeof(COM_ReportCamp)),
         _GT(typeof(COM_BattleUnit)),
+		_GT(typeof(COM_MailItem)),
     };
 
     public static List<Type> dynamicList = new List<Type>()
