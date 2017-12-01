@@ -1629,6 +1629,147 @@ func QueryBattleReport(Battleid int64) <- chan *prpc.SGE_DBBattleReport {
 	return rChan
 }
 
+////////////////////////////
+////
+////////////////////////////
+
+
+func InsertCheckPointRecordDetail(checkpointid int32, detail prpc.SGE_BattleRecord_Detail) <- chan int64 {
+	rChan := make (chan int64)
+	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("InsertCheckPointRecordDetail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+		defer c.Close()
+		b := bytes.NewBuffer(nil)
+
+		detail.Serialize(b)
+
+		r , e := c.Exec("INSERT INTO `CheckPointBattleRecord`(`CheckPointId`,`Data`)VALUES(?,?)", checkpointid, b.Bytes())
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		i, e := r.LastInsertId()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- 0
+			return
+		}
+
+		rChan <- (i + 1)
+		close(rChan)
+	}()
+	return  rChan
+}
+
+func UpdateCheckPointRecordDetail(checkpointid int32, detail prpc.SGE_BattleRecord_Detail) {
+	go func () {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("UpdateCheckPointRecordDetail panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+		defer c.Close()
+		b := bytes.Buffer{}
+
+		detail.Serialize(&b)
+
+		_, e = c.Exec("UPDATE `CheckPointBattleRecord` SET `Data` = ? WHERE `CheckPointId` = ?", b.Bytes(), checkpointid)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			return
+		}
+	}()
+}
+
+func QueryCheckPointRecordDetail(checkpointid int32) <- chan *prpc.SGE_BattleRecord_Detail {
+	rChan := make(chan *prpc.SGE_BattleRecord_Detail)
+	go func() {
+
+		defer func() {
+			if r := recover(); r != nil {
+				logs.Error("QueryPlayerById panic %s", fmt.Sprint(r))
+			}
+
+		}()
+
+		c, e := ConnectDB()
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+		defer c.Close()
+		r, e := c.Query("SELECT `Data` FROM `CheckPointBattleRecord` WHERE `CheckPointId` = ?", checkpointid)
+
+		if e != nil {
+			logs.Debug(e.Error())
+			rChan <- nil
+			close(rChan)
+			return
+		}
+
+		if r.Next() {
+			b := []byte{}
+
+			e = r.Scan(&b)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+			p := &prpc.SGE_BattleRecord_Detail{}
+
+			bb := bytes.NewBuffer(b)
+			e = p.Deserialize(bb)
+			if e != nil {
+				logs.Debug(e.Error())
+				rChan <- nil
+				close(rChan)
+				return
+			}
+
+
+			rChan <- p
+
+			close(rChan)
+			return
+		}
+
+		rChan <- nil
+		close(rChan)
+		return
+	}()
+
+	return rChan
+}
 
 
 //Mail

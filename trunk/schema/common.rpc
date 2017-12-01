@@ -95,6 +95,11 @@ struct COM_BattleRecord_Detail {
 	COM_ReportCamp[]	Players;	//参赛者
 };
 
+//录像文件的简略信息
+struct SGE_BattleRecord_Detail {
+	COM_BattleRecord_Detail[]	Detail;
+};
+
 //角色实例
 struct COM_Player{
 	int64 					InstId;

@@ -64,6 +64,8 @@ type BattlePlayer struct {
 	MyDeathNum  int32   //战斗中自身死亡数量
 
 	TianTi		int32
+
+	ChapterID	int32
 }
 
 func (this *BattlePlayer) GetUnit(instId int64) *BattleUnit {
@@ -157,7 +159,7 @@ type BattleRoom struct {
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
-var BattleRecordPVE = map[int32][]prpc.COM_BattleRecord_Detail{}
+var BattleRecordPVE = map[int32]prpc.SGE_BattleRecord_Detail{}
 
 ////////////////////////////////////////////////////////////////////////
 ////创建部分
@@ -208,17 +210,17 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Point = 1
 	room.BattleID = battleid
 
-	logs.Info("CreatePvE", &room)
+	logs.Info("CreatePvR", &room)
 	BattleRoomList[room.InstId] = &room
 
 	room.Monster = CreateMonster(battleid, room.InstId)
-	p.SetProprty(&room, prpc.CT_RED)
+	//p.SetProprty(&room, prpc.CT_RED)
 
 	room.Units[prpc.BP_BLUE_5] = room.Monster.MainUnit
 	room.Monster.MainUnit.Position = prpc.BP_BLUE_5
 
 	room.Units[prpc.BP_RED_5] = bp.MainUnit
-	p.MyUnit.Position = prpc.BP_RED_5
+	bp.MainUnit.Position = prpc.BP_RED_5
 
 	room.BattleStart()
 	//go room.BattleUpdate()
@@ -232,7 +234,7 @@ func CreateMonster(battleid int32, roomid int64) *Monster {
 	m := Monster{}
 
 	m.MainUnit = CreateUnitFromTable1(t.MainId)
-	logs.Info("adasdas", battleid, t.MainId, m.MainUnit)
+
 	m.MainUnit.ResetBattle(prpc.CT_BLUE, true, roomid)
 	//m.MainUnit.IsMain = true
 	//m.MainUnit.Camp = prpc.CT_BLUE
@@ -264,6 +266,8 @@ func CreateBattlePlayer(p *GamePlayer, roomid int64, camp int) *BattlePlayer {
 	//m.MainUnit.BattleId = roomid
 	m.IsActive = false
 	m.TianTi = p.TianTiVal
+	m.ChapterID = p.ChapterID
+
 	p.BattleId = roomid
 
 	battlegroup := p.GetUnitGroupById(p.BattleUnitGroup)
@@ -326,30 +330,35 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	return &room
 }
 
-func FindBattleRecord(battleId int32) []prpc.COM_BattleRecord_Detail {
+func FindBattleRecord(battleId int32) prpc.SGE_BattleRecord_Detail {
 	if record, ok := BattleRecordPVE[battleId]; ok {
 		return record
 	}
 
-	return nil
+	return prpc.SGE_BattleRecord_Detail{}
 }
 
-func AddBattleRecord(battleId int32, info prpc.COM_BattleRecord_Detail) bool {
-	record, ok := BattleRecordPVE[battleId]
+func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail) bool {
+	record, ok := BattleRecordPVE[chapter]
 
 	succ := false
 
 	if !ok {
-		BattleRecordPVE[battleId] = []prpc.COM_BattleRecord_Detail{info}
+		rc := prpc.SGE_BattleRecord_Detail{}
+		rc.Detail = []prpc.COM_BattleRecord_Detail{info}
+		BattleRecordPVE[chapter] = rc
 		succ = true
+		InsertCheckPointRecordDetail(chapter, rc)
 	} else {
-		if len(record) < 5 {
-			BattleRecordPVE[battleId] = append(BattleRecordPVE[battleId], info)
+		if len(record.Detail) < 5 {
+			record.Detail = append(record.Detail, info)
+			BattleRecordPVE[chapter] = record
+			UpdateCheckPointRecordDetail(chapter, record)
 			succ = true
 		}
 	}
 
-	logs.Debug("AddBattleRecord", BattleRecordPVE[battleId])
+	logs.Debug("AddBattleRecord", BattleRecordPVE[chapter])
 
 	return succ
 }
@@ -650,7 +659,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				b.Players = this.Record.Players
 				b.Winner = this.Record.Winner
 
-				succ := AddBattleRecord(this.BattleID, b)
+				succ := AddBattleRecord(bp.ChapterID, b)
 				if succ {
 					InsertBattleReport(this.InstId, GetSGECOM(this))
 				}
@@ -701,6 +710,16 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 		if this.Type == prpc.BT_PVP {
 			InsertBattleReport(this.InstId, GetSGECOM(this))
 			//InsertBattleReport(9999, GetSGECOM(this))
+
+			b := prpc.COM_BattleRecord_Detail{}
+
+			b.Battleid = this.BattleID
+			b.ReportId = this.InstId
+			b.Players = this.Record.Players
+			b.Winner = this.Record.Winner
+
+			p.AddBattleDetail(b)
+
 			for _, bonce := range this.PlayerList {
 
 				once := FindPlayerByInstId(bonce.PlayerId)
@@ -715,15 +734,6 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 					continue
 				}
 
-				b := prpc.COM_BattleRecord_Detail{}
-
-				b.Battleid = this.BattleID
-				b.ReportId = this.InstId
-				b.Players = this.Record.Players
-				b.Winner = this.Record.Winner
-
-
-				p.AddBattleDetail(b)
 				dropId := CaleTianTiVal(p, once, camp)
 
 				if dropId != 0 {
@@ -754,6 +764,17 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			}
 		}
 		if this.Type == prpc.BT_PVR {
+			InsertBattleReport(this.InstId, GetSGECOM(this))
+
+			b := prpc.COM_BattleRecord_Detail{}
+
+			b.Battleid = this.BattleID
+			b.ReportId = this.InstId
+			b.Players = this.Record.Players
+			b.Winner = this.Record.Winner
+
+			p.AddBattleDetail(b)
+
 			dropId := CaleTiantiPVR(p, camp)
 			if dropId != 0 {
 				drop := GetDropById(dropId)

@@ -1703,10 +1703,11 @@ func (this *GamePlayer) QueryPlayerRecordDetail(Instid int64) {
 
 
 func (this *GamePlayer) QueryCheckpointRecordDetail(Instid int32) {
+	logs.Debug("QueryBattleReport ", Instid)
 
 	record := FindBattleRecord(Instid)
 
-	this.session.QueryRecordDetailOK(record)
+	this.session.QueryRecordDetailOK(record.Detail)
 
 	return
 }
