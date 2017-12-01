@@ -7,6 +7,7 @@ public class DropData
     public int Id_;
     public int exp_;
     public int money_;
+	public int hero_;
     public int item1_;
     public int itemNum1_;
 	public int item2_;
@@ -35,6 +36,7 @@ public class DropData
             data.Id_ = parser.GetInt(i, "DropID");
             data.exp_ = parser.GetInt(i, "exp");
             data.money_ = parser.GetInt(i, "money");
+			data.hero_ = parser.GetInt(i, "Hero");
             data.item1_ = parser.GetInt(i, "item-1");
             data.itemNum1_ = parser.GetInt(i, "item-num-1");
 			data.item2_ = parser.GetInt(i, "item-2");
