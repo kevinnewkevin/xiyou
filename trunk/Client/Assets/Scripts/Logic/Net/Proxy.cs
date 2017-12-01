@@ -474,6 +474,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		MailSystem.AppendMail (mails);
 		UIManager.SetDirty("youxiang");
+		UIManager.SetDirty("zhujiemian");
 		return true;
 	}
 
@@ -481,6 +482,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		MailSystem.DelMail (id);
 		UIManager.SetDirty("youxiang");
+		UIManager.SetDirty("zhujiemian");
 		return true;
 	}
 
@@ -489,6 +491,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		MailSystem.UpdateMail (mail);
 		UIManager.SetDirty("youxiang");
+		UIManager.SetDirty("zhujiemian");
 		return true;
 	}
 }

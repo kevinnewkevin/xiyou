@@ -210,6 +210,10 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ReadMail(id);
 	}
+		static public void DelMail(int id)
+		{
+				NetWoking.S.DelMail(id);
+		}
     static public void RequestSelfRecordData()
     {
         BattleRecordSystem.MirrorPlayerId = GamePlayer._InstID;
@@ -224,10 +228,10 @@ public class Proxy4Lua {
         NetWoking.S.QueryPlayerRecordDetail(instid);
     }
 
-    static public void RequestFBRecordData(int battleid)
+	static public void RequestFBRecordData(int smallChapterId)
     {
         UIManager.Show("guankaluxiang");
-        NetWoking.S.QueryCheckpointRecordDetail(battleid);
+		NetWoking.S.QueryCheckpointRecordDetail(smallChapterId);
     }
 
     static public void RequestRecord(long recordid)
