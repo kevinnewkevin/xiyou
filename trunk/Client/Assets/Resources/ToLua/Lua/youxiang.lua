@@ -74,6 +74,7 @@ function youxiang:OnHide()
 	_mailId = 0;
 	getBtn.visible = false;
 	delBtn.visible = false;
+	itemList:RemoveChildrenToPool(); 
 	Window:Hide();
 end
 
@@ -158,12 +159,14 @@ function updateMainInfo()
 			local item = itemList:AddItemFromPool(itemUrl);
 		 	item:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
 		 	item:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		 	getBtn.visible = true;
 		end
 
 		if data.Copper ~= 0 then
 			local item1 = itemList:AddItemFromPool(itemUrl);
 		 	item1:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
 		 	item1:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		 	getBtn.visible = true;
 		end
 
 		if data.Hero ~= 0 then
@@ -173,6 +176,7 @@ function updateMainInfo()
 			item2:GetChild("n16").asLoader.url = "ui://" .. displayData._Quality;
 			item2:GetChild("n17").asLoader.url = "ui://" .. displayData._HeadIcon;
 			item2:GetChild("n17").onClick:Remove(youxiang_OnTtItem); 
+			getBtn.visible = true;
 		end
 
 		if data.Items ~= nil then
