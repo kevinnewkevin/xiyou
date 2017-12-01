@@ -43,6 +43,7 @@ local addLevelAgility;
 local addLevelMatk;
 local addLevelMdef;
 
+local levelLab;
 local levelUpHp;
 local levelUpAtk;
 local levelUpDef;
@@ -133,7 +134,7 @@ function xiangxiziliao:OnInit()
 	rec = rightInfo:GetChild("n221");
 	reflect = rightInfo:GetChild("n222");
 	suck = rightInfo:GetChild("n223");
-
+	levelLab = rightLevelUp:GetChild("n308");
 	levelUpBtn= rightLevelUp:GetChild("n299");
 	levelUpBtn.onClick:Add(xiangxiziliao_OnLevelUpClick);
 	levelHp = rightLevelUp:GetChild("n242");
@@ -145,7 +146,7 @@ function xiangxiziliao:OnInit()
 
 	addLevelHp = rightLevelUp:GetChild("n277");
 	addLevelAtk = rightLevelUp:GetChild("n279");
-	addLevelDef = rightLevelUp:GetChild("n280");
+	addLevelDef = rightLevelUp:GetChild("n280");  
 	addLevelAgility = rightLevelUp:GetChild("n281");
 	addLevelMatk = rightLevelUp:GetChild("n282");
 	addLevelMdef = rightLevelUp:GetChild("n283");
@@ -188,7 +189,7 @@ function xiangxiziliao_OnMessageConfirm()
 	isInGroup = UIManager.GetWindow("paiku").IsInGroup();
 	if isInGroup then
 		GamePlayer.TakeOffCard(crtCardInstID, crtGroupIdx);
-	else
+	else 
 		if GamePlayer.IsGroupMax(crtGroupIdx) then
 			local MessageBox = UIManager.ShowMessageBox();
 			MessageBox:SetData("提示", "卡组已满", true);
@@ -197,7 +198,7 @@ function xiangxiziliao_OnMessageConfirm()
 		end
 	end
 	UIManager.Hide("xiangxiziliao");
-	UIManager.SetDirty("paiku");
+	UIManager.SetDirty("paiku"); 
 end
 
 function xiangxiziliao_OnMessageCancel()
@@ -307,7 +308,7 @@ function xiangxiziliao_FlushData()
 	rec.text = entityInst.CProperties[13];
 	reflect.text = entityInst.CProperties[14];
 	suck.text = entityInst.CProperties[15];
-
+	levelLab.text = entityInst.IProperties[9].."";
 	levelHp.text = entityInst.CProperties[1];
 	levelAtk.text = entityInst.CProperties[3];
 	levelDef.text = entityInst.CProperties[4];

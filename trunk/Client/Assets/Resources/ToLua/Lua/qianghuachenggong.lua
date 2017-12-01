@@ -106,7 +106,7 @@ function qianghuachenggong_FlushData()
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9] );
 	headIcon.url = "ui://" .. displayData._HeadIcon;
 	fee.text = entityData._Cost;
-	oldLevel.text =  entityInst.IProperties[9] -1 .. "";
+	--oldLevel.text =  entityInst.IProperties[9] -1 .. "";
 	nowLevel.text =   entityInst.IProperties[9] .. "";
 	headLevel.text =  entityInst.IProperties[9] .. "";
 	hp.text =  entityInst.CProperties[1] - levelData._Hp .. "";
@@ -116,11 +116,18 @@ function qianghuachenggong_FlushData()
 	matk.text = entityInst.CProperties[5] - levelData._MagicAtk  .. "";
 	mdef.text = entityInst.CProperties[6] - levelData._MagicDef .. "";
 
-	levelUpHp.text = entityInst.CProperties[1] .. "";
-	levelUpAtk.text = entityInst.CProperties[3].. "";
-	levelUpDef.text = entityInst.CProperties[4]  .. "";
-	levelUpAgility.text = entityInst.CProperties[7]   .. "";
-	levelUpMatk.text = entityInst.CProperties[5]  .. "";
-	levelUpMdef.text = entityInst.CProperties[6] .. "";
+	--levelUpHp.text = entityInst.CProperties[1] .. "";
+	--levelUpAtk.text = entityInst.CProperties[3].. "";
+	--levelUpDef.text = entityInst.CProperties[4]  .. "";
+	--levelUpAgility.text = entityInst.CProperties[7]   .. "";
+	--levelUpMatk.text = entityInst.CProperties[5]  .. "";
+	--levelUpMdef.text = entityInst.CProperties[6] .. "";
+
+	levelUpHp.text = levelData._Hp .. "";
+	levelUpAtk.text = levelData._Atk .. "";
+	levelUpDef.text = levelData._Def .. "";
+	levelUpAgility.text = levelData._Agile .. "";
+	levelUpMatk.text = levelData._MagicAtk .. "";
+	levelUpMdef.text = levelData._MagicDef .. "";
 
 end
