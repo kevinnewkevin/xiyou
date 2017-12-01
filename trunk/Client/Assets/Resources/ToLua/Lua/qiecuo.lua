@@ -316,7 +316,8 @@ end
 
 function qiecuo_OnVideo(context)
 	ttRewardList.visible = false;
-	Proxy4Lua.RequestSelfRecordData();
+	Proxy4Lua.RequestPlayerRecordData(GamePlayer._InstID);
+	--Proxy4Lua.RequestSelfRecordData();
 end
 
 function qiecuo_OnTtItem(context)
