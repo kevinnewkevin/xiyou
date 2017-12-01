@@ -333,6 +333,7 @@ struct COM_PlayerInfo
 	int32			TiatiVal;			//天梯积分
 	int32			TiatiRank;			//排名
 	bool			IsOnline;			//是否在线
+	int64			InstId;			//ID
 };
 
 //--帮派
