@@ -8,12 +8,13 @@ type COM_PlayerInfo struct{
   sync.Mutex
   UnitLIst []COM_Unit  //0
   Level int32  //1
-  Name string  //2
-  UnitID int32  //3
-  ClanName string  //4
-  TiatiVal int32  //5
-  TiatiRank int32  //6
-  IsOnline bool  //7
+  InstId int64  //2
+  Name string  //3
+  UnitID int32  //4
+  ClanName string  //5
+  TiatiVal int32  //6
+  TiatiRank int32  //7
+  IsOnline bool  //8
 }
 func (this *COM_PlayerInfo)SetUnitLIst(value []COM_Unit) {
   this.Lock()
@@ -34,6 +35,16 @@ func (this *COM_PlayerInfo)GetLevel() int32 {
   this.Lock()
   defer this.Unlock()
   return this.Level
+}
+func (this *COM_PlayerInfo)SetInstId(value int64) {
+  this.Lock()
+  defer this.Unlock()
+  this.InstId = value
+}
+func (this *COM_PlayerInfo)GetInstId() int64 {
+  this.Lock()
+  defer this.Unlock()
+  return this.InstId
 }
 func (this *COM_PlayerInfo)SetName(value string) {
   this.Lock()
@@ -99,9 +110,10 @@ func (this *COM_PlayerInfo)Serialize(buffer *bytes.Buffer) error {
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask := newMask1(1)
+  mask := newMask1(2)
   mask.writeBit(len(this.UnitLIst) != 0)
   mask.writeBit(this.Level!=0)
+  mask.writeBit(this.InstId!=0)
   mask.writeBit(len(this.Name) != 0)
   mask.writeBit(this.UnitID!=0)
   mask.writeBit(len(this.ClanName) != 0)
@@ -133,6 +145,15 @@ func (this *COM_PlayerInfo)Serialize(buffer *bytes.Buffer) error {
   {
     if(this.Level!=0){
       err := write(buffer,this.Level)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize InstId
+  {
+    if(this.InstId!=0){
+      err := write(buffer,this.InstId)
       if err != nil{
         return err
       }
@@ -188,7 +209,7 @@ func (this *COM_PlayerInfo)Deserialize(buffer *bytes.Buffer) error{
   this.Lock()
   defer this.Unlock()
   //field mask
-  mask, err:= newMask0(buffer,1);
+  mask, err:= newMask0(buffer,2);
   if err != nil{
     return err
   }
@@ -210,6 +231,13 @@ func (this *COM_PlayerInfo)Deserialize(buffer *bytes.Buffer) error{
   // deserialize Level
   if mask.readBit() {
     err := read(buffer,&this.Level)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize InstId
+  if mask.readBit() {
+    err := read(buffer,&this.InstId)
     if err != nil{
       return err
     }

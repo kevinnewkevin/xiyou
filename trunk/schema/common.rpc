@@ -327,6 +327,7 @@ struct COM_PlayerInfo
 {
 	COM_Unit[]		UnitLIst;			//出战卡组
 	int32			Level;				//等级
+	int64			InstId;				//ID
 	string			Name;				//姓名
 	int32			UnitID;				//unitid
 	string			ClanName;			//帮会名字

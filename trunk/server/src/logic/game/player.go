@@ -1605,6 +1605,7 @@ func (this *GamePlayer) AddBattleDetail(info prpc.COM_BattleRecord_Detail) {
 func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 	info := prpc.COM_PlayerInfo{}
 	info.IsOnline = false
+	info.InstId = Instid
 	p := FindPlayerByInstId(Instid)
 	if p == nil {
 		var p *prpc.SGE_DBPlayer

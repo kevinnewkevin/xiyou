@@ -334,20 +334,24 @@ func FindBattleRecord(battleId int32) []prpc.COM_BattleRecord_Detail {
 	return nil
 }
 
-func AddBattleRecord(battleId int32, info prpc.COM_BattleRecord_Detail) {
+func AddBattleRecord(battleId int32, info prpc.COM_BattleRecord_Detail) bool {
 	record, ok := BattleRecordPVE[battleId]
+
+	succ := false
 
 	if !ok {
 		BattleRecordPVE[battleId] = []prpc.COM_BattleRecord_Detail{info}
+		succ = true
 	} else {
 		if len(record) < 5 {
 			BattleRecordPVE[battleId] = append(BattleRecordPVE[battleId], info)
+			succ = true
 		}
 	}
 
 	logs.Debug("AddBattleRecord", BattleRecordPVE[battleId])
 
-	return
+	return succ
 }
 
 func FindBattle(battleId int64) *BattleRoom {
@@ -646,7 +650,10 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				b.Players = this.Record.Players
 				b.Winner = this.Record.Winner
 
-				AddBattleRecord(this.BattleID, b)
+				succ := AddBattleRecord(this.BattleID, b)
+				if succ {
+					InsertBattleReport(this.InstId, GetSGECOM(this))
+				}
 			}
 			dropId := bp.CalcSmallChapterStar(result, p)
 			if dropId != 0 {
