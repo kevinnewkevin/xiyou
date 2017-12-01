@@ -371,9 +371,8 @@ function xiaoguanka_RenderListItem(index, obj)
 	local RecordBtn = obj:GetChild("n15");
 	RecordBtn.onClick:Add(xiaoguanka_OnRecord);
 	RecordBtn.data = smallData.SmallChapterId;
-	local img = obj:GetChild("n10");
-	img.onClick:Add(xiaoguanka_OnChallengeBtn);
-	img.data = smallData.SmallChapterId;
+	obj.onClick:Add(xiaoguanka_OnChallengeBtn);
+	obj.data = smallData.SmallChapterId;
 	if index == playerNum then
 		lock.visible  = false;
 		gImg.visible  = false;

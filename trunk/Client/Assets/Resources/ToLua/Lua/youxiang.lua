@@ -11,7 +11,7 @@ local timeLab;
 local itemList;
 local titleLab;
 local _mailId;
-
+local delBtn;
 function youxiang:OnEntry()
 	Window = youxiang.New();
 	Window:Show();
@@ -31,16 +31,18 @@ function youxiang:OnInit()
 	getBtn = self.contentPane:GetChild("n4");
 	timeLab = self.contentPane:GetChild("n14");
 	itemList = self.contentPane:GetChild("n18");
-	titleLab =  self.contentPane:GetChild("n12");
-
+	titleLab = self.contentPane:GetChild("n12");
+	delBtn = self.contentPane:GetChild("n21");
 	timeLab.text ="";
 	contentLab.text ="";
 	titleLab.text ="";
 	getBtn.visible = false;
+	delBtn.visible = false;
 	_mailId = 0;
 	mailList.itemRenderer = youxiang_RenderListItem;
 	itemList.itemRenderer = youxiang_ItemListItem;
 	getBtn.onClick:Add(youxiang_OnGetReward);
+	delBtn.onClick:Add(youxiang_OnDel);
 	youxiang_FlushData();
 end
 
@@ -67,6 +69,8 @@ end
 
 function youxiang:OnHide()
 	_mailId = 0;
+	getBtn.visible = false;
+	delBtn.visible = false;
 	Window:Hide();
 end
 
@@ -105,6 +109,10 @@ function youxiang_OnGetReward(content)
 	Proxy4Lua.GetMailItem(_mailId);
 end
 
+function youxiang_OnDel(content)
+	Proxy4Lua.DelMail(_mailId);
+end
+
 function updateMainInfo()
 
 	local data = MailSystem.GetMail(_mailId);
@@ -114,19 +122,22 @@ function updateMainInfo()
 		titleLab.text ="";
 		itemList.numItems = 0;
 		getBtn.visible = false;
+		delBtn.visible = false;
 	else
 		if data.IsRead == false then
 			Proxy4Lua.ReadMail(_mailId);
 		end
+
 		--timeLab.text = data.MailTimestamp.."";
 		contentLab.text =data.Content;
 		titleLab.text =data.SendPlayerName;
-		if data.Items ~= nil then
+		if data.Items ~= nil  then
 			itemList.numItems = data.Items.Length;
 			getBtn.visible = true;
 		else
 			itemList.numItems = 0;
 			getBtn.visible = false;
+			delBtn.visible = true;
 		end 
 
 	

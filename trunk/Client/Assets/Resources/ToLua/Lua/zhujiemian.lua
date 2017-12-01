@@ -26,6 +26,7 @@ local maxChatInput;
 local maxChatSendBtn;
 
 local friendRad;
+local mailRad;
 
 local chatBtn;
 local guildBtn;
@@ -70,9 +71,9 @@ function zhujiemian:OnInit()
 	tujianBtn.onClick:Add(zhujiemian_OnTuJian);
 
 	local emailBtn = self.contentPane:GetChild("n7");
-	emailBtn .onClick:Add(zhujiemian_OnEmailBtn);
-
-
+	emailBtn.onClick:Add(zhujiemian_OnEmailBtn);
+	mailRad = emailBtn:GetChild("n3");
+	mailRad.visible = false;
 	friendRad = self.contentPane:GetChild("n56");
 	friendRad.visible = false;
 
@@ -206,6 +207,17 @@ function zhujiemian_FlushData()
   				friendRad.visible = false;
   			end
   	end
+
+  	local mails = MailSystem.mailList;
+  	mailRad.visible = false;
+  	if mails.Count > 0 then 
+		for i = 1 , mails.Count do
+			if mails[i-1].IsRead == false or mails[i-1].Items ~= nil then
+				mailRad.visible = true;
+				break;
+			end
+		end
+	end
 	DoSpecialEffect();
 	guildBtn.enabled = GamePlayer._Data.IProperties[9] >= 1;
 end

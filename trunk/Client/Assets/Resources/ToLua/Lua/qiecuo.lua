@@ -329,28 +329,29 @@ function qiecuo_RenderListItem(index, obj)
 		obj:GetChild("n13").visible = false;
 	end
 	local drop = DropData.GetData(data._LadderDrop);
-	if drop.item1_ ~= 0 then
-		local item = ItemData.GetData(drop.item1_);
-		obj:GetChild("n8").asLoader.url = "ui://" .. item._Icon;
-		obj:GetChild("n7").asLoader.url = "ui://" .. item._IconBack;  
+
+	if drop.money_ ~= 0 then
+		obj:GetChild("n8").asLoader.url = "ui://icon/jinbi_icon" ;
+		--obj:GetChild("n7").asLoader.url = "ui://" .. item._IconBack;  
 	else
 		obj:GetChild("n8").visible = false;
 		obj:GetChild("n7").visible = false; 
 	end
 
-	if drop.item2_ ~= 0 then
-		local item2 = ItemData.GetData(drop.item1_);
-		obj:GetChild("n10").asLoader.url = "ui://" .. item2._Icon;
-		obj:GetChild("n9").asLoader.url = "ui://" .. item2._IconBack;  
+	if drop.item1_ ~= 0 then
+		local item1 = ItemData.GetData(drop.item1_);
+		obj:GetChild("n10").asLoader.url = "ui://" .. item1._Icon;
+		obj:GetChild("n9").asLoader.url = "ui://" .. item1._IconBack;  
 	else
 		obj:GetChild("n10").visible = false;
 		obj:GetChild("n9").visible = false; 
 	end
 
-	if drop.item3_ ~= 0 then
-		local item3 = ItemData.GetData(drop.item1_);
-		obj:GetChild("n11").asLoader.url = "ui://" .. item3._Icon;
-		obj:GetChild("n12").asLoader.url = "ui://" .. item3._IconBack;  
+	if drop.hero_ ~= 0 then
+		local entityData = EntityData.GetData(drop.hero_);
+		local displayData = DisplayData.GetData(entityData._DisplayId);
+		obj:GetChild("n11").asLoader.url = "ui://" .. displayData._Quality;
+		obj:GetChild("n12").asLoader.url = "ui://" .. displayData._HeadIcon; 
 	else
 		obj:GetChild("n11").visible = false;
 		obj:GetChild("n12").visible = false; 
