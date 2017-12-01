@@ -230,8 +230,9 @@ public class Proxy4Lua {
         NetWoking.S.QueryCheckpointRecordDetail(battleid);
     }
 
-    static public void RequestRecord(long recordid)
+    static public void RequestRecord(long playerid, long recordid)
     {
+        BattleRecordSystem.MirrorPlayerId = playerid;
         BattleRecordSystem.RequestRecord(recordid);
     }
 
