@@ -408,7 +408,7 @@ function squadliaotian_OnRenderListItem(index, obj)
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				content.width = content.textWidth;
 				if crtList[index].AudioId ~= nil then
-					content.data = crtList[index];
+					content.data = crtList[index].AudioId;
 					content.onClickLink:Add(squadliaotian_OnClickRecord);
 				end
 			end
@@ -424,11 +424,7 @@ function squadliaotian_OnRenderListItem(index, obj)
 end
 
 function squadliaotian_OnClickRecord(context)
-	if context.sender.data == nil then
-		return;
-	end
-	local chatInfo = context.sender.data;
-	Proxy4Lua.RequestRecord(chatInfo.PlayerInstId, chatInfo.AudioId);
+	Proxy4Lua.RequestRecord(context.sender.data);
 end
 
 function squad_OnAssistant(context)
