@@ -214,7 +214,7 @@ public class Proxy4Lua {
     {
         BattleRecordSystem.MirrorPlayerId = GamePlayer._InstID;
         UIManager.Show("luxiang");
-        BattleRecordSystem.CacheSimpleData(ref GamePlayer.MyRecord);
+        BattleRecordSystem.CacheSimpleData(GamePlayer.MyRecord);
     }
 
     static public void RequestPlayerRecordData(long instid)

@@ -76,7 +76,7 @@ public class BattleRecordSystem {
     }
 
     //录像简略信息
-    static public void CacheSimpleData(ref COM_BattleRecord_Detail[] brdetail)
+    static public void CacheSimpleData(COM_BattleRecord_Detail[] brdetail)
     {
         _BrDetail = brdetail;
 

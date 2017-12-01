@@ -466,7 +466,7 @@ class Proxy : ICOM_ServerToClientProxy
     {
         if(rds == null)
             rds = new COM_BattleRecord_Detail[0];
-        BattleRecordSystem.CacheSimpleData(ref rds);
+        BattleRecordSystem.CacheSimpleData(rds);
         return true;
     }
 
