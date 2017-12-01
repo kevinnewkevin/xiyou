@@ -349,7 +349,7 @@ func FindBattleRecord(battleId int32) *prpc.SGE_BattleRecord_Detail {
 	return nil
 }
 
-func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail) bool {
+func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail, playerid int64) bool {
 	record, ok := BattleRecordPVE[chapter]
 
 	succ := false
@@ -362,6 +362,13 @@ func AddBattleRecord(chapter int32, info prpc.COM_BattleRecord_Detail) bool {
 		InsertCheckPointRecordDetail(chapter, rc)
 	} else {
 		if len(record.Detail) < 5 {
+
+			for _, d := range record.Detail {
+				if d.Winner == playerid {
+					return succ
+				}
+			}
+
 			record.Detail = append(record.Detail, info)
 			BattleRecordPVE[chapter] = record
 			UpdateCheckPointRecordDetail(chapter, record)
@@ -670,7 +677,7 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 				b.Players = this.Record.Players
 				b.Winner = this.Record.Winner
 
-				succ := AddBattleRecord(bp.ChapterID, b)
+				succ := AddBattleRecord(bp.ChapterID, b, bp.PlayerId)
 				if succ {
 					InsertBattleReport(this.InstId, GetSGECOM(this))
 				}
