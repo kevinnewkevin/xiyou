@@ -11,7 +11,7 @@ local rankLab;
 local icon;
 local tatle;
 local cardGroupList;
-
+local recordBtn;
 
 function wanjiaxinxi:OnEntry()
 	Window = wanjiaxinxi.New();
@@ -36,7 +36,8 @@ function wanjiaxinxi:OnInit()
 	rankLab = self.contentPane:GetChild("n14");
 	tatle = self.contentPane:GetChild("n11");
 	cardGroupList = self.contentPane:GetChild("n13");
-
+	recordBtn = self.contentPane:GetChild("n15");
+	recordBtn.onClick:Add(wanjiaxinxi_OnRecord);
 	cardGroupList.itemRenderer = wanjiaxinxi_RenderListItem;
 	wanjiaxinxi_FlushData();
 end
@@ -120,4 +121,13 @@ function wanjiaxinxi_OnCard(context)
 	UIParamHolder.Set("showBoos", true);
 	UIManager.Show("xiangxiziliao");
 	
+end
+
+
+function wanjiaxinxi_OnRecord(context)
+	local info = FriendSystem.friendInfo;
+	if info == nil then
+		return;
+	end
+	Proxy4Lua.RequestPlayerRecordData(info.InstId);
 end

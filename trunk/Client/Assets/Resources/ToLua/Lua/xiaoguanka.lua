@@ -368,6 +368,9 @@ function xiaoguanka_RenderListItem(index, obj)
 	   		 lock.visible  = false;
 	   		 gImg.visible  = false;
 		end
+	local RecordBtn = obj:GetChild("n15");
+	RecordBtn.onClick:Add(xiaoguanka_OnRecord);
+	RecordBtn.data = smallData.SmallChapterId;
 	obj.onClick:Add(xiaoguanka_OnChallengeBtn);
 	obj.data = smallData.SmallChapterId;
 	if index == playerNum then
@@ -388,4 +391,10 @@ function xiaoguanka_OnChallengeBtn(context)
 		Proxy4Lua.RegHoldUI("main", "daguanka");
 		Proxy4Lua.RegHoldUI("main", "xiaoguanka");
 	end
+end
+
+
+function xiaoguanka_OnRecord(context)
+	local sId = context.sender.data;
+	Proxy4Lua.RequestFBRecordData(sId);
 end
