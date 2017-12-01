@@ -58,7 +58,7 @@ func SendMailByDrop(sendName string,recvName string,title string,content string,
 		logs.Info("SendMailByDrop Can Not Find Drop By DropId=", dropId)
 		return
 	}
-
+	logs.Info("SendMailByDrop Drop ", drop)
 	mail.Mailtype 		= prpc.MT_System
 	mail.SendPlayerName = sendName
 	mail.RecvPlayerName = recvName
