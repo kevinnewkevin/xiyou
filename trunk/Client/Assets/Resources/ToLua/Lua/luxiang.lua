@@ -125,8 +125,8 @@ function luxiang_FlushData()
 			end
 			------------------------getobjend-------------------------------
 
-			for m=0, BattleRecordSystem._BrDetail[i].Players.Length do
-				if BattleRecordSystem._BrDetail[i].Players[m].InstId == BattleRecordSystem.MirrorPlayerId then
+			for m=0, BattleRecordSystem._BrDetail[i].Players.Length - 1 do
+				if Proxy4Lua.LongIsEqual(BattleRecordSystem._BrDetail[i].Players[m].InstId, BattleRecordSystem.MirrorPlayerId) then
 					if Proxy4Lua.LongIsEqual(BattleRecordSystem._BrDetail[i].Winner, BattleRecordSystem._BrDetail[i].Players[m].InstId) then
 						lwinlose.url = "ui://luxiang/013";
 					else
@@ -147,7 +147,7 @@ function luxiang_FlushData()
 					end
 
 					if BattleRecordSystem._BrDetail[i].Players[m].Units ~= nil then
-						for z=0, BattleRecordSystem._BrDetail[i].Players[m].Units.Length do
+						for z=0, BattleRecordSystem._BrDetail[i].Players[m].Units.Length - 1 do
 							local lv = ltouxiangkuang[z]:GetChild("n6").asTextField;
 							local fee = ltouxiangkuang[z]:GetChild("n7").asTextField;
 							local head = ltouxiangkuang[z]:GetChild("n5").asLoader;
@@ -190,7 +190,7 @@ function luxiang_FlushData()
 					end
 
 					if BattleRecordSystem._BrDetail[i].Players[m].Units ~= nil then
-						for z=0, BattleRecordSystem._BrDetail[i].Players[m].Units.Length do
+						for z=0, BattleRecordSystem._BrDetail[i].Players[m].Units.Length - 1 do
 							local lv = rtouxiangkuang[z]:GetChild("n6").asTextField;
 							local fee = rtouxiangkuang[z]:GetChild("n7").asTextField;
 							local head = rtouxiangkuang[z]:GetChild("n5").asLoader;
