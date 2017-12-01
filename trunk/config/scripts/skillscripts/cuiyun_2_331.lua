@@ -17,11 +17,11 @@ function SK_331_Action(battleid, casterid)
 	local t = Player.GetTarget(battleid,casterid)
 	local  truedamage  = Player.GetUnitDamage(battleid,casterid,t)    --伤害 公式（）
 	
-	sys.log("翠云 碧云决对目标造成的法术伤害   ".. truedamage)
+	sys.log("翠云 碧云决对目标造成的物理伤害   ".. truedamage)
 
 	local damage = ClacDamageByAllBuff(battleid,casterid,t,truedamage)
 
-	sys.log("翠云 碧云决对目标造成的最终法术伤害   ".. damage)
+	sys.log("翠云 碧云决对目标造成的最终物理伤害   ".. damage)
 	--判断伤害
 	if damage <= 0 then 
 		damage = 0

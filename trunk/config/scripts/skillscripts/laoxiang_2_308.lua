@@ -21,7 +21,7 @@ function SK_308_Action(battleid, casterid)
 	
 	local t = Player.GetTarget(battleid, casterid)	-- 获取到的目标,可以为单体也可以为复数,根据不同需求选择
 	Battle.Attack(battleid, casterid, t, 0, 0)
-	sys.log("老象 神力 给目标  "..t.." 加124buff")
+	sys.log("老象 神力 给目标  "..t.." 加142buff")
 	Battle.AddBuff(battleid,casterid,t,142,casterid)  
 	sys.log("老象 神力 给目标  "..t.. " 加buff完成")	
 	Battle.TargetOver(battleid)

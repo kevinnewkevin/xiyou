@@ -1,4 +1,4 @@
-sys.log(" 太乙真人 SK_339_Action 开始")
+sys.log(" 太白金星 SK_349_Action 开始")
 
 -- 技能释放 传入战斗ID和释放者的ID
 -- 通过释放者和battleid取得对应的目标 单体或者多个
@@ -11,15 +11,19 @@ sys.log(" 太乙真人 SK_339_Action 开始")
 --  计算伤害数值 demage
 --  计算是否暴击
 --  攻击
---太乙真人2号技能 重塑真身：从你的手牌中随机上阵一张卡牌（没有手牌或者场上没有位置则不动一回合）
+--太白金星2号技能 招安：使对方阵营中一个随机目标到己方阵营
 
-function SK_339_Action(battleid,casterid)
+function SK_349_Action(battleid,casterid)
 	Battle.TargetOn(battleid)
 	
-	local skillid = 339
+	local skillid = 349
+
+	local t= Player.GetTargetNoMain(battleid,casterid)
 	
-	Battle.InToBattleOnFighting(battleid,casterid)
+	Battle.Attack(battleid,casterid,t,0,0)
+
+	Battle.TransPosOnFighting(battleid,t)
 
 	Battle.TargetOver(battleid)
 end
-sys.log(" 太乙真人 SK_339_Action 结束")
+sys.log(" 太白金星 SK_349_Action 结束")

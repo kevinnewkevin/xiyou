@@ -85,6 +85,7 @@ enum BuffSpecial{
 	BF_LOCK,		//锁定目标
 	BF_UNDAMAGE,	//免伤(免疫一切攻击)
 	BF_FRIENDLOCK,	//锁定己方一个随机目标(使目标下一回合的攻击目标变为己方一个随机目标)
+	BF_SILENT,		//沉默(沉默阶段只能释放普通攻击)
 	BF_MAX,
 };
 //
