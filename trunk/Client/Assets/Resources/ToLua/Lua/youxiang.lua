@@ -12,6 +12,9 @@ local itemList;
 local titleLab;
 local _mailId;
 local delBtn;
+
+local itemUrl = "ui://youxiang/daoju_com";
+
 function youxiang:OnEntry()
 	Window = youxiang.New();
 	Window:Show();
@@ -40,7 +43,7 @@ function youxiang:OnInit()
 	delBtn.visible = false;
 	_mailId = 0;
 	mailList.itemRenderer = youxiang_RenderListItem;
-	itemList.itemRenderer = youxiang_ItemListItem;
+	--itemList.itemRenderer = youxiang_ItemListItem;
 	getBtn.onClick:Add(youxiang_OnGetReward);
 	delBtn.onClick:Add(youxiang_OnDel);
 	youxiang_FlushData();
@@ -128,7 +131,7 @@ function updateMainInfo()
 		timeLab.text ="";
 		contentLab.text ="";
 		titleLab.text ="";
-		itemList.numItems = 0;
+		--itemList.numItems = 0;
 		getBtn.visible = false;
 		delBtn.visible = false;
 	else
@@ -140,15 +143,51 @@ function updateMainInfo()
 		contentLab.text =data.Content;
 		titleLab.text =data.SendPlayerName;
 		if data.Items ~= nil  then
-			itemList.numItems = data.Items.Length;
+			--itemList.numItems = data.Items.Length;
 			getBtn.visible = true;
 		else
-			itemList.numItems = 0;
+			--itemList.numItems = 0;
 			getBtn.visible = false;
 			delBtn.visible = true;
 		end 
 
-	
+
+		itemList:RemoveChildrenToPool(); 
+
+		if data.Gold ~= 0 then
+			local item = itemList:AddItemFromPool(itemUrl);
+		 	item:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
+		 	item:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		end
+
+		if data.Copper ~= 0 then
+			local item1 = itemList:AddItemFromPool(itemUrl);
+		 	item1:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
+		 	item1:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		end
+
+		if data.Hero ~= 0 then
+			local item2 = itemList:AddItemFromPool(itemUrl);
+		 	local entityData = EntityData.GetData(data.Hero);
+			local displayData = DisplayData.GetData(entityData._DisplayId);
+			item2:GetChild("n16").asLoader.url = "ui://" .. displayData._Quality;
+			item2:GetChild("n17").asLoader.url = "ui://" .. displayData._HeadIcon;
+			item2:GetChild("n17").onClick:Remove(youxiang_OnTtItem); 
+		end
+
+		if data.Items ~= nil then
+			for i=1, data.Items.Length do
+				local item3 = itemList:AddItemFromPool(itemUrl);
+				local data = MailSystem.GetMail(_mailId);
+				local item = ItemData.GetData(data.Items[i-1].ItemId);
+				local itemIcon1 = item3:GetChild("n17");
+				itemIcon1.asLoader.url = "ui://" .. item._Icon;
+				item3:GetChild("n16").asLoader.url = "ui://" .. item._IconBack;  
+				itemIcon1.onClick:Add(youxiang_OnTtItem);
+				itemIcon1.data = data.Items[i-1].ItemId;
+			end
+		end
+
 	end
 
 end
