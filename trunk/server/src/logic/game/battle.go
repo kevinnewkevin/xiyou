@@ -165,7 +165,7 @@ var BattleRecordPVE = map[int32]prpc.SGE_BattleRecord_Detail{}
 ////创建部分
 ////////////////////////////////////////////////////////////////////////
 
-func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
+func CreatePvE(p *GamePlayer, battleid int32, smallchapterid int32) *BattleRoom {
 	room := BattleRoom{}
 
 	room.Status = kUsed
@@ -174,6 +174,7 @@ func CreatePvE(p *GamePlayer, battleid int32) *BattleRoom {
 	room.Winner = prpc.CT_MAX
 	room.Units = make([]*BattleUnit, prpc.BP_MAX)
 	bp := CreateBattlePlayer(p, room.InstId, prpc.CT_RED)
+	bp.ChapterID = smallchapterid
 	room.PlayerList = append(room.PlayerList, bp)
 	room.Type = prpc.BT_PVE
 	room.Point = 1
@@ -208,7 +209,7 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 	room.PlayerList = append(room.PlayerList, bp)
 	room.Type = prpc.BT_PVR
 	room.Point = 1
-	room.BattleID = battleid
+	room.BattleID = 0
 
 	logs.Info("CreatePvR", &room)
 	BattleRoomList[room.InstId] = &room
@@ -266,7 +267,6 @@ func CreateBattlePlayer(p *GamePlayer, roomid int64, camp int) *BattlePlayer {
 	//m.MainUnit.BattleId = roomid
 	m.IsActive = false
 	m.TianTi = p.TianTiVal
-	m.ChapterID = p.ChapterID
 
 	p.BattleId = roomid
 
@@ -764,6 +764,11 @@ func (this *BattleRoom) BattleRoomOver(camp int) {
 			}
 		}
 		if this.Type == prpc.BT_PVR {
+
+			if camp == this.Monster.BattleCamp {
+				this.Record.Winner = this.Monster.MainUnit.InstId
+			}
+
 			InsertBattleReport(this.InstId, GetSGECOM(this))
 
 			b := prpc.COM_BattleRecord_Detail{}

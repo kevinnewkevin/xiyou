@@ -532,7 +532,7 @@ func (this *GamePlayer) JoinBattlePvE(bigGuanqia int32, SmallGuanqia int32) {
 	//this.Lock()
 	//defer this.Unlock()
 
-	CreatePvE(battlePlayerList[0], 1)
+	CreatePvE(battlePlayerList[0], 1, 1)
 
 	logs.Info("JoinBattlePvE %s", battlePlayerList)
 }
@@ -1587,6 +1587,7 @@ func (this *GamePlayer) IsBuyBlackMarketItem(shopId int32) bool {
 }
 
 func (this *GamePlayer) AddBattleDetail(info prpc.COM_BattleRecord_Detail) {
+	logs.Debug("AddBattleDetail ", info)
 
 	if len(this.BattleList) < maxBattleList {
 		this.BattleList = append(this.BattleList, info)
@@ -1677,6 +1678,14 @@ func (this *GamePlayer) QueryPlayerInfo(Instid int64) {
 	return
 }
 func (this *GamePlayer) QueryPlayerRecordDetail(Instid int64) {
+	logs.Debug("QueryPlayerRecordDetail ", Instid)
+
+	if Instid == this.MyUnit.InstId {
+		this.session.QueryRecordDetailOK(this.BattleList)
+		logs.Debug("QueryPlayerRecordDetail my ", this.BattleList)
+		return
+	}
+
 	p := FindPlayerByInstId(Instid)
 	if p == nil {
 		var p *prpc.SGE_DBPlayer
@@ -1686,15 +1695,17 @@ func (this *GamePlayer) QueryPlayerRecordDetail(Instid int64) {
 
 			this.session.QueryRecordDetailOK(player.BattleList)
 
-			logs.Debug("QueryPlayerRecordDetail offline ")
+			logs.Debug("QueryPlayerRecordDetail offline ", player.BattleList)
 		} else {
 			return
 		}
 	} else {
 		this.session.QueryRecordDetailOK(p.BattleList)
-		logs.Debug("QueryPlayerRecordDetail online ")
+		logs.Debug("QueryPlayerRecordDetail online ", this.BattleList)
+		return
 	}
 
+	this.session.QueryRecordDetailOK([]prpc.COM_BattleRecord_Detail{})
 	logs.Debug("QueryPlayerRecordDetail end")
 
 
@@ -1703,7 +1714,7 @@ func (this *GamePlayer) QueryPlayerRecordDetail(Instid int64) {
 
 
 func (this *GamePlayer) QueryCheckpointRecordDetail(Instid int32) {
-	logs.Debug("QueryBattleReport ", Instid)
+	logs.Debug("QueryCheckpointRecordDetail ", Instid)
 
 	record := FindBattleRecord(Instid)
 

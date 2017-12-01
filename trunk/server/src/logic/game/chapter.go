@@ -236,7 +236,7 @@ func (player *GamePlayer) AttackChapter(smallchapterid int32) {
 		return
 	}
 
-	isok := CreatePvE(player, smallData.BattleID)
+	isok := CreatePvE(player, smallData.BattleID, smallchapterid)
 	if isok == nil {
 		return
 	}

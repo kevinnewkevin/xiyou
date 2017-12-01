@@ -79,7 +79,7 @@ func InitDB() {
 		e = r.Scan(&MaxUnitInstId)
 		if e != nil {
 			logs.Debug(e.Error())
-			return
+			//return
 		}
 	}
 
@@ -95,7 +95,7 @@ func InitDB() {
 		e = r.Scan(&MaxGuildId)
 		if e != nil {
 			logs.Debug(e.Error())
-			return
+			//return
 		}
 	}
 
@@ -111,7 +111,7 @@ func InitDB() {
 		e = r.Scan(&MaxGuildAssistantId)
 		if e != nil {
 			logs.Debug(e.Error())
-			return
+			//return
 		}
 	}
 
@@ -131,7 +131,7 @@ func InitDB() {
 		}
 	}
 
-	logs.Infof("MAX PLAYER ID %d MAX UNIT ID %d, MAX GUILD ID %d, MAX GUILD ASSISTAN ID",MaxPlayerInstId,MaxUnitInstId,MaxGuildId,MaxGuildAssistantId)
+	logs.Infof("MAX PLAYER ID %d MAX UNIT ID %d, MAX GUILD ID %d, MAX GUILD ASSISTAN ID %d, ",MaxPlayerInstId,MaxUnitInstId,MaxGuildId,MaxGuildAssistantId)
 }
 
 
