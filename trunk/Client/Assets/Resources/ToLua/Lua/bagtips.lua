@@ -14,6 +14,7 @@ local useBtn;
 local useAllBtn;
 local delBtn;
 local unlockBtn;
+local btns; 
 function bagtips:OnEntry()
 	Window = bagtips.New();
 	Window:Show();
@@ -39,7 +40,7 @@ function bagtips:OnInit()
 	iconBack = itemIcon:GetChild("n0");
 	stackLab = itemIcon:GetChild("n2");
 
-	local btns = self.contentPane:GetChild("n28").asList;
+	btns = self.contentPane:GetChild("n28").asList;
 
 	useBtn = btns:GetChildAt(2);
 	useBtn.visible = false;
@@ -76,27 +77,44 @@ function bagtips:OnHide()
 end
 
 function bagtips_FlushData()
-	local bagwin = UIManager.GetWindow("bagui");
-	iteminst = BagSystem.GetItemInstByIndex(bagwin.GetClickItemIdx(), bagwin.GetCrtTab());
-	local itemdata;
-	if iteminst ~= null then
-		itemdata = ItemData.GetData(iteminst.ItemId);
-	end
-	local iconpath = "";
-	if itemdata == nil then
-		return;
-	end
-	icon.asLoader.url = "ui://" .. itemdata._Icon;
-	stackLab.text ="" .. iteminst.Stack;
-	iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
-	descLab.text = itemdata._Desc;
-	nameLab.text = itemdata._Name;
-	if  itemdata._Type == "IMT_Debris" then
-		typeLab.text = "碎片";
-		unlockBtn.visible = true;
-	elseif itemdata._Type == "IMT_Consumables" then
-		typeLab.text = "消耗品";
-		unlockBtn.visible = false;
+	local tipsItemId = UIParamHolder.Get("tipsItem");
+	if  tipsItemId ~= 0 then
+		btns.visible = false;
+		local iData = ItemData.GetData(tipsItemId);
+		icon.asLoader.url = "ui://" .. iData._Icon;
+		stackLab.text ="";
+		iconBack.asLoader.url = "ui://" .. iData._IconBack;
+		descLab.text = iData._Desc;
+		nameLab.text = iData._Name;
+		if  iData._Type == "IMT_Debris" then
+			typeLab.text = "碎片";
+		elseif iData._Type == "IMT_Consumables" then
+			typeLab.text = "消耗品";
+		end
+	else
+		local bagwin = UIManager.GetWindow("bagui");
+		iteminst = BagSystem.GetItemInstByIndex(bagwin.GetClickItemIdx(), bagwin.GetCrtTab());
+		local itemdata;
+		if iteminst ~= null then
+			itemdata = ItemData.GetData(iteminst.ItemId);
+		end
+		btns.visible = true;
+		local iconpath = "";
+		if itemdata == nil then
+			return;
+		end
+		icon.asLoader.url = "ui://" .. itemdata._Icon;
+		stackLab.text ="" .. iteminst.Stack;
+		iconBack.asLoader.url = "ui://" .. itemdata._IconBack;
+		descLab.text = itemdata._Desc;
+		nameLab.text = itemdata._Name;
+		if  itemdata._Type == "IMT_Debris" then
+			typeLab.text = "碎片";
+			unlockBtn.visible = true;
+		elseif itemdata._Type == "IMT_Consumables" then
+			typeLab.text = "消耗品";
+			unlockBtn.visible = false;
+		end
 	end
 end
 

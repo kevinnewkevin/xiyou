@@ -76,6 +76,7 @@ end
 
 function bag_OnItem(context)
 	crtClickItemIdx = context.sender.data;
+	UIParamHolder.Set("tipsItem", 0);
 	UIManager.Show("bagtips");
 end
 

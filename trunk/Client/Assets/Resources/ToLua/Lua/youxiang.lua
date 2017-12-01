@@ -95,10 +95,18 @@ end
 function youxiang_ItemListItem(index, obj)
 	local data = MailSystem.GetMail(_mailId);
 	local item = ItemData.GetData(data.Items[index].ItemId);
-	obj:GetChild("n17").asLoader.url = "ui://" .. item._Icon;
+	local itemIcon = obj:GetChild("n17");
+	itemIcon.asLoader.url = "ui://" .. item._Icon;
 	obj:GetChild("n16").asLoader.url = "ui://" .. item._IconBack;  
+	itemIcon.onClick:Add(youxiang_OnTtItem);
+	itemIcon.data = data.Items[index].ItemId;
 end
 
+function youxiang_OnTtItem(context)
+	local iId = context.sender.data;
+	UIParamHolder.Set("tipsItem", iId);
+	UIManager.Show("bagtips");
+end
 
 function youxiang_OnMail(content)
 	_mailId = content.sender.data;

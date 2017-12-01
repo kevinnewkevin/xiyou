@@ -315,7 +315,13 @@ function qiecuo_OnList(context)
 end
 
 function qiecuo_OnVideo(context)
+	ttRewardList.visible = false;
+end
 
+function qiecuo_OnTtItem(context)
+	local iId = context.sender.data;
+	UIParamHolder.Set("tipsItem", iId);
+	UIManager.Show("bagtips");
 end
 
 function qiecuo_RenderListItem(index, obj)
@@ -338,12 +344,16 @@ function qiecuo_RenderListItem(index, obj)
 		obj:GetChild("n7").visible = false; 
 	end
 
+	local itemIcon = obj:GetChild("n10");
 	if drop.item1_ ~= 0 then
 		local item1 = ItemData.GetData(drop.item1_);
-		obj:GetChild("n10").asLoader.url = "ui://" .. item1._Icon;
+		itemIcon.asLoader.url = "ui://" .. item1._Icon;
 		obj:GetChild("n9").asLoader.url = "ui://" .. item1._IconBack;  
+		itemIcon.onClick:Add(qiecuo_OnTtItem);
+		itemIcon.data = drop.item1_;
 	else
-		obj:GetChild("n10").visible = false;
+		itemIcon.visible = false;
+		itemIcon.onClick:Remove(qiecuo_OnTtItem);
 		obj:GetChild("n9").visible = false; 
 	end
 
