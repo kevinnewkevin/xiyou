@@ -27,6 +27,9 @@ public class GamePlayer {
 	static public COM_Unit newCard;
 	static public int _guildId;
 	static public int _iGuildId;
+
+    static List<COM_BattleRecord_Detail> _MyRecords;
+
     static public void Init(COM_Player player)
     {
         Clear();
@@ -92,6 +95,11 @@ public class GamePlayer {
                 RoleSkillData.SetData(player.SkillBase[i].SkillIdx, player.SkillBase[i].SkillId);
             }
         }
+
+        if (player.BattleList != null)
+            _MyRecords = new List<COM_BattleRecord_Detail>(player.BattleList);
+        else
+            _MyRecords = new List<COM_BattleRecord_Detail>();
 
         GuideSystem.SetProgress(player.Guide);
 
@@ -526,6 +534,11 @@ public class GamePlayer {
 	{
         return RankLevel(_TianTiVal);
 	}
+
+    static public COM_BattleRecord_Detail[] MyRecord
+    {
+        get { return _MyRecords.ToArray(); }
+    }
 
     static public int RankLevel(int score)
     {

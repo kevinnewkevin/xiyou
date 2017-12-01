@@ -210,8 +210,16 @@ public class Proxy4Lua {
 	{
 		NetWoking.S.ReadMail(id);
 	}
+    static public void RequestSelfRecordData()
+    {
+        BattleRecordSystem.MirrorPlayerId = GamePlayer._InstID;
+        UIManager.Show("luxiang");
+        BattleRecordSystem.CacheSimpleData(GamePlayer.MyRecord);
+    }
+
     static public void RequestPlayerRecordData(long instid)
     {
+        BattleRecordSystem.MirrorPlayerId = instid;
         UIManager.Show("luxiang");
         NetWoking.S.QueryPlayerRecordDetail(instid);
     }

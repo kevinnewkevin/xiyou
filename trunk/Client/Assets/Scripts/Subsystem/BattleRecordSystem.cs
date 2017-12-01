@@ -78,36 +78,33 @@ public class BattleRecordSystem {
     //录像简略信息
     static public void CacheSimpleData(ref COM_BattleRecord_Detail[] brdetail)
     {
-        //window waiting close
+        _BrDetail = brdetail;
 
-        if (brdetail == null || brdetail.Length == 0)
+        if (_BrDetail.Length > 0)
         {
+            if (brdetail[0].Battleid != 0)
+                MirrorPlayerId = brdetail[0].Players [0].InstId;
             
-            return;
-        }
-
-        bool checkOk = false;
-        if (MirrorPlayerId != 0)
-        {
-            for (int i = 0; i < brdetail [0].Players.Length; ++i)
+            bool checkOk = false;
+            if (MirrorPlayerId != 0)
             {
-                for(int j=0; j < brdetail [0].Players.Length; ++j)
+                for (int i = 0; i < brdetail [0].Players.Length; ++i)
                 {
-                    if (brdetail [0].Players [j].InstId == MirrorPlayerId)
+                    for(int j=0; j < brdetail [0].Players.Length; ++j)
                     {
-                        checkOk = true;
-                        break;
+                        if (brdetail [0].Players [j].InstId == MirrorPlayerId)
+                        {
+                            checkOk = true;
+                            break;
+                        }
                     }
                 }
             }
+            if (!checkOk)//如果没有当前玩家的录像 可能是网路问题导致数据错误 直接清除直到正确的数据到来 更新界面
+            {
+                _BrDetail = new COM_BattleRecord_Detail[0];
+            }
         }
-        if (!checkOk)
-            return;
-
-        if (brdetail[0].Battleid != 0)
-            MirrorPlayerId = brdetail[0].Players [0].InstId;
-        
-        _BrDetail = brdetail;
 
         UIManager.SetDirty("luxiang");
         UIManager.SetDirty("guankaluxiang");
