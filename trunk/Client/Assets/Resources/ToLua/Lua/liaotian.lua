@@ -182,6 +182,10 @@ function liaotian_OnRenderListItem(index, obj)
 				content.width = content.initWidth;
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				content.width = content.textWidth;
+				if crtList[index].AudioId ~= nil then
+					content.data = crtList[index].AudioId;
+					content.onClickLink:Add(liaotian_OnClickRecord);
+				end
 			end
 			icon.url = "ui://" .. crtList[index].HeadIcon;
 			if crtList[index].Type == 1 then
@@ -194,9 +198,13 @@ function liaotian_OnRenderListItem(index, obj)
 			icon.onClick:Add(liaotian_OnCheckIcon);
 			icon.data = crtList[index].PlayerInstId;
 			addFriendBtn.data = crtList[index].PlayerName;
-			checkInfoBtn.data = crtList[index].PlayerInstId; 
+			checkInfoBtn.data = crtList[index].PlayerInstId;
 		end
 	end
+end
+
+function liaotian_OnClickRecord(context)
+	Proxy4Lua.RequestRecord(context.sender.data);
 end
 
 function liaotiansquad_OnAssistant(context)

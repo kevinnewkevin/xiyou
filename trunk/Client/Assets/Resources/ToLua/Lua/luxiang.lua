@@ -18,6 +18,7 @@ end
 function luxiang:OnInit()
 	self.contentPane = UIPackage.CreateObject("luxiang", "luxiang_com").asCom;
 	self:Center();
+	self.closeButton = self.contentPane:GetChild("n45");
 
 	luxiangList = self.contentPane:GetChild("n44").asList;
 
@@ -53,12 +54,25 @@ function luxiang_OnPlay(context)
 end
 
 function luxiang_OnShare(context)
-	
+	if context.sender.data == nil then
+		return;
+	end
+
+	local chat = COM_Chat.New();
+	chat.Type = 1;--世界频道
+	chat.PlayerInstId = GamePlayer._InstID;
+	chat.PlayerName = GamePlayer._Name;
+	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
+	chat.Level = GamePlayer._Data.IProperties[9];
+	chat.Content = Proxy4Lua.ChangeColor(GamePlayer._Name, "blue") .. "分享一段战斗录像,[url]点击观看[/url]";
+	chat.AudioId = context.sender.data;
+	Proxy4Lua.SendChat(chat);
 end
 
 function luxiang_FlushData()
 	Window:ShowModalWait();
 	luxiangList:RemoveChildrenToPool();
+	local shareBtnVisible = Proxy4Lua.LongIsEqual(BattleRecordSystem.MirrorPlayerId, GamePlayer._InstID);
 	if BattleRecordSystem._BrDetail ~= nil then
 		for i=0, BattleRecordSystem._BrDetail.Length -1 do
 			------------------------getobjbegin-----------------------------
@@ -69,6 +83,7 @@ function luxiang_FlushData()
 			playBtn.onClick:Add(luxiang_OnPlay);
 			shareBtn.data = BattleRecordSystem._BrDetail[i].ReportId;
 			shareBtn.onClick:Add(luxiang_OnShare);
+			shareBtn.visible = shareBtnVisible;
 
 			--leftpart
 			local lwinlose = obj:GetChild("n34").asLoader;

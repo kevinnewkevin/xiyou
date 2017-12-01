@@ -407,6 +407,10 @@ function squadliaotian_OnRenderListItem(index, obj)
 				content.width = content.initWidth;
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				content.width = content.textWidth;
+				if crtList[index].AudioId ~= nil then
+					content.data = crtList[index].AudioId;
+					content.onClickLink:Add(squadliaotian_OnClickRecord);
+				end
 			end
 			icon.url = "ui://" .. crtList[index].HeadIcon;
 			if crtList[index].Type == 1 then
@@ -417,6 +421,10 @@ function squadliaotian_OnRenderListItem(index, obj)
 			lv.text = crtList[index].Level;
 		end
 	end
+end
+
+function squadliaotian_OnClickRecord(context)
+	Proxy4Lua.RequestRecord(context.sender.data);
 end
 
 function squad_OnAssistant(context)
