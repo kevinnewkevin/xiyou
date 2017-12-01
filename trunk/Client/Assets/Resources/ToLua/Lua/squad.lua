@@ -407,8 +407,8 @@ function squadliaotian_OnRenderListItem(index, obj)
 				content.width = content.initWidth;
 				content.text = EmojiParser.inst:Parse(crtList[index].Content);
 				content.width = content.textWidth;
-				if crtList[index].AudioId ~= nil then
-					content.data = crtList[index].AudioId;
+				if not Proxy4Lua.LongIsEqual(crtList[index].RecordId, 0) then
+					content.data = crtList[index].RecordId;
 					content.onClickLink:Add(squadliaotian_OnClickRecord);
 				end
 			end

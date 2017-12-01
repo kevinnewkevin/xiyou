@@ -66,7 +66,7 @@ function luxiang_OnShare(context)
 	chat.HeadIcon = GamePlayer.GetMyDisplayData()._HeadIcon;
 	chat.Level = GamePlayer._Data.IProperties[9];
 	chat.Content = Proxy4Lua.ChangeColor(GamePlayer._Name, "blue") .. "分享一段战斗录像,[url]点击观看[/url]";
-	chat.AudioId = context.sender.data;
+	chat.RecordId = context.sender.data;
 	Proxy4Lua.SendChat(chat);
 end
 
