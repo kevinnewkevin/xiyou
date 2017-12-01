@@ -307,6 +307,7 @@ struct COM_Chat
 	bool		AudioOld;		//是否听过
 	int32		AudioLen;		//语音时长
 	int32		AssistantId;	//支援id
+	int64		RecordId;		//录像id
 };
 
 struct COM_Assistant
