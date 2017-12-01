@@ -118,8 +118,13 @@ function DoSpecialEffect()
 					end
 				 end
 				 battleNum.text = "已完成"..num.."/"..len;
-				 finishImg.visible = finish;
-				 finishBigImg.visible = finish;
+				 if num >= len then
+				 	finishImg.visible = true;
+				 	finishBigImg.visible = true;
+				 else
+				 	finishBigImg.visible = false;
+				 	finishImg.visible = false;
+				 end
 				if  cData == nil then
 					starBtn.visible = false;
 				else
