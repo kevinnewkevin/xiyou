@@ -3,6 +3,8 @@ require "FairyGUI"
 luxiang = fgui.window_class(WindowBase)
 local Window;
 
+local modalTimer;
+
 local luxiangList;
 local luxiangitem = "ui://luxiang/duizhan_com";
 
@@ -34,7 +36,13 @@ function luxiang:OnUpdate()
 end
 
 function luxiang:OnTick()
-	
+	if modalTimer ~= nil then
+		modalTimer.crt = modalTimer.crt + 1;
+		if modalTimer.crt > modalTimer.max then
+			Window:CloseModalWait();
+			modalTimer = nil;
+		end
+	end
 end
 
 function luxiang:isShow()
@@ -72,6 +80,9 @@ end
 
 function luxiang_FlushData()
 	Window:ShowModalWait();
+	modalTimer = {};
+	modalTimer.crt = 0;
+	modalTimer.max = 5;
 	luxiangList:RemoveChildrenToPool();
 	local shareBtnVisible = Proxy4Lua.LongIsEqual(BattleRecordSystem.MirrorPlayerId, GamePlayer._InstID);
 	if BattleRecordSystem._BrDetail ~= nil then
@@ -214,6 +225,9 @@ function luxiang_FlushData()
 					end
 				end
 			end
+		end
+		if modalTimer ~= nil then
+			modalTimer = nil;
 		end
 		Window:CloseModalWait();
 	end
