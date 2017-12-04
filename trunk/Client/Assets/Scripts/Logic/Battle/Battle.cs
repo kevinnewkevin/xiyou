@@ -240,10 +240,13 @@ public class Battle {
                 CurrentState = BattleState.BS_Oper;
         });
 
-        for(int i=0; i < _ActorInScene.Length; ++i)
+        if (_ActorInScene != null)
         {
-            if (_ActorInScene [i] != null)
-                _ActorInScene [i]._Headbar._IsDirty = true;
+            for(int i=0; i < _ActorInScene.Length; ++i)
+            {
+                if (_ActorInScene [i] != null && _ActorInScene [i]._Headbar != null)
+                    _ActorInScene [i]._Headbar._IsDirty = true;
+            }
         }
     }
 

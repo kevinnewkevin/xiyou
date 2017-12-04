@@ -375,6 +375,11 @@ public class Skill {
 
     void Melee_End()
     {
+        if (_Caster == null)
+        {
+            Clear();
+            return;
+        }
         if(_Caster._RealPosInScene >= 0 && _Caster._RealPosInScene < 6)
             Battle._BattleCamera.Reset();
         Play(_Caster, Define.ANIMATION_PLAYER_ACTION_RUN);
@@ -515,6 +520,11 @@ public class Skill {
 
     void Range_End()
     {
+        if (_Caster == null)
+        {
+            Clear();
+            return;
+        }
         if (_SkillData._TargetPos != SkillData.TargetPosType.TPT_Center)
             Play(_Caster, Define.ANIMATION_PLAYER_ACTION_IDLE);
         CheckBuffGoBackToOrigin();
@@ -522,6 +532,12 @@ public class Skill {
 
     void HandleBuff()
     {
+        if (_Caster == null)
+        {
+            Clear();
+            return;
+        }
+
         Actor target = null;
         for(int i=0; i < _Actions.Length; ++i)
         {
@@ -894,6 +910,11 @@ public class Skill {
 
     public void CheckBuffGoBackToOrigin()
     {
+        if (_Caster == null)
+        {
+            Clear();
+            return;
+        }
         HandleBuff();
         if (_SkillData._IsMelee)
         {

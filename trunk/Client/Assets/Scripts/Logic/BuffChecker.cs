@@ -41,39 +41,54 @@ public class BuffChecker {
 
         new Timer().Start(new TimerParam(data._AnimTime, delegate
         {
-            if(_BuffCheck[0].BuffData < 0)
+            if(_Actor != null)
             {
-                _Actor.Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
-                _Actor.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                if(_BuffCheck[0].BuffData < 0)
+                {
+                    _Actor.Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
+                    _Actor.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
+                }
             }
+            else
+                Clear();
         }), new TimerParam(data._EffectTime, delegate
         {
             
         }), new TimerParam(data._EmitTime, delegate
         {
-            if(_BuffCheck[0].BuffData != 0)
+            if(_Actor != null)
             {
-                _Actor.UpdateValue(_BuffCheck[0].BuffData, -1/*_BuffCheck[0].BuffMax*/);
-                _Actor.PopContent(_BuffCheck[0].BuffData);
-            }
-        }), new TimerParam(maxTime, delegate
-        {
-            if(_BuffCheck [0].Dead)
-            {
-                float deadTime = _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD);
-                _Actor.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
-                new Timer().Start(deadTime, (object actor) =>
+                if(_BuffCheck[0].BuffData != 0)
                 {
-                    Clear();
-                    new Timer().Start(((Actor)actor).ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, (object ac) => {
-                        Battle.DelActor(((Actor)ac)._RealPosInScene);
-                    }, actor);
-                }, _Actor);
+                    _Actor.UpdateValue(_BuffCheck[0].BuffData, -1/*_BuffCheck[0].BuffMax*/);
+                    _Actor.PopContent(_BuffCheck[0].BuffData);
+                }
             }
             else
+                Clear();
+        }), new TimerParam(maxTime, delegate
+        {
+            if(_Actor != null)
             {
-                HandleBuff();
+                if(_BuffCheck [0].Dead)
+                {
+                    float deadTime = _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD);
+                    _Actor.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
+                    new Timer().Start(deadTime, (object actor) =>
+                    {
+                        Clear();
+                        new Timer().Start(((Actor)actor).ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, (object ac) => {
+                            Battle.DelActor(((Actor)ac)._RealPosInScene);
+                        }, actor);
+                    }, _Actor);
+                }
+                else
+                {
+                    HandleBuff();
+                }
             }
+            else
+                Clear();
         }));
     }
 
