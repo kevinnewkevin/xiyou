@@ -18,6 +18,8 @@ public class Define {
     public const string SCENE_BATTLE = "haidizhandou";
     public static string[] _BattleScenes = null;
 
+    public static int _MaxReportTips;
+
     public const string ANIMATION_PLAYER_ACTION_RUN = "run";
     public const string ANIMATION_PLAYER_ACTION_WALK = "walk";
     public const string ANIMATION_PLAYER_ACTION_IDLE = "stand";
@@ -58,6 +60,7 @@ public class Define {
         LuaManager.Call("global.lua", "RegGlobalValue");
 
         _BattleScenes = GetStr("BattleScenePool").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
+        _MaxReportTips = GetInt("MaxReportTips");
     }
 
     public static int GetInt(string key)

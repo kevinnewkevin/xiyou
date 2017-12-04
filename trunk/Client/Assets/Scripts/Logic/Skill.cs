@@ -215,6 +215,11 @@ public class Skill {
 
     Transform GetPos(Actor[] targets, SkillData.TargetPosType tposType)
     {
+        if (targets == null)
+        {
+            Debug.Log("GetPos : targets == null");
+            return null;
+        }
         if (tposType == SkillData.TargetPosType.TPT_Row)
         {
             if (targets.Length > 0)

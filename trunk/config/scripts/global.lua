@@ -168,6 +168,7 @@ function RegGlobalValue()
 	Define.Set("CenterServer", "");
 	Define.Set("UIModelScale", 200);
 	Define.Set("MaxFee", 5);
+	Define.Set("MaxReportTips", 13);
 	Define.Set("MoveSpeed_InBattle", 8);
 	Define.Set("MoveSpeed_InWorld", 2.5);
 	Define.Set("PointLight", "Effect/chushengdian");

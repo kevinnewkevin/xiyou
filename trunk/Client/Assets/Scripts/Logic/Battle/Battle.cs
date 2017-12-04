@@ -1015,7 +1015,7 @@ public class Battle {
             }
         }
         _ReportTips.Add(rb);
-        while (_ReportTips.Count > 15)
+        while (_ReportTips.Count > Define._MaxReportTips)
         {
             _ReportTips.RemoveAt(0);
         }
