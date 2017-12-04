@@ -12,6 +12,7 @@ public class AppEntry : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         SceneManager.sceneLoaded += OnSceneLoaded;
         GRoot.inst.SetContentScaleFactor(1920, 1080, UIContentScaler.ScreenMatchMode.MatchHeight);
 
