@@ -6,6 +6,8 @@ local Window;
 local guankaluxiangList;
 local guankaluxiangitem = "ui://guankaluxiang/luxiangguanka_com";
 
+local modalTimer;
+
 function guankaluxiang:OnEntry()
 	Define.LaunchUIBundle("guankatupian");
 	Window = guankaluxiang.New();
@@ -35,7 +37,13 @@ function guankaluxiang:OnUpdate()
 end
 
 function guankaluxiang:OnTick()
-	
+	if modalTimer ~= nil then
+		modalTimer.crt = modalTimer.crt + 1;
+		if modalTimer.crt > modalTimer.max then
+			Window:CloseModalWait();
+			modalTimer = nil;
+		end
+	end
 end
 
 function guankaluxiang:isShow()
@@ -73,6 +81,9 @@ end
 
 function guankaluxiang_FlushData()
 	Window:ShowModalWait();
+	modalTimer = {};
+	modalTimer.crt = 0;
+	modalTimer.max = 5;
 	guankaluxiangList:RemoveChildrenToPool();
 --	local shareBtnVisible = Proxy4Lua.LongIsEqual(BattleRecordSystem.MirrorPlayerId, GamePlayer._InstID);
 	if BattleRecordSystem._BrDetail ~= nil then
@@ -155,6 +166,9 @@ function guankaluxiang_FlushData()
 					end
 				end
 			end
+		end
+		if modalTimer ~= nil then
+			modalTimer = nil;
 		end
 		Window:CloseModalWait();
 	end
