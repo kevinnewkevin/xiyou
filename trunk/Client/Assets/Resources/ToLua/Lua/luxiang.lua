@@ -76,6 +76,8 @@ function luxiang_OnShare(context)
 	chat.Content = Proxy4Lua.ChangeColor(GamePlayer._Name, "blue") .. "分享一段战斗录像,[url]点击观看[/url]";
 	chat.RecordId = context.sender.data;
 	Proxy4Lua.SendChat(chat);
+
+	Proxy4Lua.PopMsg("分享成功");
 end
 
 function luxiang_FlushData()
