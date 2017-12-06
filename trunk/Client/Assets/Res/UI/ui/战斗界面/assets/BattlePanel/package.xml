@@ -99,11 +99,13 @@
     <image id="nz5f2v" name="zb_gong.png" path="/" exported="true"/>
     <image id="nz5f2w" name="zb_ji.png" path="/" exported="true"/>
     <image id="nz5f2x" name="zb_xue.png" path="/" exported="true"/>
-    <image id="jdlj2y" name="shajiangjun_card.png" path="/"/>
+    <image id="jdlj2y" name="shajiangjun_card.png" path="/" exported="true"/>
     <image id="r4px2z" name="kpxz.png" path="/" exported="true" scale="9grid" scale9grid="46,53,19,23"/>
-    <image id="jxe030" name="42.png" path="/"/>
-    <image id="jxe031" name="huangyalaoxiang_head.png" path="/"/>
-    <image id="qpg032" name="guanyin_head.png" path="/"/>
+    <image id="jxe030" name="42.png" path="/" exported="true"/>
+    <image id="jxe031" name="huangyalaoxiang_head.png" path="/" exported="true"/>
+    <image id="qpg032" name="guanyin_head.png" path="/" exported="true"/>
+    <component id="xlc433" name="huihe_Button.xml" path="/" exported="true"/>
+    <image id="xlc434" name="battle_jieshuhuihe2.png" path="/" exported="true"/>
   </resources>
   <publish name="BattlePanel" maxAtlasSize="1024" extractAlpha="true">
     <atlas name="默认" index="0"/>

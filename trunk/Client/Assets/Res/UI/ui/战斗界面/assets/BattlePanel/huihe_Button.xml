@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="214,219" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_xlc4" name="n3" src="olbb7" xy="109,106" pivot="0.5,0.5" anchor="true"/>
+    <image id="n2_xlc4" name="n2" src="olbbe" xy="108,106" pivot="0.5,0.5" anchor="true"/>
+    <graph id="n5_xlc4" name="n5" xy="217,208" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
+      <relation target="n2_xlc4" sidePair="center-center,middle-middle"/>
+    </graph>
+    <image id="n4_xlc4" name="n4" src="xlc434" xy="104,112" pivot="0.5,0.5" anchor="true">
+      <relation target="n2_xlc4" sidePair="center-center,middle-middle"/>
+    </image>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+  <transition name="t0">
+    <item time="0" type="Skew" target="n2_xlc4" tween="true" startValue="0,0" endValue="0,90" duration="6"/>
+    <item time="0" type="Skew" target="n4_xlc4" tween="true" startValue="0,0" endValue="0,90" duration="6"/>
+    <item time="0" type="Skew" target="n3_xlc4" value="0,90"/>
+    <item time="6" type="Skew" target="n3_xlc4" tween="true" startValue="0,90" endValue="0,0" duration="6"/>
+  </transition>
+  <transition name="t1">
+    <item time="0" type="Skew" target="n3_xlc4" tween="true" startValue="0,0" endValue="0,-90" duration="6"/>
+    <item time="0" type="Skew" target="n2_xlc4" tween="true" startValue="0,-90" endValue="0,-90" duration="6"/>
+    <item time="0" type="Skew" target="n4_xlc4" tween="true" startValue="0,-90" endValue="0,-90" duration="6"/>
+    <item time="6" type="Skew" target="n3_xlc4" tween="true" startValue="0,-90" endValue="0,0" duration="6"/>
+    <item time="6" type="Skew" target="n2_xlc4" tween="true" startValue="0,-90" endValue="0,0" duration="6"/>
+    <item time="6" type="Skew" target="n4_xlc4" tween="true" startValue="0,-90" endValue="0,0" duration="6"/>
+  </transition>
+</component>

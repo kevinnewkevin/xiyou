@@ -37,13 +37,12 @@
     <image id="n48_dv3n" name="n48" src="dv3n23" xy="-14,462"/>
     <component id="n7_olbb" name="n7" src="h4l515" xy="562,344"/>
     <component id="n8_olbb" name="n8" src="olbbs" xy="34,20" size="49,46" aspect="true"/>
-    <component id="n9_olbb" name="n9" src="olbbt" xy="158,11"/>
+    <component id="n9_olbb" name="n9" src="olbbt" xy="158,6"/>
     <component id="n10_olbb" name="n10" src="olbbu" xy="234,8"/>
     <component id="n12_olbb" name="n12" src="olbbv" xy="40,885">
       <Button page="1"/>
     </component>
     <component id="n4_olbb" name="n4" src="olbbq" xy="15,979"/>
-    <loader id="n16_olbb" name="n16" xy="1692,856" size="230,214" align="right" vAlign="bottom"/>
     <component id="n17_i02i" name="n17" src="i02ix" xy="412,1067" pivot="1,1" anchor="true"/>
     <component id="n18_i02i" name="n18" src="i02ix" xy="623,1067" pivot="1,1" anchor="true"/>
     <component id="n19_i02i" name="n19" src="i02ix" xy="834,1067" pivot="1,1" anchor="true"/>
@@ -65,6 +64,7 @@
     </list>
     <list id="n77_nz5f" name="n77" xy="336,4" size="1506,126" layout="flow_hz" overflow="scroll" colGap="3" defaultItem="ui://g7uitnianz5f2o" align="right" vAlign="middle"/>
     <component id="n78_jdlj" name="n78" src="i02ix" xy="627,773"/>
+    <component id="n79_xlc4" name="n79" src="xlc433" xy="1708,854"/>
   </displayList>
   <transition name="t0">
     <item time="0" type="XY" target="n51_i407" tween="true" startValue="-1540,7" endValue="272,7" duration="12" ease="Circ.InOut"/>
