@@ -23,6 +23,7 @@ local nowLevel;
 local head;
 local headIcon;
 local headLevel;
+local nameLab;
 local fee;
 local inGroup;
 
@@ -50,7 +51,7 @@ function qianghuachenggong:OnInit()
 	inGroup.visible = false;
 	oldLevel = self.contentPane:GetChild("n48");
 	nowLevel = self.contentPane:GetChild("n49");
-
+	nameLab =  self.contentPane:GetChild("n59");
 	hp = self.contentPane:GetChild("n20");
 	agility = self.contentPane:GetChild("n24");
 	atk = self.contentPane:GetChild("n15");
@@ -106,6 +107,7 @@ function qianghuachenggong_FlushData()
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9] );
 	headIcon.url = "ui://" .. displayData._HeadIcon;
 	fee.text = entityData._Cost;
+	nameLab.text = entityData._Name;
 	--oldLevel.text =  entityInst.IProperties[9] -1 .. "";
 	nowLevel.text =   entityInst.IProperties[9] .. "";
 	headLevel.text =  entityInst.IProperties[9] .. "";
