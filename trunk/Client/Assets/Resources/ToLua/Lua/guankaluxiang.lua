@@ -91,24 +91,24 @@ function guankaluxiang_FlushData()
 			------------------------getobjbegin-----------------------------
 			local obj = guankaluxiangList:AddItemFromPool(guankaluxiangitem);
 			local playBtn = obj:GetChild("n46").asButton;
-			local shareBtn = obj:GetChild("n47").asButton;
+--			local shareBtn = obj:GetChild("n47").asButton;
 			playBtn.data = BattleRecordSystem._BrDetail[i].ReportId;
 			playBtn.onClick:Add(guankaluxiang_OnPlay);
 --			shareBtn.data = BattleRecordSystem._BrDetail[i].ReportId;
 --			shareBtn.onClick:Add(guankaluxiang_OnShare);
-			shareBtn.visible = false;
+--			shareBtn.visible = false;
 
 			--leftpart
 			local lhead = obj:GetChild("n37").asLoader;
 			local llv = obj:GetChild("n39").asTextField;
 			local lname = obj:GetChild("n8").asTextField;
-			local lscore = obj:GetChild("n7").asTextField;
-			local lscoreimg = obj:GetChild("n32").asLoader;
+--			local lscore = obj:GetChild("n7").asTextField;
+--			local lscoreimg = obj:GetChild("n32").asLoader;
 			lhead.url = "";
 			llv.text = "";
 			lname.text = "";
-			lscore.text = "";
-			lscoreimg.url = "";
+--			lscore.text = "";
+--			lscoreimg.url = "";
 			local ltouxiangkuang = {};
 			for j=0, 9 do
 				ltouxiangkuang[j] = obj:GetChild("n" .. (12 + j));
@@ -119,14 +119,13 @@ function guankaluxiang_FlushData()
 			local rfbimg = obj:GetChild("n45").asLoader;
 			rfbimg.url = "";
 			------------------------getobjend-------------------------------
-
 			for m=0, BattleRecordSystem._BrDetail[i].Players.Length - 1 do
-				if Proxy4Lua.LongIsEqual(BattleRecordSystem._BrDetail[i].Players[m].InstId, BattleRecordSystem.MirrorPlayerId) then
+				if BattleRecordSystem._BrDetail[i].Players[m].Camp == 0 then
 					llv.text = BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Level;
 					lname.text = BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Name;
-					lscore.text = BattleRecordSystem._BrDetail[i].Players[m].TianTi;
-					local lvurl = GamePlayer.RankLevel(BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Level);
-					lscoreimg.url = "ui://luxiang/xiao_duanwei" .. lvurl;
+--					lscore.text = BattleRecordSystem._BrDetail[i].Players[m].TianTi;
+--					local lvurl = GamePlayer.RankLevel(BattleRecordSystem._BrDetail[i].Players[m].MainUnit.Level);
+--					lscoreimg.url = "ui://luxiang/xiao_duanwei" .. lvurl;
 
 					local eData = EntityData.GetData(BattleRecordSystem._BrDetail[i].Players[m].MainUnit.UnitId);
 					if eData ~= nil then
