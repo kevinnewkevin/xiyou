@@ -17,7 +17,8 @@ const(
   BF_LOCK = 13
   BF_UNDAMAGE = 14
   BF_FRIENDLOCK = 15
-  BF_MAX = 16
+  BF_SILENT = 16
+  BF_MAX = 17
 )
 const( 
   K_BF_MIN = "BF_MIN"
@@ -36,6 +37,7 @@ const(
   K_BF_LOCK = "BF_LOCK"
   K_BF_UNDAMAGE = "BF_UNDAMAGE"
   K_BF_FRIENDLOCK = "BF_FRIENDLOCK"
+  K_BF_SILENT = "BF_SILENT"
   K_BF_MAX = "BF_MAX"
 )
 func ToName_BuffSpecial( id int )string{
@@ -72,6 +74,8 @@ func ToName_BuffSpecial( id int )string{
       return "BF_UNDAMAGE"
     case BF_FRIENDLOCK:
       return "BF_FRIENDLOCK"
+    case BF_SILENT:
+      return "BF_SILENT"
     case BF_MAX:
       return "BF_MAX"
     default:
@@ -112,6 +116,8 @@ func ToId_BuffSpecial( name string ) int {
       return BF_UNDAMAGE
     case "BF_FRIENDLOCK":
       return BF_FRIENDLOCK
+    case "BF_SILENT":
+      return BF_SILENT
     case "BF_MAX":
       return BF_MAX
     default:

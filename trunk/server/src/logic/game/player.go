@@ -1718,6 +1718,12 @@ func (this *GamePlayer) QueryCheckpointRecordDetail(Instid int32) {
 
 	record := FindBattleRecord(Instid)
 
+	if record == nil {
+		this.session.QueryRecordDetailOK([]prpc.COM_BattleRecord_Detail{})
+		logs.Debug("QueryCheckpointRecordDetail not record, ", Instid)
+		return
+	}
+
 	this.session.QueryRecordDetailOK(record.Detail)
 
 	return
