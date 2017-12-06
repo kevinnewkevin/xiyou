@@ -115,12 +115,12 @@ function SpecialEvent(type, param1)
 	
 	
 	--6.	点击主角按钮事件(SpecialEvent “battle_roleskill”) 
-	--指引点击结束回合按钮(uiWindow.contentPane:GetChild(“n16”))
+	--指引点击结束回合按钮(uiWindow.contentPane:GetChild(“n79”))
 	if type == "battle_roleskill" then
 		if Battle._Turn == 1 then
 			if GuideSystem.IsNotFinish(6) then
 				UIManager.GetWindow("BattlePanel").bringToFontOnClick = false;
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n79"),"操作过后，请结束回合！",1107,598);
 				GuideSystem.SetFinish(6);
 			end
 		end
@@ -167,7 +167,7 @@ function SpecialEvent(type, param1)
 		if Battle._Turn == 2 then
 			if GuideSystem.IsNotFinish(9) then
 				UIManager.GetWindow("BattlePanel").bringToFontOnClick = false;
-				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n16"),"操作过后，请结束回合！",1107,598);
+				GuideSystem.StartGuide(UIManager.GetWindow("BattlePanel").contentPane:GetChild("n79"),"操作过后，请结束回合！",1107,598);
 				GuideSystem.SetFinish(7);
 				GuideSystem.SetFinish(8);
 				GuideSystem.SetFinish(9);

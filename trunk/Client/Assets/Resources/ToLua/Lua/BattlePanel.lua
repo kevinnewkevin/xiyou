@@ -41,6 +41,8 @@ local throwCardCom;
 local throwCardTrans;
 local throwCardTimer;
 
+local crtIsOperating;
+
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
 	Define.LaunchUIBundle("zhandoushuzi");
@@ -70,7 +72,7 @@ function BattlePanel:OnInit()
 	--autoBtn.onClick:Add(BattlePanel_OnAutoBtn);
 	autoBtn.visible = false;
 
-	stateIcon = self.contentPane:GetChild("n16").asLoader;
+	stateIcon = self.contentPane:GetChild("n79").asButton;
 	stateIcon.onClick:Add(BattlePanel_OnTurnOver);
 
 	skillList = self.contentPane:GetChild("n50").asList;
@@ -288,12 +290,15 @@ function BattlePanel_FlushData()
 	end
 
 	local operating = Battle._CurrentState == Battle.BattleState.BS_Oper;
-	if operating then
-		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_jieshuhuihe");
-		stateIcon.touchable = true;
-	else
-		stateIcon.url = UIPackage.GetItemURL("BattlePanel", "battle_dengdaizhong");
-		stateIcon.touchable = false;
+	if crtIsOperating ~= operating then
+		if operating then
+			stateIcon:GetTransition("t1"):Play();
+			stateIcon.touchable = true;
+		else
+			stateIcon:GetTransition("t0"):Play();
+			stateIcon.touchable = false;
+		end
+		crtIsOperating = operating;
 	end
 
 	skills = GamePlayer.GetMyActiveSkill();
@@ -451,6 +456,7 @@ function BattlePanel_OnSelectSkill()
 --	end
 
 	GuideSystem.SpecialEvt("battle_roleskill", nil);
+	print("battle_roleskill");
 end
 
 function BattlePanel_DisableSkills(yes)
@@ -541,7 +547,7 @@ function BattlePanel_OnReturn()
 	end
 end
 
-function BattlePanel_OnTurnOver()
+function BattlePanel_OnTurnOver(context)
 	if Battle._IsRecord then
 		return;
 	end
@@ -675,13 +681,12 @@ function RecordHandler()
 		Window.contentPane:GetChild("n40").visible = false;
 		Window.contentPane:GetChild("n41").visible = false;
 		Window.contentPane:GetChild("n47").visible = false;
-		Window.contentPane:GetChild("n16").visible = false;
 		Window.contentPane:GetChild("n45").visible = false;
 		Window.contentPane:GetChild("n49").visible = false;
 		Window.contentPane:GetChild("n44").visible = false;
 		Window.contentPane:GetChild("n22").visible = false;
 		Window.contentPane:GetChild("n48").visible = false;
-		Window.contentPane:GetChild("n16").visible = false;
+		Window.contentPane:GetChild("n79").visible = false;
 		Window.contentPane:GetChild("n78").visible = false;
 		Window.contentPane:GetChild("n24").visible = false;
 		Window.contentPane:GetChild("n25").visible = false;
@@ -712,11 +717,10 @@ function RecordHandler()
 		Window.contentPane:GetChild("n39").visible = true;
 		Window.contentPane:GetChild("n40").visible = true;
 		Window.contentPane:GetChild("n41").visible = true;
-		Window.contentPane:GetChild("n16").visible = true;
+		Window.contentPane:GetChild("n79").visible = true;
 		Window.contentPane:GetChild("n44").visible = true;
 		Window.contentPane:GetChild("n22").visible = true;
 		Window.contentPane:GetChild("n48").visible = true;
-		Window.contentPane:GetChild("n16").visible = true;
 		Window.contentPane:GetChild("n24").visible = true;
 		Window.contentPane:GetChild("n25").visible = true;
 		Window.contentPane:GetChild("n26").visible = true;
