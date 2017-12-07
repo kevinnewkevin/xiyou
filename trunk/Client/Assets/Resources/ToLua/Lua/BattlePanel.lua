@@ -56,7 +56,7 @@ function BattlePanel:OnInit()
 
 	countDown = {};
 	countDown.ui = self.contentPane:GetChild("n45").asTextField;
-	countDown.count = 30;
+--	countDown.count = 30;
 	countDown.ui.visible = false;
 
 	startCom = self.contentPane:GetChild("n7").asCom;
@@ -169,21 +169,24 @@ function BattlePanel:OnTick()
 	end
 
 	if Battle._IsRecord == false then
+		local timeleft = 0;
 		if Battle._CurrentState == Battle.BattleState.BS_Oper then
 			if countDown.ui.visible == false then
 				countDown.ui.visible = true;
 			end
-			countDown.count = countDown.count - 1;
-			if countDown.count <= 0 then
+
+--			countDown.count = countDown.count - 1;
+			timeleft = TimerManager.GetCountDownSecond("BattleCountDown");
+			if timeleft <= 0 then
 				BattlePanel_OnTurnOver();
 			end
 		else
 			if countDown.ui.visible == true then
 				countDown.ui.visible = false;
 			end
-			countDown.count = 30;
+--			countDown.count = 30;
 		end
-		countDown.ui.text = countDown.count;
+		countDown.ui.text = timeleft;
 	end
 end
 
@@ -294,6 +297,7 @@ function BattlePanel_FlushData()
 		if operating then
 			stateIcon:GetTransition("t1"):Play();
 			stateIcon.touchable = true;
+			TimerManager.AddCountDown("BattleCountDown", 30);
 		else
 			stateIcon:GetTransition("t0"):Play();
 			stateIcon.touchable = false;
