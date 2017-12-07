@@ -109,7 +109,7 @@ function qianghuachenggong_FlushData()
 	fee.text = entityData._Cost;
 	nameLab.text = entityData._Name;
 	--oldLevel.text =  entityInst.IProperties[9] -1 .. "";
-	nowLevel.text =   entityInst.IProperties[9] .. "";
+	nowLevel.text =  "等级:".. entityInst.IProperties[9];
 	headLevel.text =  entityInst.IProperties[9] .. "";
 	hp.text =  entityInst.CProperties[1] - levelData._Hp .. "";
 	agility.text =  entityInst.CProperties[7] - levelData._Agile   .. "";
