@@ -57,7 +57,7 @@ public class Define {
     public static void Init()
     {
         globalValues = new Dictionary<string, object>();
-        LuaManager.Call("global.lua", "RegGlobalValue");
+        LuaManager.CallGlobal("RegGlobalValue");
 
         _BattleScenes = GetStr("BattleScenePool").Split(new char[]{','}, System.StringSplitOptions.RemoveEmptyEntries);
         _MaxReportTips = GetInt("MaxReportTips");

@@ -48,7 +48,7 @@ public class ResourceUpdate : MonoBehaviour {
                 {
                     if (!string.IsNullOrEmpty(www.error))
                     {
-                        //LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                        //LuaManager.CallGlobal("ErrorMessage", www.error);
                         break;
                     }
                     else
@@ -73,7 +73,7 @@ public class ResourceUpdate : MonoBehaviour {
         {
             if (!string.IsNullOrEmpty(www.error))
             {
-                //LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                //LuaManager.CallGlobal("ErrorMessage", www.error);
                 //请求cdn md5时 有个开关 代表是否跳过热更（cdn服务器有问题时的解决方案）
                 _UpdateFinish = true;
                 _IsDoing = false;
@@ -127,7 +127,7 @@ public class ResourceUpdate : MonoBehaviour {
         {
             if (!string.IsNullOrEmpty(www.error))
             {
-                LuaManager.Call("global.lua", "ErrorMessage", www.error);
+                LuaManager.CallGlobal("ErrorMessage", www.error);
             }
             else
             {

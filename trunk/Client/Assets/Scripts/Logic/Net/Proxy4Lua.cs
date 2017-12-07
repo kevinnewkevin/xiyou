@@ -746,7 +746,7 @@ public class Proxy4Lua {
 
     static public string ChangeColor(string content, string color)
     {
-        return LuaManager.Call("global.lua", "ChangeColor", content, color)[0].ToString();
+        return LuaManager.CallGlobal("ChangeColor", content, color)[0].ToString();
     }
 
     static public bool LongIsEqual(long val, long val2)
@@ -761,22 +761,22 @@ public class Proxy4Lua {
 
     static public object[] CallGlobalFunction(string funcName, object pa1)
     {
-        return LuaManager.Call("global.lua", funcName, pa1);
+        return LuaManager.CallGlobal(funcName, pa1);
     }
 
     static public object[] CallGlobalFunction(string funcName, object pa1, object pa2)
     {
-        return LuaManager.Call("global.lua", funcName, pa1, pa2);
+        return LuaManager.CallGlobal(funcName, pa1, pa2);
     }
 
     static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3)
     {
-        return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3);
+        return LuaManager.CallGlobal(funcName, pa1, pa2, pa3);
     }
 
     static public object[] CallGlobalFunction(string funcName, object pa1, object pa2, object pa3, object pa4)
     {
-        return LuaManager.Call("global.lua", funcName, pa1, pa2, pa3, pa4);
+        return LuaManager.CallGlobal(funcName, pa1, pa2, pa3, pa4);
     }
 }
 

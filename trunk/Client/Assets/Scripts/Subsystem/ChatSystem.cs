@@ -53,7 +53,7 @@ public class ChatSystem {
         {
             _Assistant.Add(ass);
             if(!ass.PlayerName.Equals(GamePlayer._Name))
-                LuaManager.Call("global.lua", "ReceivedAssistant", ass);
+                LuaManager.CallGlobal("ReceivedAssistant", ass);
         }
 
         UIManager.SetDirty("liaotian");

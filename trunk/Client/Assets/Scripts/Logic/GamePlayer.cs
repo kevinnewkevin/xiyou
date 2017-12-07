@@ -193,7 +193,7 @@ public class GamePlayer {
 
     static public void UpdateUnitIProperty(long instId, int type, int vaule)
     {
-        LuaManager.Call("global.lua", "UpdateUnitIProperty", instId, type, vaule);
+        LuaManager.CallGlobal("UpdateUnitIProperty", instId, type, vaule);
 
         for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
@@ -216,7 +216,7 @@ public class GamePlayer {
 
     static public void UpdateUnitCProperty(long instId, int type, float vaule)
     {
-        LuaManager.Call("global.lua", "UpdateUnitCProperty", instId, type, vaule);
+        LuaManager.CallGlobal("UpdateUnitCProperty", instId, type, vaule);
         for (int i = 0; i < _Cards ["0_0"].Count; ++i)
         {
             if (_Cards ["0_0"][i].InstId == instId)

@@ -15,7 +15,7 @@ public class AssetLoader {
         if (bundle == null)
         {
             Debug.LogError("资源包不完整, 请检查后重新打包");
-            LuaManager.Call("global.lua", "ErrorMessage", "资源包不完整, 请检查后重新打包");
+            LuaManager.CallGlobal("ErrorMessage", "资源包不完整, 请检查后重新打包");
             return;
         }
         _Manifest = (AssetBundleManifest)bundle.LoadAsset("AssetBundleManifest");
@@ -38,7 +38,7 @@ public class AssetLoader {
         if (obj == null)
         {
             Debug.LogError("资源: " + path + " 未找到!");
-            LuaManager.Call("global.lua", "ErrorMessage", "资源: " + path + " 未找到!");
+            LuaManager.CallGlobal("ErrorMessage", "资源: " + path + " 未找到!");
             return null;
         }
         return GameObject.Instantiate(obj) as GameObject;

@@ -3,7 +3,7 @@ class Proxy : ICOM_ServerToClientProxy
 {
     public bool ErrorMessage(int err)
     {
-        LuaManager.Call("global.lua", "ErrorMessage", err);
+        LuaManager.CallGlobal("ErrorMessage", err);
         return true;
     }
 
@@ -138,7 +138,7 @@ class Proxy : ICOM_ServerToClientProxy
 	public bool AddBagItem(ref COM_ItemInst inst)
 	{
 		BagSystem.AddItem(inst);
-        LuaManager.Call("global.lua", "GainItem", inst);
+        LuaManager.CallGlobal("GainItem", inst);
 		return true;
 	}
 	public bool UpdateBagItem(ref COM_ItemInst inst)
@@ -151,7 +151,7 @@ class Proxy : ICOM_ServerToClientProxy
             COM_ItemInst tcii = new COM_ItemInst();
             tcii.ItemId = inst.ItemId;
             tcii.Stack = crtNum - preNum;
-            LuaManager.Call("global.lua", "GainItem", tcii);
+            LuaManager.CallGlobal("GainItem", tcii);
         }
 		return true;
 	}
@@ -299,7 +299,7 @@ class Proxy : ICOM_ServerToClientProxy
 	{
 		FriendSystem.AddFriend (friend);
 		UIManager.SetDirty("haoyou");
-		LuaManager.Call("global.lua", "AddFriend",friend.Name);
+		LuaManager.CallGlobal("AddFriend",friend.Name);
 		return true;
 	}
 
@@ -346,7 +346,7 @@ class Proxy : ICOM_ServerToClientProxy
         {
             if (!GamePlayer._Name.Equals(whoAssMe))
             {
-                LuaManager.Call("global.lua", "WhoAssistantMe", whoAssMe, info.ItemId);
+                LuaManager.CallGlobal("WhoAssistantMe", whoAssMe, info.ItemId);
             }
         }
         return true;
@@ -368,7 +368,7 @@ class Proxy : ICOM_ServerToClientProxy
 		{
 			UIManager.Hide("squadList");
 			UIManager.Show("squad");
-            LuaManager.Call("global.lua", "CreateGuild");
+            LuaManager.CallGlobal("CreateGuild");
 			return true;
 		}
 
@@ -383,7 +383,7 @@ class Proxy : ICOM_ServerToClientProxy
 			{
 				GamePlayer._iGuildId = 0;
 				GuildSystem.myGuild = null;
-                LuaManager.Call("global.lua", "LeaveGuild");
+                LuaManager.CallGlobal("LeaveGuild");
 				UIManager.Hide("squad");	
 			}
 

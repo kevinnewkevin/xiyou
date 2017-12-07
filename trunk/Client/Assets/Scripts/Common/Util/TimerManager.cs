@@ -96,6 +96,14 @@ public class TimerManager {
         return "";
     }
 
+    public static void SetTickerGap(long timegap)
+    {
+        for(int i=0; i < _CountDownValues.Count; ++i)
+        {
+            _CountDownValues [i] -= timegap;
+        }
+    }
+
     static public void Add(Timer timer)
     {
         _Timers.Add(timer);

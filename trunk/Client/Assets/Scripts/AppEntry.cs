@@ -9,6 +9,9 @@ public class AppEntry : MonoBehaviour {
 
     string context;
     string logUrl = "";
+
+    long _PauseTimeStamp;
+
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
@@ -33,6 +36,7 @@ public class AppEntry : MonoBehaviour {
         AudioSystem.Init();
         DataLoader.Init();
         UIManager.Init();
+        LuaManager.Init();
         GuideSystem.Init();
         Define.Init();
         CameraEffect.Init();
@@ -81,6 +85,19 @@ public class AppEntry : MonoBehaviour {
         if(Stage.inst.y != -1000)
             Stage.inst.SetXY(0f, -1000f);
 	}
+
+    void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            _PauseTimeStamp = TimerManager.GetTimeStamp();
+        }
+        else
+        {
+            long timegap = TimerManager.GetTimeStamp() - _PauseTimeStamp;
+            TimerManager.SetTickerGap(timegap);
+        }
+    }
 
     public static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {

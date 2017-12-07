@@ -25,6 +25,6 @@ public class NpcHandle : MonoBehaviour {
 
     public void Excute()
     {
-        LuaManager.Call("global.lua", "ExcuteNpc", ID);
+        LuaManager.CallGlobal("ExcuteNpc", ID);
     }
 }
