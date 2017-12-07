@@ -355,11 +355,13 @@ function xiaoguanka_RenderListItem(index, obj)
 	 		 bBattle = true;
 	 		 lock.visible  = false;
 	 		 gImg.visible  = false;
+	 		 RecordBtn.visible = true;
 	  	end
 		if smallData.Star2 == true then 
 	 		star1.enabled = true;
 	 		 bBattle = true;
 	 		 lock.visible  = false;
+	 		 RecordBtn.visible = true;
 	 		 gImg.visible  = false;
 		  end
 	    if smallData.Star3 == true then 
@@ -367,6 +369,7 @@ function xiaoguanka_RenderListItem(index, obj)
 	   		 bBattle = true;
 	   		 lock.visible  = false;
 	   		 gImg.visible  = false;
+	   		 RecordBtn.visible = true;
 		end
 	local RecordBtn = obj:GetChild("n15");
 	RecordBtn.onClick:Add(xiaoguanka_OnRecord);
