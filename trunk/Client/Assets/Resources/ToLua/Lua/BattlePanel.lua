@@ -298,6 +298,7 @@ function BattlePanel_FlushData()
 			stateIcon:GetTransition("t1"):Play();
 			stateIcon.touchable = true;
 			TimerManager.AddCountDown("BattleCountDown", 30);
+			stateIcon:GetChild("n5"):SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		else
 			stateIcon:GetTransition("t0"):Play();
 			stateIcon.touchable = false;
