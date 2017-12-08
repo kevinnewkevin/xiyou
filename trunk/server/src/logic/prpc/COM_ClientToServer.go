@@ -144,6 +144,12 @@ type COM_ClientToServer_DelMail struct{
 type COM_ClientToServer_GetMailItem struct{
   mailId int32  //0
 }
+type COM_ClientToServer_ChangeBattleState struct{
+  state int32  //0
+}
+type COM_ClientToServer_QueryBattleRound struct{
+  round int32  //0
+}
 type COM_ClientToServerStub struct{
   Sender StubSender
 }
@@ -201,6 +207,8 @@ type COM_ClientToServerProxy interface{
   ReadMail(mailId int32 ) error // 50
   DelMail(mailId int32 ) error // 51
   GetMailItem(mailId int32 ) error // 52
+  ChangeBattleState(state int32 ) error // 53
+  QueryBattleRound(round int32 ) error // 54
 }
 func (this *COM_ClientToServer_Login)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -1930,6 +1938,78 @@ func (this *COM_ClientToServer_GetMailItem)Deserialize(buffer *bytes.Buffer) err
   }
   return nil
 }
+func (this *COM_ClientToServer_ChangeBattleState)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.state!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize state
+  {
+    if(this.state!=0){
+      err := write(buffer,this.state)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_ChangeBattleState)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize state
+  if mask.readBit() {
+    err := read(buffer,&this.state)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_QueryBattleRound)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.round!=0)
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize round
+  {
+    if(this.round!=0){
+      err := write(buffer,this.round)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  return nil
+}
+func (this *COM_ClientToServer_QueryBattleRound)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize round
+  if mask.readBit() {
+    err := read(buffer,&this.round)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ClientToServerStub)Login(info COM_LoginInfo ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -2783,6 +2863,40 @@ func(this* COM_ClientToServerStub)GetMailItem(mailId int32 ) error {
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ClientToServerStub)ChangeBattleState(state int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(53))
+  if err != nil{
+    return err
+  }
+  _53 := COM_ClientToServer_ChangeBattleState{}
+  _53.state = state;
+  err = _53.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
+func(this* COM_ClientToServerStub)QueryBattleRound(round int32 ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(54))
+  if err != nil{
+    return err
+  }
+  _54 := COM_ClientToServer_QueryBattleRound{}
+  _54.round = round;
+  err = _54.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ClientToServer_Login(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3475,6 +3589,34 @@ func Bridging_COM_ClientToServer_GetMailItem(buffer *bytes.Buffer, p COM_ClientT
   }
   return p.GetMailItem(_52.mailId)
 }
+func Bridging_COM_ClientToServer_ChangeBattleState(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _53 := COM_ClientToServer_ChangeBattleState{}
+  err := _53.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.ChangeBattleState(_53.state)
+}
+func Bridging_COM_ClientToServer_QueryBattleRound(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _54 := COM_ClientToServer_QueryBattleRound{}
+  err := _54.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.QueryBattleRound(_54.round)
+}
 func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3594,6 +3736,10 @@ func COM_ClientToServerDispatch(buffer *bytes.Buffer, p COM_ClientToServerProxy)
       return Bridging_COM_ClientToServer_DelMail(buffer,p);
     case 52 :
       return Bridging_COM_ClientToServer_GetMailItem(buffer,p);
+    case 53 :
+      return Bridging_COM_ClientToServer_ChangeBattleState(buffer,p);
+    case 54 :
+      return Bridging_COM_ClientToServer_QueryBattleRound(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }

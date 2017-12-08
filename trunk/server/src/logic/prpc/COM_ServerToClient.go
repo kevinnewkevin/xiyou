@@ -157,6 +157,12 @@ type COM_ServerToClient_QueryBattleRecordOK struct{
 type COM_ServerToClient_QueryRecordDetailOK struct{
   recordDetials []COM_BattleRecord_Detail  //0
 }
+type COM_ServerToClient_JoinBattleOk_back struct{
+  round int32  //0
+  state int32  //1
+  second int32  //2
+  battlesnape COM_BattleSnape  //3
+}
 type COM_ServerToClientStub struct{
   Sender StubSender
 }
@@ -213,6 +219,7 @@ type COM_ServerToClientProxy interface{
   UpdateMailOk(mail COM_Mail ) error // 49
   QueryBattleRecordOK(record COM_BattleRecord ) error // 50
   QueryRecordDetailOK(recordDetials []COM_BattleRecord_Detail ) error // 51
+  JoinBattleOk_back(round int32, state int32, second int32, battlesnape COM_BattleSnape ) error // 52
 }
 func (this *COM_ServerToClient_ErrorMessage)Serialize(buffer *bytes.Buffer) error {
   //field mask
@@ -2265,6 +2272,91 @@ func (this *COM_ServerToClient_QueryRecordDetailOK)Deserialize(buffer *bytes.Buf
   }
   return nil
 }
+func (this *COM_ServerToClient_JoinBattleOk_back)Serialize(buffer *bytes.Buffer) error {
+  //field mask
+  mask := newMask1(1)
+  mask.writeBit(this.round!=0)
+  mask.writeBit(this.state!=0)
+  mask.writeBit(this.second!=0)
+  mask.writeBit(true) //battlesnape
+  {
+    err := write(buffer,mask.bytes())
+    if err != nil {
+      return err
+    }
+  }
+  // serialize round
+  {
+    if(this.round!=0){
+      err := write(buffer,this.round)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize state
+  {
+    if(this.state!=0){
+      err := write(buffer,this.state)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize second
+  {
+    if(this.second!=0){
+      err := write(buffer,this.second)
+      if err != nil{
+        return err
+      }
+    }
+  }
+  // serialize battlesnape
+  {
+    err := this.battlesnape.Serialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
+func (this *COM_ServerToClient_JoinBattleOk_back)Deserialize(buffer *bytes.Buffer) error{
+  //field mask
+  mask, err:= newMask0(buffer,1);
+  if err != nil{
+    return err
+  }
+  // deserialize round
+  if mask.readBit() {
+    err := read(buffer,&this.round)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize state
+  if mask.readBit() {
+    err := read(buffer,&this.state)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize second
+  if mask.readBit() {
+    err := read(buffer,&this.second)
+    if err != nil{
+      return err
+    }
+  }
+  // deserialize battlesnape
+  if mask.readBit() {
+    err := this.battlesnape.Deserialize(buffer)
+    if err != nil{
+      return err
+    }
+  }
+  return nil
+}
 func(this* COM_ServerToClientStub)ErrorMessage(id int ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
@@ -3129,6 +3221,26 @@ func(this* COM_ServerToClientStub)QueryRecordDetailOK(recordDetials []COM_Battle
   }
   return this.Sender.MethodEnd()
 }
+func(this* COM_ServerToClientStub)JoinBattleOk_back(round int32, state int32, second int32, battlesnape COM_BattleSnape ) error {
+  buffer := this.Sender.MethodBegin()
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  err := write(buffer,uint16(52))
+  if err != nil{
+    return err
+  }
+  _52 := COM_ServerToClient_JoinBattleOk_back{}
+  _52.round = round;
+  _52.state = state;
+  _52.second = second;
+  _52.battlesnape = battlesnape;
+  err = _52.Serialize(buffer)
+  if err != nil{
+    return err
+  }
+  return this.Sender.MethodEnd()
+}
 func Bridging_COM_ServerToClient_ErrorMessage(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -3827,6 +3939,20 @@ func Bridging_COM_ServerToClient_QueryRecordDetailOK(buffer *bytes.Buffer, p COM
   }
   return p.QueryRecordDetailOK(_51.recordDetials)
 }
+func Bridging_COM_ServerToClient_JoinBattleOk_back(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
+  if buffer == nil{
+    return errors.New(NoneBufferError)
+  }
+  if p == nil {
+    return errors.New(NoneProxyError)
+  }
+  _52 := COM_ServerToClient_JoinBattleOk_back{}
+  err := _52.Deserialize(buffer)
+  if err != nil{
+    return err
+  }
+  return p.JoinBattleOk_back(_52.round,_52.state,_52.second,_52.battlesnape)
+}
 func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil {
     return errors.New(NoneBufferError)
@@ -3944,6 +4070,8 @@ func COM_ServerToClientDispatch(buffer *bytes.Buffer, p COM_ServerToClientProxy)
       return Bridging_COM_ServerToClient_QueryBattleRecordOK(buffer,p);
     case 51 :
       return Bridging_COM_ServerToClient_QueryRecordDetailOK(buffer,p);
+    case 52 :
+      return Bridging_COM_ServerToClient_JoinBattleOk_back(buffer,p);
     default:
       return errors.New(NoneDispatchMatchError)
   }
