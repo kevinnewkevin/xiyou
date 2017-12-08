@@ -142,6 +142,7 @@ function kaikabao_OnExit(context)
 end
 
 function kaikabao_FlushData()
+	UIManager.GetWindow("cangbaoge"):CloseModalWait();
 --	local dropItem;
 --	local dropItemCount;
 --	local itemInst;

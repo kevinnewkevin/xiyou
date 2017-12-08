@@ -252,6 +252,7 @@ end
 
 function daguanka:OnHide()
 	--infoPanel.visible  = false;
+
 	isOneOpen = true;
 	Proxy4Lua.ClearToDeleteAsset("daguanka");
 	Window:Hide();
@@ -264,6 +265,7 @@ function daguanka_FlushData()
 		if isOneOpen then
 			local num = JieHunSystem.instance:GetNoFinishOne();
 			cardGroupList:ScrollToView(num, false);
+			crtSelectIdx = num;
 			isOneOpen = false;
 		end
 end

@@ -222,6 +222,7 @@ function cangbaoge_OnInfoBuyClick(context)
 	end
 	ShopSystem.buyType = buyShopId;
 	Proxy4Lua.BuyShopItem(buyShopId);
+	Window:ShowModalWait();
 	boxInfo.visible = false;
 end 
 
@@ -320,4 +321,5 @@ function cangbaoge_OnBuyBlack(context)
 	UIManager.HideMessageBox();
 	ShopSystem.buyType = buyShopId;
 	Proxy4Lua.BuyShopItem(buyShopId);
+	Window:ShowModalWait();
 end
