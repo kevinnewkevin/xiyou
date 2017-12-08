@@ -156,7 +156,7 @@ end
 
 
 function xiaoguanka_FlushData()
-
+	Window:CloseModalWait();
     guankaID = UIManager.GetWindow("daguanka").GetGuankaId();
     local chapterData =  JieHunSystem.instance:GetChapterData(guankaID);
     local heroData = HeroStroyData.GetData(guankaID);
@@ -170,6 +170,7 @@ function xiaoguanka_FlushData()
 	if playerNum == len  then
 	 	playerNum  = len  -1;
 	end
+
 	nowCanBattle = 0;
 	local starNum = 0;
 	 for i = 1, len do
@@ -239,7 +240,7 @@ function xiaoguanka_FlushData()
     local hData = HeroStroyData.GetData(guankaID);
     nameLab.text = hData .Name_;
     chaptersList.numItems = chapterData.SmallChapters.Length;
-
+   -- chaptersList:ScrollToView(playerNum-1, false);
     updateReward()
 
 end
@@ -351,6 +352,7 @@ function xiaoguanka_RenderListItem(index, obj)
 	lock.visible = true;
 	gImg.visible = true;
 	local RecordBtn = obj:GetChild("n15");
+	RecordBtn.visible = false;
 	if smallData.Star1 == true then 
 	 		star0.enabled = true;
 	 		 bBattle = true;
@@ -358,26 +360,26 @@ function xiaoguanka_RenderListItem(index, obj)
 	 		 gImg.visible  = false;
 	 		 RecordBtn.visible = true;
 	  	end
-		if smallData.Star2 == true then 
-	 		star1.enabled = true;
-	 		 bBattle = true;
-	 		 lock.visible  = false;
-	 		 RecordBtn.visible = true;
-	 		 gImg.visible  = false;
-		  end
-	    if smallData.Star3 == true then 
-	   		star2.enabled = true;
-	   		 bBattle = true;
-	   		 lock.visible  = false;
-	   		 gImg.visible  = false;
-	   		 RecordBtn.visible = true;
-		end
+	if smallData.Star2 == true then 
+ 		star1.enabled = true;
+ 		 bBattle = true;
+ 		 lock.visible  = false;
+ 		 RecordBtn.visible = true;
+ 		 gImg.visible  = false;
+	  end
+    if smallData.Star3 == true then 
+   		star2.enabled = true;
+   		 bBattle = true;
+   		 lock.visible  = false;
+   		 gImg.visible  = false;
+   		 RecordBtn.visible = true;
+	end
 	RecordBtn.onClick:Add(xiaoguanka_OnRecord);
 	RecordBtn.data = smallData.SmallChapterId;
 	--local img = obj:GetChild("n10");
 	Img.onClick:Add(xiaoguanka_OnChallengeBtn);
 	Img.data = smallData.SmallChapterId;
-	RecordBtn.visible = false;
+
 	if index == playerNum then
 		lock.visible  = false;
 		gImg.visible  = false;
@@ -396,6 +398,7 @@ function xiaoguanka_OnChallengeBtn(context)
 		Proxy4Lua.ChallengeSmallChapter(sId);
 		Proxy4Lua.RegHoldUI("main", "daguanka");
 		Proxy4Lua.RegHoldUI("main", "xiaoguanka");
+		Window:ShowModalWait();
 	end
 end
 

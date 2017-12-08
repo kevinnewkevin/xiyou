@@ -28,7 +28,8 @@ function jinengxiangqing:OnInit()
 	local iconGroup = self.contentPane:GetChild("n14").asCom;
 	iconLoader = iconGroup:GetChild("n8").asLoader;
 	iconLv = iconGroup:GetChild("n7").asTextField;
-
+	iconLv.visible =false;
+	iconGroup:GetChild("n5").visible =false;
 	skillType = self.contentPane:GetChild("n7").asTextField;
 	skillName = self.contentPane:GetChild("n8").asTextField;
 	skillDesc = self.contentPane:GetChild("n12").asTextField;

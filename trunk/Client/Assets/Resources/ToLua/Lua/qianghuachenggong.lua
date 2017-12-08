@@ -98,6 +98,7 @@ function qianghuachenggong:OnHide()
 end
 
 function qianghuachenggong_FlushData()
+	UIManager.GetWindow("xiangxiziliao"):CloseModalWait();
 	effRes = "Effect/dengjitishen";
 	holder:SetNativeObject(Proxy4Lua.GetAssetGameObject(effRes, false));
 	local instId = UIParamHolder.Get("qiecuo1");

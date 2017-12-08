@@ -251,6 +251,7 @@ end
 function xiangxiziliao_OnLevelUpClick(context)
 	local instId = UIParamHolder.Get("qiecuo1");
 	Proxy4Lua.PromoteUnit(instId);
+	Window:ShowModalWait();
 end
 
 function xiangxiziliao_OnSkillBtn(context)
@@ -351,13 +352,15 @@ function xiangxiziliao_FlushData()
 		local sData = Proxy4Lua.GetCardInstSkillData(instId, i-1);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
+		skill:GetChild("n5").visible = false;
+		lv.visible = false;
 		if sData ~= nil then
 			loader.url = "ui://" .. sData._Icon;
-			lv.text = sData._Level;
+			--lv.text = sData._Level;
 			skill.data = sData._Id;
 		else
 			loader.url = "";
-			lv.text = "";
+			--lv.text = "";
 		end
 	end
 end
@@ -407,13 +410,15 @@ function xiangxiziliao_BoosInfo()
 		local sData = SkillData.GetData(entityData._Skills[i-1]);
 		local loader = skill:GetChild("n8").asLoader;
 		local lv = skill:GetChild("n7").asTextField;
+		skill:GetChild("n5").visible = false;
+		lv.visible = false;
 		if sData ~= nil then
 			loader.url = "ui://" .. sData._Icon;
-			lv.text = sData._Level;
+			--lv.text = sData._Level;
 			skill.data = sData._Id;
 		else
 			loader.url = "";
-			lv.text = "";
+			--lv.text = "";
 		end
 	end
 
