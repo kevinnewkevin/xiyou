@@ -221,10 +221,12 @@ struct COM_BattleResult{
 
 //战斗结果
 struct COM_BattleSnape{
-	int32 Camp;
-	int32 battleid;
-	int32[] targetcards;
-	COM_BattleUnit[] MainUnit;
+	int32 Camp;						//自己的阵营
+	int32 battleid;					//战斗ID
+	int32[] targetcards;			//卡牌
+	COM_BattleUnit[] MainUnit;		//双方主角
+	COM_BattleUnit[] BattleField;	//战场上的牌
+	COM_BattleUnit[] HandCard;		//自己剩下的手牌
 };
 
 //卡牌晋升
