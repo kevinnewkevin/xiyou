@@ -72,6 +72,12 @@ class Proxy : ICOM_ServerToClientProxy
         return true;
     }
 
+    public bool JoinBattleOk_back(int turn, int state, int second, ref COM_BattleSnape snap)
+    {
+//        JoinBattleOk(snap.Camp, snap.battleid, ref snap.targetcards, ref snap.MainUnit);
+        return true;
+    }
+
     public bool AddNewUnit(ref COM_Unit u)
 	{
 		GamePlayer.AddCard (u);
