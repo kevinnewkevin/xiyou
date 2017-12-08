@@ -1567,7 +1567,12 @@ func (this *BattleRoom) SelectNearTarget(instid int64) int64 {
 	if ok {
 		if len(buff_lis) > 0 {
 			logs.Info("目标 222", unit.InstId, "己方随机目标buff ,", unit.Special[prpc.BF_FRIENDLOCK])
-			return this.SelectOneFriend(unit.InstId)
+
+			t_id := this.SelectOneFriend(unit.InstId)
+
+			if t_id != -1 {
+				return this.SelectOneFriend(unit.InstId)
+			}
 		}
 	}
 	for _, pos := range near_pos {
