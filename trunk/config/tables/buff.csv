@@ -1,86 +1,86 @@
 BuffId,Until,Times,Type,Kind,Icon,AnimTime,EffectName,EmitTime,AddScript,UpdateScript,PopScript,Name,Explain
-100,2,0,2,1,icon/shoushang_buff,,,,buff_100_add,buff_100_update,buff_100_delete,雷震子雷击技能对目标造成的掉血buff,[color=#e70f0f]持续掉血[/color]
-101,2,0,1,1,icon/busi_buff,,,,buff_101_add,buff_101_update,buff_101_delete,王母 母仪天下 给己方目标 加 回血buff,[color=#7ae70f]持续回血[/color]
-102,2,0,1,2,icon/gongjijia_buff,,,,buff_102_add,buff_102_update,buff_102_delete,主角 给己方 增加物理属性 ,[color=#7ae70f]物攻提升[/color]
+100,1,0,2,1,icon/shoushang_buff,,,,buff_100_add,buff_100_update,buff_100_delete,雷震子雷击技能对目标造成的掉血buff,[color=#e70f0f]持续掉血[/color]
+101,1,0,1,1,icon/busi_buff,,,,buff_101_add,buff_101_update,buff_101_delete,王母 母仪天下 给己方目标 加 回血buff,[color=#7ae70f]持续回血[/color]
+102,1,0,1,2,icon/gongjijia_buff,,,,buff_102_add,buff_102_update,buff_102_delete,主角 给己方 增加物理属性 ,[color=#7ae70f]物攻提升[/color]
 103,999,0,1,2,icon/hudun_buff,,,,buff_103_add,buff_103_update,buff_103_delete,子牙给自己加护盾值buff,[color=#1cc6eb]增加护盾[/color]
-104,1,0,2,2,icon/xuanyun_buff,,,,buff_104_add,buff_104_update,buff_104_delete,猴子 大闹天宫 给目标 加 眩晕buff,[color=#e70f0f]眩晕1回合[/color]
-105,2,0,1,2,icon/fagongjia_buff,,,,buff_105_add,buff_105_update,buff_105_delete,主角给己方 增加法术属性,[color=#FFFFFF]法攻提升[/color]
-106,2,0,1,2,icon/busi_buff,,,,buff_106_add,buff_106_update,buff_106_delete,女娲 造物 给己方 单目标 加  免死buff,[color=#FFFFFF]免疫死亡[/color]
-107,3,0,1,2,icon/jingji_buff,,,,buff_107_add,buff_107_update,buff_107_delete,,
-108,2,0,1,2,icon/lianji_buff,,,,buff_108_add,buff_108_update,buff_108_delete,,
-109,3,0,1,2,icon/sudujia_buff,,,,buff_109_add,buff_109_update,buff_109_delete,,
-110,2,0,1,2,icon/shanghaizengjia_buff,,,,buff_110_add,buff_110_update,buff_110_delete,哪吒 乾空圈  给目标 加 增伤害buff,[color=#e70f0f]收到伤害增加[/color]
-111,2,0,1,2,icon/jianshe_buff,,,,buff_111_add,buff_111_update,buff_111_delete,,
-112,2,0,2,2,icon/fangyujian_buff,,,,buff_112_add,buff_112_update,buff_112_delete,猴子 化身三千 给目标 加  减物理防御buff,[color=#e70f0f]物防减少[/color]
-113,3,0,2,2,icon/jjinliao_buff,,,,buff_113_add,buff_113_update,buff_113_delete,九头蛇 酸雾喷吐 给 目标  无法恢复生命值buff,[color=#e70f0f]禁止恢复[/color]
-114,3,0,1,2,icon/fafangjia_buff,,,,buff_114_add,buff_114_update,buff_114_delete,主角 给己方 加法术防御属性buff,[color=#7ae70f]法防提升[/color]
-115,2,0,2,2,icon/gongjijian_buff,,,,buff_115_add,buff_115_update,buff_115_delete,,
-116,3,0,2,2,icon/fagongjian_buff,,,,buff_116_add,buff_116_update,buff_116_delete,,
-117,2,0,2,2,icon/sudujian_buff,,,,buff_117_add,buff_117_update,buff_117_delete,龙王 布雨 给目标 加 减速度属性buff,[color=#e70f0f]速度减少[/color]
-118,2,0,1,2,icon/fangyujia_buff,,,,buff_118_add,buff_118_update,buff_118_delete,主角 给 己方  加物理防御buff,[color=#7ae70f]物防提升[/color]
-119,2,0,2,2,icon/fafangjian_buff,,,,buff_119_add,buff_119_update,buff_119_delete,猴子 化身三千 给目标 加 减法术防御buff,[color=#e70f0f]法防减少[/color]
-120,2,0,2,2,icon/jingu_buff,,,,buff_120_add,buff_120_update,buff_120_delete,,
-121,2,0,1,2,icon/busi_buff,,,,buff_121_add,buff_121_update,buff_121_delete,,
-122,3,0,1,2,icon/shanghaizengjia_buff,,,,buff_122_add,buff_122_update,buff_122_delete,蛟魔王 孽龙 给自己 加  输出伤害buff,[color=#7ae70f]伤害提升[/color]
-123,2,3,1,2,icon/hudun_buff,,,,buff_123_add,buff_123_update,buff_123_delete,老象 厚皮 给自己 加  有次数的减伤盾buff,[color=#7ae70f]减免伤害[/color]
-124,1,0,1,2,icon/jianshang_buff,,,,buff_124_add,buff_124_update,buff_124_delete,观音 大发慈悲  给 己方 加  减伤盾buff,[color=#7ae70f]减免伤害[/color]
-125,2,0,1,2,icon/shanghaizengjia_buff,,,,buff_125_add,buff_125_update,buff_125_delete,,
-126,3,1,1,2,icon/jianjianshang_buff,,,,buff_126_add,buff_126_update,buff_126_delete,,
-127,2,0,2,2,icon/gongji_buff,,,,buff_127_add,buff_127_update,buff_127_delete,,
-128,2,0,1,2,icon/gongji_buff,,,,buff_128_add,buff_128_update,buff_128_delete,,
-129,2,0,1,2,icon/gongji_buff,,,,buff_129_add,buff_129_update,buff_129_delete,,
-130,2,0,1,2,icon/gongji_buff,,,,buff_130_add,buff_130_update,buff_130_delete,,
-131,2,0,1,2,icon/gongji_buff,,,,buff_131_add,buff_131_update,buff_131_delete,,
-132,2,0,1,2,icon/gongji_buff,,,,buff_132_add,buff_132_update,buff_132_delete,,
-133,2,0,1,2,icon/gongji_buff,,,,buff_133_add,buff_133_update,buff_133_delete,,
-134,2,0,1,2,icon/gongji_buff,,,,buff_134_add,buff_134_update,buff_134_delete,,
-135,2,0,1,1,icon/gongji_buff,,,,buff_135_add,buff_135_update,buff_135_delete,主角 给 自己 增加生命值 被动buff,[color=#7ae70f]被动增加生命[/color]
-136,2,0,1,3,icon/fangyujia_buff,,,,buff_136_add,buff_136_update,buff_136_delete,主角给自己  增加防御力   被动buff,[color=#7ae70f]被动增加物防[/color]
-137,2,0,1,3,icon/fafangjia_buff,,,,buff_137_add,buff_137_update,buff_137_delete,主角 给自己  增加法术防御 被动buff,[color=#7ae70f]被动增加法防[/color]
-138,2,0,2,3,icon/jianshang_buff,,,,buff_138_add,buff_138_update,buff_138_delete,猴子 大闹天宫 给自己 加  减伤 被动buff,[color=#7ae70f]减少伤害[/color]
-139,2,0,1,3,icon/gongjijia_buff,,,,buff_139_add,buff_139_update,buff_139_delete,子牙 愿者上钩 给己方  加物理强度 被动buff,[color=#7ae70f]增加物攻[/color]
-140,2,0,1,3,icon/fagongjia_buff,,,,buff_140_add,buff_140_update,buff_140_delete,子牙 愿者上钩 给己方  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
-141,2,0,2,3,icon/gongjijian_buff,,,,buff_141_add,buff_141_update,buff_141_delete,,
-142,2,0,2,2,icon/gongji_buff,,,,buff_142_add,buff_142_update,buff_142_delete,老象 神力 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
-143,1,0,2,2,icon/gongjijian_buff,,,,buff_143_add,buff_143_update,buff_143_delete,观音 放下屠刀 给目标 加  减物理属性buff,[color=#e70f0f]减少物攻[/color]
-144,1,0,2,2,icon/fagongjian_buff,,,,buff_144_add,buff_144_update,buff_144_delete,观音 放下屠刀 给目标 加 减法术属性buff,[color=#e70f0f]减少法攻[/color]
-145,1,0,2,2,icon/sudujian_buff,,,,buff_145_add,buff_145_update,buff_145_delete,九头蛇 酸雾喷吐 给 目标 加 减sudu属性buff,[color=#e70f0f]减速[/color]
-146,1,0,1,2,icon/gongjijia_buff,,,,buff_146_add,buff_146_update,buff_146_delete,观音 放下屠刀 给己方 加 加物理属性buff,[color=#7ae70f]增加物攻[/color]
-147,1,0,1,2,icon/fagongjia_buff,,,,buff_147_add,buff_147_update,buff_147_delete,观音 放下屠刀 给己方 加 加法术属性buff,[color=#7ae70f]增加法攻[/color]
-148,2,0,2,2,icon/xuanyun_buff,,,,buff_148_add,buff_148_update,buff_148_delete,龙后 给目标 加   冰冻buff,[color=#e70f0f]冰冻[/color]
-149,1,0,2,2,icon/xuanyun_buff,,,,buff_149_add,buff_149_update,buff_149_delete,龙后 给目标 加   冰冻buff,[color=#e70f0f]冰冻[/color]
-150,2,0,2,1,icon/zhongdu_buff,,,,buff_150_add,buff_150_update,buff_150_delete,翠云 碧云决 给目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
-151,1,0,2,2,icon/busi_buff,,,,buff_151_add,buff_151_update,buff_151_delete,妖妃 楚楚可怜 给自己   免伤buff,[color=#1cc6eb]免伤[/color]
-152,2,0,2,2,icon/xuanyun_buff,,,,buff_152_add,buff_152_update,buff_152_delete,妖妃 魅惑 给目标加  锁定己方随机目标buff,[color=#e70f0f]魅惑[/color]
-153,2,0,2,2,icon/zhongdu_buff,,,,buff_153_add,buff_153_update,buff_153_delete,,
+104,0,0,2,2,icon/xuanyun_buff,,,,buff_104_add,buff_104_update,buff_104_delete,猴子 大闹天宫 给目标 加 眩晕buff,[color=#e70f0f]眩晕1回合[/color]
+105,1,0,1,2,icon/fagongjia_buff,,,,buff_105_add,buff_105_update,buff_105_delete,主角给己方 增加法术属性,[color=#FFFFFF]法攻提升[/color]
+106,1,0,1,2,icon/busi_buff,,,,buff_106_add,buff_106_update,buff_106_delete,女娲 造物 给己方 单目标 加  免死buff,[color=#FFFFFF]免疫死亡[/color]
+107,2,0,1,2,icon/jingji_buff,,,,buff_107_add,buff_107_update,buff_107_delete,,
+108,1,0,1,2,icon/lianji_buff,,,,buff_108_add,buff_108_update,buff_108_delete,,
+109,2,0,1,2,icon/sudujia_buff,,,,buff_109_add,buff_109_update,buff_109_delete,,
+110,1,0,1,2,icon/shanghaizengjia_buff,,,,buff_110_add,buff_110_update,buff_110_delete,哪吒 乾空圈  给目标 加 增伤害buff,[color=#e70f0f]收到伤害增加[/color]
+111,1,0,1,2,icon/jianshe_buff,,,,buff_111_add,buff_111_update,buff_111_delete,,
+112,1,0,2,2,icon/fangyujian_buff,,,,buff_112_add,buff_112_update,buff_112_delete,猴子 化身三千 给目标 加  减物理防御buff,[color=#e70f0f]物防减少[/color]
+113,2,0,2,2,icon/jjinliao_buff,,,,buff_113_add,buff_113_update,buff_113_delete,九头蛇 酸雾喷吐 给 目标  无法恢复生命值buff,[color=#e70f0f]禁止恢复[/color]
+114,2,0,1,2,icon/fafangjia_buff,,,,buff_114_add,buff_114_update,buff_114_delete,主角 给己方 加法术防御属性buff,[color=#7ae70f]法防提升[/color]
+115,1,0,2,2,icon/gongjijian_buff,,,,buff_115_add,buff_115_update,buff_115_delete,,
+116,2,0,2,2,icon/fagongjian_buff,,,,buff_116_add,buff_116_update,buff_116_delete,,
+117,1,0,2,2,icon/sudujian_buff,,,,buff_117_add,buff_117_update,buff_117_delete,龙王 布雨 给目标 加 减速度属性buff,[color=#e70f0f]速度减少[/color]
+118,1,0,1,2,icon/fangyujia_buff,,,,buff_118_add,buff_118_update,buff_118_delete,主角 给 己方  加物理防御buff,[color=#7ae70f]物防提升[/color]
+119,1,0,2,2,icon/fafangjian_buff,,,,buff_119_add,buff_119_update,buff_119_delete,猴子 化身三千 给目标 加 减法术防御buff,[color=#e70f0f]法防减少[/color]
+120,1,0,2,2,icon/jingu_buff,,,,buff_120_add,buff_120_update,buff_120_delete,,
+121,1,0,1,2,icon/busi_buff,,,,buff_121_add,buff_121_update,buff_121_delete,,
+122,2,0,1,2,icon/shanghaizengjia_buff,,,,buff_122_add,buff_122_update,buff_122_delete,蛟魔王 孽龙 给自己 加  输出伤害buff,[color=#7ae70f]伤害提升[/color]
+123,1,3,1,2,icon/hudun_buff,,,,buff_123_add,buff_123_update,buff_123_delete,老象 厚皮 给自己 加  有次数的减伤盾buff,[color=#7ae70f]减免伤害[/color]
+124,0,0,1,2,icon/jianshang_buff,,,,buff_124_add,buff_124_update,buff_124_delete,观音 大发慈悲  给 己方 加  减伤盾buff,[color=#7ae70f]减免伤害[/color]
+125,1,0,1,2,icon/shanghaizengjia_buff,,,,buff_125_add,buff_125_update,buff_125_delete,,
+126,2,1,1,2,icon/jianjianshang_buff,,,,buff_126_add,buff_126_update,buff_126_delete,,
+127,1,0,2,2,icon/gongji_buff,,,,buff_127_add,buff_127_update,buff_127_delete,,
+128,1,0,1,2,icon/gongji_buff,,,,buff_128_add,buff_128_update,buff_128_delete,,
+129,1,0,1,2,icon/gongji_buff,,,,buff_129_add,buff_129_update,buff_129_delete,,
+130,1,0,1,2,icon/gongji_buff,,,,buff_130_add,buff_130_update,buff_130_delete,,
+131,1,0,1,2,icon/gongji_buff,,,,buff_131_add,buff_131_update,buff_131_delete,,
+132,1,0,1,2,icon/gongji_buff,,,,buff_132_add,buff_132_update,buff_132_delete,,
+133,1,0,1,2,icon/gongji_buff,,,,buff_133_add,buff_133_update,buff_133_delete,,
+134,1,0,1,2,icon/gongji_buff,,,,buff_134_add,buff_134_update,buff_134_delete,,
+135,1,0,1,1,icon/gongji_buff,,,,buff_135_add,buff_135_update,buff_135_delete,主角 给 自己 增加生命值 被动buff,[color=#7ae70f]被动增加生命[/color]
+136,1,0,1,3,icon/fangyujia_buff,,,,buff_136_add,buff_136_update,buff_136_delete,主角给自己  增加防御力   被动buff,[color=#7ae70f]被动增加物防[/color]
+137,1,0,1,3,icon/fafangjia_buff,,,,buff_137_add,buff_137_update,buff_137_delete,主角 给自己  增加法术防御 被动buff,[color=#7ae70f]被动增加法防[/color]
+138,1,0,2,3,icon/jianshang_buff,,,,buff_138_add,buff_138_update,buff_138_delete,猴子 大闹天宫 给自己 加  减伤 被动buff,[color=#7ae70f]减少伤害[/color]
+139,1,0,1,3,icon/gongjijia_buff,,,,buff_139_add,buff_139_update,buff_139_delete,子牙 愿者上钩 给己方  加物理强度 被动buff,[color=#7ae70f]增加物攻[/color]
+140,1,0,1,3,icon/fagongjia_buff,,,,buff_140_add,buff_140_update,buff_140_delete,子牙 愿者上钩 给己方  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
+141,1,0,2,3,icon/gongjijian_buff,,,,buff_141_add,buff_141_update,buff_141_delete,,
+142,1,0,2,2,icon/gongji_buff,,,,buff_142_add,buff_142_update,buff_142_delete,老象 神力 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
+143,0,0,2,2,icon/gongjijian_buff,,,,buff_143_add,buff_143_update,buff_143_delete,观音 放下屠刀 给目标 加  减物理属性buff,[color=#e70f0f]减少物攻[/color]
+144,0,0,2,2,icon/fagongjian_buff,,,,buff_144_add,buff_144_update,buff_144_delete,观音 放下屠刀 给目标 加 减法术属性buff,[color=#e70f0f]减少法攻[/color]
+145,0,0,2,2,icon/sudujian_buff,,,,buff_145_add,buff_145_update,buff_145_delete,九头蛇 酸雾喷吐 给 目标 加 减sudu属性buff,[color=#e70f0f]减速[/color]
+146,0,0,1,2,icon/gongjijia_buff,,,,buff_146_add,buff_146_update,buff_146_delete,观音 放下屠刀 给己方 加 加物理属性buff,[color=#7ae70f]增加物攻[/color]
+147,0,0,1,2,icon/fagongjia_buff,,,,buff_147_add,buff_147_update,buff_147_delete,观音 放下屠刀 给己方 加 加法术属性buff,[color=#7ae70f]增加法攻[/color]
+148,1,0,2,2,icon/xuanyun_buff,,,,buff_148_add,buff_148_update,buff_148_delete,龙后 给目标 加   冰冻buff,[color=#e70f0f]冰冻[/color]
+149,0,0,2,2,icon/xuanyun_buff,,,,buff_149_add,buff_149_update,buff_149_delete,龙后 给目标 加   冰冻buff,[color=#e70f0f]冰冻[/color]
+150,1,0,2,1,icon/zhongdu_buff,,,,buff_150_add,buff_150_update,buff_150_delete,翠云 碧云决 给目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
+151,0,0,2,2,icon/busi_buff,,,,buff_151_add,buff_151_update,buff_151_delete,妖妃 楚楚可怜 给自己   免伤buff,[color=#1cc6eb]免伤[/color]
+152,1,0,2,2,icon/xuanyun_buff,,,,buff_152_add,buff_152_update,buff_152_delete,妖妃 魅惑 给目标加  锁定己方随机目标buff,[color=#e70f0f]魅惑[/color]
+153,1,0,2,2,icon/zhongdu_buff,,,,buff_153_add,buff_153_update,buff_153_delete,,
 154,999,0,1,2,icon/gongjijia_buff,,,,buff_154_add,buff_154_update,buff_154_delete,子牙 给己方  增加物理属性 ,[color=#7ae70f]物攻提升[/color]
 155,999,0,1,2,icon/fagongjia_buff,,,,buff_155_add,buff_155_update,buff_155_delete,子牙 给己方 增加法术属性,[color=#7ae70f]法攻提升[/color]
-156,2,0,1,2,icon/hudun_buff,,,,buff_156_add,buff_156_update,buff_156_delete,主角给自己加护盾值buff,[color=#7ae70f]增加护盾[/color]
-157,2,0,2,2,icon/fangyujian_buff,,,,buff_157_add,buff_157_update,buff_157_delete,翠云 飞叶斩  给目标 加  减物理防御buff,[color=#e70f0f]减少物防[/color]
-158,2,0,2,1,icon/zhongdu_buff,,,,buff_158_add,buff_158_update,buff_158_delete,蛇妖 给 目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
-159,2,0,1,3,icon/fagongjia_buff,,,,buff_159_add,buff_159_update,buff_159_delete,天王 护法  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
-160,2,0,1,3,icon/fagongjia_buff,,,,buff_160_add,buff_160_update,buff_160_delete,女娲 给己方  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
-161,2,0,1,3,icon/fagongjia_buff,,,,buff_161_add,buff_161_update,buff_161_delete,观音 给自己  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
-162,2,0,2,1,icon/shoushang_buff,,,,buff_162_add,buff_162_update,buff_162_delete,旱魃 焚天  给目标 加 掉血buff,[color=#e70f0f]灼伤[/color]
-163,2,0,1,2,icon/shanghaizengjia_buff,,,,buff_163_add,buff_163_update,buff_163_delete,蛟魔王 孽龙  给自己 加 增伤害buff,[color=#7ae70f]增强伤害[/color]
-164,2,0,1,3,icon/shanghaizengjia_buff,,,,buff_164_add,buff_164_update,buff_164_delete,蛟魔王 孽龙 真龙形态  和目标  加 增伤害 被动buff,[color=#1cc6eb]真龙形态[/color]
-165,1,0,2,2,icon/xuanyun_buff,,,,buff_165_add,buff_165_update,buff_165_delete,天王 给目标 加 无法行动buff,[color=#e70f0f]封印[/color]
-166,2,0,2,2,icon/xuanyun_buff,,,,buff_166_add,buff_166_update,buff_166_delete,天王给目标 加 无法行动buff,[color=#e70f0f]封印[/color]
-167,1,0,2,2,icon/xuanyun_buff,,,,buff_167_add,buff_167_update,buff_167_delete,夜叉 化血狂击 给目标 无法行动buff,[color=#e70f0f]禁锢[/color]
-168,2,0,2,2,icon/fangyujian_buff,,,,buff_168_add,buff_168_update,buff_168_delete,哪吒 火尖枪 给目标 加  减物理防御buff,[color=#e70f0f]减少物防[/color]
-169,2,0,2,2,icon/shanghaizengjia_buff,,,,buff_169_add,buff_169_update,buff_169_delete,太乙真人 磨砺 给友方目标目标 加  增加输出伤害buff,[color=#7ae70f]增加输出伤害[/color]
-170,1,0,2,2,icon/fangyujian_buff,,,,buff_170_add,buff_170_update,buff_170_delete,天兵天将  给目标 加  减物理防御buff,[color=#e70f0f]物防减少[/color]
-171,1,0,2,2,icon/quangongjijian_buff,,,,buff_171_add,buff_171_update,buff_171_delete,太白金星 议和 给目标 加  减物理攻击buff,[color=#e70f0f]物理攻击减少[/color]
-172,1,0,2,2,icon/quangongjijian_buff,,,,buff_172_add,buff_172_update,buff_172_delete,太白金星 议和 给目标 加 减法术攻击buff,[color=#e70f0f]法防攻击减少[/color]
-173,1,0,1,2,icon/sudujia_buff,,,,buff_173_add,buff_173_update,buff_173_delete,太上老君 明道：提升己方全体目标的速度100%的buff,[color=#7ae70f]速度加[/color]
-174,2,0,1,2,icon/jingji_buff,,,,buff_174_add,buff_174_update,buff_174_delete,太上老君 道德经：提升己方所有目标荆棘值100点的buff,[color=#7ae70f]荆棘加[/color]
-175,2,0,2,2,icon/xuanyun_buff,,,,buff_175_add,buff_175update,buff_175_delete,王母 主持公道 给目标 加 沉默buff,[color=#e70f0f]沉默[/color]
-176,1,0,2,2,icon/gongji_buff,,,,buff_176_add,buff_176_update,buff_176_delete,巨灵神 横冲直撞 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
-177,2,0,2,2,icon/gongji_buff,,,,buff_177_add,buff_177_update,buff_177_delete,巨灵神 夺命重击 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
-178,1,0,2,2,icon/xuanyun_buff,,,,buff_178_add,buff_178_update,buff_178_delete,魔礼海 琵琶 给目标 无法行动buff,[color=#e70f0f]禁锢[/color]
-179,2,0,2,1,icon/zhongdu_buff,,,,buff_179_add,buff_179_update,buff_179_delete,魔礼海 琵琶毒 给目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
-180,2,0,1,2,icon/fafangjia_buff,,,,buff_180_add,buff_180_update,buff_180_delete,魔礼寿 给己方 加法术防御属性buff,[color=#7ae70f]法防提升[/color]
-181,2,0,1,2,icon/fangyujia_buff,,,,buff_181_add,buff_181_update,buff_181_delete,魔礼寿 给 己方  加物理防御buff,[color=#7ae70f]物防提升[/color]
-182,1,0,2,2,icon/gongjijian_buff,,,,buff_182_add,buff_182_update,buff_182_delete,魔礼红 收服 给目标 加  减物理属性buff,[color=#e70f0f]减少物攻[/color]
-183,1,0,2,2,icon/fagongjian_buff,,,,buff_183_add,buff_183_update,buff_183_delete,魔礼红 收服 给目标 加 减法术属性buff,[color=#e70f0f]减少法攻[/color]
-184,2,0,1,2,icon/hudun_buff,,,,buff_184_add,buff_184_update,buff_184_delete,魔力红给己方加护盾值buff,[color=#7ae70f]增加护盾[/color]
+156,1,0,1,2,icon/hudun_buff,,,,buff_156_add,buff_156_update,buff_156_delete,主角给自己加护盾值buff,[color=#7ae70f]增加护盾[/color]
+157,1,0,2,2,icon/fangyujian_buff,,,,buff_157_add,buff_157_update,buff_157_delete,翠云 飞叶斩  给目标 加  减物理防御buff,[color=#e70f0f]减少物防[/color]
+158,1,0,2,1,icon/zhongdu_buff,,,,buff_158_add,buff_158_update,buff_158_delete,蛇妖 给 目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
+159,1,0,1,3,icon/fagongjia_buff,,,,buff_159_add,buff_159_update,buff_159_delete,天王 护法  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
+160,1,0,1,3,icon/fagongjia_buff,,,,buff_160_add,buff_160_update,buff_160_delete,女娲 给己方  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
+161,1,0,1,3,icon/fagongjia_buff,,,,buff_161_add,buff_161_update,buff_161_delete,观音 给自己  加法术强度 被动buff,[color=#7ae70f]增加法攻[/color]
+162,1,0,2,1,icon/shoushang_buff,,,,buff_162_add,buff_162_update,buff_162_delete,旱魃 焚天  给目标 加 掉血buff,[color=#e70f0f]灼伤[/color]
+163,1,0,1,2,icon/shanghaizengjia_buff,,,,buff_163_add,buff_163_update,buff_163_delete,蛟魔王 孽龙  给自己 加 增伤害buff,[color=#7ae70f]增强伤害[/color]
+164,1,0,1,3,icon/shanghaizengjia_buff,,,,buff_164_add,buff_164_update,buff_164_delete,蛟魔王 孽龙 真龙形态  和目标  加 增伤害 被动buff,[color=#1cc6eb]增伤[/color]
+165,0,0,2,2,icon/xuanyun_buff,,,,buff_165_add,buff_165_update,buff_165_delete,天王 给目标 加 无法行动buff,[color=#e70f0f]封印[/color]
+166,1,0,2,2,icon/xuanyun_buff,,,,buff_166_add,buff_166_update,buff_166_delete,天王给目标 加 无法行动buff,[color=#e70f0f]封印[/color]
+167,0,0,2,2,icon/xuanyun_buff,,,,buff_167_add,buff_167_update,buff_167_delete,夜叉 化血狂击 给目标 无法行动buff,[color=#e70f0f]禁锢[/color]
+168,1,0,2,2,icon/fangyujian_buff,,,,buff_168_add,buff_168_update,buff_168_delete,哪吒 火尖枪 给目标 加  减物理防御buff,[color=#e70f0f]减少物防[/color]
+169,1,0,2,2,icon/shanghaizengjia_buff,,,,buff_169_add,buff_169_update,buff_169_delete,太乙真人 磨砺 给友方目标目标 加  增加输出伤害buff,[color=#7ae70f]增加输出伤害[/color]
+170,0,0,2,2,icon/fangyujian_buff,,,,buff_170_add,buff_170_update,buff_170_delete,天兵天将  给目标 加  减物理防御buff,[color=#e70f0f]物防减少[/color]
+171,0,0,2,2,icon/quangongjijian_buff,,,,buff_171_add,buff_171_update,buff_171_delete,太白金星 议和 给目标 加  减物理攻击buff,[color=#e70f0f]物理攻击减少[/color]
+172,0,0,2,2,icon/quangongjijian_buff,,,,buff_172_add,buff_172_update,buff_172_delete,太白金星 议和 给目标 加 减法术攻击buff,[color=#e70f0f]法防攻击减少[/color]
+173,0,0,1,2,icon/sudujia_buff,,,,buff_173_add,buff_173_update,buff_173_delete,太上老君 明道：提升己方全体目标的速度100%的buff,[color=#7ae70f]速度加[/color]
+174,1,0,1,2,icon/jingji_buff,,,,buff_174_add,buff_174_update,buff_174_delete,太上老君 道德经：提升己方所有目标荆棘值100点的buff,[color=#7ae70f]荆棘加[/color]
+175,1,0,2,2,icon/xuanyun_buff,,,,buff_175_add,buff_175update,buff_175_delete,王母 主持公道 给目标 加 沉默buff,[color=#e70f0f]沉默[/color]
+176,0,0,2,2,icon/gongji_buff,,,,buff_176_add,buff_176_update,buff_176_delete,巨灵神 横冲直撞 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
+177,1,0,2,2,icon/gongji_buff,,,,buff_177_add,buff_177_update,buff_177_delete,巨灵神 夺命重击 给目标 加  锁定目标 buff,[color=#e70f0f]嘲讽[/color]
+178,0,0,2,2,icon/xuanyun_buff,,,,buff_178_add,buff_178_update,buff_178_delete,魔礼海 琵琶 给目标 无法行动buff,[color=#e70f0f]禁锢[/color]
+179,1,0,2,1,icon/zhongdu_buff,,,,buff_179_add,buff_179_update,buff_179_delete,魔礼海 琵琶毒 给目标 加   中毒掉血buff,[color=#e70f0f]中毒[/color]
+180,1,0,1,2,icon/fafangjia_buff,,,,buff_180_add,buff_180_update,buff_180_delete,魔礼寿 给己方 加法术防御属性buff,[color=#7ae70f]法防提升[/color]
+181,1,0,1,2,icon/fangyujia_buff,,,,buff_181_add,buff_181_update,buff_181_delete,魔礼寿 给 己方  加物理防御buff,[color=#7ae70f]物防提升[/color]
+182,0,0,2,2,icon/gongjijian_buff,,,,buff_182_add,buff_182_update,buff_182_delete,魔礼红 收服 给目标 加  减物理属性buff,[color=#e70f0f]减少物攻[/color]
+183,0,0,2,2,icon/fagongjian_buff,,,,buff_183_add,buff_183_update,buff_183_delete,魔礼红 收服 给目标 加 减法术属性buff,[color=#e70f0f]减少法攻[/color]
+184,1,0,1,2,icon/hudun_buff,,,,buff_184_add,buff_184_update,buff_184_delete,魔力红给己方加护盾值buff,[color=#7ae70f]增加护盾[/color]
