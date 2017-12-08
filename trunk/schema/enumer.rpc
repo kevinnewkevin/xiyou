@@ -27,7 +27,7 @@ enum CampType{
 };
 
 //战斗状态
-enum CampType{
+enum BattleState{
 	BS_START,	//战斗开始
 	BS_HANDLE,	//操作
 	BS_SHOW,	//播放
