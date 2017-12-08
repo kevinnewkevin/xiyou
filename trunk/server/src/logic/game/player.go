@@ -1740,7 +1740,6 @@ func (this *GamePlayer) QueryReport(battleinstID int64) {
 
 		br := SetReportCOM(p)
 
-
 		logs.Debug("QueryBattleReport ", br.Report)
 
 		this.session.QueryBattleRecordOK(br)
