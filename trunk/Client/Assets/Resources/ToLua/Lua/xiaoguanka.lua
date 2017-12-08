@@ -350,6 +350,7 @@ function xiaoguanka_RenderListItem(index, obj)
 	star2.enabled = false;
 	lock.visible = true;
 	gImg.visible = true;
+	local RecordBtn = obj:GetChild("n15");
 	if smallData.Star1 == true then 
 	 		star0.enabled = true;
 	 		 bBattle = true;
@@ -371,7 +372,6 @@ function xiaoguanka_RenderListItem(index, obj)
 	   		 gImg.visible  = false;
 	   		 RecordBtn.visible = true;
 		end
-	local RecordBtn = obj:GetChild("n15");
 	RecordBtn.onClick:Add(xiaoguanka_OnRecord);
 	RecordBtn.data = smallData.SmallChapterId;
 	local img = obj:GetChild("n10");
