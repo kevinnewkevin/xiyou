@@ -26,6 +26,14 @@ enum CampType{
 	CT_MAX,
 };
 
+//战斗状态
+enum CampType{
+	BS_START,	//战斗开始
+	BS_HANDLE,	//操作
+	BS_SHOW,	//播放
+	BS_END,		//完结
+};
+
 //战斗动作
 enum BattleActionType{
 	BAT_MIN,         
