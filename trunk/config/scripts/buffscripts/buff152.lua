@@ -10,7 +10,7 @@ function buff_152_add(battleid, unitid, buffinstid,data)
 
 	
 	--sys.log("buff_106_add "..","..battleid..","..buffinstid..","..unitid)
-	sys.log("buff_152_add  添加免伤buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
+	sys.log("buff_152_add  添加魅惑buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 end
 
 function buff_152_update(battleid, buffinstid, unitid)	
@@ -18,7 +18,7 @@ function buff_152_update(battleid, buffinstid, unitid)
 	
 	-- Battle.BuffMintsHp(battleid, unitid, buffinstid)
 	
-	sys.log("buff_152_update  更新免伤buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
+	sys.log("buff_152_update  更新魅惑buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid)
 	
 end
 
@@ -26,7 +26,7 @@ function buff_152_delete(battleid, unitid, buffinstid,data)
 
 	Player.PopSpec(battleid, unitid, buffinstid,"BF_FRIENDLOCK")   --
 	
-	sys.log("buff_152_delete  删除免伤buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
+	sys.log("buff_152_delete  删除魅惑buff"..",battleid是"..battleid..",buffid是"..buffinstid..",目标"..unitid..",数据是"..data)
 
 end
 
