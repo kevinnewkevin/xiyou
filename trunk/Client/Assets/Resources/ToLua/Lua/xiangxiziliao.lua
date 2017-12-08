@@ -318,35 +318,51 @@ function xiangxiziliao_FlushData()
 	levelMdef.text = entityInst.CProperties[6];
 	
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
-	addLevelHp.text = levelData._Hp .. "";
-	addLevelAtk.text = levelData._Atk .. "";
-	addLevelDef.text = levelData._Def .. "";
-	addLevelAgility.text = levelData._Agile .. "";
-	addLevelMatk.text = levelData._MagicAtk .. "";
-	addLevelMdef.text = levelData._MagicDef .. "";
 
-	--levelUpHp.text = levelData._Hp + entityInst.CProperties[1] .. "";
-	--levelUpAtk.text = levelData._Atk + entityInst.CProperties[3] .. "";
-	--levelUpDef.text = levelData._Def + entityInst.CProperties[4] .. "";
-	--levelUpAgility.text = levelData._Agile + entityInst.CProperties[7]  .. "";
-	--levelUpMatk.text = levelData._MagicAtk + entityInst.CProperties[5]  .. "";
-	--levelUpMdef.text = levelData._MagicDef + entityInst.CProperties[6]  .. "";
-	needMoneyLab.text = levelData._ItemNum .. "";
-	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
-	needItemBar.value = itemNum/levelData._ItemNum*100;
-	needItemNumLab.text = itemNum .. "/" .. levelData._ItemNum ;
-	local itemdata = ItemData.GetData(levelData._ItemId);
-	needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
-	--needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
-	levelRadBtn.visible = true;
-	if itemNum >= levelData._ItemNum   then
-		levelUpBtn.enabled  = true;
-		levelUpRad.visible = true;
-	else
-		levelUpRad.visible = false;
+	if levelData  == nil then 
+		addLevelHp.text =  "0";
+		addLevelAtk.text =  "0";
+		addLevelDef.text =  "0";
+		addLevelAgility.text = "0";
+		addLevelMatk.text = "0";
+		addLevelMdef.text = "0";
+		needMoneyLab.text = "0";
+		needItemNumLab.text = "已满级";
+		local  levelData1 =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]);
+		local itemdata1 = ItemData.GetData(levelData1._ItemId);
+		needItemIcon.asLoader.url = "ui://" .. itemdata1._Icon;
 		levelUpBtn.enabled  = false;
-	end
+		levelUpRad.visible = false;
+	else
+		addLevelHp.text = levelData._Hp .. "";
+		addLevelAtk.text = levelData._Atk .. "";
+		addLevelDef.text = levelData._Def .. "";
+		addLevelAgility.text = levelData._Agile .. "";
+		addLevelMatk.text = levelData._MagicAtk .. "";
+		addLevelMdef.text = levelData._MagicDef .. "";
 
+		--levelUpHp.text = levelData._Hp + entityInst.CProperties[1] .. "";
+		--levelUpAtk.text = levelData._Atk + entityInst.CProperties[3] .. "";
+		--levelUpDef.text = levelData._Def + entityInst.CProperties[4] .. "";
+		--levelUpAgility.text = levelData._Agile + entityInst.CProperties[7]  .. "";
+		--levelUpMatk.text = levelData._MagicAtk + entityInst.CProperties[5]  .. "";
+		--levelUpMdef.text = levelData._MagicDef + entityInst.CProperties[6]  .. "";
+		needMoneyLab.text = levelData._ItemNum .. "";
+		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+		needItemBar.value = itemNum/levelData._ItemNum*100;
+		needItemNumLab.text = itemNum .. "/" .. levelData._ItemNum ;
+		local itemdata = ItemData.GetData(levelData._ItemId);
+		needItemIcon.asLoader.url = "ui://" .. itemdata._Icon;
+		--needItemIconback.asLoader.url = "ui://" .. itemdata._IconBack;
+		levelRadBtn.visible = true;
+		if itemNum >= levelData._ItemNum   then
+			levelUpBtn.enabled  = true;
+			levelUpRad.visible = true;
+		else
+			levelUpRad.visible = false;
+			levelUpBtn.enabled  = false;
+		end
+	end
 	for i=2, 4 do
 		local skill = skillList:GetChildAt(i - 2);
 		local sData = Proxy4Lua.GetCardInstSkillData(instId, i-1);

@@ -180,11 +180,17 @@ function paiku_RenderListItem(index, obj)
 	local entityInst = GamePlayer.GetCardByInstID(instId);
 	local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 	level.text = entityInst.IProperties[9] .. "";
-	local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
-	if itemNum >= levelData._ItemNum   then
-		radImg.visible = true;
-	else
+
+
+	if levelData == nil then
 		radImg.visible = false;
+	else
+		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+		if itemNum >= levelData._ItemNum then
+			radImg.visible = true;
+		else
+			radImg.visible = false;
+		end
 	end
 end
 
@@ -325,13 +331,17 @@ function paiku_FlushData()
 		local entityInst = GamePlayer.GetCardByInstID(instId);
 		local  levelData =  StrengthenData.GetData( entityInst.UnitId,  entityInst.IProperties[9]+1);
 		level.text = entityInst.IProperties[9] .. "";
-		local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
-		if itemNum >= levelData._ItemNum then
-			radImg.visible = true;
-		else
-			radImg.visible = false;
-		end
 
+		if levelData == nil then
+			radImg.visible = false;
+		else
+			local itemNum = BagSystem.GetItemMaxNum(levelData._ItemId);
+			if itemNum >= levelData._ItemNum then
+				radImg.visible = true;
+			else
+				radImg.visible = false;
+			end
+		end
 		itemBtn.onClick:Add(paiku_OnCardItem); 
 		itemBtn.data = GamePlayer.GetInstIDFromGroup(crtGroupIdx, i - 1);
 		itemBtn.draggable = true;
