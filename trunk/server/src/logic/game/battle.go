@@ -2398,7 +2398,7 @@ func (this *BattleRoom) isDeadOwner(casterid int64, target int64) {
 
 	caster := this.SelectOneUnit(casterid)
 
-	if casterid == target {
+	if casterid == target || caster.Camp == unit.Camp {			//自杀 或者被同阵营击杀都算对方赢
 		if caster.Camp == prpc.CT_RED {
 			this.Winner = prpc.CT_BLUE
 		} else if caster.Camp == prpc.CT_BLUE {
