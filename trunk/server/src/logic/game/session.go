@@ -69,10 +69,9 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 	this.LoginOK(infoext)
 	if this.player != nil {
 		this.player.PlayerLogin()
-	}
-
-	if this.player.BattleId != 0 {		// 有战斗额外加个快照
-		return nil
+		if this.player.BattleId != 0 {		// 有战斗额外加个快照
+			return nil
+		}
 	}
 
 	return nil
