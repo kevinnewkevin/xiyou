@@ -16,7 +16,7 @@ public class FriendSystem
 	public static Dictionary<long, List<COM_Chat>> friendRecvList = new Dictionary<long, List<COM_Chat>>();
 	public static Dictionary<string, List<COM_Chat>> friendRecvListStr = new Dictionary<string, List<COM_Chat>>();
 	public static void InitFriends( COM_Friend[] friends)
-	{
+	{ 
 		if (friends == null)
 			return;
 		for (int i = 0; i < friends.Length; i++) 
@@ -81,14 +81,13 @@ public class FriendSystem
 		return true;
 	}
 
-		public  static bool	chatFriendStr(string name,COM_Chat friend)
-		{
-				if(!friendRecvListStr.ContainsKey(name))
-						friendRecvListStr[name] = new List<COM_Chat>();
-				friendRecvListStr [name].Add (friend);
-				return true;
-		}
-
+	public  static bool	chatFriendStr(string name,COM_Chat friend)
+	{
+			if(!friendRecvListStr.ContainsKey(name))
+					friendRecvListStr[name] = new List<COM_Chat>();
+			friendRecvListStr [name].Add (friend);
+			return true;
+	}
 
 	public static int GetFriendNum()
 	{

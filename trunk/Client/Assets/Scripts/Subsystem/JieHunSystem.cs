@@ -208,7 +208,7 @@ public class JieHunSystem
 		{
 			for (int j = 0; j < chapteList [i].SmallChapters.Length; j++) 
 			{
-				if(!chapteList [i].SmallChapters[j].Star1 ||!chapteList [i].SmallChapters[j].Star2||!chapteList [i].SmallChapters[j].Star3 )
+				if(!chapteList [i].SmallChapters[j].Star1 && !chapteList [i].SmallChapters[j].Star2 && !chapteList [i].SmallChapters[j].Star3 )
 				{
 					return i;						
 				}
