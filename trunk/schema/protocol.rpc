@@ -71,6 +71,10 @@ service COM_ClientToServer{
 	ReadMail(int32 mailId);
 	DelMail(int32 mailId);
 	GetMailItem(int32 mailId);
+	
+	// 断线重连
+	ChangeBattleState(int32 state);		//战斗状态
+	QueryBattleRound(int32 round);		//重连之后对比查询回合数
 };
 
 service COM_ServerToClient{
@@ -138,4 +142,7 @@ service COM_ServerToClient{
 	
 	QueryBattleRecordOK(COM_BattleRecord record);
 	QueryRecordDetailOK(COM_BattleRecord_Detail[] recordDetials);
+	
+	// 断线重连
+	JoinBattleOk_back(int32 round, int32 state, int32 second, COM_BattleSnape battlesnape);
 };

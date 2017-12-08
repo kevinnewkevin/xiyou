@@ -71,6 +71,10 @@ func (this *Session) Login(info prpc.COM_LoginInfo) error {
 		this.player.PlayerLogin()
 	}
 
+	if this.player.BattleId != 0 {		// 有战斗额外加个快照
+		return nil
+	}
+
 	return nil
 } // 0
 func (this *Session) CreatePlayer(tempId int32, playerName string) error {
@@ -571,6 +575,20 @@ func (this *Session)GetMailItem(mailId int32 ) error  {
 		return nil
 	}
 	this.player.GetMailItem(mailId)
+	return nil
+}
+
+func (this *Session)ChangeBattleState(state int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
+	return nil
+}
+
+func (this *Session)QueryBattleRound(round int32 ) error  {
+	if this.player == nil {
+		return nil
+	}
 	return nil
 }
 

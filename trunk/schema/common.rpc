@@ -219,6 +219,14 @@ struct COM_BattleResult{
 	COM_ItemInst[]	BattleItems;
 };
 
+//战斗结果
+struct COM_BattleSnape{
+	int32 Camp;
+	int32 battleid;
+	int32[] targetcards;
+	COM_BattleUnit[] MainUnit;
+};
+
 //卡牌晋升
 struct COM_UnitInfo{
 	int64	InstId;
