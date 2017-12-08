@@ -28,6 +28,7 @@ type (
 var (
 	TianTiStore []*OncePlayer
 	Robot       = map[int32]*RobotTableData{}
+	WaitTime	float64
 )
 
 func LoadRobotTable(filename string) error {
@@ -92,7 +93,7 @@ func Tick(dt float64) {
 func CheckMatching(oncePlayer *OncePlayer, dt float64) {
 	oncePlayer.MatchingTime += dt
 	for _, t := range TianTiStore {
-		if oncePlayer.MatchingTime > 60 {
+		if oncePlayer.MatchingTime > WaitTime {
 			robot := GetRobotData(oncePlayer.TianTiVal)
 			if robot == nil {
 				logs.Info("Can Not Find Robot PlayerId=", oncePlayer.PlayerInstId, "TiantiV=", oncePlayer.TianTiVal)

@@ -121,6 +121,7 @@ var sysMod = map[string]lua.LGFunction{
 	"DefineBattleCard": __DefineBattleCard,
 	"GetTime":          __GetTime,
 	"SendMailByDrop":   __SendMailByDrop,
+	"WaitTime":   		__WaitTime,
 }
 
 var playerMod = map[string]lua.LGFunction{
@@ -1876,6 +1877,18 @@ func __SendMailByDrop(L *lua.LState) int {
 	}
 
 	SendMailByDrop(sendName,recvName,title,content,int32(dropId))
+
+	return 0
+}
+
+
+//export __WaitTime
+func __WaitTime(L *lua.LState) int {
+	logs.Info("__WaitTime")
+	idx := 1
+	wt := L.ToNumber(idx)
+
+	WaitTime = float64(wt)
 
 	return 0
 }
