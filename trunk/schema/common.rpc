@@ -221,12 +221,13 @@ struct COM_BattleResult{
 
 //战斗结果
 struct COM_BattleSnape{
-	int32 Camp;						//自己的阵营
-	int32 battleid;					//战斗ID
-	int32[] targetcards;			//卡牌
-	COM_BattleUnit[] MainUnit;		//双方主角
-	COM_BattleUnit[] BattleField;	//战场上的牌
-	COM_BattleUnit[] HandCard;		//自己剩下的手牌
+	int32 				Camp;			//自己的阵营
+	int32 				Battleid;		//战斗ID
+	int32[] 			Targetcards;	//卡牌
+	string 				Battlefield;	//战斗场景
+	COM_BattleUnit[] 	MainUnit;		//双方主角
+	COM_BattleUnit[] 	BattleField;	//战场上的牌
+	COM_BattleUnit[] 	HandCard;		//自己剩下的手牌
 	string SceneName;				//场景名
 };
 
@@ -268,6 +269,7 @@ struct SGE_DBPlayer : COM_Player {
 	int64				LogoutTime;
 	int32 				BattleGroupIdx;
 	int64				GenItemMaxGuid;
+	int64				BattleID;
 	int32				AssistantId;
 	COM_ItemInst[] 		BagItemList;
 	COM_BlackMarket		BlackMarketData;
