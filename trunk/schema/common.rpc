@@ -227,6 +227,7 @@ struct COM_BattleSnape{
 	COM_BattleUnit[] MainUnit;		//双方主角
 	COM_BattleUnit[] BattleField;	//战场上的牌
 	COM_BattleUnit[] HandCard;		//自己剩下的手牌
+	string SceneName;				//场景名
 };
 
 //卡牌晋升
