@@ -11,8 +11,10 @@
     <image id="n17_clcj" name="n17" src="clcj1e" xy="985,579" pivot="0.5,0.5" anchor="true"/>
     <graph id="n32_rt4o" name="n32" xy="987,588" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
     <graph id="n33_g2k9" name="n33" xy="987,588" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
-    <loader id="n12_lbze" name="n12" xy="840,428" size="324,318" url="ui://86myawv3lbzev" fill="scale"/>
-    <loader id="n15_lbze" name="n15" xy="840,428" size="324,318" url="ui://86myawv3lbzev" fill="scale" color="#000000"/>
+    <loader id="n35_psgp" name="n35" xy="873,431" size="324,318" url="ui://86myawv3psgp1q" fill="scale"/>
+    <loader id="n12_lbze" name="n12" xy="872,432" size="324,318" url="ui://86myawv3psgp1p" fill="scale"/>
+    <loader id="n34_psgp" name="n34" xy="873,431" size="324,318" url="ui://86myawv3psgp1q" fill="scale" frame="30" color="#000000"/>
+    <loader id="n15_lbze" name="n15" xy="836,430" size="324,318" url="ui://86myawv3lbzev" fill="scale" color="#1e1e1e"/>
     <image id="n19_clcj" name="n19" src="clcj14" xy="748,360"/>
     <image id="n21_clcj" name="n21" src="clcj16" xy="747,716"/>
     <image id="n22_clcj" name="n22" src="clcj17" xy="935,814"/>
@@ -26,28 +28,30 @@
     <component id="n31_rt4o" name="n31" src="rt4o1o" xy="831,418"/>
   </displayList>
   <transition name="t1" autoPlay="true" autoPlayRepeat="-1">
-    <item time="0" type="Alpha" target="n25_clcj" value="0"/>
+    <item time="0" type="Alpha" target="n34_psgp" value="0"/>
     <item time="0" type="Alpha" target="n10_lbze" value="0"/>
     <item time="0" type="Alpha" target="n24_clcj" value="0"/>
     <item time="0" type="Alpha" target="n20_clcj" value="0"/>
     <item time="0" type="Alpha" target="n22_clcj" value="0"/>
     <item time="0" type="Alpha" target="n19_clcj" value="0"/>
     <item time="0" type="Alpha" target="n9_lbze" value="0"/>
-    <item time="0" type="Alpha" target="n26_clcj" tween="true" startValue="0.7" endValue="1" duration="3"/>
+    <item time="0" type="Alpha" target="n15_lbze" value="0"/>
     <item time="0" type="Alpha" target="n23_clcj" value="0"/>
     <item time="0" type="Alpha" target="n21_clcj" value="0"/>
     <item time="0" type="Alpha" target="n13_lbze" value="0.01"/>
     <item time="0" type="Alpha" target="n11_lbze" value="0"/>
     <item time="0" type="Alpha" target="n12_lbze" value="0"/>
-    <item time="0" type="Alpha" target="n15_lbze" value="0"/>
-    <item time="0" type="Rotation" target="n17_clcj" tween="true" startValue="0" endValue="1080" duration="48"/>
+    <item time="0" type="Alpha" target="n25_clcj" value="0"/>
+    <item time="0" type="Alpha" target="n35_psgp" value="0"/>
+    <item time="0" type="Alpha" target="n26_clcj" tween="true" startValue="0.7" endValue="1" duration="3"/>
+    <item time="0" type="Rotation" target="n17_clcj" tween="true" startValue="0" endValue="1080" duration="48" ease="Linear"/>
     <item time="2" type="Alpha" target="n25_clcj" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="3" type="Alpha" target="n26_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="8" type="Alpha" target="n24_clcj" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="8" type="Alpha" target="n25_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="9" type="Alpha" target="n26_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="14" type="Alpha" target="n24_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="14" type="Alpha" target="n23_clcj" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="14" type="Alpha" target="n24_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="14" type="Alpha" target="n25_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
     <item time="19" type="Alpha" target="n22_clcj" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="20" type="Alpha" target="n24_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
@@ -62,13 +66,13 @@
     <item time="31" type="Alpha" target="n22_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
     <item time="33" type="Alpha" target="n20_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
     <item time="34" type="Alpha" target="n21_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
-    <item time="39" type="Alpha" target="n20_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
     <item time="39" type="Alpha" target="n19_clcj" tween="true" startValue="1" endValue="1" duration="6"/>
+    <item time="39" type="Alpha" target="n20_clcj" tween="true" startValue="1" endValue="0" duration="6"/>
     <item time="42" type="Alpha" target="n26_clcj" tween="true" startValue="0" endValue="0.7" duration="3"/>
     <item time="45" type="Alpha" target="n19_clcj" tween="true" startValue="1" endValue="0" duration="3"/>
   </transition>
   <transition name="t2">
-    <item time="0" type="Alpha" target="n11_lbze" tween="true" startValue="0" endValue="1" duration="24"/>
+    <item time="0" type="Alpha" target="n10_lbze" value="0"/>
     <item time="0" type="Alpha" target="n23_clcj" value="0"/>
     <item time="0" type="Alpha" target="n22_clcj" value="0"/>
     <item time="0" type="Alpha" target="n21_clcj" value="0"/>
@@ -79,11 +83,12 @@
     <item time="0" type="Alpha" target="n25_clcj" value="0"/>
     <item time="0" type="Alpha" target="n9_lbze" tween="true" startValue="0" endValue="1" duration="12"/>
     <item time="0" type="Alpha" target="n29_clcj" value="0"/>
+    <item time="0" type="Alpha" target="n11_lbze" tween="true" startValue="0" endValue="1" duration="24"/>
     <item time="0" type="Alpha" target="n13_lbze" value="0"/>
-    <item time="0" type="Alpha" target="n10_lbze" value="0"/>
     <item time="0" type="Alpha" target="n31_rt4o" tween="true" startValue="0"/>
     <item time="0" type="Alpha" target="n15_lbze" tween="true" startValue="1" endValue="0" duration="18"/>
     <item time="0" type="Alpha" target="n12_lbze" value="1"/>
+    <item time="0" type="Alpha" target="n34_psgp" tween="true" startValue="1" endValue="0" duration="12"/>
     <item time="6" type="Alpha" target="n10_lbze" tween="true" startValue="0" endValue="1" duration="12"/>
     <item time="12" type="Alpha" target="n13_lbze" tween="true" startValue="0" endValue="1" duration="12"/>
   </transition>
