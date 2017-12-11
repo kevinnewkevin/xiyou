@@ -34,7 +34,7 @@ class Proxy : ICOM_ServerToClientProxy
     int delayBattleId = 0;
     int[] delayOppo = null;
     COM_BattleUnit[] delayUnits = null;
-    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units, string battleSceneName)
+    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units, ref string battleSceneName)
     {
         if (delayBattleId != 0)
             return true;
