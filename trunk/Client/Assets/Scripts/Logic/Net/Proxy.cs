@@ -47,7 +47,7 @@ class Proxy : ICOM_ServerToClientProxy
             if (bd != null)
                 SceneLoader.LoadScene(bd._SceneName);
             else
-                SceneLoader.LoadScene(Define.RandomBattleScene);
+                SceneLoader.LoadScene(battleSceneName);
         }
         else
         {
