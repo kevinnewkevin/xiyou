@@ -66,7 +66,7 @@ class Proxy : ICOM_ServerToClientProxy
                 if (bd != null)
                     SceneLoader.LoadScene(bd._SceneName);
                 else
-                    SceneLoader.LoadScene(Define.RandomBattleScene);
+                    SceneLoader.LoadScene(battleSceneName);
             });
         }
         return true;
@@ -80,7 +80,7 @@ class Proxy : ICOM_ServerToClientProxy
         if (bd != null)
             SceneLoader.LoadScene(bd._SceneName);
         else
-            SceneLoader.LoadScene(Define.RandomBattleScene);
+            SceneLoader.LoadScene(snap.SceneName);
         return true;
     }
 
