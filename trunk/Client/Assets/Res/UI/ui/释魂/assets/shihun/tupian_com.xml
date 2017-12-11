@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="334,339">
+  <displayList>
+    <image id="n31_rt4o" name="n31" src="lbzev" xy="0,0" size="334,339" aspect="true" color="#000000"/>
+    <image id="n32_rt4o" name="n32" src="rt4o1f" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n33_rt4o" name="n33" src="rt4o1j" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n34_rt4o" name="n34" src="rt4o1n" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n35_rt4o" name="n35" src="rt4o1g" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n36_rt4o" name="n36" src="rt4o1h" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n37_rt4o" name="n37" src="rt4o1l" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n38_rt4o" name="n38" src="rt4o1m" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n39_rt4o" name="n39" src="rt4o1k" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n40_rt4o" name="n40" src="rt4o1h" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n42_rt4o" name="n42" src="rt4o1g" xy="0,0" size="334,339" color="#000000"/>
+    <image id="n41_rt4o" name="n41" src="rt4o1f" xy="0,0" size="334,339" color="#000000"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Alpha" target="n33_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n31_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n39_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n38_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n36_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n35_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n34_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n32_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n37_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n42_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n41_rt4o" value="0"/>
+    <item time="0" type="Alpha" target="n40_rt4o" value="0"/>
+    <item time="1" type="Alpha" target="n31_rt4o" value="1"/>
+    <item time="4" type="Alpha" target="n31_rt4o" value="0"/>
+    <item time="4" type="Alpha" target="n32_rt4o" value="0"/>
+    <item time="5" type="Alpha" target="n32_rt4o" value="1"/>
+    <item time="8" type="Alpha" target="n33_rt4o" value="0"/>
+    <item time="8" type="Alpha" target="n32_rt4o" value="0"/>
+    <item time="9" type="Alpha" target="n33_rt4o" value="1"/>
+    <item time="12" type="Alpha" target="n33_rt4o" value="0"/>
+    <item time="12" type="Alpha" target="n34_rt4o" value="0"/>
+    <item time="13" type="Alpha" target="n34_rt4o" value="1"/>
+    <item time="16" type="Alpha" target="n35_rt4o" value="0"/>
+    <item time="16" type="Alpha" target="n34_rt4o" value="0"/>
+    <item time="17" type="Alpha" target="n35_rt4o" value="1"/>
+    <item time="20" type="Alpha" target="n36_rt4o" value="0"/>
+    <item time="20" type="Alpha" target="n35_rt4o" value="0"/>
+    <item time="21" type="Alpha" target="n36_rt4o" value="1"/>
+    <item time="24" type="Alpha" target="n37_rt4o" value="0"/>
+    <item time="24" type="Alpha" target="n36_rt4o" value="0"/>
+    <item time="25" type="Alpha" target="n37_rt4o" value="1"/>
+    <item time="28" type="Alpha" target="n38_rt4o" value="0"/>
+    <item time="28" type="Alpha" target="n37_rt4o" value="0"/>
+    <item time="29" type="Alpha" target="n38_rt4o" value="1"/>
+    <item time="32" type="Alpha" target="n39_rt4o" value="0"/>
+    <item time="32" type="Alpha" target="n38_rt4o" value="0"/>
+    <item time="33" type="Alpha" target="n39_rt4o" value="1"/>
+    <item time="36" type="Alpha" target="n41_rt4o" value="0"/>
+    <item time="36" type="Alpha" target="n39_rt4o" value="0"/>
+    <item time="37" type="Alpha" target="n41_rt4o" value="1"/>
+    <item time="40" type="Alpha" target="n41_rt4o" value="0"/>
+    <item time="40" type="Alpha" target="n40_rt4o" value="0"/>
+    <item time="41" type="Alpha" target="n40_rt4o" value="1"/>
+    <item time="44" type="Alpha" target="n42_rt4o" value="0"/>
+    <item time="44" type="Alpha" target="n40_rt4o" value="0.02"/>
+    <item time="45" type="Alpha" target="n42_rt4o" value="1"/>
+    <item time="48" type="Alpha" target="n42_rt4o" value="0"/>
+  </transition>
+</component>
