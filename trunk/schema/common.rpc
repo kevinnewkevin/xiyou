@@ -225,7 +225,7 @@ struct COM_BattleSnape{
 	int32 				Battleid;		//战斗ID
 	int32[] 			Targetcards;	//卡牌
 	string 				Battlefield;	//战斗场景
-	int32[] 			MainUnit;		//双方主角
+	COM_BattleUnit[] 	MainUnit;		//双方主角
 	COM_BattleUnit[] 	BattleField;	//战场上的牌
 	COM_BattleUnit[] 	HandCard;		//自己剩下的手牌
 };
