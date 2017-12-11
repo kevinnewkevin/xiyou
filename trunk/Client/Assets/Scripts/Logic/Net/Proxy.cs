@@ -33,6 +33,7 @@ class Proxy : ICOM_ServerToClientProxy
     int delaySide = 0;
     int delayBattleId = 0;
     int[] delayOppo = null;
+    string delayBattleSceneName = "";
     COM_BattleUnit[] delayUnits = null;
     public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units, ref string battleSceneName)
     {
@@ -47,7 +48,7 @@ class Proxy : ICOM_ServerToClientProxy
             if (bd != null)
                 SceneLoader.LoadScene(bd._SceneName);
             else
-                SceneLoader.LoadScene(battleSceneName);
+                SceneLoader.LoadScene(delayBattleSceneName);
         }
         else
         {
@@ -56,6 +57,7 @@ class Proxy : ICOM_ServerToClientProxy
             delayBattleId = battleid;
             delayOppo = opponentCards;
             delayUnits = units;
+            delayBattleSceneName = battleSceneName;
             new Timer().Start(delayTime, delegate {
                 Battle.Init(delaySide, delayBattleId, delayOppo, delayUnits);
                 delaySide = 0;
@@ -66,7 +68,8 @@ class Proxy : ICOM_ServerToClientProxy
                 if (bd != null)
                     SceneLoader.LoadScene(bd._SceneName);
                 else
-                    SceneLoader.LoadScene(battleSceneName);
+                    SceneLoader.LoadScene(delayBattleSceneName);
+                delayBattleSceneName = "";
             });
         }
         return true;
