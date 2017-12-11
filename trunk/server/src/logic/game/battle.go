@@ -11,6 +11,7 @@ import (
 	"time"
 	//"fmt"
 	"fmt"
+	"strings"
 )
 
 type UnitList []*BattleUnit
@@ -138,28 +139,30 @@ func (this *BattlePlayer) CalcSmallChapterStar(battledata prpc.COM_BattleResult,
 
 type BattleRoom struct {
 	sync.Mutex
-	Type        int32         //战斗类型 1是pvp 2是pve
-	InstId      int64         //房间ID
-	BattleID    int32         //戰鬥ID
-	Status      int32         //战斗房间状态
-	Round       int32         //回合计数
-	Point       int32         //本场战斗的能量点
-	Units       []*BattleUnit   //当前战斗中牌 数组索引跟下面玩家对应
-	Dead        []*BattleUnit   //本回合死亡的人数
-	PlayerList  []*BattlePlayer //房间中玩家信息
-	Monster     *Monster
-	Turn        int32
-	Winner      int                         //获胜者
-	ReportAll   []prpc.COM_BattleReport     //整场战斗的所有战报
-	ReportOne   prpc.COM_BattleReport       //每回合的战报
-	AcctionList prpc.COM_BattleAction       //行动单元
-	TargetCOM   prpc.COM_BattleActionTarget //行动单元中的每个子元素
-	NewAction   bool                        //是否行动过
-	Record		prpc.COM_BattleRecord           //战斗录像
+	Type        	int32         //战斗类型 1是pvp 2是pve
+	InstId      	int64         //房间ID
+	BattleID    	int32         //戰鬥ID
+	Status      	int32         //战斗房间状态
+	Round       	int32         //回合计数
+	Point       	int32         //本场战斗的能量点
+	Units       	[]*BattleUnit   //当前战斗中牌 数组索引跟下面玩家对应
+	Dead        	[]*BattleUnit   //本回合死亡的人数
+	PlayerList  	[]*BattlePlayer //房间中玩家信息
+	Monster     	*Monster
+	Turn        	int32
+	Winner      	int                         //获胜者
+	ReportAll   	[]prpc.COM_BattleReport     //整场战斗的所有战报
+	ReportOne   	prpc.COM_BattleReport       //每回合的战报
+	AcctionList 	prpc.COM_BattleAction       //行动单元
+	TargetCOM   	prpc.COM_BattleActionTarget //行动单元中的每个子元素
+	NewAction   	bool                        //是否行动过
+	Record			prpc.COM_BattleRecord           //战斗录像
+	BattleField		string           			//战斗场景
 }
 
 var BattleRoomList = map[int64]*BattleRoom{} //所有房间
 var BattleRecordPVE = map[int32]*prpc.SGE_BattleRecord_Detail{}
+var BattleFields = []string{}
 
 func InitAllCheckPointBattleRecord() {
 	for smallid, _ := range SmallChapterTable {
@@ -175,6 +178,26 @@ func InitAllCheckPointBattleRecord() {
 ////////////////////////////////////////////////////////////////////////
 ////创建部分
 ////////////////////////////////////////////////////////////////////////
+
+func SetDefaultBattlefield(fields string) {
+	s1 := strings.Split(fields, ",")
+	for _, f := range s1 {
+		BattleFields = append(BattleFields, f)
+	}
+}
+
+func RandomChoiceBattleField() string {
+	len_f := len(BattleFields)
+	if len_f == 0 {
+		return ""
+	} else if len_f == 1 {
+		return BattleFields[0]
+	} else {
+		choice := rand.Intn(len_f)
+		logs.Debug("RandomChoiceBattleField, > 2, ", choice)
+		return BattleFields[choice]
+	}
+}
 
 func CreatePvE(p *GamePlayer, battleid int32, smallchapterid int32) *BattleRoom {
 	room := BattleRoom{}
@@ -233,6 +256,8 @@ func CreatePvR(p *GamePlayer, battleid int32) *BattleRoom {
 
 	room.Units[prpc.BP_RED_5] = bp.MainUnit
 	bp.MainUnit.Position = prpc.BP_RED_5
+
+	room.BattleField = RandomChoiceBattleField()
 
 	room.BattleStart()
 	//go room.BattleUpdate()
@@ -335,6 +360,8 @@ func CreatePvP(p0 *GamePlayer, p1 *GamePlayer) *BattleRoom {
 	room.Units[prpc.BP_RED_5] = bp0.MainUnit
 	bp1.MainUnit.Position = prpc.BP_RED_5
 
+	room.BattleField = RandomChoiceBattleField()
+
 	room.BattleStart()
 	go room.BattleUpdate()
 
@@ -422,7 +449,7 @@ func (this *BattleRoom) BattleStart() {
 		}
 		targetList := this.findCardsByTarget(bp.BattleCamp)
 		logs.Debug("JoinBattleOk, p.id", bp.MainUnit.InstId, " and batlecamp is ", int32(bp.BattleCamp), "targetList is ", targetList)
-		p.session.JoinBattleOk(int32(bp.BattleCamp), this.BattleID, targetList, ul)
+		p.session.JoinBattleOk(int32(bp.BattleCamp), this.BattleID, targetList, ul, this.BattleField)
 	}
 
 	this.setRecord(ul)

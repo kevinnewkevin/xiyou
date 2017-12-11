@@ -17,6 +17,7 @@ type COM_ServerToClient_JoinBattleOk struct{
   battleid int32  //1
   targetcards []int32  //2
   MainUnit []COM_BattleUnit  //3
+  battlefield string  //4
 }
 type COM_ServerToClient_SetBattleUnitOK struct{
   instId int64  //0
@@ -170,7 +171,7 @@ type COM_ServerToClientProxy interface{
   ErrorMessage(id int ) error // 0
   LoginOK(info COM_AccountInfo ) error // 1
   CreatePlayerOK(player COM_Player ) error // 2
-  JoinBattleOk(Camp int32, battleid int32, targetcards []int32, MainUnit []COM_BattleUnit ) error // 3
+  JoinBattleOk(Camp int32, battleid int32, targetcards []int32, MainUnit []COM_BattleUnit, battlefield string ) error // 3
   SetupBattleOK() error // 4
   SetBattleUnitOK(instId int64 ) error // 5
   BattleReport(report COM_BattleReport ) error // 6
@@ -332,6 +333,7 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
   mask.writeBit(this.battleid!=0)
   mask.writeBit(len(this.targetcards) != 0)
   mask.writeBit(len(this.MainUnit) != 0)
+  mask.writeBit(len(this.battlefield) != 0)
   {
     err := write(buffer,mask.bytes())
     if err != nil {
@@ -386,6 +388,13 @@ func (this *COM_ServerToClient_JoinBattleOk)Serialize(buffer *bytes.Buffer) erro
       }
     }
   }
+  // serialize battlefield
+  if len(this.battlefield) != 0{
+    err := write(buffer,this.battlefield)
+    if err != nil {
+      return err
+    }
+  }
   return nil
 }
 func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) error{
@@ -436,6 +445,13 @@ func (this *COM_ServerToClient_JoinBattleOk)Deserialize(buffer *bytes.Buffer) er
       if err != nil{
         return err
       }
+    }
+  }
+  // deserialize battlefield
+  if mask.readBit() {
+    err := read(buffer,&this.battlefield)
+    if err != nil{
+      return err
     }
   }
   return nil
@@ -2408,7 +2424,7 @@ func(this* COM_ServerToClientStub)CreatePlayerOK(player COM_Player ) error {
   }
   return this.Sender.MethodEnd()
 }
-func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targetcards []int32, MainUnit []COM_BattleUnit ) error {
+func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targetcards []int32, MainUnit []COM_BattleUnit, battlefield string ) error {
   buffer := this.Sender.MethodBegin()
   if buffer == nil{
     return errors.New(NoneBufferError)
@@ -2422,6 +2438,7 @@ func(this* COM_ServerToClientStub)JoinBattleOk(Camp int32, battleid int32, targe
   _3.battleid = battleid;
   _3.targetcards = targetcards;
   _3.MainUnit = MainUnit;
+  _3.battlefield = battlefield;
   err = _3.Serialize(buffer)
   if err != nil{
     return err
@@ -3295,7 +3312,7 @@ func Bridging_COM_ServerToClient_JoinBattleOk(buffer *bytes.Buffer, p COM_Server
   if err != nil{
     return err
   }
-  return p.JoinBattleOk(_3.Camp,_3.battleid,_3.targetcards,_3.MainUnit)
+  return p.JoinBattleOk(_3.Camp,_3.battleid,_3.targetcards,_3.MainUnit,_3.battlefield)
 }
 func Bridging_COM_ServerToClient_SetupBattleOK(buffer *bytes.Buffer, p COM_ServerToClientProxy) error {
   if buffer == nil{

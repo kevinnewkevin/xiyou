@@ -81,7 +81,7 @@ service COM_ServerToClient{
 	ErrorMessage(ErrorNo id);
 	LoginOK(COM_AccountInfo info);
 	CreatePlayerOK(COM_Player player);
-	JoinBattleOk(int32 Camp, int32 battleid, int32[] targetcards, COM_BattleUnit[] MainUnit);				//对应JoinBattle
+	JoinBattleOk(int32 Camp, int32 battleid, int32[] targetcards, COM_BattleUnit[] MainUnit, string battlefield);				//对应JoinBattle
 	SetupBattleOK();						//对应SetupBattle
 	SetBattleUnitOK(int64 instId); 			//对应SetBattleUnit
 	BattleReport(COM_BattleReport report); 	//战报

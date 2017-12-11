@@ -2,6 +2,7 @@ sys.log("load main lua")
 sys.DefineCards("3")
 sys.DefineBattleCard(3)
 sys.WaitTime(10)
+sys.BattleField("huangmozhandou,haidizhandou"); --战斗场景随机库
 
 sys.loadfile("common.lua")
 sys.loadfile("test.lua")

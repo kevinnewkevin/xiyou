@@ -118,6 +118,7 @@ var sysMod = map[string]lua.LGFunction{
 	"fatal":            __luaFatal,
 	"loadfile":         __loadfile,
 	"DefineCards":      __DefineCards,
+	"BattleField":      __BattleField,
 	"DefineBattleCard": __DefineBattleCard,
 	"GetTime":          __GetTime,
 	"SendMailByDrop":   __SendMailByDrop,
@@ -356,6 +357,18 @@ func __DefineCards(L *lua.LState) int {
 
 	cards := L.ToString(idx)
 	SetDefaultUnits(cards)
+
+	//logs.Info("__GetStrings")`
+
+	return 0
+}
+
+func __BattleField(L *lua.LState) int {
+
+	idx := 1
+
+	cards := L.ToString(idx)
+	SetDefaultBattlefield(cards)
 
 	//logs.Info("__GetStrings")`
 
