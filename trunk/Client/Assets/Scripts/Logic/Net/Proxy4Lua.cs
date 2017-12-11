@@ -55,15 +55,16 @@ public class Proxy4Lua {
         NetWoking.S.PromoteUnit(instId);
     }
 
+    static public COM_LoginInfo _LoginInfo;
     static public void Login(string account, string password)  
     {
         //if has channel get username from channel;
         //if debug fetch mobile phone info instead.
 
-        COM_LoginInfo info = new COM_LoginInfo();
-        info.Username = account;
-        info.Password = password;
-        NetWoking.S.Login(info);
+        _LoginInfo = new COM_LoginInfo();
+        _LoginInfo.Username = account;
+        _LoginInfo.Password = password;
+        NetWoking.S.Login(_LoginInfo);
     }
 
     static public void CreatePlayer(int templateId, string nickName)  
@@ -257,6 +258,11 @@ public class Proxy4Lua {
     static public bool ReconnectServer()
     {
         return NetWoking.ReConnect();
+    }
+
+    static public void CheckBattleTurn()
+    {
+        NetWoking.S.QueryBattleRound(Battle._Turn);
     }
 
     static public void SelectCard4Ready(int idx)

@@ -96,6 +96,8 @@ public class AppEntry : MonoBehaviour {
         {
             long timegap = TimerManager.GetTimeStamp() - _PauseTimeStamp;
             TimerManager.SetTickerGap(timegap);
+            if (Battle.InBattle)
+                NetWoking.S.QueryBattleRound(Battle._Turn);
         }
     }
 

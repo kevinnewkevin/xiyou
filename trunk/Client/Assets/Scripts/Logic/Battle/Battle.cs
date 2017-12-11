@@ -56,6 +56,8 @@ public class Battle {
 
     static public int _MaxFee;
 
+    static public int _MaxTimeLeft;
+
     static public int _Side;
 
     static public int _BattleId;
@@ -83,6 +85,8 @@ public class Battle {
     static int _SelectSkillID;      //主角选择的技能id
 
     static COM_BattleUnit[] _OriginUnits;
+
+    static int _BattleStateAfterInit;
 
     static public COM_Unit _ThrowCardInst;
 
@@ -139,7 +143,7 @@ public class Battle {
                 {
                     BattleData bData = BattleData.GetData(_BattleId);
                     // battle has anim but is not record
-                    if (!_IsRecord && bData != null && bData._Animations != null && bData._Animations.Length > 0)
+                    if (!_IsRecord && bData != null && bData._Animations != null && bData._Animations.Length > 0 && _BattleStateAfterInit == 0)
                     {
                         GRoot.inst.modalLayer.visible = false;
                         op.Begin(bData._Animations);
@@ -197,13 +201,13 @@ public class Battle {
     }
 
     //初始化战斗
-    static public void Init(int side, int battleid = 0, int[] opponentCards = null, COM_BattleUnit[] units = null, bool isRecord = false)
+    static public void Init(int side, int battleid = 0, int[] opponentCards = null, COM_BattleUnit[] units = null, bool isRecord = false, int turn = 1, int timeleft = 0, int state = 0)//0正常 1操作 2播放
     {
         _OpponentCards = opponentCards;
         _SceneConfig = null;
         _IsStagePointInitSuc = false;
         _ReportIsPlaying = false;
-        _Turn = 1;
+        _Turn = turn;
         _Side = side;
         _BattleId = battleid;
         CurrentState = BattleState.BS_Init;
@@ -211,25 +215,41 @@ public class Battle {
         _HandCards.Clear();
         _OriginUnits = units;
         _IsRecord = isRecord;
+        _BattleStateAfterInit = state;
 
         //_HandCards.Add(GamePlayer._Data);
         _MyGroupCards = GamePlayer.GetBattleCardsCopy();
 
         _MaxFee = Define.GetInt("MaxFee");
+        _MaxTimeLeft = timeleft == 0? Define.GetInt("BattleMaxTime"): timeleft;
         AddFee(_Turn);
         RandHandCards(3);
+    }
+
+    static public void ResetTimeLeft()
+    {
+        _MaxTimeLeft = Define.GetInt("BattleMaxTime");
     }
 
     static public void FadedCallback()
     {
         if(CurrentState == BattleState.BS_Eff)
             return;
-        
-        UIManager.GetUI("BattlePanel").Call("ShowBattleStart");
-        new Timer().Start(1f, delegate {
-            ShowTurn();
-        });
-        CurrentState = BattleState.BS_Eff;
+
+        if (_BattleStateAfterInit == 0)
+        {
+            UIManager.GetUI("BattlePanel").Call("ShowBattleStart");
+            new Timer().Start(1f, delegate
+            {
+                ShowTurn();
+            });
+            CurrentState = BattleState.BS_Eff;
+        }
+        else
+        {
+            CurrentState = _BattleStateAfterInit == 1 ? BattleState.BS_Oper : BattleState.BS_Play;
+            _BattleStateAfterInit = 0;
+        }
     }
 
     static void ShowTurn()
@@ -237,7 +257,10 @@ public class Battle {
         UIManager.GetUI("BattlePanel").Call("ShowTurn");
         new Timer().Start(1.5f, delegate {
             if(InBattle)
+            {
                 CurrentState = BattleState.BS_Oper;
+                NetWoking.S.ChangeBattleState(1);
+            }
         });
 
         if (_ActorInScene != null)

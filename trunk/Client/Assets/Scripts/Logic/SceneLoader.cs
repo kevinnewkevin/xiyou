@@ -39,6 +39,34 @@ public class SceneLoader
         });
     }
 
+    static public void LoadSceneSync(string sceneName)
+    {
+        #if !EDITOR_MODE
+        if(!string.IsNullOrEmpty(_PreScene) || (!string.IsNullOrEmpty(_PreScene) && !_PreScene.Equals(sceneName)))
+        AssetLoader.UnloadAsset("Scene/" + _PreScene);
+
+        if(string.IsNullOrEmpty(_PreScene) || !_PreScene.Equals(sceneName))
+        AssetLoader.LoadAssetBundle("Scene/" + sceneName);
+        _PreScene = sceneName;
+        #endif
+
+        if(Battle.InBattle && Battle.CurrentState != Battle.BattleState.BS_Init)
+            Battle.Fini();
+
+        if(Battle.CurrentState == Battle.BattleState.BS_Init)
+        {
+            Battle.LaunchBundle();
+        }
+        AudioSystem.PlayBackground(SceneData.GetMusicData(sceneName));
+
+        SceneManager.LoadScene(sceneName);
+
+        if(Battle.CurrentState == Battle.BattleState.BS_Init)
+        {
+            Battle.FadedCallback();
+        }
+    }
+
     static public void Update()
     {
         if (asyncOper != null)
