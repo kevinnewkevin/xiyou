@@ -34,7 +34,7 @@ class Proxy : ICOM_ServerToClientProxy
     int delayBattleId = 0;
     int[] delayOppo = null;
     COM_BattleUnit[] delayUnits = null;
-    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units)
+    public bool JoinBattleOk(int side, int battleid, ref int[] opponentCards, ref COM_BattleUnit[] units, string battleSceneName)
     {
         if (delayBattleId != 0)
             return true;
@@ -74,7 +74,13 @@ class Proxy : ICOM_ServerToClientProxy
 
     public bool JoinBattleOk_back(int turn, int state, int second, ref COM_BattleSnape snap)
     {
-//        JoinBattleOk(snap.Camp, snap.battleid, ref snap.targetcards, ref snap.MainUnit);
+        float delayTime = Proxy4Lua.NextBattleDelay;
+        Battle.Init(snap.Camp, snap.battleid, snap.targetcards, snap.MainUnit, false, turn, second, state);
+        BattleData bd = BattleData.GetData(snap.battleid);
+        if (bd != null)
+            SceneLoader.LoadScene(bd._SceneName);
+        else
+            SceneLoader.LoadScene(Define.RandomBattleScene);
         return true;
     }
 
