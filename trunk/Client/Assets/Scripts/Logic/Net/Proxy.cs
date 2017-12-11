@@ -78,8 +78,8 @@ class Proxy : ICOM_ServerToClientProxy
     public bool JoinBattleOk_back(int turn, int state, int second, ref COM_BattleSnape snap)
     {
         float delayTime = Proxy4Lua.NextBattleDelay;
-        Battle.Init(snap.Camp, snap.battleid, snap.targetcards, snap.MainUnit, false, turn, second, state);
-        BattleData bd = BattleData.GetData(snap.battleid);
+        Battle.Init(snap.Camp, snap.Battleid, snap.Targetcards, snap.MainUnit, false, turn, second, state);
+        BattleData bd = BattleData.GetData(snap.Battleid);
         if (bd != null)
             SceneLoader.LoadScene(bd._SceneName);
         else
