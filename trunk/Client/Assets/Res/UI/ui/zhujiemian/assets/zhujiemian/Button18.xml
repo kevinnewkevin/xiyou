@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="810,795" extention="Button">
+<component size="854,801" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n5_hq2o" name="n5" xy="411,405" pivot="0.51,0.51" anchor="true" size="1620,1591" scale="0.5,0.5" url="ui://s1sxt36u10fre25" fill="scale"/>
-    <graph id="n6_pq8w" name="n6" xy="245,464" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
+    <loader id="n5_hq2o" name="n5" xy="427,400" pivot="0.5,0.5" anchor="true" size="905,845" scale="0.9,0.9" url="ui://s1sxt36u10fre25" fill="scale"/>
+    <graph id="n6_pq8w" name="n6" xy="458,490" pivot="0.5,0.5" anchor="true" size="854,801" alpha="0" type="rect"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.95"/>
 </component>
