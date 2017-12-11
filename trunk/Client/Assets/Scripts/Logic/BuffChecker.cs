@@ -43,7 +43,7 @@ public class BuffChecker {
         {
             if(_Actor != null)
             {
-                if(_BuffCheck[0].BuffData < 0)
+                if(_BuffCheck != null && _BuffCheck.Count > 0 && _BuffCheck[0].BuffData < 0)
                 {
                     _Actor.Play(Define.ANIMATION_PLAYER_ACTION_BEATTACK);
                     _Actor.PlayQueue(Define.ANIMATION_PLAYER_ACTION_IDLE);
