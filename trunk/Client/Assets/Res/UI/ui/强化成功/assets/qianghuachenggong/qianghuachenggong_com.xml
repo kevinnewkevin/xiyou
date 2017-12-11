@@ -64,7 +64,7 @@
     <component id="n60_tkrv" name="n60" src="d84m13" xy="454,500" pivot="0.5,0.5" anchor="true"/>
   </displayList>
   <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n60_tkrv" value="1"/>
+    <item time="0" type="Alpha" target="n33_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n25_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n26_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n30_ol6s" value="0"/>
@@ -74,37 +74,39 @@
     <item time="0" type="Alpha" target="n36_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n35_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n34_ol6s" value="0"/>
-    <item time="0" type="Alpha" target="n33_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n60_tkrv" value="1"/>
     <item time="0" type="Alpha" target="n32_ol6s" value="0"/>
     <item time="0" type="Alpha" target="n31_ol6s" value="0"/>
-    <item time="0" type="Scale" target="n30_ol6s" value="1,1"/>
+    <item time="0" type="Alpha" target="n52_myec" value="0"/>
     <item time="0" type="Scale" target="n28_ol6s" value="1,1"/>
     <item time="0" type="Scale" target="n25_ol6s" value="1,1"/>
-    <item time="0" type="Scale" target="n29_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n30_ol6s" value="1,1"/>
     <item time="0" type="Scale" target="n60_tkrv" tween="true" startValue="0.8,0.8" endValue="1.1,1.1" duration="12"/>
-    <item time="0" type="Scale" target="n27_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n29_ol6s" value="1,1"/>
     <item time="0" type="Scale" target="n26_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n27_ol6s" value="1,1"/>
     <item time="12" type="Scale" target="n60_tkrv" tween="true" startValue="1.1,1.1" endValue="1,1" duration="4"/>
     <item time="24" type="Alpha" target="n60_tkrv" tween="true" startValue="1" endValue="0" duration="8"/>
     <item time="24" type="Scale" target="n60_tkrv" value="1,1"/>
     <item time="30" type="Alpha" target="n36_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="30" type="Alpha" target="n31_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="30" type="Alpha" target="n32_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="30" type="Alpha" target="n35_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="30" type="Alpha" target="n33_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n31_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="30" type="Alpha" target="n34_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="32" type="Alpha" target="n29_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n25_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="32" type="Alpha" target="n26_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="32" type="Alpha" target="n27_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="32" type="Alpha" target="n25_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="32" type="Alpha" target="n28_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="32" type="Alpha" target="n30_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
-    <item time="32" type="Scale" target="n30_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Alpha" target="n29_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
     <item time="32" type="Scale" target="n27_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
     <item time="32" type="Scale" target="n26_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
     <item time="32" type="Scale" target="n29_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
-    <item time="32" type="Scale" target="n28_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
     <item time="32" type="Scale" target="n60_tkrv" value="0.8,0.8"/>
+    <item time="32" type="Scale" target="n30_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
     <item time="32" type="Scale" target="n25_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n28_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="40" type="Alpha" target="n52_myec" tween="true" startValue="0" endValue="1" duration="9"/>
   </transition>
 </component>
