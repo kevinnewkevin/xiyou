@@ -37,16 +37,20 @@ end
 function NetWorkException(errCode)
 	local MessageBox = UIManager.ShowMessageBox();
 	if errCode == 10061 then
-		MessageBox:SetData("提示", "服务器连接不上，请检查网络或服务器状态", true);
+		MessageBox:SetData("提示", "服务器连接不上，请检查网络或服务器状态", true, NetWorkReconnect);
 	else
-		MessageBox:SetData("提示", "网络连接已断开", true);
+		MessageBox:SetData("提示", "网络连接已断开", true, NetWorkReconnect);
 	end
 end
 
 --网络重连
 function NetWorkReconnect()
-	Proxy4Lua.ReconnectServer();
 	UIManager.HideMessageBox();
+	if Proxy4Lua.ReconnectServer() == true then
+		if Proxy4Lua._LoginInfo.Username ~= nil or Proxy4Lua._LoginInfo.Username ~= "" then
+        	Proxy4Lua.Login(Proxy4Lua._LoginInfo.Username, Proxy4Lua._LoginInfo.Password);
+        end
+	end
 end
 
 --错误处理
@@ -189,6 +193,7 @@ function RegGlobalValue()
 	Define.Set("EmojiTags","001,002,003,004,005,006,007,008,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027,028");
 	Define.Set("CreateGuild", 1);
 	Define.Set("ChatMaxCount", 1000); --前端聊天最大保存数量
+	Define.Set("BattleMaxTime", 30); --战斗倒计时
 	
 	--注册不弹popmsg提示的界面
 	Define.RegNoPopUI("cangbaoge");
