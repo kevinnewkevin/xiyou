@@ -6,7 +6,7 @@ d1awe2g.xml|444|<component size="542,46">
     </component>
   </displayList>
   <relation target="n0_d1aw" sidePair="height-height"/>
-</component>hbv51.xml|2110|<component size="1920,1080" opaque="false">
+</component>hbv51.xml|2103|<component size="1920,1080" opaque="false">
   <displayList>
     <image id="n38_nfe4" name="n38" src="nfe424" xy="0,0" size="1920,1080"/>
     <image id="n52_jijr" name="n52" src="jijre2e" xy="1598,11"/>
@@ -22,8 +22,10 @@ d1awe2g.xml|444|<component size="542,46">
     <image id="n35_nfe4" name="n35" src="hbv5b" xy="0,143" size="183,744" alpha="0.52"/>
     <component id="n37_nfe4" name="n37" src="nfe423" xy="140,429"/>
     <list id="n42_m9wd" name="n42" xy="10,194" size="117,639" layout="flow_hz" overflow="scroll" lineGap="15" defaultItem="ui://s1sxt36uuh5ye2h" align="center"/>
-    <list id="n43_y4d0" name="n43" xy="202,60" size="1556,933" layout="row" overflow="scroll" scroll="horizontal" scrollBarFlags="2" clipSoftness="0,3" colGap="60" defaultItem="ui://s1sxt36unfe41y" vAlign="middle">
+    <list id="n43_y4d0" name="n43" xy="154,106" size="1665,811" layout="row" scroll="horizontal" clipSoftness="0,3" colGap="-48" defaultItem="ui://s1sxt36unfe41y" vAlign="middle">
       <relation target="" sidePair="center-center"/>
+      <item/>
+      <item/>
     </list>
     <component id="n44_y4d0" name="n44" src="hbv51k" xy="1772,328"/>
     <component id="n45_y4d0" name="n45" src="hbv51p" xy="1775,498"/>
@@ -289,13 +291,13 @@ char id=54 img=kygke33 xoffset=0 yoffset=0 xadvance=0
 char id=55 img=kygke34 xoffset=0 yoffset=0 xadvance=0
 char id=56 img=kygke35 xoffset=0 yoffset=0 xadvance=0
 char id=57 img=kygke2w xoffset=0 yoffset=0 xadvance=0
-nfe41y.xml|457|<component size="485,927" extention="Button">
+nfe41y.xml|501|<component size="810,795" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <loader id="n5_hq2o" name="n5" xy="245,464" pivot="0.51,0.51" anchor="true" size="905,845" scale="0.5,0.5" url="ui://s1sxt36u10fre25" fill="scale"/>
+    <loader id="n5_hq2o" name="n5" xy="411,405" pivot="0.51,0.51" anchor="true" size="1620,1591" scale="0.5,0.5" url="ui://s1sxt36u10fre25" fill="scale"/>
     <graph id="n6_pq8w" name="n6" xy="245,464" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
   </displayList>
-  <Button/>
+  <Button downEffect="scale" downEffectValue="0.95"/>
 </component>nfe41z.xml|288|<component size="864,826" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
@@ -347,7 +349,7 @@ nfe41y.xml|457|<component size="485,927" extention="Button">
     <component id="hbv5v" name="ComboBox1_popup" path="/" size="150,200" exported="true"/>
     <component id="hbv5y" name="Label1" path="/" size="514,200" exported="true"/>
     <component id="hbv5z" name="ProgressBar1" path="/" size="238,30" exported="true"/>
-    <component id="nfe41y" name="Button18" path="/" size="485,927" exported="true"/>
+    <component id="nfe41y" name="Button18" path="/" size="810,795" exported="true"/>
     <component id="nfe41z" name="Button19" path="/" size="864,826" exported="true"/>
     <component id="nfe420" name="Button20" path="/" size="418,470" exported="true"/>
     <component id="nfe423" name="paihang_Button" path="/" size="36,194" exported="true"/>
