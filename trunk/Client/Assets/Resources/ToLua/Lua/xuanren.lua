@@ -99,6 +99,8 @@ function xuanren:OnDispose()
 end
 
 function xuanren:OnHide()
+	createBtn.enabled = true;
+	randNameBtn.enabled = true;
 	Window:Hide();
 end
 

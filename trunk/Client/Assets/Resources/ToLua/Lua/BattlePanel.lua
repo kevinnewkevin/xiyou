@@ -42,6 +42,7 @@ local throwCardTrans;
 local throwCardTimer;
 
 local crtIsOperating;
+local modelRes;
 
 function BattlePanel:OnEntry()
 	Define.LaunchUIBundle("Card");
@@ -208,6 +209,9 @@ function BattlePanel:OnHide()
 	countDown.ui.visible = false;
 	startCom.visible = false;
 	autoBtn.visible = false;
+	Proxy4Lua.UnloadAsset(modelRes);
+	modelRes = "";
+	stateIcon:GetChild("n5"):SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 	Window:Hide();
 end
 
@@ -297,11 +301,14 @@ function BattlePanel_FlushData()
 		if operating then
 			stateIcon:GetTransition("t1"):Play();
 			stateIcon.touchable = true;
-			TimerManager.AddCountDown("BattleCountDown", 30);
-			stateIcon:GetChild("n5"):SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
+			TimerManager.AddCountDown("BattleCountDown", Battle._MaxTimeLeft);
+			Battle.ResetTimeLeft();
+			modelRes = "Effect/jieshuzhandou";
+			stateIcon:GetChild("n5"):SetNativeObject(Proxy4Lua.GetAssetGameObject(modelRes, false));
 		else
 			stateIcon:GetTransition("t0"):Play();
 			stateIcon.touchable = false;
+			stateIcon:GetChild("n5"):SetNativeObject(Proxy4Lua.GetAssetGameObject("", false));
 		end
 		crtIsOperating = operating;
 	end
