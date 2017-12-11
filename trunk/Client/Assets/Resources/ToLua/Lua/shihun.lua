@@ -134,8 +134,8 @@ function shihun_CheckResult()
 					rollResultIconShadow.url = "ui://" .. dData._HeadIcon;
 
 					rollCom:GetTransition("t1"):Stop();
-					rollCom:GetTransition("t0"):Play();
-				end
+					rollCom:GetTransition("t2"):Play();
+				end 
 			end
 		end
 		JieHunSystem.instance._LastestChapter = nil;
