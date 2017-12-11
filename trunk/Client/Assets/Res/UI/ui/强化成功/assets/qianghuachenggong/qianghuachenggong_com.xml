@@ -20,22 +20,22 @@
     <image id="n22_ol6s" name="n22" src="lqu2a" xy="228,566" size="60,60"/>
     <text id="n23_ol6s" name="n23" xy="311,550" size="72,39" font="方正楷体_GBK" fontSize="29" color="#ffffff" vAlign="middle" autoSize="none" text="敏捷"/>
     <text id="n24_ol6s" name="n24" xy="308,575" size="121,70" font="方正楷体_GBK" fontSize="60" color="#ffffff" align="right" vAlign="middle" text="9999&#xA;"/>
-    <text id="n25_ol6s" name="n25" xy="584,354" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n25_ol6s" name="n25" xy="584,388" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n32_ol6s" sidePair=""/>
     </text>
-    <text id="n26_ol6s" name="n26" xy="536,469" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n26_ol6s" name="n26" xy="536,503" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n33_ol6s" sidePair=""/>
     </text>
-    <text id="n27_ol6s" name="n27" xy="428,690" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n27_ol6s" name="n27" xy="428,725" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n35_ol6s" sidePair=""/>
     </text>
-    <text id="n28_ol6s" name="n28" xy="376,793" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n28_ol6s" name="n28" xy="376,827" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n36_ol6s" sidePair=""/>
     </text>
-    <text id="n29_ol6s" name="n29" xy="640,242" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n29_ol6s" name="n29" xy="640,276" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n31_ol6s" sidePair=""/>
     </text>
-    <text id="n30_ol6s" name="n30" xy="477,575" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
+    <text id="n30_ol6s" name="n30" xy="477,609" pivot="0,0.5" anchor="true" size="121,70" font="方正楷体_GBK" fontSize="60" color="#7af430" vAlign="middle" strokeColor="#07541b" strokeSize="2" text="9999&#xA;">
       <relation target="n34_ol6s" sidePair=""/>
     </text>
     <image id="n31_ol6s" name="n31" src="lqu2b" xy="597,257" size="40,40">
@@ -58,17 +58,53 @@
     </image>
     <component id="n47_myec" name="n47" src="myecg" xy="119,97" scale="1.2,1.2"/>
     <text id="n49_myec" name="n49" xy="511,124" size="183,69" font="方正楷体_GBK" fontSize="60" color="#f1c137" vAlign="middle" strokeColor="#332404" strokeSize="2" text="等级15"/>
-    <graph id="n56_c9yj" name="n56" xy="476,480" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect">
-      <relation target="n60_tkrv" sidePair="center-center,middle-middle"/>
-    </graph>
+    <graph id="n56_c9yj" name="n56" xy="476,480" pivot="0.5,0.5" anchor="true" size="100,100" alpha="0" type="rect"/>
     <component id="n52_myec" name="n52" src="myecn" xy="632,820"/>
     <text id="n59_usxy" name="n59" xy="69,87" size="54,312" font="方正楷体_GBK" fontSize="40" color="#ffffff" vAlign="middle" autoSize="none" bold="true" text="啦啦啦啦啦"/>
-    <image id="n60_tkrv" name="n60" src="tkrvx" xy="-172,346"/>
+    <component id="n60_tkrv" name="n60" src="d84m13" xy="454,500" pivot="0.5,0.5" anchor="true"/>
   </displayList>
   <transition name="t0" autoPlay="true">
-    <item time="0" type="Alpha" target="n60_tkrv" tween="true" startValue="0" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="0" type="XY" target="n60_tkrv" tween="true" startValue="-172,609" endValue="-172,235" duration="18" ease="Circ.InOut"/>
-    <item time="12" type="Alpha" target="n60_tkrv" tween="true" startValue="1" endValue="1" duration="12" ease="Circ.InOut"/>
-    <item time="24" type="Alpha" target="n60_tkrv" tween="true" startValue="1" endValue="0" duration="6" ease="Circ.InOut"/>
+    <item time="0" type="Alpha" target="n60_tkrv" value="1"/>
+    <item time="0" type="Alpha" target="n25_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n26_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n30_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n29_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n27_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n28_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n36_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n35_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n34_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n33_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n32_ol6s" value="0"/>
+    <item time="0" type="Alpha" target="n31_ol6s" value="0"/>
+    <item time="0" type="Scale" target="n30_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n28_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n25_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n29_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n60_tkrv" tween="true" startValue="0.8,0.8" endValue="1.1,1.1" duration="12"/>
+    <item time="0" type="Scale" target="n27_ol6s" value="1,1"/>
+    <item time="0" type="Scale" target="n26_ol6s" value="1,1"/>
+    <item time="12" type="Scale" target="n60_tkrv" tween="true" startValue="1.1,1.1" endValue="1,1" duration="4"/>
+    <item time="24" type="Alpha" target="n60_tkrv" tween="true" startValue="1" endValue="0" duration="8"/>
+    <item time="24" type="Scale" target="n60_tkrv" value="1,1"/>
+    <item time="30" type="Alpha" target="n36_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n31_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n32_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n35_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n33_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="30" type="Alpha" target="n34_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n29_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n26_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n27_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n25_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n28_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Alpha" target="n30_ol6s" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="32" type="Scale" target="n30_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n27_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n26_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n29_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n28_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
+    <item time="32" type="Scale" target="n60_tkrv" value="0.8,0.8"/>
+    <item time="32" type="Scale" target="n25_ol6s" tween="true" startValue="1.4,1.4" endValue="1,1" duration="12"/>
   </transition>
 </component>

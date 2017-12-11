@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1167,315">
+  <displayList>
+    <image id="n61_d84m" name="n61" src="d84m12" xy="300,0" size="774,247" aspect="true"/>
+    <image id="n62_mdbi" name="n62" src="d84m10" xy="26,76" size="409,246" aspect="true"/>
+    <image id="n63_mdbi" name="n63" src="d84mz" xy="805,84" size="359,188" aspect="true"/>
+    <image id="n64_mdbi" name="n64" src="d84m11" xy="448,172" size="397,89" aspect="true"/>
+    <image id="n65_mdbi" name="n65" src="d84my" xy="266,14" size="711,244"/>
+  </displayList>
+  <transition name="t0" autoPlay="true">
+    <item time="0" type="Alpha" target="n65_mdbi" value="0"/>
+    <item time="0" type="Alpha" target="n64_mdbi" value="0"/>
+    <item time="0" type="Alpha" target="n61_d84m" tween="true" startValue="0" endValue="0.15" duration="4"/>
+    <item time="0" type="Alpha" target="n62_mdbi" value="0"/>
+    <item time="0" type="Alpha" target="n63_mdbi" value="0"/>
+    <item time="0" type="Scale" target="n61_d84m" value="1,1"/>
+    <item time="0" type="XY" target="n64_mdbi" value="448,118"/>
+    <item time="0" type="XY" target="n62_mdbi" value="134,76"/>
+    <item time="0" type="XY" target="n63_mdbi" value="681,84"/>
+    <item time="4" type="Alpha" target="n61_d84m" tween="true" startValue="0.15" endValue="1" duration="8"/>
+    <item time="5" type="Alpha" target="n64_mdbi" tween="true" startValue="0" endValue="1" duration="9"/>
+    <item time="5" type="Alpha" target="n62_mdbi" tween="true" startValue="0" endValue="1" duration="9"/>
+    <item time="5" type="Alpha" target="n65_mdbi" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="5" type="Alpha" target="n63_mdbi" tween="true" startValue="0" endValue="1" duration="9"/>
+    <item time="8" type="XY" target="n64_mdbi" tween="true" startValue="448,118" endValue="448,172" duration="10"/>
+    <item time="8" type="XY" target="n63_mdbi" tween="true" startValue="681,84" endValue="805,84" duration="10"/>
+    <item time="8" type="XY" target="n62_mdbi" tween="true" startValue="134,76" endValue="26,76" duration="10"/>
+  </transition>
+</component>
