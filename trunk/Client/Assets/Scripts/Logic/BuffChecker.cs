@@ -58,7 +58,7 @@ public class BuffChecker {
         {
             if(_Actor != null)
             {
-                if(_BuffCheck[0].BuffData != 0)
+                if(_BuffCheck != null && _BuffCheck.Count > 0 && _BuffCheck[0].BuffData != 0)
                 {
                     _Actor.UpdateValue(_BuffCheck[0].BuffData, -1/*_BuffCheck[0].BuffMax*/);
                     _Actor.PopContent(_BuffCheck[0].BuffData);
@@ -70,7 +70,7 @@ public class BuffChecker {
         {
             if(_Actor != null)
             {
-                if(_BuffCheck [0].Dead)
+                if(_BuffCheck != null && _BuffCheck.Count > 0 && _BuffCheck [0].Dead)
                 {
                     float deadTime = _Actor.ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD);
                     _Actor.Play(Define.ANIMATION_PLAYER_ACTION_DEAD);
@@ -78,7 +78,8 @@ public class BuffChecker {
                     {
                         Clear();
                         new Timer().Start(((Actor)actor).ClipLength(Define.ANIMATION_PLAYER_ACTION_DEAD) + 1f, (object ac) => {
-                            Battle.DelActor(((Actor)ac)._RealPosInScene);
+                            if(ac != null)
+                                Battle.DelActor(((Actor)ac)._RealPosInScene);
                         }, actor);
                     }, _Actor);
                 }
