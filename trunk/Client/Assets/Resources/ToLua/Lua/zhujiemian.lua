@@ -90,9 +90,9 @@ function zhujiemian:OnInit()
 	gold = moneyGroup:GetChild("n5");
 	chopper = moneyGroup:GetChild("n7");
 	stamaPoint = moneyGroup:GetChild("n12");
-	listGroup:SetVirtualAndLoop();
+--	listGroup:SetVirtualAndLoop();
 	listGroup.itemRenderer = zhujiemain_RenderListItem;
-	listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
+	--listGroup.scrollPane.onScroll:Add(DoSpecialEffect);
 
 	rankList =  self.contentPane:GetChild("n42").asList;
 	rankList:SetVirtual();
@@ -196,7 +196,7 @@ function zhujiemian_FlushData()
 	stamaPoint.text = GamePlayer._Data.IProperties[10];
 
 	expBar.value = GamePlayer._Data.IProperties[4] / needExp * 100;
-	listGroup.numItems = 3;
+	listGroup.numItems = 2;
 	friendRad.visible = FriendSystem.isApplyFriend;
 
 	local num = FriendSystem.GetNewCahtListNum();
@@ -218,7 +218,7 @@ function zhujiemian_FlushData()
 			end
 		end
 	end
-	DoSpecialEffect();
+	--DoSpecialEffect();
 	guildBtn.enabled = GamePlayer._Data.IProperties[9] >= 1;
 end
 
@@ -285,11 +285,11 @@ function zhujiemian_OnRank()
 end
 
 function zhujiemain_RenderListItem(index, obj)
-	obj:SetPivot(0.5, 0.5);
+	--obj:SetPivot(0.9, 0.9);
 	local img = obj:GetChild("n5");
 	local effect = obj:GetChild("n6");
 	local effRes = "" ;
-	img:SetScale(0.5,0.5);
+	img:SetScale(0.9,0.9);
 	if index == 0 then
 		img.url = "ui://zhujiemian/zjm_31";
 		obj.onClick:Set(zhujiemian_OnQieCuoBtn);

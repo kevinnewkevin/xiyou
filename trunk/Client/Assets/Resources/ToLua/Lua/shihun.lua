@@ -122,6 +122,9 @@ function shihun_FlushData()
 end
 
 function shihun_CheckResult()
+ 	if minTimer ~= nil and minTimer > 0 then
+ 		return;
+ 	end
 	if JieHunSystem.instance._LastestChapter ~= nil then
 		local hsData = HeroStroyData.GetData(JieHunSystem.instance._LastestChapter.ChapterId);
 		if hsData ~= nil then
