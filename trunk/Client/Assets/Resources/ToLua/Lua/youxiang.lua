@@ -157,17 +157,17 @@ function updateMainInfo()
 
 		if data.Gold ~= 0 then
 			local item = itemList:AddItemFromPool(itemUrl);
-		 	item:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
-		 	tem2:GetChild("n17").asLoader.url = "ui://icon/daojukuang_bai" ;
-		 	item:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		 		item:GetChild("n16").asLoader.url =  "ui://icon/daojukuang_bai";
+		 	item:GetChild("n17").asLoader.url = "ui://icon/jinbi_icon" ;
+		 	item:GetChild("n17").onClick:Remove(youxiang_OnTtItem); 
 		 	getBtn.visible = true;
 		end
 
 		if data.Copper ~= 0 then
 			local item1 = itemList:AddItemFromPool(itemUrl);
-		 	item1:GetChild("n17").asLoader.url =  "ui://icon/jinbi_icon";
-		 	tem2:GetChild("n17").asLoader.url = "ui://icon/daojukuang_bai" ;
-		 	item1:GetChild("n16").onClick:Remove(youxiang_OnTtItem); 
+		 	item1:GetChild("n16").asLoader.url =  "ui://icon/daojukuang_bai";
+		 	item1:GetChild("n17").asLoader.url = "ui://icon/jinbi_icon" ;
+		 	item1:GetChild("n17").onClick:Remove(youxiang_OnTtItem); 
 		 	getBtn.visible = true;
 		end
 
